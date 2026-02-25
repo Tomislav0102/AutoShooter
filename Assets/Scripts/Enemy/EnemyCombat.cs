@@ -1,31 +1,36 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class EnemyCombat : EventBus
 {
     protected Enemy enemy;
     [SerializeField] protected float damage;
     [SerializeField] float rof;
-    [SerializeField] protected float range;
+    [SerializeField] public float attackRange;
+    [SerializeField] protected float detectRange = float.MaxValue;
+    [SerializeField] bool faceTarget = true;
     float _timerAttack;
-    bool _isAttacking = true;
+    float _searchWait;
+    HashSet<Transform> _targets;
 
-    protected override void Awake()
+
+    public virtual void InitializeMe(Enemy en)
     {
-        base.Awake();
-        enemy = GetComponent<Enemy>();
-        enemy.agent.stoppingDistance = range * 0.8f;
+        enemy = en;
+        _searchWait = Random.Range(0f, 0.2f) + 0.5f;
+        _targets = enemy.isPlayerSummon ? gm.allEnemies : gm.playersTeam;
+        StartCoroutine(SearchTargetCoroutine());
     }
-
-    void Start()
-    {
-        CheckTarget();
-    }
-
+    
     void Update()
     {
-        if (!_isAttacking) return;
-        transform.LookAt(new Vector3(enemy.myTarget.position.x, transform.position.y, enemy.myTarget.position.z));
+        if (enemy.MyTarget == null) return;
+        if (faceTarget) transform.LookAt(new Vector3(enemy.MyTarget.position.x, transform.position.y, enemy.MyTarget.position.z));
         _timerAttack += Time.deltaTime;
         if (_timerAttack >= rof)
         {
@@ -34,25 +39,29 @@ public class EnemyCombat : EventBus
         }
     }
 
+    IEnumerator SearchTargetCoroutine()
+    {
+        while (true)
+        {
+            CheckTarget();
+            yield return new WaitForSeconds(_searchWait);
+        }
+    }
+
     protected virtual void Attack()
     {
         
     }
 
-    protected override void CallEv_OnAllyDeath(Transform tr)
+    protected override void CallEv_OnCharDeath(Transform tr)
     {
-        base.CallEv_OnAllyDeath(tr);
+        base.CallEv_OnCharDeath(tr);
         CheckTarget();
     }
 
     void CheckTarget()
     {
-        enemy.myTarget = Utils.ClosestTransform(transform.position, gm.playersTeam);
-        if (enemy.myTarget == null)
-        {
-            _isAttacking = false;
-            enemy.AllTargetsGone();
-        }
-
+       // if (enemy.MyTarget != null) return;
+        enemy.MyTarget = Utils.ClosestTransform(transform.position, _targets, detectRange);
     }
 }

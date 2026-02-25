@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EventBus : MonoBehaviour
 {
-    public static System.Action<Transform> OnAllyDeath;
-    public static System.Action OnPLayerDeath;
+    public static System.Action<Transform> OnCharDeath;
+    public static System.Action OnPlayerDeath;
     protected GameManager gm;
 
 
@@ -15,22 +15,22 @@ public class EventBus : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        OnAllyDeath += CallEv_OnAllyDeath;
-        OnPLayerDeath += CallEv_OnPLayerDeath;
+        OnCharDeath += CallEv_OnCharDeath;
+        OnPlayerDeath += CallEv_OnPlayerDeath;
     }
 
     protected virtual void OnDisable()
     {
-        OnAllyDeath -= CallEv_OnAllyDeath;
-        OnPLayerDeath -= CallEv_OnPLayerDeath;
+        OnCharDeath -= CallEv_OnCharDeath;
+        OnPlayerDeath -= CallEv_OnPlayerDeath;
     }
 
-    protected virtual void CallEv_OnAllyDeath(Transform tr)
+    protected virtual void CallEv_OnCharDeath(Transform tr)
     {
        
     }
 
-    protected virtual void CallEv_OnPLayerDeath()
+    protected virtual void CallEv_OnPlayerDeath()
     {
         
     }

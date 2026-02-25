@@ -15,11 +15,13 @@ public class Utils
     }
     public static Vector2 From3d(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 To3d(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
+
+    public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(From3d(v1), From3d(v2));
     
-    public static Transform ClosestTransform(Vector3 fromPosition, HashSet<Transform> targets)
+    public static Transform ClosestTransform(Vector3 fromPosition, HashSet<Transform> targets, float maxRange = float.MaxValue)
     {
         Transform closest = null;
-        float currentDistance = float.MaxValue;
+        float currentDistance = maxRange;
         Vector2 from2d = From3d(fromPosition);
         foreach (Transform item in targets)
         {

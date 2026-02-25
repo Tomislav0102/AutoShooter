@@ -1,18 +1,43 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Enemy : EventBus
+public class Enemy : EventBus, ICharacter
 {
-    public Transform myTarget;
-    [SerializeField] EnMovement startingMovement;
-    [ShowInInspector][ReadOnly] EnMovement _movement;
+    public Transform MyTarget
+    {
+        get => _myTarget;
+        set
+        {
+            _myTarget = value;
+            if (value == null)
+            {
+                moveCurrent = moveIdling;
+                agent.stoppingDistance = _startingStoppingDistance;
+            }
+            else
+            {
+                moveCurrent = moveFighting;
+                agent.stoppingDistance = combat.attackRange * 0.8f;
+            }
+            moveCurrent = value == null ? moveIdling : moveFighting;
+        }
+    }
+    [ShowInInspector][ReadOnly] Transform _myTarget;
+    [field: SerializeField] public Transform MyTransform { get; set; }
+    [SerializeField] EnemyCombat combat;
+    [SerializeField] Health health;
+    [SerializeField] EnMovement moveIdling;
+    [SerializeField] EnMovement moveFighting;
+    [ReadOnly] public EnMovement moveCurrent;
     public NavMeshAgent agent;
+    float _startingStoppingDistance;
     float _timerIdle;
     const float CONST_IdleMaxTime = 2f;
     Quaternion _idleTargetRot;
@@ -21,28 +46,45 @@ public class Enemy : EventBus
     int _counterWaypoints;
     const float CONST_FleeDistance = 10f;
     Transform _followTarget;
-    const float CONST_FollowDistance = 2f;
+    const float CONST_FollowDistance = 5f;
 
-    public bool isPlayerSummon;
+    [ReadOnly] public bool isPlayerSummon;
     Vector3 GetRandomPosition(Transform surface)
     {
         float width = surface.localScale.x * 0.5f;
-        float length = surface.localScale.y * 0.5f;
+        float length = surface.localScale.z * 0.5f;
         float x = surface.position.x + Random.Range(-width, width);
         float z = surface.position.z + Random.Range(-length, length);
         return new Vector3(x, 0f, z);
     }
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+        isPlayerSummon = Utils.IsInLayerMask(gameObject, gm.layPlayer);
+        
+    }
+
     void Start()
     {
-        _movement = startingMovement;
-        isPlayerSummon = Utils.IsInLayerMask(gameObject, gm.layPlayer);
-        if (isPlayerSummon) _followTarget = gm.playerTransform;
+        _startingStoppingDistance = agent.stoppingDistance;
+        moveCurrent = moveIdling;
+        if (isPlayerSummon)
+        {
+            _followTarget = gm.playerTransform;
+            gm.playersTeam.Add(transform);
+        }
+        else
+        {
+            gm.allEnemies.Add(transform);
+        }
+        combat.InitializeMe(this);
+        health.InitializeMe(this);
     }
 
     void Update()
     {
-        switch (_movement)
+        switch (moveCurrent)
         {
             case EnMovement.Stationary:
                 Idle();
@@ -65,11 +107,6 @@ public class Enemy : EventBus
         }
     }
 
-    public void AllTargetsGone()
-    {
-        agent.ResetPath();
-        _movement = EnMovement.Stationary;
-    }
 
     #region NAVIGATION
     void Idle()
@@ -94,51 +131,57 @@ public class Enemy : EventBus
     {
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            Vector3 newDestination = GetRandomPosition(gm.ground);
-            print($"New roam destination {newDestination}");
+            Vector3 newDestination = GetRandomPosition(GameManager.Instance.spawnArea);
+            // print($"New roam destination {newDestination}");
             agent.destination = newDestination;
         }
+
     }
     void Patrol()
     {
         if (waypoints == null || waypoints.Length == 0)
         {
-            _movement = EnMovement.Stationary;
+            moveCurrent = EnMovement.Stationary;
             return;
         }
-        
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             agent.destination = waypoints[_counterWaypoints].position;
-            print($"New roam destination {waypoints[_counterWaypoints].position}");
             _counterWaypoints = (1 + _counterWaypoints) % waypoints.Length;
         }
     }
-    public void Follow()
+    void Follow()
     {
         if (_followTarget == null)
         {
-            _movement = EnMovement.Stationary;
+            moveCurrent = EnMovement.Stationary;
             return;
         }
-        if (Vector3.Distance(transform.position, _followTarget.position) > CONST_FollowDistance)
+        agent.stoppingDistance = CONST_FollowDistance;
+        if (Vector3.Distance(transform.position, _followTarget.position) > agent.stoppingDistance)
         {
             agent.destination = _followTarget.position;
+        }
+        else
+        {
+            Idle();
         }
     }
 
     void Chase()
     {
-        if (Vector3.Distance(transform.position, myTarget.position) > agent.stoppingDistance)
+        if (MyTarget == null) return;
+        if (Vector3.Distance(transform.position, MyTarget.position) > agent.stoppingDistance)
         {
-            agent.destination = myTarget.position;
+            agent.destination = MyTarget.position;
         }
     }
     void Flee()
     {
-        if (Vector3.Distance(transform.position, myTarget.position) < CONST_FleeDistance)
+        if (MyTarget == null) return;
+        if (Vector3.Distance(transform.position, MyTarget.position) < CONST_FleeDistance)
         {
-            Vector3 direction = transform.position - myTarget.position;
+            Vector3 direction = transform.position - MyTarget.position;
             direction.y = 0f;
             direction.Normalize();
             Vector3 targetPosition = transform.position + 2f * direction;
@@ -156,5 +199,6 @@ public class Enemy : EventBus
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(agent.destination, 0.1f);
     }
+
 }
 

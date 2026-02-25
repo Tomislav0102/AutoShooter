@@ -1,26 +1,41 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using TomoJoystick;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 
 public class GameManager : EventBus
 {
     public static GameManager Instance;
-    public Transform ground;
+    [BoxGroup("Enemy spawns")]
+    public Transform spawnArea;
+    [BoxGroup("Enemy spawns")]
+    [SerializeField] int numOfEnemies;
+    [BoxGroup("Enemy spawns")]
+    [SerializeField] Enemy[] enemyPrefabs;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    public EnemyManager enemyManager;
     public PlayerControl playerControl;
     [HideInInspector] public Transform playerTransform;
     public HashSet<Transform> playersTeam = new HashSet<Transform>();
+    public HashSet<Transform> allEnemies = new HashSet<Transform>();
     public TomoJoystick.Joystick joystick;
-    public PlayerProjectile projectilePrefab;
+    public Projectile projectilePrefab;
     public LayerMask layEnemies, layPlayer;
-
-
+    
+    
+    [Button]
+    void Test()
+    {
+        for (int i = 0; i < numOfEnemies; i++)
+        {
+            SpawnEnemy();
+        }
+    }
     protected override void Awake()
     {
         Instance = this;
@@ -36,20 +51,42 @@ public class GameManager : EventBus
         cameraRigTransform.position = Vector3.Lerp(cameraRigTransform.position, playerTransform.position, 0.2f);
     }
 
-    protected override void CallEv_OnAllyDeath(Transform tr)
+    void SpawnEnemy()
     {
-        base.CallEv_OnAllyDeath(tr);
-        if (gm.playersTeam.Contains(tr)) gm.playersTeam.Remove(tr);
-        if (tr == playerTransform)
+        bool canSpawn = false;
+        Vector3 spawnPoint = Vector3.zero;
+        while (!canSpawn)
         {
-            EventBus.OnPLayerDeath?.Invoke();
-            print("Player is dead");
-
+            float x = spawnArea.position.x + Random.Range(-spawnArea.localScale.x * 0.5f, spawnArea.localScale.x * 0.5f);
+            float z = spawnArea.position.z + Random.Range(-spawnArea.localScale.z * 0.5f, spawnArea.localScale.z * 0.5f);
+            spawnPoint = new Vector3(x, 0f, z);
+            Collider[] colliders = Physics.OverlapSphere(spawnPoint + Vector3.up, 1f);
+            canSpawn = colliders.Length == 0;
         }
-        else
+        
+        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoint, Quaternion.identity);
+    }
+    protected override void CallEv_OnCharDeath(Transform tr)
+    {
+        base.CallEv_OnCharDeath(tr);
+        if (playersTeam.Contains(tr))
         {
+            playersTeam.Remove(tr);
+            if (tr == playerTransform)
+            {
+                EventBus.OnPlayerDeath?.Invoke();
+                print("Player is dead");
+            }
+            else
+            {
+                Destroy(tr.gameObject);
+                print("Summon is dead");
+            }
+        }
+        else if (allEnemies.Contains(tr))
+        {
+            allEnemies.Remove(tr);
             Destroy(tr.gameObject);
-            print("Summon is dead");
         }
     }
 }

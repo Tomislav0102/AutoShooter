@@ -1,23 +1,11 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    public Camera cam;
-    void Start()
-    {
-       
-    }
 
-    [Button]
-    void Clear()
-    {
-    }
-    [Button]
-    void TestMeNow()
-    {
-    }
 }
+

@@ -4,23 +4,23 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 
-public class PlayerControl : EventBus
+public class PlayerControl : EventBus, ICharacter
 {
+    [field: SerializeField] public Transform MyTransform { get; set; }
+    public Transform MyTarget { get; set; }
+    [SerializeField] Health health;
+    [SerializeField] AnimControl animControl;
     InputAction _inputAttack;
-    public bool isShooting; //debug
     [Title("References")]
     [SerializeField] Rigidbody myRigid;
     [Title("Current stats (weapons and player)")]
     [SerializeField] float moveSpeed;
     [SerializeField] float damage;
     [SerializeField] float bulletSpeed;
-    float _timerShoot;
-    const float CONST_Rof = 0.5f;
     [Title("Weapons active")]
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back, homing;
     [SerializeField] int parallel, followUp, ricochet, pierce, bounce;
-    float _timerFollowUp;
     const float CONST_FollowUp = 0.1f;
     const float CONST_HorGapBetweenProjectiles = 0.3f;
 
@@ -33,31 +33,18 @@ public class PlayerControl : EventBus
         _inputAttack.Enable();
     }
 
-    void Update()
+    void Start()
     {
-        if (followUp > 0)
-        {
-            if (_timerFollowUp < CONST_FollowUp)
-            {
-                _timerFollowUp += Time.deltaTime;
-            }
-        }
-        
-        if (!isShooting) return;
-      //  if (_inputAttack.WasPressedThisFrame()) Shoot();
-        _timerShoot += Time.deltaTime;
-        if (_timerShoot > CONST_Rof)
-        {
-            _timerShoot = 0f;
-            Shoot();
-            StartCoroutine(ShootFollowUp());
-        }
+        health.InitializeMe(this);
+        animControl.InitializeMe(this);
     }
+
     void FixedUpdate()
     {
         float camAngle = GameManager.Instance.cameraRigTransform.eulerAngles.y;
         Vector2 val = Quaternion.Euler(0, 0, -camAngle) * gm.joystick.value;
-        myRigid.linearVelocity = Utils.To3d(val * moveSpeed);
+        myRigid.linearVelocity = Utils.To3d(moveSpeed * val);
+        animControl.MoveInput(moveSpeed * val.sqrMagnitude != 0);
     }
 
     IEnumerator ShootFollowUp()
@@ -94,7 +81,7 @@ public class PlayerControl : EventBus
         }
         if (homing)
         {
-            Transform closest = Utils.ClosestTransform(transform.position, gm.enemyManager.allEnemies);
+            Transform closest = Utils.ClosestTransform(transform.position, gm.allEnemies);
             if (closest != null)
             {
                 Vector3 dir = (closest.position - transform.position).normalized;
@@ -103,14 +90,12 @@ public class PlayerControl : EventBus
             }
         }
 
-        _timerFollowUp = 0f;
-
         void SpawnProjectile(float rotation)
         {
             for (int i = 0; i < parallel + 1; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                PlayerProjectile projectile = Instantiate<PlayerProjectile>(gm.projectilePrefab, transform.position + Vector3.up, Quaternion.identity);
+                Projectile projectile = Instantiate<Projectile>(gm.projectilePrefab, transform.position + Vector3.up, Quaternion.identity);
                 projectile.transform.Rotate(rotation * Vector3.up);
                 projectile.transform.Translate(xOffset * Vector3.right, Space.Self);
                  float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
@@ -119,11 +104,17 @@ public class PlayerControl : EventBus
                 ProjectilePassData passData = new ProjectilePassData((string message) =>
                 {
                     print(message);
-                }, damage, bulletSpeed, ricochet, pierce, bounce);
+                }, this, damage, bulletSpeed, ricochet, pierce, bounce);
                 projectile.InitializeMe(passData);
             }
 
         }
     }
 
+    public void AttackAnimEvent()
+    {
+        Shoot();
+        StartCoroutine(ShootFollowUp());
+    }
+ 
 }

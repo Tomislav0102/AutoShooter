@@ -4,6 +4,8 @@ using UnityEngine.Serialization;
 
 public class Health: EventBus, ITakeDamage
 {
+    ICharacter _parentCharacter;
+    Enemy _enemy;
     [SerializeField] SpriteRenderer healthBarRenderer;
     [SerializeField] int healthMax;
     float HealthCurrent
@@ -14,25 +16,38 @@ public class Health: EventBus, ITakeDamage
             _healthCurrent = value;
             healthBarRenderer.color = Color.Lerp(Color.red, Color.green, value / healthMax);
             healthBarRenderer.transform.localScale = new Vector3(_healthCurrent / healthMax, healthBarRenderer.transform.localScale.y, 1);
+           // print($"{gameObject.name} is now {value}");
         }
     }
     float _healthCurrent;
 
-    protected override void Awake()
+    public void InitializeMe(ICharacter character)
     {
-        base.Awake();
+        _parentCharacter = character;
         HealthCurrent = healthMax;
     }
 
-    public void TakeDamage(float damageTaken)
+    public void TakeDamage(float damageTaken, Transform attacker = null)
     {
         HealthCurrent -= damageTaken;
-        if (HealthCurrent <= 0) Death();
+        if (HealthCurrent <= 0)
+        {
+            Death();
+            return;
+        }
+        if (attacker == null) return;
+        if (_parentCharacter.MyTransform == gm.playerTransform) return;
+
+        if (_parentCharacter.MyTarget == null)
+        {
+            print("UnderAttack");
+            _parentCharacter.MyTarget = attacker;
+        }
     }
     
-    protected virtual void Death()
+    void Death()
     {
-       
+       EventBus.OnCharDeath?.Invoke(_parentCharacter.MyTransform);
     }
 
 }

@@ -2,28 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectile : MonoBehaviour
+public class PlayerProjectile : Projectile
 {
-    [SerializeField] Rigidbody rigid;
-    ProjectilePassData _myData;
-
-    public void InitializeMe(ProjectilePassData passData)
-    {
-        _myData = passData;
-        SetSpeed();
-        Destroy(gameObject, 10);
-    }
-
-    void SetSpeed() => rigid.linearVelocity = _myData.moveSpeed * transform.forward;
-
     void OnCollisionEnter(Collision other)
     {
         if (other.collider.TryGetComponent(out ITakeDamage takeDamage))
         {
-            takeDamage.TakeDamage(_myData.damage);
-            if (_myData.ricochet > 0)
+            takeDamage.TakeDamage(myData.damage);
+            if (myData.ricochet > 0)
             {
-                _myData.ricochet--;
+                myData.ricochet--;
                 
                 float range = 1f;
                 Collider[] colliders = Physics.OverlapSphere(transform.position, range);
@@ -45,9 +33,9 @@ public class PlayerProjectile : MonoBehaviour
             
             void SetPierce()
             {
-                if (_myData.pierce > 0)
+                if (myData.pierce > 0)
                 {
-                    _myData.pierce--;
+                    myData.pierce--;
                 }
                 else Destroy(gameObject);
             }
@@ -55,9 +43,9 @@ public class PlayerProjectile : MonoBehaviour
         
         if (other.collider.TryGetComponent(out IObstacle iObstacle))
         {
-            if (_myData.bounce > 0)
+            if (myData.bounce > 0)
             {
-                _myData.bounce--;
+                myData.bounce--;
                 Vector3 dir = Vector3.Reflect(transform.forward, other.GetContact(0).normal);
                 transform.forward = dir.normalized;
                 SetSpeed();
