@@ -1,23 +1,10 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 
-public class PlayerControl : EventBus, ICharacter
+public class PlArcher : PlProfession
 {
-    [field: SerializeField] public Transform MyTransform { get; set; }
-    public Transform MyTarget { get; set; }
-    [SerializeField] Health health;
-    [SerializeField] AnimControl animControl;
-    InputAction _inputAttack;
-    [Title("References")]
-    [SerializeField] Rigidbody myRigid;
-    [Title("Current stats (weapons and player)")]
-    [SerializeField] float moveSpeed;
-    [SerializeField] float damage;
     [SerializeField] float bulletSpeed;
-    [Title("Weapons active")]
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back, homing;
     [SerializeField] int parallel, followUp, ricochet, pierce, bounce;
@@ -25,28 +12,15 @@ public class PlayerControl : EventBus, ICharacter
     const float CONST_HorGapBetweenProjectiles = 0.3f;
 
 
-
-    protected override void OnEnable()
+    
+    public override void AttackAnimEvent()
     {
-        base.OnEnable();
-        _inputAttack = InputSystem.actions.FindAction("Player/Jump");
-        _inputAttack.Enable();
+        base.AttackAnimEvent();
+        if (!isAttacking) return;
+        Shoot();
+        StartCoroutine(ShootFollowUp());
     }
-
-    void Start()
-    {
-        health.InitializeMe(this);
-        animControl.InitializeMe(this);
-    }
-
-    void FixedUpdate()
-    {
-        float camAngle = GameManager.Instance.cameraRigTransform.eulerAngles.y;
-        Vector2 val = Quaternion.Euler(0, 0, -camAngle) * gm.joystick.value;
-        myRigid.linearVelocity = Utils.To3d(moveSpeed * val);
-        animControl.MoveInput(moveSpeed * val.sqrMagnitude != 0);
-    }
-
+    
     IEnumerator ShootFollowUp()
     {
         for (int i = 0; i < followUp; i++)
@@ -55,6 +29,7 @@ public class PlayerControl : EventBus, ICharacter
             Shoot();
         }
     }
+
     void Shoot()
     {
         if (front)
@@ -98,23 +73,13 @@ public class PlayerControl : EventBus, ICharacter
                 Projectile projectile = Instantiate<Projectile>(gm.projectilePrefab, transform.position + Vector3.up, Quaternion.identity);
                 projectile.transform.Rotate(rotation * Vector3.up);
                 projectile.transform.Translate(xOffset * Vector3.right, Space.Self);
-                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                 projectile.transform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-                
-                ProjectilePassData passData = new ProjectilePassData((string message) =>
-                {
-                    print(message);
-                }, this, damage, bulletSpeed, ricochet, pierce, bounce);
+                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+                projectile.transform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+
+                ProjectilePassData passData = new ProjectilePassData((string message) => { print(message); }, parentCharacter, damage, bulletSpeed, ricochet, pierce, bounce);
                 projectile.InitializeMe(passData);
             }
 
         }
     }
-
-    public void AttackAnimEvent()
-    {
-        Shoot();
-        StartCoroutine(ShootFollowUp());
-    }
- 
 }

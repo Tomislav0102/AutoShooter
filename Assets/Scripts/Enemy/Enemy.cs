@@ -37,12 +37,13 @@ public class Enemy : EventBus, ICharacter
     [SerializeField] EnMovement moveFighting;
     [ReadOnly] public EnMovement moveCurrent;
     public NavMeshAgent agent;
+    [SerializeField] Rigidbody rigid;
+    Coroutine _pushCoroutine;
     float _startingStoppingDistance;
     float _timerIdle;
     const float CONST_IdleMaxTime = 2f;
     Quaternion _idleTargetRot;
     bool _idleIsTurning;
-    [SerializeField] Transform[] waypoints;
     int _counterWaypoints;
     const float CONST_FleeDistance = 10f;
     Transform _followTarget;
@@ -72,11 +73,11 @@ public class Enemy : EventBus, ICharacter
         if (isPlayerSummon)
         {
             _followTarget = gm.playerTransform;
-            gm.playersTeam.Add(transform);
+            gm.playersTeam.Add(MyTransform);
         }
         else
         {
-            gm.allEnemies.Add(transform);
+            gm.allEnemies.Add(MyTransform);
         }
         combat.InitializeMe(this);
         health.InitializeMe(this);
@@ -84,6 +85,7 @@ public class Enemy : EventBus, ICharacter
 
     void Update()
     {
+        if (!agent.enabled) return;
         switch (moveCurrent)
         {
             case EnMovement.Stationary:
@@ -107,13 +109,29 @@ public class Enemy : EventBus, ICharacter
         }
     }
 
+    public void PushMe(Vector3 origin, float intensity = 1f)
+    {
+        if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
+        _pushCoroutine = StartCoroutine(PushMeSequence());
+            
+        IEnumerator PushMeSequence()
+        {
+            agent.enabled = false;
+            rigid.isKinematic = false;
+            rigid.AddExplosionForce(intensity * 500000, origin, 5f);
+            yield return new WaitForSeconds(0.1f);
+            agent.enabled = true;
+            rigid.isKinematic = true;
+        }
+    }
+
 
     #region NAVIGATION
     void Idle()
     {
         if (_idleIsTurning)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, _idleTargetRot, Time.deltaTime * 3f);
+            MyTransform.rotation = Quaternion.Slerp(MyTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
         }
         else
         {
@@ -139,15 +157,15 @@ public class Enemy : EventBus, ICharacter
     }
     void Patrol()
     {
-        if (waypoints == null || waypoints.Length == 0)
+        if (gm.waypoints == null || gm.waypoints.Length == 0)
         {
             moveCurrent = EnMovement.Stationary;
             return;
         }
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            agent.destination = waypoints[_counterWaypoints].position;
-            _counterWaypoints = (1 + _counterWaypoints) % waypoints.Length;
+            agent.destination = gm.waypoints[_counterWaypoints].position;
+            _counterWaypoints = (1 + _counterWaypoints) % gm.waypoints.Length;
         }
     }
     void Follow()
@@ -158,7 +176,7 @@ public class Enemy : EventBus, ICharacter
             return;
         }
         agent.stoppingDistance = CONST_FollowDistance;
-        if (Vector3.Distance(transform.position, _followTarget.position) > agent.stoppingDistance)
+        if (Utils.Distance(MyTransform.position, _followTarget.position) > agent.stoppingDistance)
         {
             agent.destination = _followTarget.position;
         }
@@ -171,7 +189,7 @@ public class Enemy : EventBus, ICharacter
     void Chase()
     {
         if (MyTarget == null) return;
-        if (Vector3.Distance(transform.position, MyTarget.position) > agent.stoppingDistance)
+        if (Utils.Distance(MyTransform.position, MyTarget.position) > agent.stoppingDistance)
         {
             agent.destination = MyTarget.position;
         }
@@ -179,12 +197,12 @@ public class Enemy : EventBus, ICharacter
     void Flee()
     {
         if (MyTarget == null) return;
-        if (Vector3.Distance(transform.position, MyTarget.position) < CONST_FleeDistance)
+        if (Utils.Distance(MyTransform.position, MyTarget.position) < CONST_FleeDistance)
         {
-            Vector3 direction = transform.position - MyTarget.position;
+            Vector3 direction = MyTransform.position - MyTarget.position;
             direction.y = 0f;
             direction.Normalize();
-            Vector3 targetPosition = transform.position + 2f * direction;
+            Vector3 targetPosition = MyTransform.position + 2f * direction;
             NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
             if (!hit.hit) return;
             agent.destination = hit.position;

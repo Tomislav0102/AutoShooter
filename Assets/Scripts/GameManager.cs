@@ -17,9 +17,14 @@ public class GameManager : EventBus
     [SerializeField] int numOfEnemies;
     [BoxGroup("Enemy spawns")]
     [SerializeField] Enemy[] enemyPrefabs;
+    [BoxGroup("Enemy spawns")]
+    [SerializeField] Transform parWaypoints;
+    [HideInInspector] public Transform[] waypoints;
+    public Transform barContainer;
+    public RectTransform healthBarPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    public PlayerControl playerControl;
+    [FormerlySerializedAs("playerControl")] public PlControl plControl;
     [HideInInspector] public Transform playerTransform;
     public HashSet<Transform> playersTeam = new HashSet<Transform>();
     public HashSet<Transform> allEnemies = new HashSet<Transform>();
@@ -42,8 +47,9 @@ public class GameManager : EventBus
         base.Awake();
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
-        playerTransform = playerControl.transform;
+        playerTransform = plControl.transform;
         playersTeam.Add(playerTransform);
+        waypoints = Utils.AllChildren<Transform>(parWaypoints);
     }
 
     void FixedUpdate()

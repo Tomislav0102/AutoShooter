@@ -2,30 +2,28 @@ using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class AnimControl : MonoBehaviour
+public class PlAnim : MonoBehaviour
 {
-    PlayerControl _playerControl;
+    PlProfession _profession;
     Animator _anim;
-    public bool isShooting;
     [SerializeField] MultiRotationConstraint rotationConstraint;
 
-    public void InitializeMe(PlayerControl playerControl)
+    public void InitializeMe(PlProfession profession)
     {
-        _playerControl = playerControl;
+        _profession = profession;
         _anim = GetComponent<Animator>();
     }
 
 
     void Update()
     {
-        _anim.SetLayerWeight(1, isShooting ? 1 : 0);
-        rotationConstraint.weight = isShooting ? 1 : 0;
+        _anim.SetLayerWeight(1, _profession.isAttacking ? 1 : 0);
+        rotationConstraint.weight = _profession.isAttacking ? 1 : 0;
     }
 
     public void AE_Attack()
     {
-      //  print("attacked");
-      if (isShooting) _playerControl.AttackAnimEvent();
+        _profession.AttackAnimEvent();
     }
 
     public void MoveInput(bool isMoving)

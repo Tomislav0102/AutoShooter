@@ -7,7 +7,7 @@ public class EnemyMarksman : EnemyRanged
     protected override void Attack()
     {
         base.Attack();
-        float dist = Vector2.Distance(Utils.From3d(transform.position), Utils.From3d(enemy.MyTarget.position));
+        float dist = Vector2.Distance(Utils.MakeV2(transform.position), Utils.MakeV2(enemy.MyTarget.position));
         if (dist <= attackRange)
         {
             SpawnProjectile(spawnPoint);

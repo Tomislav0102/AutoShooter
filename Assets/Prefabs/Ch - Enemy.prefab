@@ -136,6 +136,7 @@ MonoBehaviour:
   moveFighting: 4
   moveCurrent: 0
   agent: {fileID: 6346582340414645741}
+  rigid: {fileID: 4413014169290393971}
   waypoints: []
   isPlayerSummon: 0
 --- !u!114 &1211990014547275905
@@ -152,6 +153,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   healthBarRenderer: {fileID: 5787684631289643569}
   healthMax: 100
+--- !u!54 &4413014169290393971 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7249018741206131856, guid: 797a525ae2675a14990dc8c886333bf1, type: 3}
+  m_PrefabInstance: {fileID: 6460304960426634723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4533419264432365810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7444008109108563217, guid: 797a525ae2675a14990dc8c886333bf1, type: 3}

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectile : Projectile
+public class PlProjectile : Projectile
 {
     void OnCollisionEnter(Collision other)
     {
