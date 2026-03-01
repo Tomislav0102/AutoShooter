@@ -585,9 +585,6 @@ PrefabInstance:
       addedObject: {fileID: 4992562916866151720}
     - targetCorrespondingSourceObject: {fileID: 1753741187899190, guid: 45608daf8c357ac4883238b3247d64b7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9146875252083368436}
-    - targetCorrespondingSourceObject: {fileID: 1753741187899190, guid: 45608daf8c357ac4883238b3247d64b7, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5896552060023602396}
   m_SourcePrefab: {fileID: 100100000, guid: 45608daf8c357ac4883238b3247d64b7, type: 3}
 --- !u!4 &1533529453833412462 stripped
@@ -626,31 +623,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 8993875641373041902}
     m_Active: 1
   m_Effectors: []
---- !u!114 &9146875252083368436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540117407769163312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed58c9ee2e35ff428f11d0f7d913ab5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlArcher
-  isAttacking: 1
-  damage: 10
-  bulletSpeed: 25
-  front: 0
-  diagonal: 0
-  side: 0
-  back: 0
-  homing: 0
-  parallel: 0
-  followUp: 0
-  ricochet: 0
-  pierce: 0
-  bounce: 0
 --- !u!114 &5896552060023602396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +757,7 @@ PrefabInstance:
     - target: {fileID: 1359952843967465907, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
       propertyPath: profession
       value: 
-      objectReference: {fileID: 9146875252083368436}
+      objectReference: {fileID: 3522507226876561506}
     - target: {fileID: 3372407702892604361, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
       propertyPath: m_Name
       value: Ch - PlayerArcher
@@ -796,8 +768,42 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1085226977833473597, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1537531374832545212}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3372407702892604361, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3522507226876561506}
   m_SourcePrefab: {fileID: 100100000, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
+--- !u!1 &5955865285069918430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3372407702892604361, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
+  m_PrefabInstance: {fileID: 8965058392676121367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3522507226876561506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5955865285069918430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed58c9ee2e35ff428f11d0f7d913ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlArcher
+  isAttacking: 1
+  damage: 10
+  specialCooldownTime: 5
+  bulletSpeed: 25
+  front: 0
+  diagonal: 0
+  side: 0
+  back: 0
+  homing: 0
+  parallel: 0
+  followUp: 0
+  ricochet: 0
+  pierce: 0
+  bounce: 0
 --- !u!4 &8315273513065213226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1085226977833473597, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}

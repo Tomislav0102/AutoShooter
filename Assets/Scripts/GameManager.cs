@@ -22,6 +22,8 @@ public class GameManager : EventBus
     [HideInInspector] public Transform[] waypoints;
     public Transform barContainer;
     public RectTransform healthBarPrefab;
+    public Transform floatingContainer;
+    public FloatingText floatingTextPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
     [FormerlySerializedAs("playerControl")] public PlControl plControl;
@@ -31,10 +33,10 @@ public class GameManager : EventBus
     public TomoJoystick.Joystick joystick;
     public Projectile projectilePrefab;
     public LayerMask layEnemies, layPlayer;
-    
+    public SpecialUi specialUi;
     
     [Button]
-    void Test()
+    void SpawnEnemies()
     {
         for (int i = 0; i < numOfEnemies; i++)
         {
@@ -47,6 +49,7 @@ public class GameManager : EventBus
         base.Awake();
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
+        if (plControl == null) plControl = GameObject.FindAnyObjectByType<PlControl>();
         playerTransform = plControl.transform;
         playersTeam.Add(playerTransform);
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
@@ -95,4 +98,5 @@ public class GameManager : EventBus
             Destroy(tr.gameObject);
         }
     }
+
 }

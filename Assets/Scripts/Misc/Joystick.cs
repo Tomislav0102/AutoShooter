@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -26,6 +27,7 @@ namespace TomoJoystick
 
         void Update()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             float x = (knob.anchoredPosition.x - rayTarget.anchoredPosition.x) / _maxRadius;
             float y = (knob.anchoredPosition.y - rayTarget.anchoredPosition.y) / _maxRadius;
             value = new Vector2(x, y);

@@ -13,7 +13,7 @@ public class PlControl : EventBus, ICharacter
     [Title("References")]
     [SerializeField] Health health;
     [SerializeField] PlAnim plAnim;
-    [SerializeField] Rigidbody myRigid;
+    public Rigidbody myRigid;
     [SerializeField] PlProfession profession;
     InputAction _inputAttack;
 
@@ -38,12 +38,14 @@ public class PlControl : EventBus, ICharacter
         Vector2 val = Quaternion.Euler(0, 0, -camAngle) * gm.joystick.value;
         myRigid.linearVelocity = Utils.MakeV3(moveSpeed * val);
         plAnim.MoveInput(moveSpeed * val.sqrMagnitude != 0);
+
+        Transform closestEnemy = Utils.ClosestTransform(MyTransform.position, gm.allEnemies);
+        Vector3 faceDirection = Vector3.forward;
+        if (closestEnemy != null)
+        {
+            faceDirection = closestEnemy.position - MyTransform.position;
+            faceDirection.y = 0f;
+        }
+        MyTransform.forward = faceDirection.normalized;
     }
-
-
-
-    public void AttackAnimEvent()
-    {
-    }
-
 }

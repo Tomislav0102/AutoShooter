@@ -545,9 +545,6 @@ PrefabInstance:
       addedObject: {fileID: 8179630568824867555}
     - targetCorrespondingSourceObject: {fileID: 1428387009061096, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 604115554481283916}
-    - targetCorrespondingSourceObject: {fileID: 1428387009061096, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 746766102911870186}
   m_SourcePrefab: {fileID: 100100000, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
 --- !u!4 &2918492002348473718 stripped
@@ -586,21 +583,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 2263358160057910425}
     m_Active: 1
   m_Effectors: []
---- !u!114 &604115554481283916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924405074080231984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff938ce8fb23e44ba429e74c5f90d79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlKnight
-  isAttacking: 1
-  damage: 10
-  attackRange: 3
 --- !u!114 &746766102911870186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,10 +655,10 @@ PrefabInstance:
     - target: {fileID: 1359952843967465907, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
       propertyPath: profession
       value: 
-      objectReference: {fileID: 604115554481283916}
+      objectReference: {fileID: 7414162028676747247}
     - target: {fileID: 3372407702892604361, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
       propertyPath: m_Name
-      value: Ch - Player Variant
+      value: Ch - PlayerKnight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -684,8 +666,32 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1085226977833473597, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2918494262257374042}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3372407702892604361, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7414162028676747247}
   m_SourcePrefab: {fileID: 100100000, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
+--- !u!1 &1260680479684630902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3372407702892604361, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}
+  m_PrefabInstance: {fileID: 4590263991362351807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7414162028676747247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260680479684630902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff938ce8fb23e44ba429e74c5f90d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlKnight
+  isAttacking: 1
+  damage: 10
+  specialCooldownTime: 5
+  attackRange: 3
 --- !u!4 &3511792758715327618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1085226977833473597, guid: c1b2abf436f09ff458f70632f0bb77bd, type: 3}

@@ -3,20 +3,40 @@ using UnityEngine;
 
 public class EnemyMelee : EnemyCombat
 {
-    LayerMask _mask;
+    AttackOverlapSphere _sphere;
 
     public override void InitializeMe(Enemy en)
     {
         base.InitializeMe(en);
-        _mask = enemy.isPlayerSummon ? gm.layEnemies : gm.layPlayer;
+        _sphere = new AttackOverlapSphere(transform, attackRange, enemy.isPlayerSummon ? gm.layEnemies : gm.layPlayer);
     }
 
     protected override void Attack()
     {
         base.Attack();
-        
-        Vector3 position = transform.position + attackRange * 0.5f * transform.forward + Vector3.up;
-        float radius = attackRange * 0.5f;
+        _sphere.Attack(damage);
+    }
+    
+
+}
+
+public class AttackOverlapSphere
+{
+    Transform _myTransform;
+    float _attackRange;
+    LayerMask _mask;
+
+    public AttackOverlapSphere(Transform myTransform, float attackRange, LayerMask mask)
+    {
+        _myTransform = myTransform;
+        _attackRange = attackRange;
+        _mask = mask;
+    }
+    
+    public void Attack(float damage)
+    {
+        Vector3 position = _myTransform.position + _attackRange * 0.5f * _myTransform.forward + Vector3.up;
+        float radius = _attackRange * 0.5f;
         
         Collider[] colliders = Physics.OverlapSphere(position, radius, _mask);
         for (int i = 0; i < colliders.Length; i++)
@@ -26,7 +46,6 @@ public class EnemyMelee : EnemyCombat
                 takeDamage.TakeDamage(damage);
             }
         }
-    }
-    
 
+    }
 }

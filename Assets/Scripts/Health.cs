@@ -19,11 +19,10 @@ public class Health: EventBus, ITakeDamage
             _healthCurrent = value;
             _healthBar.color = Color.Lerp(Color.red, Color.green, value / healthMax);
             _healthBar.transform.localScale = new Vector3(_healthCurrent / healthMax, 1, 1);
-           // print($"{gameObject.name} is now {value}");
         }
     }
     float _healthCurrent;
-
+    
     public void InitializeMe(ICharacter character)
     {
         _parentCharacter = character;
@@ -34,6 +33,9 @@ public class Health: EventBus, ITakeDamage
     public void TakeDamage(float damageTaken, Transform attacker = null)
     {
         HealthCurrent -= damageTaken;
+        FloatingText ft = Instantiate(gm.floatingTextPrefab, gm.floatingContainer);
+        ft.SpawnMe(transform, _offset.y, damageTaken.ToString("0"));
+
         if (HealthCurrent <= 0)
         {
             Death();
