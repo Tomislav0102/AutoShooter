@@ -8,16 +8,18 @@ namespace TomoJoystick
 {
     public class Joystick : MonoBehaviour
     {
-        public InputActionReference inputClick;
+        [SerializeField] InputActionReference inputClick;
         [SerializeField] RectTransform knob, rayTarget, pointerRect;
+        GameObject _rayTargetGo;
         RectTransform _myRect;
         float _maxRadius;
-        public Vector2 value;
+        [HideInInspector] public Vector2 value;
         
         void Awake()
         {
             _myRect = GetComponent<RectTransform>();
             _maxRadius = rayTarget.rect.width * 0.5f;
+            _rayTargetGo = rayTarget.gameObject;
         }
 
         void OnEnable()
@@ -27,16 +29,17 @@ namespace TomoJoystick
 
         void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
             float x = (knob.anchoredPosition.x - rayTarget.anchoredPosition.x) / _maxRadius;
             float y = (knob.anchoredPosition.y - rayTarget.anchoredPosition.y) / _maxRadius;
             value = new Vector2(x, y);
-
-            if (inputClick.action.WasPressedThisFrame())
+            
+            GameObject currentGo = EventSystem.current.currentSelectedGameObject;
+            bool canUse = currentGo == null || currentGo == _rayTargetGo;
+            if (canUse && inputClick.action.WasPressedThisFrame())
             {
                 _myRect.position = PointerPos();
             }
-            SetKnob(inputClick.action.IsPressed());
+            SetKnob(canUse && inputClick.action.IsPressed());
         }
 
         void SetKnob(bool pressed)

@@ -59,6 +59,9 @@ public class Enemy : EventBus, ICharacter
         return new Vector3(x, 0f, z);
     }
 
+
+
+    
     protected override void Awake()
     {
         base.Awake();
@@ -118,10 +121,23 @@ public class Enemy : EventBus, ICharacter
         {
             agent.enabled = false;
             rigid.isKinematic = false;
-            rigid.AddExplosionForce(intensity * 500000, origin, 5f);
-            yield return new WaitForSeconds(0.1f);
-            agent.enabled = true;
+            rigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            float duration = 0.2f;
+            float pushPower = 80 * intensity;
+            float velocityModifier = 1f;
+            Vector3 dir = MyTransform.position - origin;
+            dir.y = 0;
+            dir.Normalize();
+            while (velocityModifier > 0f)
+            {
+                velocityModifier -= Time.deltaTime / duration;
+                rigid.linearVelocity = velocityModifier * pushPower * dir;
+                yield return null;
+            }
+            rigid.linearVelocity = Vector3.zero;
             rigid.isKinematic = true;
+            rigid.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            agent.enabled = true;
         }
     }
 
