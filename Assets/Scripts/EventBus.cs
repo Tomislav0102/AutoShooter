@@ -8,7 +8,6 @@ public class EventBus : MonoBehaviour
     public static System.Action OnSpecialActivated;
     protected GameManager gm;
 
-
     protected virtual void Awake()
     {
         gm = GameManager.Instance;

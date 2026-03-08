@@ -16,7 +16,7 @@ public class GameManager : EventBus
     [BoxGroup("Enemy spawns")]
     [SerializeField] int numOfEnemies;
     [BoxGroup("Enemy spawns")]
-    [SerializeField] Enemy[] enemyPrefabs;
+    [SerializeField] E_Loco[] enemyPrefabs;
     [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
@@ -26,7 +26,8 @@ public class GameManager : EventBus
     public FloatingText floatingTextPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    [FormerlySerializedAs("playerControl")] public PlControl plControl;
+    const float CONST_CamEdgeBottom = 7f;
+    [ReadOnly] public P_Loco loco;
     [HideInInspector] public Transform playerTransform;
     public HashSet<Transform> playersTeam = new HashSet<Transform>();
     public HashSet<Transform> allEnemies = new HashSet<Transform>();
@@ -49,15 +50,17 @@ public class GameManager : EventBus
         base.Awake();
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
-        if (plControl == null) plControl = GameObject.FindAnyObjectByType<PlControl>();
-        playerTransform = plControl.transform;
+        if (loco == null) loco = GameObject.FindAnyObjectByType<P_Loco>();
+        playerTransform = loco.transform;
         playersTeam.Add(playerTransform);
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
     }
 
     void FixedUpdate()
     {
-        cameraRigTransform.position = Vector3.Lerp(cameraRigTransform.position, playerTransform.position, 0.2f);
+        Vector3 targetPos = Vector3.Lerp(cameraRigTransform.position, playerTransform.position, 0.2f);
+       // targetPos.z = Mathf.Max(targetPos.z, CONST_CamEdgeBottom);
+        cameraRigTransform.position = targetPos;
     }
 
     void SpawnEnemy()

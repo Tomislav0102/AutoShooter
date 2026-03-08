@@ -4,10 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.Serialization;
 
 
-public class Health: EventBus, ITakeDamage
+public class Health: EventBus, ITakeDamage, IInit
 {
-    ICharacter _parentCharacter;
-    Enemy _enemy;
+    Brain _brain;
     Image _healthBar;
     Vector3 _offset = new Vector3(0, 2, 0);
     [SerializeField] int healthMax;
@@ -23,12 +22,15 @@ public class Health: EventBus, ITakeDamage
     }
     float _healthCurrent;
     
-    public void InitializeMe(ICharacter character)
+    public void Initialize(Brain brain)
     {
-        _parentCharacter = character;
+        _brain = brain;
         _healthBar = Instantiate(gm.healthBarPrefab, gm.barContainer).GetComponent<Image>();
         HealthCurrent = healthMax;
+        IsReady = true;
     }
+
+    public bool IsReady { get; set; }
 
     public void TakeDamage(float damageTaken, Transform attacker = null)
     {
@@ -42,12 +44,12 @@ public class Health: EventBus, ITakeDamage
             return;
         }
         if (attacker == null) return;
-        if (_parentCharacter.MyTransform == gm.playerTransform) return;
+        if (_brain.MyTransform == gm.playerTransform) return;
 
-        if (_parentCharacter.MyTarget == null)
+        if (_brain.MyTarget == null)
         {
             print("UnderAttack");
-            _parentCharacter.MyTarget = attacker;
+            _brain.MyTarget = attacker;
         }
     }
 
@@ -59,7 +61,7 @@ public class Health: EventBus, ITakeDamage
 
     void Death()
     {
-       EventBus.OnCharDeath?.Invoke(_parentCharacter.MyTransform);
+       EventBus.OnCharDeath?.Invoke(_brain.MyTransform);
     }
 
 }
