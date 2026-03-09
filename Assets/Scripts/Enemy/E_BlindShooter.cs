@@ -10,16 +10,16 @@ public class E_BlindShooter : EnemyCombat
     int _counter;
     
 
-    protected override void Attack()
+    public override void AE_Attack(int num = 0)
     {
-        base.Attack();
-        Vector3 fw = br.MyTransform.forward;
+        base.AE_Attack(num);
+        Vector3 fw = br.loco.myTransform.forward;
         switch (multiShotType)
         {
             case E_Loco.MultiShot.AllAtOnce:
                 for (int i = 0; i < cannons; i++)
                 {
-                    SpawnProjectile(br.MyTransform.position, Quaternion.Euler(fw) * Quaternion.Euler(0, i * (360 / cannons), 0));
+                    SpawnProjectile(br.loco.myTransform.position, Quaternion.Euler(fw) * Quaternion.Euler(0, i * (360 / cannons), 0));
                 }
                 break;
             

@@ -44,12 +44,12 @@ public class Health: EventBus, ITakeDamage, IInit
             return;
         }
         if (attacker == null) return;
-        if (_brain.MyTransform == gm.playerTransform) return;
+        if (_brain.loco.myTransform == gm.playerTransform) return;
 
-        if (_brain.MyTarget == null)
+        if (_brain.combat.MyTarget == null)
         {
             print("UnderAttack");
-            _brain.MyTarget = attacker;
+            _brain.combat.MyTarget = attacker;
         }
     }
 
@@ -61,7 +61,8 @@ public class Health: EventBus, ITakeDamage, IInit
 
     void Death()
     {
-       EventBus.OnCharDeath?.Invoke(_brain.MyTransform);
+       Destroy(_healthBar.gameObject);
+       EventBus.OnCharDeath?.Invoke(_brain.loco.myTransform);
     }
 
 }

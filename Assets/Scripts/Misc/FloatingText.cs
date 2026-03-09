@@ -25,6 +25,11 @@ public class FloatingText : MonoBehaviour
     void Update()
     {
         if (!_started) return;
+        if (_target == null)
+        {
+            EndMe();
+            return;
+        }
         
         _timer += Time.deltaTime;
         Vector3 moveY = new Vector3(0f, _startingOffsetY + _timer * 5f, 0f);

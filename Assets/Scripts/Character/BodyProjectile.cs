@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Used for dash
 /// </summary>
-public class PlayerProjectileBody : MonoBehaviour
+public class BodyProjectile : MonoBehaviour
 {
     HashSet<Collider> _hits = new HashSet<Collider>();
     [SerializeField] Transform myTransform;

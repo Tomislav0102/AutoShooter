@@ -10,6 +10,7 @@ public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Increase, Decrease }
 #endregion
 
+public enum Range { Melee, Ranged }
 public enum StatsPrimary { Strength, Dexterity, Constitution, Intelligence }
 public enum StatsSecondary { MeleeDamage, RangedDamage, MoveSpeed, AttackSpeed, PhysicalResistance, MagicDamage, MagicalResistance }
 

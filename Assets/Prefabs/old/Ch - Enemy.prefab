@@ -445,6 +445,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5083683478966382821, guid: 797a525ae2675a14990dc8c886333bf1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1211990014547275905}
+    - targetCorrespondingSourceObject: {fileID: 5048214587972225198, guid: 797a525ae2675a14990dc8c886333bf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3584896599522608333}
   m_SourcePrefab: {fileID: 100100000, guid: 797a525ae2675a14990dc8c886333bf1, type: 3}
 --- !u!1 &2245961487082085638 stripped
 GameObject:
@@ -485,6 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  MyTransform: {fileID: 0}
+  anim: {fileID: 0}
+  moveSpeed: 0
   moveIdling: 0
   moveFighting: 4
   moveCurrent: 0
@@ -503,3 +509,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   healthMax: 100
+--- !u!1 &2281426472070276429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5048214587972225198, guid: 797a525ae2675a14990dc8c886333bf1, type: 3}
+  m_PrefabInstance: {fileID: 6460304960426634723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &3584896599522608333
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281426472070276429}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 1e+14
+  avoidancePriority: 50
+  m_AngularSpeed: 500
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

@@ -5,87 +5,40 @@ using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using Random = UnityEngine.Random;
 
-public class P_Loco : EventBus, ILocomotion
+public class P_Loco : Loco
 {
-    Brain _brain;
-    InputAction _inputAttack;
+    const float CONST_CamEdgeBottom = 7f;
 
-    float _velocityModifier = 1f;
-    bool _isDashing;
-    const int CONST_DashVelocityMax = 80;
-
-    protected override void Awake()
+    public override void Initialize(Brain brain)
     {
-        base.Awake();
-        _brain = GetComponent<Brain>();
+        base.Initialize(brain);
+        IsReady = true;
     }
 
-    public void Initialize(Brain brain)
-    {
-         _brain = brain;
-         IsReady = true;
-    }
-
-    public bool IsReady { get; set; }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        _inputAttack = InputSystem.actions.FindAction("Player/Jump");
-        _inputAttack.Enable();
-    }
-
-    void Start()
-    {
-        _brain.playerProjectileBody.IsActive = false;
-    }
-
-    public IEnumerator Dash()
-    {
-        _isDashing = true;
-        _velocityModifier = 1f;
-        float duration = 0.2f;
-        _brain.playerProjectileBody.IsActive = true;
-        while (_velocityModifier > 0)
-        {
-            _velocityModifier -= Time.deltaTime / duration;
-            yield return null;
-        }
-        _brain.playerProjectileBody.IsActive = false;
-        _velocityModifier = 1f;
-        _isDashing = false;
-    }
     void FixedUpdate()
     {
+        Vector3 targetPos = Vector3.Lerp(gm.cameraRigTransform.position, myTransform.position, 0.2f); 
+        //targetPos.z = Mathf.Max(targetPos.z, CONST_CamEdgeBottom);
+        gm.cameraRigTransform.position = targetPos;
+
         float camAngle = gm.cameraRigTransform.eulerAngles.y;
         Vector2 val = Quaternion.Euler(0, 0, -camAngle) * gm.joystick.value;
-        float dotVer = Vector3.Dot(Utils.MakeV3(val), _brain.MyTransform.forward);
-        float dotHor = Vector3.Dot(Utils.MakeV3(val), _brain.MyTransform.right);
-        _brain.animHub.MoveInput(dotHor, dotVer);
+        float dotVer = Vector3.Dot(Utils.MakeV3(val), myTransform.forward);
+        float dotHor = Vector3.Dot(Utils.MakeV3(val), myTransform.right);
+        MoveInputPlayer(dotHor, dotVer);
         
         Vector3 finalVelocity;
-        if (_isDashing)
+        if (isDashing)
         {
-            finalVelocity = _velocityModifier * CONST_DashVelocityMax * _brain.MyTransform.forward;
+            finalVelocity = velocityModifier * CONST_DASH_VELOCITY_MAX * myTransform.forward;
         }
         else
         {
-            finalVelocity = _velocityModifier * Utils.MakeV3(_brain.moveSpeed * val);
-            LookAtMethod();
+            finalVelocity = velocityModifier * Utils.MakeV3(moveSpeed * val);
+            LookAtMethod(gm.allEnemies);
         }
-        _brain.myRigid.linearVelocity = finalVelocity;
+        br.myRigid.linearVelocity = finalVelocity;
         
-    }
-    void LookAtMethod()
-    {
-        Transform closestEnemy = Utils.ClosestTransform(_brain.MyTransform.position, gm.allEnemies);
-        Vector3 faceDirection = Vector3.forward;
-        if (closestEnemy != null)
-        {
-            faceDirection = closestEnemy.position - _brain.MyTransform.position;
-            faceDirection.y = 0f;
-        }
-        _brain.MyTransform.forward = faceDirection.normalized;
     }
 
 }

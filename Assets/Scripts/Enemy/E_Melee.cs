@@ -8,44 +8,23 @@ public class E_Melee : EnemyCombat
     public override void Initialize(Brain brain)
     {
         base.Initialize(brain);
-        _sphere = new AttackOverlapSphere(brain.MyTransform, attackRange, Utils.IsInLayerMask(gameObject, gm.layPlayer) ? gm.layEnemies : gm.layPlayer);
+        _sphere = new AttackOverlapSphere(brain.loco.myTransform, rangeMelee, Utils.IsInLayerMask(gameObject, gm.layPlayer) ? gm.layEnemies : gm.layPlayer);
     }
 
-    protected override void Attack()
+    public override void AE_Attack(int num = 0)
     {
-        base.Attack();
-        _sphere.Attack(damage);
-    }
-    
-
-}
-
-public class AttackOverlapSphere
-{
-    Transform _myTransform;
-    float _attackRange;
-    LayerMask _mask;
-
-    public AttackOverlapSphere(Transform myTransform, float attackRange, LayerMask mask)
-    {
-        _myTransform = myTransform;
-        _attackRange = attackRange;
-        _mask = mask;
-    }
-    
-    public void Attack(float damage)
-    {
-        Vector3 position = _myTransform.position + _attackRange * 0.5f * _myTransform.forward + Vector3.up;
-        float radius = _attackRange * 0.5f;
-        
-        Collider[] colliders = Physics.OverlapSphere(position, radius, _mask);
-        for (int i = 0; i < colliders.Length; i++)
+        base.AE_Attack(num);
+        switch (num)
         {
-            if (colliders[i].TryGetComponent(out ITakeDamage takeDamage))
-            {
-                takeDamage.TakeDamage(damage);
-            }
+            case 0: //melee
+                _sphere.Attack(damage);
+                break;
+            case 1: //projectile
+                SpawnProjectile(br.loco.myTransform.position + Vector3.up, br.loco.myTransform.rotation);
+                break;
         }
-
     }
+
+    
+
 }

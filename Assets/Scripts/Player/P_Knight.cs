@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class P_Knight : PlayerCombat
 {
-    [SerializeField] float attackRange;
     AttackOverlapSphere _sphere;
     void Start()
     {
-        _sphere = new AttackOverlapSphere(transform, attackRange, gm.layEnemies);
+        _sphere = new AttackOverlapSphere(transform, rangeMelee, gm.layEnemies);
     }
 
     public override void AE_Attack(int num = 0)
@@ -19,6 +18,6 @@ public class P_Knight : PlayerCombat
     protected override void CallEv_OnSpecialActivated()
     {
         base.CallEv_OnSpecialActivated();
-        StartCoroutine(br.locomotion.Dash());
+        StartCoroutine(br.loco.Dash());
     }
 }

@@ -7,36 +7,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class E_Loco : EventBus, ILocomotion
+public class E_Loco : Loco
 {
     public enum EnMovement { Stationary, Roam, Patrol, Follow, Chase, Flee }
     public enum MultiShot { AllAtOnce, Consecutive, Random }
-
-    Brain _brain;
-    public void TargetRelay(bool isNull)
-    {
-        if (isNull)
-        {
-            moveCurrent = moveIdling;
-            agent.stoppingDistance = _startingStoppingDistance;
-        }
-        else
-        {
-            moveCurrent = moveFighting;
-            agent.stoppingDistance = _combat.attackRange * 0.8f;
-        }
-        moveCurrent = isNull ? moveIdling : moveFighting;
-    }
-    EnemyCombat _combat;
     [SerializeField] EnMovement moveIdling;
     [SerializeField] EnMovement moveFighting;
     [ReadOnly] public EnMovement moveCurrent;
     public NavMeshAgent agent;
-    Coroutine _pushCoroutine;
     float _startingStoppingDistance;
     float _timerIdle;
     const float CONST_IdleMaxTime = 2f;
-    Quaternion _idleTargetRot;
+    Quaternion _idleTargetRot = Quaternion.identity;
     bool _idleIsTurning;
     int _counterWaypoints;
     const float CONST_FleeDistance = 10f;
@@ -44,44 +26,30 @@ public class E_Loco : EventBus, ILocomotion
     const float CONST_FollowDistance = 5f;
 
     [ReadOnly] public bool isPlayerSummon;
-    Vector3 GetRandomPosition(Transform surface)
-    {
-        float width = surface.localScale.x * 0.5f;
-        float length = surface.localScale.z * 0.5f;
-        float x = surface.position.x + Random.Range(-width, width);
-        float z = surface.position.z + Random.Range(-length, length);
-        return new Vector3(x, 0f, z);
-    }
 
-
-    public void Initialize(Brain brain)
+    public override void Initialize(Brain brain)
     {
-        _brain = brain;
+        base.Initialize(brain);
         isPlayerSummon = Utils.IsInLayerMask(gameObject, gm.layPlayer);
-        _combat = GetComponent<EnemyCombat>();
         _startingStoppingDistance = agent.stoppingDistance;
         moveCurrent = moveIdling;
         if (isPlayerSummon)
         {
             _followTarget = gm.playerTransform;
-            gm.playersTeam.Add(_brain.MyTransform);
+            gm.playersTeam.Add(br.loco.myTransform);
         }
         else
         {
-            gm.allEnemies.Add(_brain.MyTransform);
+            gm.allEnemies.Add(br.loco.myTransform);
         }
         agent.enabled = true;
+        agent.speed = moveSpeed;
     }
 
-    public bool IsReady { get; set; }
 
-    public IEnumerator Dash()
+    protected override void Update()
     {
-        yield break;
-    }
-
-    void Update()
-    {
+        base.Update();
         if (!agent.enabled) return;
         switch (moveCurrent)
         {
@@ -104,36 +72,23 @@ public class E_Loco : EventBus, ILocomotion
                 Flee();
                 break;
         }
+        MoveInputEnemy(agent.velocity != Vector3.zero);
     }
 
-    public void PushMe(Vector3 origin, float intensity = 1f)
+    public void TargetRelay(float attRange)
     {
-        if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
-        _pushCoroutine = StartCoroutine(PushMeSequence());
-            
-        IEnumerator PushMeSequence()
+        if (attRange < 0)
         {
-            agent.enabled = false;
-            _brain.myRigid.isKinematic = false;
-            _brain.myRigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            float duration = 0.2f;
-            float pushPower = 80 * intensity;
-            float velocityModifier = 1f;
-            Vector3 dir = _brain.MyTransform.position - origin;
-            dir.y = 0;
-            dir.Normalize();
-            while (velocityModifier > 0f)
-            {
-                velocityModifier -= Time.deltaTime / duration;
-                _brain.myRigid.linearVelocity = velocityModifier * pushPower * dir;
-                yield return null;
-            }
-            _brain.myRigid.linearVelocity = Vector3.zero;
-            _brain.myRigid.isKinematic = true;
-            _brain.myRigid.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            agent.enabled = true;
+            moveCurrent = moveIdling;
+            agent.stoppingDistance = _startingStoppingDistance;
+        }
+        else
+        {
+            moveCurrent = moveFighting;
+            agent.stoppingDistance = attRange * 0.9f;
         }
     }
+
 
 
     #region NAVIGATION
@@ -141,13 +96,13 @@ public class E_Loco : EventBus, ILocomotion
     {
         if (_idleIsTurning)
         {
-            _brain.MyTransform.rotation = Quaternion.Slerp(_brain.MyTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
+            br.loco.myTransform.rotation = Quaternion.Slerp(br.loco.myTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
         }
         else
         {
             _idleTargetRot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
         }
-        
+
         _timerIdle += Time.deltaTime;
         if (_timerIdle >= CONST_IdleMaxTime)
         {
@@ -155,6 +110,7 @@ public class E_Loco : EventBus, ILocomotion
             _idleIsTurning = !_idleIsTurning;
         }
     }
+
     void Roam()
     {
         if (agent.remainingDistance <= agent.stoppingDistance)
@@ -164,7 +120,16 @@ public class E_Loco : EventBus, ILocomotion
             agent.destination = newDestination;
         }
 
+        Vector3 GetRandomPosition(Transform surface)
+        {
+            float width = surface.localScale.x * 0.5f;
+            float length = surface.localScale.z * 0.5f;
+            float x = surface.position.x + Random.Range(-width, width);
+            float z = surface.position.z + Random.Range(-length, length);
+            return new Vector3(x, 0f, z);
+        }
     }
+
     void Patrol()
     {
         if (gm.waypoints == null || gm.waypoints.Length == 0)
@@ -178,6 +143,7 @@ public class E_Loco : EventBus, ILocomotion
             _counterWaypoints = (1 + _counterWaypoints) % gm.waypoints.Length;
         }
     }
+
     void Follow()
     {
         if (_followTarget == null)
@@ -186,7 +152,7 @@ public class E_Loco : EventBus, ILocomotion
             return;
         }
         agent.stoppingDistance = CONST_FollowDistance;
-        if (Utils.Distance(_brain.MyTransform.position, _followTarget.position) > agent.stoppingDistance)
+        if (Utils.Distance(br.loco.myTransform.position, _followTarget.position) > agent.stoppingDistance)
         {
             agent.destination = _followTarget.position;
         }
@@ -198,23 +164,22 @@ public class E_Loco : EventBus, ILocomotion
 
     void Chase()
     {
-            print("chase");
-        if (_brain.MyTarget == null) return;
-            print("chase1");
-        if (Utils.Distance(_brain.MyTransform.position, _brain.MyTarget.position) > agent.stoppingDistance)
+        if (br.combat.MyTarget == null) return;
+        if (Utils.Distance(br.loco.myTransform.position, br.combat.MyTarget.position) > agent.stoppingDistance)
         {
-            agent.destination = _brain.MyTarget.position;
+            agent.destination = br.combat.MyTarget.position;
         }
     }
+
     void Flee()
     {
-        if (_brain.MyTarget == null) return;
-        if (Utils.Distance(_brain.MyTransform.position, _brain.MyTarget.position) < CONST_FleeDistance)
+        if (br.combat.MyTarget == null) return;
+        if (Utils.Distance(br.loco.myTransform.position, br.combat.MyTarget.position) < CONST_FleeDistance)
         {
-            Vector3 direction = _brain.MyTransform.position - _brain.MyTarget.position;
+            Vector3 direction = br.loco.myTransform.position - br.combat.MyTarget.position;
             direction.y = 0f;
             direction.Normalize();
-            Vector3 targetPosition = _brain.MyTransform.position + 2f * direction;
+            Vector3 targetPosition = br.loco.myTransform.position + 2f * direction;
             NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
             if (!hit.hit) return;
             agent.destination = hit.position;
@@ -227,7 +192,7 @@ public class E_Loco : EventBus, ILocomotion
     {
         if (!Application.isPlaying) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(agent.destination, 0.1f);
+        Gizmos.DrawSphere(agent.destination, 0.2f);
     }
 
 }

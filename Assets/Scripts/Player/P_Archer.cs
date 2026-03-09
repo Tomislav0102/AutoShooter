@@ -18,7 +18,7 @@ public class P_Archer : PlayerCombat
     public override void AE_Attack(int num = 0)
     {
         base.AE_Attack(num);
-        if (!IsAttacking) return;
+        if (!br.combat.isAttacking) return;
         Shoot();
         if (followUp > 0) StartCoroutine(ShootFollowUp());
     }
@@ -69,7 +69,7 @@ public class P_Archer : PlayerCombat
             for (int i = 0; i < parallel + 1; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                Projectile projectile = Instantiate<Projectile>(gm.projectilePrefab, transform.position + Vector3.up, Quaternion.identity);
+                Projectile projectile = Instantiate<Projectile>(gm.projectilePrefabPlayer, transform.position + Vector3.up, Quaternion.identity);
                 projectile.transform.Rotate(rot);
                 projectile.transform.Translate(xOffset * Vector3.right, Space.Self);
                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;

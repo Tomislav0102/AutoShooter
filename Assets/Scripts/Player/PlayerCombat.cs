@@ -1,20 +1,15 @@
 using UnityEngine;
 
-public class PlayerCombat : EventBus, ICombat
+public class PlayerCombat : Combat
 {
-    protected Brain br;
-    protected P_Loco myLoco;
-    [SerializeField] protected float damage;
     [SerializeField] float specialCooldownTime;
     
-    public void Initialize(Brain brain)
+    public override void Initialize(Brain brain)
     {
-        this.br = brain;
-        myLoco = br.GetComponent<P_Loco>();
+        base.Initialize(brain);
         gm.specialUi.InitializeMe(specialCooldownTime);
     }
 
-    public bool IsReady { get; set; }
 
     protected override void OnEnable()
     {
@@ -31,9 +26,5 @@ public class PlayerCombat : EventBus, ICombat
         
     }
 
-
-    [field: SerializeField] public bool IsAttacking { get; set; }
-    public Transform MyTarget { get; set; }
-    public virtual void AE_Attack(int num = 0) { }
 
 }

@@ -6,97 +6,59 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class EnemyCombat : EventBus, ICombat
+public class EnemyCombat : Combat
 {
-    public bool IsReady { get; set; }
-    protected Brain br;
-    protected E_Loco myLoco;
-    [SerializeField] protected float damage;
-    [SerializeField] float rof;
-    [SerializeField] public float attackRange;
-    [SerializeField] protected float detectRange = float.MaxValue;
-    [SerializeField] bool faceTarget = true;
-    float _timerAttack;
-    float _searchWait;
-    HashSet<Transform> _targets;
+    protected E_Loco enLoco;
     
-    [SerializeField] E_Projectile projectilePrefab;
     [SerializeField] float projectileSpeed;
-
-    public virtual void Initialize(Brain brain)
+    public override Transform MyTarget
     {
-        br = brain;
-        myLoco = br.GetComponent<E_Loco>();
-        _searchWait = Random.Range(0f, 0.2f) + 0.5f;
-        _targets = Utils.IsInLayerMask(gameObject, gm.layPlayer) ? gm.allEnemies : gm.playersTeam;
-        StartCoroutine(SearchTargetCoroutine());
+        set
+        {
+            base.MyTarget = value;
+            enLoco?.TargetRelay(value == null ? -1 : rangeMelee);
+        }
+    }
+
+    public override void Initialize(Brain brain)
+    {
+        base.Initialize(brain);
+        enLoco = brain.loco as E_Loco;
         IsReady = true;
     }
 
-    public Transform MyTarget
-    {
-        get => _myTarget;
-        set
-        {
-            _myTarget = value;
-            myLoco.TargetRelay(!value);
-        }
-    }
-    [ShowInInspector][ReadOnly] Transform _myTarget;
-
-    [field: SerializeField] public bool IsAttacking { get; set; }
-    public virtual void AE_Attack(int num = 0) { }
 
     void Update()
     {
         if (MyTarget == null) return;
-        if (faceTarget) transform.LookAt(new Vector3(MyTarget.position.x, transform.position.y, MyTarget.position.z));
-        _timerAttack += Time.deltaTime;
-        if (_timerAttack >= rof)
+        float distance = Utils.Distance(br.loco.myTransform.position, MyTarget.position);
+        if (distance > rangeRanged)
         {
-            _timerAttack = 0f;
-            Attack();
+            br.loco.AttInputEnemy(false);
+            br.loco.Att1InputEnemy(false);
         }
-    }
-
-    IEnumerator SearchTargetCoroutine()
-    {
-        while (true)
+        else if (distance >= rangeMelee)
         {
-            CheckTarget();
-            yield return new WaitForSeconds(_searchWait);
+            br.loco.AttInputEnemy(false);
+            br.loco.Att1InputEnemy(true);
         }
+        else
+        {
+            br.loco.AttInputEnemy(true);
+            br.loco.Att1InputEnemy(false);
+        }
+      //  if (faceTarget) br.loco.myTransform.LookAt(new Vector3(MyTarget.position.x, br.loco.myTransform.position.y, MyTarget.position.z));
     }
 
-    protected virtual void Attack()
-    {
-        
-    }
-
-    protected override void CallEv_OnCharDeath(Transform tr)
-    {
-        base.CallEv_OnCharDeath(tr);
-        CheckTarget();
-    }
-
-    void CheckTarget()
-    {
-       // if (enemy.MyTarget != null) return;
-        MyTarget = Utils.ClosestTransform(transform.position, _targets, detectRange);
-    }
 
     protected void SpawnProjectile(Transform spawnPointTransform)
     {
-        E_Projectile projectile = Instantiate(projectilePrefab, spawnPointTransform.position, spawnPointTransform.rotation);
-        ProjectilePassData passData = new ProjectilePassData((string st) =>
-        {
-            print(st);
-        }, br, damage, projectileSpeed);
-        projectile.InitializeMe(passData);
+        SpawnProjectile(spawnPointTransform.position, spawnPointTransform.rotation);
     }
+
     protected void SpawnProjectile(Vector3 pos, Quaternion rot)
     {
-        E_Projectile projectile = Instantiate(projectilePrefab, pos, rot);
+        E_Projectile projectile = Instantiate(gm.projectilePrefabEnemy, pos, rot) as E_Projectile;
         ProjectilePassData passData = new ProjectilePassData((string st) =>
         {
             print(st);

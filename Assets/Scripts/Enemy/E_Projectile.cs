@@ -8,7 +8,7 @@ public class E_Projectile : Projectile
     {
         if (other.TryGetComponent(out ITakeDamage takeDamage))
         {
-            takeDamage.TakeDamage(myData.damage, myData.attacker.MyTransform);
+            takeDamage.TakeDamage(myData.damage, myData.attacker.loco.myTransform);
            // myData.onHit?.Invoke($"enemy hits {other.name} for {myData.damage} damage");
         }
         Destroy(gameObject);

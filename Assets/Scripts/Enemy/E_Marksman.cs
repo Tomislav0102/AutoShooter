@@ -4,17 +4,17 @@ public class E_Marksman : EnemyCombat
 {
     [SerializeField] Transform spawnPoint;
     
-    protected override void Attack()
+    public override void AE_Attack(int num = 0)
     {
-        base.Attack();
+        base.AE_Attack(num);
         float dist = Vector2.Distance(Utils.MakeV2(transform.position), Utils.MakeV2(MyTarget.position));
-        if (dist <= attackRange)
+        if (dist <= rangeRanged)
         {
             SpawnProjectile(spawnPoint);
         }
         else
         {
-            myLoco.moveCurrent = E_Loco.EnMovement.Chase;
+            enLoco.moveCurrent = E_Loco.EnMovement.Chase;
         }
     }
 

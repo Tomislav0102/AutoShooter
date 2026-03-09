@@ -26,13 +26,12 @@ public class GameManager : EventBus
     public FloatingText floatingTextPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    const float CONST_CamEdgeBottom = 7f;
     [ReadOnly] public P_Loco loco;
     [HideInInspector] public Transform playerTransform;
     public HashSet<Transform> playersTeam = new HashSet<Transform>();
     public HashSet<Transform> allEnemies = new HashSet<Transform>();
     public TomoJoystick.Joystick joystick;
-    public Projectile projectilePrefab;
+    public Projectile projectilePrefabPlayer, projectilePrefabEnemy;
     public LayerMask layEnemies, layPlayer;
     public SpecialUi specialUi;
     
@@ -50,18 +49,13 @@ public class GameManager : EventBus
         base.Awake();
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
+        waypoints = Utils.AllChildren<Transform>(parWaypoints);
         if (loco == null) loco = GameObject.FindAnyObjectByType<P_Loco>();
+        if (loco == null) return;
         playerTransform = loco.transform;
         playersTeam.Add(playerTransform);
-        waypoints = Utils.AllChildren<Transform>(parWaypoints);
     }
 
-    void FixedUpdate()
-    {
-        Vector3 targetPos = Vector3.Lerp(cameraRigTransform.position, playerTransform.position, 0.2f);
-       // targetPos.z = Mathf.Max(targetPos.z, CONST_CamEdgeBottom);
-        cameraRigTransform.position = targetPos;
-    }
 
     void SpawnEnemy()
     {
