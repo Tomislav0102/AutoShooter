@@ -7,13 +7,17 @@ using Random = UnityEngine.Random;
 
 public class P_Loco : Loco
 {
-    const float CONST_CamEdgeBottom = 7f;
-
-    public override void Initialize(Brain brain)
+    public override Brain Br
     {
-        base.Initialize(brain);
-        IsReady = true;
+        get => base.Br;
+        set
+        {
+            base.Br = value;
+            IsReady = true;
+
+        }
     }
+    const float CONST_CamEdgeBottom = 7f;
 
     void FixedUpdate()
     {
@@ -25,7 +29,7 @@ public class P_Loco : Loco
         Vector2 val = Quaternion.Euler(0, 0, -camAngle) * gm.joystick.value;
         float dotVer = Vector3.Dot(Utils.MakeV3(val), myTransform.forward);
         float dotHor = Vector3.Dot(Utils.MakeV3(val), myTransform.right);
-        MoveInputPlayer(dotHor, dotVer);
+        Direction_Move(dotHor, dotVer);
         
         Vector3 finalVelocity;
         if (isDashing)
@@ -35,9 +39,9 @@ public class P_Loco : Loco
         else
         {
             finalVelocity = velocityModifier * Utils.MakeV3(moveSpeed * val);
-            LookAtMethod(gm.allEnemies);
+            LookAtMethod();
         }
-        br.myRigid.linearVelocity = finalVelocity;
+        Br.myRigid.linearVelocity = finalVelocity;
         
     }
 

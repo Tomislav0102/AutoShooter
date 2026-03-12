@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
-public class GameManager : EventBus
+public class GameManager : SerializedMonoBehaviour
 {
     public static GameManager Instance;
     [BoxGroup("Enemy spawns")]
@@ -20,6 +20,7 @@ public class GameManager : EventBus
     [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
+    public SpellManager spellManager;
     public Transform barContainer;
     public RectTransform healthBarPrefab;
     public Transform floatingContainer;
@@ -32,7 +33,7 @@ public class GameManager : EventBus
     public HashSet<Transform> allEnemies = new HashSet<Transform>();
     public TomoJoystick.Joystick joystick;
     public Projectile projectilePrefabPlayer, projectilePrefabEnemy;
-    public LayerMask layEnemies, layPlayer;
+    public LayerMask layEnemies, layPlayer, layTest;
     public SpecialUi specialUi;
     
     [Button]
@@ -43,10 +44,9 @@ public class GameManager : EventBus
             SpawnEnemy();
         }
     }
-    protected override void Awake()
+    void Awake()
     {
         Instance = this;
-        base.Awake();
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
@@ -72,9 +72,18 @@ public class GameManager : EventBus
         
         Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoint, Quaternion.identity);
     }
-    protected override void CallEv_OnCharDeath(Transform tr)
+
+    void OnEnable()
     {
-        base.CallEv_OnCharDeath(tr);
+        EventBus.OnCharDeath += CallEv_OnCharDeath;
+    }
+    void OnDisable()
+    {
+        EventBus.OnCharDeath -= CallEv_OnCharDeath;
+    }
+
+    void CallEv_OnCharDeath(Transform tr)
+    {
         if (playersTeam.Contains(tr))
         {
             playersTeam.Remove(tr);

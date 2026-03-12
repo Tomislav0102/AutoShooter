@@ -7,7 +7,16 @@ using UnityEngine.Animations.Rigging;
 
 public class Loco : EventBus, IInit
 {
-    protected Brain br;
+    public virtual Brain Br
+    {
+        get => _br;
+        set
+        {
+            _br = value;
+            bodyProjectile.IsActive = false;
+        }
+    }
+    Brain _br;
     /// <summary>
     /// for now it's assigned to Brain
     /// NavMesh agent also on Brain
@@ -23,38 +32,37 @@ public class Loco : EventBus, IInit
     protected const int CONST_DASH_VELOCITY_MAX = 80;
     Coroutine _pushCoroutine;
 
-    public virtual void Initialize(Brain brain)
-    {
-        br = brain;
-        bodyProjectile.IsActive = false;
-    }
 
     protected virtual void Update()
     {
-        anim.SetLayerWeight(1, br.combat.isAttacking ? 1 : 0);
-        rotationConstraint.weight = br.combat.isAttacking? 1 : 0;
+        if (Br.combat == null) return;
+        anim.SetLayerWeight(1, Br.combat.isAttacking ? 1 : 0);
+        rotationConstraint.weight = Br.combat.isAttacking? 1 : 0;
     }
     
     public void AE_Attack(int  num)
     {
-        br.combat.AE_Attack(num);
+        Br.combat.FromAnimEv_Attack(num);
     }
-    public void MoveInputPlayer(float hor, float ver)
+
+    protected void Direction_Move(float hor, float ver)
     {
         anim.SetFloat("moveHor", hor);
         anim.SetFloat("moveVer", ver);
     }
-    public void MoveInputEnemy(bool move)
+    protected void Toggle_Move(bool isMoving)
     {
-        anim.SetBool("walk", move);
+        anim.SetBool("walk", isMoving);
     }
-    public void AttInputEnemy(bool attack)
+    protected void AttInputEnemy(bool isAttacking)
     {
-        anim.SetBool("attack", attack);
+        anim.SetBool("attack", isAttacking);
     }
-    public void Att1InputEnemy(bool attack)
+
+    public void Hit() => anim.SetTrigger("hit");
+    protected void Att1InputEnemy(bool isAttacking1)
     {
-        anim.SetBool("attack1", attack);
+        anim.SetBool("attack1", isAttacking1);
     }
     
     public IEnumerator Dash()
@@ -81,38 +89,36 @@ public class Loco : EventBus, IInit
         IEnumerator PushMeSequence()
         {
             if (agent != null) agent.enabled = false;
-            br.myRigid.isKinematic = false;
-            br.myRigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            Br.myRigid.isKinematic = false;
+            Br.myRigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
             float duration = 0.2f;
             float pushPower = 80 * intensity;
-            Vector3 dir = br.loco.myTransform.position - origin;
+            Vector3 dir = Br.loco.myTransform.position - origin;
             dir.y = 0;
             dir.Normalize();
             velocityModifier = 1f;
             while (velocityModifier > 0f)
             {
                 velocityModifier -= Time.deltaTime / duration;
-                br.myRigid.linearVelocity = velocityModifier * pushPower * dir;
+                Br.myRigid.linearVelocity = velocityModifier * pushPower * dir;
                 yield return null;
             }
-            br.myRigid.linearVelocity = Vector3.zero;
-            br.myRigid.isKinematic = true;
-            br.myRigid.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            Br.myRigid.linearVelocity = Vector3.zero;
+            Br.myRigid.isKinematic = true;
+            Br.myRigid.collisionDetectionMode = CollisionDetectionMode.Discrete;
             if (agent != null) agent.enabled = true;
         }
     }
     
-    protected void LookAtMethod(HashSet<Transform> targets)
+    protected void LookAtMethod()
     {
-        Transform closestEnemy = Utils.ClosestTransform(myTransform.position, targets);
         Vector3 faceDirection = Vector3.forward;
-        if (closestEnemy != null)
+        if (Br.combat.MyTarget != null)
         {
-            faceDirection = closestEnemy.position - myTransform.position;
+            faceDirection = Br.combat.MyTarget.position - myTransform.position;
             faceDirection.y = 0f;
         }
-        myTransform.forward = faceDirection.normalized;
+        if (!faceDirection.Equals(Vector3.zero)) myTransform.forward = faceDirection.normalized;
     }
-
 
 }

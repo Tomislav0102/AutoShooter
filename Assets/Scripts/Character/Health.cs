@@ -6,7 +6,19 @@ using UnityEngine.Serialization;
 
 public class Health: EventBus, ITakeDamage, IInit
 {
-    Brain _brain;
+    public Brain Br
+    {
+        get => _br;
+        set
+        {
+            _br = value;
+            _healthBar = Instantiate(gm.healthBarPrefab, gm.barContainer).GetComponent<Image>();
+            HealthCurrent = healthMax;
+            IsReady = true;
+        }
+    }
+    Brain _br;
+
     Image _healthBar;
     Vector3 _offset = new Vector3(0, 2, 0);
     [SerializeField] int healthMax;
@@ -21,48 +33,42 @@ public class Health: EventBus, ITakeDamage, IInit
         }
     }
     float _healthCurrent;
-    
-    public void Initialize(Brain brain)
-    {
-        _brain = brain;
-        _healthBar = Instantiate(gm.healthBarPrefab, gm.barContainer).GetComponent<Image>();
-        HealthCurrent = healthMax;
-        IsReady = true;
-    }
-
     public bool IsReady { get; set; }
+
+
 
     public void TakeDamage(float damageTaken, Transform attacker = null)
     {
         HealthCurrent -= damageTaken;
         FloatingText ft = Instantiate(gm.floatingTextPrefab, gm.floatingContainer);
         ft.SpawnMe(transform, _offset.y, damageTaken.ToString("0"));
-
+        Br.onHit?.Invoke();
         if (HealthCurrent <= 0)
         {
             Death();
             return;
         }
         if (attacker == null) return;
-        if (_brain.loco.myTransform == gm.playerTransform) return;
+        if (Br.loco.myTransform == gm.playerTransform) return;
 
-        if (_brain.combat.MyTarget == null)
+        if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
-            _brain.combat.MyTarget = attacker;
+            Br.combat.MyTarget = attacker;
         }
     }
 
     void LateUpdate()
     {
-        Vector3 screenPos = gm.cam.WorldToScreenPoint(transform.position + _offset);
+        if (!IsReady) return;
+        Vector3 screenPos = gm.cam.WorldToScreenPoint(Br.loco.myTransform.position + _offset);
         _healthBar.transform.position = screenPos;
     }
 
     void Death()
     {
        Destroy(_healthBar.gameObject);
-       EventBus.OnCharDeath?.Invoke(_brain.loco.myTransform);
+       EventBus.OnCharDeath?.Invoke(Br.loco.myTransform);
     }
 
 }

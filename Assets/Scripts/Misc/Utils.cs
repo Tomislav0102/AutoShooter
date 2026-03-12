@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 public class Utils
 {
+    public static Vector3 FrontSpawnPos(Transform myTransform, float range)
+    {
+        return myTransform.position + range * 0.5f * myTransform.forward + Vector3.up;
+    }
     public static bool IsInLayerMask(GameObject go, LayerMask mask)
     {
         return (mask & (1 << go.layer)) != 0;
@@ -17,6 +21,19 @@ public class Utils
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
 
     public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(MakeV2(v1), MakeV2(v2));
+
+    public static Vector3 Direction(Transform trA, Transform trB)
+    {
+        return MakeV3(MakeV2(trB.position) - (MakeV2(trA.position)).normalized);
+    }
+    public static Vector3 Direction(Transform trA, Vector3 vecB)
+    {
+        return MakeV3(MakeV2(vecB) - (MakeV2(trA.position)).normalized);
+    }
+    public static Vector3 Direction(Vector3 vecA, Vector3 vecB)
+    {
+        return MakeV3(MakeV2(vecB) - (MakeV2(vecA)).normalized);
+    }
     
     public static Transform ClosestTransform(Vector3 fromPosition, HashSet<Transform> targets, float maxRange = float.MaxValue)
     {

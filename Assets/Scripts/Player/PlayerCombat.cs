@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class PlayerCombat : Combat
 {
+    public override Brain Br
+    {
+        get => base.Br;
+        set
+        {
+            base.Br = value;
+            GameManager.Instance.specialUi.InitializeMe(specialCooldownTime);
+        }
+    }
     [SerializeField] float specialCooldownTime;
     
-    public override void Initialize(Brain brain)
+    void OnEnable()
     {
-        base.Initialize(brain);
-        gm.specialUi.InitializeMe(specialCooldownTime);
-    }
-
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
         EventBus.OnSpecialActivated += CallEv_OnSpecialActivated;
     }
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
         EventBus.OnSpecialActivated -= CallEv_OnSpecialActivated;
     }
     protected virtual void CallEv_OnSpecialActivated()

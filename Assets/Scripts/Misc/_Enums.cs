@@ -9,8 +9,9 @@ public enum GenMenuControl {Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Increase, Decrease }
 #endregion
+public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 
-public enum Range { Melee, Ranged }
+public enum Faction { Ally, Foe, Neutral }
 public enum StatsPrimary { Strength, Dexterity, Constitution, Intelligence }
 public enum StatsSecondary { MeleeDamage, RangedDamage, MoveSpeed, AttackSpeed, PhysicalResistance, MagicDamage, MagicalResistance }
 

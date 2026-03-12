@@ -3,21 +3,23 @@ using UnityEngine;
 
 public class P_Knight : PlayerCombat
 {
-    AttackOverlapSphere _sphere;
-    void Start()
-    {
-        _sphere = new AttackOverlapSphere(transform, rangeMelee, gm.layEnemies);
-    }
 
-    public override void AE_Attack(int num = 0)
+    public override void FromAnimEv_Attack(int num = 0)
     {
-        base.AE_Attack(num);
-        _sphere.Attack(damage);
+        base.FromAnimEv_Attack(num);
+        GameObject go = Instantiate(GameManager.Instance.spellManager.melee, 
+            Utils.FrontSpawnPos(Br.loco.myTransform, GameManager.Instance.spellManager.melee.GetComponent<S_Area>().myData.areaOfEffect), 
+            Br.loco.myTransform.rotation);
+        S_Area melee = go.GetComponent<S_Area>();
+        melee.InitializeMe(GameManager.Instance.layEnemies, (Transform tr) =>
+       {
+         //  print($"{tr.gameObject.name} is hit");
+       });
     }
     
     protected override void CallEv_OnSpecialActivated()
     {
         base.CallEv_OnSpecialActivated();
-        StartCoroutine(br.loco.Dash());
+        StartCoroutine(Br.loco.Dash());
     }
 }

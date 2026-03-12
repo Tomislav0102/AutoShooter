@@ -1,16 +1,31 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
-public class Combat : EventBus, IInit
+public class Combat : SerializedMonoBehaviour, IInit
 {
-    protected Brain br;
+    public virtual Brain Br
+    {
+        get => _br;
+        set
+        {
+            _br = value;
+            _searchWait = Random.Range(0f, 0.2f) + 0.5f;
+            _targets = value.faction == Faction.Ally ? GameManager.Instance.allEnemies : GameManager.Instance.playersTeam;
+            _targetAim = transform.GetChild(0);
+            StartCoroutine(SearchTargetCoroutine());
+
+        }
+    }
+    Brain _br;
     public bool IsReady { get; set; } //only called in children (because they're on scene)
     public bool isAttacking;
-    public virtual Transform MyTarget { get; set; }
-    [SerializeField] protected float damage;
-    public int rangeMelee, rangeRanged;
+    [field: SerializeField] public virtual Transform MyTarget { get; set; }
+    Transform _targetAim;
+    protected float distance;
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;
@@ -18,18 +33,26 @@ public class Combat : EventBus, IInit
     
 
     
-    public virtual void Initialize(Brain brain)
+
+    protected virtual void Update()
     {
-        br = brain;
-        _searchWait = Random.Range(0f, 0.2f) + 0.5f;
-        _targets = Utils.IsInLayerMask(gameObject, gm.layPlayer) ? gm.allEnemies : gm.playersTeam;
-        StartCoroutine(SearchTargetCoroutine());
+        if (MyTarget == null)
+        {
+            distance = -1;
+            _targetAim.localPosition = Vector3.zero;
+        }
+        else
+        {
+            distance = Utils.Distance(Br.loco.myTransform.position, MyTarget.position);
+            _targetAim.position = MyTarget.position;
+        }
     }
-    
-    public virtual void AE_Attack(int num = 0){}
+
+    public virtual void FromAnimEv_Attack(int num = 0) { }
     
     IEnumerator SearchTargetCoroutine()
     {
+        yield return new WaitForSeconds(_searchWait * 2);
         while (true)
         {
             CheckTarget();
@@ -37,16 +60,17 @@ public class Combat : EventBus, IInit
         }
     }
 
-    protected override void CallEv_OnCharDeath(Transform tr)
-    {
-        base.CallEv_OnCharDeath(tr);
-        CheckTarget();
-    }
-
     void CheckTarget()
-    {
-        // if (enemy.MyTarget != null) return;
-        MyTarget = Utils.ClosestTransform(br.loco.myTransform.position, _targets, detectRange);
+    { 
+        if (MyTarget != null) return;
+        MyTarget = Utils.ClosestTransform(Br.loco.myTransform.position, _targets, detectRange);
     }
 
+}
+
+[System.Serializable]
+public struct WeaponData
+{
+    public float range;
+    public float damage;
 }

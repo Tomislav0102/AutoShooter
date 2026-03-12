@@ -9,13 +9,14 @@ using Random = UnityEngine.Random;
 
 public class E_Loco : Loco
 {
-    public enum EnMovement { Stationary, Roam, Patrol, Follow, Chase, Flee }
+    public enum RangeArea { Melee, Ranged, OutOfRange }
+    public RangeArea ra;
+    public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
     public enum MultiShot { AllAtOnce, Consecutive, Random }
-    [SerializeField] EnMovement moveIdling;
-    [SerializeField] EnMovement moveFighting;
-    [ReadOnly] public EnMovement moveCurrent;
+    public Movement moveIdlingDefault;
+    public Movement moveFightingDefault;
+    [ReadOnly] public Movement moveCurrent;
     public NavMeshAgent agent;
-    float _startingStoppingDistance;
     float _timerIdle;
     const float CONST_IdleMaxTime = 2f;
     Quaternion _idleTargetRot = Quaternion.identity;
@@ -25,27 +26,21 @@ public class E_Loco : Loco
     Transform _followTarget;
     const float CONST_FollowDistance = 5f;
 
-    [ReadOnly] public bool isPlayerSummon;
-
-    public override void Initialize(Brain brain)
+    public override Brain Br
     {
-        base.Initialize(brain);
-        isPlayerSummon = Utils.IsInLayerMask(gameObject, gm.layPlayer);
-        _startingStoppingDistance = agent.stoppingDistance;
-        moveCurrent = moveIdling;
-        if (isPlayerSummon)
+        get => base.Br;
+        set
         {
-            _followTarget = gm.playerTransform;
-            gm.playersTeam.Add(br.loco.myTransform);
+            base.Br = value;
+            moveCurrent = moveIdlingDefault;
+            if (value.faction == Faction.Ally)
+            {
+                _followTarget = gm.playerTransform;
+            }
+            agent.enabled = true;
+            agent.speed = moveSpeed;
         }
-        else
-        {
-            gm.allEnemies.Add(br.loco.myTransform);
-        }
-        agent.enabled = true;
-        agent.speed = moveSpeed;
     }
-
 
     protected override void Update()
     {
@@ -53,39 +48,44 @@ public class E_Loco : Loco
         if (!agent.enabled) return;
         switch (moveCurrent)
         {
-            case EnMovement.Stationary:
+            case Movement.Stationary:
                 Idle();
                 break;
-            case EnMovement.Roam:
+            case Movement.Roam:
                 Roam();
                 break;
-            case EnMovement.Patrol:
+            case Movement.Patrol:
                 Patrol();
                 break;
-            case EnMovement.Follow:
+            case Movement.Follow:
                 Follow();
                 break;
-            case EnMovement.Chase:
+            case Movement.Chase:
                 Chase();
                 break;
-            case EnMovement.Flee:
+            case Movement.Flee:
                 Flee();
                 break;
         }
-        MoveInputEnemy(agent.velocity != Vector3.zero);
-    }
-
-    public void TargetRelay(float attRange)
-    {
-        if (attRange < 0)
+        
+        agent.speed = 0f;
+        Toggle_Move(false);
+        AttInputEnemy(false);
+        Att1InputEnemy(false);
+        switch (ra)
         {
-            moveCurrent = moveIdling;
-            agent.stoppingDistance = _startingStoppingDistance;
-        }
-        else
-        {
-            moveCurrent = moveFighting;
-            agent.stoppingDistance = attRange * 0.9f;
+            case RangeArea.Melee:
+                AttInputEnemy(true);
+                LookAtMethod();
+                break;
+            case RangeArea.Ranged:
+                Att1InputEnemy(true);
+                LookAtMethod();
+                break;
+            case RangeArea.OutOfRange:
+                agent.speed = moveSpeed;
+                Toggle_Move(true);
+                break;
         }
     }
 
@@ -96,7 +96,7 @@ public class E_Loco : Loco
     {
         if (_idleIsTurning)
         {
-            br.loco.myTransform.rotation = Quaternion.Slerp(br.loco.myTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
+            Br.loco.myTransform.rotation = Quaternion.Slerp(Br.loco.myTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
         }
         else
         {
@@ -134,7 +134,7 @@ public class E_Loco : Loco
     {
         if (gm.waypoints == null || gm.waypoints.Length == 0)
         {
-            moveCurrent = EnMovement.Stationary;
+            moveCurrent = Movement.Stationary;
             return;
         }
         if (agent.remainingDistance <= agent.stoppingDistance)
@@ -148,11 +148,11 @@ public class E_Loco : Loco
     {
         if (_followTarget == null)
         {
-            moveCurrent = EnMovement.Stationary;
+            moveCurrent = Movement.Stationary;
             return;
         }
         agent.stoppingDistance = CONST_FollowDistance;
-        if (Utils.Distance(br.loco.myTransform.position, _followTarget.position) > agent.stoppingDistance)
+        if (Utils.Distance(Br.loco.myTransform.position, _followTarget.position) > agent.stoppingDistance)
         {
             agent.destination = _followTarget.position;
         }
@@ -164,22 +164,22 @@ public class E_Loco : Loco
 
     void Chase()
     {
-        if (br.combat.MyTarget == null) return;
-        if (Utils.Distance(br.loco.myTransform.position, br.combat.MyTarget.position) > agent.stoppingDistance)
+        if (Br.combat.MyTarget == null) return;
+        if (Utils.Distance(Br.loco.myTransform.position, Br.combat.MyTarget.position) > agent.stoppingDistance)
         {
-            agent.destination = br.combat.MyTarget.position;
+            agent.destination = Br.combat.MyTarget.position;
         }
     }
 
     void Flee()
     {
-        if (br.combat.MyTarget == null) return;
-        if (Utils.Distance(br.loco.myTransform.position, br.combat.MyTarget.position) < CONST_FleeDistance)
+        if (Br.combat.MyTarget == null) return;
+        if (Utils.Distance(Br.loco.myTransform.position, Br.combat.MyTarget.position) < CONST_FleeDistance)
         {
-            Vector3 direction = br.loco.myTransform.position - br.combat.MyTarget.position;
+            Vector3 direction = Br.loco.myTransform.position - Br.combat.MyTarget.position;
             direction.y = 0f;
             direction.Normalize();
-            Vector3 targetPosition = br.loco.myTransform.position + 2f * direction;
+            Vector3 targetPosition = Br.loco.myTransform.position + 2f * direction;
             NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
             if (!hit.hit) return;
             agent.destination = hit.position;

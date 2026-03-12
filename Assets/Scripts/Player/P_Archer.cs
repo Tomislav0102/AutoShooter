@@ -15,12 +15,21 @@ public class P_Archer : PlayerCombat
 
 
     
-    public override void AE_Attack(int num = 0)
+    public override void FromAnimEv_Attack(int num = 0)
     {
-        base.AE_Attack(num);
-        if (!br.combat.isAttacking) return;
-        Shoot();
-        if (followUp > 0) StartCoroutine(ShootFollowUp());
+        base.FromAnimEv_Attack(num);
+        // GameObject go = Instantiate(GameManager.Instance.spellManager.projectile, 
+        //     Utils.FrontSpawnPos(br.loco.myTransform, GameManager.Instance.spellManager.melee.GetComponent<S_Area>().myData.areaOfEffect), 
+        //     br.loco.myTransform.rotation);
+        // S_Ballistic ran = go.GetComponent<S_Ballistic>();
+        // ran.InitializeMe(() =>
+        // {
+        //     print("hit");
+        // });
+        // ran.myData.layTarget = GameManager.Instance.layEnemies;
+        //
+        // Shoot();
+        // if (followUp > 0) StartCoroutine(ShootFollowUp());
     }
     
     IEnumerator ShootFollowUp()
@@ -65,19 +74,19 @@ public class P_Archer : PlayerCombat
 
         void SpawnProjectile(float rotation)
         {
-            Vector3 rot = rotation * Vector3.up;
-            for (int i = 0; i < parallel + 1; i++)
-            {
-                float xOffset = i * CONST_HorGapBetweenProjectiles;
-                Projectile projectile = Instantiate<Projectile>(gm.projectilePrefabPlayer, transform.position + Vector3.up, Quaternion.identity);
-                projectile.transform.Rotate(rot);
-                projectile.transform.Translate(xOffset * Vector3.right, Space.Self);
-                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                projectile.transform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-
-                ProjectilePassData passData = new ProjectilePassData((string message) => { print(message); }, br, damage, bulletSpeed, ricochet, pierce, bounce);
-                projectile.InitializeMe(passData);
-            }
+            // Vector3 rot = rotation * Vector3.up;
+            // for (int i = 0; i < parallel + 1; i++)
+            // {
+            //     float xOffset = i * CONST_HorGapBetweenProjectiles;
+            //     Projectile projectile = Instantiate<Projectile>(GameManager.Instance.projectilePrefabPlayer, transform.position + Vector3.up, Quaternion.identity);
+            //     projectile.transform.Rotate(rot);
+            //     projectile.transform.Translate(xOffset * Vector3.right, Space.Self);
+            //     float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+            //     projectile.transform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+            //
+            //     ProjectilePassData passData = new ProjectilePassData((string message) => { print(message); }, br, weapons[1].myData.damage, bulletSpeed, ricochet, pierce, bounce);
+            //     projectile.InitializeMe(passData);
+            // }
         }
     }
 }

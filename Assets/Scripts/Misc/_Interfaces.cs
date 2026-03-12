@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IInit
 {
-    void Initialize(Brain brain);
+    Brain Br { get; set; } //instead of InitializeMe(Brain brain)
     bool IsReady { get; set; }
 }
 

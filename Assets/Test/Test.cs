@@ -5,17 +5,22 @@ using Sirenix.OdinInspector;
 public class Test : MonoBehaviour
 {
     public GameManager gm;
+    public int layer;
+    public LayerMask layerMask;
 
     [Button]
     void TestMethod()
     {
-       
+        print(layerMask.value);
     }
 
-
-    void OnTriggerEnter(Collider other)
-    {
-        print(other.name);
-    }
 }
 
+
+
+
+
+
+// layerMask = (1 << layer); //make layer a layermask
+// layerMask |= (1 << layer); //add layer to layermask
+// layerMask &= ~(1 << layer); //remove layer from layermask

@@ -6109,11 +6109,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
   isAttacking: 1
+  <MyTarget>k__BackingField: {fileID: 0}
   damage: 0
   rangeMelee: 2
-  rangeRanged: 6
+  rangeRanged: 10
+  weapons:
+  - rangeType: 0
+    range: 2
+    damage: 1
+  - rangeType: 1
+    range: 10
+    damage: 2
   detectRange: 3.4028235e+38
-  projectileSpeed: 0
+  projectileSpeed: 10
 --- !u!4 &8188586477152802918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
