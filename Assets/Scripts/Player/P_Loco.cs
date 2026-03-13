@@ -13,8 +13,8 @@ public class P_Loco : Loco
         set
         {
             base.Br = value;
+            gm.SignPlayer(this);
             IsReady = true;
-
         }
     }
     const float CONST_CamEdgeBottom = 7f;

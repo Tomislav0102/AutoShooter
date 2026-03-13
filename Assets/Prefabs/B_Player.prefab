@@ -4929,6 +4929,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: loco
+      value: 
+      objectReference: {fileID: 5800728338630505276}
     - target: {fileID: 612648274609747974, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -5104,6 +5108,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 4856534562519872185}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2663261095271631119 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7462514812626402230, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+  m_PrefabInstance: {fileID: 4856534562519872185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4887120585361979903 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -5137,7 +5146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1484b500775899c45b0936bf499a4429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Loco
-  myTransform: {fileID: 7284447888726263683}
+  myTransform: {fileID: 2663261095271631119}
   anim: {fileID: 2148451991947694265}
   rotationConstraint: {fileID: 4887120585361979903}
   moveSpeed: 5

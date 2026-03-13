@@ -5944,7 +5944,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2281149104477910870, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Name
-      value: B_EnemyTreant
+      value: BE_Treant
       objectReference: {fileID: 0}
     - target: {fileID: 3731593144273461746, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Data.m_ConstrainedObject
@@ -5997,6 +5997,10 @@ PrefabInstance:
     - target: {fileID: 6119846179976286466, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: ra
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveSpeed
@@ -6108,20 +6112,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   isAttacking: 1
   <MyTarget>k__BackingField: {fileID: 0}
-  damage: 0
-  rangeMelee: 2
-  rangeRanged: 10
-  weapons:
-  - rangeType: 0
-    range: 2
-    damage: 1
-  - rangeType: 1
-    range: 10
-    damage: 2
   detectRange: 3.4028235e+38
-  projectileSpeed: 10
+  ricochet: 0
+  pierce: 0
+  bounce: 0
 --- !u!4 &8188586477152802918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

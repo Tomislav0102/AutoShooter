@@ -1,20 +1,19 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 [System.Serializable]
 public class SpellData
 {
+    public Faction faction = Faction.Neutral;
     public Element element;
     public float damage;
+    public float attackRange; //only for AI, switching weapons melee-ranged
     public float areaOfEffect;
     public float speed;
-    [Tooltip("0 - instant effect")]
     public float lifeTime;
-    [Title("Targeting")]
-    [ReadOnly] public  LayerMask layTarget;
-    [ReadOnly] public Transform tarTransform;
 
 }
 public class Spell : EventBus
@@ -23,36 +22,28 @@ public class Spell : EventBus
     [HideInInspector] public Transform myTransform;
     protected Rigidbody myRigid;
     protected Collider myCollider;
-    protected System.Action<Transform> onHit;
-    protected bool oneHitSwitch;
+    protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
 
 
-
-    public virtual void InitializeMe(SpellData dat,System.Action<Transform> hitAction = null) 
+    public virtual void InitializeMe(SpellData dat) 
     {
         myData = dat;
-        oneHitSwitch = dat.lifeTime == 0;
-        InitializeMe(hitAction);
+        InitializeMe();
     }
-    public virtual void InitializeMe(LayerMask layersToTarget, System.Action<Transform> hitAction = null) 
+    public virtual void InitializeMe(Faction fac) 
     {
-        myData.layTarget = layersToTarget;
-        InitializeMe(hitAction);
+        myData.faction = fac;
+        InitializeMe();
     }
-    protected virtual void InitializeMe(System.Action<Transform> hitAction = null) //if spellData is from inspector
+    protected virtual void InitializeMe() //if spellData is from inspector
     {
-        onHit = hitAction;
         myTransform = transform;
         myRigid = GetComponent<Rigidbody>();
         myCollider = GetComponent<Collider>();
         myCollider.enabled = false;
         myRigid.isKinematic = true;
         myTransform.localScale = myData.areaOfEffect * Vector3.one;
-
-        Vector3 dir = myTransform.forward;
-        if (myData.tarTransform != null) dir = Utils.Direction(myTransform, myData.tarTransform);
-        myTransform.forward = dir.normalized;
     }
     protected void Update()
     {
@@ -68,6 +59,10 @@ public class Spell : EventBus
         OnEnd();
     }
 
+    protected void SetSpeed()
+    {
+        myRigid.linearVelocity = myData.speed * myTransform.forward;
+    }
     protected virtual void OnEnd()
     {
         Destroy(gameObject);

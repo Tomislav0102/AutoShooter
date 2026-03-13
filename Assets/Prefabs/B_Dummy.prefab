@@ -2378,7 +2378,7 @@ PrefabInstance:
     - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: loco
       value: 
-      objectReference: {fileID: 8269302515558258900}
+      objectReference: {fileID: 4352100720762714187}
     - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: faction
       value: 1
@@ -2402,6 +2402,10 @@ PrefabInstance:
     - target: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014450503520605381, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: healthMax
+      value: 1410065408
       objectReference: {fileID: 0}
     - target: {fileID: 7462514812626402230, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2458,7 +2462,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8269302515558258900}
+      addedObject: {fileID: 4352100720762714187}
   m_SourcePrefab: {fileID: 100100000, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
 --- !u!114 &951406442972652684 stripped
 MonoBehaviour:
@@ -2502,7 +2506,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 5419141098039691786}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8269302515558258900
+--- !u!114 &4352100720762714187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2511,9 +2515,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8487153504310768802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7cfcce720afce04daa506d471dce586, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e1488cf88fb82744ace1ef0de9e7ac9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Dummy
+  m_EditorClassIdentifier: Assembly-CSharp::Loco
   myTransform: {fileID: 3216843037456970172}
   anim: {fileID: 1549693322845677578}
   rotationConstraint: {fileID: 5441406279613989196}

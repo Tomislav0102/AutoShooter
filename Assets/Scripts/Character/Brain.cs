@@ -25,14 +25,14 @@ public class Brain : EventBus
                 gameObject.layer = LayerMask.NameToLayer("Player");
                 if (loco != null)
                 {
-                    GameManager.Instance.playersTeam.Add(loco.myTransform);
+                    gm.team[Faction.Ally].Add(loco.myTransform);
                 }
                 break;
             case Faction.Foe:
                 gameObject.layer = LayerMask.NameToLayer("Enemy");
                 if (loco != null)
                 {
-                    GameManager.Instance.allEnemies.Add(loco.myTransform);
+                    gm.team[Faction.Foe].Add(loco.myTransform);
                 }
                 break;
             case Faction.Neutral:

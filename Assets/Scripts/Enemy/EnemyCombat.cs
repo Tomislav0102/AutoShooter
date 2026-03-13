@@ -20,7 +20,6 @@ public class EnemyCombat : Combat
     }
 
     protected E_Loco enLoco;
-    [SerializeField] float projectileSpeed;
     public override Transform MyTarget
     {
         set
@@ -35,28 +34,17 @@ public class EnemyCombat : Combat
     {
         base.Update();
         if (distance < 0) return; //MyTarget is null
-        // if (distance > weapons[1].myData.areaOfEffect)
-        // {
-        //     enLoco.ra = E_Loco.RangeArea.OutOfRange;
-        // }
-        // else if (distance > weapons[0].myData.areaOfEffect)
-        // {
-        //     enLoco.ra = E_Loco.RangeArea.Ranged;
-        // }
-        // else
-        // {
-        //     enLoco.ra = E_Loco.RangeArea.Melee;
-        // }
+        if (distance > holster.spells[GenOrder.Secondary].myData.attackRange)
+        {
+            enLoco.ra = E_Loco.RangeArea.OutOfRange;
+        }
+        else if (distance > holster.spells[GenOrder.Primary].myData.attackRange)
+        {
+            enLoco.ra = E_Loco.RangeArea.Ranged;
+        }
+        else
+        {
+            enLoco.ra = E_Loco.RangeArea.Melee;
+        }
     }
-
-    // protected void SpawnProjectile(Vector3 pos, Quaternion rot)
-    // {
-    //     E_Projectile projectile = Instantiate(GameManager.Instance.projectilePrefabEnemy, pos, rot) as E_Projectile;
-    //     ProjectilePassData passData = new ProjectilePassData((string st) =>
-    //     {
-    //         print(st);
-    //     }, br, weapons[1].myData.damage, projectileSpeed);
-    //     projectile.InitializeMe(passData);
-    // }
-
 }

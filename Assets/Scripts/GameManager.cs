@@ -20,17 +20,15 @@ public class GameManager : SerializedMonoBehaviour
     [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
-    public SpellManager spellManager;
+    public SpellManager spells;
     public Transform barContainer;
     public RectTransform healthBarPrefab;
     public Transform floatingContainer;
     public FloatingText floatingTextPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    [ReadOnly] public P_Loco loco;
     [HideInInspector] public Transform playerTransform;
-    public HashSet<Transform> playersTeam = new HashSet<Transform>();
-    public HashSet<Transform> allEnemies = new HashSet<Transform>();
+    public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
     public Projectile projectilePrefabPlayer, projectilePrefabEnemy;
     public LayerMask layEnemies, layPlayer, layTest;
@@ -50,12 +48,18 @@ public class GameManager : SerializedMonoBehaviour
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
-        if (loco == null) loco = GameObject.FindAnyObjectByType<P_Loco>();
-        if (loco == null) return;
-        playerTransform = loco.transform;
-        playersTeam.Add(playerTransform);
+        team = new Dictionary<Faction, HashSet<Transform>>()
+        {
+            { Faction.Ally, new HashSet<Transform>() },
+            { Faction.Foe, new HashSet<Transform>() }
+        };
     }
 
+    public void SignPlayer(P_Loco player)
+    {
+        playerTransform = player.myTransform;
+        team[Faction.Ally].Add(playerTransform);
+    }
 
     void SpawnEnemy()
     {
@@ -84,9 +88,9 @@ public class GameManager : SerializedMonoBehaviour
 
     void CallEv_OnCharDeath(Transform tr)
     {
-        if (playersTeam.Contains(tr))
+        if (team[Faction.Ally].Contains(tr))
         {
-            playersTeam.Remove(tr);
+            team[Faction.Ally].Remove(tr);
             if (tr == playerTransform)
             {
                 EventBus.OnPlayerDeath?.Invoke();
@@ -98,9 +102,9 @@ public class GameManager : SerializedMonoBehaviour
                 print("Summon is dead");
             }
         }
-        else if (allEnemies.Contains(tr))
+        else if (team[Faction.Foe].Contains(tr))
         {
-            allEnemies.Remove(tr);
+            team[Faction.Foe].Remove(tr);
             Destroy(tr.gameObject);
         }
     }

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class E_Loco : Loco
 {
     public enum RangeArea { Melee, Ranged, OutOfRange }
-    public RangeArea ra;
+    [HideInInspector] public RangeArea ra = RangeArea.OutOfRange;
     public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
     public enum MultiShot { AllAtOnce, Consecutive, Random }
     public Movement moveIdlingDefault;
@@ -88,7 +88,6 @@ public class E_Loco : Loco
                 break;
         }
     }
-
 
 
     #region NAVIGATION

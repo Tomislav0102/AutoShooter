@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 
 public class P_Archer : PlayerCombat
 {
-    [SerializeField] float bulletSpeed;
     [SerializeField] bool forward;
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back;
@@ -18,20 +17,11 @@ public class P_Archer : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
-        // GameObject go = Instantiate(GameManager.Instance.spellManager.projectile, 
-        //     Utils.FrontSpawnPos(br.loco.myTransform, GameManager.Instance.spellManager.melee.GetComponent<S_Area>().myData.areaOfEffect), 
-        //     br.loco.myTransform.rotation);
-        // S_Ballistic ran = go.GetComponent<S_Ballistic>();
-        // ran.InitializeMe(() =>
-        // {
-        //     print("hit");
-        // });
-        // ran.myData.layTarget = GameManager.Instance.layEnemies;
-        //
-        // Shoot();
-        // if (followUp > 0) StartCoroutine(ShootFollowUp());
+        Shoot();
+        if (followUp > 0) StartCoroutine(ShootFollowUp());
     }
-    
+
+
     IEnumerator ShootFollowUp()
     {
         for (int i = 0; i < followUp; i++)
@@ -74,19 +64,21 @@ public class P_Archer : PlayerCombat
 
         void SpawnProjectile(float rotation)
         {
-            // Vector3 rot = rotation * Vector3.up;
-            // for (int i = 0; i < parallel + 1; i++)
-            // {
-            //     float xOffset = i * CONST_HorGapBetweenProjectiles;
-            //     Projectile projectile = Instantiate<Projectile>(GameManager.Instance.projectilePrefabPlayer, transform.position + Vector3.up, Quaternion.identity);
-            //     projectile.transform.Rotate(rot);
-            //     projectile.transform.Translate(xOffset * Vector3.right, Space.Self);
-            //     float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-            //     projectile.transform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-            //
-            //     ProjectilePassData passData = new ProjectilePassData((string message) => { print(message); }, br, weapons[1].myData.damage, bulletSpeed, ricochet, pierce, bounce);
-            //     projectile.InitializeMe(passData);
-            // }
+            Vector3 rot = rotation * Vector3.up;
+            for (int i = 0; i < parallel + 1; i++)
+            {
+                float xOffset = i * CONST_HorGapBetweenProjectiles;
+                S_Ballistic sp = Instantiate(gm.spells.projectile, gm.spells.myTransform).GetComponent<S_Ballistic>();
+                sp.myTransform.position = Br.loco.myTransform.position + Vector3.up;
+                sp.myTransform.Rotate(rot);
+                sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
+                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+                sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+                sp.ricochet = ricochet;
+                sp.pierce = pierce;
+                sp.bounce = bounce;
+                sp.InitializeMe(Br.faction);
+            }
         }
     }
 }
