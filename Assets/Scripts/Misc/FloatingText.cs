@@ -33,7 +33,7 @@ public class FloatingText : MonoBehaviour
         
         _timer += Time.deltaTime;
         Vector3 moveY = new Vector3(0f, _startingOffsetY + _timer * 5f, 0f);
-        Vector3 screenPos = GameManager.Instance.cam.WorldToScreenPoint(_target.position + moveY);
+        Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(_target.position + moveY);
         myTransform.position = screenPos;
         myText.color = Color.Lerp(_startColor, _endColor, _timer / _lifeTime);
         if (_timer >= _lifeTime) EndMe();

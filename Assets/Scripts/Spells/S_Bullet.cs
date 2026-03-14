@@ -5,9 +5,9 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class S_Ballistic : Spell
+public class S_Bullet : Spell
 {
-    [Title("Projectile")]
+    [Title("Bullet")]
     public int ricochet;
     public int pierce;
     public int bounce;
@@ -26,9 +26,9 @@ public class S_Ballistic : Spell
     {
         if (other.TryGetComponent(out ITakeDamage takeDamage))
         {
-            if (takeDamage.Br.faction != myData.faction)
+            if (takeDamage.Br.faction != faction)
             {
-                takeDamage.TakeDamage(myData.damage);
+                takeDamage.TakeDamage(damage);
                 if (ricochet > 0)
                 {
                     float range = 3f;
@@ -36,7 +36,7 @@ public class S_Ballistic : Spell
                     List<Transform> myTargets = new List<Transform>();
                     foreach (Collider item in colliders)
                     {
-                        if (item != other && myData.faction != takeDamage.Br.faction) myTargets.Add(item.transform);
+                        if (item != other && faction != takeDamage.Br.faction) myTargets.Add(item.transform);
                     }
                 
                     if (myTargets.Count > 0)

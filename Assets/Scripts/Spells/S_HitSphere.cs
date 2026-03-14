@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class S_HitSphere : Spell
 {
-    protected override void InitializeMe()
+    public override void InitializeMe(Faction fac)
     {
-        base.InitializeMe();
+        base.InitializeMe(fac);
         HitArea();
     }
 
@@ -13,12 +13,13 @@ public class S_HitSphere : Spell
     {
         Collider[] colliders = Physics.OverlapSphere(this.myTransform.position, 
                                                     myTransform.localScale.x * 0.5f, 
-                                                    Utils.LayHostiles(myData.faction));
+                                               Utils.LayHostiles(faction));
+        
         foreach (Collider item in colliders)
         {
             if (item.TryGetComponent(out ITakeDamage takeDamage))
             {
-                takeDamage.TakeDamage(myData.damage);
+                takeDamage.TakeDamage(damage);
             }
         }
         OnEnd();

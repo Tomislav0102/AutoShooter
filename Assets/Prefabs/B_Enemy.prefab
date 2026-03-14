@@ -133,9 +133,7 @@ MonoBehaviour:
   moveIdlingDefault: 0
   moveFightingDefault: 4
   moveCurrent: 0
-  isPlayerSummon: 0
   agent: {fileID: 7100723032775579262}
-  agentStopped: 0
 --- !u!1 &2281149104477910870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -152,7 +150,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 0
-  m_Acceleration: 8
+  m_Acceleration: 1.11111114e+21
   avoidancePriority: 50
   m_AngularSpeed: 300
   m_StoppingDistance: 0

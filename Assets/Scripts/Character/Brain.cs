@@ -13,9 +13,8 @@ public class Brain : EventBus
 
     public System.Action onHit;
     
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         if (health != null) health.Br = this;
         if (loco != null) loco.Br = this;
         if (combat != null) combat.Br = this;
@@ -25,14 +24,14 @@ public class Brain : EventBus
                 gameObject.layer = LayerMask.NameToLayer("Player");
                 if (loco != null)
                 {
-                    gm.team[Faction.Ally].Add(loco.myTransform);
+                    Ga.me.team[Faction.Ally].Add(loco.myTransform);
                 }
                 break;
             case Faction.Foe:
                 gameObject.layer = LayerMask.NameToLayer("Enemy");
                 if (loco != null)
                 {
-                    gm.team[Faction.Foe].Add(loco.myTransform);
+                    Ga.me.team[Faction.Foe].Add(loco.myTransform);
                 }
                 break;
             case Faction.Neutral:

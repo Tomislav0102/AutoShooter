@@ -4,9 +4,14 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[System.Serializable]
-public class SpellData
+public class Spell : EventBus
 {
+    [Title("References")]
+    public Transform myTransform;
+    public Rigidbody myRigid;
+    public Collider myCollider;
+
+    [Title("Data")]
     public Faction faction = Faction.Neutral;
     public Element element;
     public float damage;
@@ -15,42 +20,24 @@ public class SpellData
     public float speed;
     public float lifeTime;
 
-}
-public class Spell : EventBus
-{
-    public SpellData myData;
-    [HideInInspector] public Transform myTransform;
-    protected Rigidbody myRigid;
-    protected Collider myCollider;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
 
 
-    public virtual void InitializeMe(SpellData dat) 
-    {
-        myData = dat;
-        InitializeMe();
-    }
     public virtual void InitializeMe(Faction fac) 
     {
-        myData.faction = fac;
-        InitializeMe();
-    }
-    protected virtual void InitializeMe() //if spellData is from inspector
-    {
-        myTransform = transform;
-        myRigid = GetComponent<Rigidbody>();
-        myCollider = GetComponent<Collider>();
+        faction = fac;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
-        myTransform.localScale = myData.areaOfEffect * Vector3.one;
+        myTransform.localScale = areaOfEffect * Vector3.one;
     }
+    
     protected void Update()
     {
-        if (myData.lifeTime > 0)
+        if (lifeTime > 0)
         {
             _timerLife += Time.deltaTime;
-            if (_timerLife >= myData.lifeTime) StartCoroutine(Delay());
+            if (_timerLife >= lifeTime) StartCoroutine(Delay());
         }
     }
     IEnumerator Delay()
@@ -61,7 +48,7 @@ public class Spell : EventBus
 
     protected void SetSpeed()
     {
-        myRigid.linearVelocity = myData.speed * myTransform.forward;
+        myRigid.linearVelocity = speed * myTransform.forward;
     }
     protected virtual void OnEnd()
     {

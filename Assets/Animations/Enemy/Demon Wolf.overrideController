@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Demon Wolf
+  m_Controller: {fileID: 9100000, guid: ed97b26e859232e42b970b348b1b776f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c46873a6f73c78848b439ade03ad8737, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 252f4f942424ac14481dfc3ee95e4599, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4b5958f3716c2b04383d3c8bcf1e7c18, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: acfcbcaccfa9642429fa4a242108229e, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: ac0ba24b46ebba245a39b5266fc899c8, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 35cca74bfe0cfff47a92d227044cd5b5, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: fb8650d3477db7c4184ee62c17ca0186, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 9078c79022fc7fc4a8cad5255c641db7, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: fa4b161749e359f4aa71d0537cae7ab6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: ad2390690f34fc7418c8215d9a9d135a, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: d70053b28a3ba1f46a02c555e921f435, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 01464bda40f79d84db4e3176777eeeaf, type: 3}

@@ -12,7 +12,7 @@ public class Health: EventBus, ITakeDamage, IInit
         set
         {
             _br = value;
-            _healthBar = Instantiate(gm.healthBarPrefab, gm.barContainer).GetComponent<Image>();
+            _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
             HealthCurrent = healthMax;
             IsReady = true;
         }
@@ -40,7 +40,7 @@ public class Health: EventBus, ITakeDamage, IInit
     public void TakeDamage(float damageTaken, Transform attacker = null)
     {
         HealthCurrent -= damageTaken;
-        FloatingText ft = Instantiate(gm.floatingTextPrefab, gm.floatingContainer);
+        FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(transform, _offset.y, damageTaken.ToString("0"));
         Br.onHit?.Invoke();
         if (HealthCurrent <= 0)
@@ -49,7 +49,7 @@ public class Health: EventBus, ITakeDamage, IInit
             return;
         }
         if (attacker == null) return;
-        if (Br.loco.myTransform == gm.playerTransform) return;
+        if (Br.loco.myTransform == Ga.me.playerTransform) return;
 
         if (Br.combat.MyTarget == null)
         {
@@ -61,7 +61,7 @@ public class Health: EventBus, ITakeDamage, IInit
     void LateUpdate()
     {
         if (!IsReady) return;
-        Vector3 screenPos = gm.cam.WorldToScreenPoint(Br.loco.myTransform.position + _offset);
+        Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.loco.myTransform.position + _offset);
         _healthBar.transform.position = screenPos;
     }
 

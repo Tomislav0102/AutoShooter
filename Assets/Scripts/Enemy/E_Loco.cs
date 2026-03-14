@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class E_Loco : Loco
 {
     public enum RangeArea { Melee, Ranged, OutOfRange }
-    [HideInInspector] public RangeArea ra = RangeArea.OutOfRange;
+    [ReadOnly] public RangeArea ra = RangeArea.OutOfRange;
     public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
     public enum MultiShot { AllAtOnce, Consecutive, Random }
     public Movement moveIdlingDefault;
@@ -35,10 +35,11 @@ public class E_Loco : Loco
             moveCurrent = moveIdlingDefault;
             if (value.faction == Faction.Ally)
             {
-                _followTarget = gm.playerTransform;
+                _followTarget = Ga.me.playerTransform;
             }
             agent.enabled = true;
             agent.speed = moveSpeed;
+            ra = RangeArea.OutOfRange;
         }
     }
 
@@ -69,24 +70,28 @@ public class E_Loco : Loco
         }
         
         agent.speed = 0f;
-        Toggle_Move(false);
-        AttInputEnemy(false);
-        Att1InputEnemy(false);
+        bool att = false;
+        bool att1 = false;
+        bool move = false;
         switch (ra)
         {
             case RangeArea.Melee:
-                AttInputEnemy(true);
+                att = true;
                 LookAtMethod();
                 break;
             case RangeArea.Ranged:
-                Att1InputEnemy(true);
+                att1 = true;
                 LookAtMethod();
                 break;
             case RangeArea.OutOfRange:
                 agent.speed = moveSpeed;
-                Toggle_Move(true);
+                move = true;
                 break;
         }
+        Toggle_Move(move);
+        AttInputEnemy(att);
+        Att1InputEnemy(att1);
+
     }
 
 
@@ -114,7 +119,7 @@ public class E_Loco : Loco
     {
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            Vector3 newDestination = GetRandomPosition(GameManager.Instance.spawnArea);
+            Vector3 newDestination = GetRandomPosition(Ga.me.spawnArea);
             // print($"New roam destination {newDestination}");
             agent.destination = newDestination;
         }
@@ -131,15 +136,15 @@ public class E_Loco : Loco
 
     void Patrol()
     {
-        if (gm.waypoints == null || gm.waypoints.Length == 0)
+        if (Ga.me.waypoints == null || Ga.me.waypoints.Length == 0)
         {
             moveCurrent = Movement.Stationary;
             return;
         }
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            agent.destination = gm.waypoints[_counterWaypoints].position;
-            _counterWaypoints = (1 + _counterWaypoints) % gm.waypoints.Length;
+            agent.destination = Ga.me.waypoints[_counterWaypoints].position;
+            _counterWaypoints = (1 + _counterWaypoints) % Ga.me.waypoints.Length;
         }
     }
 

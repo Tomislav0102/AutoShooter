@@ -23,9 +23,9 @@ public class Utils
         switch (faction)
         {
             case Faction.Ally:
-                return GameManager.Instance.layEnemies;
+                return Ga.me.layEnemies;
             case Faction.Foe:
-                return GameManager.Instance.layPlayer;
+                return Ga.me.layPlayer;
             case Faction.Neutral:
                 return 1;
             default:

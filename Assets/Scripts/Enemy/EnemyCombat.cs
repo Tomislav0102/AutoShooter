@@ -34,17 +34,27 @@ public class EnemyCombat : Combat
     {
         base.Update();
         if (distance < 0) return; //MyTarget is null
-        if (distance > holster.spells[GenOrder.Secondary].myData.attackRange)
+
+        if (weaponRanged == null)
         {
-            enLoco.ra = E_Loco.RangeArea.OutOfRange;
-        }
-        else if (distance > holster.spells[GenOrder.Primary].myData.attackRange)
-        {
-            enLoco.ra = E_Loco.RangeArea.Ranged;
+            if (weaponMelee == null)
+            {
+                enLoco.ra = E_Loco.RangeArea.OutOfRange;
+                return;
+            }
+            
+            if (distance <= spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
+            else enLoco.ra = E_Loco.RangeArea.OutOfRange;
         }
         else
         {
-            enLoco.ra = E_Loco.RangeArea.Melee;
+            if (distance > spellRange.attackRange) enLoco.ra = E_Loco.RangeArea.OutOfRange;
+            else if (weaponMelee != null)
+            {
+                if (distance <= spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
+                else enLoco.ra = E_Loco.RangeArea.Ranged;
+            }
+            else enLoco.ra = E_Loco.RangeArea.Ranged;
         }
     }
 }

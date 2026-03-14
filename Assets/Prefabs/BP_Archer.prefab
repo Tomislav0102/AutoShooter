@@ -98,6 +98,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2148451991947694265, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 66f0fa12e7cfafe4d8dfac4d0b232a3a, type: 2}
     - target: {fileID: 2663261095271631119, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -153,6 +157,34 @@ PrefabInstance:
     - target: {fileID: 5778463613233385672, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.16192146
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.68831784
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6955142
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.12751505
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 156.347
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234556957179031784, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -88.858
       objectReference: {fileID: 0}
     - target: {fileID: 8048925875864285019, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Name
@@ -214,8 +246,9 @@ MonoBehaviour:
   isAttacking: 1
   <MyTarget>k__BackingField: {fileID: 0}
   detectRange: 3.4028235e+38
+  weaponMelee: {fileID: 0}
+  weaponRanged: {fileID: 0}
   specialCooldownTime: 3
-  bulletSpeed: 15
   forward: 1
   front: 0
   diagonal: 0

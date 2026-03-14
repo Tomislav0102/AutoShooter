@@ -4,14 +4,18 @@ using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
-    public GameManager gm;
-    public int layer;
-    public LayerMask layerMask;
+    Ga _ga;
+
+    void Awake()
+    {
+        _ga = Ga.me;
+        print(_ga.name);
+    }
 
     [Button]
     void TestMethod()
     {
-        print(layerMask.value);
+        
     }
 
 }

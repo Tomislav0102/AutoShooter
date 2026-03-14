@@ -7,10 +7,10 @@ public class P_Knight : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
-        Spell melee = Instantiate(gm.spells.melee,
+        Spell melee = Instantiate(Ga.me.spells.melee,
             Br.loco.myTransform.position,
-            Quaternion.identity, gm.spells.myTransform).GetComponent<Spell>();
-        melee.myTransform.position += melee.myData.attackRange * Br.loco.myTransform.forward;
+            Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+        melee.myTransform.position += melee.attackRange * Br.loco.myTransform.forward;
         melee.InitializeMe(Br.faction);
     }
     

@@ -8,7 +8,7 @@ public class PlayerCombat : Combat
         set
         {
             base.Br = value;
-            GameManager.Instance.specialUi.InitializeMe(specialCooldownTime);
+            Ga.me.specialUi.InitializeMe(specialCooldownTime);
         }
     }
     [SerializeField] float specialCooldownTime;

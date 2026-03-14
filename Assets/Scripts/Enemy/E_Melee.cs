@@ -9,7 +9,6 @@ public class E_Melee : EnemyCombat
         set
         {
             base.Br = value;
-            holster = new WeaponHolster(gm.spells.melee, gm.spells.projectile);
         }
     }
     [SerializeField][Range(0, 3)] int ricochet, pierce, bounce;
@@ -19,14 +18,14 @@ public class E_Melee : EnemyCombat
         switch (num)
         {
             case 0: //melee
-                Spell melee = Instantiate(gm.spells.melee,
+                Spell melee = Instantiate(Ga.me.spells.melee,
                     Br.loco.myTransform.position,
-                    Quaternion.identity, gm.spells.myTransform).GetComponent<Spell>();
-                melee.myTransform.position += melee.myData.attackRange * Br.loco.myTransform.forward;
+                    Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+                melee.myTransform.position += melee.attackRange * Br.loco.myTransform.forward;
                 melee.InitializeMe(Br.faction);
                 break;
             case 1: //projectile
-                S_Ballistic projectile = Instantiate(gm.spells.projectile, Br.loco.myTransform.position + Vector3.up, Br.loco.myTransform.rotation, gm.spells.myTransform).GetComponent<S_Ballistic>();
+                S_Bullet projectile = Instantiate(Ga.me.spells.projectile, Br.loco.myTransform.position + Vector3.up, Br.loco.myTransform.rotation, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
                 projectile.ricochet = ricochet;
                 projectile.pierce = pierce;
                 projectile.bounce = bounce;

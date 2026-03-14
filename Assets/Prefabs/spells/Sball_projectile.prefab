@@ -253,6 +253,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2033299971336118744}
   m_SourcePrefab: {fileID: 100100000, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!54 &195057938506716435 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 7079955407642421792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1826042787189666540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
@@ -275,15 +280,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563be317f6a7aed42ada410479198d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Ballistic
-  myData:
-    faction: 2
-    element: 0
-    damage: 1
-    attackRange: 10
-    areaOfEffect: 0.2
-    speed: 10
-    lifeTime: 5
   myTransform: {fileID: 1826042787189666540}
+  myRigid: {fileID: 195057938506716435}
+  myCollider: {fileID: 8052488213109279959}
+  faction: 2
+  element: 0
+  damage: 2
+  attackRange: 15
+  areaOfEffect: 0.2
+  speed: 5
+  lifeTime: 10
   ricochet: 0
   pierce: 0
   bounce: 0
@@ -309,3 +315,8 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.51
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &8052488213109279959 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 7079955407642421792}
+  m_PrefabAsset: {fileID: 0}

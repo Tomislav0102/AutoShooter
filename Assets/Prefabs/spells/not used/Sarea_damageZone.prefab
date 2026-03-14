@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7620145711712861656
+--- !u!1001 &5979447303530234807
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: S_A_FrostExplosion
+      value: Sarea_damageZone
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,38 +58,48 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 815552518469321761}
+      addedObject: {fileID: 8113628680216003888}
   m_SourcePrefab: {fileID: 100100000, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
---- !u!4 &1357369048188790036 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 7620145711712861656}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2511171241925350929 stripped
+--- !u!1 &1865063581962807422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 7620145711712861656}
+  m_PrefabInstance: {fileID: 5979447303530234807}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &815552518469321761
+--- !u!114 &8113628680216003888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2511171241925350929}
+  m_GameObject: {fileID: 1865063581962807422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
+  m_Script: {fileID: 11500000, guid: bda8936b07d23974cb2772aa286cdae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
+  myTransform: {fileID: 3021113219745651579}
+  myRigid: {fileID: 3607016492616891524}
+  myCollider: {fileID: 6879918133622187328}
   myData:
-    element: 2
-    damage: 7
-    areaOfEffect: 5
+    faction: 2
+    element: 6
+    damage: 3
+    attackRange: 0
+    areaOfEffect: 3
     speed: 0
-    lifeTime: 0
-    layTarget:
-      serializedVersion: 2
-      m_Bits: 0
-    tarTransform: {fileID: 0}
-  myTransform: {fileID: 1357369048188790036}
+    lifeTime: 5
+--- !u!4 &3021113219745651579 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5979447303530234807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &3607016492616891524 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5979447303530234807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &6879918133622187328 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5979447303530234807}
+  m_PrefabAsset: {fileID: 0}

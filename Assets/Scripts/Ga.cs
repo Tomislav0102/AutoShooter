@@ -4,13 +4,12 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using TomoJoystick;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-
-public class GameManager : SerializedMonoBehaviour
+[DefaultExecutionOrder(-10)]
+public class Ga : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static Ga me;
     [BoxGroup("Enemy spawns")]
     public Transform spawnArea;
     [BoxGroup("Enemy spawns")]
@@ -30,7 +29,6 @@ public class GameManager : SerializedMonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-    public Projectile projectilePrefabPlayer, projectilePrefabEnemy;
     public LayerMask layEnemies, layPlayer, layTest;
     public SpecialUi specialUi;
     
@@ -44,7 +42,7 @@ public class GameManager : SerializedMonoBehaviour
     }
     void Awake()
     {
-        Instance = this;
+        me = this;
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
@@ -53,12 +51,6 @@ public class GameManager : SerializedMonoBehaviour
             { Faction.Ally, new HashSet<Transform>() },
             { Faction.Foe, new HashSet<Transform>() }
         };
-    }
-
-    public void SignPlayer(P_Loco player)
-    {
-        playerTransform = player.myTransform;
-        team[Faction.Ally].Add(playerTransform);
     }
 
     void SpawnEnemy()

@@ -7,13 +7,7 @@ public class EventBus : MonoBehaviour
     public static System.Action<Transform> OnCharDeath;
     public static System.Action OnPlayerDeath;
     public static System.Action OnSpecialActivated;
-    protected GameManager gm;
-
-    protected virtual void Awake()
-    {
-        gm = GameManager.Instance;
-    }
-
+    
     protected virtual void OnEnable()
     {
         OnCharDeath += CallEv_OnCharDeath;
