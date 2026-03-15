@@ -23,9 +23,19 @@ public class E_Loco : Loco
     bool _idleIsTurning;
     int _counterWaypoints;
     const float CONST_FleeDistance = 10f;
+    Transform FollowTarget()
+    {
+        if (_followTarget == null)  _followTarget = Ga.me.playerTransform;
+        return _followTarget;
+    }
     Transform _followTarget;
     const float CONST_FollowDistance = 5f;
 
+    bool _canMoveNavigation;
+    bool _canMoveCombat;
+    
+    
+    
     public override Brain Br
     {
         get => base.Br;
@@ -33,20 +43,19 @@ public class E_Loco : Loco
         {
             base.Br = value;
             moveCurrent = moveIdlingDefault;
-            if (value.faction == Faction.Ally)
-            {
-                _followTarget = Ga.me.playerTransform;
-            }
             agent.enabled = true;
             agent.speed = moveSpeed;
             ra = RangeArea.OutOfRange;
+            IsReady = true;
         }
     }
+
 
     protected override void Update()
     {
         base.Update();
         if (!agent.enabled) return;
+        _canMoveNavigation = true;
         switch (moveCurrent)
         {
             case Movement.Stationary:
@@ -68,11 +77,11 @@ public class E_Loco : Loco
                 Flee();
                 break;
         }
-        
+
+        _canMoveCombat = false;
         agent.speed = 0f;
         bool att = false;
         bool att1 = false;
-        bool move = false;
         switch (ra)
         {
             case RangeArea.Melee:
@@ -85,19 +94,23 @@ public class E_Loco : Loco
                 break;
             case RangeArea.OutOfRange:
                 agent.speed = moveSpeed;
-                move = true;
+                _canMoveCombat = true;
                 break;
         }
-        Toggle_Move(move);
         AttInputEnemy(att);
         Att1InputEnemy(att1);
-
+        
+        bool canMove = _canMoveNavigation && _canMoveCombat;
+        Toggle_Move(canMove);
+        agent.speed = canMove ? moveSpeed : 0f;
     }
 
+    
 
     #region NAVIGATION
     void Idle()
     {
+        _canMoveNavigation = false;
         if (_idleIsTurning)
         {
             Br.loco.myTransform.rotation = Quaternion.Slerp(Br.loco.myTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
@@ -150,15 +163,10 @@ public class E_Loco : Loco
 
     void Follow()
     {
-        if (_followTarget == null)
-        {
-            moveCurrent = Movement.Stationary;
-            return;
-        }
         agent.stoppingDistance = CONST_FollowDistance;
-        if (Utils.Distance(Br.loco.myTransform.position, _followTarget.position) > agent.stoppingDistance)
+        if (Utils.Distance(Br.loco.myTransform.position, FollowTarget().position) > agent.stoppingDistance)
         {
-            agent.destination = _followTarget.position;
+            agent.destination = FollowTarget().position;
         }
         else
         {

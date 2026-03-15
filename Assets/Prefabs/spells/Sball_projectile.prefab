@@ -156,7 +156,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 169bd604eb7f4bf42bdb6c877f677c9c, type: 2}
+  - {fileID: 2100000, guid: 349872d92f8cccf459637a180931f050, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -286,14 +286,14 @@ MonoBehaviour:
   faction: 2
   element: 0
   damage: 2
-  attackRange: 15
+  attackRange: 10
   areaOfEffect: 0.2
   speed: 5
   lifeTime: 10
   ricochet: 0
   pierce: 0
   bounce: 0
-  solidCollider: {fileID: 2033299971336118744}
+  solid: {fileID: 0}
 --- !u!135 &2033299971336118744
 SphereCollider:
   m_ObjectHideFlags: 0

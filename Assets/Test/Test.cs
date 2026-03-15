@@ -4,20 +4,14 @@ using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
-    Ga _ga;
-
-    void Awake()
-    {
-        _ga = Ga.me;
-        print(_ga.name);
-    }
-
+    
     [Button]
     void TestMethod()
     {
-        
+        Spell sp = Instantiate(Ga.me.spells.damageZone).GetComponent<Spell>();
+        sp.InitializeMe(transform, Faction.Ally);
+        sp.myTransform.position = transform.position;
     }
-
 }
 
 

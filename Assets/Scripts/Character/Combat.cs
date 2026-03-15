@@ -17,8 +17,6 @@ public class Combat : SerializedMonoBehaviour, IInit
             _targets = value.faction == Faction.Ally ? Ga.me.team[Faction.Foe] : Ga.me.team[Faction.Ally];
             _targetAim = transform.GetChild(0);
             StartCoroutine(SearchTargetCoroutine());
-            if (weaponMelee != null) spellMelee = weaponMelee.GetComponent<Spell>();
-            if (weaponRanged != null) spellRange = weaponRanged.GetComponent<Spell>();
         }
     }
     Brain _br;
@@ -30,8 +28,6 @@ public class Combat : SerializedMonoBehaviour, IInit
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;
-    [SerializeField] protected GameObject weaponMelee, weaponRanged;
-    protected Spell spellMelee, spellRange;
     
     
     protected virtual void Update()

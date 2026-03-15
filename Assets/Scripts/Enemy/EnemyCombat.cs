@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 
 public class EnemyCombat : Combat
 {
+    [SerializeField] GameObject weaponMelee, weaponRanged;
+    Spell _spellMelee, _spellRange;
+
     public override Brain Br
     {
         get => base.Br;
@@ -15,6 +18,8 @@ public class EnemyCombat : Combat
         {
             base.Br = value;
             enLoco = value.loco as E_Loco;
+            if (weaponMelee != null) _spellMelee = weaponMelee.GetComponent<Spell>();
+            if (weaponRanged != null) _spellRange = weaponRanged.GetComponent<Spell>();
             IsReady = true;
         }
     }
@@ -43,15 +48,15 @@ public class EnemyCombat : Combat
                 return;
             }
             
-            if (distance <= spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
+            if (distance <= _spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
             else enLoco.ra = E_Loco.RangeArea.OutOfRange;
         }
         else
         {
-            if (distance > spellRange.attackRange) enLoco.ra = E_Loco.RangeArea.OutOfRange;
+            if (distance > _spellRange.attackRange) enLoco.ra = E_Loco.RangeArea.OutOfRange;
             else if (weaponMelee != null)
             {
-                if (distance <= spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
+                if (distance <= _spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
                 else enLoco.ra = E_Loco.RangeArea.Ranged;
             }
             else enLoco.ra = E_Loco.RangeArea.Ranged;

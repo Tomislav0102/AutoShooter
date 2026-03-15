@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class S_HitSphere : Spell
 {
-    public override void InitializeMe(Faction fac)
+    public override void InitializeMe(Brain brain)
     {
-        base.InitializeMe(fac);
+        base.InitializeMe(brain);
         HitArea();
     }
 
@@ -19,7 +19,7 @@ public class S_HitSphere : Spell
         {
             if (item.TryGetComponent(out ITakeDamage takeDamage))
             {
-                takeDamage.TakeDamage(damage);
+                takeDamage.TakeDamage(dam);
             }
         }
         OnEnd();

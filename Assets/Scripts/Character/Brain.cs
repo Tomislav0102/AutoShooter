@@ -39,7 +39,7 @@ public class Brain : EventBus
                 break;
         }
         onHit = () =>
-        {
+        { 
             if (loco != null) loco.Hit();
         };
 

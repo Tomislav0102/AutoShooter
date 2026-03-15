@@ -20,16 +20,40 @@ public class Spell : EventBus
     public float speed;
     public float lifeTime;
 
+    protected DamageData dam;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
 
 
-    public virtual void InitializeMe(Faction fac) 
+    public virtual void InitializeMe(Brain brain) 
     {
-        faction = fac;
+        faction = brain.faction;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
         myTransform.localScale = areaOfEffect * Vector3.one;
+        dam = new DamageData()
+        {
+            damage = damage,
+            attacker = brain.loco.myTransform,
+            element = element,
+        };
+    }
+    
+    /// <summary>
+    /// Debug only
+    /// </summary>
+    public virtual void InitializeMe(Transform attacker, Faction fac) 
+    {
+        faction =fac;
+        //myCollider.enabled = false;
+        myRigid.isKinematic = true;
+        myTransform.localScale = areaOfEffect * Vector3.one;
+        dam = new DamageData()
+        {
+            damage = damage,
+            attacker = attacker,
+            element = element,
+        };
     }
     
     protected void Update()

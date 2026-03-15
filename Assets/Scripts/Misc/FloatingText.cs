@@ -14,15 +14,16 @@ public class FloatingText : MonoBehaviour
     Transform _target;
     float _startingOffsetY;
 
-    public void SpawnMe(Transform target, float offsetY, string text)
+    public void SpawnMe(Transform target, float offsetY, string text, Color color)
     {
         myText.text = text;
+        _startColor = color;
         _started = true;
         _target = target;
         _startingOffsetY = offsetY;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (!_started) return;
         if (_target == null)

@@ -9,7 +9,7 @@ public interface IInit
 
 public interface ITakeDamage : IInit
 {
-    void TakeDamage(float damageTaken, Transform attacker = null);
+    void TakeDamage(DamageData dam);
 };
 
 

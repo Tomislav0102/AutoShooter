@@ -11,7 +11,7 @@ public class P_Knight : PlayerCombat
             Br.loco.myTransform.position,
             Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
         melee.myTransform.position += melee.attackRange * Br.loco.myTransform.forward;
-        melee.InitializeMe(Br.faction);
+        melee.InitializeMe(Br);
     }
     
     protected override void CallEv_OnSpecialActivated()

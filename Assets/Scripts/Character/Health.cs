@@ -37,24 +37,25 @@ public class Health: EventBus, ITakeDamage, IInit
 
 
 
-    public void TakeDamage(float damageTaken, Transform attacker = null)
+    public void TakeDamage(DamageData dam)
     {
-        HealthCurrent -= damageTaken;
+        HealthCurrent -= dam.damage;
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
-        ft.SpawnMe(transform, _offset.y, damageTaken.ToString("0"));
+        Color col = Ga.me.gameData.GetElement(dam.element).col;
+        ft.SpawnMe(transform, _offset.y, dam.damage.ToString("0"), col);
         Br.onHit?.Invoke();
         if (HealthCurrent <= 0)
         {
             Death();
             return;
         }
-        if (attacker == null) return;
+        if (dam.attacker == null) return;
         if (Br.loco.myTransform == Ga.me.playerTransform) return;
 
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
-            Br.combat.MyTarget = attacker;
+            Br.combat.MyTarget = dam.attacker;
         }
     }
 
@@ -71,4 +72,11 @@ public class Health: EventBus, ITakeDamage, IInit
        EventBus.OnCharDeath?.Invoke(Br.loco.myTransform);
     }
 
+}
+
+public struct DamageData
+{
+    public Transform attacker;
+    public float damage;
+    public Element element;
 }

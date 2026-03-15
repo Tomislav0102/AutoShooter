@@ -19,6 +19,7 @@ public class Ga : MonoBehaviour
     [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
+    public SoGameData gameData;
     public SpellManager spells;
     public Transform barContainer;
     public RectTransform healthBarPrefab;

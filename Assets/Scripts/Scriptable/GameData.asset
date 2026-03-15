@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15be6d62f06acae4c8905ae10176b6e3, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: Assembly-CSharp::SoGameData
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  element:
+  - element: 0
+    name: Physical
+    col: {r: 1, g: 1, b: 1, a: 1}
+    gradient: {fileID: 0}
+  - element: 1
+    name: Fire
+    col: {r: 0.87058824, g: 0.46102372, b: 0.03921566, a: 1}
+    gradient: {fileID: 0}
+  - element: 2
+    name: Ice
+    col: {r: 0.0036044943, g: 0.72875094, b: 0.764151, a: 1}
+    gradient: {fileID: 0}
+  - element: 3
+    name: Electricty
+    col: {r: 0.027017772, g: 0, b: 0.735849, a: 1}
+    gradient: {fileID: 0}
+  - element: 4
+    name: Poison
+    col: {r: 0.22768559, g: 0.8396226, b: 0, a: 1}
+    gradient: {fileID: 0}
+  - element: 5
+    name: Force
+    col: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+    gradient: {fileID: 0}
+  - element: 6
+    name: Magic
+    col: {r: 0.23508622, g: 0.002491996, b: 0.5283019, a: 1}
+    gradient: {fileID: 0}

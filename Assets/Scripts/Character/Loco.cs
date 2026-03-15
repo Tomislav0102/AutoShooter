@@ -39,6 +39,8 @@ public class Loco : EventBus, IInit
         anim.SetLayerWeight(1, Br.combat.isAttacking ? 1 : 0);
         rotationConstraint.weight = Br.combat.isAttacking? 1 : 0;
     }
+
+    #region ANIMATOR
     
     public void AE_Attack(int  num)
     {
@@ -64,6 +66,9 @@ public class Loco : EventBus, IInit
     {
         anim.SetBool("attack1", isAttacking1);
     }
+    #endregion
+
+    #region TOOLS
     
     public IEnumerator Dash()
     {
@@ -80,7 +85,6 @@ public class Loco : EventBus, IInit
         velocityModifier = 1f;
         isDashing = false;
     }
-
     public void PushMe(Vector3 origin, NavMeshAgent agent = null, float intensity = 1f)
     {
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
@@ -109,7 +113,6 @@ public class Loco : EventBus, IInit
             if (agent != null) agent.enabled = true;
         }
     }
-    
     protected void LookAtMethod()
     {
         Vector3 faceDirection = Vector3.forward;
@@ -120,5 +123,6 @@ public class Loco : EventBus, IInit
         }
         if (!faceDirection.Equals(Vector3.zero)) myTransform.forward = faceDirection.normalized;
     }
+    #endregion
 
 }
