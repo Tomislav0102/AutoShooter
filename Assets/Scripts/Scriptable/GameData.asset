@@ -25,28 +25,37 @@ MonoBehaviour:
   - element: 0
     name: Physical
     col: {r: 1, g: 1, b: 1, a: 1}
+    sprite: {fileID: 21300000, guid: 23b19e794818c7c4191ad18af53fe4a6, type: 3}
     gradient: {fileID: 0}
   - element: 1
     name: Fire
     col: {r: 0.87058824, g: 0.46102372, b: 0.03921566, a: 1}
+    sprite: {fileID: 21300000, guid: 3095418f816b20048a21fe6b14baf105, type: 3}
     gradient: {fileID: 0}
   - element: 2
     name: Ice
     col: {r: 0.0036044943, g: 0.72875094, b: 0.764151, a: 1}
+    sprite: {fileID: 21300000, guid: 90d53e9533b91504f8ecc9256685d342, type: 3}
     gradient: {fileID: 0}
   - element: 3
     name: Electricty
     col: {r: 0.027017772, g: 0, b: 0.735849, a: 1}
+    sprite: {fileID: 21300000, guid: a63a6182826287043bdbdc7a0f8b7b28, type: 3}
     gradient: {fileID: 0}
   - element: 4
     name: Poison
-    col: {r: 0.22768559, g: 0.8396226, b: 0, a: 1}
+    col: {r: 0.54024756, g: 0.8392157, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: 240fcbd471f14c44bbb2d82111de2866, type: 3}
     gradient: {fileID: 0}
   - element: 5
     name: Force
     col: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+    sprite: {fileID: 21300000, guid: 14fd0a852e5417d46b8b323ccc603e88, type: 3}
     gradient: {fileID: 0}
   - element: 6
     name: Magic
     col: {r: 0.23508622, g: 0.002491996, b: 0.5283019, a: 1}
+    sprite: {fileID: 21300000, guid: 92fbdd489028f2f4e9672873ca55cfed, type: 3}
     gradient: {fileID: 0}
+  colHeal: {r: 0, g: 1, b: 0, a: 1}
+  colBleed: {r: 0.33962262, g: 0, b: 0.157, a: 1}

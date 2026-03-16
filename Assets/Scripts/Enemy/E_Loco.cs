@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class E_Loco : Loco
 {
+    public Transform testObject;
     public enum RangeArea { Melee, Ranged, OutOfRange }
     [ReadOnly] public RangeArea ra = RangeArea.OutOfRange;
     public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
@@ -31,6 +32,7 @@ public class E_Loco : Loco
     Transform _followTarget;
     const float CONST_FollowDistance = 5f;
 
+    Coroutine _pushCoroutine;
     bool _canMoveNavigation;
     bool _canMoveCombat;
     
@@ -54,6 +56,7 @@ public class E_Loco : Loco
     protected override void Update()
     {
         base.Update();
+        
         if (!agent.enabled) return;
         _canMoveNavigation = true;
         switch (moveCurrent)
@@ -105,7 +108,15 @@ public class E_Loco : Loco
         agent.speed = canMove ? moveSpeed : 0f;
     }
 
-    
+
+    protected override void ControlsEnabled(bool isEnabled)
+    {
+        base.ControlsEnabled(isEnabled);
+        agent.enabled = isEnabled;
+        Br.myRigid.isKinematic = isEnabled;
+        Br.myRigid.collisionDetectionMode = isEnabled ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
+
+    }
 
     #region NAVIGATION
     void Idle()
@@ -119,7 +130,7 @@ public class E_Loco : Loco
         {
             _idleTargetRot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
         }
-
+        
         _timerIdle += Time.deltaTime;
         if (_timerIdle >= CONST_IdleMaxTime)
         {
@@ -127,6 +138,8 @@ public class E_Loco : Loco
             _idleIsTurning = !_idleIsTurning;
         }
     }
+
+
 
     void Roam()
     {

@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 
 public class SoGameData : SerializedScriptableObject
 {
+    [Title("Elements")]
     [SerializeField] ElementGroup[] element;
     public ElementGroup GetElement(Element el)
     {
@@ -14,6 +15,10 @@ public class SoGameData : SerializedScriptableObject
         }
         return default;
     }
+
+    [Title("Colors")]
+    public Color colHeal;
+    public Color colBleed;
     
     
     
@@ -36,6 +41,7 @@ public class SoGameData : SerializedScriptableObject
         public Element element;
         public string name;
         public Color col;
+        public Sprite sprite;
         public TMP_ColorGradient gradient;
     }    
 }

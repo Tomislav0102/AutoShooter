@@ -25,9 +25,9 @@ public class BodyProjectile : MonoBehaviour
     {
         if (_hits.Contains(other)) return;
         _hits.Add(other);
-        if (other.TryGetComponent(out E_Loco en))
+        if (other.TryGetComponent(out Loco loco))
         {
-            en.PushMe(myTransform.position - myTransform.forward);
+            loco.KnockBackMe(myTransform.position - myTransform.forward);
         }
     }
 }

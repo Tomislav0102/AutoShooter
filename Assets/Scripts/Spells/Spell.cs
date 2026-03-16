@@ -56,7 +56,7 @@ public class Spell : EventBus
         };
     }
     
-    protected void Update()
+    protected virtual void Update()
     {
         if (lifeTime > 0)
         {

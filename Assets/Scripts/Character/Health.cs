@@ -14,12 +14,14 @@ public class Health: EventBus, ITakeDamage, IInit
             _br = value;
             _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
             HealthCurrent = healthMax;
+            _healthBarTransform = _healthBar.transform;
             IsReady = true;
         }
     }
     Brain _br;
 
     Image _healthBar;
+    Transform _healthBarTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
     [SerializeField] int healthMax;
     float HealthCurrent
@@ -40,10 +42,16 @@ public class Health: EventBus, ITakeDamage, IInit
     public void TakeDamage(DamageData dam)
     {
         HealthCurrent -= dam.damage;
+        
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
-        Color col = Ga.me.gameData.GetElement(dam.element).col;
-        ft.SpawnMe(transform, _offset.y, dam.damage.ToString("0"), col);
-        Br.onHit?.Invoke();
+        DamageData damToFloat = new DamageData()
+        {
+            damage = dam.damage,
+            attacker = Br.loco.myTransform,
+            element = dam.element,
+        };
+        ft.SpawnMe(damToFloat);
+        
         if (HealthCurrent <= 0)
         {
             Death();
@@ -51,7 +59,9 @@ public class Health: EventBus, ITakeDamage, IInit
         }
         if (dam.attacker == null) return;
         if (Br.loco.myTransform == Ga.me.playerTransform) return;
-
+        
+        Br.loco.Hit();
+        Br.loco.KnockBackMe(dam.attacker.position);
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
@@ -63,7 +73,7 @@ public class Health: EventBus, ITakeDamage, IInit
     {
         if (!IsReady) return;
         Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.loco.myTransform.position + _offset);
-        _healthBar.transform.position = screenPos;
+        _healthBarTransform.position = screenPos;
     }
 
     void Death()
@@ -74,6 +84,7 @@ public class Health: EventBus, ITakeDamage, IInit
 
 }
 
+[System.Serializable]
 public struct DamageData
 {
     public Transform attacker;

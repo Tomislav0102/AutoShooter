@@ -293,7 +293,7 @@ MonoBehaviour:
   ricochet: 0
   pierce: 0
   bounce: 0
-  solid: {fileID: 0}
+  solid: {fileID: 2033299971336118744}
 --- !u!135 &2033299971336118744
 SphereCollider:
   m_ObjectHideFlags: 0

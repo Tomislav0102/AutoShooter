@@ -1,21 +1,22 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
-    
+
     [Button]
     void TestMethod()
     {
-        Spell sp = Instantiate(Ga.me.spells.damageZone).GetComponent<Spell>();
-        sp.InitializeMe(transform, Faction.Ally);
-        sp.myTransform.position = transform.position;
+        
     }
 }
 
 
-
+// Spell sp = Instantiate(Ga.me.spells.damageZone).GetComponent<Spell>();
+// sp.InitializeMe(transform, Faction.Ally);
+// sp.myTransform.position = transform.position;
 
 
 

@@ -61,7 +61,10 @@ public class Loco : EventBus, IInit
         anim.SetBool("attack", isAttacking);
     }
 
-    public void Hit() => anim.SetTrigger("hit");
+    public void Hit() 
+    {
+        anim.SetTrigger("hit");
+    }
     protected void Att1InputEnemy(bool isAttacking1)
     {
         anim.SetBool("attack1", isAttacking1);
@@ -85,18 +88,16 @@ public class Loco : EventBus, IInit
         velocityModifier = 1f;
         isDashing = false;
     }
-    public void PushMe(Vector3 origin, NavMeshAgent agent = null, float intensity = 1f)
+    public void KnockBackMe(Vector3 origin, float intensity = 1f)
     {
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
         _pushCoroutine = StartCoroutine(PushMeSequence());
             
         IEnumerator PushMeSequence()
         {
-            if (agent != null) agent.enabled = false;
-            Br.myRigid.isKinematic = false;
-            Br.myRigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            ControlsEnabled(false);
             float duration = 0.2f;
-            float pushPower = 80 * intensity;
+            float pushPower = 20 * intensity;
             Vector3 dir = Br.loco.myTransform.position - origin;
             dir.y = 0;
             dir.Normalize();
@@ -107,12 +108,11 @@ public class Loco : EventBus, IInit
                 Br.myRigid.linearVelocity = velocityModifier * pushPower * dir;
                 yield return null;
             }
-            Br.myRigid.linearVelocity = Vector3.zero;
-            Br.myRigid.isKinematic = true;
-            Br.myRigid.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            if (agent != null) agent.enabled = true;
+            ControlsEnabled(true);
         }
     }
+
+    protected virtual void ControlsEnabled(bool isEnabled) { }
     protected void LookAtMethod()
     {
         Vector3 faceDirection = Vector3.forward;

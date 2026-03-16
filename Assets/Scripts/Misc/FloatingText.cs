@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class FloatingText : MonoBehaviour
 {
@@ -13,16 +16,36 @@ public class FloatingText : MonoBehaviour
     float _timer;
     Transform _target;
     float _startingOffsetY;
+    [SerializeField] Image myIcon;
 
-    public void SpawnMe(Transform target, float offsetY, string text, Color color)
+    
+    
+    public void SpawnMe(DamageData dam, float offsetY = 2f)
     {
-        myText.text = text;
-        _startColor = color;
-        _started = true;
-        _target = target;
+        if (dam.damage >= 0) 
+        {
+            myIcon.sprite = Ga.me.gameData.GetElement(dam.element).sprite;
+            _startColor = Ga.me.gameData.GetElement(dam.element).col;
+            myText.text = dam.damage.ToString();
+        }
+        else // healing
+        {
+            myIcon.enabled = false;
+            _startColor = Ga.me.gameData.colHeal;
+            myText.text = (-dam.damage).ToString();
+        }
+        myText.color = _startColor;
+        myIcon.color = _startColor;
+        myIcon.enabled = dam.element != Element.Physical;
+        _target = dam.attacker;
         _startingOffsetY = offsetY;
-    }
+        float xOffset = (myText.rectTransform.sizeDelta.x + myIcon.rectTransform.sizeDelta.x) * 0.5f ;
+        Vector2 newPos = new Vector2(myText.rectTransform.anchoredPosition.x - xOffset, myText.rectTransform.anchoredPosition.y);
+        myIcon.rectTransform.anchoredPosition = newPos;
 
+        _started = true;
+    }
+    
     void LateUpdate()
     {
         if (!_started) return;
@@ -33,10 +56,10 @@ public class FloatingText : MonoBehaviour
         }
         
         _timer += Time.deltaTime;
-        Vector3 moveY = new Vector3(0f, _startingOffsetY + _timer * 5f, 0f);
-        Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(_target.position + moveY);
-        myTransform.position = screenPos;
-        myText.color = Color.Lerp(_startColor, _endColor, _timer / _lifeTime);
+        float moveY = _startingOffsetY + _timer * 5f;
+        Vector3 targetPos = new Vector3(_target.position.x, moveY, _target.position.z);
+        myTransform.position = Ga.me.cam.WorldToScreenPoint(targetPos);
+        myText.color = myIcon.color = Color.Lerp(_startColor, _endColor, _timer / _lifeTime);
         if (_timer >= _lifeTime) EndMe();
     }
 

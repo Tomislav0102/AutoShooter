@@ -19,23 +19,20 @@ public class P_Loco : Loco
     }
 
 
-    void CameraFollow()
+    void CameraFollowAsymptotic()
     {
       //  const float CONST_CamEdgeBottom = 7f;
         float mod = 0.05f;
         float x = Ga.me.cameraRigTransform.position.x;
         float z = Ga.me.cameraRigTransform.position.z;
         
-        /// <summary>
-        /// Asymptotic average
-        /// </summary>
         x += (myTransform.position.x - x) * mod;
         z += (myTransform.position.z - z) * mod;
         Ga.me.cameraRigTransform.position = new Vector3(x, Ga.me.cameraRigTransform.position.y, z);
     }
     void FixedUpdate()
     {
-        CameraFollow();
+        CameraFollowAsymptotic();
         float camAngle = Ga.me.cameraRigTransform.eulerAngles.y;
         Vector2 val = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
         float dotVer = Vector3.Dot(Utils.MakeV3(val), myTransform.forward);

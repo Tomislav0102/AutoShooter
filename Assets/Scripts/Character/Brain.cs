@@ -10,8 +10,6 @@ public class Brain : EventBus
     public Health health;
     public Loco loco;
     public Combat combat;
-
-    public System.Action onHit;
     
     protected void Awake()
     {
@@ -38,10 +36,5 @@ public class Brain : EventBus
                 gameObject.layer = default;
                 break;
         }
-        onHit = () =>
-        { 
-            if (loco != null) loco.Hit();
-        };
-
     }
 }

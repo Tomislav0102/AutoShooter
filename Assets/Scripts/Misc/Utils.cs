@@ -80,7 +80,7 @@ public class Utils
         yield return new WaitForEndOfFrame();
         //any textMeshPro.rectTransform needs to have ContentSizeFitter component
         float xOffset = (rectRight.sizeDelta.x + rectLeft.sizeDelta.x) * 0.5f ;
-        Vector2 newPos = new Vector2(rectRight.anchoredPosition.x - xOffset, rectRight.anchoredPosition.y);
+        Vector2 newPos = new Vector2(rectRight.anchoredPosition.x - xOffset - 30, rectRight.anchoredPosition.y);
         rectLeft.anchoredPosition = newPos;
     }
 
