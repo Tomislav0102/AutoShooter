@@ -3,20 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Spell : EventBus
 {
     [Title("References")]
     public Transform myTransform;
     public Rigidbody myRigid;
-    public Collider myCollider;
+    public SphereCollider myCollider;
+    public Transform myMesh;
+    public Transform myVisualization;
 
     [Title("Data")]
     public Faction faction = Faction.Neutral;
     public Element element;
     public float damage;
-    public float attackRange; //only for AI, switching weapons melee-ranged
-    public float areaOfEffect;
+    public float radius;
     public float speed;
     public float lifeTime;
 
@@ -30,7 +32,8 @@ public class Spell : EventBus
         faction = brain.faction;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
-        myTransform.localScale = areaOfEffect * Vector3.one;
+        myCollider.radius = radius;
+        if (myVisualization != null) myVisualization.localScale = radius * 2 * Vector3.one;
         dam = new DamageData()
         {
             damage = damage,
@@ -42,19 +45,19 @@ public class Spell : EventBus
     /// <summary>
     /// Debug only
     /// </summary>
-    public virtual void InitializeMe(Transform attacker, Faction fac) 
-    {
-        faction =fac;
-        //myCollider.enabled = false;
-        myRigid.isKinematic = true;
-        myTransform.localScale = areaOfEffect * Vector3.one;
-        dam = new DamageData()
-        {
-            damage = damage,
-            attacker = attacker,
-            element = element,
-        };
-    }
+    // public virtual void InitializeMe(Transform attacker, Faction fac) 
+    // {
+    //     faction =fac;
+    //     //myCollider.enabled = false;
+    //     myRigid.isKinematic = true;
+    //     myCollider.radius = radius;
+    //     dam = new DamageData()
+    //     {
+    //         damage = damage,
+    //         attacker = attacker,
+    //         element = element,
+    //     };
+    // }
     
     protected virtual void Update()
     {

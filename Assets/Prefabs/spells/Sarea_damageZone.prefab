@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
       value: Sarea_damageZone
@@ -84,11 +88,12 @@ MonoBehaviour:
   myTransform: {fileID: 3021113219745651579}
   myRigid: {fileID: 3607016492616891524}
   myCollider: {fileID: 6879918133622187328}
+  myMesh: {fileID: 0}
+  myVisualization: {fileID: 6702672822930026802}
   faction: 2
   element: 5
   damage: 3
-  attackRange: 10
-  areaOfEffect: 6
+  radius: 3
   speed: 0
   lifeTime: 5
 --- !u!4 &3021113219745651579 stripped
@@ -99,6 +104,11 @@ Transform:
 --- !u!54 &3607016492616891524 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5979447303530234807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6702672822930026802 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 5979447303530234807}
   m_PrefabAsset: {fileID: 0}
 --- !u!135 &6879918133622187328 stripped

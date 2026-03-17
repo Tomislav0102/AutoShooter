@@ -117,8 +117,8 @@ Transform:
   m_GameObject: {fileID: 4217062764880623148}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1e-15, z: 1e-15}
-  m_LocalScale: {x: 0.2, y: 0.43184, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0.15}
+  m_LocalScale: {x: 0.05, y: 0.3, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1826042787189666540}
@@ -188,6 +188,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2440075152750923487, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -283,11 +287,11 @@ MonoBehaviour:
   myTransform: {fileID: 1826042787189666540}
   myRigid: {fileID: 195057938506716435}
   myCollider: {fileID: 8052488213109279959}
+  myMesh: {fileID: 27727865740832399}
   faction: 2
   element: 0
   damage: 2
-  attackRange: 10
-  areaOfEffect: 0.2
+  radius: 0.1
   speed: 5
   lifeTime: 10
   ricochet: 0

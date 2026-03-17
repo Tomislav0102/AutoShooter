@@ -67,6 +67,20 @@ public class Utils
         return closest;
     }
 
+    
+    public static void CameraFollowAsymptotic(Vector3 targetPos, Transform camTr)
+    {
+        //  const float CONST_CamEdgeBottom = 7f;
+
+        float mod = 0.05f;
+        float x = camTr.position.x;
+        float z = camTr.position.z;
+        
+        x += (targetPos.x - x) * mod;
+        z += (targetPos.z - z) * mod;
+        camTr.position = new Vector3(x, camTr.position.y, z);
+    }
+
     #region NOT USED
     
     public static Vector2 GetWorldPositionOfCanvasElement(RectTransform rectElement) //sets gameobject behind the UI element

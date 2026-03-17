@@ -81,6 +81,8 @@ public class P_Archer : PlayerCombat
                 sp.bounce = bounce;
                 sp.InitializeMe(Br);
             }
+            rot = Quaternion.AngleAxis(180, Vector3.up) * rot;
+
         }
     }
 }

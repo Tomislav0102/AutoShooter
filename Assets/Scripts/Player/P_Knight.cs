@@ -10,7 +10,7 @@ public class P_Knight : PlayerCombat
         Spell melee = Instantiate(Ga.me.spells.melee,
             Br.loco.myTransform.position,
             Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
-        melee.myTransform.position += melee.attackRange * Br.loco.myTransform.forward;
+        melee.myTransform.position += melee.radius * Br.loco.myTransform.forward;
         melee.InitializeMe(Br);
     }
     

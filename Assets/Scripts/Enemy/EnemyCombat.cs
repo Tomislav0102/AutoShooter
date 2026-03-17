@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 public class EnemyCombat : Combat
 {
-    [SerializeField] GameObject weaponMelee, weaponRanged;
-    Spell _spellMelee, _spellRange;
+    bool Mel() => meleeWeapon != null;
+    bool Ran() => rangedWeapon != null;
+    [SerializeField] GameObject meleeWeapon;
+    [ShowIf(nameof(Mel))]
+    [SerializeField] float rangeMelee;
+    [SerializeField] GameObject rangedWeapon;
+    [ShowIf(nameof(Ran))]
+    [SerializeField] float rangeRanged;
 
     public override Brain Br
     {
@@ -18,8 +22,6 @@ public class EnemyCombat : Combat
         {
             base.Br = value;
             enLoco = value.loco as E_Loco;
-            if (weaponMelee != null) _spellMelee = weaponMelee.GetComponent<Spell>();
-            if (weaponRanged != null) _spellRange = weaponRanged.GetComponent<Spell>();
             IsReady = true;
         }
     }
@@ -40,23 +42,23 @@ public class EnemyCombat : Combat
         base.Update();
         if (distance < 0) return; //MyTarget is null
 
-        if (weaponRanged == null)
+        if (rangedWeapon == null)
         {
-            if (weaponMelee == null)
+            if (meleeWeapon == null)
             {
                 enLoco.ra = E_Loco.RangeArea.OutOfRange;
                 return;
             }
             
-            if (distance <= _spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
+            if (distance <= rangeMelee) enLoco.ra = E_Loco.RangeArea.Melee;
             else enLoco.ra = E_Loco.RangeArea.OutOfRange;
         }
         else
         {
-            if (distance > _spellRange.attackRange) enLoco.ra = E_Loco.RangeArea.OutOfRange;
-            else if (weaponMelee != null)
+            if (distance > rangeRanged) enLoco.ra = E_Loco.RangeArea.OutOfRange;
+            else if (meleeWeapon != null)
             {
-                if (distance <= _spellMelee.attackRange) enLoco.ra = E_Loco.RangeArea.Melee;
+                if (distance <= rangeMelee) enLoco.ra = E_Loco.RangeArea.Melee;
                 else enLoco.ra = E_Loco.RangeArea.Ranged;
             }
             else enLoco.ra = E_Loco.RangeArea.Ranged;

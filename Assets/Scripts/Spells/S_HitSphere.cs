@@ -11,9 +11,7 @@ public class S_HitSphere : Spell
 
     void HitArea()
     {
-        Collider[] colliders = Physics.OverlapSphere(this.myTransform.position, 
-                                                    myTransform.localScale.x * 0.5f, 
-                                               Utils.LayHostiles(faction));
+        Collider[] colliders = Physics.OverlapSphere(myTransform.position, radius,Utils.LayHostiles(faction));
         
         foreach (Collider item in colliders)
         {

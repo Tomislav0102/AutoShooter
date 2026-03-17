@@ -12,7 +12,7 @@ public class S_Bullet : Spell
     public int ricochet;
     public int pierce;
     public int bounce;
-    [SerializeField] Collider solid;
+    [SerializeField] SphereCollider solid;
 
     public override void InitializeMe(Brain brain)
     {
@@ -21,6 +21,7 @@ public class S_Bullet : Spell
         myRigid.isKinematic = false;
         SetSpeed();
         solid.enabled = bounce > 0;
+        solid.radius = myCollider.radius + 0.01f;
     }
 
     void OnTriggerEnter(Collider other)

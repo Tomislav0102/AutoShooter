@@ -63,7 +63,7 @@ public class Ga : MonoBehaviour
             float x = spawnArea.position.x + Random.Range(-spawnArea.localScale.x * 0.5f, spawnArea.localScale.x * 0.5f);
             float z = spawnArea.position.z + Random.Range(-spawnArea.localScale.z * 0.5f, spawnArea.localScale.z * 0.5f);
             spawnPoint = new Vector3(x, 0f, z);
-            Collider[] colliders = Physics.OverlapSphere(spawnPoint + Vector3.up, 1f);
+            Collider[] colliders = Physics.OverlapSphere(spawnPoint, 1f);
             canSpawn = colliders.Length == 0;
         }
         

@@ -8,12 +8,6 @@ public class S_Area : Spell
         base.InitializeMe(brain);
         myCollider.enabled = true;
     }
-    public override void InitializeMe(Transform attacker, Faction fac)
-    {
-        base.InitializeMe(attacker, fac);
-        myCollider.enabled = true;
-    }
-
     protected override void Update()
     {
         base.Update();

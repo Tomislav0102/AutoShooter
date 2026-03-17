@@ -6124,8 +6124,11 @@ MonoBehaviour:
   isAttacking: 1
   <MyTarget>k__BackingField: {fileID: 0}
   detectRange: 3.4028235e+38
-  weaponMelee: {fileID: 6204366007256613323, guid: 197c5347e3b911f489f668643315d5b6, type: 3}
-  weaponRanged: {fileID: 2979209462643851753, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
+  meleeWeapon: {fileID: 6204366007256613323, guid: 197c5347e3b911f489f668643315d5b6, type: 3}
+  rangeMelee: 2
+  rangedWeapon: {fileID: 2979209462643851753, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
+  rangeRanged: 10
+  spawnPoint: {fileID: 1776951620776133103}
   ricochet: 0
   pierce: 0
   bounce: 0

@@ -10,7 +10,13 @@ namespace TestApp
         public float speed = 10;
         void FixedUpdate()
         {
-            myRigid.linearVelocity = speed * Utils.MakeV3(GameManager.Instance.joystick.value);
+            float camAngle = GameManager.Instance.camRigTransform.eulerAngles.y;
+            Vector2 valV2 = Quaternion.Euler(0, 0, -camAngle) * GameManager.Instance.joystick.value;
+
+            Vector3 vel = speed * Utils.MakeV3(valV2);
+            vel.y = Physics.gravity.y;
+            myRigid.linearVelocity = vel;
+            Utils.CameraFollowAsymptotic(transform.position, GameManager.Instance.camRigTransform);
         }
     }
 }

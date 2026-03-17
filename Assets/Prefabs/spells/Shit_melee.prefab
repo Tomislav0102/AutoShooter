@@ -8,8 +8,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 437359591982713317, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
@@ -81,6 +89,11 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 2090546351865948674}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1368234585683105927 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 2090546351865948674}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6204366007256613323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
@@ -101,11 +114,12 @@ MonoBehaviour:
   myTransform: {fileID: 7355918638698607310}
   myRigid: {fileID: 9076702766818432305}
   myCollider: {fileID: 1189581865950022901}
+  myMesh: {fileID: 0}
+  myVisualization: {fileID: 1368234585683105927}
   faction: 2
   element: 0
   damage: 1
-  attackRange: 2
-  areaOfEffect: 2
+  radius: 1.5
   speed: 0
   lifeTime: 0
 --- !u!4 &7355918638698607310 stripped
