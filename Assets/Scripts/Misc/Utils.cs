@@ -37,17 +37,17 @@ public class Utils
 
     public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(MakeV2(v1), MakeV2(v2));
 
-    public static Vector3 Direction(Transform trA, Transform trB)
+    public static Vector3 Direction(Transform fromTr, Transform toTr)
     {
-        return MakeV3(MakeV2(trB.position) - (MakeV2(trA.position)).normalized);
+        return MakeV3(MakeV2(toTr.position) - (MakeV2(fromTr.position)).normalized);
     }
-    public static Vector3 Direction(Transform trA, Vector3 vecB)
+    public static Vector3 Direction(Transform fromTr, Vector3 toPos)
     {
-        return MakeV3(MakeV2(vecB) - (MakeV2(trA.position)).normalized);
+        return MakeV3(MakeV2(toPos) - (MakeV2(fromTr.position)).normalized);
     }
-    public static Vector3 Direction(Vector3 vecA, Vector3 vecB)
+    public static Vector3 Direction(Vector3 fromPos, Vector3 toPos)
     {
-        return MakeV3(MakeV2(vecB) - (MakeV2(vecA)).normalized);
+        return MakeV3(MakeV2(toPos) - (MakeV2(fromPos)).normalized);
     }
     
     public static Transform ClosestTransform(Vector3 fromPosition, HashSet<Transform> targets, float maxRange = float.MaxValue)
@@ -65,6 +65,14 @@ public class Utils
             }
         }
         return closest;
+    }
+    public static Vector3 GetRandomPosition(Transform surface)
+    {
+        float width = surface.localScale.x * 0.5f;
+        float length = surface.localScale.z * 0.5f;
+        float x = surface.position.x + UnityEngine.Random.Range(-width, width);
+        float z = surface.position.z + UnityEngine.Random.Range(-length, length);
+        return new Vector3(x, 0f, z);
     }
 
     

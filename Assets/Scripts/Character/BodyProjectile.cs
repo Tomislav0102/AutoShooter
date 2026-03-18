@@ -27,7 +27,7 @@ public class BodyProjectile : MonoBehaviour
         _hits.Add(other);
         if (other.TryGetComponent(out Loco loco))
         {
-            loco.KnockBackMe(myTransform.position - myTransform.forward);
+            loco.KnockBack(Utils.Direction(myTransform.position, other.transform.position));
         }
     }
 }

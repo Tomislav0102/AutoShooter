@@ -37,7 +37,7 @@ public class Spell : EventBus
         dam = new DamageData()
         {
             damage = damage,
-            attacker = brain.loco.myTransform,
+            attacker = brain.myTransform,
             element = element,
         };
     }

@@ -288,9 +288,10 @@ MonoBehaviour:
   myRigid: {fileID: 195057938506716435}
   myCollider: {fileID: 8052488213109279959}
   myMesh: {fileID: 27727865740832399}
+  myVisualization: {fileID: 7908007728367212709}
   faction: 2
   element: 0
-  damage: 2
+  damage: 6
   radius: 0.1
   speed: 5
   lifeTime: 10
@@ -319,6 +320,11 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.51
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &7908007728367212709 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 7079955407642421792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!135 &8052488213109279959 stripped
 SphereCollider:
   m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}

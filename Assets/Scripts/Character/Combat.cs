@@ -39,7 +39,7 @@ public class Combat : SerializedMonoBehaviour, IInit
         }
         else
         {
-            distance = Utils.Distance(Br.loco.myTransform.position, MyTarget.position);
+            distance = Utils.Distance(Br.myTransform.position, MyTarget.position);
             _targetAim.position = MyTarget.position;
         }
     }
@@ -59,7 +59,7 @@ public class Combat : SerializedMonoBehaviour, IInit
     void CheckTarget()
     { 
       //  if (MyTarget != null) return;
-        MyTarget = Utils.ClosestTransform(Br.loco.myTransform.position, _targets, detectRange);
+        MyTarget = Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange);
     }
 
 }

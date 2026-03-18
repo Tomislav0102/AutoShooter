@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class E_Loco : Loco
 {
-    public Transform testObject;
     public enum RangeArea { Melee, Ranged, OutOfRange }
     [ReadOnly] public RangeArea ra = RangeArea.OutOfRange;
     public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
@@ -18,26 +17,6 @@ public class E_Loco : Loco
     public Movement moveFightingDefault;
     [ReadOnly] public Movement moveCurrent;
     public NavMeshAgent agent;
-    float _timerIdle;
-    const float CONST_IdleMaxTime = 2f;
-    Quaternion _idleTargetRot = Quaternion.identity;
-    bool _idleIsTurning;
-    int _counterWaypoints;
-    const float CONST_FleeDistance = 10f;
-    Transform FollowTarget()
-    {
-        if (_followTarget == null)  _followTarget = Ga.me.playerTransform;
-        return _followTarget;
-    }
-    Transform _followTarget;
-    const float CONST_FollowDistance = 5f;
-
-    Coroutine _pushCoroutine;
-    bool _canMoveNavigation;
-    bool _canMoveCombat;
-    
-    
-    
     public override Brain Br
     {
         get => base.Br;
@@ -51,6 +30,27 @@ public class E_Loco : Loco
             IsReady = true;
         }
     }
+
+    float _timerStationary, _timerStationaryMaxTime;
+    float StationaryTimeIdle() => Random.Range(5f, 10f);
+    float StationaryTimeRotating() => Random.Range(1f, 3f);
+    bool _stationaryIsTurning; 
+    Vector3 _stationaryRotAxis;
+    float _timerGeneral;
+    int _counterWaypoints;
+    const float CONST_FleeDistance = 10f;
+    Transform FollowTarget()
+    {
+        if (_followTarget == null)  _followTarget = Ga.me.playerTransform;
+        return _followTarget;
+    }
+    Transform _followTarget;
+    const float CONST_FollowDistance = 5f;
+    float _chaseRange;
+
+    Coroutine _pushCoroutine;
+    bool _canMoveNavigation;
+    bool _canMoveCombat;
 
 
     protected override void Update()
@@ -122,44 +122,34 @@ public class E_Loco : Loco
     void Idle()
     {
         _canMoveNavigation = false;
-        if (_idleIsTurning)
+        if (_stationaryIsTurning)
         {
-            Br.loco.myTransform.rotation = Quaternion.Slerp(Br.loco.myTransform.rotation, _idleTargetRot, Time.deltaTime * 3f);
-        }
-        else
-        {
-            _idleTargetRot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            Br.myTransform.Rotate(_stationaryRotAxis, _timerStationary * 0.2f);
         }
         
-        _timerIdle += Time.deltaTime;
-        if (_timerIdle >= CONST_IdleMaxTime)
+        _timerStationary += Time.deltaTime;
+        if (_timerStationary >= _timerStationaryMaxTime)
         {
-            _timerIdle = 0f;
-            _idleIsTurning = !_idleIsTurning;
+            _timerStationary = 0f;
+            _stationaryRotAxis = Random.value > 0.5f ? Vector3.up : Vector3.down;
+            _timerStationaryMaxTime = _stationaryIsTurning ? StationaryTimeIdle() : StationaryTimeRotating();
+            _stationaryIsTurning = !_stationaryIsTurning;
         }
     }
-
-
-
     void Roam()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.remainingDistance <= 0.5f) MethodRoam();
+        _timerGeneral += Time.deltaTime;
+        if (_timerGeneral > 10f) MethodRoam();
+        
+        void MethodRoam()
         {
-            Vector3 newDestination = GetRandomPosition(Ga.me.spawnArea);
+            Vector3 newDestination = Utils.GetRandomPosition(Ga.me.spawnArea);
             // print($"New roam destination {newDestination}");
             agent.destination = newDestination;
-        }
-
-        Vector3 GetRandomPosition(Transform surface)
-        {
-            float width = surface.localScale.x * 0.5f;
-            float length = surface.localScale.z * 0.5f;
-            float x = surface.position.x + Random.Range(-width, width);
-            float z = surface.position.z + Random.Range(-length, length);
-            return new Vector3(x, 0f, z);
+            _timerGeneral = 0f;
         }
     }
-
     void Patrol()
     {
         if (Ga.me.waypoints == null || Ga.me.waypoints.Length == 0)
@@ -167,44 +157,51 @@ public class E_Loco : Loco
             moveCurrent = Movement.Stationary;
             return;
         }
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        
+        if (agent.remainingDistance <= 0.5f) MethodPatrol();
+        _timerGeneral += Time.deltaTime;
+        if (_timerGeneral > 10f) MethodPatrol();
+
+        void MethodPatrol()
         {
             agent.destination = Ga.me.waypoints[_counterWaypoints].position;
             _counterWaypoints = (1 + _counterWaypoints) % Ga.me.waypoints.Length;
+            _timerGeneral = 0f;
         }
     }
-
     void Follow()
     {
-        agent.stoppingDistance = CONST_FollowDistance;
-        if (Utils.Distance(Br.loco.myTransform.position, FollowTarget().position) > agent.stoppingDistance)
+        if (Utils.Distance(Br.myTransform.position, FollowTarget().position) > CONST_FollowDistance)
         {
             agent.destination = FollowTarget().position;
         }
         else
         {
+            if (agent.hasPath) agent.ResetPath();
             Idle();
         }
     }
-
     void Chase()
     {
         if (Br.combat.MyTarget == null) return;
-        if (Utils.Distance(Br.loco.myTransform.position, Br.combat.MyTarget.position) > agent.stoppingDistance)
+        if (ra == RangeArea.OutOfRange)
         {
             agent.destination = Br.combat.MyTarget.position;
         }
+        else
+        {
+            if (agent.hasPath) agent.ResetPath();
+        }
     }
-
     void Flee()
     {
         if (Br.combat.MyTarget == null) return;
-        if (Utils.Distance(Br.loco.myTransform.position, Br.combat.MyTarget.position) < CONST_FleeDistance)
+        if (Utils.Distance(Br.myTransform.position, Br.combat.MyTarget.position) < CONST_FleeDistance)
         {
-            Vector3 direction = Br.loco.myTransform.position - Br.combat.MyTarget.position;
+            Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
             direction.y = 0f;
             direction.Normalize();
-            Vector3 targetPosition = Br.loco.myTransform.position + 2f * direction;
+            Vector3 targetPosition = Br.myTransform.position + 2f * direction;
             NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
             if (!hit.hit) return;
             agent.destination = hit.position;

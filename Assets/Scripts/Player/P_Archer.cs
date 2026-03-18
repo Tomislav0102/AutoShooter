@@ -57,7 +57,7 @@ public class P_Archer : PlayerCombat
         }
         if (forward)
         {
-            Vector3 fw = Br.loco.myTransform.forward;
+            Vector3 fw = Br.myTransform.forward;
             float angle = Mathf.Atan2(fw.x, fw.z) * Mathf.Rad2Deg;
             SpawnProjectile(angle);
         }
@@ -70,7 +70,7 @@ public class P_Archer : PlayerCombat
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
                 S_Bullet sp = Instantiate(Ga.me.spells.projectile, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
                 Transform tr = sp.transform;
-                tr.position = Br.loco.myTransform.position + Vector3.up;
+                tr.position = Br.myTransform.position + Vector3.up;
                 tr.Rotate(rot);
                 tr.Translate(xOffset * Vector3.right, Space.Self);
                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;

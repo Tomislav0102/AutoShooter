@@ -305,7 +305,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Brain
   faction: 0
+  myTransform: {fileID: 7462514812626402230}
   myRigid: {fileID: 3487588509260044675}
+  myRenderer: {fileID: 0}
+  myMaterials: []
+  skin: 0
   health: {fileID: 7014450503520605381}
   loco: {fileID: 0}
   combat: {fileID: 0}
@@ -330,8 +334,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3230883051578875362}
   serializedVersion: 5
-  m_Mass: 70
-  m_LinearDamping: 1
+  m_Mass: 100
+  m_LinearDamping: 10
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

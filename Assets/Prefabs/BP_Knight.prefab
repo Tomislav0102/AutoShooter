@@ -335,9 +335,13 @@ PrefabInstance:
       propertyPath: combat
       value: 
       objectReference: {fileID: 8289251900630384108}
+    - target: {fileID: 5419413698751178251, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: myRenderer
+      value: 
+      objectReference: {fileID: 3803959608253788504}
     - target: {fileID: 8048925875864285019, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Name
-      value: B_P_Knight
+      value: BP_Knight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -391,9 +395,15 @@ MonoBehaviour:
   <MyTarget>k__BackingField: {fileID: 0}
   detectRange: 3.4028235e+38
   specialCooldownTime: 3
+  dashPower: 4
 --- !u!4 &3640929346580867816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3227542870493095737, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+  m_PrefabInstance: {fileID: 2183582610660953553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3803959608253788504 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3064635554429418633, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
   m_PrefabInstance: {fileID: 2183582610660953553}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &5678466697019162349 stripped

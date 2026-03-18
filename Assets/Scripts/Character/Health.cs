@@ -47,7 +47,7 @@ public class Health: EventBus, ITakeDamage, IInit
         DamageData damToFloat = new DamageData()
         {
             damage = dam.damage,
-            attacker = Br.loco.myTransform,
+            attacker = Br.myTransform,
             element = dam.element,
         };
         ft.SpawnMe(damToFloat);
@@ -58,10 +58,11 @@ public class Health: EventBus, ITakeDamage, IInit
             return;
         }
         if (dam.attacker == null) return;
-        if (Br.loco.myTransform == Ga.me.playerTransform) return;
         
         Br.loco.Hit();
-        Br.loco.KnockBackMe(dam.attacker.position);
+        Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized);
+        if (Br.myTransform == Ga.me.playerTransform) return;
+        
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
@@ -72,14 +73,14 @@ public class Health: EventBus, ITakeDamage, IInit
     void LateUpdate()
     {
         if (!IsReady) return;
-        Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.loco.myTransform.position + _offset);
+        Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
         _healthBarTransform.position = screenPos;
     }
 
     void Death()
     {
        Destroy(_healthBar.gameObject);
-       EventBus.OnCharDeath?.Invoke(Br.loco.myTransform);
+       EventBus.OnCharDeath?.Invoke(Br.myTransform);
     }
 
 }
