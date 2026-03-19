@@ -2353,7 +2353,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d1726ee06f2d06d44b49aae1b60faff5, type: 2}
     - target: {fileID: 5919550236166766193, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: healthMax
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6119846179976286466, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2395,6 +2395,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: iconWait
+      value: 
+      objectReference: {fileID: 2077840370431703009}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveSpeed
       value: 7
@@ -2537,6 +2541,11 @@ MonoBehaviour:
   ricochet: 0
   pierce: 0
   bounce: 0
+--- !u!1 &2077840370431703009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5736184293618763116, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+  m_PrefabInstance: {fileID: 6003014594537091725}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3853920283161297884 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

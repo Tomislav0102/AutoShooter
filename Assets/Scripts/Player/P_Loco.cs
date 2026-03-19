@@ -17,6 +17,7 @@ public class P_Loco : Loco
         }
     }
 
+
     void FixedUpdate()
     {
         Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
@@ -26,7 +27,6 @@ public class P_Loco : Loco
         float dotHor = Vector3.Dot(Utils.MakeV3(val), Br.myTransform.right);
         Direction_Move(dotHor, dotVer);
 
-      //  Br.myRigid.linearVelocity = velocityModifier * Utils.MakeV3(moveSpeed * val);
         Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * val));
         LookAtMethod();
 

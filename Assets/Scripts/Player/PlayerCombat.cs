@@ -12,6 +12,7 @@ public class PlayerCombat : Combat
         }
     }
     [SerializeField] float specialCooldownTime;
+    protected int counterHit;
     
     void OnEnable()
     {
@@ -24,6 +25,11 @@ public class PlayerCombat : Combat
     protected virtual void CallEv_OnSpecialActivated()
     {
         
+    }
+
+    public virtual void HealthHitCallback(DamageData damageData)
+    {
+        counterHit++;
     }
 
 

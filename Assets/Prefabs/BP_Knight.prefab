@@ -339,6 +339,10 @@ PrefabInstance:
       propertyPath: myRenderer
       value: 
       objectReference: {fileID: 3803959608253788504}
+    - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: iconWait
+      value: 
+      objectReference: {fileID: 2435712510833512624}
     - target: {fileID: 8048925875864285019, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Name
       value: BP_Knight
@@ -363,6 +367,11 @@ PrefabInstance:
 --- !u!4 &1096744549078071560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1258139871106462937, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+  m_PrefabInstance: {fileID: 2183582610660953553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2435712510833512624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4575876363811970401, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
   m_PrefabInstance: {fileID: 2183582610660953553}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2872318400871317803 stripped

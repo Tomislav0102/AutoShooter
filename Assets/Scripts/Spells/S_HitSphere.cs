@@ -15,7 +15,15 @@ public class S_HitSphere : Spell
         
         foreach (Collider item in colliders)
         {
-            if (item.TryGetComponent(out ITakeDamage takeDamage))
+            if (knockBack > 0 && item.TryGetComponent(out Brain br))
+            {
+                if (br.loco != null)
+                {
+                    Vector3 dir = Utils.Direction(myTransform.position, item.transform.position);
+                    br.loco.KnockBack(dir, knockBack);
+                }
+            }
+            if (damage > 0 && item.TryGetComponent(out ITakeDamage takeDamage))
             {
                 takeDamage.TakeDamage(dam);
             }

@@ -5152,4 +5152,4 @@ MonoBehaviour:
   anim: {fileID: 2148451991947694265}
   rotationConstraint: {fileID: 4887120585361979903}
   moveSpeed: 5
-  bodyProjectile: {fileID: 388817511784651839}
+  bodyBullet: {fileID: 388817511784651839}

@@ -44,9 +44,10 @@ public class Health: EventBus, ITakeDamage, IInit
         HealthCurrent -= dam.damage;
         
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
-        DamageData damToFloat = new DamageData()
+        DamageData damToFloat = new DamageData() //can't just pass "dam", because of change in attacker
         {
             damage = dam.damage,
+            knockBack = dam.knockBack,
             attacker = Br.myTransform,
             element = dam.element,
         };
@@ -60,8 +61,13 @@ public class Health: EventBus, ITakeDamage, IInit
         if (dam.attacker == null) return;
         
         Br.loco.Hit();
-        Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized);
-        if (Br.myTransform == Ga.me.playerTransform) return;
+        Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized, dam.knockBack);
+        if (Br.myTransform == Ga.me.playerTransform)
+        {
+            PlayerCombat pc = Br.combat as PlayerCombat;
+            pc.HealthHitCallback(dam);
+            return;
+        }
         
         if (Br.combat.MyTarget == null)
         {
@@ -90,5 +96,6 @@ public struct DamageData
 {
     public Transform attacker;
     public float damage;
+    public int knockBack;
     public Element element;
 }

@@ -124,11 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Loco
-  myTransform: {fileID: 6119846179976286466}
   anim: {fileID: 7911443292519778484}
   rotationConstraint: {fileID: 3731593144273461746}
   moveSpeed: 0
-  bodyProjectile: {fileID: 8466372581932139570}
+  bodyBullet: {fileID: 8466372581932139570}
   ra: 0
   moveIdlingDefault: 0
   moveFightingDefault: 4
@@ -172,11 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb90b913935e644baaa86c076d788e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiRotationConstraint
---- !u!4 &6119846179976286466 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7462514812626402230, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 3710440535994624692}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &7911443292519778484 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}

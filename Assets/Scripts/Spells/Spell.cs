@@ -20,6 +20,7 @@ public class Spell : EventBus
     public float damage;
     public float radius;
     public float speed;
+    [Range(0, 20)] public int knockBack;
     public float lifeTime;
 
     protected DamageData dam;
@@ -37,6 +38,7 @@ public class Spell : EventBus
         dam = new DamageData()
         {
             damage = damage,
+            knockBack = knockBack,
             attacker = brain.myTransform,
             element = element,
         };

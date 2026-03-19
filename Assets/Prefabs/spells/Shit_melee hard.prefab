@@ -117,10 +117,11 @@ MonoBehaviour:
   myMesh: {fileID: 0}
   myVisualization: {fileID: 1368234585683105927}
   faction: 2
-  element: 0
-  damage: 3
+  element: 4
+  damage: 15
   radius: 1.5
   speed: 0
+  knockBack: 2
   lifeTime: 0
 --- !u!4 &7355918638698607310 stripped
 Transform:

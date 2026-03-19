@@ -5,17 +5,15 @@ using UnityEngine;
 /// <summary>
 /// Used for dash
 /// </summary>
-public class BodyProjectile : MonoBehaviour
+public class BodyBullet : MonoBehaviour
 {
-    HashSet<Collider> _hits = new HashSet<Collider>();
     [SerializeField] Transform myTransform;
     [SerializeField] Collider myCollider;
-    
+    [Range(0, 20)] [SerializeField] int knockBack = 1;
     public bool IsActive
     {
         set
         {
-            _hits.Clear();
             myCollider.enabled = value;
         }
     }
@@ -23,11 +21,10 @@ public class BodyProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (_hits.Contains(other)) return;
-        _hits.Add(other);
-        if (other.TryGetComponent(out Loco loco))
+        if (other.TryGetComponent(out Brain brain))
         {
-            loco.KnockBack(Utils.Direction(myTransform.position, other.transform.position));
+           if (brain.loco != null) brain.loco.KnockBack(Utils.Direction(myTransform.position, other.transform
+               .position), knockBack);
         }
     }
 }

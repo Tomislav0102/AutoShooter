@@ -7,6 +7,7 @@ public class Brain : EventBus
     public Faction faction;
     public Transform myTransform;
     public Rigidbody myRigid;
+    public SphereCollider myCollider;
     [SerializeField] Renderer myRenderer;
     [SerializeField] Material[] myMaterials;
     [Title("Body")]
@@ -42,4 +43,18 @@ public class Brain : EventBus
         }
         if (myMaterials.Length >= (int)skin) myRenderer.material = myMaterials[(int)skin];
     }
+
+    /// <summary>
+    /// only for Dash
+    /// </summary>
+    /// <param name="other"></param>
+    void OnTriggerEnter(Collider other)
+    {
+        if (other != myCollider && other.TryGetComponent(out Brain brain))
+        {
+            if (brain.loco != null) brain.loco.KnockBack(Utils.Direction(myTransform.position, other.transform
+                .position), 5);
+        }
+    }
+
 }

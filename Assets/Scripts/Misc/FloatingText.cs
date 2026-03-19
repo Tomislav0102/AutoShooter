@@ -14,7 +14,7 @@ public class FloatingText : MonoBehaviour
     bool _started;
     float _lifeTime = 3f;
     float _timer;
-    Transform _target;
+    Vector3 _startPosition;
     float _startingOffsetY;
     [SerializeField] Image myIcon;
 
@@ -37,7 +37,7 @@ public class FloatingText : MonoBehaviour
         myText.color = _startColor;
         myIcon.color = _startColor;
         myIcon.enabled = dam.element != Element.Physical;
-        _target = dam.attacker;
+        _startPosition = dam.attacker.position;
         _startingOffsetY = offsetY;
         float xOffset = (myText.rectTransform.sizeDelta.x + myIcon.rectTransform.sizeDelta.x) * 0.5f ;
         Vector2 newPos = new Vector2(myText.rectTransform.anchoredPosition.x - xOffset, myText.rectTransform.anchoredPosition.y);
@@ -49,15 +49,10 @@ public class FloatingText : MonoBehaviour
     void LateUpdate()
     {
         if (!_started) return;
-        if (_target == null)
-        {
-            EndMe();
-            return;
-        }
         
         _timer += Time.deltaTime;
         float moveY = _startingOffsetY + _timer * 5f;
-        Vector3 targetPos = new Vector3(_target.position.x, moveY, _target.position.z);
+        Vector3 targetPos = new Vector3(_startPosition.x, moveY, _startPosition.z);
         myTransform.position = Ga.me.cam.WorldToScreenPoint(targetPos);
         myText.color = myIcon.color = Color.Lerp(_startColor, _endColor, _timer / _lifeTime);
         if (_timer >= _lifeTime) EndMe();

@@ -11,7 +11,6 @@ public class Loco : EventBus, IInit
         set
         {
             _br = value;
-            bodyProjectile.IsActive = false;
         }
     }
     Brain _br;
@@ -19,15 +18,17 @@ public class Loco : EventBus, IInit
     [SerializeField] protected Animator anim;
     [SerializeField] MultiRotationConstraint rotationConstraint;
     [SerializeField] protected float moveSpeed;
-    [SerializeField] BodyProjectile bodyProjectile;
     Coroutine _pushCoroutine;
+    [SerializeField]  GameObject iconWait;
 
 
     protected virtual void Update()
     {
         if (Br.combat == null) return;
-        anim.SetLayerWeight(1, Br.combat.isAttacking ? 1 : 0);
-        rotationConstraint.weight = Br.combat.isAttacking? 1 : 0;
+        // anim.SetLayerWeight(1, Br.combat.isAttacking ? 1 : 0);
+        // rotationConstraint.weight = Br.combat.isAttacking? 1 : 0;
+        AnimatorTransitionInfo ati = anim.GetAnimatorTransitionInfo(1);
+        if (ati.IsName("Block -> Exit")) print("Block -> Exit");
     }
 
     #region ANIMATOR
@@ -55,6 +56,10 @@ public class Loco : EventBus, IInit
     {
         anim.SetTrigger("hit");
     }
+    public void Block() 
+    {
+        anim.SetTrigger("block");
+    }
     protected void Att1InputEnemy(bool isAttacking1)
     {
         anim.SetBool("attack1", isAttacking1);
@@ -62,45 +67,30 @@ public class Loco : EventBus, IInit
     #endregion
 
     #region TOOLS
-    
-    public void Dash(Vector3 dir, float intensity = 1f)
+    public void Dash(Vector3 dir, int intensity = 1)
     {
-        bodyProjectile.IsActive = true;
+        Br.myCollider.isTrigger = true;
         KnockBack(dir, intensity);
     }
-    public void KnockBack(Vector3 dir, float intensity = 1f)
+    public void KnockBack(Vector3 dir, int intensity = 1)
     {
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
         _pushCoroutine = StartCoroutine(PushMeSequence(dir, intensity));
     }
-    IEnumerator PushMeSequence(Vector3 dir, float intensity)
+    IEnumerator PushMeSequence(Vector3 dir, int intensity)
     {
         ControlsEnabled(false);
+        iconWait.SetActive(true);
         Br.myRigid.AddForce(intensity * 1000 * dir, ForceMode.Impulse);
         yield return new WaitForSeconds(0.2f);
         ControlsEnabled(true);
-        bodyProjectile.IsActive = false;
+        Br.myCollider.isTrigger = false;
     }
-    // IEnumerator PushMeSequence(Vector3 dir, float intensity)
-    // {
-    //     ControlsEnabled(false);
-    //     float duration = 0.2f;
-    //     float pushPower = 20 * intensity;
-    //     velocityModifier = 1f;
-    //     bool isPlayer = Ga.me.playerTransform == Br.myTransform;
-    //     while (velocityModifier > 0f)
-    //     {
-    //         velocityModifier -= Time.deltaTime / duration;
-    //         Br.myRigid.linearVelocity = velocityModifier * pushPower * dir;
-    //         yield return null;
-    //     }
-    //     ControlsEnabled(true);
-    //     velocityModifier = 1f;
-    //     bodyProjectile.IsActive = false;
-    //     controlledFromOutside = false;
-    // }
 
-    protected virtual void ControlsEnabled(bool isEnabled) { }
+    protected virtual void ControlsEnabled(bool isEnabled)
+    {
+       //iconWait.SetActive(!isEnabled);
+    }
     protected void LookAtMethod()
     {
         Vector3 faceDirection = Vector3.forward;
@@ -115,3 +105,23 @@ public class Loco : EventBus, IInit
 
     
 }
+
+// IEnumerator PushMeSequence(Vector3 dir, float intensity)
+// {
+//     ControlsEnabled(false);
+//     float duration = 0.2f;
+//     float pushPower = 20 * intensity;
+//     velocityModifier = 1f;
+//     bool isPlayer = Ga.me.playerTransform == Br.myTransform;
+//     while (velocityModifier > 0f)
+//     {
+//         velocityModifier -= Time.deltaTime / duration;
+//         Br.myRigid.linearVelocity = velocityModifier * pushPower * dir;
+//         yield return null;
+//     }
+//     ControlsEnabled(true);
+//     velocityModifier = 1f;
+//     bodyProjectile.IsActive = false;
+//     controlledFromOutside = false;
+// }
+
