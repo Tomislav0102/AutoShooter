@@ -13,6 +13,8 @@
 /[Aa]ssets/PolygonDungeon
 /[Aa]ssets/Models
 /[Aa]ssets/polyperfect
+/[Aa]ssets/Synty
+/[Aa]ssets/Plugins
 *.log
 
 # MemoryCaptures can get excessive in size.

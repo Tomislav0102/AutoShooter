@@ -20,7 +20,7 @@ public class P_Knight : PlayerCombat
     protected override void CallEv_OnSpecialActivated()
     {
         base.CallEv_OnSpecialActivated();
-        Br.loco.Dash(Br.myTransform.forward, dashPower);
+        Br.loco.Dash(dashPower);
     }
     
 
@@ -38,14 +38,5 @@ public class P_Knight : PlayerCombat
         }
     }
     
-    void OnTriggerEnter(Collider other)
-    {
-        print((other.name + " has entered the knight"));
-        // if (other.TryGetComponent(out Brain brain))
-        // {
-        //     if (brain.loco != null) brain.loco.KnockBack(Utils.Direction(Br.myTransform.position, other.transform
-        //         .position), 5);
-        // }
-    }
 
 }

@@ -121,7 +121,7 @@ MonoBehaviour:
   damage: 0
   radius: 3
   speed: 0
-  knockBack: 10
+  knockBack: 5
   lifeTime: 0
 --- !u!4 &7355918638698607310 stripped
 Transform:

@@ -25,7 +25,7 @@ public class E_Loco : Loco
             base.Br = value;
             moveCurrent = moveIdlingDefault;
             agent.enabled = true;
-            agent.speed = moveSpeed;
+            agent.speed = modMoveSpeed.Value();
             ra = RangeArea.OutOfRange;
             IsReady = true;
         }
@@ -53,10 +53,8 @@ public class E_Loco : Loco
     bool _canMoveCombat;
 
 
-    protected override void Update()
+    void Update()
     {
-        base.Update();
-        
         if (!agent.enabled) return;
         _canMoveNavigation = true;
         switch (moveCurrent)
@@ -96,7 +94,7 @@ public class E_Loco : Loco
                 LookAtMethod();
                 break;
             case RangeArea.OutOfRange:
-                agent.speed = moveSpeed;
+                agent.speed = modMoveSpeed.Value();
                 _canMoveCombat = true;
                 break;
         }
@@ -105,7 +103,7 @@ public class E_Loco : Loco
         
         bool canMove = _canMoveNavigation && _canMoveCombat;
         Toggle_Move(canMove);
-        agent.speed = canMove ? moveSpeed : 0f;
+        agent.speed = canMove ? modMoveSpeed.Value() : 0f;
     }
 
 

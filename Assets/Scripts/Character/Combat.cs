@@ -14,21 +14,23 @@ public class Combat : SerializedMonoBehaviour, IInit
         {
             _br = value;
             _searchWait = Random.Range(0f, 0.2f) + 0.5f;
-            _targets = value.faction == Faction.Ally ? Ga.me.team[Faction.Foe] : Ga.me.team[Faction.Ally];
+            _targets = value.faction == Faction.Player ? Ga.me.team[Faction.Monsters] : Ga.me.team[Faction.Player];
             _targetAim = transform.GetChild(0);
             StartCoroutine(SearchTargetCoroutine());
+            _isPlayer = Ga.me.playerTransform == value.myTransform;
+            if (_isPlayer) _pLoco = Br.loco as P_Loco;
         }
     }
     Brain _br;
     public bool IsReady { get; set; } //only called in children (because they're on scene)
-    public bool isAttacking;
     [field: SerializeField] public virtual Transform MyTarget { get; set; }
     Transform _targetAim;
     protected float distance;
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;
-    
+    bool _isPlayer;
+    P_Loco _pLoco;
     
     protected virtual void Update()
     {
@@ -36,11 +38,13 @@ public class Combat : SerializedMonoBehaviour, IInit
         {
             distance = -1;
             _targetAim.localPosition = Vector3.zero;
+            if (_isPlayer) _pLoco.Disp = Disposition.Relaxed;
         }
         else
         {
             distance = Utils.Distance(Br.myTransform.position, MyTarget.position);
             _targetAim.position = MyTarget.position;
+            if (_isPlayer) _pLoco.Disp = distance < 10 ? Disposition.Fighting : Disposition.Wary;
         }
     }
 

@@ -49,8 +49,8 @@ public class Ga : MonoBehaviour
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new Dictionary<Faction, HashSet<Transform>>()
         {
-            { Faction.Ally, new HashSet<Transform>() },
-            { Faction.Foe, new HashSet<Transform>() }
+            { Faction.Player, new HashSet<Transform>() },
+            { Faction.Monsters, new HashSet<Transform>() }
         };
     }
 
@@ -79,9 +79,9 @@ public class Ga : MonoBehaviour
 
     void CallEv_OnCharDeath(Transform tr)
     {
-        if (team[Faction.Ally].Contains(tr))
+        if (team[Faction.Player].Contains(tr))
         {
-            team[Faction.Ally].Remove(tr);
+            team[Faction.Player].Remove(tr);
             if (tr == playerTransform)
             {
                 EventBus.OnPlayerDeath?.Invoke();
@@ -93,9 +93,9 @@ public class Ga : MonoBehaviour
                 print("Summon is dead");
             }
         }
-        else if (team[Faction.Foe].Contains(tr))
+        else if (team[Faction.Monsters].Contains(tr))
         {
-            team[Faction.Foe].Remove(tr);
+            team[Faction.Monsters].Remove(tr);
             Destroy(tr.gameObject);
         }
     }

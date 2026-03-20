@@ -279,6 +279,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2467328168210507388, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: healthMax
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2663261095271631119, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -339,6 +343,10 @@ PrefabInstance:
       propertyPath: myRenderer
       value: 
       objectReference: {fileID: 3803959608253788504}
+    - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: line
+      value: 
+      objectReference: {fileID: 5739002551237646073}
     - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: iconWait
       value: 
@@ -403,7 +411,7 @@ MonoBehaviour:
   isAttacking: 1
   <MyTarget>k__BackingField: {fileID: 0}
   detectRange: 3.4028235e+38
-  specialCooldownTime: 3
+  specialCooldownTime: 1
   dashPower: 4
 --- !u!4 &3640929346580867816 stripped
 Transform:
@@ -426,3 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1484b500775899c45b0936bf499a4429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Loco
+--- !u!120 &5739002551237646073 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5902157223743593256, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+  m_PrefabInstance: {fileID: 2183582610660953553}
+  m_PrefabAsset: {fileID: 0}

@@ -23,18 +23,18 @@ public class Brain : EventBus
         if (combat != null) combat.Br = this;
         switch (faction)
         {
-            case Faction.Ally:
+            case Faction.Player:
                 gameObject.layer = LayerMask.NameToLayer("Player");
                 if (loco != null)
                 {
-                    Ga.me.team[Faction.Ally].Add(myTransform);
+                    Ga.me.team[Faction.Player].Add(myTransform);
                 }
                 break;
-            case Faction.Foe:
+            case Faction.Monsters:
                 gameObject.layer = LayerMask.NameToLayer("Enemy");
                 if (loco != null)
                 {
-                    Ga.me.team[Faction.Foe].Add(myTransform);
+                    Ga.me.team[Faction.Monsters].Add(myTransform);
                 }
                 break;
             case Faction.Neutral:

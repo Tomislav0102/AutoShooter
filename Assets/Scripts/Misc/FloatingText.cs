@@ -37,11 +37,11 @@ public class FloatingText : MonoBehaviour
         myText.color = _startColor;
         myIcon.color = _startColor;
         myIcon.enabled = dam.element != Element.Physical;
-        _startPosition = dam.attacker.position;
+        _startPosition = dam.attacker.position; 
         _startingOffsetY = offsetY;
-        float xOffset = (myText.rectTransform.sizeDelta.x + myIcon.rectTransform.sizeDelta.x) * 0.5f ;
-        Vector2 newPos = new Vector2(myText.rectTransform.anchoredPosition.x - xOffset, myText.rectTransform.anchoredPosition.y);
-        myIcon.rectTransform.anchoredPosition = newPos;
+        // float xOffset = (myText.rectTransform.sizeDelta.x + myIcon.rectTransform.sizeDelta.x) * 0.5f ;
+        // Vector2 newPos = new Vector2(myText.rectTransform.anchoredPosition.x - xOffset, myText.rectTransform.anchoredPosition.y);
+        // myIcon.rectTransform.anchoredPosition = newPos;
 
         _started = true;
     }

@@ -10,8 +10,9 @@ public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Increase, Decrease }
 #endregion
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
-
-public enum Faction { Ally, Foe, Neutral }
+public enum Relation { Friendly, Hostile, Neutral }
+public enum Faction { Player, Monsters, Neutral }
+public enum Disposition { Relaxed, Wary, Fighting }
 public enum StatsPrimary { Strength, Dexterity, Constitution, Intelligence }
 public enum StatsSecondary { MeleeDamage, RangedDamage, MoveSpeed, AttackSpeed, PhysicalResistance, MagicDamage, MagicalResistance }
 

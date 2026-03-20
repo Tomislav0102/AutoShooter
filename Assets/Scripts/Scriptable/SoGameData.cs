@@ -5,6 +5,8 @@ using Sirenix.OdinInspector;
 
 public class SoGameData : SerializedScriptableObject
 {
+    [Title("General")]
+    public float pushDuration;
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;
     public ElementGroup GetElement(Element el)

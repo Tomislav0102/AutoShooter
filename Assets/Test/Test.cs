@@ -6,28 +6,27 @@ using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
-    public Rigidbody rigid;
-    public Vector3 dir;
-    public float force;
-    public InputActionReference jump;
+    public Transform startTr, endTr;
 
-    void OnEnable()
+    void FixedUpdate()
     {
-        jump.action.Enable();
-    }
-
-    void Update()
-    {
-        if (jump.action.IsPressed())
-        {
-            rigid.AddForce(dir * force);
-        }
+        SphereCast();
     }
 
     [Button]
     void TestMethod()
     {
         
+    }
+
+    void SphereCast()
+    {
+        Vector3 direction = endTr.position - startTr.position;
+        direction.y = 0f;
+        if (Physics.SphereCast(startTr.position, startTr.localScale.x * 0.5f, direction.normalized, out RaycastHit hit, direction.magnitude))
+        {
+            print(hit.collider.name);
+        }
     }
 }
 
