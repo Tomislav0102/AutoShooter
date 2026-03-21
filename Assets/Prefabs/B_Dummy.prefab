@@ -2380,9 +2380,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4352100720762714187}
     - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combat
+      value: 
+      objectReference: {fileID: 5029496015195070298}
+    - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: faction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: myRenderer
+      value: 
+      objectReference: {fileID: 3006266853020016751}
+    - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -4565884009001823619, guid: d37464876082e4b4bbad182572949da3, type: 3}
     - target: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Name
       value: B_Dummy
@@ -2463,23 +2479,43 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4352100720762714187}
+    - targetCorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5029496015195070298}
   m_SourcePrefab: {fileID: 100100000, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
---- !u!114 &951406442972652684 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5044237206731320966, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 5419141098039691786}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4fff00b78db25a4b84e7dc6ce3851f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlProjectileBody
 --- !u!95 &1549693322845677578 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 5419141098039691786}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3584982845064311881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+  m_PrefabInstance: {fileID: 5419141098039691786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5029496015195070298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584982845064311881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a910a42330f295646a84c355019c8c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  <MyTarget>k__BackingField: {fileID: 0}
+  detectRange: 0
 --- !u!114 &5441406279613989196 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -2516,4 +2552,4 @@ MonoBehaviour:
   anim: {fileID: 1549693322845677578}
   rotationConstraint: {fileID: 5441406279613989196}
   moveSpeed: 0
-  bodyBullet: {fileID: 951406442972652684}
+  line: {fileID: 0}

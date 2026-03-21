@@ -22,11 +22,12 @@ public class S_Bullet : Spell
         SetSpeed();
         solid.enabled = bounce > 0;
         solid.radius = myCollider.radius + 0.01f;
+        Physics.IgnoreCollision(solid, brain.myCollider);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ITakeDamage takeDamage) && takeDamage.Br.faction != faction)
+        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && takeDamage.Br.faction != faction)
         {
             takeDamage.TakeDamage(dam);
             if (ricochet > 0)

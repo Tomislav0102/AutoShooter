@@ -20,7 +20,9 @@ public class P_Knight : PlayerCombat
     protected override void CallEv_OnSpecialActivated()
     {
         base.CallEv_OnSpecialActivated();
-        Br.loco.Dash(dashPower);
+       // Br.loco.Dash(dashPower);
+       Spell sp = Instantiate(Ga.me.spells.fireball, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform).GetComponent<Spell>();
+       sp.InitializeMe(Br);
     }
     
 

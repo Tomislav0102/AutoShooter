@@ -6,11 +6,7 @@ public class S_HitSphere : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        HitArea();
-    }
-
-    void HitArea()
-    {
+        
         Collider[] colliders = Physics.OverlapSphere(myTransform.position, radius,Utils.LayHostiles(faction));
         
         foreach (Collider item in colliders)
@@ -28,7 +24,11 @@ public class S_HitSphere : Spell
                 takeDamage.TakeDamage(dam);
             }
         }
+        if (afterEffect != null)
+        {
+            Spell spell = Instantiate(afterEffect, myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+            spell.InitializeMe(brainCaster);
+        }
         OnEnd();
     }
-
 }

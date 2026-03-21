@@ -8,9 +8,7 @@ public class SpellManager : MonoBehaviour
    public GameObject meleeHard;
    public GameObject pushAll;
    public GameObject projectile;
-   public GameObject explosion;
-   public GameObject damageZone;
-
+   public GameObject fireball;
    void Awake()
    {
       myTransform = transform;

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class P_Loco : Loco
 {
@@ -28,7 +29,7 @@ public class P_Loco : Loco
                 
                 anim.SetLayerWeight(1, 1);
                 AttInputEnemy(false); 
-              //  rotationConstraint.weight = 0;
+                rotationConstraint.weight = 0;
                 switch (value)
                 {
                     case Disposition.Relaxed:
@@ -38,7 +39,7 @@ public class P_Loco : Loco
                         break;
                     case Disposition.Fighting:
                         AttInputEnemy(true);
-                     //   rotationConstraint.weight = 1;
+                        rotationConstraint.weight = 1;
                         break;
                 }
             }

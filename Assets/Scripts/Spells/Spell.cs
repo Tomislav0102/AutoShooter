@@ -8,21 +8,22 @@ using UnityEngine.Serialization;
 public class Spell : EventBus
 {
     [Title("References")]
+    protected Brain brainCaster;
     public Transform myTransform;
-    public Rigidbody myRigid;
-    public SphereCollider myCollider;
+    [SerializeField] protected Rigidbody myRigid;
+    [SerializeField] protected SphereCollider myCollider;
     public Transform myMesh;
-    public Transform myVisualization;
+    [SerializeField] protected Transform myVisualization;
 
     [Title("Data")]
-    public Faction faction = Faction.Neutral;
-    public Element element;
-    public float damage;
+    [SerializeField] protected Faction faction = Faction.Neutral;
+    [SerializeField] Element element;
+    [SerializeField] protected float damage;
     public float radius;
-    public float speed;
-    [Range(0, 20)] public int knockBack;
-    public float lifeTime;
-
+    [SerializeField] float speed;
+    [Range(0, 20)] [SerializeField] protected int knockBack;
+    [SerializeField] protected float lifeTime;
+    [SerializeField] protected GameObject afterEffect;
     protected DamageData dam;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
@@ -30,7 +31,8 @@ public class Spell : EventBus
 
     public virtual void InitializeMe(Brain brain) 
     {
-        faction = brain.faction;
+        brainCaster = brain;
+        faction = brainCaster.faction;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
         myCollider.radius = radius;
@@ -39,9 +41,10 @@ public class Spell : EventBus
         {
             damage = damage,
             knockBack = knockBack,
-            attacker = brain.myTransform,
+            attacker = this.brainCaster.myTransform,
             element = element,
         };
+        Physics.IgnoreCollision(myCollider, this.brainCaster.myCollider);
     }
     
     /// <summary>
@@ -79,8 +82,10 @@ public class Spell : EventBus
     {
         myRigid.linearVelocity = speed * myTransform.forward;
     }
+
     protected virtual void OnEnd()
     {
+
         Destroy(gameObject);
     }
 }

@@ -46,7 +46,6 @@ public class Loco : EventBus, IInit
     [SerializeField] float moveSpeed;
     protected StatProvider modMoveSpeed;
     Coroutine _pushCoroutine;
-    [SerializeField]  GameObject iconWait;
     [SerializeField] LineRenderer line;
 
 
@@ -89,36 +88,7 @@ public class Loco : EventBus, IInit
     public void Dash(int intensity = 1)
     {
         KnockBack(Br.myTransform.forward, intensity, true);
-        // StartCoroutine(Delay());
-        // IEnumerator Delay()
-        // {
-        //     Vector3 startPos = Br.myRigid.transform.position;
-        //     Br.myRigid.isKinematic = true;
-        //     Br.myRigid.MovePosition(Br.myTransform.position + intensity * Br.myTransform.forward);
-        //     yield return new WaitForFixedUpdate();
-        //     Vector3 endPos = Br.myRigid.transform.position;
-        //     Br.myRigid.isKinematic = false;
-        //     Br.myRigid.linearVelocity = Vector3.zero;
-        //     
-        //     Collider[] colliders = Physics.OverlapCapsule(startPos, endPos, 1);
-        //     foreach (Collider col in colliders)
-        //     {
-        //         if (col.TryGetComponent(out Brain br) &&  
-        //             Utils.RelationFactions(Br.faction, br.faction) == Relation.Hostile &&
-        //             br.loco!= null)
-        //         {
-        //             print(br.name);
-        //         }
-        //
-        //     }
-        //     line.SetPosition(0, startPos + 0.1f * Vector3.up);
-        //     line.SetPosition(1, endPos + 0.1f * Vector3.up);
-        //     line.enabled = true;
-        // }
     }
-
-    
-
     public void KnockBack(Vector3 dir, int intensity = 1, bool isDashing = false)
     {
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
@@ -133,10 +103,7 @@ public class Loco : EventBus, IInit
     }
 
 
-    protected virtual void ControlsEnabled(bool isEnabled)
-    {
-       //iconWait.SetActive(!isEnabled);
-    }
+    protected virtual void ControlsEnabled(bool isEnabled) { }
     
     protected void LookAtMethod()
     {
@@ -160,23 +127,4 @@ public class Loco : EventBus, IInit
 
     
 }
-
-// IEnumerator PushMeSequence(Vector3 dir, float intensity)
-// {
-//     ControlsEnabled(false);
-//     float duration = 0.2f;
-//     float pushPower = 20 * intensity;
-//     velocityModifier = 1f;
-//     bool isPlayer = Ga.me.playerTransform == Br.myTransform;
-//     while (velocityModifier > 0f)
-//     {
-//         velocityModifier -= Time.deltaTime / duration;
-//         Br.myRigid.linearVelocity = velocityModifier * pushPower * dir;
-//         yield return null;
-//     }
-//     ControlsEnabled(true);
-//     velocityModifier = 1f;
-//     bodyProjectile.IsActive = false;
-//     controlledFromOutside = false;
-// }
 

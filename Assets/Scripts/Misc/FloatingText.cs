@@ -20,7 +20,7 @@ public class FloatingText : MonoBehaviour
 
     
     
-    public void SpawnMe(DamageData dam, float offsetY = 2f)
+    public void SpawnMe(DamageData dam, Vector3 spawnPos, float offsetY = 2f)
     {
         if (dam.damage >= 0) 
         {
@@ -34,14 +34,12 @@ public class FloatingText : MonoBehaviour
             _startColor = Ga.me.gameData.colHeal;
             myText.text = (-dam.damage).ToString();
         }
+        
         myText.color = _startColor;
         myIcon.color = _startColor;
         myIcon.enabled = dam.element != Element.Physical;
-        _startPosition = dam.attacker.position; 
+        _startPosition = spawnPos; 
         _startingOffsetY = offsetY;
-        // float xOffset = (myText.rectTransform.sizeDelta.x + myIcon.rectTransform.sizeDelta.x) * 0.5f ;
-        // Vector2 newPos = new Vector2(myText.rectTransform.anchoredPosition.x - xOffset, myText.rectTransform.anchoredPosition.y);
-        // myIcon.rectTransform.anchoredPosition = newPos;
 
         _started = true;
     }

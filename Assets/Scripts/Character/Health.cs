@@ -44,14 +44,7 @@ public class Health: EventBus, ITakeDamage, IInit
         HealthCurrent -= dam.damage;
         
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
-        DamageData damToFloat = new DamageData() //can't just pass "dam", because of change in attacker
-        {
-            damage = dam.damage,
-            knockBack = dam.knockBack,
-            attacker = Br.myTransform,
-            element = dam.element,
-        };
-        ft.SpawnMe(damToFloat);
+        ft.SpawnMe(dam, Br.myTransform.position);
         
         if (HealthCurrent <= 0)
         {

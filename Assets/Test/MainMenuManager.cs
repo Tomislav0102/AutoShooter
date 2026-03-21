@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 namespace TestApp
