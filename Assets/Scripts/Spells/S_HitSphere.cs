@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// area effect, instantaneous
+/// </summary>
 public class S_HitSphere : Spell
 {
     public override void InitializeMe(Brain brain)

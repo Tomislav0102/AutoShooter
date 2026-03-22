@@ -9,6 +9,9 @@ public class SpellManager : MonoBehaviour
    public GameObject pushAll;
    public GameObject projectile;
    public GameObject fireball;
+   public GameObject auraDamage;
+   public GameObject hookHeal;
+   public GameObject hookHealDot;
    void Awake()
    {
       myTransform = transform;

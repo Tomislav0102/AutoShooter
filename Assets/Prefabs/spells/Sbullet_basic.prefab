@@ -292,11 +292,13 @@ MonoBehaviour:
   faction: 2
   element: 0
   damage: 6
+  canBeBlocked: 1
   radius: 0.1
   speed: 5
   knockBack: 0
   lifeTime: 10
-  afterEffectSpells: []
+  afterEffect: {fileID: 0}
+  anchor: {fileID: 0}
   ricochet: 0
   pierce: 0
   bounce: 0

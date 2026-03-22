@@ -19,11 +19,13 @@ public class Spell : EventBus
     [SerializeField] protected Faction faction = Faction.Neutral;
     [SerializeField] Element element;
     [SerializeField] protected float damage;
+    [SerializeField] protected bool canBeBlocked;
     public float radius;
     [SerializeField] float speed;
     [Range(0, 20)] [SerializeField] protected int knockBack;
     [SerializeField] protected float lifeTime;
     [SerializeField] protected GameObject afterEffect;
+    public Transform anchor;
     protected DamageData dam;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
@@ -47,23 +49,6 @@ public class Spell : EventBus
         Physics.IgnoreCollision(myCollider, this.brainCaster.myCollider);
     }
     
-    /// <summary>
-    /// Debug only
-    /// </summary>
-    // public virtual void InitializeMe(Transform attacker, Faction fac) 
-    // {
-    //     faction =fac;
-    //     //myCollider.enabled = false;
-    //     myRigid.isKinematic = true;
-    //     myCollider.radius = radius;
-    //     dam = new DamageData()
-    //     {
-    //         damage = damage,
-    //         attacker = attacker,
-    //         element = element,
-    //     };
-    // }
-    
     protected virtual void Update()
     {
         if (lifeTime > 0)
@@ -71,6 +56,7 @@ public class Spell : EventBus
             _timerLife += Time.deltaTime;
             if (_timerLife >= lifeTime) StartCoroutine(Delay());
         }
+        if (anchor != null) myTransform.position = anchor.position;
     }
     IEnumerator Delay()
     {

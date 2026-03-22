@@ -51,10 +51,9 @@ public class Loco : EventBus, IInit
 
     #region ANIMATOR
     
-    public void AE_Attack(int  num)
-    {
-        Br.combat.FromAnimEv_Attack(num);
-    }
+    public void AE_Attack(int  num) => Br.combat.FromAnimEv_Attack(num);
+
+    public void AE_SpellCast(int num) => Br.combat.FromAnimEv_SpellCast(num);
 
     protected void Direction_Move(float hor, float ver)
     {
@@ -77,6 +76,11 @@ public class Loco : EventBus, IInit
     public void Block() 
     {
         anim.SetTrigger("block");
+    }
+
+    public void CastSpell()
+    {
+        anim.SetTrigger("cast");
     }
     protected void Att1InputEnemy(bool isAttacking1)
     {

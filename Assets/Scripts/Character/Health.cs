@@ -89,6 +89,7 @@ public struct DamageData
 {
     public Transform attacker;
     public float damage;
+    public bool canBeBlocked;
     public int knockBack;
     public Element element;
 }

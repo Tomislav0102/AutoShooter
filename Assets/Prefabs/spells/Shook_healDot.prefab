@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2090546351865948674
+--- !u!1001 &5674213543902337296
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,33 +8,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 437359591982713317, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Shit_melee hard
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+      value: Shook_healDot
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -82,57 +58,56 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5907288675602046944}
+      addedObject: {fileID: 7231147536916187255}
   m_SourcePrefab: {fileID: 100100000, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
---- !u!135 &1189581865950022901 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1368234585683105927 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6204366007256613323 stripped
+--- !u!1 &407454759708865241 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
+  m_PrefabInstance: {fileID: 5674213543902337296}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5907288675602046944
+--- !u!114 &7231147536916187255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6204366007256613323}
+  m_GameObject: {fileID: 407454759708865241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
+  m_Script: {fileID: 11500000, guid: 871855f3240083e49a3085379df9c490, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Area
-  myTransform: {fileID: 7355918638698607310}
-  myRigid: {fileID: 9076702766818432305}
-  myCollider: {fileID: 1189581865950022901}
+  m_EditorClassIdentifier: Assembly-CSharp::S_Hook
+  myTransform: {fileID: 3866550236507341276}
+  myRigid: {fileID: 3335807092395320867}
+  myCollider: {fileID: 4845866140779790311}
   myMesh: {fileID: 0}
-  myVisualization: {fileID: 1368234585683105927}
+  myVisualization: {fileID: 4702098757984758677}
   faction: 2
-  element: 2
-  damage: 5
-  canBeBlocked: 1
-  radius: 1.5
+  element: 0
+  damage: -10
+  radius: 0
   speed: 0
-  knockBack: 1
-  lifeTime: 0
+  knockBack: 0
+  lifeTime: 10
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
---- !u!4 &7355918638698607310 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &9076702766818432305 stripped
+--- !u!54 &3335807092395320867 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
+  m_PrefabInstance: {fileID: 5674213543902337296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3866550236507341276 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5674213543902337296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4702098757984758677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5674213543902337296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &4845866140779790311 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+  m_PrefabInstance: {fileID: 5674213543902337296}
   m_PrefabAsset: {fileID: 0}

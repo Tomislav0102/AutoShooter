@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// area effect that last a certain time (DOT)
+/// </summary>
 public class S_Area : Spell
 {
     float _timer = Mathf.Infinity;
