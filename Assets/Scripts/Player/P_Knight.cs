@@ -32,7 +32,6 @@ public class P_Knight : PlayerCombat
        Br.loco.CastSpell();
     }
     
-
     public override void HealthHitCallback(DamageData damageData)
     {
         base.HealthHitCallback(damageData);

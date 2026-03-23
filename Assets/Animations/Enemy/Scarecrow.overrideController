@@ -8,4 +8,14 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Scarecrow
   m_Controller: {fileID: 9100000, guid: ed97b26e859232e42b970b348b1b776f, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c46873a6f73c78848b439ade03ad8737, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: ce75734cbdc06be4caf991d708036595, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: d70053b28a3ba1f46a02c555e921f435, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: adc5a1f503b3e224fb15da0658ceb9e4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: fb8650d3477db7c4184ee62c17ca0186, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: ebecc016c74302046952622635fe9e48, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 2b1c0e30c8cd1dc45946be1a4952c99d, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 2b1c0e30c8cd1dc45946be1a4952c99d, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: fa4b161749e359f4aa71d0537cae7ab6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 2b1c0e30c8cd1dc45946be1a4952c99d, type: 3}

@@ -30,7 +30,7 @@ public class S_HitSphere : Spell
         if (afterEffect != null)
         {
             Spell spell = Instantiate(afterEffect, myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
-            spell.InitializeMe(brainCaster);
+            spell.InitializeMe(ownersBrain);
         }
         OnEnd();
     }

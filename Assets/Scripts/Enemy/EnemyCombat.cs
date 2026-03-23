@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class EnemyCombat : Combat
 {
+    #region RANGES
+    /// <summary>
+    /// This is only used to switch between weapons in regard to distance to target.
+    /// Same applies to spells, some are melee ranged (touch spells), others are like ranged weapons
+    /// </summary>
+    /// <returns></returns>
     bool Mel() => meleeWeapon != null;
     bool Ran() => rangedWeapon != null;
     [SerializeField] GameObject meleeWeapon;
@@ -14,6 +20,7 @@ public class EnemyCombat : Combat
     [SerializeField] GameObject rangedWeapon;
     [ShowIf(nameof(Ran))]
     [SerializeField] float rangeRanged;
+    #endregion
 
     public override Brain Br
     {

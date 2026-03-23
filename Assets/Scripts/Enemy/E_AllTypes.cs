@@ -2,7 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class E_Melee : EnemyCombat
+public class E_AllTypes : EnemyCombat
 {
     [Title("Projectile data")]
     [SerializeField] Transform spawnPoint;
@@ -31,6 +31,17 @@ public class E_Melee : EnemyCombat
         }
     }
 
-    
-
+    public override void FromAnimEv_SpellCast(int num = 0)
+    {
+        base.FromAnimEv_SpellCast(num);
+        switch (num)
+        {
+            case 0:
+                Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
+                    spawnPoint.position,
+                    Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+                lob.InitializeMe(Br);
+                break;
+        }
+    }
 }

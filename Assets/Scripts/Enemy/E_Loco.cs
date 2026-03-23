@@ -11,7 +11,7 @@ public class E_Loco : Loco
 {
     public enum RangeArea { Melee, Ranged, OutOfRange }
     [ReadOnly] public RangeArea ra = RangeArea.OutOfRange;
-    public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
+    public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee, Frozen }
     public enum MultiShot { AllAtOnce, Consecutive, Random }
     public Movement moveIdlingDefault;
     public Movement moveFightingDefault;
@@ -25,7 +25,7 @@ public class E_Loco : Loco
             base.Br = value;
             moveCurrent = moveIdlingDefault;
             agent.enabled = true;
-            agent.speed = modMoveSpeed.Value();
+            agent.speed = moveSpeed;
             ra = RangeArea.OutOfRange;
             IsReady = true;
         }
@@ -60,7 +60,7 @@ public class E_Loco : Loco
         switch (moveCurrent)
         {
             case Movement.Stationary:
-                Idle();
+                Stationary();
                 break;
             case Movement.Roam:
                 Roam();
@@ -76,6 +76,9 @@ public class E_Loco : Loco
                 break;
             case Movement.Flee:
                 Flee();
+                break;
+            case Movement.Frozen:
+                Frozen();
                 break;
         }
 
@@ -94,7 +97,7 @@ public class E_Loco : Loco
                 LookAtMethod();
                 break;
             case RangeArea.OutOfRange:
-                agent.speed = modMoveSpeed.Value();
+                agent.speed = moveSpeed;
                 _canMoveCombat = true;
                 break;
         }
@@ -103,7 +106,7 @@ public class E_Loco : Loco
         
         bool canMove = _canMoveNavigation && _canMoveCombat;
         Toggle_Move(canMove);
-        agent.speed = canMove ? modMoveSpeed.Value() : 0f;
+        agent.speed = canMove ? moveSpeed : 0f;
     }
 
 
@@ -113,11 +116,15 @@ public class E_Loco : Loco
         agent.enabled = isEnabled;
         Br.myRigid.isKinematic = isEnabled;
         Br.myRigid.collisionDetectionMode = isEnabled ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
+    }
 
+    public override void CastSpell(bool isCasting = true)
+    {
+        anim.SetBool("spellCast", isCasting);
     }
 
     #region NAVIGATION
-    void Idle()
+    void Stationary() //no movement, just rotation
     {
         _canMoveNavigation = false;
         if (_stationaryIsTurning)
@@ -176,7 +183,7 @@ public class E_Loco : Loco
         else
         {
             if (agent.hasPath) agent.ResetPath();
-            Idle();
+            Stationary();
         }
     }
     void Chase()
@@ -205,7 +212,7 @@ public class E_Loco : Loco
             agent.destination = hit.position;
         }
     }
-
+    void Frozen() { } //no movement or rotation
     #endregion
 
     void OnDrawGizmos()

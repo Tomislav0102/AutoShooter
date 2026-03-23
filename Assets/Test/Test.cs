@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,36 +5,22 @@ using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
-    public Transform startTr, endTr;
-
-    void FixedUpdate()
-    {
-        SphereCast();
-    }
-
+    public Rigidbody obj;
+    public float force;
     [Button]
     void TestMethod()
     {
-        
+        transform.rotation *=Quaternion.Euler(45, 45, 0);
     }
 
-    void SphereCast()
-    {
-        Vector3 direction = endTr.position - startTr.position;
-        direction.y = 0f;
-        if (Physics.SphereCast(startTr.position, startTr.localScale.x * 0.5f, direction.normalized, out RaycastHit hit, direction.magnitude))
-        {
-            print(hit.collider.name);
-        }
-    }
 }
 
 
-// Spell sp = Instantiate(Ga.me.spells.damageZone).GetComponent<Spell>();
-// sp.InitializeMe(transform, Faction.Ally);
-// sp.myTransform.position = transform.position;
 
-
+        // Vector3 throwDirection = new Vector3(-45f, Random.Range(0f, 360f), 0f);
+        // Rigidbody rb = Instantiate(obj, transform.position, Quaternion.identity);
+        // transform.eulerAngles = throwDirection;
+        // rb.AddForce(force * transform.forward, ForceMode.Impulse);
 
 // layerMask = (1 << layer); //make layer a layermask
 // layerMask |= (1 << layer); //add layer to layermask

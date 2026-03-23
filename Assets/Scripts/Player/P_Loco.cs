@@ -47,7 +47,11 @@ public class P_Loco : Loco
     }
     Disposition _disp;
 
-    
+    public override void CastSpell(bool isCasting = true)
+    {
+        anim.SetTrigger("cast");
+    }
+
     void FixedUpdate()
     {
         Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
@@ -57,7 +61,7 @@ public class P_Loco : Loco
         float dotHor = Vector3.Dot(Utils.MakeV3(val), Br.myTransform.right);
         Direction_Move(dotHor, dotVer);
 
-        Br.myRigid.AddForce(1000 * Utils.MakeV3(modMoveSpeed.Value() * val));
+        Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * val));
         LookAtMethod(Utils.MakeV3(val));
 
     }

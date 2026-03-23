@@ -6,28 +6,6 @@ using Sirenix.OdinInspector;
 using UnityEngine.Animations.Rigging;
 
 
-public class StatProvider
-{
-    float _baseValue;
-    public HashSet<float> mods;
-    Dictionary<object, float> _stats;
-
-    public float Value()
-    {
-        float fl = _baseValue;
-        foreach (float item in mods)
-        {
-            fl += item;
-        }
-        return fl;
-    }
-
-    public StatProvider(float baseValue)
-    {
-        _baseValue = baseValue;
-        mods = new HashSet<float>();
-    }
-}
 public class Loco : EventBus, IInit
 {
     public virtual Brain Br
@@ -36,18 +14,16 @@ public class Loco : EventBus, IInit
         set
         {
             _br = value;
-            modMoveSpeed = new StatProvider(moveSpeed);
         }
     }
     Brain _br;
     public bool IsReady { get; set; } //only called in children (because they're on scene)
     [SerializeField] protected Animator anim;
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
-    [SerializeField] float moveSpeed;
-    protected StatProvider modMoveSpeed;
+    [SerializeField] protected float moveSpeed;
     Coroutine _pushCoroutine;
-    [SerializeField] LineRenderer line;
 
+    
 
     #region ANIMATOR
     
@@ -68,7 +44,9 @@ public class Loco : EventBus, IInit
     {
         anim.SetBool("attack", isAttacking);
     }
+    public virtual void CastSpell(bool isCasting = true) { }
 
+    
     public void Hit() 
     {
         anim.SetTrigger("hit");
@@ -76,11 +54,6 @@ public class Loco : EventBus, IInit
     public void Block() 
     {
         anim.SetTrigger("block");
-    }
-
-    public void CastSpell()
-    {
-        anim.SetTrigger("cast");
     }
     protected void Att1InputEnemy(bool isAttacking1)
     {

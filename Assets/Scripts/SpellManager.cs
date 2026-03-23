@@ -12,7 +12,8 @@ public class SpellManager : MonoBehaviour
    public GameObject auraDamage;
    public GameObject hookHeal;
    public GameObject hookHealDot;
-   void Awake()
+   public GameObject lobCarrierFireball;
+   void Awake() 
    {
       myTransform = transform;
    }

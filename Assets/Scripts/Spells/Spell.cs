@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 public class Spell : EventBus
 {
     [Title("References")]
-    protected Brain brainCaster;
+    protected Brain ownersBrain;
     public Transform myTransform;
     [SerializeField] protected Rigidbody myRigid;
     [SerializeField] protected SphereCollider myCollider;
@@ -21,7 +21,7 @@ public class Spell : EventBus
     [SerializeField] protected float damage;
     [SerializeField] protected bool canBeBlocked;
     public float radius;
-    [SerializeField] float speed;
+    [SerializeField] protected float speed;
     [Range(0, 20)] [SerializeField] protected int knockBack;
     [SerializeField] protected float lifeTime;
     [SerializeField] protected GameObject afterEffect;
@@ -33,8 +33,8 @@ public class Spell : EventBus
 
     public virtual void InitializeMe(Brain brain) 
     {
-        brainCaster = brain;
-        faction = brainCaster.faction;
+        ownersBrain = brain;
+        faction = ownersBrain.faction;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
         myCollider.radius = radius;
@@ -43,10 +43,10 @@ public class Spell : EventBus
         {
             damage = damage,
             knockBack = knockBack,
-            attacker = this.brainCaster.myTransform,
+            attacker = this.ownersBrain.myTransform,
             element = element,
         };
-        Physics.IgnoreCollision(myCollider, this.brainCaster.myCollider);
+        Physics.IgnoreCollision(myCollider, this.ownersBrain.myCollider);
     }
     
     protected virtual void Update()
