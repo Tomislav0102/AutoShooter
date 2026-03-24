@@ -5,6 +5,8 @@ using UnityEngine.Serialization;
 
 public class P_Archer : PlayerCombat
 {
+    [Title("Archer")]
+    [SerializeField] Transform spawnPoint;
     [SerializeField] bool forward;
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back;
@@ -68,20 +70,18 @@ public class P_Archer : PlayerCombat
             for (int i = 0; i < parallel + 1; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                S_Bullet sp = Instantiate(Ga.me.spells.projectile, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
-                Transform tr = sp.transform;
-                tr.position = Br.myTransform.position + Vector3.up;
-                tr.Rotate(rot);
-                tr.Translate(xOffset * Vector3.right, Space.Self);
+                S_Bullet sp = Instantiate(Ga.me.spells.projectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
+                sp.myMesh.position = new Vector3(sp.myMesh.position.x, spawnPoint.position.y, sp.myMesh.position.z);
+                sp.myTransform.Rotate(rot);
+                sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                tr.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+                sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
                 
                 sp.ricochet = ricochet;
                 sp.pierce = pierce;
                 sp.bounce = bounce;
                 sp.InitializeMe(Br);
             }
-            rot = Quaternion.AngleAxis(180, Vector3.up) * rot;
 
         }
     }

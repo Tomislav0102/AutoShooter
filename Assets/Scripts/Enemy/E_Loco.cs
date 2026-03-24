@@ -30,13 +30,17 @@ public class E_Loco : Loco
             IsReady = true;
         }
     }
+    bool _canMoveNavigation;
+    bool _canMoveCombat;
 
+
+    #region MOVEMENT SPECIFIC VARIABLES
+    float _timerGeneral;
     float _timerStationary, _timerStationaryMaxTime;
     float StationaryTimeIdle() => Random.Range(5f, 10f);
     float StationaryTimeRotating() => Random.Range(1f, 3f);
     bool _stationaryIsTurning; 
     Vector3 _stationaryRotAxis;
-    float _timerGeneral;
     int _counterWaypoints;
     const float CONST_FleeDistance = 10f;
     Transform FollowTarget()
@@ -47,16 +51,16 @@ public class E_Loco : Loco
     Transform _followTarget;
     const float CONST_FollowDistance = 5f;
     float _chaseRange;
+    bool _lookAtTarget;
+    #endregion
 
-    Coroutine _pushCoroutine;
-    bool _canMoveNavigation;
-    bool _canMoveCombat;
 
 
     void Update()
     {
         if (!agent.enabled) return;
         _canMoveNavigation = true;
+        _lookAtTarget = true;
         switch (moveCurrent)
         {
             case Movement.Stationary:
@@ -90,11 +94,11 @@ public class E_Loco : Loco
         {
             case RangeArea.Melee:
                 att = true;
-                LookAtMethod();
+                if (_lookAtTarget) LookAtMethod();
                 break;
             case RangeArea.Ranged:
                 att1 = true;
-                LookAtMethod();
+                if (_lookAtTarget) LookAtMethod();
                 break;
             case RangeArea.OutOfRange:
                 agent.speed = moveSpeed;
@@ -116,11 +120,6 @@ public class E_Loco : Loco
         agent.enabled = isEnabled;
         Br.myRigid.isKinematic = isEnabled;
         Br.myRigid.collisionDetectionMode = isEnabled ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
-    }
-
-    public override void CastSpell(bool isCasting = true)
-    {
-        anim.SetBool("spellCast", isCasting);
     }
 
     #region NAVIGATION
@@ -212,7 +211,11 @@ public class E_Loco : Loco
             agent.destination = hit.position;
         }
     }
-    void Frozen() { } //no movement or rotation
+
+    void Frozen()//no movement or rotation
+    {
+        _lookAtTarget = false;
+    } 
     #endregion
 
     void OnDrawGizmos()

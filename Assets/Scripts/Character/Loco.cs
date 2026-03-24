@@ -22,6 +22,7 @@ public class Loco : EventBus, IInit
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
     [SerializeField] protected float moveSpeed;
     Coroutine _pushCoroutine;
+    [SerializeField] protected float knockBackResistance;
 
     
 
@@ -44,13 +45,8 @@ public class Loco : EventBus, IInit
     {
         anim.SetBool("attack", isAttacking);
     }
-    public virtual void CastSpell(bool isCasting = true) { }
-
-    
-    public void Hit() 
-    {
-        anim.SetTrigger("hit");
-    }
+    public void CastSpell() =>  anim.SetTrigger("cast");
+    public void Hit() =>  anim.SetTrigger("hit");
     public void Block() 
     {
         anim.SetTrigger("block");
@@ -62,16 +58,14 @@ public class Loco : EventBus, IInit
     #endregion
 
     #region TOOLS
-    public void Dash(int intensity = 1)
+    public void KnockBack(Vector3 dir, int intensity = 1)
     {
-        KnockBack(Br.myTransform.forward, intensity, true);
-    }
-    public void KnockBack(Vector3 dir, int intensity = 1, bool isDashing = false)
-    {
+        float diff = intensity - knockBackResistance;
+        if (diff < 0) return;
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
-        _pushCoroutine = StartCoroutine(PushMeSequence(dir, intensity, isDashing));
+        _pushCoroutine = StartCoroutine(PushMeSequence(dir, diff));
     }
-    IEnumerator PushMeSequence(Vector3 dir, int intensity = 1, bool isDashing = false)
+    IEnumerator PushMeSequence(Vector3 dir, float intensity = 1)
     {
         ControlsEnabled(false);
         Br.myRigid.AddForce(intensity * 10 * dir, ForceMode.VelocityChange);

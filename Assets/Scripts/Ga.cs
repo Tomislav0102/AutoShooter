@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using TomoJoystick;
 using Random = UnityEngine.Random;
 
 [DefaultExecutionOrder(-10)]

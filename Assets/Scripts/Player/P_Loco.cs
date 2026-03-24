@@ -47,11 +47,6 @@ public class P_Loco : Loco
     }
     Disposition _disp;
 
-    public override void CastSpell(bool isCasting = true)
-    {
-        anim.SetTrigger("cast");
-    }
-
     void FixedUpdate()
     {
         Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);

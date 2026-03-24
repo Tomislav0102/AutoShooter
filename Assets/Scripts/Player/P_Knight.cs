@@ -1,10 +1,12 @@
 using System;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class P_Knight : PlayerCombat
 {
+    [Title("Knight")]
     [SerializeField][Range(1, 10)] int dashPower = 4;
     
     public override void FromAnimEv_Attack(int num = 0)
