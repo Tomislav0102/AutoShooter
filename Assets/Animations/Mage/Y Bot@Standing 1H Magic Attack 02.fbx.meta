@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9e9a4a9b7fa809443a62b0ce77831a1a
+guid: dc5bdc85cff1cc74b808e3412bafba24
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Great Sword High Spin Attack
+      name: Standing 1H Magic Attack 02
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 11
-      lastFrame: 33
+      firstFrame: 0
+      lastFrame: 66
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -43,7 +43,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -54,21 +54,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.062068958
-        functionName: AE_Attack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9517241
-        functionName: AE_Attack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

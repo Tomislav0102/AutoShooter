@@ -29,7 +29,7 @@ public class Ga : MonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-    public LayerMask layEnemies, layPlayer, layTest;
+    public LayerMask layEnemies, layPlayer;
     public SpecialUi specialUi;
     
     [Button]

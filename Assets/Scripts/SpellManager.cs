@@ -13,6 +13,7 @@ public class SpellManager : MonoBehaviour
    public GameObject hookHeal;
    public GameObject hookHealDot;
    public GameObject lobCarrierFireball;
+   public GameObject homing;
    void Awake() 
    {
       myTransform = transform;

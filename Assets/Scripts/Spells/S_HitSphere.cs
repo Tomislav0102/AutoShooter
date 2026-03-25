@@ -27,11 +27,7 @@ public class S_HitSphere : Spell
                 takeDamage.TakeDamage(dam);
             }
         }
-        if (afterEffect != null)
-        {
-            Spell spell = Instantiate(afterEffect, myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
-            spell.InitializeMe(ownersBrain);
-        }
+        AfterEffect();
         OnEnd();
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 public class Spell : EventBus
 {
     [Title("References")]
-    protected Brain ownersBrain;
+    Brain _ownersBrain;
     public Transform myTransform;
     [SerializeField] protected Rigidbody myRigid;
     [SerializeField] protected SphereCollider myCollider;
@@ -24,7 +24,7 @@ public class Spell : EventBus
     [SerializeField] protected float speed;
     [Range(0, 20)] [SerializeField] protected int knockBack;
     [SerializeField] protected float lifeTime;
-    [SerializeField] protected GameObject afterEffect;
+    [SerializeField] GameObject afterEffect;
     public Transform anchor;
     protected DamageData dam;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
@@ -33,8 +33,8 @@ public class Spell : EventBus
 
     public virtual void InitializeMe(Brain brain) 
     {
-        ownersBrain = brain;
-        faction = ownersBrain.faction;
+        _ownersBrain = brain;
+        faction = _ownersBrain.faction;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
         myCollider.radius = radius;
@@ -43,10 +43,10 @@ public class Spell : EventBus
         {
             damage = damage,
             knockBack = knockBack,
-            attacker = this.ownersBrain.myTransform,
+            attacker = _ownersBrain.myTransform,
             element = element,
         };
-        Physics.IgnoreCollision(myCollider, this.ownersBrain.myCollider);
+        Physics.IgnoreCollision(myCollider, _ownersBrain.myCollider);
     }
     
     protected virtual void Update()
@@ -69,6 +69,14 @@ public class Spell : EventBus
         myRigid.linearVelocity = speed * myTransform.forward;
     }
 
+    protected void AfterEffect()
+    {
+        if (afterEffect != null)
+        {
+            Spell spell = Instantiate(afterEffect, myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+            spell.InitializeMe(_ownersBrain);
+        }
+    }
     protected virtual void OnEnd()
     {
 

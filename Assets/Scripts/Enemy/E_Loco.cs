@@ -51,7 +51,6 @@ public class E_Loco : Loco
     Transform _followTarget;
     const float CONST_FollowDistance = 5f;
     float _chaseRange;
-    bool _lookAtTarget;
     #endregion
 
 
@@ -60,7 +59,7 @@ public class E_Loco : Loco
     {
         if (!agent.enabled) return;
         _canMoveNavigation = true;
-        _lookAtTarget = true;
+        lookAtTarget = true;
         switch (moveCurrent)
         {
             case Movement.Stationary:
@@ -94,11 +93,11 @@ public class E_Loco : Loco
         {
             case RangeArea.Melee:
                 att = true;
-                if (_lookAtTarget) LookAtMethod();
+                if (lookAtTarget) LookAtMethod();
                 break;
             case RangeArea.Ranged:
                 att1 = true;
-                if (_lookAtTarget) LookAtMethod();
+                if (lookAtTarget) LookAtMethod();
                 break;
             case RangeArea.OutOfRange:
                 agent.speed = moveSpeed;
@@ -214,7 +213,7 @@ public class E_Loco : Loco
 
     void Frozen()//no movement or rotation
     {
-        _lookAtTarget = false;
+        lookAtTarget = false;
     } 
     #endregion
 

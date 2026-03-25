@@ -23,8 +23,7 @@ public class Loco : EventBus, IInit
     [SerializeField] protected float moveSpeed;
     Coroutine _pushCoroutine;
     [SerializeField] protected float knockBackResistance;
-
-    
+    [ReadOnly] public bool lookAtTarget;
 
     #region ANIMATOR
     
@@ -86,7 +85,7 @@ public class Loco : EventBus, IInit
     }
     void LookAtMethod_Continue(Vector3 faceDirection)
     {
-        if (Br.combat.MyTarget != null)
+        if (lookAtTarget && Br.combat.MyTarget != null)
         {
             faceDirection = Br.combat.MyTarget.position - Br.myTransform.position;
             faceDirection.y = 0f;

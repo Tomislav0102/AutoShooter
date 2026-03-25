@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Random = UnityEngine.Random;
 using DG.Tweening;
 
 public class P_Loco : Loco

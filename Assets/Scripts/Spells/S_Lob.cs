@@ -17,11 +17,7 @@ public class S_Lob : Spell
         base.Update();
         if (myTransform.position.y <= 0.2f) //activates on ground level only, no contacts/triggers/collisions
         {
-            if (afterEffect != null)
-            {
-                Spell spell = Instantiate(afterEffect, myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
-                spell.InitializeMe(ownersBrain);
-            }
+            AfterEffect();
             OnEnd();
         }
     }

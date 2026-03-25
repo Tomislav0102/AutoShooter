@@ -9,6 +9,7 @@ public class PlayerCombat : Combat
         {
             base.Br = value;
             Ga.me.specialUi.InitializeMe(specialCooldownTime);
+            value.loco.lookAtTarget = true;
         }
     }
     [SerializeField] float specialCooldownTime;
