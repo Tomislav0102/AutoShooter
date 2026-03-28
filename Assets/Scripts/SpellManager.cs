@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SpellManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class SpellManager : MonoBehaviour
    public GameObject pushAll;
    public GameObject projectile;
    public GameObject fireball;
-   public GameObject auraDamage;
+   public GameObject fireWalk;
    public GameObject hookHeal;
    public GameObject hookHealDot;
    public GameObject lobCarrierFireball;

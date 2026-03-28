@@ -5,16 +5,18 @@ using UnityEngine;
 /// </summary>
 public class S_Area : Spell
 {
-    float _timer = Mathf.Infinity;
+    float _timer;
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
         myCollider.enabled = true;
+        _timer = Mathf.Infinity;
     }
     protected override void Update()
     {
         base.Update();
         _timer += Time.deltaTime;
+        if (collidersDetected.Count == 0) return;
         if (_timer >= 1f)
         {
             _timer = 0f;

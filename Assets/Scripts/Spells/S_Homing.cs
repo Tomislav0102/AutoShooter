@@ -14,13 +14,13 @@ public class S_Homing : Spell
         myRigid.isKinematic = false;
     }
 
-    // protected override void Update()
-    // {
-    //     base.Update();
-    //     if (homingTarget == null) return;
-    //     Vector3 dir = Utils.Direction(myTransform.position, homingTarget.position);
-    //     myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
-    // }
+    protected override void Update()
+    {
+        base.Update();
+        if (homingTarget == null) return;
+        Vector3 dir = Utils.Direction(myTransform.position, homingTarget.position);
+        myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
+    }
 
     void FixedUpdate()
     {

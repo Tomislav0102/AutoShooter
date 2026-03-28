@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Spell : EventBus
 {
@@ -11,7 +10,7 @@ public class Spell : EventBus
     Brain _ownersBrain;
     public Transform myTransform;
     [SerializeField] protected Rigidbody myRigid;
-    [SerializeField] protected SphereCollider myCollider;
+    public SphereCollider myCollider;
     public Transform myMesh;
     [SerializeField] protected Transform myVisualization;
 
@@ -41,9 +40,10 @@ public class Spell : EventBus
         if (myVisualization != null) myVisualization.localScale = radius * 2 * Vector3.one;
         dam = new DamageData()
         {
-            damage = damage,
-            knockBack = knockBack,
             attacker = _ownersBrain.myTransform,
+            damage = damage,
+            canBeBlocked = canBeBlocked,
+            knockBack = knockBack,
             element = element,
         };
         Physics.IgnoreCollision(myCollider, _ownersBrain.myCollider);

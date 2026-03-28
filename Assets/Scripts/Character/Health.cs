@@ -55,7 +55,7 @@ public class Health: EventBus, ITakeDamage, IInit
         
         Br.loco.Hit();
         Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized, dam.knockBack);
-        if (Br.myTransform == Ga.me.playerTransform)
+        if (dam.canBeBlocked && Br.myTransform == Ga.me.playerTransform)
         {
             PlayerCombat pc = Br.combat as PlayerCombat;
             pc.HealthHitCallback(dam);
