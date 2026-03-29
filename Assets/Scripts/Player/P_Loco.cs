@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class P_Loco : Loco
 {
+    [SerializeField] ParticleSystem weaponTrail;
+
     public override Brain Br
     {
         get => base.Br;
@@ -29,6 +31,7 @@ public class P_Loco : Loco
                 anim.SetLayerWeight(1, 1);
                 AttInputEnemy(false); 
                 rotationConstraint.weight = 0;
+                if (weaponTrail != null) weaponTrail.Stop();
                 switch (value)
                 {
                     case Disposition.Relaxed:
@@ -37,6 +40,7 @@ public class P_Loco : Loco
                     case Disposition.Wary:
                         break;
                     case Disposition.Fighting:
+                        if (weaponTrail != null) weaponTrail.Play();
                         AttInputEnemy(true);
                         rotationConstraint.weight = 1;
                         break;

@@ -4918,6 +4918,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: m_Weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Data.m_ConstrainedObject
       value: 
       objectReference: {fileID: 8081973161225569161}
@@ -5100,17 +5104,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5800728338630505276}
   m_SourcePrefab: {fileID: 100100000, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
---- !u!114 &388817511784651839 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5044237206731320966, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 4856534562519872185}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4fff00b78db25a4b84e7dc6ce3851f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlProjectileBody
 --- !u!95 &2148451991947694265 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -5152,4 +5145,6 @@ MonoBehaviour:
   anim: {fileID: 2148451991947694265}
   rotationConstraint: {fileID: 4887120585361979903}
   moveSpeed: 5
-  bodyBullet: {fileID: 388817511784651839}
+  knockBackResistance: 0
+  lookAtTarget: 0
+  weaponTrail: {fileID: 0}

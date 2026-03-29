@@ -8,7 +8,6 @@ public class P_Knight : PlayerCombat
 {
     [Title("Knight")]
     [SerializeField][Range(1, 10)] int dashPower = 4;
-    [SerializeField] ParticleSystem[] slashEffects;
     
     public override void FromAnimEv_Attack(int num = 0)
     {
@@ -50,6 +49,5 @@ public class P_Knight : PlayerCombat
         }
     }
 
-    public void SlashFx(int index) => slashEffects[index].Play();
 
 }
