@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: myRenderer
       value: 
       objectReference: {fileID: 5165482686685167941}
+    - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: engageDistance
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6244620212994932702, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_IsActive
       value: 0

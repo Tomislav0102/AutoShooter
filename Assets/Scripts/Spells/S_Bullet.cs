@@ -27,7 +27,7 @@ public class S_Bullet : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && takeDamage.Br.faction != faction)
+        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
         {
             takeDamage.TakeDamage(dam);
             if (ricochet > 0)
@@ -37,7 +37,7 @@ public class S_Bullet : Spell
                 List<Transform> myTargets = new List<Transform>();
                 foreach (Collider item in colliders)
                 {
-                    if (item != other && faction != takeDamage.Br.faction) myTargets.Add(item.transform);
+                    if (item != other && myFaction != takeDamage.Br.faction) myTargets.Add(item.transform);
                 }
 
                 if (myTargets.Count > 0)

@@ -29,7 +29,7 @@ public class S_Homing : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && takeDamage.Br.faction != faction)
+        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
         {
             takeDamage.TakeDamage(dam);
         }

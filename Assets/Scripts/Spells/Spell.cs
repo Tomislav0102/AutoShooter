@@ -15,7 +15,8 @@ public class Spell : EventBus
     [SerializeField] protected Transform myVisualization;
 
     [Title("Data")]
-    [SerializeField] protected Faction faction = Faction.Neutral;
+    [SerializeField] protected Faction myFaction = Faction.Neutral;
+    [SerializeField] protected List<Faction> factionsToTarget;
     [SerializeField] Element element;
     [SerializeField] protected float damage;
     [SerializeField] protected bool canBeBlocked;
@@ -33,7 +34,7 @@ public class Spell : EventBus
     public virtual void InitializeMe(Brain brain) 
     {
         _ownersBrain = brain;
-        faction = _ownersBrain.faction;
+        myFaction = _ownersBrain.faction;
         myCollider.enabled = false;
         myRigid.isKinematic = true;
         myCollider.radius = radius;
@@ -63,7 +64,6 @@ public class Spell : EventBus
         yield return new WaitForFixedUpdate();
         OnEnd();
     }
-
     protected void SetSpeed()
     {
         myRigid.linearVelocity = speed * myTransform.forward;

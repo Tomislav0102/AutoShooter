@@ -29,13 +29,6 @@ public class Utils
         }
     }
 
-    public static Relation RelationFactions(Faction faction1, Faction faction2)
-    {
-        if (faction1 == faction2) return Relation.Friendly;
-        if (faction1 == Faction.Player && faction2 == Faction.Monsters) return Relation.Hostile;
-        if (faction1 == Faction.Monsters && faction2 == Faction.Player) return Relation.Hostile;
-        return Relation.Neutral;
-    }
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
 

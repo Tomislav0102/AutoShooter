@@ -7,7 +7,7 @@ using DG.Tweening;
 public class P_Loco : Loco
 {
     [SerializeField] ParticleSystem weaponTrail;
-
+    public float engageDistance = 10f;
     public override Brain Br
     {
         get => base.Br;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -31,9 +32,9 @@ public class P_Knight : PlayerCombat
     protected override void CallEv_OnSpecialActivated()
     {
         base.CallEv_OnSpecialActivated();
-       Br.loco.CastSpell();
+        Br.loco.CastSpell();
     }
-    
+
     public override void HealthHitCallback(DamageData damageData)
     {
         base.HealthHitCallback(damageData);

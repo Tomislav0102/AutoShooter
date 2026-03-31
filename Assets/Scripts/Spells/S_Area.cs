@@ -22,7 +22,7 @@ public class S_Area : Spell
             _timer = 0f;
             foreach (Collider item in collidersDetected)
             {
-                if (item.TryGetComponent(out ITakeDamage takeDamage))
+                if (item.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
                 {
                     takeDamage.TakeDamage(dam);
                 }
