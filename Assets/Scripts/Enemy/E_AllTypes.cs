@@ -15,14 +15,14 @@ public class E_AllTypes : EnemyCombat
         switch (num)
         {
             case 0: //melee
-                Spell melee = Instantiate(Ga.me.spells.melee,
+                Spell melee = Instantiate(Ga.me.spells.meleeEnemy,
                     Br.myTransform.position,
-                    Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+                    Quaternion.identity, Ga.me.spells.myTransform);
                 melee.myTransform.position += melee.radius * Br.myTransform.forward;
                 melee.InitializeMe(Br);
                 break;
             case 1: //projectile
-                S_Bullet projectile = Instantiate(Ga.me.spells.projectile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
+                S_Bullet projectile = Instantiate(Ga.me.spells.projectileEnemy, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform) as S_Bullet;
                 projectile.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
                 projectile.ricochet = ricochet;
                 projectile.pierce = pierce;
@@ -40,7 +40,7 @@ public class E_AllTypes : EnemyCombat
             case 0:
                 Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
                     spawnPoint.position,
-                    Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+                    Quaternion.identity, Ga.me.spells.myTransform);
                 lob.InitializeMe(Br);
                 break;
         }

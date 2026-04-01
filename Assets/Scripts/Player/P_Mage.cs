@@ -7,7 +7,7 @@ public class P_Mage : PlayerCombat
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] int numOfHomingMissiles;
-    WalkTrail _walkTrail;
+    [ShowInInspector, ReadOnly] SpellHelper walkTrail, moveRotate;
     
     public override Brain Br
     {
@@ -16,7 +16,13 @@ public class P_Mage : PlayerCombat
         {
             base.Br = value;
             value.loco.lookAtTarget = false;
-            _walkTrail = new WalkTrail(value, Ga.me.spells.fireWalk);
+            if (walkTrail != null) walkTrail.InitializeMe(value, Ga.me.spells.fireWalk);
+            if (moveRotate != null)
+            {
+                MoveRotateScaleSpellHelper moveRotateSpellHelper = moveRotate as MoveRotateScaleSpellHelper;
+                moveRotateSpellHelper.anchor = Br.myTransform;
+                moveRotateSpellHelper.InitializeMe(value, Ga.me.spells.shieldPlayer);
+            }
         }
     }
 
@@ -28,7 +34,7 @@ public class P_Mage : PlayerCombat
         float angle = 180f / (numOfHomingMissiles + 1);
         for (int i = 0; i < numOfHomingMissiles; i++)
         {
-            S_Homing spell = Instantiate(Ga.me.spells.homing, Ga.me.spells.myTransform).GetComponent<S_Homing>();
+            S_Homing spell = Instantiate(Ga.me.spells.homing, Ga.me.spells.myTransform) as S_Homing;
             spell.homingTarget = Br.combat.MyTarget;
             spell.myTransform.position = Br.myTransform.position;
             spell.myTransform.forward = -Br.myTransform.right;
@@ -36,11 +42,5 @@ public class P_Mage : PlayerCombat
             spell.myMesh.position = new Vector3(spell.myMesh.position.x, spawnPoint.position.y, spell.myMesh.position.z);
             spell.InitializeMe(Br);
         }
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        _walkTrail.UpdateLoop();
     }
 }

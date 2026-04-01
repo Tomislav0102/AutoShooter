@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Shit_melee hard
+      value: Shit_meleeEn
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalScale.x
@@ -116,13 +116,14 @@ MonoBehaviour:
   myCollider: {fileID: 1189581865950022901}
   myMesh: {fileID: 0}
   myVisualization: {fileID: 1368234585683105927}
-  faction: 2
-  element: 2
-  damage: 5
+  myFaction: 1
+  factionsToTarget: 00000000
+  element: 4
+  damage: 1
   canBeBlocked: 1
   radius: 1.5
   speed: 0
-  knockBack: 1
+  knockBack: 0
   lifeTime: 0
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}

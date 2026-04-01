@@ -71,7 +71,7 @@ public class P_Archer : PlayerCombat
             for (int i = 0; i < parallel + 1; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                S_Bullet sp = Instantiate(Ga.me.spells.projectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
+                S_Bullet sp = Instantiate(Ga.me.spells.projectilePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
                 sp.myMesh.position = new Vector3(sp.myMesh.position.x, spawnPoint.position.y, sp.myMesh.position.z);
                 sp.myTransform.Rotate(rot);
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);

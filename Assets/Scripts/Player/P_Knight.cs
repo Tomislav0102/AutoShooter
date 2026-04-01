@@ -13,9 +13,7 @@ public class P_Knight : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
-        Spell melee = Instantiate(Ga.me.spells.meleeHard,
-            Br.myTransform.position,
-            Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+        Spell melee = Instantiate(Ga.me.spells.meleePlayer,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         melee.myTransform.position += melee.radius * Br.myTransform.forward;
         melee.InitializeMe(Br);
     }
@@ -23,7 +21,7 @@ public class P_Knight : PlayerCombat
     public override void FromAnimEv_SpellCast(int num = 0)
     {
         base.FromAnimEv_SpellCast(num);
-       Spell sp = Instantiate(Ga.me.spells.hookHealDot, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform).GetComponent<Spell>();
+       Spell sp = Instantiate(Ga.me.spells.hookHealDot, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
        sp.anchor = Br.myTransform;
        sp.InitializeMe(Br);
         
@@ -44,8 +42,7 @@ public class P_Knight : PlayerCombat
         {
             counterHit = 0;
             Br.loco.Block();
-            Spell push = Instantiate(Ga.me.spells.pushAll, Br.myTransform.position, Quaternion.identity, Ga.me.spells
-                .myTransform).GetComponent<Spell>();
+            Spell push = Instantiate(Ga.me.spells.pushAll, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             push.InitializeMe(Br);
         }
     }

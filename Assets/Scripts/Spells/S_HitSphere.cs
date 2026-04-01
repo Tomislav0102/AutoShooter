@@ -10,7 +10,7 @@ public class S_HitSphere : Spell
     {
         base.InitializeMe(brain);
         
-        Collider[] colliders = Physics.OverlapSphere(myTransform.position, radius,Utils.LayHostiles(myFaction));
+        Collider[] colliders = Physics.OverlapSphere(myTransform.position, radius);
         
         foreach (Collider item in colliders)
         {

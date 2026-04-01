@@ -198,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Sbullet_basic
+      value: Sbullet_pl
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -289,7 +289,8 @@ MonoBehaviour:
   myCollider: {fileID: 8052488213109279959}
   myMesh: {fileID: 27727865740832399}
   myVisualization: {fileID: 7908007728367212709}
-  faction: 2
+  myFaction: 0
+  factionsToTarget: 01000000
   element: 0
   damage: 6
   canBeBlocked: 1

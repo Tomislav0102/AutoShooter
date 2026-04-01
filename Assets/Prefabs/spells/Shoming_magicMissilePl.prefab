@@ -170,9 +170,9 @@ MonoBehaviour:
   myRigid: {fileID: 6725293460720813100}
   myCollider: {fileID: 3468292545701977576}
   myMesh: {fileID: 7702135388568074371}
-  myParticles: {fileID: 0}
   myVisualization: {fileID: 3629643795123571098}
-  faction: 2
+  myFaction: 0
+  factionsToTarget: 01000000
   element: 0
   damage: 1
   canBeBlocked: 1

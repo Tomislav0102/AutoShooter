@@ -15,11 +15,11 @@ public class Spell : EventBus
     [SerializeField] protected Transform myVisualization;
 
     [Title("Data")]
-    [SerializeField] protected Faction myFaction = Faction.Neutral;
+    [ReadOnly] public Faction myFaction = Faction.Neutral;
     [SerializeField] protected List<Faction> factionsToTarget;
     [SerializeField] Element element;
     [SerializeField] protected float damage;
-    [SerializeField] protected bool canBeBlocked;
+    public bool canBeBlocked;
     public float radius;
     [SerializeField] protected float speed;
     [Range(0, 20)] [SerializeField] protected int knockBack;
@@ -77,7 +77,7 @@ public class Spell : EventBus
             spell.InitializeMe(_ownersBrain);
         }
     }
-    protected virtual void OnEnd()
+    public virtual void OnEnd()
     {
 
         Destroy(gameObject);

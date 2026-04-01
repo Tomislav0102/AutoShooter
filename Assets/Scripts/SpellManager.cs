@@ -1,20 +1,31 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class SpellManager : MonoBehaviour
 {
    [HideInInspector] public Transform myTransform;
-   public GameObject melee;
-   public GameObject meleeHard;
-   public GameObject pushAll;
-   public GameObject projectile;
-   public GameObject fireball;
-   public GameObject fireWalk;
-   public GameObject hookHeal;
-   public GameObject hookHealDot;
-   public GameObject lobCarrierFireball;
-   public GameObject homing;
+   [Title("Hit")]
+   public Spell meleeEnemy;
+   public Spell meleePlayer;
+   public Spell pushAll;
+   [Title("Bullet")]
+   public Spell projectileEnemy;
+   public Spell projectilePlayer;
+   [Title("Area")]
+   public Spell fireWalk;
+   [Title("Hook")]
+   public Spell hookHealDot;
+   [Title("Lob")]
+   public Spell lobCarrierFireball;
+   [Title("Homing")]
+   public Spell homing;
+   [Title("Shield")]
+   public Spell shieldPlayer;
+   [Title("Spell helpers")]
+   public SpellHelper walkTrail;
+   public SpellHelper moveRotate;
    void Awake() 
    {
       myTransform = transform;

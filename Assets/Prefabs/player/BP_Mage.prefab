@@ -163,6 +163,8 @@ MonoBehaviour:
   specialCooldownTime: 3
   spawnPoint: {fileID: 2471835065303500449}
   numOfHomingMissiles: 3
+  walkTrail: {fileID: 0}
+  moveRotate: {fileID: 0}
 --- !u!137 &5165482686685167941 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5271545707195277533, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
