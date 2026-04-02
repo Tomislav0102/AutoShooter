@@ -1975,12 +1975,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: numOfHomingMissiles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name
       value: BP_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6814,7 +6822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541319739651212763, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab

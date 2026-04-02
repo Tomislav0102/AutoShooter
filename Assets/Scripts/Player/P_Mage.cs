@@ -7,7 +7,7 @@ public class P_Mage : PlayerCombat
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] int numOfHomingMissiles;
-    [ShowInInspector, ReadOnly] SpellHelper walkTrail, moveRotate;
+    [ShowInInspector, ReadOnly] SpellHelper _walkTrail, _moveRotate;
     
     public override Brain Br
     {
@@ -16,13 +16,12 @@ public class P_Mage : PlayerCombat
         {
             base.Br = value;
             value.loco.lookAtTarget = false;
-            if (walkTrail != null) walkTrail.InitializeMe(value, Ga.me.spells.fireWalk);
-            if (moveRotate != null)
-            {
-                MoveRotateScaleSpellHelper moveRotateSpellHelper = moveRotate as MoveRotateScaleSpellHelper;
-                moveRotateSpellHelper.anchor = Br.myTransform;
-                moveRotateSpellHelper.InitializeMe(value, Ga.me.spells.shieldPlayer);
-            }
+            _walkTrail = Instantiate(Ga.me.spells.walkTrail, Ga.me.spells.myTransform);
+            _walkTrail.InitializeMe(value, Ga.me.spells.fireWalk);
+            _moveRotate = Instantiate(Ga.me.spells.moveRotate, Ga.me.spells.myTransform);
+            MoveRotateScaleSpellHelper moveRotateSpellHelper = _moveRotate as MoveRotateScaleSpellHelper;
+            moveRotateSpellHelper.anchor = value.myTransform;
+            moveRotateSpellHelper.InitializeMe(value, Ga.me.spells.shieldPlayer);
         }
     }
 

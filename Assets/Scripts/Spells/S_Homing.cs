@@ -34,7 +34,6 @@ public class S_Homing : Spell
             takeDamage.TakeDamage(dam);
         }
         AfterEffect();
-
         OnEnd();
     }
 }

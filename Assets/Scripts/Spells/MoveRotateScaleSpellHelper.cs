@@ -17,13 +17,14 @@ public class MoveRotateScaleSpellHelper : SpellHelper
         if (anchor == null)
         {
             print("No anchor assigned, spell disabled.");
+            this.enabled = false;
             return;
         }
         _spells = new Spell[numOfSpells];
         float angle = 360f / numOfSpells;
         for (int i = 0; i < numOfSpells; i++)
         {
-            _spells[i] = Instantiate(spellPrefabToInstantiate, anchor.position, Quaternion.Euler(0, angle * (i + 1), 0), brain.myTransform);
+            _spells[i] = Instantiate(spellPrefabToInstantiate, myTransform.position, Quaternion.Euler(0, angle * (i + 1), 0), myTransform);
             _spells[i].myTransform.Translate( distanceFromTarget * Vector3.forward, Space.Self);
         }
         
@@ -33,9 +34,7 @@ public class MoveRotateScaleSpellHelper : SpellHelper
     void Update()
     {
         if (!isActive) return;
-        for (int i = 0; i < numOfSpells; i++)
-        {
-            _spells[i].myTransform.RotateAround(anchor.position, Vector3.up, rotationSpeed * Time.deltaTime);
-        }
+        myTransform.position = anchor.position;
+        myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
     }
 }

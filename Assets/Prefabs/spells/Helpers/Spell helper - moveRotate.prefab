@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveRotateScaleSpellHelper
   isActive: 0
-  numOfSpells: 0
-  rotationSpeed: 0
-  distanceFromTarget: 0
+  numOfSpells: 3
+  rotationSpeed: 20
+  distanceFromTarget: 2
   anchor: {fileID: 0}
