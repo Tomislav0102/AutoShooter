@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
-public class SoGameData : SerializedScriptableObject
+public class SoGameData : ScriptableObject
 {
     [Title("General")]
     public float pushDuration;
@@ -21,7 +22,10 @@ public class SoGameData : SerializedScriptableObject
     [Title("Colors")]
     public Color colHeal;
     public Color colBleed;
-    
+
+    [Title("Strings")]
+    public string prefsEnergyCurrent;
+    public string prefsEnergyFinishTime;
     
     
     

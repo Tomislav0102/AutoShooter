@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,14 +6,17 @@ using Sirenix.OdinInspector;
 
 public class Test : MonoBehaviour
 {
-    public Spell s1, s2;
+    public float f1;
+    public int seconds;
+    public float result;
     
     
     [Button]
     void TestMethod()
     {
-        print(s1.GetType() == s2.GetType());
+        result = f1 % seconds;
     }
+
 
 }
 
