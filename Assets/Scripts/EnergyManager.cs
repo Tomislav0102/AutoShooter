@@ -1,7 +1,9 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using TMPro;
+
 
 public class EnergyManager : MonoBehaviour
 {
@@ -19,11 +21,24 @@ public class EnergyManager : MonoBehaviour
     [ShowInInspector, ReadOnly] int _energy;
     public int energyMax;
     public int secondsToLoad;
+    DateTime _startTime;
     DateTime _finalTime;
     TimeSpan Difference() => _finalTime - DateTime.Now;
+    TimeSpan StartDifference() => DateTime.Now - _startTime;
 
     void Awake()
     {
+        InitializeMe();
+    }
+
+    void InitializeMe()
+    {
+        if (!PlayerPrefs.HasKey(gameData.prefsEnergyStartTime))
+        {
+            PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.Now.ToString());
+        }
+        _startTime = DateTime.Parse(PlayerPrefs.GetString(gameData.prefsEnergyStartTime));
+        
         if (!PlayerPrefs.HasKey(gameData.prefsEnergyFinishTime))
         {
             PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
@@ -46,12 +61,19 @@ public class EnergyManager : MonoBehaviour
         double hours = Difference().Hours;
         double minutes = Difference().Minutes;
         double seconds = Difference().Seconds;
-        totalCounterText.text = $"{hours:00}:{minutes:00}:{seconds:00}";
-        
-        TimeSpan singleDiff = TimeSpan.FromSeconds(seconds);
-        singleCounterText.text = $"{hours:00}:{minutes:00}:{seconds:00}";
+        totalCounterText.text = $"Total time remaining - {hours:00}:{minutes:00}:{seconds:00}";
+
+        double fromStartSeconds = StartDifference().TotalSeconds;
+        if (fromStartSeconds <= 0) return;
+        double effStartSeconds = secondsToLoad - fromStartSeconds % secondsToLoad;
+        singleCounterText.text = $"{effStartSeconds:00}";
     }
-    
+
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (!pauseStatus) InitializeMe();
+    }
+
     public void Button_UseEnergy()
     {
         if (Energy == 0)
@@ -59,7 +81,12 @@ public class EnergyManager : MonoBehaviour
             print("Energy is 0");
             return;
         }
-        if (Difference().TotalSeconds <= 0) _finalTime = DateTime.Now;
+        if (Difference().TotalSeconds <= 0)
+        {
+            _startTime = DateTime.Now;
+            PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.Now.ToString());
+            _finalTime = DateTime.Now;
+        }
         
         _finalTime = _finalTime.AddSeconds(secondsToLoad);
         PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, _finalTime.ToString());
@@ -67,166 +94,9 @@ public class EnergyManager : MonoBehaviour
 
     public void Button_Reset()
     {
+        PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.Now.ToString());
         PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
     }
 
 }
 
-
-
-// public class EnergyManager : MonoBehaviour
-// {
-//     public SoGameData gameData;
-//     public TextMeshProUGUI counterText, energyText;
-//     int Energy
-//     {
-//         get => _energy;
-//         set
-//         {
-//             _energy = value;
-//             PlayerPrefs.SetInt(gameData.prefsEnergyCurrent, value);
-//             energyText.text = $"{value}/{energyMax}";
-//         }
-//     }
-//     [ShowInInspector, ReadOnly] int _energy;
-//     public int energyMax;
-//     public int secondsToLoad;
-//     DateTime _finalTime;
-//     TimeSpan Difference() => _finalTime - DateTime.Now;
-//
-//     void Awake()
-//     {
-//         if (!PlayerPrefs.HasKey(gameData.prefsEnergyFinishTime))
-//         {
-//             PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
-//         }
-//         _finalTime = DateTime.Parse(PlayerPrefs.GetString(gameData.prefsEnergyFinishTime));
-//
-//         if (!PlayerPrefs.HasKey(gameData.prefsEnergyCurrent))
-//         {
-//             Energy = energyMax;
-//         }
-//         else
-//         {
-//             int energyCurrent = PlayerPrefs.GetInt(gameData.prefsEnergyCurrent);
-//             if (energyCurrent == energyMax)
-//             {
-//                 Energy = energyMax;
-//                 return;
-//             }
-//             
-//             DateTime finalTimeWithAddedEnergy = _finalTime.AddSeconds(secondsToLoad * (energyMax - energyCurrent));
-//             TimeSpan difference = finalTimeWithAddedEnergy - DateTime.Now;
-//             Energy = Mathf.Min(Mathf.FloorToInt((float)difference.TotalSeconds / secondsToLoad), energyMax);
-//         }
-//         
-//     }
-//
-//     void Update()
-//     {
-//         if (Energy == energyMax) return;
-//         
-//         double totalSeconds = Difference().TotalSeconds;
-//         
-//         if (totalSeconds <= 0)
-//         {
-//             Energy++;
-//             if (Energy == energyMax)
-//             {
-//                 counterText.text = "Energy fully recovered!";
-//                 return;
-//             }
-//             AddFinalTime();
-//         }
-//         
-//         double hours = Difference().Hours;
-//         double minutes = Difference().Minutes;
-//         double seconds = Difference().Seconds;
-//         counterText.text = $"{hours:00}:{minutes:00}:{seconds:00}";
-//     }
-//     
-//     public void Button_UseEnergy()
-//     {
-//         if (Energy == 0)
-//         {
-//             print("Energy is 0");
-//             return;
-//         }
-//         Energy--;
-//         if (Energy == energyMax - 1) AddFinalTime();
-//     }
-//
-//     void AddFinalTime()
-//     {
-//         if (Difference().TotalSeconds <= 0) _finalTime = DateTime.Now;
-//         
-//         _finalTime = _finalTime.AddSeconds(secondsToLoad);
-//         PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, _finalTime.ToString());
-//     }
-//
-//     public void Button_Reset()
-//     {
-//         PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
-//         Energy = energyMax;
-//     }
-//
-// }
-
-
-// public class EnergyManager : MonoBehaviour
-// {
-//     public SoGameData gameData;
-//     public TextMeshProUGUI counterText, energyText;
-//     public int energy;
-//     public int energyMax;
-//     public int secondsToLoad;
-//     DateTime _finalTime;
-//     TimeSpan Difference() => _finalTime - DateTime.Now;
-//
-//     void Awake()
-//     {
-//         if (!PlayerPrefs.HasKey(gameData.prefsEnergyFinishTime))
-//         {
-//             PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
-//         }
-//         _finalTime = DateTime.Parse(PlayerPrefs.GetString(gameData.prefsEnergyFinishTime));
-//     }
-//
-//     void Update()
-//     {
-//         double totalSeconds = Difference().TotalSeconds;
-//         
-//         energyText.text = $"{energy:0.000}/{energyMax}";
-//         
-//         if (totalSeconds <= 0)
-//         {
-//             counterText.text = "Energy fully recovered!";
-//             return;
-//         }
-//         energy = Mathf.FloorToInt((float)totalSeconds * energyMax / secondsToLoad);
-//         
-//         double hours = Difference().Hours;
-//         double minutes = Difference().Minutes;
-//         double seconds = Difference().Seconds;
-//         counterText.text = $"{hours:00}:{minutes:00}:{seconds:00}";
-//     }
-//     
-//     public void Button_UseEnergy()
-//     {
-//         if (Difference().TotalSeconds >= secondsToLoad)
-//         {
-//             print("no energy");
-//             return;
-//         }
-//         if (Difference().TotalSeconds <= 0) _finalTime = DateTime.Now;
-//         
-//         _finalTime = _finalTime.AddSeconds(secondsToLoad);
-//         PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, _finalTime.ToString());
-//     }
-//
-//     public void Button_Reset()
-//     {
-//         PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
-//     }
-//
-// }

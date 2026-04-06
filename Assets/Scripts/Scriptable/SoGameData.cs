@@ -24,7 +24,7 @@ public class SoGameData : ScriptableObject
     public Color colBleed;
 
     [Title("Strings")]
-    public string prefsEnergyCurrent;
+    public string prefsEnergyStartTime;
     public string prefsEnergyFinishTime;
     
     
