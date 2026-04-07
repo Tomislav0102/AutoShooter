@@ -16,6 +16,7 @@ public class P_Mage : PlayerCombat
         {
             base.Br = value;
             value.loco.lookAtTarget = false;
+            return;
             _walkTrail = Instantiate(Ga.me.spells.walkTrail, Ga.me.spells.myTransform);
             _walkTrail.InitializeMe(value, Ga.me.spells.fireWalk);
             _moveRotate = Instantiate(Ga.me.spells.moveRotate, Ga.me.spells.myTransform);

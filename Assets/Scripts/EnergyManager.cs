@@ -23,8 +23,7 @@ public class EnergyManager : MonoBehaviour
     public int secondsToLoad;
     DateTime _startTime;
     DateTime _finalTime;
-    TimeSpan Difference() => _finalTime - DateTime.Now;
-    TimeSpan StartDifference() => DateTime.Now - _startTime;
+    TimeSpan Difference() => _finalTime - DateTime.UtcNow;
 
     void Awake()
     {
@@ -35,15 +34,17 @@ public class EnergyManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey(gameData.prefsEnergyStartTime))
         {
-            PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.Now.ToString());
+            PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.UtcNow.ToBinary().ToString());
         }
-        _startTime = DateTime.Parse(PlayerPrefs.GetString(gameData.prefsEnergyStartTime));
+        long startTime = Convert.ToInt64(PlayerPrefs.GetString(gameData.prefsEnergyStartTime));
+        _startTime = DateTime.FromBinary(startTime);
         
         if (!PlayerPrefs.HasKey(gameData.prefsEnergyFinishTime))
         {
-            PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
+            PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.UtcNow.ToBinary().ToString());
         }
-        _finalTime = DateTime.Parse(PlayerPrefs.GetString(gameData.prefsEnergyFinishTime));
+        long finalTime = Convert.ToInt64(PlayerPrefs.GetString(gameData.prefsEnergyFinishTime));
+        _finalTime = DateTime.FromBinary(finalTime);
     }
 
     void Update()
@@ -63,7 +64,8 @@ public class EnergyManager : MonoBehaviour
         double seconds = Difference().Seconds;
         totalCounterText.text = $"Total time remaining - {hours:00}:{minutes:00}:{seconds:00}";
 
-        double fromStartSeconds = StartDifference().TotalSeconds;
+        TimeSpan startDifference = DateTime.UtcNow - _startTime;
+        double fromStartSeconds = startDifference.TotalSeconds;
         if (fromStartSeconds <= 0) return;
         double effStartSeconds = secondsToLoad - fromStartSeconds % secondsToLoad;
         singleCounterText.text = $"{effStartSeconds:00}";
@@ -83,19 +85,19 @@ public class EnergyManager : MonoBehaviour
         }
         if (Difference().TotalSeconds <= 0)
         {
-            _startTime = DateTime.Now;
-            PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.Now.ToString());
-            _finalTime = DateTime.Now;
+            _startTime = DateTime.UtcNow;
+            PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.UtcNow.ToBinary().ToString());
+            _finalTime = DateTime.UtcNow;
         }
         
         _finalTime = _finalTime.AddSeconds(secondsToLoad);
-        PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, _finalTime.ToString());
+        PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, _finalTime.ToBinary().ToString());
     }
 
     public void Button_Reset()
     {
-        PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.Now.ToString());
-        PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.Now.ToString());
+        PlayerPrefs.SetString(gameData.prefsEnergyStartTime, DateTime.UtcNow.ToBinary().ToString());
+        PlayerPrefs.SetString(gameData.prefsEnergyFinishTime, DateTime.UtcNow.ToBinary().ToString());
     }
 
 }

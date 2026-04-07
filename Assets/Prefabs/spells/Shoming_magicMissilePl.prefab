@@ -76,7 +76,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Shoming_magicMissile
+      value: Shoming_magicMissilePl
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,7 +173,7 @@ MonoBehaviour:
   myVisualization: {fileID: 3629643795123571098}
   myFaction: 0
   factionsToTarget: 01000000
-  element: 0
+  element: 6
   damage: 1
   canBeBlocked: 1
   radius: 0.2

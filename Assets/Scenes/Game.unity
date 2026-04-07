@@ -1974,6 +1974,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3223033770090186724, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: elementParticles.<Key>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223033770090186724, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: elementParticles.<Value>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223033770090186724, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'elementParticles.<Key>k__BackingField.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223033770090186724, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'elementParticles.<Value>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1040296846}
+    - target: {fileID: 3223033770090186724, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'elementParticles.<Value>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2030668036}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: numOfHomingMissiles
       value: 1
@@ -1981,14 +2001,14 @@ PrefabInstance:
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name
       value: BP_Mage
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3442,6 +3462,7 @@ GameObject:
   - component: {fileID: 703600361}
   - component: {fileID: 703600365}
   - component: {fileID: 703600364}
+  - component: {fileID: 703600366}
   m_Layer: 0
   m_Name: ground
   m_TagString: Untagged
@@ -3520,6 +3541,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703600360}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &703600366
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703600360}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &717730295
 PrefabInstance:
@@ -5079,6 +5122,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 549705626345464719, guid: 1046ce221b7516e4598916d18265673c, type: 3}
   m_PrefabInstance: {fileID: 623661365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1040296846 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1307612257383227953, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  m_PrefabInstance: {fileID: 1186479473}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1040698937 stripped
 Transform:
@@ -6822,7 +6870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541319739651212763, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -10050,8 +10098,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
-  s1: {fileID: 251161728510779915, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
-  s2: {fileID: 8113628680216003888, guid: f993de661ffa9ca4f806735d65b4f525, type: 3}
+  energy: 0
+  energyMax: 0
+  secondsToAdd: 0
+  begin:
+    hour: 0
+    minute: 0
+    second: 0
+  end:
+    hour: 0
+    minute: 0
+    second: 0
 --- !u!4 &1913371110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4832312768889266, guid: 19a24b7e36bf7403caaeb9d5e79f2c73, type: 3}
@@ -10632,6 +10689,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+--- !u!198 &2030668036 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5246205012583243644, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+  m_PrefabInstance: {fileID: 630837150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2039407194
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
@@ -15,6 +17,11 @@ public class Health: EventBus, ITakeDamage, IInit
             _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
             HealthCurrent = healthMax;
             _healthBarTransform = _healthBar.transform;
+            _dictPsElements = new Dictionary<Element, ParticleSystem>();
+            for (int i = 0; i < psElements.Length; i++)
+            {
+                _dictPsElements.Add((Element)i, psElements[i]);
+            }
             IsReady = true;
         }
     }
@@ -36,12 +43,18 @@ public class Health: EventBus, ITakeDamage, IInit
     }
     float _healthCurrent;
     public bool IsReady { get; set; }
-
-
+    
+    [Title("Particles")]
+    [SerializeField] ParticleSystem[] psElements;
+    Dictionary<Element, ParticleSystem> _dictPsElements;
+    [SerializeField] ParticleSystem psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
     public void TakeDamage(DamageData dam)
     {
         HealthCurrent -= dam.damage;
+        
+        ParticleSystem ps = _dictPsElements[dam.element];
+        if (ps != null && !ps.isPlaying) ps.Play();
         
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(dam, Br.myTransform.position);
