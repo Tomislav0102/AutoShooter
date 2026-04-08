@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6edec2075677bc34c96bfe8fe309ed1c
+timeCreated: 1549881143
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Spider Venom/FBX/Materials/Spider VenomWF.mat
+  uploadId: 293423

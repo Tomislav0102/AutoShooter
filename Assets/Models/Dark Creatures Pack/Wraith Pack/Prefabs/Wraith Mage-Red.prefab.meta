@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 59c0df78cb163cf4c89005ec4b3032c1
+timeCreated: 1549811758
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Wraith Pack/Prefabs/Wraith Mage-Red.prefab
+  uploadId: 293423

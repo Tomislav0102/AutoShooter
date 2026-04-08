@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 52dde237e2f582944b5d2bf947b1bd7f
+timeCreated: 1548930309
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/One Eyed Wizard/FBX/Bat/Materials/One Eyed
+    BatWF.mat
+  uploadId: 293423

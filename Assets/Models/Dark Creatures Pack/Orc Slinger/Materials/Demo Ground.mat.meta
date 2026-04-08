@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ec487205abb502a48abb7154429c0b83
+timeCreated: 1549186043
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Orc Slinger/Materials/Demo Ground.mat
+  uploadId: 293423

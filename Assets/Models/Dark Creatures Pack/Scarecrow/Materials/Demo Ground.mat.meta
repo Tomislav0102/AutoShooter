@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f8709b34b0e048d479a81f8f5d51db5b
+timeCreated: 1528366771
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Scarecrow/Materials/Demo Ground.mat
+  uploadId: 293423

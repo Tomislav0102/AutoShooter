@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 74c17c4a45237c34cac21f57e1ffb2d5
+timeCreated: 1528367450
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Scarecrow/PPP/Scarecrow.asset
+  uploadId: 293423

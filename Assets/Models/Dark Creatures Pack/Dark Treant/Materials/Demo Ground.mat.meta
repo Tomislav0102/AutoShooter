@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 2e264af4e613b984d90b691529d50032
+timeCreated: 1528366771
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Dark Treant/Materials/Demo Ground.mat
+  uploadId: 293423

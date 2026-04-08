@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 67743d6606afeb34c9d0b19f92f09a19
+timeCreated: 1549005956
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Dark Treant/Prefabs/Dark Treant Purple.prefab
+  uploadId: 293423

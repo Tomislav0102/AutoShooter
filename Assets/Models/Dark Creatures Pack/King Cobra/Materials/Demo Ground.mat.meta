@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 976690bec8bfd6246b1d0e9bff655af8
+timeCreated: 1528366771
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/King Cobra/Materials/Demo Ground.mat
+  uploadId: 293423

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: acb0148ce27691141b78a57743217ceb
+timeCreated: 1549005932
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 36685
+  packageName: Dark Creatures Pack
+  packageVersion: 1.3
+  assetPath: Assets/Dark Creatures Pack/Dark Treant/Prefabs/Dark Treant Blue.prefab
+  uploadId: 293423
