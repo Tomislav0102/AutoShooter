@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: cd5147cae2ef25a47a164520fbc33354
+timeCreated: 1545006142
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Prefabs/Characters/SM_Chr_Tormented_Soul_01.prefab
+  uploadId: 884514
