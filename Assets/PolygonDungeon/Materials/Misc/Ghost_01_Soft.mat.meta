@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b6f923acce201424d92bf55800bc66cc
+timeCreated: 1507776248
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Materials/Misc/Ghost_01_Soft.mat
+  uploadId: 884514

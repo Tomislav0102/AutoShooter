@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3c146bb50da4af04eb0554a18b4c79b1
+timeCreated: 1507756571
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Materials/FX/FX_CandleFlame_01.mat
+  uploadId: 884514

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e7dde00514c5eab4296e993dfb7f6d6e
+timeCreated: 1507587369
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Materials/FX/FX_Water_Sewer_01.mat
+  uploadId: 884514

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 722fe9634fd2d48479748f4749ae170c
+timeCreated: 1508123204
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Materials/Misc/Textured_Walls_01.mat
+  uploadId: 884514

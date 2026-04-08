@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 74051b11766453f449872aeec83a3ef4
+timeCreated: 1507069968
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Materials/FX/FX_Water_01.mat
+  uploadId: 884514

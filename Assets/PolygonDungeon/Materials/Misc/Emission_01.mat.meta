@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f32157db333946a4f95269d2c7ea43ed
+timeCreated: 1507598739
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Materials/Misc/Emission_01.mat
+  uploadId: 884514
