@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -5,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class S_Area : Spell
 {
+
     float _timer;
     public override void InitializeMe(Brain brain)
     {

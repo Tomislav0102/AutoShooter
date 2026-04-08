@@ -28,6 +28,6 @@ public class S_HitSphere : Spell
             }
         }
         AfterEffect();
-        OnEnd();
+       // OnEnd();
     }
 }

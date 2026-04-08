@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -9,6 +10,8 @@ public class P_Knight : PlayerCombat
 {
     [Title("Knight")]
     [SerializeField][Range(1, 10)] int dashPower = 4;
+    float _timerBlockReady;
+    const int CONST_BlockTimer = 2;
     
     public override void FromAnimEv_Attack(int num = 0)
     {
@@ -27,6 +30,15 @@ public class P_Knight : PlayerCombat
         
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (_timerBlockReady >= 0f)
+        {
+            _timerBlockReady -= Time.deltaTime;
+        }
+    }
+
     protected override void CallEv_OnSpecialActivated()
     {
         base.CallEv_OnSpecialActivated();
@@ -35,13 +47,25 @@ public class P_Knight : PlayerCombat
 
     public override void HealthHitCallback(DamageData damageData)
     {
+        if (_timerBlockReady > 0f)
+        {
+            counterHit = 0;
+            return;
+        }
         base.HealthHitCallback(damageData);
-        if (!damageData.canBeBlocked) return;
+        
         float rdn = Random.value * counterHit;
         if (rdn >= 1)
         {
+            _timerBlockReady = CONST_BlockTimer;
             counterHit = 0;
             Br.loco.Block();
+            StartCoroutine(SpellPushDelay());
+        }
+
+        IEnumerator SpellPushDelay()
+        {
+            yield return new WaitForSeconds(0.1f);
             Spell push = Instantiate(Ga.me.spells.pushAll, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             push.InitializeMe(Br);
         }

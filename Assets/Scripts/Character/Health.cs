@@ -54,7 +54,7 @@ public class Health: EventBus, ITakeDamage, IInit
         HealthCurrent -= dam.damage;
         
         ParticleSystem ps = _dictPsElements[dam.element];
-        if (ps != null && !ps.isPlaying) ps.Play();
+        if (ps != null) ps.Play();
         
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(dam, Br.myTransform.position);

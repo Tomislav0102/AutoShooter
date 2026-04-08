@@ -118,8 +118,8 @@ MonoBehaviour:
   myVisualization: {fileID: 1368234585683105927}
   myFaction: 0
   factionsToTarget: 01000000
-  element: 2
-  damage: 5
+  element: 0
+  damage: 1
   canBeBlocked: 1
   radius: 1.5
   speed: 0

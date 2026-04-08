@@ -29,7 +29,7 @@ public class Spell : EventBus
     protected DamageData dam;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
-
+    bool _endDelayStarted;
 
     public virtual void InitializeMe(Brain brain) 
     {
@@ -52,15 +52,20 @@ public class Spell : EventBus
     
     protected virtual void Update()
     {
-        if (lifeTime > 0)
-        {
-            _timerLife += Time.deltaTime;
-            if (_timerLife >= lifeTime) StartCoroutine(Delay());
-        }
         if (anchor != null) myTransform.position = anchor.position;
+        
+        _timerLife += Time.deltaTime;
+        if (_timerLife >= lifeTime && !_endDelayStarted) StartCoroutine(Delay());
+        // if (lifeTime > 0)
+        // {
+        //     _timerLife += Time.deltaTime;
+        //     if (_timerLife >= lifeTime) StartCoroutine(Delay());
+        // }
+        // if (anchor != null) myTransform.position = anchor.position;
     }
     IEnumerator Delay()
     {
+        _endDelayStarted = true;
         yield return new WaitForFixedUpdate();
         OnEnd();
     }
