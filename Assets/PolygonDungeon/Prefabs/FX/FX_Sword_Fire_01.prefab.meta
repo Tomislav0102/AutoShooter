@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bba9b338aed9790419a4d7adf390cd03
+timeCreated: 1507695084
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Prefabs/FX/FX_Sword_Fire_01.prefab
+  uploadId: 884514

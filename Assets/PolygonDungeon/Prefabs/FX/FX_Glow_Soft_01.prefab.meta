@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cb4f8f30c48ea1949b5d5b41026c76e1
+timeCreated: 1507605914
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Prefabs/FX/FX_Glow_Soft_01.prefab
+  uploadId: 884514

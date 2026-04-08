@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6f2a4e4cf2e617a42a6a75ec9f10aebc
+timeCreated: 1507776911
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Prefabs/FX/FX_Ghost_Dust_01.prefab
+  uploadId: 884514

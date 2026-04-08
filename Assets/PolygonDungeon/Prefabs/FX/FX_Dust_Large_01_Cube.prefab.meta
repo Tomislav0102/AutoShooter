@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aa4a850ba17252a4abfdaf5ac8598b2a
+timeCreated: 1507596618
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102677
+  packageName: POLYGON - Dungeons Pack - Art by Synty
+  packageVersion: 1.10.0
+  assetPath: Assets/PolygonDungeon/Prefabs/FX/FX_Dust_Large_01_Cube.prefab
+  uploadId: 884514
