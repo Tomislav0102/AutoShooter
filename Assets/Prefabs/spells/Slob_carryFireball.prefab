@@ -81,12 +81,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051f38d5f862c3a44994dc65e72a0aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Lob
-  myTransform: {fileID: 4597025983866801537}
-  myRigid: {fileID: 2605471827322317438}
-  myCollider: {fileID: 5286290992727831482}
-  myMesh: {fileID: 0}
-  myVisualization: {fileID: 5413997293782869960}
-  faction: 2
+  comp: {fileID: 8739352609991050944}
+  myFaction: 2
+  factionsToTarget: 
   element: 0
   damage: 0
   canBeBlocked: 0
@@ -96,23 +93,14 @@ MonoBehaviour:
   lifeTime: 0
   afterEffect: {fileID: 6204366007256613323, guid: bc377accde669dc4cb1c9061317ccef4, type: 3}
   anchor: {fileID: 0}
---- !u!54 &2605471827322317438 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!114 &8739352609991050944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 4962279686242850125}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4597025983866801537 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 4962279686242850125}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &5286290992727831482 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 4962279686242850125}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5413997293782869960 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 4962279686242850125}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136250447462088324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompSpell

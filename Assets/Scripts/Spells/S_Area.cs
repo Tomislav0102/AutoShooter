@@ -11,7 +11,7 @@ public class S_Area : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        myCollider.enabled = true;
+        comp.myCollider.enabled = true;
         _timer = Mathf.Infinity;
     }
     protected override void Update()

@@ -17,7 +17,7 @@ public class P_Knight : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
         Spell melee = Instantiate(Ga.me.spells.meleePlayer,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        melee.myTransform.position += melee.radius * Br.myTransform.forward;
+        melee.comp.myTransform.position += melee.radius * Br.myTransform.forward;
         melee.InitializeMe(Br);
     }
 

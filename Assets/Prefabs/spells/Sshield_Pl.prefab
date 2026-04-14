@@ -126,6 +126,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 21
       objectReference: {fileID: 0}
+    - target: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: myMesh
+      value: 
+      objectReference: {fileID: 411191942291112246}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
       value: Sshield_Pl
@@ -202,11 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33738b65e0667f448fb15cdd3c75c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Shield
-  myTransform: {fileID: 2729357063172143723}
-  myRigid: {fileID: 4468428302920359316}
-  myCollider: {fileID: 6014514048021333072}
-  myMesh: {fileID: 411191942291112246}
-  myVisualization: {fileID: 5839221300527206434}
+  comp: {fileID: 7161602923362611498}
   myFaction: 2
   factionsToTarget: 01000000
   element: 0
@@ -226,18 +226,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 6842931674061169319}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &4468428302920359316 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!114 &7161602923362611498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 6842931674061169319}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5839221300527206434 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 6842931674061169319}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &6014514048021333072 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 6842931674061169319}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580676386477050222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompSpell

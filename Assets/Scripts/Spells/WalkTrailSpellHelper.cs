@@ -33,7 +33,7 @@ public class WalkTrailSpellHelper : SpellHelper
 
             Spell spell = Instantiate(spellPrefabToInstantiate, brain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             spell.InitializeMe(brain);
-            _spawns.Add(spell.myCollider);
+            _spawns.Add(spell.comp.myCollider);
         }
         
     }

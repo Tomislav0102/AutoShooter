@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
 [DefaultExecutionOrder(-10)]
 public class Ga : MonoBehaviour
 {

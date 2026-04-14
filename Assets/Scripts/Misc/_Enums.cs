@@ -2,18 +2,44 @@
 public enum GenOrder { Primary, Secondary, Tertiary }
 public enum GenSize { Small, Medium, Big }
 public enum GenDirection { Enter, Exit }
-public enum GenSide { Left, Right } 
+public enum GenSide { Left, Right }
 public enum GenActivation { On, Off }
 public enum GenConfirm { Yes, No }
 public enum GenMenuControl { Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
-public enum GenChange { Increase, Decrease }
+public enum GenChange { Add, Remove }
 #endregion
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 public enum Faction { Player, Monsters, Neutral }
+public enum OffenseSkill { Melee, Ranged, Magical }
 public enum Disposition { Relaxed, Wary, Fighting }
-public enum StatsPrimary { Strength, Dexterity, Constitution, Intelligence }
-public enum StatsSecondary { MeleeDamage, RangedDamage, MoveSpeed, AttackSpeed, PhysicalResistance, MagicDamage, MagicalResistance }
+
+public enum Stats
+{
+    Strength, 
+    Dexterity, 
+    Constitution, 
+    Intelligence,
+    //
+    MeleeDamage, 
+    RangedDamage, 
+    MagicDamage, 
+    MoveSpeed, 
+    AttackSpeed,
+    Block,
+    Dodge,
+    Health,
+    Toughness,
+    Resolve,
+    ///
+    CritChance,
+    CriMod,
+    Xp,
+    Gold,
+    Loot,
+    Resistances //opens another enum 'Element'
+}
+
 
 public enum Buff
 {

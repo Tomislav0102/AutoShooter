@@ -74,6 +74,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: myMesh
+      value: 
+      objectReference: {fileID: 7702135388568074371}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
       value: Shoming_magicMissilePl
@@ -129,24 +133,20 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7560816250464232245}
   m_SourcePrefab: {fileID: 100100000, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
---- !u!135 &3468292545701977576 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!114 &14952202358909074 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 4440825222856473375}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3629643795123571098 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 4440825222856473375}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555064494001950934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompSpell
 --- !u!4 &5095434649384985555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 4440825222856473375}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &6725293460720813100 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 4440825222856473375}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8555064494001950934 stripped
@@ -166,11 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece51d02a96c55345a255ec5c56b4b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Homing
-  myTransform: {fileID: 5095434649384985555}
-  myRigid: {fileID: 6725293460720813100}
-  myCollider: {fileID: 3468292545701977576}
-  myMesh: {fileID: 7702135388568074371}
-  myVisualization: {fileID: 3629643795123571098}
+  comp: {fileID: 14952202358909074}
   myFaction: 0
   factionsToTarget: 01000000
   element: 6

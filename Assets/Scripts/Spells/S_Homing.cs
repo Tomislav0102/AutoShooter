@@ -10,16 +10,16 @@ public class S_Homing : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        myCollider.enabled = true;
-        myRigid.isKinematic = false;
+        comp.myCollider.enabled = true;
+        comp.myRigid.isKinematic = false;
     }
 
     protected override void Update()
     {
         base.Update();
         if (homingTarget == null) return;
-        Vector3 dir = Utils.Direction(myTransform.position, homingTarget.position);
-        myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
+        Vector3 dir = Utils.Direction(comp.myTransform.position, homingTarget.position);
+        comp.myTransform.rotation = Quaternion.Slerp(comp.myTransform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
     }
 
     void FixedUpdate()
@@ -29,7 +29,7 @@ public class S_Homing : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
+        if (damageMod > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
         {
             takeDamage.TakeDamage(dam);
         }

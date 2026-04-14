@@ -6,6 +6,7 @@ public class Brain : EventBus
 {
     public Faction faction;
     public Transform myTransform;
+    public Character myChar;
     public Rigidbody myRigid;
     public SphereCollider myCollider;
     [SerializeField] Renderer myRenderer;
@@ -21,6 +22,7 @@ public class Brain : EventBus
         if (health != null) health.Br = this;
         if (loco != null) loco.Br = this;
         if (combat != null) combat.Br = this;
+        myChar = new Character(this);
         switch (faction)
         {
             case Faction.Player:

@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using DG.Tweening;
+using UnityEngine.Events;
+
+//using DG.Tweening;
 
 public class P_Loco : Loco
 {
@@ -27,11 +29,12 @@ public class P_Loco : Loco
             if (_disp != value)
             {
                 _disp = value;
-                
+
                 anim.SetLayerWeight(1, 1);
-                AttInputEnemy(false); 
+                AttInputEnemy(false);
                 rotationConstraint.weight = 0;
                 if (weaponTrail != null) weaponTrail.Stop();
+                ev?.Invoke(value);
                 switch (value)
                 {
                     case Disposition.Relaxed:
@@ -49,6 +52,7 @@ public class P_Loco : Loco
         }
     }
     Disposition _disp;
+    public UnityEvent<Disposition> ev;
 
     void FixedUpdate()
     {

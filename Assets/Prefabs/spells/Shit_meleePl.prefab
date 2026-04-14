@@ -84,16 +84,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5907288675602046944}
   m_SourcePrefab: {fileID: 100100000, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
---- !u!135 &1189581865950022901 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!114 &2348338191598582159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 2090546351865948674}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1368234585683105927 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204366007256613323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompSpell
 --- !u!1 &6204366007256613323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
@@ -111,11 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
-  myTransform: {fileID: 7355918638698607310}
-  myRigid: {fileID: 9076702766818432305}
-  myCollider: {fileID: 1189581865950022901}
-  myMesh: {fileID: 0}
-  myVisualization: {fileID: 1368234585683105927}
+  comp: {fileID: 2348338191598582159}
   myFaction: 0
   factionsToTarget: 01000000
   element: 0
@@ -127,13 +124,3 @@ MonoBehaviour:
   lifeTime: 0
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
---- !u!4 &7355918638698607310 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &9076702766818432305 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 2090546351865948674}
-  m_PrefabAsset: {fileID: 0}

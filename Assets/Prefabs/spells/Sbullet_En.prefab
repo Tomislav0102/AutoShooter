@@ -19671,6 +19671,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+      propertyPath: myMesh
+      value: 
+      objectReference: {fileID: 4489257313524762219}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
       value: Sbullet_En
@@ -19729,11 +19733,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2033299971336118744}
   m_SourcePrefab: {fileID: 100100000, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
---- !u!54 &195057938506716435 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 7079955407642421792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1826042787189666540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
@@ -19756,11 +19755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563be317f6a7aed42ada410479198d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Ballistic
-  myTransform: {fileID: 1826042787189666540}
-  myRigid: {fileID: 195057938506716435}
-  myCollider: {fileID: 8052488213109279959}
-  myMesh: {fileID: 4489257313524762219}
-  myVisualization: {fileID: 7908007728367212709}
+  comp: {fileID: 6905399346391677357}
   myFaction: 1
   factionsToTarget: 00000000
   element: 0
@@ -19797,13 +19792,14 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.51
   m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &7908007728367212709 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!114 &6905399346391677357 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 7079955407642421792}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &8052488213109279959 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 7079955407642421792}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2979209462643851753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompSpell

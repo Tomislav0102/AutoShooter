@@ -36,10 +36,10 @@ public class P_Mage : PlayerCombat
         {
             S_Homing spell = Instantiate(Ga.me.spells.homing, Ga.me.spells.myTransform) as S_Homing;
             spell.homingTarget = Br.combat.MyTarget;
-            spell.myTransform.position = Br.myTransform.position;
-            spell.myTransform.forward = -Br.myTransform.right;
-            spell.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);;
-            spell.myMesh.position = new Vector3(spell.myMesh.position.x, spawnPoint.position.y, spell.myMesh.position.z);
+            spell.comp.myTransform.position = Br.myTransform.position;
+            spell.comp.myTransform.forward = -Br.myTransform.right;
+            spell.comp.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);;
+            spell.comp.myMesh.position = new Vector3(spell.comp.myMesh.position.x, spawnPoint.position.y, spell.comp.myMesh.position.z);
             spell.InitializeMe(Br);
         }
     }

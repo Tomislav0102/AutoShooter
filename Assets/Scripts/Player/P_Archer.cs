@@ -72,11 +72,11 @@ public class P_Archer : PlayerCombat
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
                 S_Bullet sp = Instantiate(Ga.me.spells.projectilePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
-                sp.myMesh.position = new Vector3(sp.myMesh.position.x, spawnPoint.position.y, sp.myMesh.position.z);
-                sp.myTransform.Rotate(rot);
-                sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
+                sp.comp.myMesh.position = new Vector3(sp.comp.myMesh.position.x, spawnPoint.position.y, sp.comp.myMesh.position.z);
+                sp.comp.myTransform.Rotate(rot);
+                sp.comp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+                sp.comp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
                 
                 sp.ricochet = ricochet;
                 sp.pierce = pierce;

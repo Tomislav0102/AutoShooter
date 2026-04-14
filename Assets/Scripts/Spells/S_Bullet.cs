@@ -17,23 +17,23 @@ public class S_Bullet : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        myCollider.enabled = true;
-        myRigid.isKinematic = false;
+        comp.myCollider.enabled = true;
+        comp.myRigid.isKinematic = false;
         SetSpeed();
         solid.enabled = bounce > 0;
-        solid.radius = myCollider.radius + 0.01f;
+        solid.radius = comp.myCollider.radius + 0.01f;
         Physics.IgnoreCollision(solid, brain.myCollider);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
+        if (damageMod > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
         {
             takeDamage.TakeDamage(dam);
             if (ricochet > 0)
             {
                 float range = 3f;
-                Collider[] colliders = Physics.OverlapSphere(myTransform.position, range);
+                Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, range);
                 List<Transform> myTargets = new List<Transform>();
                 foreach (Collider item in colliders)
                 {
@@ -42,8 +42,8 @@ public class S_Bullet : Spell
 
                 if (myTargets.Count > 0)
                 {
-                    Vector3 dir = myTargets[Random.Range(0, myTargets.Count)].position - myTransform.position;
-                    myTransform.forward = dir.normalized;
+                    Vector3 dir = myTargets[Random.Range(0, myTargets.Count)].position - comp.myTransform.position;
+                    comp. myTransform.forward = dir.normalized;
                     ricochet--;
                     SetSpeed();
                 }
@@ -68,8 +68,8 @@ public class S_Bullet : Spell
             if (bounce > 0)
             {
                 bounce--;
-                Vector3 dir = Vector3.Reflect(myTransform.forward, other.GetContact(0).normal);
-                myTransform.forward = dir.normalized;
+                Vector3 dir = Vector3.Reflect(comp.myTransform.forward, other.GetContact(0).normal);
+                comp.myTransform.forward = dir.normalized;
                 SetSpeed();
             }
             else OnEnd();

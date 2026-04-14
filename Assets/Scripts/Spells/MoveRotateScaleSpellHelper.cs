@@ -25,7 +25,7 @@ public class MoveRotateScaleSpellHelper : SpellHelper
         for (int i = 0; i < numOfSpells; i++)
         {
             _spells[i] = Instantiate(spellPrefabToInstantiate, myTransform.position, Quaternion.Euler(0, angle * (i + 1), 0), myTransform);
-            _spells[i].myTransform.Translate( distanceFromTarget * Vector3.forward, Space.Self);
+            _spells[i].comp.myTransform.Translate( distanceFromTarget * Vector3.forward, Space.Self);
         }
         
         isActive = true;

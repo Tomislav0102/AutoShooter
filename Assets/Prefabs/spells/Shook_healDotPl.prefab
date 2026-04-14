@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Shook_healDot
+      value: Shook_healDotPl
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,11 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871855f3240083e49a3085379df9c490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Hook
-  myTransform: {fileID: 3866550236507341276}
-  myRigid: {fileID: 3335807092395320867}
-  myCollider: {fileID: 4845866140779790311}
-  myMesh: {fileID: 0}
-  myVisualization: {fileID: 4702098757984758677}
+  comp: {fileID: 8298795834514885277}
   myFaction: 0
   factionsToTarget: 00000000
   element: 0
@@ -93,23 +89,14 @@ MonoBehaviour:
   lifeTime: 10
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
---- !u!54 &3335807092395320867 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6986756237248560947, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
+--- !u!114 &8298795834514885277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
   m_PrefabInstance: {fileID: 5674213543902337296}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3866550236507341276 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 5674213543902337296}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4702098757984758677 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1152902606490628741, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 5674213543902337296}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &4845866140779790311 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 973097147593910007, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
-  m_PrefabInstance: {fileID: 5674213543902337296}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407454759708865241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompSpell
