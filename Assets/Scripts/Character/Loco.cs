@@ -29,31 +29,19 @@ public class Loco : EventBus, IInit
     
     public void AE_Attack(int  num) => Br.combat.FromAnimEv_Attack(num);
 
-    public void AE_SpellCast(int num) => Br.combat.FromAnimEv_SpellCast(num);
+    public void AE_Ultimate(int num) => Br.combat.FromAnimEv_Ultimate(num);
 
     protected void Direction_Move(float hor, float ver)
     {
         anim.SetFloat("moveHor", hor);
         anim.SetFloat("moveVer", ver);
     }
-    protected void Toggle_Move(bool isMoving)
-    {
-        anim.SetBool("walk", isMoving);
-    }
-    protected void AttInputEnemy(bool isAttacking)
-    {
-        anim.SetBool("attack", isAttacking);
-    }
+    protected void Toggle_Move(bool isMoving) => anim.SetBool("walk", isMoving);
+    protected void AttInputEnemy(bool isAttacking) =>  anim.SetBool("attack", isAttacking);
+    protected void Att1InputEnemy(bool isAttacking1) => anim.SetBool("attack1", isAttacking1);
     public void CastSpell() =>  anim.SetTrigger("cast");
     public void Hit() =>  anim.SetTrigger("hit");
-    public void Block() 
-    {
-        anim.SetTrigger("block");
-    }
-    protected void Att1InputEnemy(bool isAttacking1)
-    {
-        anim.SetBool("attack1", isAttacking1);
-    }
+    public void Block() =>  anim.SetTrigger("block");
     #endregion
 
     #region TOOLS

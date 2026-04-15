@@ -17,19 +17,19 @@ public class S_Bullet : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        comp.myCollider.enabled = true;
+        comp.mySphereCollider.enabled = true;
         comp.myRigid.isKinematic = false;
         SetSpeed();
         solid.enabled = bounce > 0;
-        solid.radius = comp.myCollider.radius + 0.01f;
+        solid.radius = comp.mySphereCollider.radius + 0.01f;
         Physics.IgnoreCollision(solid, brain.myCollider);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (damageMod > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
+        if (damData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
         {
-            takeDamage.TakeDamage(dam);
+            takeDamage.TakeDamage(damData);
             if (ricochet > 0)
             {
                 float range = 3f;

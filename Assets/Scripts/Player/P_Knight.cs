@@ -17,13 +17,13 @@ public class P_Knight : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
         Spell melee = Instantiate(Ga.me.spells.meleePlayer,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        melee.comp.myTransform.position += melee.radius * Br.myTransform.forward;
+        melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
         melee.InitializeMe(Br);
     }
 
-    public override void FromAnimEv_SpellCast(int num = 0)
+    public override void FromAnimEv_Ultimate(int num = 0)
     {
-        base.FromAnimEv_SpellCast(num);
+        base.FromAnimEv_Ultimate(num);
        Spell sp = Instantiate(Ga.me.spells.hookHealDot, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
        sp.anchor = Br.myTransform;
        sp.InitializeMe(Br);

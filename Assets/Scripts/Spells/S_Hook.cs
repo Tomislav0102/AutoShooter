@@ -19,7 +19,7 @@ public class S_Hook : Spell
         if (_timer > 1f)
         {
             _timer = 0f;
-            anchor.GetComponent<ITakeDamage>().TakeDamage(dam);
+            anchor.GetComponent<ITakeDamage>().TakeDamage(damData);
             if (lifeTime == 0) OnEnd();
         }
     }

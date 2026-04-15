@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
 [DefaultExecutionOrder(-10)]
 public class Ga : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class Ga : MonoBehaviour
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
     public SoGameData gameData;
+    public SoCharacter defCharacter;
     public SpellManager spells;
     public Transform barContainer;
     public RectTransform healthBarPrefab;

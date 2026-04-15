@@ -352,8 +352,112 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4940225807807326992}
+  - {fileID: 75405887764132967}
   m_Father: {fileID: 6703468733089972905}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1001 &766562914496596109
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8314116460332570703}
+    m_Modifications:
+    - target: {fileID: 840068294263815396, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815396, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 1.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815396, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.037
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815403, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_Name
+      value: SwordTrailStandard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 840068294263815403, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521595490666251368, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+--- !u!4 &75405887764132967 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+  m_PrefabInstance: {fileID: 766562914496596109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &75405887764132969 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 840068294263815396, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
+  m_PrefabInstance: {fileID: 766562914496596109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1680056172703866109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -429,7 +533,7 @@ PrefabInstance:
     - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: weaponTrail
       value: 
-      objectReference: {fileID: 1409792275215814364}
+      objectReference: {fileID: 75405887764132969}
     - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: ev.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -535,7 +639,6 @@ MonoBehaviour:
   detectRange: 3.4028235e+38
   specialCooldownTime: 3
   weaponTr: {fileID: 8314116460332570703}
-  weaponLookAtTarget: {fileID: 2503266939946530257}
 --- !u!4 &4294827743480298436 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3227542870493095737, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
@@ -629,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 840068294263815403, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8521595490666251368, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
       propertyPath: playOnAwake
@@ -643,10 +746,5 @@ PrefabInstance:
 --- !u!4 &1409792275215814354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 840068294263815402, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
-  m_PrefabInstance: {fileID: 1745165967282778680}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1409792275215814364 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 840068294263815396, guid: 2539beaae4ed94b42a9b806431b5d255, type: 3}
   m_PrefabInstance: {fileID: 1745165967282778680}
   m_PrefabAsset: {fileID: 0}

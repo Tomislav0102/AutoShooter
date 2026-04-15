@@ -18,7 +18,7 @@ public class E_AllTypes : EnemyCombat
                 Spell melee = Instantiate(Ga.me.spells.meleeEnemy,
                     Br.myTransform.position,
                     Quaternion.identity, Ga.me.spells.myTransform);
-                melee.comp.myTransform.position += melee.radius * Br.myTransform.forward;
+                melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
                 melee.InitializeMe(Br);
                 break;
             case 1: //projectile
@@ -32,9 +32,9 @@ public class E_AllTypes : EnemyCombat
         }
     }
 
-    public override void FromAnimEv_SpellCast(int num = 0)
+    public override void FromAnimEv_Ultimate(int num = 0)
     {
-        base.FromAnimEv_SpellCast(num);
+        base.FromAnimEv_Ultimate(num);
         switch (num)
         {
             case 0:

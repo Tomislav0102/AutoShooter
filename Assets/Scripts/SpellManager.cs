@@ -1,4 +1,4 @@
-using System;
+   using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 public class SpellManager : MonoBehaviour
 {
    [HideInInspector] public Transform myTransform;
+   public bool showDebug;
    [Title("Hit")]
    public Spell meleeEnemy;
    public Spell meleePlayer;

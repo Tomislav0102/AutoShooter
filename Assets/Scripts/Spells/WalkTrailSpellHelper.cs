@@ -12,7 +12,7 @@ public class WalkTrailSpellHelper : SpellHelper
     public override void InitializeMe(Brain br, Spell spellPrefab)
     {
         base.InitializeMe(br, spellPrefab);
-        _radius = spellPrefab.radius;
+        _radius = spellPrefab.areaOfEffect * 0.5f;
         _spawns = new HashSet<Collider>();
         isActive = true;
     }
@@ -33,7 +33,7 @@ public class WalkTrailSpellHelper : SpellHelper
 
             Spell spell = Instantiate(spellPrefabToInstantiate, brain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             spell.InitializeMe(brain);
-            _spawns.Add(spell.comp.myCollider);
+            _spawns.Add(spell.comp.mySphereCollider);
         }
         
     }

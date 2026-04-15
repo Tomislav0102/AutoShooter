@@ -486,7 +486,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.2670157
-        functionName: AE_SpellCast
+        functionName: AE_Ultimate
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

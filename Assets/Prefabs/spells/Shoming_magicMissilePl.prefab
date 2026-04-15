@@ -170,9 +170,8 @@ MonoBehaviour:
   myFaction: 0
   factionsToTarget: 01000000
   element: 6
-  damage: 1
   canBeBlocked: 1
-  radius: 0.2
+  areaOfEffect: 0.3
   speed: 1.5
   knockBack: 0
   lifeTime: 10

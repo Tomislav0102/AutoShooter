@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class Spell : EventBus
@@ -11,16 +12,15 @@ public class Spell : EventBus
     [ReadOnly] public Faction myFaction = Faction.Neutral;
     [SerializeField] protected List<Faction> factionsToTarget;
     [SerializeField] Element element;
-    [SerializeField] protected float damageMod = 1f;
-    [SerializeField] protected Stats offenseSkill = Stats.MagicDamage;
+  //  protected float damage;
     public bool canBeBlocked;
-    public float radius;
+    public float areaOfEffect = 1;
     [SerializeField] protected float speed;
     [Range(0, 20)][SerializeField] protected int knockBack;
     [SerializeField] protected float lifeTime;
     [SerializeField] GameObject afterEffect;
     public Transform anchor;
-    protected DamageData dam;
+    protected DamageData damData;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
     bool _endDelayStarted;
@@ -29,33 +29,59 @@ public class Spell : EventBus
     {
         _ownersBrain = brain;
         myFaction = _ownersBrain.faction;
-        comp.myCollider.enabled = false;
         comp.myRigid.isKinematic = true;
-        comp.myCollider.radius = radius;
-        if (comp.myVisualization != null) comp.myVisualization.localScale = radius * 2 * Vector3.one;
-        dam = new DamageData()
+
+        if (comp.mySphereCollider != null)
+        {
+            Physics.IgnoreCollision(comp.mySphereCollider, _ownersBrain.myCollider);
+            comp.mySphereCollider.enabled = false;
+            comp.mySphereCollider.radius = areaOfEffect * 0.5f;
+        }
+        if (comp.myCapsuleCollider != null)
+        {
+            Physics.IgnoreCollision(comp.myCapsuleCollider, _ownersBrain.myCollider);
+            comp.myCapsuleCollider.enabled = false;
+            comp.myCapsuleCollider.height = areaOfEffect;
+            comp.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
+        }
+        
+        damData = new DamageData()
         {
             attacker = _ownersBrain.myTransform,
-            damage = damageMod * _ownersBrain.myChar.GetStat(offenseSkill),
+          //  damage = damage,
             canBeBlocked = canBeBlocked,
             knockBack = knockBack,
             element = element,
         };
-        Physics.IgnoreCollision(comp.myCollider, _ownersBrain.myCollider);
     }
 
-    public virtual void InitializeMe(Brain brain, Stats offense)
+    public virtual void InitializeMe(Brain brain, float dam)
     {
-        offenseSkill = offense;
+        damData = new DamageData()
+        {
+            attacker = _ownersBrain.myTransform,
+            damage = dam,
+            canBeBlocked = canBeBlocked,
+            knockBack = knockBack,
+            element = element,
+        };
+
         InitializeMe(brain);
     }
+
+    public virtual void InitializeMe(Brain brain, float dam, HashSet<Collider> collidersToIgnore)
+    {
+        foreach (Collider col in collidersToIgnore) collidersDetected.Add(col);
+        InitializeMe(brain, dam);
+    }
+
 
     protected virtual void Update()
     {
         if (anchor != null) comp.myTransform.position = anchor.position;
 
         _timerLife += Time.deltaTime;
-        if (_timerLife >= lifeTime && !_endDelayStarted) StartCoroutine(Delay());
+        if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(Delay());
     }
     IEnumerator Delay()
     {
@@ -80,5 +106,12 @@ public class Spell : EventBus
     {
 
         Destroy(gameObject);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!Ga.me.spells.showDebug || !Application.isPlaying) return;
+        Gizmos.color = Color.purple;
+        Gizmos.DrawSphere(comp.myTransform.position, areaOfEffect);
     }
 }

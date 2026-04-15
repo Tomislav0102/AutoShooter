@@ -58,7 +58,7 @@ public class Combat : SerializedMonoBehaviour, IInit
 
 
     public virtual void FromAnimEv_Attack(int num = 0) { }
-    public virtual void FromAnimEv_SpellCast(int num = 0) { }
+    public virtual void FromAnimEv_Ultimate(int num = 0) { }
 
     IEnumerator SearchTargetCoroutine()
     {

@@ -33,7 +33,7 @@ public enum Stats
     Resolve,
     ///
     CritChance,
-    CriMod,
+    CritMod,
     Xp,
     Gold,
     Loot,

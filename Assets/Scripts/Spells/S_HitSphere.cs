@@ -10,7 +10,7 @@ public class S_HitSphere : Spell
     {
         base.InitializeMe(brain);
         
-        Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, radius);
+        Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, areaOfEffect * 0.5f);
         
         foreach (Collider item in colliders)
         {
@@ -22,9 +22,9 @@ public class S_HitSphere : Spell
                     br.loco.KnockBack(dir, knockBack);
                 }
             }
-            if (damageMod > 0 && item.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
+            if (damData.damage > 0 && item.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
             {
-                takeDamage.TakeDamage(dam);
+                takeDamage.TakeDamage(damData);
             }
         }
         AfterEffect();

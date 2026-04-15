@@ -15,7 +15,8 @@ public class Health: EventBus, ITakeDamage, IInit
         {
             _br = value;
             _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
-            HealthCurrent = healthMax;
+            _healthMax = value.myChar.GetStat(Stats.Health) * 10;
+            HealthCurrent = _healthMax;
             _healthBarTransform = _healthBar.transform;
             _dictPsElements = new Dictionary<Element, ParticleSystem>();
             for (int i = 0; i < psElements.Length; i++)
@@ -30,18 +31,18 @@ public class Health: EventBus, ITakeDamage, IInit
     Image _healthBar;
     Transform _healthBarTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
-    [SerializeField] int healthMax;
     float HealthCurrent
     {
         get => _healthCurrent;
         set
         {
             _healthCurrent = value;
-            _healthBar.color = Color.Lerp(Color.red, Color.green, value / healthMax);
-            _healthBar.transform.localScale = new Vector3(_healthCurrent / healthMax, 1, 1);
+            _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
+            _healthBar.transform.localScale = new Vector3(_healthCurrent / _healthMax, 1, 1);
         }
     }
-    float _healthCurrent;
+    [ShowInInspector, ReadOnly] float _healthCurrent;
+    [ShowInInspector, ReadOnly] float _healthMax;
     public bool IsReady { get; set; }
     
     [Title("Particles")]

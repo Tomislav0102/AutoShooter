@@ -2,37 +2,25 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-/// <summary>
-/// This character is on hold because I can't find good attack animation.
-/// Current one can't be used with animation events
-/// </summary>
 public class P_Barb : PlayerCombat
 {
-    [SerializeField] Transform weaponTr, weaponLookAtTarget;
-    Disposition _disposition;
-    [ShowInInspector, ReadOnly] float _weaponAngle;
+    [SerializeField] Transform weaponTr;
+    float _weaponAngle;
 
 
-    public void DispositionFromLoco(Disposition disp)
+
+    public override void FromAnimEv_Attack(int num = 0)
     {
-     _disposition = disp;   
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        switch (_disposition)
-        {
-            case Disposition.Fighting:
-                break;
-        }
-
-        _weaponAngle = Vector2.Angle(weaponTr.forward, Br.myTransform.forward);
-    }
-
-    void LateUpdate()
-    {
-       // weaponTr.LookAt(weaponLookAtTarget);
+        base.FromAnimEv_Attack(num);
+        // _weaponAngle = Vector3.SignedAngle(weaponTr.forward, Br.myTransform.forward, Vector3.up);
+        _weaponAngle = Vector2.SignedAngle(Utils.MakeV2(weaponTr.forward), Utils.MakeV2(Br.myTransform.forward));
+       // print($"{num} |||| {_weaponAngle}");
         
+        Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        Vector3 pos = melee.comp.myTransform.position +
+                      melee.areaOfEffect * 1f * Vector3.ProjectOnPlane(weaponTr.forward, Vector3.up);
+        melee.comp.myTransform.position = pos;
+        melee.InitializeMe(Br);
+
     }
 }

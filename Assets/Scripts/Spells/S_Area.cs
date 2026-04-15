@@ -11,7 +11,7 @@ public class S_Area : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        comp.myCollider.enabled = true;
+        comp.mySphereCollider.enabled = true;
         _timer = Mathf.Infinity;
     }
     protected override void Update()
@@ -26,7 +26,7 @@ public class S_Area : Spell
             {
                 if (item.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
                 {
-                    takeDamage.TakeDamage(dam);
+                    takeDamage.TakeDamage(damData);
                 }
             }
         }

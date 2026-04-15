@@ -19759,9 +19759,8 @@ MonoBehaviour:
   myFaction: 1
   factionsToTarget: 00000000
   element: 0
-  damage: 6
   canBeBlocked: 1
-  radius: 0.1
+  areaOfEffect: 0.2
   speed: 5
   knockBack: 0
   lifeTime: 10

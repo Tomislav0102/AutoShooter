@@ -116,11 +116,10 @@ MonoBehaviour:
   myFaction: 0
   factionsToTarget: 01000000
   element: 0
-  damage: 1
   canBeBlocked: 1
-  radius: 1.5
+  areaOfEffect: 1.5
   speed: 0
   knockBack: 1
-  lifeTime: 0
+  lifeTime: 0.2
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}

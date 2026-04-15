@@ -4,32 +4,29 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 
-public class Character : IInit
+public class Character : MonoBehaviour, IInit
 {
+    [SerializeField] SoCharacter data;
     public Brain Br
     {
         get => _br;
         set
         {
             _br = value;
+            if (data == null) data = Ga.me.defCharacter;
             _myStats = new StatSingle[System.Enum.GetNames(typeof(Stats)).Length];
             for (int i = 0; i < _myStats.Length; i++)
             {
-                _myStats[i] = new StatSingle(100);
+                _myStats[i] = new StatSingle(data.stats[(Stats)i]);
             }
             IsReady = true;
         }
     }
     Brain _br;
-    public bool IsReady { get; set; }
+    [ReadOnly] public bool IsReady { get; set; }
 
     StatSingle[] _myStats;
 
-    public Character(Brain brain)
-    {
-        Br = brain;
-    }
-    
     public void ChangeStat(Stats statToChange, GenChange change, int amount)
     {
         List<int> modifiers = _myStats[(int)statToChange].modifiers;
