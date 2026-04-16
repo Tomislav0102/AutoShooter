@@ -11,7 +11,7 @@ public class S_Shield : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Spell spell) && factionsToTarget.Contains(spell.myFaction))
+        if (other.TryGetComponent(out Spell spell) && TarFaction() == spell.myFaction)
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {

@@ -23,19 +23,19 @@ public class SpecialUi : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.OnSpecialActivated += CallEv_OnSpecialActivated;
+        EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
     void OnDisable()
     {
-        EventBus.OnSpecialActivated -= CallEv_OnSpecialActivated;
+        EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
 
     public void BtnClicked()
     {
-        EventBus.OnSpecialActivated?.Invoke();
+        EventBus.OnUltimateActivated?.Invoke();
     }
 
-    void CallEv_OnSpecialActivated()
+    void CallEv_OnUltimateActivated()
     {
         StartCoroutine(CoolDown());
         IEnumerator CoolDown()

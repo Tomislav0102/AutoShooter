@@ -17,13 +17,13 @@ public class PlayerCombat : Combat
     
     void OnEnable()
     {
-        EventBus.OnSpecialActivated += CallEv_OnSpecialActivated;
+        EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
     void OnDisable()
     {
-        EventBus.OnSpecialActivated -= CallEv_OnSpecialActivated;
+        EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
-    protected virtual void CallEv_OnSpecialActivated()
+    protected virtual void CallEv_OnUltimateActivated()
     {
         
     }

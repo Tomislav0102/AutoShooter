@@ -27,7 +27,7 @@ public class S_Bullet : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (damData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
+        if (damData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && TarFaction() == takeDamage.Br.faction)
         {
             takeDamage.TakeDamage(damData);
             if (ricochet > 0)

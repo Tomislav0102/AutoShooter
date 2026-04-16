@@ -10,7 +10,19 @@ public class Spell : EventBus
      Brain _ownersBrain;
      public CompSpell comp;
     [ReadOnly] public Faction myFaction = Faction.Neutral;
-    [SerializeField] protected List<Faction> factionsToTarget;
+    protected Faction TarFaction()
+    {
+        int val = (int)myFaction;
+        print(val);
+        val = (1 + val) % 2;
+        print(val);
+        return (Faction)val;
+        if (myFaction == Faction.Player) return Faction.Monsters;
+        if (myFaction == Faction.Monsters) return Faction.Player;
+        return Faction.Neutral;
+    }
+    
+    
     [SerializeField] Element element;
   //  protected float damage;
     public bool canBeBlocked;
@@ -25,10 +37,14 @@ public class Spell : EventBus
     float _timerLife;
     bool _endDelayStarted;
 
+    
     public virtual void InitializeMe(Brain brain)
     {
         _ownersBrain = brain;
         myFaction = _ownersBrain.faction;
+        if (myFaction == Faction.Player) myFaction = Faction.Monsters;
+        else if (myFaction == Faction.Monsters) myFaction = Faction.Player;
+
         comp.myRigid.isKinematic = true;
 
         if (comp.mySphereCollider != null)
@@ -48,7 +64,7 @@ public class Spell : EventBus
         damData = new DamageData()
         {
             attacker = _ownersBrain.myTransform,
-          //  damage = damage,
+            damage = 1f, //debug
             canBeBlocked = canBeBlocked,
             knockBack = knockBack,
             element = element,
@@ -102,15 +118,14 @@ public class Spell : EventBus
             spell.InitializeMe(_ownersBrain);
         }
     }
-    public virtual void OnEnd()
+    public void OnEnd()
     {
-
         Destroy(gameObject);
     }
 
     void OnDrawGizmos()
     {
-        if (!Ga.me.spells.showDebug || !Application.isPlaying) return;
+        if (!Application.isPlaying || !Ga.me.spells.showDebug) return;
         Gizmos.color = Color.purple;
         Gizmos.DrawSphere(comp.myTransform.position, areaOfEffect);
     }

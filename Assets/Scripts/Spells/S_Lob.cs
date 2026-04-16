@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class S_Lob : Spell
 {
+    Vector3 _rndRot;
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
@@ -10,12 +11,14 @@ public class S_Lob : Spell
         comp.myRigid.useGravity = true;
         comp.myRigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         comp.myRigid.AddForce(speed * Random.Range(0.6f, 1.4f) * comp.myTransform.forward, ForceMode.VelocityChange);
+        _rndRot = 500f * Random.insideUnitSphere;
     }
 
     protected override void Update()
     {
         base.Update();
-        if (comp.myTransform.position.y <= 0.2f) //activates on ground level only, no contacts/triggers/collisions
+        comp.myMesh.Rotate(Time.deltaTime * _rndRot);
+        if (!Ga.me.InsideLevel(comp.myTransform.position)) 
         {
             AfterEffect();
             OnEnd();

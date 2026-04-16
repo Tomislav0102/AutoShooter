@@ -5,7 +5,7 @@ public class EventBus : MonoBehaviour
 {
     public static System.Action<Transform> OnCharDeath;
     public static System.Action OnPlayerDeath;
-    public static System.Action OnSpecialActivated;
+    public static System.Action OnUltimateActivated;
     
     protected virtual void OnEnable()
     {

@@ -13,6 +13,16 @@ public class S_Area : Spell
         base.InitializeMe(brain);
         comp.mySphereCollider.enabled = true;
         _timer = Mathf.Infinity;
+        if (comp.myMesh != null && comp.myMesh.TryGetComponent(out ParticleSystem ps))
+        {
+            var emisson = ps.emission;
+            emisson.rateOverTime = areaOfEffect * 5;
+            var shape = ps.shape;
+            shape.radius = areaOfEffect * 0.5f;
+        }
+        
+            
+        
     }
     protected override void Update()
     {
@@ -24,7 +34,7 @@ public class S_Area : Spell
             _timer = 0f;
             foreach (Collider item in collidersDetected)
             {
-                if (item.TryGetComponent(out ITakeDamage takeDamage) && factionsToTarget.Contains(takeDamage.Br.faction))
+                if (item.TryGetComponent(out ITakeDamage takeDamage) && TarFaction() == takeDamage.Br.faction)
                 {
                     takeDamage.TakeDamage(damData);
                 }

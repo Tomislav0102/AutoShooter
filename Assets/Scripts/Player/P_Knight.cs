@@ -39,9 +39,9 @@ public class P_Knight : PlayerCombat
         }
     }
 
-    protected override void CallEv_OnSpecialActivated()
+    protected override void CallEv_OnUltimateActivated()
     {
-        base.CallEv_OnSpecialActivated();
+        base.CallEv_OnUltimateActivated();
         Br.loco.CastSpell();
     }
 

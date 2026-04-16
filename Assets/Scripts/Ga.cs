@@ -18,6 +18,15 @@ public class Ga : MonoBehaviour
     [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
+    [BoxGroup("Enemy spawns")]
+    [SerializeField] Vector2 lowerLeft, upperRight;
+    public bool InsideLevel(Vector3 myPos)
+    {
+        if (myPos.y < 0.2f) return false;
+        if (myPos.x <= lowerLeft.x || myPos.x >= upperRight.x ||
+            myPos.z <= lowerLeft.y || myPos.z >= upperRight.y) return false;
+        return true;
+    }
     public SoGameData gameData;
     public SoCharacter defCharacter;
     public SpellManager spells;
@@ -32,6 +41,7 @@ public class Ga : MonoBehaviour
     public TomoJoystick.Joystick joystick;
     public LayerMask layEnemies, layPlayer;
     public SpecialUi specialUi;
+    
     
     [Button]
     void SpawnEnemies()
@@ -54,6 +64,15 @@ public class Ga : MonoBehaviour
         };
     }
 
+    void OnEnable()
+    {
+        EventBus.OnCharDeath += CallEv_OnCharDeath;
+    }
+    void OnDisable()
+    {
+        EventBus.OnCharDeath -= CallEv_OnCharDeath;
+    }
+
     void SpawnEnemy()
     {
         bool canSpawn = false;
@@ -68,14 +87,6 @@ public class Ga : MonoBehaviour
         Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoint, Quaternion.identity);
     }
 
-    void OnEnable()
-    {
-        EventBus.OnCharDeath += CallEv_OnCharDeath;
-    }
-    void OnDisable()
-    {
-        EventBus.OnCharDeath -= CallEv_OnCharDeath;
-    }
 
     void CallEv_OnCharDeath(Transform tr)
     {
