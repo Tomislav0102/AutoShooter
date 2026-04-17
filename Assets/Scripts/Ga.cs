@@ -43,6 +43,7 @@ public class Ga : MonoBehaviour
     public SpecialUi specialUi;
     
     
+    
     [Button]
     void SpawnEnemies()
     {

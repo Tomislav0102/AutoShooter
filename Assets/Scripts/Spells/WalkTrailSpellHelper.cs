@@ -5,7 +5,7 @@ using UnityEngine;
 public class WalkTrailSpellHelper : SpellHelper
 {
     float _timer;
-    float _pauseBetweenSpawns = 0.1f;
+    const float CONST_SpawnRate = 0.1f;
     HashSet<Collider> _spawns;
     float _radius;
 
@@ -22,7 +22,7 @@ public class WalkTrailSpellHelper : SpellHelper
     {
         if (!isActive) return;
         _timer += Time.deltaTime;
-        if (_timer >= _pauseBetweenSpawns)
+        if (_timer >= CONST_SpawnRate)
         {
             _timer = 0;
             Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, _radius * 2);

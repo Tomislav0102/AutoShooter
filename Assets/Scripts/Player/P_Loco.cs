@@ -13,7 +13,8 @@ public class P_Loco : Loco
         set
         {
             base.Br = value;
-            Ga.me.playerTransform = Br.myTransform;
+            Ga.me.playerTransform = value.myTransform;
+            Physics.IgnoreCollision(GameObject.Find("ground").GetComponent<Collider>(), value.myCollider);
             IsReady = true;
         }
     }

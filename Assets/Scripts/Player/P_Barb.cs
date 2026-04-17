@@ -16,12 +16,12 @@ public class P_Barb : PlayerCombat
         // _weaponAngle = Vector3.SignedAngle(weaponTr.forward, Br.myTransform.forward, Vector3.up);
        // _weaponAngle = Vector2.SignedAngle(Utils.MakeV2(weaponTr.forward), Utils.MakeV2(Br.myTransform.forward));
        // print($"{num} |||| {_weaponAngle}");
-        
+
         Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         Vector3 pos = melee.comp.myTransform.position +
                       melee.areaOfEffect * 1f * Vector3.ProjectOnPlane(weaponTr.forward, Vector3.up);
         melee.comp.myTransform.position = pos;
-        melee.InitializeMe(Br);
+        melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
 
     }
 }

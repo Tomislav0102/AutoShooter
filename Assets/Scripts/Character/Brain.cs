@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -17,7 +18,7 @@ public class Brain : EventBus
     public Loco loco;
     public Combat combat;
     
-    protected void Awake()
+    void Awake()
     {
         if (myChar != null) myChar.Br = this;
         if (health != null) health.Br = this;
@@ -50,13 +51,13 @@ public class Brain : EventBus
     /// only for Dash
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
-    {
-        if (other != myCollider && other.TryGetComponent(out Brain brain))
-        {
-            if (brain.loco != null) brain.loco.KnockBack(Utils.Direction(myTransform.position, other.transform
-                .position), 5);
-        }
-    }
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other != myCollider && other.TryGetComponent(out Brain brain))
+    //     {
+    //         if (brain.loco != null) brain.loco.KnockBack(Utils.Direction(myTransform.position, other.transform
+    //             .position), 5);
+    //     }
+    // }
 
 }

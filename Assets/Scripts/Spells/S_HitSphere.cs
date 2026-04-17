@@ -9,11 +9,11 @@ public class S_HitSphere : Spell
     public override void InitializeMe(Brain brain)
     {
         base.InitializeMe(brain);
-        Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, areaOfEffect * 0.5f);
+        Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, areaOfEffect * 0.5f, Utils.LayHostiles(brain.faction));
         
         foreach (Collider item in colliders)
         {
-            if (knockBack > 0 && item.TryGetComponent(out Brain br) && TarFaction() == br.faction)
+            if (knockBack > 0 && item.TryGetComponent(out Brain br))
             {
                 if (br.loco != null)
                 {
@@ -21,18 +21,9 @@ public class S_HitSphere : Spell
                     br.loco.KnockBack(dir, knockBack);
                 }
             }
-           // if (damData.damage > 0 && item.TryGetComponent(out ITakeDamage takeDamage) && TarFaction() == takeDamage.Br.faction)
             if (damData.damage > 0 && item.TryGetComponent(out ITakeDamage takeDamage))
             {
-                if (brain.faction == Faction.Player)
-                {
-                    print(($"mine {brain.faction}"));
-                    print($"target {TarFaction()}");
-                    print($"take dam {takeDamage.Br.faction}");
-                }
                 takeDamage.TakeDamage(damData);
-             //   print(item.name);
-
             }
         }
 

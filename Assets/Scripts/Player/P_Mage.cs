@@ -40,7 +40,7 @@ public class P_Mage : PlayerCombat
             spell.comp.myTransform.forward = -Br.myTransform.right;
             spell.comp.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);;
             spell.comp.myMesh.position = new Vector3(spell.comp.myMesh.position.x, spawnPoint.position.y, spell.comp.myMesh.position.z);
-            spell.InitializeMe(Br);
+            spell.InitializeMe(Br, Br.myChar.GetStat(Stats.MagicDamage));
         }
     }
 }

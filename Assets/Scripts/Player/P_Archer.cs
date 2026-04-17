@@ -81,7 +81,7 @@ public class P_Archer : PlayerCombat
                 sp.ricochet = ricochet;
                 sp.pierce = pierce;
                 sp.bounce = bounce;
-                sp.InitializeMe(Br);
+                sp.InitializeMe(Br, Br.myChar.GetStat(Stats.RangedDamage));
             }
 
         }

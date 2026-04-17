@@ -48,14 +48,22 @@ public class Health: EventBus, ITakeDamage, IInit
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
     Dictionary<Element, ParticleSystem> _dictPsElements;
-    [SerializeField] ParticleSystem psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
+    [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
     public void TakeDamage(DamageData dam)
     {
         HealthCurrent -= dam.damage;
-        
-        ParticleSystem ps = _dictPsElements[dam.element];
-        if (ps != null) ps.Play();
+
+        if (dam.damage < 0)
+        {
+            psHeal.Play();
+        }
+        else
+        {
+            print("> 0");
+            ParticleSystem ps = _dictPsElements[dam.element];
+            if (ps != null) ps.Play();
+        }
         
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(dam, Br.myTransform.position);
@@ -102,7 +110,7 @@ public class Health: EventBus, ITakeDamage, IInit
 public struct DamageData
 {
     public Transform attacker;
-    public float damage;
+    [HideInInspector] public float damage;
     public bool canBeBlocked;
     public int knockBack;
     public Element element;

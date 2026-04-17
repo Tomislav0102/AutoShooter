@@ -19,7 +19,7 @@ public class E_AllTypes : EnemyCombat
                     Br.myTransform.position,
                     Quaternion.identity, Ga.me.spells.myTransform);
                 melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
-                melee.InitializeMe(Br);
+                melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
                 break;
             case 1: //projectile
                 S_Bullet projectile = Instantiate(Ga.me.spells.projectileEnemy, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform) as S_Bullet;
@@ -27,7 +27,7 @@ public class E_AllTypes : EnemyCombat
                 projectile.ricochet = ricochet;
                 projectile.pierce = pierce;
                 projectile.bounce = bounce;
-                projectile.InitializeMe(Br);
+                projectile.InitializeMe(Br, Br.myChar.GetStat(Stats.RangedDamage));
                 break;
         }
     }
@@ -41,7 +41,7 @@ public class E_AllTypes : EnemyCombat
                 Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
                     spawnPoint.position,
                     Quaternion.identity, Ga.me.spells.myTransform);
-                lob.InitializeMe(Br);
+                lob.InitializeMe(Br, Br.myChar.GetStat(Stats.MagicDamage));
                 break;
         }
     }

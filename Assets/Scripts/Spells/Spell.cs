@@ -10,21 +10,8 @@ public class Spell : EventBus
      Brain _ownersBrain;
      public CompSpell comp;
     [ReadOnly] public Faction myFaction = Faction.Neutral;
-    protected Faction TarFaction()
-    {
-        int val = (int)myFaction;
-        print(val);
-        val = (1 + val) % 2;
-        print(val);
-        return (Faction)val;
-        if (myFaction == Faction.Player) return Faction.Monsters;
-        if (myFaction == Faction.Monsters) return Faction.Player;
-        return Faction.Neutral;
-    }
-    
-    
+
     [SerializeField] Element element;
-  //  protected float damage;
     public bool canBeBlocked;
     public float areaOfEffect = 1;
     [SerializeField] protected float speed;
@@ -32,7 +19,7 @@ public class Spell : EventBus
     [SerializeField] protected float lifeTime;
     [SerializeField] GameObject afterEffect;
     public Transform anchor;
-    protected DamageData damData;
+    [SerializeField] protected DamageData damData;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
     bool _endDelayStarted;
@@ -42,8 +29,6 @@ public class Spell : EventBus
     {
         _ownersBrain = brain;
         myFaction = _ownersBrain.faction;
-        if (myFaction == Faction.Player) myFaction = Faction.Monsters;
-        else if (myFaction == Faction.Monsters) myFaction = Faction.Player;
 
         comp.myRigid.isKinematic = true;
 
@@ -60,27 +45,12 @@ public class Spell : EventBus
             comp.myCapsuleCollider.height = areaOfEffect;
             comp.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         }
-        
-        damData = new DamageData()
-        {
-            attacker = _ownersBrain.myTransform,
-            damage = 1f, //debug
-            canBeBlocked = canBeBlocked,
-            knockBack = knockBack,
-            element = element,
-        };
     }
 
     public virtual void InitializeMe(Brain brain, float dam)
     {
-        damData = new DamageData()
-        {
-            attacker = _ownersBrain.myTransform,
-            damage = dam,
-            canBeBlocked = canBeBlocked,
-            knockBack = knockBack,
-            element = element,
-        };
+        _ownersBrain = brain;
+        damData.damage = dam;
 
         InitializeMe(brain);
     }

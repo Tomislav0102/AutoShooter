@@ -18,7 +18,7 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Attack(num);
         Spell melee = Instantiate(Ga.me.spells.meleePlayer,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
-        melee.InitializeMe(Br);
+        melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
     }
 
     public override void FromAnimEv_Ultimate(int num = 0)
@@ -26,7 +26,7 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Ultimate(num);
        Spell sp = Instantiate(Ga.me.spells.hookHealDot, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
        sp.anchor = Br.myTransform;
-       sp.InitializeMe(Br);
+       sp.InitializeMe(Br, -Br.myChar.GetStat(Stats.MagicDamage));
         
     }
 

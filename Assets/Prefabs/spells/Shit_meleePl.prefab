@@ -114,7 +114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
   comp: {fileID: 2348338191598582159}
   myFaction: 0
-  factionsToTarget: 01000000
   element: 0
   canBeBlocked: 1
   areaOfEffect: 1.5
@@ -123,3 +122,9 @@ MonoBehaviour:
   lifeTime: 0.2
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  damData:
+    attacker: {fileID: 0}
+    damage: 0
+    canBeBlocked: 0
+    knockBack: 0
+    element: 0
