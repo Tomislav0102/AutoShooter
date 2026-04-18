@@ -28,18 +28,16 @@ public class EnemyCombat : Combat
         set
         {
             base.Br = value;
-            enLoco = value.loco as E_Loco;
             IsReady = true;
         }
     }
 
-    protected E_Loco enLoco;
     public override Transform MyTarget
     {
         set
         {
             base.MyTarget = value;
-            enLoco.moveCurrent = value == null ? enLoco.moveIdlingDefault : enLoco.moveFightingDefault;
+            _eLoco.moveCurrent = value == null ? _eLoco.moveIdlingDefault : _eLoco.moveFightingDefault;
         }
     }
 
@@ -47,28 +45,32 @@ public class EnemyCombat : Combat
     protected override void Update()
     {
         base.Update();
-        if (distance < 0) return; //MyTarget is null
+        if (MyTarget == null)
+        {
+            _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+            return;
+        } 
 
         if (rangedWeapon == null)
         {
             if (meleeWeapon == null)
             {
-                enLoco.ra = E_Loco.RangeArea.OutOfRange;
+                _eLoco.ra = E_Loco.RangeArea.OutOfRange;
                 return;
             }
             
-            if (distance <= rangeMelee) enLoco.ra = E_Loco.RangeArea.Melee;
-            else enLoco.ra = E_Loco.RangeArea.OutOfRange;
+            if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
+            else _eLoco.ra = E_Loco.RangeArea.OutOfRange;
         }
         else
         {
-            if (distance > rangeRanged) enLoco.ra = E_Loco.RangeArea.OutOfRange;
+            if (distanceToTarget > rangeRanged) _eLoco.ra = E_Loco.RangeArea.OutOfRange;
             else if (meleeWeapon != null)
             {
-                if (distance <= rangeMelee) enLoco.ra = E_Loco.RangeArea.Melee;
-                else enLoco.ra = E_Loco.RangeArea.Ranged;
+                if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
+                else _eLoco.ra = E_Loco.RangeArea.Ranged;
             }
-            else enLoco.ra = E_Loco.RangeArea.Ranged;
+            else _eLoco.ra = E_Loco.RangeArea.Ranged;
         }
     }
 }

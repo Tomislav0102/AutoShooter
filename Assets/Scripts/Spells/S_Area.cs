@@ -8,9 +8,9 @@ public class S_Area : Spell
 {
 
     float _timer;
-    public override void InitializeMe(Brain brain)
+    public override void InitializeMe(Brain brain, float dam)
     {
-        base.InitializeMe(brain);
+        base.InitializeMe(brain, dam);
         comp.mySphereCollider.enabled = true;
         _timer = Mathf.Infinity;
         if (comp.myMesh != null && comp.myMesh.TryGetComponent(out ParticleSystem ps))
@@ -36,7 +36,7 @@ public class S_Area : Spell
             {
                 if (item.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
                 {
-                    takeDamage.TakeDamage(damData);
+                    takeDamage.TakeDamage(injectHealthData);
                 }
             }
         }

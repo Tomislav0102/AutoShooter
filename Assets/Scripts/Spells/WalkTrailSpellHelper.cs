@@ -9,9 +9,9 @@ public class WalkTrailSpellHelper : SpellHelper
     HashSet<Collider> _spawns;
     float _radius;
 
-    public override void InitializeMe(Brain br, Spell spellPrefab)
+    public override void InitializeMe(Brain br, Spell spellPrefab, float dam)
     {
-        base.InitializeMe(br, spellPrefab);
+        base.InitializeMe(br, spellPrefab, dam);
         _radius = spellPrefab.areaOfEffect * 0.5f;
         _spawns = new HashSet<Collider>();
         isActive = true;
@@ -25,7 +25,7 @@ public class WalkTrailSpellHelper : SpellHelper
         if (_timer >= CONST_SpawnRate)
         {
             _timer = 0;
-            Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, _radius * 2);
+            Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, _radius * 2, Ga.me.laySpells);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (_spawns.Contains(colliders[i])) return;

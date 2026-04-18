@@ -2396,16 +2396,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: iconWait
-      value: 
-      objectReference: {fileID: 2077840370431703009}
-    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveSpeed
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveIdlingDefault
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7830390144176176051, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7911443292519778484, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Avatar
@@ -2521,16 +2521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  isAttacking: 1
   <MyTarget>k__BackingField: {fileID: 0}
   detectRange: 3.4028235e+38
   meleeWeapon: {fileID: 6204366007256613323, guid: 197c5347e3b911f489f668643315d5b6, type: 3}
@@ -2541,11 +2531,6 @@ MonoBehaviour:
   ricochet: 0
   pierce: 0
   bounce: 0
---- !u!1 &2077840370431703009 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5736184293618763116, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 6003014594537091725}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3853920283161297884 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

@@ -24,7 +24,36 @@ public class Loco : EventBus, IInit
     Coroutine _pushCoroutine;
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
+    public Disposition Disp
+    {
+        get => _disp;
+        set
+        {
+            if (_disp != value)
+            {
+                _disp = value;
 
+                anim.SetLayerWeight(1, 1);
+                AttInputEnemy(false);
+                rotationConstraint.weight = 0;
+             //   if (weaponTrail != null) weaponTrail.Stop();
+                switch (value)
+                {
+                    case Disposition.Relaxed:
+                        anim.SetLayerWeight(1, 0);
+                        break;
+                    case Disposition.Wary:
+                        break;
+                    case Disposition.Fighting:
+                  //      if (weaponTrail != null) weaponTrail.Play();
+                        AttInputEnemy(true);
+                        rotationConstraint.weight = 1;
+                        break;
+                }
+            }
+        }
+    }
+    Disposition _disp;
     #region ANIMATOR
     
     public void AE_Attack(int  num) => Br.combat.FromAnimEv_Attack(num);
@@ -37,8 +66,8 @@ public class Loco : EventBus, IInit
         anim.SetFloat("moveVer", ver);
     }
     protected void Toggle_Move(bool isMoving) => anim.SetBool("walk", isMoving);
-    protected void AttInputEnemy(bool isAttacking) =>  anim.SetBool("attack", isAttacking);
-    protected void Att1InputEnemy(bool isAttacking1) => anim.SetBool("attack1", isAttacking1);
+    public void AttInputEnemy(bool isAttacking) =>  anim.SetBool("attack", isAttacking);
+    public void Att1InputEnemy(bool isAttacking1) => anim.SetBool("attack1", isAttacking1);
     public void CastSpell() =>  anim.SetTrigger("cast");
     public void Hit() =>  anim.SetTrigger("hit");
     public void Block() =>  anim.SetTrigger("block");

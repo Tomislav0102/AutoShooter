@@ -18,11 +18,11 @@ public class Ga : MonoBehaviour
     [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
-    [BoxGroup("Enemy spawns")]
-    [SerializeField] Vector2 lowerLeft, upperRight;
     public bool InsideLevel(Vector3 myPos)
     {
         if (myPos.y < 0.2f) return false;
+        Vector2 lowerLeft = new Vector2(spawnArea.position.x - spawnArea.localScale.x * 0.5f, spawnArea.position.z - spawnArea.localScale.z * 0.5f);
+        Vector2 upperRight = new Vector2(spawnArea.position.x + spawnArea.localScale.x * 0.5f, spawnArea.position.z + spawnArea.localScale.z * 0.5f);
         if (myPos.x <= lowerLeft.x || myPos.x >= upperRight.x ||
             myPos.z <= lowerLeft.y || myPos.z >= upperRight.y) return false;
         return true;
@@ -39,9 +39,8 @@ public class Ga : MonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-    public LayerMask layEnemies, layPlayer;
+    public LayerMask layEnemies, layPlayer, laySpells;
     public SpecialUi specialUi;
-    
     
     
     [Button]
@@ -52,17 +51,18 @@ public class Ga : MonoBehaviour
             SpawnEnemy();
         }
     }
+    
     void Awake()
     {
         me = this;
         
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
-        team = new Dictionary<Faction, HashSet<Transform>>()
+        team = new Dictionary<Faction, HashSet<Transform>>();
+        for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
         {
-            { Faction.Player, new HashSet<Transform>() },
-            { Faction.Monsters, new HashSet<Transform>() }
-        };
+            team.Add((Faction)i, new HashSet<Transform>());
+        }
     }
 
     void OnEnable()

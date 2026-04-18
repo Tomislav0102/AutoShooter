@@ -10,14 +10,8 @@ public interface IInit
 
 public interface ITakeDamage : IInit
 {
-    void TakeDamage(DamageData dam);
+    void TakeDamage(InjectHealth dam);
 };
-
-public interface IFaction : IInit
-{
-    Faction MyFaction { get; set; }
-    Faction TargetFaction { get; set; }
-}
 
 
 public interface IObstacle { };

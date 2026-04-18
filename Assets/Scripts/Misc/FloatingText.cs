@@ -20,7 +20,7 @@ public class FloatingText : MonoBehaviour
 
     
     
-    public void SpawnMe(DamageData dam, Vector3 spawnPos, float offsetY = 2f)
+    public void SpawnMe(InjectHealth dam, Vector3 spawnPos, float offsetY = 2f)
     {
         if (dam.damage >= 0) 
         {

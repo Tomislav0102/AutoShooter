@@ -6029,7 +6029,7 @@ PrefabInstance:
     - target: {fileID: 7911443292519778484, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 69a045ec5392b2044939216350cc668e, type: 2}
+      objectReference: {fileID: 22100000, guid: 10533acd9c9921e468682b25265f976e, type: 2}
     - target: {fileID: 8181266544076932727, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: agent
       value: 
@@ -6137,7 +6137,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  isAttacking: 1
   <MyTarget>k__BackingField: {fileID: 0}
   detectRange: 3.4028235e+38
   meleeWeapon: {fileID: 6204366007256613323, guid: 197c5347e3b911f489f668643315d5b6, type: 3}

@@ -3,9 +3,9 @@ using UnityEngine;
 public class S_Lob : Spell
 {
     Vector3 _rndRot;
-    public override void InitializeMe(Brain brain)
+    public override void InitializeMe(Brain brain, float dam)
     {
-        base.InitializeMe(brain);
+        base.InitializeMe(brain, dam);
         comp.myTransform.rotation *= Quaternion.Euler(-45f, Random.Range(0f, 360f), 0);
         comp.myRigid.isKinematic = false;
         comp.myRigid.useGravity = true;

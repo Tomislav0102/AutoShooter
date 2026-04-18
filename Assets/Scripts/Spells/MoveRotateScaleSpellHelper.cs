@@ -10,9 +10,9 @@ public class MoveRotateScaleSpellHelper : SpellHelper
     Spell[] _spells;
     public Transform anchor;
     
-    public override void InitializeMe(Brain br, Spell spellPrefab)
+    public override void InitializeMe(Brain br, Spell spellPrefab, float dam)
     {
-        base.InitializeMe(br, spellPrefab);
+        base.InitializeMe(br, spellPrefab, dam);
         if (anchor == null) anchor = spellPrefab.anchor;
         if (anchor == null)
         {

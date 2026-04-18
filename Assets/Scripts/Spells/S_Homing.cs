@@ -7,9 +7,9 @@ public class S_Homing : Spell
     [Title("Homing")]
     public Transform homingTarget;
     
-    public override void InitializeMe(Brain brain)
+    public override void InitializeMe(Brain brain, float dam)
     {
-        base.InitializeMe(brain);
+        base.InitializeMe(brain, dam);
         comp.mySphereCollider.enabled = true;
         comp.myRigid.isKinematic = false;
     }
@@ -29,9 +29,9 @@ public class S_Homing : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (damData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
+        if (injectHealthData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
         {
-            takeDamage.TakeDamage(damData);
+            takeDamage.TakeDamage(injectHealthData);
         }
         AfterEffect();
         OnEnd();

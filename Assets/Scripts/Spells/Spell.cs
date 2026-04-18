@@ -11,34 +11,31 @@ public class Spell : EventBus
      public CompSpell comp;
     [ReadOnly] public Faction myFaction = Faction.Neutral;
 
-    [SerializeField] Element element;
-    public bool canBeBlocked;
     public float areaOfEffect = 1;
     [SerializeField] protected float speed;
-    [Range(0, 20)][SerializeField] protected int knockBack;
     [SerializeField] protected float lifeTime;
     [SerializeField] GameObject afterEffect;
     public Transform anchor;
-    [SerializeField] protected DamageData damData;
+    [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
     bool _endDelayStarted;
 
     
-    public virtual void InitializeMe(Brain brain)
+    void InitializeMeShared(Brain brain)
     {
         _ownersBrain = brain;
         myFaction = _ownersBrain.faction;
 
         comp.myRigid.isKinematic = true;
-
+        comp.visualization.localScale = areaOfEffect * Vector3.one;
         if (comp.mySphereCollider != null)
         {
             Physics.IgnoreCollision(comp.mySphereCollider, _ownersBrain.myCollider);
             comp.mySphereCollider.enabled = false;
             comp.mySphereCollider.radius = areaOfEffect * 0.5f;
         }
-        if (comp.myCapsuleCollider != null)
+        if (comp.myCapsuleCollider != null) //not used
         {
             Physics.IgnoreCollision(comp.myCapsuleCollider, _ownersBrain.myCollider);
             comp.myCapsuleCollider.enabled = false;
@@ -47,12 +44,15 @@ public class Spell : EventBus
         }
     }
 
+    public virtual void InitializeMe(Brain brain)
+    {
+        InitializeMeShared(brain);
+    }
     public virtual void InitializeMe(Brain brain, float dam)
     {
-        _ownersBrain = brain;
-        damData.damage = dam;
+        injectHealthData.damage = dam;
 
-        InitializeMe(brain);
+        InitializeMeShared(brain);
     }
 
     public virtual void InitializeMe(Brain brain, float dam, HashSet<Collider> collidersToIgnore)
@@ -85,7 +85,7 @@ public class Spell : EventBus
         if (afterEffect != null)
         {
             Spell spell = Instantiate(afterEffect, comp.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
-            spell.InitializeMe(_ownersBrain);
+            spell.InitializeMeShared(_ownersBrain);
         }
     }
     public void OnEnd()
@@ -93,10 +93,4 @@ public class Spell : EventBus
         Destroy(gameObject);
     }
 
-    void OnDrawGizmos()
-    {
-        if (!Application.isPlaying || !Ga.me.spells.showDebug) return;
-        Gizmos.color = Color.purple;
-        Gizmos.DrawSphere(comp.myTransform.position, areaOfEffect);
-    }
 }

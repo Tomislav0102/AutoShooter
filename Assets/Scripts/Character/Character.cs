@@ -36,15 +36,7 @@ public class Character : MonoBehaviour, IInit
                 modifiers.Add(amount);
                 break;
             case GenChange.Remove:
-                int index = -1;
-                for (int i = 0; i < modifiers.Count; i++)
-                {
-                    if (modifiers[i] == amount)
-                    {
-                        index = i;
-                    }
-                }
-                if (index > 0) modifiers.RemoveAt(index);
+                if (modifiers.Contains(amount)) modifiers.Remove(amount);
                 break;
         }
     }

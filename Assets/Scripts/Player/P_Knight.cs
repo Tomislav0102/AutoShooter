@@ -16,7 +16,7 @@ public class P_Knight : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
-        Spell melee = Instantiate(Ga.me.spells.meleePlayer,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
         melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
     }
@@ -45,14 +45,14 @@ public class P_Knight : PlayerCombat
         Br.loco.CastSpell();
     }
 
-    public override void HealthHitCallback(DamageData damageData)
+    public override void HealthHitCallback(InjectHealth injectHealth)
     {
         if (_timerBlockReady > 0f)
         {
             counterHit = 0;
             return;
         }
-        base.HealthHitCallback(damageData);
+        base.HealthHitCallback(injectHealth);
         
         float rdn = Random.value * counterHit;
         if (rdn >= 1)
@@ -67,7 +67,7 @@ public class P_Knight : PlayerCombat
         {
             yield return new WaitForSeconds(0.1f);
             Spell push = Instantiate(Ga.me.spells.pushAll, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            push.InitializeMe(Br);
+            push.InitializeMe(Br, Br.myChar.GetStat(Stats.MagicDamage));
         }
     }
 

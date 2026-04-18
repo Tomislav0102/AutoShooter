@@ -16,8 +16,8 @@ public class Health: EventBus, ITakeDamage, IInit
             _br = value;
             _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
             _healthMax = value.myChar.GetStat(Stats.Health) * 10;
-            HealthCurrent = _healthMax;
             _healthBarTransform = _healthBar.transform;
+            HealthCurrent = _healthMax;
             _dictPsElements = new Dictionary<Element, ParticleSystem>();
             for (int i = 0; i < psElements.Length; i++)
             {
@@ -31,14 +31,16 @@ public class Health: EventBus, ITakeDamage, IInit
     Image _healthBar;
     Transform _healthBarTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
+    
     float HealthCurrent
     {
         get => _healthCurrent;
         set
         {
+           // if (!IsReady) return;
             _healthCurrent = value;
             _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
-            _healthBar.transform.localScale = new Vector3(_healthCurrent / _healthMax, 1, 1);
+            _healthBarTransform.localScale = new Vector3(_healthCurrent / _healthMax, 1, 1);
         }
     }
     [ShowInInspector, ReadOnly] float _healthCurrent;
@@ -50,7 +52,7 @@ public class Health: EventBus, ITakeDamage, IInit
     Dictionary<Element, ParticleSystem> _dictPsElements;
     [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
-    public void TakeDamage(DamageData dam)
+    public void TakeDamage(InjectHealth dam)
     {
         HealthCurrent -= dam.damage;
 
@@ -60,7 +62,6 @@ public class Health: EventBus, ITakeDamage, IInit
         }
         else
         {
-            print("> 0");
             ParticleSystem ps = _dictPsElements[dam.element];
             if (ps != null) ps.Play();
         }
@@ -104,14 +105,4 @@ public class Health: EventBus, ITakeDamage, IInit
        EventBus.OnCharDeath?.Invoke(Br.myTransform);
     }
 
-}
-
-[System.Serializable]
-public struct DamageData
-{
-    public Transform attacker;
-    [HideInInspector] public float damage;
-    public bool canBeBlocked;
-    public int knockBack;
-    public Element element;
 }

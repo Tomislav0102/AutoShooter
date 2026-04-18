@@ -5,8 +5,9 @@ public class CompSpell : MonoBehaviour
 {
     public Transform myTransform;
     public Rigidbody myRigid;
-    [FormerlySerializedAs("myCollider")] public SphereCollider mySphereCollider;
+    public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public Transform myMesh;
+    public Transform visualization;
 
 }

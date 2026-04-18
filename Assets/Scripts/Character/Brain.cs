@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -17,6 +16,8 @@ public class Brain : EventBus
     public Health health;
     public Loco loco;
     public Combat combat;
+    System.Action<Disposition> _onDispoChange;
+    System.Action _onHitTaken;
     
     void Awake()
     {
@@ -24,7 +25,24 @@ public class Brain : EventBus
         if (health != null) health.Br = this;
         if (loco != null) loco.Br = this;
         if (combat != null) combat.Br = this;
-        switch (faction)
+        ChangeFaction(faction);
+    }
+
+    [Button]
+    public void ToggleFaction()
+    {
+        ChangeFaction(Utils.TargetFaction(faction));
+    }
+    void ChangeFaction(Faction newFaction)
+    {
+        if (loco != null)
+        {
+            for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
+            {
+               if (Ga.me.team[(Faction)i].Contains(myTransform)) Ga.me.team[(Faction)i].Remove(myTransform);
+            }
+        }
+        switch (newFaction)
         {
             case Faction.Player:
                 gameObject.layer = LayerMask.NameToLayer("Player");
@@ -44,7 +62,9 @@ public class Brain : EventBus
                 gameObject.layer = default;
                 break;
         }
-        if (myMaterials.Length >= (int)skin) myRenderer.material = myMaterials[(int)skin];
+
+        if (myMaterials.Length >= (int)newFaction) myRenderer.material = myMaterials[(int)newFaction];
+        
     }
 
     /// <summary>

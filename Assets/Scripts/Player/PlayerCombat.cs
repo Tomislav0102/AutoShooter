@@ -15,6 +15,7 @@ public class PlayerCombat : Combat
     [SerializeField] float specialCooldownTime;
     protected int counterHit;
     
+    
     void OnEnable()
     {
         EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
@@ -28,7 +29,7 @@ public class PlayerCombat : Combat
         
     }
 
-    public virtual void HealthHitCallback(DamageData damageData)
+    public virtual void HealthHitCallback(InjectHealth injectHealth)
     {
         counterHit++;
     }

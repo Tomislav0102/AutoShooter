@@ -6,9 +6,9 @@ using UnityEngine;
 public class S_Hook : Spell
 {
     float _timer = float.MaxValue;
-    public override void InitializeMe(Brain brain)
+    public override void InitializeMe(Brain brain, float dam)
     {
-        base.InitializeMe(brain);
+        base.InitializeMe(brain, dam);
         if (anchor == null || anchor.GetComponent<ITakeDamage>() == null) OnEnd();
     }
 
@@ -19,7 +19,7 @@ public class S_Hook : Spell
         if (_timer > 1f)
         {
             _timer = 0f;
-            anchor.GetComponent<ITakeDamage>().TakeDamage(damData);
+            anchor.GetComponent<ITakeDamage>().TakeDamage(injectHealthData);
             if (lifeTime == 0) OnEnd();
         }
     }

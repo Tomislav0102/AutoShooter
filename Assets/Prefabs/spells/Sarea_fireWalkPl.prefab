@@ -184,16 +184,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
   comp: {fileID: 8029538067433148474}
   myFaction: 0
-  factionsToTarget: 01000000
-  element: 1
-  damage: 1
-  canBeBlocked: 0
-  radius: 0.5
+  areaOfEffect: 1
   speed: 0
-  knockBack: 0
   lifeTime: 5
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  injectHealthData:
+    attacker: {fileID: 0}
+    damage: 0
+    canBeBlocked: 0
+    knockBack: 0
+    element: 1
 --- !u!4 &3021113219745651579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}

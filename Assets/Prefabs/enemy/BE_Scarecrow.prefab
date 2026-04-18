@@ -12204,12 +12204,16 @@ PrefabInstance:
       objectReference: {fileID: 1036074922445086590}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myMaterials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: 'myMaterials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 561b6072daadb1f41b20da08c1d9d8f9, type: 2}
+    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a3a96c03daeb2b4c8ed3bc607387216, type: 2}
     - target: {fileID: 6119846179976286466, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

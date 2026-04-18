@@ -19757,15 +19757,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_Ballistic
   comp: {fileID: 6905399346391677357}
   myFaction: 1
-  factionsToTarget: 00000000
-  element: 0
-  canBeBlocked: 1
   areaOfEffect: 0.2
   speed: 5
-  knockBack: 0
   lifeTime: 10
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  injectHealthData:
+    attacker: {fileID: 0}
+    damage: 0
+    canBeBlocked: 1
+    knockBack: 0
+    element: 0
   ricochet: 0
   pierce: 0
   bounce: 0

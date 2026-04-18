@@ -16,13 +16,14 @@ public class P_Mage : PlayerCombat
         {
             base.Br = value;
             value.loco.lookAtTarget = false;
-            return;
+           // return;
             _walkTrail = Instantiate(Ga.me.spells.walkTrail, Ga.me.spells.myTransform);
-            _walkTrail.InitializeMe(value, Ga.me.spells.fireWalk);
+            _walkTrail.InitializeMe(value, Ga.me.spells.fireWalk, value.myChar.GetStat(Stats.MagicDamage));
+            
             _moveRotate = Instantiate(Ga.me.spells.moveRotate, Ga.me.spells.myTransform);
             MoveRotateScaleSpellHelper moveRotateSpellHelper = _moveRotate as MoveRotateScaleSpellHelper;
             moveRotateSpellHelper.anchor = value.myTransform;
-            moveRotateSpellHelper.InitializeMe(value, Ga.me.spells.shieldPlayer);
+            moveRotateSpellHelper.InitializeMe(value, Ga.me.spells.shieldPlayer, 0);
         }
     }
 

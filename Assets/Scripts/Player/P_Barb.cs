@@ -19,7 +19,7 @@ public class P_Barb : PlayerCombat
 
         Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         Vector3 pos = melee.comp.myTransform.position +
-                      melee.areaOfEffect * 1f * Vector3.ProjectOnPlane(weaponTr.forward, Vector3.up);
+                      melee.areaOfEffect * 0.5f * Vector3.ProjectOnPlane(weaponTr.forward, Vector3.up);
         melee.comp.myTransform.position = pos;
         melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
 
