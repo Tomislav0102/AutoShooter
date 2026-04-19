@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,21 @@ using UnityEngine.Serialization;
 
 public class P_Archer : PlayerCombat
 {
+    public override Brain Br
+    {
+        get => base.Br;
+        set
+        {
+            base.Br = value;
+            damRanged = new Dictionary<Element, float>()
+            {
+                { Element.Physical, Br.myChar.GetStat(Stats.RangedDamage) }
+            };
+
+        }
+    }
+
+
     [Title("Archer")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] bool forward;
@@ -16,7 +32,7 @@ public class P_Archer : PlayerCombat
     const float CONST_HorGapBetweenProjectiles = 0.3f;
 
 
-    
+
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
@@ -81,7 +97,7 @@ public class P_Archer : PlayerCombat
                 sp.ricochet = ricochet;
                 sp.pierce = pierce;
                 sp.bounce = bounce;
-                sp.InitializeMe(Br, Br.myChar.GetStat(Stats.RangedDamage));
+                sp.InitializeMe(Br, damRanged);
             }
 
         }

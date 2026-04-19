@@ -8,6 +8,25 @@ using Random = UnityEngine.Random;
 
 public class P_Knight : PlayerCombat
 {
+    public override Brain Br
+    {
+        get => base.Br;
+        set
+        {
+            base.Br = value;
+            damMelee = new Dictionary<Element, float>()
+            {
+                { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
+                { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+            };
+            damUltimate = new Dictionary<Element, float>()
+            {
+                { Element.Physical, -Br.myChar.GetStat(Stats.MagicDamage) },
+            };
+        }
+    }
+
     [Title("Knight")]
     [SerializeField][Range(1, 10)] int dashPower = 4;
     float _timerBlockReady;
@@ -18,7 +37,7 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Attack(num);
         Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
-        melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
+        melee.InitializeMe(Br, damMelee);
     }
 
     public override void FromAnimEv_Ultimate(int num = 0)
@@ -26,7 +45,7 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Ultimate(num);
        Spell sp = Instantiate(Ga.me.spells.hookHealDot, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
        sp.anchor = Br.myTransform;
-       sp.InitializeMe(Br, -Br.myChar.GetStat(Stats.MagicDamage));
+       sp.InitializeMe(Br, damUltimate);
         
     }
 
@@ -67,7 +86,7 @@ public class P_Knight : PlayerCombat
         {
             yield return new WaitForSeconds(0.1f);
             Spell push = Instantiate(Ga.me.spells.pushAll, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            push.InitializeMe(Br, Br.myChar.GetStat(Stats.MagicDamage));
+            push.InitializeMe(Br, new Dictionary<Element, float>());
         }
     }
 

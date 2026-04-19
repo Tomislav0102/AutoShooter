@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -6,12 +7,12 @@ using UnityEngine;
 /// </summary>
 public class S_HitSphere : Spell
 {
-    public override void InitializeMe(Brain brain, float dam)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        base.InitializeMe(brain, dam);
+        base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
     }
-    // public override void InitializeMe(Brain brain, float dam)
+    // public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     // {
     //     base.InitializeMe(brain, dam);
     //     Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, areaOfEffect * 0.5f, Utils.LayHostiles(brain.faction));
@@ -51,7 +52,7 @@ public class S_HitSphere : Spell
                 br.loco.KnockBack(dir, injectHealthData.knockBack);
             }
         }
-        if (injectHealthData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage))
+        if (injectHealthData.damage.Count > 0 && other.TryGetComponent(out ITakeDamage takeDamage))
         {
             takeDamage.TakeDamage(injectHealthData);
         }

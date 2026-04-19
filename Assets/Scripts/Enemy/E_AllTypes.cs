@@ -15,19 +15,27 @@ public class E_AllTypes : EnemyCombat
         switch (num)
         {
             case 0: //melee
+                damMelee = new Dictionary<Element, float>()
+                {
+                    { Element.Electricity, Br.myChar.GetStat(Stats.MeleeDamage) },
+                };
                 Spell melee = Instantiate(Ga.me.spells.meleeEnemy,
                     Br.myTransform.position,
                     Quaternion.identity, Ga.me.spells.myTransform);
                 melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
-                melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
+                melee.InitializeMe(Br, damMelee);
                 break;
             case 1: //projectile
+                damRanged = new Dictionary<Element, float>()
+                {
+                    { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
+                };
                 S_Bullet projectile = Instantiate(Ga.me.spells.projectileEnemy, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform) as S_Bullet;
                 projectile.comp.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
                 projectile.ricochet = ricochet;
                 projectile.pierce = pierce;
                 projectile.bounce = bounce;
-                projectile.InitializeMe(Br, Br.myChar.GetStat(Stats.RangedDamage));
+                projectile.InitializeMe(Br, damRanged);
                 break;
         }
     }
@@ -41,7 +49,7 @@ public class E_AllTypes : EnemyCombat
                 Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
                     spawnPoint.position,
                     Quaternion.identity, Ga.me.spells.myTransform);
-                lob.InitializeMe(Br, Br.myChar.GetStat(Stats.MagicDamage));
+                lob.InitializeMe(Br, new Dictionary<Element, float>());
                 break;
         }
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ public class S_Area : Spell
 {
 
     float _timer;
-    public override void InitializeMe(Brain brain, float dam)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        base.InitializeMe(brain, dam);
+        base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
         _timer = Mathf.Infinity;
         if (comp.myMesh != null && comp.myMesh.TryGetComponent(out ParticleSystem ps))

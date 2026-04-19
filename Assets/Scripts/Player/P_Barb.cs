@@ -1,9 +1,23 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class P_Barb : PlayerCombat
 {
+    public override Brain Br
+    {
+        get => base.Br;
+        set
+        {
+            base.Br = value;
+            damMelee = new Dictionary<Element, float>()
+            {
+                { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+            };
+        }
+    }
+
     [SerializeField] Transform weaponTr;
     float _weaponAngle;
 
@@ -21,7 +35,7 @@ public class P_Barb : PlayerCombat
         Vector3 pos = melee.comp.myTransform.position +
                       melee.areaOfEffect * 0.5f * Vector3.ProjectOnPlane(weaponTr.forward, Vector3.up);
         melee.comp.myTransform.position = pos;
-        melee.InitializeMe(Br, Br.myChar.GetStat(Stats.MeleeDamage));
+        melee.InitializeMe(Br, damMelee);
 
     }
 }

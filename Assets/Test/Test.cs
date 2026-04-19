@@ -3,24 +3,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using TMPro;
 
 public class Test : MonoBehaviour
 {
-    public static System.Action someAction;
-
+    public TextMeshProUGUI someText;
+    public int index;
 
     void Start()
     {
-        someAction += () =>
-        {
-            print("someAction");
-        };
     }
 
     [Button]
     void TestMethod()
     {
-        someAction?.Invoke();
+        someText.text = $"<sprite index=0>555 <sprite index=1>124 <sprite index=2>444 <sprite index=3>124\n <sprite index=4>124 <sprite index=5>124 <sprite index=6>124";
     }
     
 

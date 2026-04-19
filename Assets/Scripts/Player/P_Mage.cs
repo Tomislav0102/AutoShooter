@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class P_Mage : PlayerCombat
 {
+    
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] int numOfHomingMissiles;
@@ -16,7 +17,11 @@ public class P_Mage : PlayerCombat
         {
             base.Br = value;
             value.loco.lookAtTarget = false;
-           // return;
+            damRanged = new Dictionary<Element, float>()
+            {
+                { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+            };
+            return;
             _walkTrail = Instantiate(Ga.me.spells.walkTrail, Ga.me.spells.myTransform);
             _walkTrail.InitializeMe(value, Ga.me.spells.fireWalk, value.myChar.GetStat(Stats.MagicDamage));
             
@@ -41,7 +46,7 @@ public class P_Mage : PlayerCombat
             spell.comp.myTransform.forward = -Br.myTransform.right;
             spell.comp.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);;
             spell.comp.myMesh.position = new Vector3(spell.comp.myMesh.position.x, spawnPoint.position.y, spell.comp.myMesh.position.z);
-            spell.InitializeMe(Br, Br.myChar.GetStat(Stats.MagicDamage));
+            spell.InitializeMe(Br, damRanged);
         }
     }
 }

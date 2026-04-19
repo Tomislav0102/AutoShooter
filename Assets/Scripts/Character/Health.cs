@@ -54,18 +54,22 @@ public class Health: EventBus, ITakeDamage, IInit
 
     public void TakeDamage(InjectHealth dam)
     {
-        HealthCurrent -= dam.damage;
+        float totalDamage = 0f;
+        foreach (KeyValuePair<Element, float> item in dam.damage)
+        {
+            totalDamage += item.Value;
+            if (item.Value < 0)
+            {
+                psHeal.Play();
+            }
+            else
+            {
+                ParticleSystem ps = _dictPsElements[item.Key];
+                if (ps != null) ps.Play();
+            }
+        }
+        HealthCurrent -= totalDamage;
 
-        if (dam.damage < 0)
-        {
-            psHeal.Play();
-        }
-        else
-        {
-            ParticleSystem ps = _dictPsElements[dam.element];
-            if (ps != null) ps.Play();
-        }
-        
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(dam, Br.myTransform.position);
         

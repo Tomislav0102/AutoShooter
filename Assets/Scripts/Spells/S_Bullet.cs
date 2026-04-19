@@ -14,9 +14,9 @@ public class S_Bullet : Spell
     public int bounce;
     [SerializeField] SphereCollider solid;
 
-    public override void InitializeMe(Brain brain, float dam)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        base.InitializeMe(brain, dam);
+        base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
         comp.myRigid.isKinematic = false;
         SetSpeed();
@@ -27,7 +27,7 @@ public class S_Bullet : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (injectHealthData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
+        if (injectHealthData.damage.Count > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
         {
             takeDamage.TakeDamage(injectHealthData);
             if (ricochet > 0)

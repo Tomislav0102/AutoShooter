@@ -35,6 +35,11 @@ public class Combat : MonoBehaviour, IInit
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;
+    
+    //cache
+    protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
+    protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
+    protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
     protected int counterHits;
     
     bool _isPlayer;

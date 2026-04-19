@@ -48,17 +48,11 @@ public class Spell : EventBus
     {
         InitializeMeShared(brain);
     }
-    public virtual void InitializeMe(Brain brain, float dam)
+    public virtual void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        injectHealthData.damage = dam;
+        injectHealthData.damage = damage;
 
         InitializeMeShared(brain);
-    }
-
-    public virtual void InitializeMe(Brain brain, float dam, HashSet<Collider> collidersToIgnore)
-    {
-        foreach (Collider col in collidersToIgnore) collidersDetected.Add(col);
-        InitializeMe(brain, dam);
     }
 
 

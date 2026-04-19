@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ public class S_Homing : Spell
     [Title("Homing")]
     public Transform homingTarget;
     
-    public override void InitializeMe(Brain brain, float dam)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        base.InitializeMe(brain, dam);
+        base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
         comp.myRigid.isKinematic = false;
     }
@@ -29,7 +30,7 @@ public class S_Homing : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (injectHealthData.damage > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
+        if (injectHealthData.damage.Count > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
         {
             takeDamage.TakeDamage(injectHealthData);
         }
