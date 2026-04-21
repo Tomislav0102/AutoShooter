@@ -10,8 +10,8 @@ public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
 #endregion
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
-public enum Faction { Player, Monsters, Neutral }
-public enum OffenseSkill { Melee, Ranged, Magical }
+public enum Faction { GoodGuys, BadGuys }
+public enum FactionTarget { Ally, Enemy, All }
 public enum Disposition { Relaxed, Wary, Fighting }
 
 public enum Stats
@@ -41,13 +41,5 @@ public enum Stats
 }
 
 
-public enum Buff
-{
-    Slowed, //attack and move speed
-    Rooted, //move speed is 0, attack speed unaffected
-    Stunned, //completely passive, enemy does nothing
-    Confused, //attacks random character, changes target often, does not respond to aggro 
-    Blinded, //like confused, but only close target
-    Charmed //behaves like summon
-}
+
 

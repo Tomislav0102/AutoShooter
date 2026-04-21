@@ -51,6 +51,27 @@ MonoBehaviour:
     gradient: {fileID: 0}
   colHeal: {r: 0, g: 1, b: 0, a: 1}
   colBleed: {r: 0.33962262, g: 0, b: 0.157, a: 1}
-  prefsEnergyCurrent: energy current value
   prefsEnergyStartTime: energy countdown started
   prefsEnergyFinishTime: energy countdown finished
+  factionGroup:
+  - faction: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 4096
+  - faction: 1
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 16777216
+  - faction: 2
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1
+  layPlayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  layEnemies:
+    serializedVersion: 2
+    m_Bits: 16777216
+  laySpells:
+    serializedVersion: 2
+    m_Bits: 1048576

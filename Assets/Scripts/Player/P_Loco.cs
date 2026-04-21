@@ -15,11 +15,38 @@ public class P_Loco : Loco
             base.Br = value;
             Ga.me.playerTransform = value.myTransform;
             Physics.IgnoreCollision(GameObject.Find("ground").GetComponent<Collider>(), value.myCollider);
-            IsReady = true;
+            IsInitialized = true;
         }
     }
 
+    public override Disposition Disp
+    {
+        get => base.Disp;
+        set
+        {
+            if (value == Disp) return;
+            base.Disp = value;
+            anim.SetLayerWeight(1, 1);
+            AttInputEnemy(false);
+            rotationConstraint.weight = 0; 
+            if (weaponTrail != null) weaponTrail.Stop();
+            switch (value)
+            {
+                case Disposition.Relaxed:
+                    anim.SetLayerWeight(1, 0);
+                    break;
+                case Disposition.Wary:
+                    break;
+                case Disposition.Fighting:
+                    if (weaponTrail != null) weaponTrail.Play();
+                    AttInputEnemy(true);
+                    rotationConstraint.weight = 1;
+                    break;
+            }
 
+        }
+    }
+    
 
     void FixedUpdate()
     {

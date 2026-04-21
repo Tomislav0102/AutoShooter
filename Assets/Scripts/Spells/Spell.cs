@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class Spell : EventBus
 {
-     Brain _ownersBrain;
-     public CompSpell comp;
-    [ReadOnly] public Faction myFaction = Faction.Neutral;
-
+    Brain _ownersBrain;
+    public CompSpell comp;
+    [ReadOnly] public Faction myFaction;
+    [SerializeField] protected FactionTarget targetFaction = FactionTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] protected float speed;
     [SerializeField] protected float lifeTime;
@@ -21,7 +21,7 @@ public class Spell : EventBus
     float _timerLife;
     bool _endDelayStarted;
 
-    
+
     void InitializeMeShared(Brain brain)
     {
         _ownersBrain = brain;
@@ -35,6 +35,7 @@ public class Spell : EventBus
             comp.mySphereCollider.enabled = false;
             comp.mySphereCollider.radius = areaOfEffect * 0.5f;
         }
+
         if (comp.myCapsuleCollider != null) //not used
         {
             Physics.IgnoreCollision(comp.myCapsuleCollider, _ownersBrain.myCollider);
@@ -48,6 +49,7 @@ public class Spell : EventBus
     {
         InitializeMeShared(brain);
     }
+
     public virtual void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
         injectHealthData.damage = damage;
@@ -63,12 +65,14 @@ public class Spell : EventBus
         _timerLife += Time.deltaTime;
         if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(Delay());
     }
+
     IEnumerator Delay()
     {
         _endDelayStarted = true;
         yield return new WaitForFixedUpdate();
         OnEnd();
     }
+
     protected void SetSpeed()
     {
         comp.myRigid.linearVelocity = speed * comp.myTransform.forward;
@@ -82,6 +86,7 @@ public class Spell : EventBus
             spell.InitializeMeShared(_ownersBrain);
         }
     }
+
     public void OnEnd()
     {
         Destroy(gameObject);

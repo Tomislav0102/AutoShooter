@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Shook_healDotPl
+      value: Shook_healDot
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -79,16 +79,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_Hook
   comp: {fileID: 8298795834514885277}
   myFaction: 0
-  factionsToTarget: 00000000
-  element: 0
-  damage: -10
-  canBeBlocked: 0
-  radius: 0
+  targetFaction: 0
+  areaOfEffect: 1
   speed: 0
-  knockBack: 0
   lifeTime: 10
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  injectHealthData:
+    attacker: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
 --- !u!114 &8298795834514885277 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}

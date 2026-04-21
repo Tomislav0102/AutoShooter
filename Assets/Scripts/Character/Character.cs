@@ -1,11 +1,20 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Sirenix.OdinInspector;
+using UnityEngine.Rendering;
 
 
 public class Character : MonoBehaviour, IInit
 {
+    public enum ModType
+    {
+        Inventory, 
+        Status, //slowed, wet, cold...
+        Skill, //e.g. Ultimate increases attack speed for 10 sec
+        Spell //buffs from cast spells
+    }
     [SerializeField] SoCharacter data;
     public Brain Br
     {
@@ -19,44 +28,54 @@ public class Character : MonoBehaviour, IInit
             {
                 _myStats[i] = new StatSingle(data.stats[(Stats)i]);
             }
-            IsReady = true;
+            IsInitialized = true;
         }
     }
     Brain _br;
-    [ReadOnly] public bool IsReady { get; set; }
+    [ReadOnly] public bool IsInitialized { get; set; }
 
     StatSingle[] _myStats;
+    public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
-    public void ChangeStat(Stats statToChange, GenChange change, int amount)
+    public void ChangeStat(Stats statToChange, GenChange change, ModType modType, int amount)
     {
-        List<int> modifiers = _myStats[(int)statToChange].modifiers;
-        switch (change)
-        {
-            case GenChange.Add:
-                modifiers.Add(amount);
-                break;
-            case GenChange.Remove:
-                if (modifiers.Contains(amount)) modifiers.Remove(amount);
-                break;
-        }
+        // switch (change)
+        // {
+        //     case GenChange.Add:
+        //         switch (modType)
+        //         {
+        //             case ModType.Inventory:
+        //                 if (_myStats[(int)statToChange].bonuses[ModType.Inventory] < amount)
+        //                 {
+        //                     _myStats[(int)statToChange].bonuses[ModType.Inventory] = amount;
+        //                 } 
+        //                 break;
+        //             default:
+        //                 _myStats[(int)statToChange].bonuses[modType] += amount;
+        //                 break;
+        //         }
+        //         break;
+        //     
+        //     case GenChange.Remove:
+        //         if (_myStats[(int)statToChange].bonuses[modType] >= amount) _myStats[(int)statToChange].bonuses[modType] -= amount;
+        //         break;
+        // }
     }
 
-    public int GetStat(Stats stat) => _myStats[(int)stat].Value;
     
     class StatSingle
     {
+        public List<MyMod> mods;
         int _baseValue;
-        public List<int> modifiers;
         public int Value
         {
             get
             {
                 int res = _baseValue;
-                foreach (int item in modifiers)
+                for (int i = 0; i < mods.Count; i++)
                 {
-                    res+= item;
+                    res += mods[i].bonus;
                 }
-
                 return res;
             }
         }
@@ -65,9 +84,17 @@ public class Character : MonoBehaviour, IInit
         public StatSingle(int baseValue)
         {
             _baseValue = baseValue;
-            modifiers = new List<int>();
+            mods = new List<MyMod>();
         }
+
     }
+    public class MyMod
+    {
+        public ModType mod;
+        public int bonus;
+        public float duration;
+    }
+
 
 }
 

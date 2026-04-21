@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IInit
 {
-    Brain Br { get; set; } //instead of InitializeMe(Brain brain)
-    bool IsReady { get; set; }
+    Brain Br { get; set; } 
+    bool IsInitialized { get; set; }
 }
 
 public interface ITakeDamage : IInit

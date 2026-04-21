@@ -14,27 +14,6 @@ public class Utils
         return (mask & (1 << go.layer)) != 0;
     }
     
-    public static LayerMask LayHostiles(Faction faction)
-    {
-        switch (faction)
-        {
-            case Faction.Player:
-                return Ga.me.layEnemies;
-            case Faction.Monsters:
-                return Ga.me.layPlayer;
-            case Faction.Neutral:
-                return 1;
-            default:
-                return default;
-        }
-    }
-    public static Faction TargetFaction(Faction myFaction)
-    {
-        if (myFaction == Faction.Player) return Faction.Monsters;
-        if (myFaction == Faction.Monsters) return Faction.Player;
-        return Faction.Neutral;
-    }
-
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
 

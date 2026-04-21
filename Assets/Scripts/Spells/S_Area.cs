@@ -35,7 +35,7 @@ public class S_Area : Spell
             _timer = 0f;
             foreach (Collider item in collidersDetected)
             {
-                if (item.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
+                if (item.TryGetComponent(out ITakeDamage takeDamage) && Ga.me.gameData.CanTargetFaction(myFaction, takeDamage.Br.faction, targetFaction))
                 {
                     takeDamage.TakeDamage(injectHealthData);
                 }

@@ -30,7 +30,9 @@ public class S_Homing : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (injectHealthData.damage.Count > 0 && other.TryGetComponent(out ITakeDamage takeDamage) && Utils.TargetFaction(myFaction) == takeDamage.Br.faction)
+        if (injectHealthData.damage.Count > 0 && 
+            other.TryGetComponent(out ITakeDamage takeDamage) && 
+            Ga.me.gameData.CanTargetFaction(myFaction, takeDamage.Br.faction, targetFaction))
         {
             takeDamage.TakeDamage(injectHealthData);
         }

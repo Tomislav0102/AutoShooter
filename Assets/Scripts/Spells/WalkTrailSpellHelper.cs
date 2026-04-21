@@ -25,7 +25,7 @@ public class WalkTrailSpellHelper : SpellHelper
         if (_timer >= CONST_SpawnRate)
         {
             _timer = 0;
-            Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, _radius * 2, Ga.me.laySpells);
+            Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, _radius * 2, Ga.me.gameData.laySpells);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (_spawns.Contains(colliders[i])) return;

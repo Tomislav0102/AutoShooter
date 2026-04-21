@@ -14,7 +14,7 @@ public class Combat : MonoBehaviour, IInit
         {
             _br = value;
             _searchWait = Random.Range(0f, 0.2f) + 0.5f;
-            _targets = value.faction == Faction.Player ? Ga.me.team[Faction.Monsters] : Ga.me.team[Faction.Player];
+            _targets = value.faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
             StartCoroutine(SearchTargetCoroutine());
             _isPlayer = Ga.me.playerTransform == value.myTransform;
             if (_isPlayer)
@@ -29,7 +29,7 @@ public class Combat : MonoBehaviour, IInit
         }
     }
     Brain _br;
-    public bool IsReady { get; set; } //only called in children (because they're on scene)
+    public bool IsInitialized { get; set; } //only called in children (because they're on scene)
     [field: SerializeField] public virtual Transform MyTarget { get; set; }
     protected float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;

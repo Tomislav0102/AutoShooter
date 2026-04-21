@@ -19,7 +19,7 @@ public class P_Mage : PlayerCombat
             value.loco.lookAtTarget = false;
             damRanged = new Dictionary<Element, float>()
             {
-                { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
             };
             return;
             _walkTrail = Instantiate(Ga.me.spells.walkTrail, Ga.me.spells.myTransform);
@@ -37,6 +37,10 @@ public class P_Mage : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
 
+        Spell lightningStrike = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+        lightningStrike.InitializeMe(Br, damRanged);
+        return;
+        
         float angle = 180f / (numOfHomingMissiles + 1);
         for (int i = 0; i < numOfHomingMissiles; i++)
         {

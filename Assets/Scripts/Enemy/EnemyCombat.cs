@@ -28,7 +28,7 @@ public class EnemyCombat : Combat
         set
         {
             base.Br = value;
-            IsReady = true;
+            IsInitialized = true;
         }
     }
 

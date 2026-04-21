@@ -27,7 +27,7 @@ public class E_Loco : Loco
             agent.enabled = true;
             agent.speed = moveSpeed;
             ra = RangeArea.OutOfRange;
-            IsReady = true;
+            IsInitialized = true;
         }
     }
     bool _canMoveNavigation;
@@ -53,7 +53,24 @@ public class E_Loco : Loco
     float _chaseRange;
     #endregion
 
+    public override Disposition Disp
+    {
+        get => base.Disp;
+        set
+        {
+            base.Disp = value;
+            switch (value)
+            {
+                case Disposition.Relaxed:
+                    break;
+                case Disposition.Wary:
+                    break;
+                case Disposition.Fighting:
+                    break;
+            }
 
+        }
+    }
 
     void Update()
     {

@@ -4977,10 +4977,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: B_Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3487588509260044675, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_IsKinematic
       value: 0

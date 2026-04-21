@@ -17,7 +17,7 @@ public class E_AllTypes : EnemyCombat
             case 0: //melee
                 damMelee = new Dictionary<Element, float>()
                 {
-                    { Element.Electricity, Br.myChar.GetStat(Stats.MeleeDamage) },
+                    { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                 };
                 Spell melee = Instantiate(Ga.me.spells.meleeEnemy,
                     Br.myTransform.position,

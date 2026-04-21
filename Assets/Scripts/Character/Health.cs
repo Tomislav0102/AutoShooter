@@ -15,7 +15,7 @@ public class Health: EventBus, ITakeDamage, IInit
         {
             _br = value;
             _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
-            _healthMax = value.myChar.GetStat(Stats.Health) * 10;
+            _healthMax = value.myChar.GetStat(Stats.Health);
             _healthBarTransform = _healthBar.transform;
             HealthCurrent = _healthMax;
             _dictPsElements = new Dictionary<Element, ParticleSystem>();
@@ -23,7 +23,12 @@ public class Health: EventBus, ITakeDamage, IInit
             {
                 _dictPsElements.Add((Element)i, psElements[i]);
             }
-            IsReady = true;
+            _dictPsStatus = new Dictionary<Status.Effect, ParticleSystem>();
+            for (int i = 0; i < psStatus.Length; i++)
+            {
+                _dictPsStatus.Add((Status.Effect)i, psStatus[i]);
+            }
+            IsInitialized = true;
         }
     }
     Brain _br;
@@ -45,11 +50,13 @@ public class Health: EventBus, ITakeDamage, IInit
     }
     [ShowInInspector, ReadOnly] float _healthCurrent;
     [ShowInInspector, ReadOnly] float _healthMax;
-    public bool IsReady { get; set; }
+    public bool IsInitialized { get; set; }
     
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
+    [SerializeField] ParticleSystem[] psStatus;
     Dictionary<Element, ParticleSystem> _dictPsElements;
+    Dictionary<Status.Effect, ParticleSystem> _dictPsStatus;
     [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
     public void TakeDamage(InjectHealth dam)
@@ -98,15 +105,19 @@ public class Health: EventBus, ITakeDamage, IInit
 
     void LateUpdate()
     {
-        if (!IsReady) return;
+        if (!IsInitialized) return;
         Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
         _healthBarTransform.position = screenPos;
     }
 
     void Death()
     {
-       Destroy(_healthBar.gameObject);
-       EventBus.OnCharDeath?.Invoke(Br.myTransform);
+        Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
+        ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot);
+        ps.Play();
+        Destroy(_healthBar.gameObject);
+        EventBus.OnCharDeath?.Invoke(Br.myTransform);
     }
+
 
 }

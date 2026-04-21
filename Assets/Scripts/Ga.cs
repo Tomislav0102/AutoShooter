@@ -27,6 +27,9 @@ public class Ga : MonoBehaviour
             myPos.z <= lowerLeft.y || myPos.z >= upperRight.y) return false;
         return true;
     }
+
+    [BoxGroup("Particles")] 
+    public ParticleSystem psSpawn, psDeath;
     public SoGameData gameData;
     public SoCharacter defCharacter;
     public SpellManager spells;
@@ -39,9 +42,9 @@ public class Ga : MonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-    public LayerMask layEnemies, layPlayer, laySpells;
+
+
     public SpecialUi specialUi;
-    
     
     
     [Button]
@@ -92,9 +95,9 @@ public class Ga : MonoBehaviour
 
     void CallEv_OnCharDeath(Transform tr)
     {
-        if (team[Faction.Player].Contains(tr))
+        if (team[Faction.GoodGuys].Contains(tr))
         {
-            team[Faction.Player].Remove(tr);
+            team[Faction.GoodGuys].Remove(tr);
             if (tr == playerTransform)
             {
                 EventBus.OnPlayerDeath?.Invoke();
@@ -106,9 +109,9 @@ public class Ga : MonoBehaviour
                 print("Summon is dead");
             }
         }
-        else if (team[Faction.Monsters].Contains(tr))
+        else if (team[Faction.BadGuys].Contains(tr))
         {
-            team[Faction.Monsters].Remove(tr);
+            team[Faction.BadGuys].Remove(tr);
             Destroy(tr.gameObject);
         }
     }

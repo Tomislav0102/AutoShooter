@@ -9,9 +9,7 @@ using UnityEngine.UI;
 
 public class FloatingText : MonoBehaviour
 {
-    // [SerializeField] TextMeshProUGUI myText;
-    // Color _startColor = Color.white;
-    // Color _endColor = Color.clear;
+    Color _endColor = Color.clear;
     
     [SerializeField] RectTransform myTransform;
     [SerializeField] TextMeshProUGUI[] myTexts;
@@ -20,56 +18,34 @@ public class FloatingText : MonoBehaviour
     float _timer;
     Vector3 _startPosition;
     float _startingOffsetY;
-    int _widthSingle = 65;
+    int _widthSingle = 100;
     
     
     public void SpawnMe(InjectHealth dam, Vector3 spawnPos, float offsetY = 2f)
     {
-        string textToDisplay = String.Empty;
         foreach (KeyValuePair<Element, float> item in dam.damage)
         {
-            if (item.Value >= 0) 
+            int index = (int)item.Key;
+            myTexts[index].enabled = true;
+            if (item.Value >= 0)
             {
-                textToDisplay = item.Value.ToString();
+                myTexts[index].text = $" <sprite index={index}>{item.Value} ";
+                myTexts[index].color = Ga.me.gameData.GetElement((Element)index).col;
             }
             else // healing
             {
-                textToDisplay =(-item.Value).ToString();
+                myTexts[index].text =(-item.Value).ToString("0");
+                myTexts[index].color = Ga.me.gameData.colHeal;
             }
-
-            int index = (int)item.Key;
-            myTexts[index].enabled = true;
-            myTexts[index].text = textToDisplay;
         }
         
-       // GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
         GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * dam.damage.Count, 0);
+        GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
         _startPosition = spawnPos; 
         _startingOffsetY = offsetY;
         
         _initialized = true;
-        
-        // string textToDisplay = String.Empty;
-        // foreach (KeyValuePair<Element, float> item in dam.damage)
-        // {
-        //     if (item.Value >= 0) 
-        //     {
-        //         _startColor = Ga.me.gameData.GetElement(item.Key).col;
-        //         textToDisplay += $" <sprite index={(int)item.Key}> {item.Value} ";
-        //     }
-        //     else // healing
-        //     {
-        //         _startColor = Ga.me.gameData.colHeal;
-        //         textToDisplay+=$" {-item.Value} ";
-        //     }
-        // }
-        // myText.text = textToDisplay;
-        //
-        // myText.color = _startColor;
-        // _startPosition = spawnPos; 
-        // _startingOffsetY = offsetY;
-        //
-        // _initialized = true;
+
     }
     
     void LateUpdate()
@@ -80,7 +56,10 @@ public class FloatingText : MonoBehaviour
         float moveY = _startingOffsetY + _timer * 5f;
         Vector3 targetPos = new Vector3(_startPosition.x, moveY, _startPosition.z);
         myTransform.position = Ga.me.cam.WorldToScreenPoint(targetPos);
-      //  myText.color = Color.Lerp(_startColor, _endColor, _timer / _lifeTime);
+        for (int i = 0; i < myTexts.Length; i++)
+        {
+            myTexts[i].color = Color.Lerp(Ga.me.gameData.GetElement((Element)i).col, _endColor, _timer / _lifeTime);
+        }
         if (_timer >= _lifeTime) EndMe();
     }
 

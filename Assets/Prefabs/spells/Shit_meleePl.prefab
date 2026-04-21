@@ -121,7 +121,5 @@ MonoBehaviour:
   anchor: {fileID: 0}
   injectHealthData:
     attacker: {fileID: 0}
-    damage: 0
     canBeBlocked: 1
-    knockBack: 5
-    element: 4
+    knockBack: 0

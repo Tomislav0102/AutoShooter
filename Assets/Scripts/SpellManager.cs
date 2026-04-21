@@ -11,6 +11,7 @@ public class SpellManager : MonoBehaviour
    public Spell meleeEnemy;
    public Spell meleePlayer;
    public Spell pushAll;
+   public Spell lightningStrike;
    [Title("Bullet")]
    public Spell projectileEnemy;
    public Spell projectilePlayer;

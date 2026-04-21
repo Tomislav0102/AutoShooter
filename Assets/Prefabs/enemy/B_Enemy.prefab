@@ -36,10 +36,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: B_Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3696184041424430218, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 24
@@ -127,12 +123,14 @@ MonoBehaviour:
   anim: {fileID: 7911443292519778484}
   rotationConstraint: {fileID: 3731593144273461746}
   moveSpeed: 0
-  bodyBullet: {fileID: 8466372581932139570}
+  knockBackResistance: 0
+  lookAtTarget: 0
   ra: 0
   moveIdlingDefault: 0
   moveFightingDefault: 4
   moveCurrent: 0
   agent: {fileID: 7100723032775579262}
+  mySquareVelocity: 0
 --- !u!1 &2281149104477910870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -176,14 +174,3 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 3710440535994624692}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8466372581932139570 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5044237206731320966, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 3710440535994624692}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4fff00b78db25a4b84e7dc6ce3851f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlProjectileBody

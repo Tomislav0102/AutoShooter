@@ -16,9 +16,11 @@ public class P_Knight : PlayerCombat
             base.Br = value;
             damMelee = new Dictionary<Element, float>()
             {
-                { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
-                { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
+                // { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
+                // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
             damUltimate = new Dictionary<Element, float>()
             {
