@@ -4,32 +4,27 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
-[DefaultExecutionOrder(-10)]
 public class Ga : MonoBehaviour
 {
     public static Ga me;
-    [BoxGroup("Enemy spawns")]
-    public Transform spawnArea;
-    [BoxGroup("Enemy spawns")]
-    [SerializeField] int numOfEnemies;
-    [BoxGroup("Enemy spawns")]
-    [SerializeField] E_Loco[] enemyPrefabs;
-    [BoxGroup("Enemy spawns")]
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
-    public bool InsideLevel(Vector3 myPos)
-    {
-        if (myPos.y < 0.2f) return false;
-        Vector2 lowerLeft = new Vector2(spawnArea.position.x - spawnArea.localScale.x * 0.5f, spawnArea.position.z - spawnArea.localScale.z * 0.5f);
-        Vector2 upperRight = new Vector2(spawnArea.position.x + spawnArea.localScale.x * 0.5f, spawnArea.position.z + spawnArea.localScale.z * 0.5f);
-        if (myPos.x <= lowerLeft.x || myPos.x >= upperRight.x ||
-            myPos.z <= lowerLeft.y || myPos.z >= upperRight.y) return false;
-        return true;
-    }
 
     [BoxGroup("Particles")] 
     public ParticleSystem psSpawn, psDeath;
+
+    public LevelManager LevelMan
+    {
+        get => _levelMan;
+        set
+        {
+            _levelMan = value;
+            EventBus.OnLevelLoaded?.Invoke();
+        }
+    }
+    LevelManager _levelMan;
     public SoGameData gameData;
     public SoCharacter defCharacter;
     public SpellManager spells;
@@ -42,31 +37,20 @@ public class Ga : MonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-
-
     public SpecialUi specialUi;
     
-    
-    [Button]
-    void SpawnEnemies()
-    {
-        for (int i = 0; i < numOfEnemies; i++)
-        {
-            SpawnEnemy();
-        }
-    }
     
     void Awake()
     {
         me = this;
-        
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
-        waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new Dictionary<Faction, HashSet<Transform>>();
         for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
         {
             team.Add((Faction)i, new HashSet<Transform>());
         }
+        waypoints = Utils.AllChildren<Transform>(parWaypoints);
+       SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
     }
 
     void OnEnable()
@@ -78,19 +62,6 @@ public class Ga : MonoBehaviour
         EventBus.OnCharDeath -= CallEv_OnCharDeath;
     }
 
-    void SpawnEnemy()
-    {
-        bool canSpawn = false;
-        Vector3 spawnPoint = Vector3.zero;
-        while (!canSpawn)
-        {
-            spawnPoint = Utils.GetRandomPosition(spawnArea);
-            Collider[] colliders = Physics.OverlapSphere(spawnPoint, 1f);
-            canSpawn = colliders.Length == 0;
-        }
-        
-        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoint, Quaternion.identity);
-    }
 
 
     void CallEv_OnCharDeath(Transform tr)

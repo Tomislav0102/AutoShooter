@@ -10,7 +10,7 @@ public class Spell : EventBus
     Brain _ownersBrain;
     public CompSpell comp;
     [ReadOnly] public Faction myFaction;
-    [SerializeField] protected FactionTarget targetFaction = FactionTarget.Enemy;
+    [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] protected float speed;
     [SerializeField] protected float lifeTime;

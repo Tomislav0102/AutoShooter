@@ -32,7 +32,7 @@ public class S_Homing : Spell
     {
         if (injectHealthData.damage.Count > 0 && 
             other.TryGetComponent(out ITakeDamage takeDamage) && 
-            Ga.me.gameData.CanTargetFaction(myFaction, takeDamage.Br.faction, targetFaction))
+            Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
         {
             takeDamage.TakeDamage(injectHealthData);
         }

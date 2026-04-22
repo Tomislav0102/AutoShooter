@@ -10,8 +10,8 @@ public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
 #endregion
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
-public enum Faction { GoodGuys, BadGuys }
-public enum FactionTarget { Ally, Enemy, All }
+public enum Faction { GoodGuys, BadGuys, Neutral }
+public enum FactionToTarget { Ally, Enemy, All }
 public enum Disposition { Relaxed, Wary, Fighting }
 
 public enum Stats

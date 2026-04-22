@@ -164,7 +164,7 @@ public class E_Loco : Loco
         
         void MethodRoam()
         {
-            Vector3 newDestination = Utils.GetRandomPosition(Ga.me.spawnArea);
+            Vector3 newDestination = Utils.GetRandomPosition(Ga.me.LevelMan.spawnArea);
             // print($"New roam destination {newDestination}");
             agent.destination = newDestination;
             _timerGeneral = 0f;

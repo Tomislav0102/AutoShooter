@@ -14,7 +14,6 @@ public class P_Loco : Loco
         {
             base.Br = value;
             Ga.me.playerTransform = value.myTransform;
-            Physics.IgnoreCollision(GameObject.Find("ground").GetComponent<Collider>(), value.myCollider);
             IsInitialized = true;
         }
     }
@@ -62,4 +61,9 @@ public class P_Loco : Loco
 
     }
 
+    protected override void CallEv_OnLevelLoaded()
+    {
+        base.CallEv_OnLevelLoaded();
+        Physics.IgnoreCollision(Ga.me.LevelMan.ground.GetComponent<Collider>(), Br.myCollider);
+    }
 }

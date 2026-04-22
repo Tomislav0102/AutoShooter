@@ -51,6 +51,7 @@ public class Combat : MonoBehaviour, IInit
     
     protected virtual void Update()
     {
+        if (!IsInitialized) return;
         DistanceToTarget();
         
     }

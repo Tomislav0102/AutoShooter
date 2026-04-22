@@ -19,7 +19,7 @@ public class S_Lob : Spell
     {
         base.Update();
         comp.myMesh.Rotate(Time.deltaTime * _rndRot);
-        if (!Ga.me.InsideLevel(comp.myTransform.position)) 
+        if (!Ga.me.LevelMan.InsideLevel(comp.myTransform.position)) 
         {
             AfterEffect();
             OnEnd();

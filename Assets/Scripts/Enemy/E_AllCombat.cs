@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class E_AllTypes : EnemyCombat
+public class E_AllCombat : EnemyCombat
 {
     [Title("Projectile data")]
     [SerializeField] Transform spawnPoint;

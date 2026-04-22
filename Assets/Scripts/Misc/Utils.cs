@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,20 @@ using UnityEngine.UI;
 
 public class Utils
 {
-    public static bool IsInLayerMask(GameObject go, LayerMask mask)
+    public static bool CanTargetFaction(Faction myFaction, Faction target, FactionToTarget targetFaction)
     {
-        return (mask & (1 << go.layer)) != 0;
+        switch (targetFaction)
+        {
+            case FactionToTarget.Ally:
+                return myFaction == target;
+            case FactionToTarget.Enemy:
+                return myFaction != target;
+            case FactionToTarget.All:
+                return true;
+        }
+        return false;
     }
-    
+
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
 
@@ -60,7 +68,11 @@ public class Utils
     }
 
     #region NOT USED
-    
+    public static bool IsInLayerMask(GameObject go, LayerMask mask)
+    {
+        return (mask & (1 << go.layer)) != 0;
+    }
+
     public static Vector2 GetWorldPositionOfCanvasElement(RectTransform rectElement) //sets gameobject behind the UI element
     {
         RectTransformUtility.ScreenPointToWorldPointInRectangle(rectElement, rectElement.position, null, out Vector3 result);
@@ -145,25 +157,23 @@ public class Utils
     public static List<int> RandomList(int size)
     {
         List<int> ints = Enumerable.Range(0, size).ToList();
-        var rnd = new System.Random();
-        var randNums = ints.OrderBy(n => rnd.Next());
-        List<int> list = new List<int>();
-        foreach (var item in randNums)
-        {
-            list.Add(item);
-        }
-        return list;
+        return RandomListByType(ints);
     }
     public static List<T> RandomListByType<T>(List<T> startList)
     {
-        var rnd = new System.Random();
-        var randNums = startList.OrderBy(n => rnd.Next());
-        List<T> list = new List<T>();
-        foreach (var item in randNums)
+        int count = startList.Count;
+        List<T> result = new List<T>(count);
+        for (int i = 0; i < count; i++)
         {
-            list.Add(item);
+            T t = startList[Random.Range(0, startList.Count)];
+            result.Add(t);
+            startList.Remove(t);
         }
-        return list;
+        return  result;
+        
+        System.Random rnd = new System.Random(); 
+        IOrderedEnumerable<T> randNums = startList.OrderBy(n => rnd.Next());
+        return randNums.ToList();
     }
     #endregion
 

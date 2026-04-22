@@ -24,35 +24,7 @@ public class Loco : EventBus, IInit
     Coroutine _pushCoroutine;
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
-    // public Disposition Disp
-    // {
-    //     get => _disp;
-    //     set
-    //     {
-    //         if (_disp != value)
-    //         {
-    //             _disp = value;
-    //
-    //             anim.SetLayerWeight(1, 1);
-    //             AttInputEnemy(false);
-    //             rotationConstraint.weight = 0;
-    //          //   if (weaponTrail != null) weaponTrail.Stop();
-    //             switch (value)
-    //             {
-    //                 case Disposition.Relaxed:
-    //                     anim.SetLayerWeight(1, 0);
-    //                     break;
-    //                 case Disposition.Wary:
-    //                     break;
-    //                 case Disposition.Fighting:
-    //                  //  if (weaponTrail != null) weaponTrail.Play();
-    //                     AttInputEnemy(true);
-    //                     rotationConstraint.weight = 1;
-    //                     break;
-    //             }
-    //         }
-    //     }
-    // }    
+
     public virtual Disposition Disp
     {
         get => _disp;

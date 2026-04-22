@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 public class Character : MonoBehaviour, IInit
 {
-    public enum ModType
+    public enum BuffType
     {
         Inventory, 
         Status, //slowed, wet, cold...
@@ -32,12 +32,13 @@ public class Character : MonoBehaviour, IInit
         }
     }
     Brain _br;
+    StatSingle[] _myStats;
     [ReadOnly] public bool IsInitialized { get; set; }
 
-    StatSingle[] _myStats;
+    
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
-    public void ChangeStat(Stats statToChange, GenChange change, ModType modType, int amount)
+    public void ChangeStat(Stats statToChange, GenChange change, BuffType buffType, int amount)
     {
         // switch (change)
         // {
@@ -65,16 +66,16 @@ public class Character : MonoBehaviour, IInit
     
     class StatSingle
     {
-        public List<MyMod> mods;
+        public List<Buff> buffs;
         int _baseValue;
         public int Value
         {
             get
             {
                 int res = _baseValue;
-                for (int i = 0; i < mods.Count; i++)
+                for (int i = 0; i < buffs.Count; i++)
                 {
-                    res += mods[i].bonus;
+                    res += buffs[i].bonus;
                 }
                 return res;
             }
@@ -84,13 +85,13 @@ public class Character : MonoBehaviour, IInit
         public StatSingle(int baseValue)
         {
             _baseValue = baseValue;
-            mods = new List<MyMod>();
+            buffs = new List<Buff>();
         }
 
     }
-    public class MyMod
+    public class Buff
     {
-        public ModType mod;
+        public BuffType buffType;
         public int bonus;
         public float duration;
     }

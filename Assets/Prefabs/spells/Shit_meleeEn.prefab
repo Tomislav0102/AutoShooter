@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
   comp: {fileID: 2348338191598582159}
   myFaction: 1
+  targetFaction: 2
   areaOfEffect: 2
   speed: 0
   lifeTime: 0
@@ -121,7 +122,5 @@ MonoBehaviour:
   anchor: {fileID: 0}
   injectHealthData:
     attacker: {fileID: 0}
-    damage: 0
     canBeBlocked: 1
     knockBack: 0
-    element: 0

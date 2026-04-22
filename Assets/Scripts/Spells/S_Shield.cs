@@ -11,7 +11,7 @@ public class S_Shield : Spell
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Spell spell) && Ga.me.gameData.CanTargetFaction(myFaction, spell.myFaction, targetFaction))
+        if (other.TryGetComponent(out Spell spell) && Utils.CanTargetFaction(myFaction, spell.myFaction, myFactionTarget))
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {
