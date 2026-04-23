@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerCombat : Combat
 {
+    [SerializeField] int engageRange = 10;
     public override Brain Br
     {
         get => base.Br;
@@ -10,11 +11,27 @@ public class PlayerCombat : Combat
             base.Br = value;
             Ga.me.specialUi.InitializeMe(specialCooldownTime);
             value.loco.lookAtTarget = true;
+            _pLoco = Br.loco as P_Loco;
+        }
+    }
+
+    public override Transform MyTarget
+    {
+        get => base.MyTarget;
+        set
+        {
+            base.MyTarget = value;
+            if (value == null)
+            {
+                _pLoco.Disp = Disposition.Relaxed;
+                return;
+            }
+
+            _pLoco.Disp = distanceToTarget > engageRange ? Disposition.Wary : Disposition.Fighting;
         }
     }
     [SerializeField] float specialCooldownTime;
-    protected int counterHit;
-    
+    P_Loco _pLoco;
     
     void OnEnable()
     {
@@ -31,7 +48,7 @@ public class PlayerCombat : Combat
 
     public virtual void HealthHitCallback(InjectHealth injectHealth)
     {
-        counterHit++;
+        counterHitReceived++;
     }
 
 

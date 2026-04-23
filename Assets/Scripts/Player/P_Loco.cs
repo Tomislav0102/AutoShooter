@@ -6,7 +6,6 @@ using Sirenix.OdinInspector;
 public class P_Loco : Loco
 {
     [SerializeField] ParticleSystem weaponTrail;
-    public float engageDistance = 10f;
     public override Brain Br
     {
         get => base.Br;
@@ -18,13 +17,11 @@ public class P_Loco : Loco
         }
     }
 
-    public override Disposition Disp
+    public Disposition Disp
     {
-        get => base.Disp;
         set
         {
-            if (value == Disp) return;
-            base.Disp = value;
+            if (value == _disp) return;
             anim.SetLayerWeight(1, 1);
             AttInputEnemy(false);
             rotationConstraint.weight = 0; 
@@ -45,7 +42,7 @@ public class P_Loco : Loco
 
         }
     }
-    
+    [ShowInInspector, ReadOnly] Disposition _disp;
 
     void FixedUpdate()
     {

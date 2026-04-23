@@ -9,14 +9,12 @@ using TMPro;
 public class Test : MonoBehaviour
 {
     public List<int> startList;
-
+    public Animator anim;
     [Button]
     void TestMethod()
     {
         startList = Utils.RandomListByType(startList);
     }
-    
-
 
 }
 

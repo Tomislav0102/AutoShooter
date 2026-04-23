@@ -12,9 +12,9 @@ public class Ga : MonoBehaviour
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
 
+    
     [BoxGroup("Particles")] 
     public ParticleSystem psSpawn, psDeath;
-
     public LevelManager LevelMan
     {
         get => _levelMan;

@@ -8,15 +8,7 @@ using UnityEngine.Animations.Rigging;
 
 public class Loco : EventBus, IInit
 {
-    public virtual Brain Br
-    {
-        get => _br;
-        set
-        {
-            _br = value;
-        }
-    }
-    Brain _br;
+    public virtual Brain Br { get; set; }
     public bool IsInitialized { get; set; } //only called in children (because they're on scene)
     [SerializeField] protected Animator anim;
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
@@ -25,23 +17,6 @@ public class Loco : EventBus, IInit
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
 
-    public virtual Disposition Disp
-    {
-        get => _disp;
-        set
-        {
-            switch (value)
-            {
-                case Disposition.Relaxed:
-                    break;
-                case Disposition.Wary:
-                    break;
-                case Disposition.Fighting:
-                    break;
-            }
-        }
-    }
-    Disposition _disp;
     #region ANIMATOR
     
     public void AE_Attack(int  num) => Br.combat.FromAnimEv_Attack(num);

@@ -28,49 +28,57 @@ public class EnemyCombat : Combat
         set
         {
             base.Br = value;
+            _eLoco = Br.loco as E_Loco;
             IsInitialized = true;
         }
     }
+    E_Loco _eLoco;
 
     public override Transform MyTarget
     {
         set
         {
             base.MyTarget = value;
-            _eLoco.moveCurrent = value == null ? _eLoco.moveIdlingDefault : _eLoco.moveFightingDefault;
-        }
-    }
-
-
-    protected override void Update()
-    {
-        base.Update();
-        if (MyTarget == null)
-        {
-            _eLoco.ra = E_Loco.RangeArea.OutOfRange;
-            return;
-        } 
-
-        if (rangedWeapon == null)
-        {
-            if (meleeWeapon == null)
+            if (value == null)
             {
+                _eLoco.moveCurrent = _eLoco.moveIdlingDefault;
+                _eLoco.AttInputEnemy(false);
+                _eLoco.Att1InputEnemy(false);
+
                 _eLoco.ra = E_Loco.RangeArea.OutOfRange;
-                return;
             }
-            
-            if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
-            else _eLoco.ra = E_Loco.RangeArea.OutOfRange;
-        }
-        else
-        {
-            if (distanceToTarget > rangeRanged) _eLoco.ra = E_Loco.RangeArea.OutOfRange;
-            else if (meleeWeapon != null)
+            else
             {
-                if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
-                else _eLoco.ra = E_Loco.RangeArea.Ranged;
+                _eLoco.moveCurrent = _eLoco.moveFightingDefault;
+                
+                if (rangedWeapon == null)
+                {
+                    if (meleeWeapon == null)
+                    {
+                        _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+                        return;
+                    }
+            
+                    if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
+                    else _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+                }
+                else
+                {
+                    if (distanceToTarget > rangeRanged) _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+                    else if (meleeWeapon != null)
+                    {
+                        if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
+                        else _eLoco.ra = E_Loco.RangeArea.Ranged;
+                    }
+                    else _eLoco.ra = E_Loco.RangeArea.Ranged;
+                }
+
             }
-            else _eLoco.ra = E_Loco.RangeArea.Ranged;
         }
     }
+
+
+
 }
+
+

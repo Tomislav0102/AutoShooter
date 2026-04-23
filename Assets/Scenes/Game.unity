@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
   startList: 0400000003000000010000000000000002000000
+  anim: {fileID: 0}
 --- !u!4 &885458253
 Transform:
   m_ObjectHideFlags: 0

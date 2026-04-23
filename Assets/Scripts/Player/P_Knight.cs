@@ -16,7 +16,7 @@ public class P_Knight : PlayerCombat
             base.Br = value;
             damMelee = new Dictionary<Element, float>()
             {
-                // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                 { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                 // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
                 // { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
                 // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
@@ -51,9 +51,8 @@ public class P_Knight : PlayerCombat
         
     }
 
-    protected override void Update()
+    void Update()
     {
-        base.Update();
         if (_timerBlockReady >= 0f)
         {
             _timerBlockReady -= Time.deltaTime;
@@ -70,16 +69,16 @@ public class P_Knight : PlayerCombat
     {
         if (_timerBlockReady > 0f)
         {
-            counterHit = 0;
+            counterHitReceived = 0;
             return;
         }
         base.HealthHitCallback(injectHealth);
         
-        float rdn = Random.value * counterHit;
+        float rdn = Random.value * counterHitReceived;
         if (rdn >= 1)
         {
             _timerBlockReady = CONST_BlockTimer;
-            counterHit = 0;
+            counterHitReceived = 0;
             Br.loco.Block();
             StartCoroutine(SpellPushDelay());
         }

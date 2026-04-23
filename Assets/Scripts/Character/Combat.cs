@@ -15,86 +15,100 @@ public class Combat : MonoBehaviour, IInit
             _br = value;
             _searchWait = Random.Range(0f, 0.2f) + 0.5f;
             _targets = value.faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
+            targetControl = new TargetControl(value);
             StartCoroutine(SearchTargetCoroutine());
-            _isPlayer = Ga.me.playerTransform == value.myTransform;
-            if (_isPlayer)
+            
+            IEnumerator SearchTargetCoroutine()
             {
-                _pLoco = Br.loco as P_Loco;
-                _playerEngageDistance = _pLoco.engageDistance;
+                yield return new WaitForSeconds(_searchWait * 2);
+                while (true)
+                {
+                    // MyTarget = Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange);
+                    targetControl.AssignTarget(Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange));
+                    yield return new WaitForSeconds(_searchWait);
+                }
             }
-            else
-            {
-                _eLoco = Br.loco as E_Loco;
-            }
+
         }
     }
+
     Brain _br;
     public bool IsInitialized { get; set; } //only called in children (because they're on scene)
-    [field: SerializeField] public virtual Transform MyTarget { get; set; }
+    public TargetControl targetControl;
+
+    public virtual Transform MyTarget
+    {
+        get => _myTarget;
+        set
+        {
+            _myTarget = value;
+            distanceToTarget = Utils.Distance(Br.myTransform.position, MyTarget.position);
+        }
+    }
+
+    Transform _myTarget;
     protected float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;
-    
+
     //cache
     protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
     protected int counterHits;
-    
-    bool _isPlayer;
-    float _playerEngageDistance = 10f;
-    P_Loco _pLoco;
-    protected E_Loco _eLoco;
-    
-    
-    
-    protected virtual void Update()
-    {
-        if (!IsInitialized) return;
-        DistanceToTarget();
-        
-    }
-    void DistanceToTarget()
-    {
-        if (MyTarget == null)
-        {
-            if (_isPlayer) _pLoco.Disp = Disposition.Relaxed;
-            else
-            {
-                _eLoco.AttInputEnemy(false);
-                _eLoco.Att1InputEnemy(false);
-            }
-        }
-        else
-        {
-            distanceToTarget = Utils.Distance(Br.myTransform.position, MyTarget.position);
-            if (_isPlayer) _pLoco.Disp = distanceToTarget < _playerEngageDistance ? Disposition.Fighting : Disposition.Wary;
-        }
-    }
-
+    protected int counterHitReceived;
 
 
     public virtual void FromAnimEv_Attack(int num = 0)
     {
         counterHits++;
     }
-    public virtual void FromAnimEv_Ultimate(int num = 0) { }
 
-    IEnumerator SearchTargetCoroutine()
+    public virtual void FromAnimEv_Ultimate(int num = 0)
     {
-        yield return new WaitForSeconds(_searchWait * 2);
-        while (true)
-        {
-            CheckTarget();
-            yield return new WaitForSeconds(_searchWait);
-        }
     }
 
-    void CheckTarget()
-    { 
-      //  if (MyTarget != null) return;
-        MyTarget = Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange);
+}
+
+public class TargetControl
+{
+    public Brain Br { get; set; }
+
+    Transform _target;
+    bool _hasTarget;
+    float _distance;
+
+    public TargetControl(Brain brain)
+    {
+        Br = brain;
+    }
+
+    public void AssignTarget(Transform target)
+    {
+        _target = target;
+        _hasTarget = _target != null;
+    }
+
+    public bool HasTarget(out float distance)
+    {
+        distance = 0f;
+        if (_hasTarget)
+        {
+            distance = Utils.Distance(Br.myTransform.position, _target.position);
+            return true;
+        }
+        return false;
+    }
+    public bool HasTarget(out Vector3 pos)
+    {
+        pos = Vector3.zero;
+        if (_hasTarget)
+        {
+            pos = _target.position;
+            return true;
+        }
+        return false;
     }
 
 }
