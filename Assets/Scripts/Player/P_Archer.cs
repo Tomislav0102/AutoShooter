@@ -17,7 +17,7 @@ public class P_Archer : PlayerCombat
             {
                 { Element.Physical, Br.myChar.GetStat(Stats.RangedDamage) }
             };
-
+            IsInitialized = true;
         }
     }
 

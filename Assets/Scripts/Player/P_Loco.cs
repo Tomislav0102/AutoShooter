@@ -22,10 +22,11 @@ public class P_Loco : Loco
         set
         {
             if (value == _disp) return;
+            _disp = value;
             anim.SetLayerWeight(1, 1);
             AttInputEnemy(false);
             rotationConstraint.weight = 0; 
-            if (weaponTrail != null) weaponTrail.Stop();
+           // if (weaponTrail != null) weaponTrail.Stop();
             switch (value)
             {
                 case Disposition.Relaxed:
@@ -34,7 +35,7 @@ public class P_Loco : Loco
                 case Disposition.Wary:
                     break;
                 case Disposition.Fighting:
-                    if (weaponTrail != null) weaponTrail.Play();
+                  //  if (weaponTrail != null) weaponTrail.Play();
                     AttInputEnemy(true);
                     rotationConstraint.weight = 1;
                     break;

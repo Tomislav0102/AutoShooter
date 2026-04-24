@@ -130,7 +130,6 @@ MonoBehaviour:
   moveFightingDefault: 4
   moveCurrent: 0
   agent: {fileID: 7100723032775579262}
-  mySquareVelocity: 0
 --- !u!1 &2281149104477910870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -152,7 +151,7 @@ NavMeshAgent:
   m_AngularSpeed: 300
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class Combat : MonoBehaviour, IInit
+public class Combat : EventBus, IInit
 {
     public virtual Brain Br
     {
@@ -13,9 +13,8 @@ public class Combat : MonoBehaviour, IInit
         set
         {
             _br = value;
-            _searchWait = Random.Range(0f, 0.2f) + 0.5f;
+            _searchWait = Random.Range(0.1f, 0.2f);
             _targets = value.faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
-            targetControl = new TargetControl(value);
             StartCoroutine(SearchTargetCoroutine());
             
             IEnumerator SearchTargetCoroutine()
@@ -23,8 +22,7 @@ public class Combat : MonoBehaviour, IInit
                 yield return new WaitForSeconds(_searchWait * 2);
                 while (true)
                 {
-                    // MyTarget = Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange);
-                    targetControl.AssignTarget(Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange));
+                    MyTarget = Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange);
                     yield return new WaitForSeconds(_searchWait);
                 }
             }
@@ -33,8 +31,8 @@ public class Combat : MonoBehaviour, IInit
     }
 
     Brain _br;
-    public bool IsInitialized { get; set; } //only called in children (because they're on scene)
-    public TargetControl targetControl;
+
+    public bool IsInitialized { get; set; }
 
     public virtual Transform MyTarget
     {
@@ -42,12 +40,12 @@ public class Combat : MonoBehaviour, IInit
         set
         {
             _myTarget = value;
-            distanceToTarget = Utils.Distance(Br.myTransform.position, MyTarget.position);
+            if (value != null) distanceToTarget = Utils.Distance(Br.myTransform.position, value.position);
         }
     }
-
+    
     Transform _myTarget;
-    protected float distanceToTarget;
+    public float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;
@@ -67,48 +65,6 @@ public class Combat : MonoBehaviour, IInit
 
     public virtual void FromAnimEv_Ultimate(int num = 0)
     {
-    }
-
-}
-
-public class TargetControl
-{
-    public Brain Br { get; set; }
-
-    Transform _target;
-    bool _hasTarget;
-    float _distance;
-
-    public TargetControl(Brain brain)
-    {
-        Br = brain;
-    }
-
-    public void AssignTarget(Transform target)
-    {
-        _target = target;
-        _hasTarget = _target != null;
-    }
-
-    public bool HasTarget(out float distance)
-    {
-        distance = 0f;
-        if (_hasTarget)
-        {
-            distance = Utils.Distance(Br.myTransform.position, _target.position);
-            return true;
-        }
-        return false;
-    }
-    public bool HasTarget(out Vector3 pos)
-    {
-        pos = Vector3.zero;
-        if (_hasTarget)
-        {
-            pos = _target.position;
-            return true;
-        }
-        return false;
     }
 
 }

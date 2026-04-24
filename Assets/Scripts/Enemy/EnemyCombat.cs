@@ -13,13 +13,12 @@ public class EnemyCombat : Combat
     /// </summary>
     /// <returns></returns>
     bool Mel() => meleeWeapon != null;
-    bool Ran() => rangedWeapon != null;
-    [SerializeField] GameObject meleeWeapon;
-    [ShowIf(nameof(Mel))]
-    [SerializeField] float rangeMelee;
-    [SerializeField] GameObject rangedWeapon;
+    public bool Ran() => rangedWeapon != null;
+    [SerializeField] protected Spell meleeWeapon;
+    [SerializeField] protected Spell rangedWeapon;
     [ShowIf(nameof(Ran))]
     [SerializeField] float rangeRanged;
+    [SerializeField][ShowIf(nameof(Ran))] protected Transform spawnPoint;
     #endregion
 
     public override Brain Br
@@ -44,8 +43,8 @@ public class EnemyCombat : Combat
                 _eLoco.moveCurrent = _eLoco.moveIdlingDefault;
                 _eLoco.AttInputEnemy(false);
                 _eLoco.Att1InputEnemy(false);
-
-                _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+    
+                _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
             }
             else
             {
@@ -55,24 +54,24 @@ public class EnemyCombat : Combat
                 {
                     if (meleeWeapon == null)
                     {
-                        _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+                        _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
                         return;
                     }
             
-                    if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
-                    else _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+                    if (distanceToTarget <= meleeWeapon.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;
+                    else _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
                 }
                 else
                 {
-                    if (distanceToTarget > rangeRanged) _eLoco.ra = E_Loco.RangeArea.OutOfRange;
+                    if (distanceToTarget > rangeRanged) _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
                     else if (meleeWeapon != null)
                     {
-                        if (distanceToTarget <= rangeMelee) _eLoco.ra = E_Loco.RangeArea.Melee;
-                        else _eLoco.ra = E_Loco.RangeArea.Ranged;
+                        if (distanceToTarget <= meleeWeapon.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;
+                        else _eLoco.weaponRange = E_Loco.RangeArea.Ranged;
                     }
-                    else _eLoco.ra = E_Loco.RangeArea.Ranged;
+                    else _eLoco.weaponRange = E_Loco.RangeArea.Ranged;
                 }
-
+    
             }
         }
     }

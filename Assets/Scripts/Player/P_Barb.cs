@@ -15,6 +15,7 @@ public class P_Barb : PlayerCombat
             {
                 { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
+            IsInitialized = true;
         }
     }
 

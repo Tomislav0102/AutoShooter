@@ -42,7 +42,6 @@ public class Health: EventBus, ITakeDamage, IInit
         get => _healthCurrent;
         set
         {
-           // if (!IsReady) return;
             _healthCurrent = value;
             _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
             _healthBarTransform.localScale = new Vector3(_healthCurrent / _healthMax, 1, 1);
@@ -95,11 +94,11 @@ public class Health: EventBus, ITakeDamage, IInit
             pc.HealthHitCallback(dam);
             return;
         }
-        
+
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
-            Br.combat.MyTarget = dam.attacker;
+            Br.combat.MyTarget =dam.attacker;
         }
     }
 

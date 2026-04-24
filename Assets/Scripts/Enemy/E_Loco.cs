@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class E_Loco : Loco
 {
     public enum RangeArea { Melee, Ranged, OutOfRange }
-    [ReadOnly] public RangeArea ra = RangeArea.OutOfRange;
+    [ReadOnly] public RangeArea weaponRange = RangeArea.OutOfRange;
     public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee, Frozen }
     public enum MultiShot { AllAtOnce, Consecutive, Random }
     public Movement moveIdlingDefault;
@@ -26,7 +26,7 @@ public class E_Loco : Loco
             moveCurrent = moveIdlingDefault;
             agent.enabled = true;
             agent.speed = moveSpeed;
-            ra = RangeArea.OutOfRange;
+            weaponRange = RangeArea.OutOfRange;
             IsInitialized = true;
         }
     }
@@ -88,7 +88,7 @@ public class E_Loco : Loco
         agent.speed = 0f;
         bool att = false;
         bool att1 = false;
-        switch (ra)
+        switch (weaponRange)
         {
             case RangeArea.Melee:
                 att = true;
@@ -185,28 +185,26 @@ public class E_Loco : Loco
     }
     void Chase()
     {
-        if (Br.combat.MyTarget == null) return;
-        if (ra == RangeArea.OutOfRange)
+        if (Br.combat.MyTarget != null)
         {
-            agent.destination = Br.combat.MyTarget.position;
-        }
-        else
-        {
-            if (agent.hasPath) agent.ResetPath();
+            if (weaponRange == RangeArea.OutOfRange) agent.destination = Br.combat.MyTarget.position;
+            else if (agent.hasPath) agent.ResetPath();
         }
     }
     void Flee()
     {
-        if (Br.combat.MyTarget == null) return;
-        if (Utils.Distance(Br.myTransform.position, Br.combat.MyTarget.position) < CONST_FleeDistance)
+        if (Br.combat.MyTarget != null)
         {
-            Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
-            direction.y = 0f;
-            direction.Normalize();
-            Vector3 targetPosition = Br.myTransform.position + 2f * direction;
-            NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
-            if (!hit.hit) return;
-            agent.destination = hit.position;
+            if (Br.combat.distanceToTarget < CONST_FleeDistance)
+            {
+                Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
+                direction.y = 0f;
+                direction.Normalize();
+                Vector3 targetPosition = Br.myTransform.position + 2f * direction;
+                NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
+                if (!hit.hit) return;
+                agent.destination = hit.position;
+            }
         }
     }
 

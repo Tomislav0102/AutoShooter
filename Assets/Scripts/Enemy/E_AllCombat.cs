@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class E_AllCombat : EnemyCombat
 {
-    [Title("Projectile data")]
-    [SerializeField] Transform spawnPoint;
-    [SerializeField][Range(0, 3)] int ricochet;
-    [SerializeField][Range(0, 3)] int pierce, bounce;
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
@@ -19,7 +15,7 @@ public class E_AllCombat : EnemyCombat
                 {
                     { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                 };
-                Spell melee = Instantiate(Ga.me.spells.meleeEnemy,
+                Spell melee = Instantiate(meleeWeapon,
                     Br.myTransform.position,
                     Quaternion.identity, Ga.me.spells.myTransform);
                 melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
@@ -30,11 +26,8 @@ public class E_AllCombat : EnemyCombat
                 {
                     { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
                 };
-                S_Bullet projectile = Instantiate(Ga.me.spells.projectileEnemy, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform) as S_Bullet;
+                Spell projectile = Instantiate(rangedWeapon, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 projectile.comp.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
-                projectile.ricochet = ricochet;
-                projectile.pierce = pierce;
-                projectile.bounce = bounce;
                 projectile.InitializeMe(Br, damRanged);
                 break;
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -40,6 +41,7 @@ public class Ga : MonoBehaviour
     public SpecialUi specialUi;
     
     
+    
     void Awake()
     {
         me = this;
@@ -50,7 +52,8 @@ public class Ga : MonoBehaviour
             team.Add((Faction)i, new HashSet<Transform>());
         }
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
-       SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
+      // SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
+      
     }
 
     void OnEnable()
@@ -66,25 +69,28 @@ public class Ga : MonoBehaviour
 
     void CallEv_OnCharDeath(Transform tr)
     {
+        bool debug = false;
         if (team[Faction.GoodGuys].Contains(tr))
         {
             team[Faction.GoodGuys].Remove(tr);
             if (tr == playerTransform)
             {
                 EventBus.OnPlayerDeath?.Invoke();
-                print("Player is dead");
+                if (debug) print("Player is dead");
             }
             else
             {
                 Destroy(tr.gameObject);
-                print("Summon is dead");
+                if (debug) print("Summon is dead");
             }
         }
         else if (team[Faction.BadGuys].Contains(tr))
         {
             team[Faction.BadGuys].Remove(tr);
             Destroy(tr.gameObject);
+            if (debug) print("enemy is dead");
         }
+
     }
 
 }

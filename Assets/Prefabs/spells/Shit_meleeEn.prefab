@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
   comp: {fileID: 2348338191598582159}
   myFaction: 1
-  targetFaction: 2
+  myFactionTarget: 1
   areaOfEffect: 2
   speed: 0
   lifeTime: 0

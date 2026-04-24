@@ -532,25 +532,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_AllTypes
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  <MyTarget>k__BackingField: {fileID: 0}
+  distanceToTarget: 0
   detectRange: 3.4028235e+38
   meleeWeapon: {fileID: 0}
-  rangeMelee: 0
-  rangedWeapon: {fileID: 2979209462643851753, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
+  rangedWeapon: {fileID: 251161728510779915, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
   rangeRanged: 1.1111111e+15
   spawnPoint: {fileID: 1978644124713137738}
-  ricochet: 0
-  pierce: 0
-  bounce: 0
 --- !u!114 &8358142056746059755 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

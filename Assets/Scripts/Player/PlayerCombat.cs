@@ -12,6 +12,7 @@ public class PlayerCombat : Combat
             Ga.me.specialUi.InitializeMe(specialCooldownTime);
             value.loco.lookAtTarget = true;
             _pLoco = Br.loco as P_Loco;
+            
         }
     }
 

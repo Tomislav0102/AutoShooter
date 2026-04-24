@@ -44,14 +44,11 @@ public class Brain : EventBus
     {
         faction = newFaction;
         
-        if (loco != null)
+        for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
         {
-            for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
-            {
-               if (Ga.me.team[(Faction)i].Contains(myTransform)) Ga.me.team[(Faction)i].Remove(myTransform);
-            }
-            Ga.me.team[faction].Add(myTransform);
+           if (Ga.me.team[(Faction)i].Contains(myTransform)) Ga.me.team[(Faction)i].Remove(myTransform);
         }
+        Ga.me.team[faction].Add(myTransform);
 
         if (myMaterials.Length >= (int)faction) myRenderer.material = myMaterials[(int)faction];
         

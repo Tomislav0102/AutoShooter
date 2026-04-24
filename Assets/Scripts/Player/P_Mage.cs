@@ -17,6 +17,7 @@ public class P_Mage : PlayerCombat
         {
             base.Br = value;
             value.loco.lookAtTarget = false;
+            IsInitialized = true;
             damRanged = new Dictionary<Element, float>()
             {
                 { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
@@ -37,7 +38,7 @@ public class P_Mage : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
 
-        Spell lightningStrike = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<Spell>();
+        Spell lightningStrike = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
         lightningStrike.InitializeMe(Br, damRanged);
         return;
         
