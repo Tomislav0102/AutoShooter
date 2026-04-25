@@ -2521,12 +2521,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
+  <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
   detectRange: 3.4028235e+38
   meleeWeapon: {fileID: 5907288675602046944, guid: 197c5347e3b911f489f668643315d5b6, type: 3}
   rangedWeapon: {fileID: 7382490896092904807, guid: ef30158957142c94683212ca7b465314, type: 3}
   rangeRanged: 10
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 2031405845141860428}
 --- !u!114 &3853920283161297884 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

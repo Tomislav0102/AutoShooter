@@ -6,33 +6,71 @@ public class Brain : EventBus
 {
     public Faction faction;
     public Transform myTransform;
+    public bool IsPlayer() => Ga.me.team[Faction.GoodGuys].Contains(myTransform);
     public Rigidbody myRigid;
     public SphereCollider myCollider;
-    [SerializeField] Renderer myRenderer;
-    [SerializeField] Material[] myMaterials;
+    [SerializeField, Range(1, 5)] int size = 1;
+    [SerializeField] Transform parPs;
     [Title("Body")]
-    public Character myChar;
     public GenOrder skin;
-    public Health health;
-    public Status status;
-    public Loco loco;
-    public Combat combat;
+    [SerializeField] GameObject characterGo, healthGo, statusGo, locoGo, combatGo;
+    [HideInInspector] public Character myChar;
+    [HideInInspector] public Health health;
+    [HideInInspector] public Status status;
+    [HideInInspector] public Loco loco;
+    [HideInInspector] public Combat combat;
     System.Action<Disposition> _onDispoChange;
     System.Action _onHitTaken;
     
     void Awake()
     {
-        if (myChar != null) myChar.Br = this;
-        if (health != null) health.Br = this;
-        if (status != null) status.Br = this;
-        if (loco != null) loco.Br = this;
-        if (combat != null) combat.Br = this;
+        if (characterGo.TryGetComponent(out Character c))
+        {
+            myChar = c;
+            myChar.Br = this;
+        }
+        if (healthGo.TryGetComponent(out Health h))
+        {
+            health = h;
+            health.Br = this;
+        }
+        if (statusGo.TryGetComponent(out Status s))
+        {
+            status = s;
+            status.Br = this;
+        }
+        if (locoGo.TryGetComponent(out Loco l))
+        {
+            loco = l;
+            loco.Br = this;
+        }
+        if (combatGo.TryGetComponent(out Combat co))
+        {
+            combat = co;
+            combat.Br = this;
+        }
         ChangeFaction(faction);
+        ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+        ps.transform.localScale = size * Vector3.one;
         ps.Play();
 
     }
 
+    [Title("Debug")]
+    [Button]
+    void ChangeSize(int newSize)
+    {
+        size = newSize;
+        myCollider.radius = size * 0.5f;
+        parPs.localPosition = size * Vector3.up;
+        parPs.localScale = size * Vector3.one;
+        
+        if (loco == null) return;
+        loco.transform.localScale = size * Vector3.one;
+        E_Loco eLoco  = loco as E_Loco;
+        if (eLoco != null) eLoco.agent.radius = size * 0.5f;
+    }
     [Button]
     public void ToggleFaction()
     {
@@ -50,7 +88,6 @@ public class Brain : EventBus
         }
         Ga.me.team[faction].Add(myTransform);
 
-        if (myMaterials.Length >= (int)faction) myRenderer.material = myMaterials[(int)faction];
         
     }
 

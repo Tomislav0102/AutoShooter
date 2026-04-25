@@ -32,7 +32,7 @@ public class Combat : EventBus, IInit
 
     Brain _br;
 
-    public bool IsInitialized { get; set; }
+    [field:SerializeField, ReadOnly] public bool IsInitialized { get; set; }
 
     public virtual Transform MyTarget
     {
@@ -44,8 +44,8 @@ public class Combat : EventBus, IInit
         }
     }
     
-    Transform _myTarget;
-    public float distanceToTarget;
+    [ShowInInspector, ReadOnly] Transform _myTarget;
+    [ReadOnly] public float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;
     float _searchWait;
     HashSet<Transform> _targets;

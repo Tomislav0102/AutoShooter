@@ -12,6 +12,7 @@ public class Spell : EventBus
     [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
+    [SerializeField] protected float startDelay;
     [SerializeField] protected float speed;
     [SerializeField] protected float lifeTime;
     [SerializeField] GameObject afterEffect;
@@ -50,23 +51,30 @@ public class Spell : EventBus
         InitializeMeShared(brain);
     }
 
-    public virtual void InitializeMe(Brain brain, Dictionary<Element, float> damage)
+    public virtual void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay = 0f)
     {
         injectHealthData.damage = damage;
-
+        startDelay = delay;
         InitializeMeShared(brain);
     }
 
 
     protected virtual void Update()
     {
+        if (startDelay > 0)
+        {
+            startDelay -= Time.deltaTime;
+            comp.warningRend.enabled = true;
+            return;
+        }
+        comp.warningRend.enabled = false;
         if (anchor != null) comp.myTransform.position = anchor.position;
 
         _timerLife += Time.deltaTime;
-        if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(Delay());
+        if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(DelayEnd());
     }
 
-    IEnumerator Delay()
+    IEnumerator DelayEnd()
     {
         _endDelayStarted = true;
         yield return new WaitForFixedUpdate();

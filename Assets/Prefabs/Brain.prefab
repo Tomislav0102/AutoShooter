@@ -257,10 +257,17 @@ MonoBehaviour:
   myCollider: {fileID: 5108658236475643279}
   myRenderer: {fileID: 0}
   myMaterials: []
-  myChar: {fileID: 1081531192646187538}
+  size: 1
+  parPs: {fileID: 6905425996237525255}
   skin: 0
-  health: {fileID: 7014450503520605381}
-  status: {fileID: 8704573881872995164}
+  characterGo: {fileID: 3754761399459115488}
+  healthGo: {fileID: 3230883051578875362}
+  statusGo: {fileID: 3754761399459115488}
+  locoGo: {fileID: 4538719372461997736}
+  combatGo: {fileID: 8859920748719717955}
+  myChar: {fileID: 0}
+  health: {fileID: 0}
+  status: {fileID: 0}
   loco: {fileID: 0}
   combat: {fileID: 0}
 --- !u!114 &7014450503520605381

@@ -8,6 +8,7 @@ public class CompSpell : MonoBehaviour
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public Transform myMesh;
+    public SpriteRenderer warningRend;
     public Transform visualization;
 
 }

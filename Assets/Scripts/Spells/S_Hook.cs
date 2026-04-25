@@ -7,7 +7,7 @@ using UnityEngine;
 public class S_Hook : Spell
 {
     float _timer = float.MaxValue;
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay)
     {
         base.InitializeMe(brain, damage);
         if (anchor == null || anchor.GetComponent<ITakeDamage>() == null) OnEnd();

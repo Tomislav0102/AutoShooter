@@ -27,9 +27,12 @@ public class E_Loco : Loco
             agent.enabled = true;
             agent.speed = moveSpeed;
             weaponRange = RangeArea.OutOfRange;
+            Renderer myRenderer =  GetComponentInChildren<Renderer>();
+            if (myRenderer != null && myMaterials.Length >= (int)value.faction) myRenderer.material = myMaterials[(int)value.faction];
             IsInitialized = true;
         }
     }
+    [SerializeField] Material[] myMaterials;
     bool _canMoveNavigation;
     bool _canMoveCombat;
 

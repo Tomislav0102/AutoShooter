@@ -7,11 +7,15 @@ using UnityEngine;
 /// </summary>
 public class S_HitSphere : Spell
 {
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay = 0f)
     {
-        base.InitializeMe(brain, damage);
+        base.InitializeMe(brain, damage, delay);
+    }
+    
+    void Hit(Brain brain, Dictionary<Element, float> damage)
+    {
         Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, 
-                                              areaOfEffect * 0.5f);
+            areaOfEffect * 0.5f);
         foreach (Collider item in colliders)
         {
             if (item.TryGetComponent(out Brain collidersBrain))
@@ -35,7 +39,8 @@ public class S_HitSphere : Spell
             comp.myMesh.GetComponentInChildren<ParticleSystem>().Play();
         }
         AfterEffect();
+
     }
 
-
 }
+

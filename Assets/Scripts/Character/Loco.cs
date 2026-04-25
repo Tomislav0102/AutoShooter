@@ -9,6 +9,7 @@ using UnityEngine.Animations.Rigging;
 public class Loco : EventBus, IInit
 {
     public virtual Brain Br { get; set; }
+
     public bool IsInitialized { get; set; } //only called in children (because they're on scene)
     [SerializeField] protected Animator anim;
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
@@ -16,6 +17,7 @@ public class Loco : EventBus, IInit
     Coroutine _pushCoroutine;
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
+      
 
     #region ANIMATOR
     

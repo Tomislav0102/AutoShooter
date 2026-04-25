@@ -9,7 +9,7 @@ public class S_Area : Spell
 {
 
     float _timer;
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay)
     {
         base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;

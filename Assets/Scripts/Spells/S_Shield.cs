@@ -5,7 +5,7 @@ using UnityEngine;
 public class S_Shield : Spell
 {
     [Title("Shield")]
-    [InfoBox("Only type matters. All instances of same type are treated the same. For example, any 'S_Bullet' in array detects all variations. If 'Spell' is in array that detects all.")]
+    [InfoBox("Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'Spell' is in array that detects all.")]
     [SerializeField] Spell[] spellsToAffect;
 
 
