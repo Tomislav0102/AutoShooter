@@ -53,7 +53,6 @@ public class Ga : MonoBehaviour
         }
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
       // SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
-      
     }
 
     void OnEnable()

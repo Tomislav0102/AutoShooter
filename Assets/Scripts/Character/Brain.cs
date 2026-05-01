@@ -63,7 +63,7 @@ public class Brain : EventBus
     {
         size = newSize;
         myCollider.radius = size * 0.5f;
-        parPs.localPosition = size * Vector3.up;
+        parPs.localPosition = parPs.localPosition.y * size * Vector3.up;
         parPs.localScale = size * Vector3.one;
         
         if (loco == null) return;

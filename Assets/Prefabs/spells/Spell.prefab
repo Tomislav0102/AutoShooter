@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4437705827264107405}
   - component: {fileID: 6986756237248560947}
   - component: {fileID: 973097147593910007}
+  - component: {fileID: 4758814660495661685}
   m_Layer: 20
   m_Name: Spell
   m_TagString: Untagged
@@ -51,7 +52,7 @@ MonoBehaviour:
   myTransform: {fileID: 8869388476844038348}
   myRigid: {fileID: 6986756237248560947}
   mySphereCollider: {fileID: 973097147593910007}
-  myCapsuleCollider: {fileID: 0}
+  myCapsuleCollider: {fileID: 4758814660495661685}
   myMesh: {fileID: 0}
   warningRend: {fileID: 7650057542349820016}
   visualization: {fileID: 2274516709331433152}
@@ -99,9 +100,32 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &4758814660495661685
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411438711831227337}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7826477641491730255
 GameObject:

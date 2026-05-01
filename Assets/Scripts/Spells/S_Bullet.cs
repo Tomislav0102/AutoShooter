@@ -14,9 +14,9 @@ public class S_Bullet : Spell
     public int bounce;
     [SerializeField] SphereCollider solid;
 
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay = 0f)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        base.InitializeMe(brain, damage, delay);
+        base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
         comp.myRigid.isKinematic = false;
         SetSpeed();
@@ -25,6 +25,7 @@ public class S_Bullet : Spell
         Physics.IgnoreCollision(solid, brain.myCollider);
     }
 
+    
     void OnTriggerEnter(Collider other)
     {
         if (injectHealthData.damage.Count > 0 && 

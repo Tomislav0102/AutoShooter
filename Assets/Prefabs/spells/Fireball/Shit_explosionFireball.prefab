@@ -94,6 +94,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1158950032262276466, guid: 55b4a112006c8724aa62d0713c119e2f, type: 3}
   m_PrefabInstance: {fileID: 385846364029990020}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &3613373543797644233 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3999061429951426381, guid: 55b4a112006c8724aa62d0713c119e2f, type: 3}
+  m_PrefabInstance: {fileID: 385846364029990020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2090546351865948674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,17 +222,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: inspectorDamage
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   comp: {fileID: 2348338191598582159}
   myFaction: 2
-  factionsToTarget: 
-  element: 1
-  canBeBlocked: 0
+  myFactionTarget: 1
   areaOfEffect: 5
+  startDelay: 0
   speed: 0
-  knockBack: 2
   lifeTime: 1
-  afterEffect: {fileID: 1865063581962807422, guid: 286100b66935cdd44a403b4c13a39aa0, type: 3}
+  afterEffect: {fileID: 8113628680216003888, guid: 286100b66935cdd44a403b4c13a39aa0, type: 3}
   anchor: {fileID: 0}
+  spellParticles:
+    particleSizeChange: 1
+    ps: {fileID: 3613373543797644233}
+  injectHealthData:
+    attacker: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  useInspectorDamageData: 0
 --- !u!4 &7355918638698607310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}

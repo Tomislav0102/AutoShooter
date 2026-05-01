@@ -8,9 +8,9 @@ public class S_Homing : Spell
     [Title("Homing")]
     public Transform homingTarget;
     
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay = 0f)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
-        base.InitializeMe(brain, damage, delay);
+        base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
         comp.myRigid.isKinematic = false;
     }

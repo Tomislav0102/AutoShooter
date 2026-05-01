@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine.Animations.Rigging;
+using Random = UnityEngine.Random;
 
 
 public class Loco : EventBus, IInit
@@ -49,6 +50,10 @@ public class Loco : EventBus, IInit
     IEnumerator PushMeSequence(Vector3 dir, float intensity = 1)
     {
         ControlsEnabled(false);
+        if (dir == Vector3.zero)
+        {
+            dir = Utils.MakeV3(Random.insideUnitCircle);
+        }
         Br.myRigid.AddForce(intensity * 10 * dir, ForceMode.VelocityChange);
         yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
         ControlsEnabled(true);

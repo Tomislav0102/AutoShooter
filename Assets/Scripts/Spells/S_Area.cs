@@ -9,22 +9,14 @@ public class S_Area : Spell
 {
 
     float _timer;
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay)
+    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
     {
         base.InitializeMe(brain, damage);
         comp.mySphereCollider.enabled = true;
         _timer = Mathf.Infinity;
-        if (comp.myMesh != null && comp.myMesh.TryGetComponent(out ParticleSystem ps))
-        {
-            var emisson = ps.emission;
-            emisson.rateOverTime = areaOfEffect * 5;
-            var shape = ps.shape;
-            shape.radius = areaOfEffect * 0.5f;
-        }
-        
-            
-        
+        spellParticles.InitializeMe(areaOfEffect);
     }
+    
     protected override void Update()
     {
         base.Update();

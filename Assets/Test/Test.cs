@@ -8,12 +8,16 @@ using TMPro;
 
 public class Test : MonoBehaviour
 {
-    public List<int> startList;
-    public Animator anim;
+    public GameObject[] pooledCubes;
+    public GameObject myCube;
+    
     [Button]
     void TestMethod()
     {
-        startList = Utils.RandomListByType(startList);
+        for (int i = 0; i < pooledCubes.Length; i++)
+        {
+            print($"{i} {Equals(pooledCubes[i],  myCube)}");
+        }
     }
 
 }

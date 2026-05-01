@@ -7,12 +7,17 @@ using UnityEngine;
 /// </summary>
 public class S_HitSphere : Spell
 {
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage, float delay = 0f)
-    {
-        base.InitializeMe(brain, damage, delay);
-    }
+    bool _oneHIt;
     
-    void Hit(Brain brain, Dictionary<Element, float> damage)
+    protected override void Update()
+    {
+        base.Update();
+        if (!_oneHIt && !timerStartDelay.completed) return;
+        _oneHIt = true;
+        Hit();
+    }
+
+    void Hit()
     {
         Collider[] colliders = Physics.OverlapSphere(comp.myTransform.position, 
             areaOfEffect * 0.5f);
@@ -33,11 +38,7 @@ public class S_HitSphere : Spell
             }
         }
         
-        if (comp.myMesh != null)
-        {
-            comp.myMesh.localScale = areaOfEffect * Vector3.one;
-            comp.myMesh.GetComponentInChildren<ParticleSystem>().Play();
-        }
+        spellParticles.InitializeMe(areaOfEffect);
         AfterEffect();
 
     }

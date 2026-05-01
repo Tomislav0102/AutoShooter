@@ -72,13 +72,33 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 198237392738917518, guid: a01c30947af547f4db02509b46573b2c, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 198551827739251032, guid: a01c30947af547f4db02509b46573b2c, type: 3}
       propertyPath: lengthInSec
       value: 4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 198551827739251032, guid: a01c30947af547f4db02509b46573b2c, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198594330864758024, guid: a01c30947af547f4db02509b46573b2c, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 198766687927636768, guid: a01c30947af547f4db02509b46573b2c, type: 3}
       propertyPath: lengthInSec
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198766687927636768, guid: a01c30947af547f4db02509b46573b2c, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198845321637763174, guid: a01c30947af547f4db02509b46573b2c, type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -112,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 2070628713131782587}
     - target: {fileID: 5411438711831227337, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_Name
-      value: Sarea_fireWalkPl
+      value: Sarea_fireWalk
       objectReference: {fileID: 0}
     - target: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,19 +202,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda8936b07d23974cb2772aa286cdae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Area
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: inspectorDamage
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   comp: {fileID: 8029538067433148474}
   myFaction: 0
+  myFactionTarget: 1
   areaOfEffect: 1
+  startDelay: 0
   speed: 0
   lifeTime: 5
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  spellParticles:
+    ps: {fileID: 0}
   injectHealthData:
     attacker: {fileID: 0}
-    damage: 0
     canBeBlocked: 0
     knockBack: 0
-    element: 1
+  useInspectorDamageData: 0
 --- !u!4 &3021113219745651579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}

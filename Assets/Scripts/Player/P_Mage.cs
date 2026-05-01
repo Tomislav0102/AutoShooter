@@ -22,14 +22,15 @@ public class P_Mage : PlayerCombat
             {
                 { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
             };
-            return;
+          //  return;
             _walkTrail = Instantiate(Ga.me.spells.walkTrail, Ga.me.spells.myTransform);
-            _walkTrail.InitializeMe(value, Ga.me.spells.fireWalk, value.myChar.GetStat(Stats.MagicDamage));
+            _walkTrail.InitializeMe(value, new Spell[]{Ga.me.spells.fireWalk}, value.myChar.GetStat(Stats.MagicDamage));
             
-            _moveRotate = Instantiate(Ga.me.spells.moveRotate, Ga.me.spells.myTransform);
-            MoveRotateScaleSpellHelper moveRotateSpellHelper = _moveRotate as MoveRotateScaleSpellHelper;
-            moveRotateSpellHelper.anchor = value.myTransform;
-            moveRotateSpellHelper.InitializeMe(value, Ga.me.spells.shieldPlayer, 0);
+            // _moveRotate = Instantiate(Ga.me.spells.moveRotate, Ga.me.spells.myTransform);
+            // MoveRotateScaleSpellHelper moveRotateSpellHelper = _moveRotate as MoveRotateScaleSpellHelper;
+            // moveRotateSpellHelper.anchor = value.myTransform;
+            // Spell[] spells = new Spell[] { Ga.me.spells.shieldPlayer, Ga.me.spells.shieldPlayer, Ga.me.spells.shieldPlayer };
+            // moveRotateSpellHelper.InitializeMe(value, spells, 0);
         }
     }
 
