@@ -83,22 +83,22 @@ public class P_Archer : PlayerCombat
 
         void SpawnProjectile(float rotation)
         {
-            Vector3 rot = rotation * Vector3.up;
-            for (int i = 0; i < parallel + 1; i++)
-            {
-                float xOffset = i * CONST_HorGapBetweenProjectiles;
-                S_Bullet sp = Instantiate(Ga.me.spells.projectilePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
-                sp.comp.myMesh.position = new Vector3(sp.comp.myMesh.position.x, spawnPoint.position.y, sp.comp.myMesh.position.z);
-                sp.comp.myTransform.Rotate(rot);
-                sp.comp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
-                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                sp.comp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-                
-                sp.ricochet = ricochet;
-                sp.pierce = pierce;
-                sp.bounce = bounce;
-                sp.InitializeMe(Br, damRanged);
-            }
+            // Vector3 rot = rotation * Vector3.up;
+            // for (int i = 0; i < parallel + 1; i++)
+            // {
+            //     float xOffset = i * CONST_HorGapBetweenProjectiles;
+            //     S_Bullet sp = Instantiate(Ga.me.spells.projectilePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform).GetComponent<S_Bullet>();
+            //     sp.comp.myMesh.position = new Vector3(sp.comp.myMesh.position.x, spawnPoint.position.y, sp.comp.myMesh.position.z);
+            //     sp.comp.myTransform.Rotate(rot);
+            //     sp.comp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
+            //     float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+            //     sp.comp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+            //     
+            //     sp.ricochet = ricochet;
+            //     sp.pierce = pierce;
+            //     sp.bounce = bounce;
+            //     sp.InitializeMe(Br, damRanged);
+            // }
 
         }
     }

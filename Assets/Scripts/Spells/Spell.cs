@@ -5,69 +5,10 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 
-public class MyTimer
-{
-    float _maxTime;
-    float _timer;
-    bool _isLooping;
-    public bool completed;
-    System.Action _onComplete;
-
-    public MyTimer(float maxTime, System.Action onComplete, bool isLooping = false)
-    {
-        _maxTime = maxTime;
-        _onComplete = onComplete;
-        _isLooping = isLooping;
-    }
-
-    public void UpdateLoop()
-    {
-        if (!_isLooping && completed) return;
-        _timer += Time.deltaTime;
-        if (_timer > _maxTime)
-        {
-            _timer = 0;
-            _onComplete?.Invoke();
-            completed = true;
-        }
-    }
-}
-
-[System.Serializable]
-public class SpellParticles
-{
-    public enum ParticleSizeChange
-    {
-        Emission_Shape, 
-        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code, only in inspector (e.g. fireball)
-        Other
-    }
-    [SerializeField] ParticleSystem ps;
-    public ParticleSizeChange particleSizeChange;
-
-    public void InitializeMe(float areaOfEffect)
-    {
-        if (ps == null) return;
-        switch (particleSizeChange)
-        {
-            case  ParticleSizeChange.Emission_Shape:
-                var emission = ps.emission;
-                emission.rateOverTime = areaOfEffect * 5;
-                var shape = ps.shape;
-                shape.radius = areaOfEffect * 0.5f;
-                break;
-            case  ParticleSizeChange.TransformScale:
-                ps.transform.parent.localScale = areaOfEffect * Vector3.one;
-                break;
-        }
-        ps.Play();
-    }
-}
 
 public class Spell :SerializedMonoBehaviour
 {
-    Brain _ownersBrain;
-    public CompSpell comp;
+    [ReadOnly] public CompSpellContainer container;
     [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
@@ -75,11 +16,13 @@ public class Spell :SerializedMonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float lifeTime;
     [SerializeField] Spell afterEffect;
-    public Transform anchor;
+    [ReadOnly] public Transform anchor;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
     bool _endDelayStarted;
     protected MyTimer timerStartDelay;
+    protected enum ColliderType { Sphere, Capsule, None }
+    [SerializeField] protected ColliderType colliderType;
     [SerializeField, BoxGroup("Particles", false)] protected SpellParticles spellParticles;
     
     [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
@@ -87,43 +30,48 @@ public class Spell :SerializedMonoBehaviour
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
 
 
-    void InitializeMeShared(Brain brain)
+    public void InitializeMeShared(CompSpellContainer cont)
     {
-        _ownersBrain = brain;
-        myFaction = _ownersBrain.faction;
+        container = cont;
+        myFaction = container.ownersBrain.faction;
         if (useInspectorDamageData || injectHealthData.damage == null) injectHealthData.damage = inspectorDamage;
         
-        comp.myRigid.isKinematic = true;
-        comp.visualization.localScale = areaOfEffect * Vector3.one;
-        comp.warningRend.transform.localScale = areaOfEffect * Vector3.one;
-        if (comp.mySphereCollider != null)
+        container.comp.myRigid.isKinematic = true;
+        container.comp.visualization.localScale = areaOfEffect * Vector3.one;
+        container.comp.warningRend.transform.localScale = areaOfEffect * Vector3.one;
+        
+        if (container.comp.mySphereCollider != null)
         {
-            Physics.IgnoreCollision(comp.mySphereCollider, _ownersBrain.myCollider);
-            comp.mySphereCollider.enabled = false;
-            comp.mySphereCollider.radius = areaOfEffect * 0.5f;
+            Physics.IgnoreCollision(container.comp.mySphereCollider, container.ownersBrain.myCollider);
+            container.comp.mySphereCollider.enabled = false;
+            container.comp.mySphereCollider.radius = areaOfEffect * 0.5f;
+        }
+        if (container.comp.myCapsuleCollider != null) //not used
+        {
+            Physics.IgnoreCollision(container.comp.myCapsuleCollider, container.ownersBrain.myCollider);
+            container.comp.myCapsuleCollider.enabled = false;
+            container.comp.myCapsuleCollider.height = areaOfEffect;
+            container.comp.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         }
 
-        if (comp.myCapsuleCollider != null) //not used
+        switch (colliderType)
         {
-            Physics.IgnoreCollision(comp.myCapsuleCollider, _ownersBrain.myCollider);
-            comp.myCapsuleCollider.enabled = false;
-            comp.myCapsuleCollider.height = areaOfEffect;
-            comp.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
+            case ColliderType.Sphere:
+                container.comp.mySphereCollider.enabled = true;
+                break;
+            case ColliderType.Capsule:
+                container.comp.myCapsuleCollider.enabled = true;
+                break;
         }
         
-        if (startDelay > 0) comp.warningRend.enabled = true;
+        if (startDelay > 0) container.comp.warningRend.enabled = true;
         timerStartDelay = new MyTimer(startDelay, () =>
         {
-            comp.warningRend.enabled = false;
+            container.comp.warningRend.enabled = false;
         });
     }
 
 
-    public virtual void InitializeMe(Brain brain, Dictionary<Element, float> damage = null)
-    {
-        injectHealthData.damage = damage;
-        InitializeMeShared(brain);
-    }
 
 
     protected virtual void Update()
@@ -131,13 +79,13 @@ public class Spell :SerializedMonoBehaviour
         // if (startDelay > 0)
         // {
         //     startDelay -= Time.deltaTime;
-        //     comp.warningRend.enabled = true;
+        //     container.compSpell.warningRend.enabled = true;
         //     return;
         // }
-        // comp.warningRend.enabled = false;
+        // container.compSpell.warningRend.enabled = false;
         timerStartDelay.UpdateLoop();
         if (!timerStartDelay.completed) return;
-        if (anchor != null) comp.myTransform.position = anchor.position;
+        if (anchor != null) container.comp.myTransform.position = anchor.position;
 
         _timerLife += Time.deltaTime;
         if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(DelayEnd());
@@ -152,16 +100,14 @@ public class Spell :SerializedMonoBehaviour
 
     protected void SetSpeed()
     {
-        comp.myRigid.linearVelocity = speed * comp.myTransform.forward;
+        container.comp.myRigid.linearVelocity = speed * container.comp.myTransform.forward;
     }
 
     protected void AfterEffect()
     {
-        if (afterEffect != null)
-        {
-            Spell spell = Instantiate(afterEffect, comp.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            spell.InitializeMeShared(_ownersBrain);
-        }
+        // if (afterEffect == null) return;
+        // Spell spell = Instantiate(afterEffect, container.compSpell.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        // spell.InitializeMeShared();
     }
 
     public void OnEnd()

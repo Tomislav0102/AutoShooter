@@ -13,7 +13,6 @@ public class Ga : MonoBehaviour
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
 
-    
     [BoxGroup("Particles")] 
     public ParticleSystem psSpawn, psDeath;
     public LevelManager LevelMan
@@ -92,4 +91,63 @@ public class Ga : MonoBehaviour
 
     }
 
+}
+
+public class MyTimer
+{
+    float _maxTime;
+    float _timer;
+    bool _isLooping;
+    public bool completed;
+    System.Action _onComplete;
+
+    public MyTimer(float maxTime, System.Action onComplete, bool isLooping = false)
+    {
+        _maxTime = maxTime;
+        _onComplete = onComplete;
+        _isLooping = isLooping;
+    }
+
+    public void UpdateLoop()
+    {
+        if (!_isLooping && completed) return;
+        _timer += Time.deltaTime;
+        if (_timer > _maxTime)
+        {
+            _timer = 0;
+            _onComplete?.Invoke();
+            completed = true;
+        }
+    }
+}
+
+[System.Serializable]
+public class SpellParticles
+{
+    public enum ParticleSizeChange
+    {
+        Emission_Shape, 
+        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code, only in inspector (e.g. fireball)
+        Other
+    }
+    [SerializeField] ParticleSystem ps;
+    public ParticleSizeChange particleSizeChange;
+
+    public void InitializeMe(float areaOfEffect)
+    {
+        if (ps == null) return;
+        switch (particleSizeChange)
+        {
+            case  ParticleSizeChange.Emission_Shape:
+                var emission = ps.emission;
+                emission.rateOverTime = areaOfEffect * 5;
+                var shape = ps.shape;
+                shape.radius = areaOfEffect * 0.5f;
+                break;
+            case  ParticleSizeChange.TransformScale:
+                ps.transform.parent.localScale = areaOfEffect * Vector3.one;
+                break;
+        }
+        ps.Play();
+    }
 }

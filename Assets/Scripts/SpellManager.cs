@@ -25,9 +25,13 @@ public class SpellManager : MonoBehaviour
    public Spell homing;
    [Title("Shield")]
    public Spell shieldPlayer;
+   [Title("Swords")] 
+   public Spell swordFire;
+   public Spell swordIce;
+   public Spell swordEle;
    [Title("Spell helpers")]
-   public SpellHelper walkTrail;
-   public SpellHelper moveRotate;
+   public CompSpellContainer walkTrail;
+   public CompSpellContainer moveRotate;
    void Awake() 
    {
       myTransform = transform;

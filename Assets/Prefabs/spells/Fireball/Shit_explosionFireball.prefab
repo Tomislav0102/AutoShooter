@@ -266,9 +266,10 @@ MonoBehaviour:
   lifeTime: 1
   afterEffect: {fileID: 8113628680216003888, guid: 286100b66935cdd44a403b4c13a39aa0, type: 3}
   anchor: {fileID: 0}
+  colliderType: 2
   spellParticles:
-    particleSizeChange: 1
     ps: {fileID: 3613373543797644233}
+    particleSizeChange: 1
   injectHealthData:
     attacker: {fileID: 0}
     canBeBlocked: 0

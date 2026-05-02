@@ -13,5 +13,10 @@ public interface ITakeDamage : IInit
     void TakeDamage(InjectHealth dam);
 };
 
+public interface ISpellTransporter
+{
+    
+}
+
 
 public interface IObstacle { };

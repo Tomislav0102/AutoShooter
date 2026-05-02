@@ -88,19 +88,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_HitSphere
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: inspectorDamage
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   comp: {fileID: 7842921370843532061}
   myFaction: 2
   myFactionTarget: 1
-  areaOfEffect: 2
+  areaOfEffect: 5
   startDelay: 2
   speed: 0
-  lifeTime: 0
+  lifeTime: 2
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  colliderType: 2
+  spellParticles:
+    ps: {fileID: 1383103085796610784}
+    particleSizeChange: 1
   injectHealthData:
     attacker: {fileID: 0}
     canBeBlocked: 0
-    knockBack: 1
+    knockBack: 0
+  useInspectorDamageData: 0
 --- !u!4 &3050106059781537884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8869388476844038348, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}
@@ -125,6 +165,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3050106059781537884}
     m_Modifications:
+    - target: {fileID: 2002528596301177643, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776147432339146174, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131613892466233913, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7017943351223773638, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
       propertyPath: m_Name
       value: LightningStrikeBlue
@@ -173,6 +225,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7179479885144745800, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7179820772633259434, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -181,5 +241,10 @@ PrefabInstance:
 --- !u!4 &1288325315263643270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7021975013411471820, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
+  m_PrefabInstance: {fileID: 8111576796092301130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1383103085796610784 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7179820772633259434, guid: 29db89a531eeb0a44b653f7ee1d5dcf7, type: 3}
   m_PrefabInstance: {fileID: 8111576796092301130}
   m_PrefabAsset: {fileID: 0}

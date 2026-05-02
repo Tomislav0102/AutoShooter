@@ -77,18 +77,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871855f3240083e49a3085379df9c490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Hook
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: inspectorDamage
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   comp: {fileID: 8298795834514885277}
   myFaction: 0
-  targetFaction: 0
+  myFactionTarget: 1
   areaOfEffect: 1
+  startDelay: 0
   speed: 0
   lifeTime: 10
   afterEffect: {fileID: 0}
   anchor: {fileID: 0}
+  colliderType: 2
+  spellParticles:
+    ps: {fileID: 0}
+    particleSizeChange: 0
   injectHealthData:
     attacker: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
+  useInspectorDamageData: 0
 --- !u!114 &8298795834514885277 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4437705827264107405, guid: 00e4dbea08eab8b4198d203699f0d5e9, type: 3}

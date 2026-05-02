@@ -7,11 +7,11 @@ using UnityEngine;
 public class S_Hook : Spell
 {
     float _timer = float.MaxValue;
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
-    {
-        base.InitializeMe(brain, damage);
-        if (anchor == null || anchor.GetComponent<ITakeDamage>() == null) OnEnd();
-    }
+    // public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
+    // {
+    //     base.InitializeMe(brain, damage);
+    //     if (anchor == null || anchor.GetComponent<ITakeDamage>() == null) OnEnd();
+    // }
 
     protected override void Update()
     {

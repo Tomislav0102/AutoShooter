@@ -8,14 +8,12 @@ using UnityEngine;
 public class S_Area : Spell
 {
 
-    float _timer;
-    public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
-    {
-        base.InitializeMe(brain, damage);
-        comp.mySphereCollider.enabled = true;
-        _timer = Mathf.Infinity;
-        spellParticles.InitializeMe(areaOfEffect);
-    }
+    float _timer = Mathf.Infinity;
+    // public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
+    // {
+    //     base.InitializeMe(brain, damage);
+    //     spellParticles.InitializeMe(areaOfEffect);
+    // }
     
     protected override void Update()
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerCombat : Combat
 {
-    [ShowInInspector, ReadOnly] SpellHelper _rotatingSwords;
+    [ShowInInspector, ReadOnly] CompSpellContainer _rotatingSwords;
     [SerializeField] int engageRange = 10;
     public override Brain Br
     {
