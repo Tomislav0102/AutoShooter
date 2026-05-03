@@ -7,7 +7,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
-public class Ga : MonoBehaviour
+public class Ga : SerializedMonoBehaviour
 {
     public static Ga me;
     [SerializeField] Transform parWaypoints;

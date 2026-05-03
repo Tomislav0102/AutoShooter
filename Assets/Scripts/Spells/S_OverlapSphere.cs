@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// area effect, instantaneous
 /// </summary>
-public class S_HitSphere : Spell
+public class S_OverlapSphere : Spell
 {
     bool _oneHIt;
     
@@ -19,7 +19,7 @@ public class S_HitSphere : Spell
 
     void Hit()
     {
-        Collider[] colliders = Physics.OverlapSphere(container.comp.myTransform.position, 
+        Collider[] colliders = Physics.OverlapSphere(main.myTransform.position, 
             areaOfEffect * 0.5f);
         foreach (Collider item in colliders)
         {
@@ -28,7 +28,7 @@ public class S_HitSphere : Spell
                 if (!Utils.CanTargetFaction(myFaction, collidersBrain.faction, myFactionTarget)) continue;
                 if (injectHealthData.knockBack > 0 && collidersBrain.loco != null)
                 {
-                    Vector3 dir = Utils.Direction(container.comp.myTransform.position, collidersBrain.myTransform.position);
+                    Vector3 dir = Utils.Direction(main.myTransform.position, collidersBrain.myTransform.position);
                     collidersBrain.loco.KnockBack(dir, injectHealthData.knockBack);
                 }
                 if (injectHealthData.damage.Count > 0 && item.TryGetComponent(out ITakeDamage takeDamage))

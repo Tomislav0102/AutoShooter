@@ -14,8 +14,8 @@ public class EnemyCombat : Combat
     /// <returns></returns>
     bool Mel() => meleeWeapon != null;
     public bool Ran() => rangedWeapon != null;
-    [SerializeField] protected Spell meleeWeapon;
-    [SerializeField] protected Spell rangedWeapon;
+    [SerializeField] protected SpellControl meleeWeapon;
+    [SerializeField] protected SpellControl rangedWeapon;
     [ShowIf(nameof(Ran))]
     [SerializeField] float rangeRanged;
     [SerializeField][ShowIf(nameof(Ran))] protected Transform spawnPoint;
@@ -57,8 +57,8 @@ public class EnemyCombat : Combat
                         _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
                         return;
                     }
-            
-                    if (distanceToTarget <= meleeWeapon.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;
+
+                    if (distanceToTarget <= meleeWeapon.spell.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;
                     else _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
                 }
                 else
@@ -66,7 +66,7 @@ public class EnemyCombat : Combat
                     if (distanceToTarget > rangeRanged) _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
                     else if (meleeWeapon != null)
                     {
-                        if (distanceToTarget <= meleeWeapon.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;
+                        if (distanceToTarget <= meleeWeapon.spell.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;
                         else _eLoco.weaponRange = E_Loco.RangeArea.Ranged;
                     }
                     else _eLoco.weaponRange = E_Loco.RangeArea.Ranged;

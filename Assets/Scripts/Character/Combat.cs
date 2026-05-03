@@ -13,17 +13,16 @@ public class Combat : EventBus, IInit
         set
         {
             _br = value;
-            _searchWait = Random.Range(0.1f, 0.2f);
             _targets = value.faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
-            StartCoroutine(SearchTargetCoroutine());
+            StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
             
-            IEnumerator SearchTargetCoroutine()
+            IEnumerator SearchTargetCoroutine(float searchWait)
             {
-                yield return new WaitForSeconds(_searchWait * 2);
+                yield return new WaitForSeconds(searchWait * 2);
                 while (true)
                 {
-                    MyTarget = Utils.ClosestTransform(Br.myTransform.position, _targets, detectRange);
-                    yield return new WaitForSeconds(_searchWait);
+                    MyTarget = Utils.ClosestTransform(value.myTransform.position, _targets, detectRange);
+                    yield return new WaitForSeconds(searchWait);
                 }
             }
 
@@ -47,7 +46,6 @@ public class Combat : EventBus, IInit
     [ShowInInspector, ReadOnly] Transform _myTarget;
     [ReadOnly] public float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;
-    float _searchWait;
     HashSet<Transform> _targets;
 
     //cache

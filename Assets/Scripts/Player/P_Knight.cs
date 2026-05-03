@@ -38,6 +38,8 @@ public class P_Knight : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
+        SpellControl melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        melee.InitializeMe(Br, damMelee);
         // Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         // melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
         // melee.InitializeMe(Br, damMelee);

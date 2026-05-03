@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class OrbitalSpellTransporter : MonoBehaviour, ISpellTransporter
+public class OrbitalTransporter : SpellTransporter
 {
     Spell[] _spells;
     [ReadOnly] public float distanceFromAnchor;
     [ReadOnly] public Transform anchor;
+    
     
     // public override void InitializeMe(Brain br, Spell[] spellPrefab, Dictionary<Element, float> damage) 
     // {

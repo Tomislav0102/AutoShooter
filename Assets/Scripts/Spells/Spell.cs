@@ -6,9 +6,9 @@ using Sirenix.Utilities;
 using UnityEngine;
 
 
-public class Spell :SerializedMonoBehaviour
+public class Spell : SerializedMonoBehaviour
 {
-    [ReadOnly] public CompSpellContainer container;
+    protected SpellControl main;
     [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
@@ -30,48 +30,54 @@ public class Spell :SerializedMonoBehaviour
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
 
 
-    public void InitializeMeShared(CompSpellContainer cont)
+    public void InitializeMe(SpellControl mainSpell)
     {
-        container = cont;
-        myFaction = container.ownersBrain.faction;
-        if (useInspectorDamageData || injectHealthData.damage == null) injectHealthData.damage = inspectorDamage;
+        main = mainSpell;
+        myFaction = main.ownersBrain.faction;
+        injectHealthData.damage = useInspectorDamageData ? inspectorDamage : main.damage;
         
-        container.comp.myRigid.isKinematic = true;
-        container.comp.visualization.localScale = areaOfEffect * Vector3.one;
-        container.comp.warningRend.transform.localScale = areaOfEffect * Vector3.one;
+        main.myRigid.isKinematic = true;
+        main.visualization.localScale = areaOfEffect * Vector3.one;
+        main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
         
-        if (container.comp.mySphereCollider != null)
+        if (main.mySphereCollider != null)
         {
-            Physics.IgnoreCollision(container.comp.mySphereCollider, container.ownersBrain.myCollider);
-            container.comp.mySphereCollider.enabled = false;
-            container.comp.mySphereCollider.radius = areaOfEffect * 0.5f;
+            Physics.IgnoreCollision(main.mySphereCollider, main.ownersBrain.myCollider);
+            main.mySphereCollider.enabled = false;
+            main.mySphereCollider.radius = areaOfEffect * 0.5f;
         }
-        if (container.comp.myCapsuleCollider != null) //not used
+        if (main.myCapsuleCollider != null) 
         {
-            Physics.IgnoreCollision(container.comp.myCapsuleCollider, container.ownersBrain.myCollider);
-            container.comp.myCapsuleCollider.enabled = false;
-            container.comp.myCapsuleCollider.height = areaOfEffect;
-            container.comp.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
+            Physics.IgnoreCollision(main.myCapsuleCollider, main.ownersBrain.myCollider);
+            main.myCapsuleCollider.enabled = false;
+            main.myCapsuleCollider.height = areaOfEffect;
+            main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         }
 
         switch (colliderType)
         {
             case ColliderType.Sphere:
-                container.comp.mySphereCollider.enabled = true;
+                main.mySphereCollider.enabled = true;
                 break;
             case ColliderType.Capsule:
-                container.comp.myCapsuleCollider.enabled = true;
+                main.myCapsuleCollider.enabled = true;
                 break;
         }
         
-        if (startDelay > 0) container.comp.warningRend.enabled = true;
+        if (startDelay > 0) main.warningRend.enabled = true;
         timerStartDelay = new MyTimer(startDelay, () =>
         {
-            container.comp.warningRend.enabled = false;
+            main.warningRend.enabled = false;
         });
+        
+        main.onTrigEnter += CallEv_OnTriggerEnter;
+        main.onTrigExit += CallEv_OnTriggerExit;
+        main.onCollisionEnter += CallEv_OnCollisionEnter;
     }
 
-
+    protected virtual void CallEv_OnCollisionEnter(Collision collision) { }
+    protected virtual void CallEv_OnTriggerExit(Collider other) { }
+    protected virtual void CallEv_OnTriggerEnter(Collider other) { }
 
 
     protected virtual void Update()
@@ -85,7 +91,7 @@ public class Spell :SerializedMonoBehaviour
         // container.compSpell.warningRend.enabled = false;
         timerStartDelay.UpdateLoop();
         if (!timerStartDelay.completed) return;
-        if (anchor != null) container.comp.myTransform.position = anchor.position;
+        if (anchor != null) main.myTransform.position = anchor.position;
 
         _timerLife += Time.deltaTime;
         if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(DelayEnd());
@@ -100,7 +106,7 @@ public class Spell :SerializedMonoBehaviour
 
     protected void SetSpeed()
     {
-        container.comp.myRigid.linearVelocity = speed * container.comp.myTransform.forward;
+        main.myRigid.linearVelocity = speed * main.myTransform.forward;
     }
 
     protected void AfterEffect()
@@ -112,7 +118,11 @@ public class Spell :SerializedMonoBehaviour
 
     public void OnEnd()
     {
-        Destroy(gameObject);
+        main.onTrigEnter -= CallEv_OnTriggerEnter;
+        main.onTrigExit -= CallEv_OnTriggerExit;
+        main.onCollisionEnter -= CallEv_OnCollisionEnter;
+
+        Destroy(main.gameObject);
     }
 
 }

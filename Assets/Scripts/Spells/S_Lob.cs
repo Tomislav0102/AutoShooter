@@ -19,8 +19,8 @@ public class S_Lob : Spell
     protected override void Update()
     {
         base.Update();
-        container.comp.myMesh.Rotate(Time.deltaTime * _rndRot);
-        if (!Ga.me.LevelMan.InsideLevel(container.comp.myTransform.position)) 
+        main.myMesh.Rotate(Time.deltaTime * _rndRot);
+        if (!Ga.me.LevelMan.InsideLevel(main.myTransform.position)) 
         {
             AfterEffect();
             OnEnd();

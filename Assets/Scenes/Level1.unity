@@ -197,6 +197,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -286,6 +294,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -564,6 +580,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -717,6 +741,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -985,6 +1017,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -1215,6 +1255,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -1294,6 +1342,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -1377,6 +1433,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -1456,6 +1520,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -1794,6 +1866,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -2113,6 +2193,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -2271,6 +2359,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -2459,6 +2555,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -2475,6 +2579,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -2698,6 +2806,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -2719,6 +2835,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -2857,6 +2977,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -2936,6 +3064,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -3022,6 +3158,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -3118,6 +3262,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -3266,6 +3418,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -3345,6 +3505,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -3508,6 +3676,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -3599,6 +3775,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -3678,6 +3862,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -3900,6 +4092,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -4056,6 +4256,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -4142,6 +4350,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -4226,6 +4442,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -4458,6 +4682,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -4666,6 +4898,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -4817,6 +5057,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -4896,6 +5144,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -5010,6 +5266,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -5091,6 +5355,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -5107,6 +5379,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -5315,6 +5591,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -5331,6 +5615,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -5419,6 +5707,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -5631,6 +5923,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -5652,6 +5952,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -5790,6 +6094,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -5842,6 +6154,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -5922,7 +6238,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 549705626345464719, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.38
+      value: -4.19
       objectReference: {fileID: 0}
     - target: {fileID: 549705626345464719, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5930,7 +6246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 549705626345464719, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.34
+      value: 5.654
       objectReference: {fileID: 0}
     - target: {fileID: 549705626345464719, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5962,7 +6278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3853920283161297884, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: moveSpeed
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5541319739651212763, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: m_Name
@@ -5972,6 +6288,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: debugGeneral
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: rangedWeapon
       value: 
@@ -6052,6 +6376,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -6225,6 +6557,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -6394,6 +6734,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -6686,6 +7034,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -6847,6 +7203,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -7085,6 +7449,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -7171,6 +7543,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -7187,6 +7567,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -7500,6 +7884,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -7579,6 +7971,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -7667,6 +8067,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -7746,6 +8154,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -7929,6 +8345,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -8098,6 +8522,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -8532,6 +8964,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
@@ -8726,6 +9162,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -8832,6 +9276,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1093884921}
     m_Modifications:
+    - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1472948413442300051, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -8983,6 +9431,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
@@ -9194,6 +9650,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -9349,6 +9813,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
@@ -9438,6 +9910,14 @@ PrefabInstance:
     - target: {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: faction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: rangedWeapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7609808775189050478, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab

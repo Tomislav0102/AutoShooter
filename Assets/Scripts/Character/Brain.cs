@@ -57,7 +57,8 @@ public class Brain : EventBus
 
     }
 
-    [Title("Debug")]
+    [Title("Debug")] 
+    public bool debugGeneral;
     [Button]
     void ChangeSize(int newSize)
     {

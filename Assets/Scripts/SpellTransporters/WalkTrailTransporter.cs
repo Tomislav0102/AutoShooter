@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkTrailSpellTransporter : MonoBehaviour, ISpellTransporter
+public class WalkTrailTransporter : SpellTransporter
 {
-   // [SerializeField] CompSpellContainer myComp;
     float _timer;
     const float CONST_SpawnRate = 0.1f;
     HashSet<Collider> _spawns;

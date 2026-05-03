@@ -1,16 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellTransporter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    protected SpellControl main;
 
-    // Update is called once per frame
-    void Update()
+    public virtual void InitializeMe(SpellControl spellControl)
     {
-        
+        main = spellControl;
     }
 }

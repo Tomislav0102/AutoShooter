@@ -6,10 +6,11 @@ using UnityEngine.Serialization;
 public class SpellManager : MonoBehaviour
 {
    [HideInInspector] public Transform myTransform;
-   public bool showDebug;
+   public SpellControl meleePlayer;
+   public SpellControl meleeEnemy;
    [Title("Hit")]
-   public Spell meleeEnemy;
-   public Spell meleePlayer;
+   // public Spell meleeEnemy;
+   // public Spell meleePlayer;
    public Spell pushAll;
    public Spell lightningStrike;
    [Title("Bullet")]
@@ -29,9 +30,7 @@ public class SpellManager : MonoBehaviour
    public Spell swordFire;
    public Spell swordIce;
    public Spell swordEle;
-   [Title("Spell helpers")]
-   public CompSpellContainer walkTrail;
-   public CompSpellContainer moveRotate;
+   
    void Awake() 
    {
       myTransform = transform;
