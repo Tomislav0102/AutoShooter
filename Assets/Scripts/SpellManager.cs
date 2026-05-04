@@ -8,6 +8,8 @@ public class SpellManager : MonoBehaviour
    [HideInInspector] public Transform myTransform;
    public SpellControl meleePlayer;
    public SpellControl meleeEnemy;
+   public SpellControl areFire;
+   public SpellControl homingMissile;
    [Title("Hit")]
    // public Spell meleeEnemy;
    // public Spell meleePlayer;

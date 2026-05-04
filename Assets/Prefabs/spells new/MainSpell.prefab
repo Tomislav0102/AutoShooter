@@ -93,8 +93,8 @@ MonoBehaviour:
   warningRend: {fileID: 9073325792066258589}
   visualization: {fileID: 1179571971146372210}
   ownersBrain: {fileID: 0}
-  transporter: {fileID: 0}
   spell: {fileID: 0}
+  transporter: {fileID: 0}
   isActive: 0
 --- !u!54 &8903924178762673374
 Rigidbody:

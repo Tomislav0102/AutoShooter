@@ -10,7 +10,7 @@ public class PlayerCombat : Combat
         set
         {
             base.Br = value;
-            Ga.me.specialUi.InitializeMe(specialCooldownTime);
+            Ga.me.ultimateUi.InitializeMe(specialCooldownTime);
             value.loco.lookAtTarget = true;
             _pLoco = Br.loco as P_Loco;
             

@@ -9,4 +9,10 @@ public class SpellTransporter : MonoBehaviour
     {
         main = spellControl;
     }
+    
+    protected void SetSpeed(float speed)
+    {
+          main.myRigid.linearVelocity = speed * main.myTransform.forward;
+    }
+
 }

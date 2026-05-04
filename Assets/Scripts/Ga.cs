@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class Ga : SerializedMonoBehaviour
 {
@@ -37,8 +38,7 @@ public class Ga : SerializedMonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-    public SpecialUi specialUi;
-    
+    [FormerlySerializedAs("specialUi")] public UltimateUi ultimateUi;
     
     
     void Awake()
@@ -127,7 +127,7 @@ public class SpellParticles
     public enum ParticleSizeChange
     {
         Emission_Shape, 
-        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code, only in inspector (e.g. fireball)
+        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
         Other
     }
     [SerializeField] ParticleSystem ps;

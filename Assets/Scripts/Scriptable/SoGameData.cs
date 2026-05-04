@@ -30,10 +30,12 @@ public class SoGameData : ScriptableObject
     public string prefsEnergyFinishTime;
     public string sceneMain, sceneGame;
     public string SceneLevel() => $"Level{level}";
+    public string layActors;
+    public string layGround;
+    public string layObstacle;
+    public string laySpell;
+    public string laySpellInterrupt;
     
-    [Title("Layers")]
-    public LayerMask laySpells;
-
 
     
     

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2646267013842113963}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 8440066870592093421}
   - component: {fileID: 847139756694227120}
   - component: {fileID: 8405555490870593799}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

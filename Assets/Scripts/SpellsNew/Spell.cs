@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 
 
@@ -13,7 +12,6 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] float startDelay;
-    [SerializeField] protected float speed;
     [SerializeField] protected float lifeTime;
     [SerializeField] Spell afterEffect;
     [ReadOnly] public Transform anchor;
@@ -30,7 +28,7 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
 
 
-    public void InitializeMe(SpellControl mainSpell)
+    public virtual void InitializeMe(SpellControl mainSpell)
     {
         main = mainSpell;
         myFaction = main.ownersBrain.faction;
@@ -82,15 +80,8 @@ public class Spell : SerializedMonoBehaviour
 
     protected virtual void Update()
     {
-        // if (startDelay > 0)
-        // {
-        //     startDelay -= Time.deltaTime;
-        //     container.compSpell.warningRend.enabled = true;
-        //     return;
-        // }
-        // container.compSpell.warningRend.enabled = false;
-        timerStartDelay.UpdateLoop();
-        if (!timerStartDelay.completed) return;
+        // timerStartDelay.UpdateLoop();
+        // if (!timerStartDelay.completed) return;
         if (anchor != null) main.myTransform.position = anchor.position;
 
         _timerLife += Time.deltaTime;
@@ -104,10 +95,6 @@ public class Spell : SerializedMonoBehaviour
         OnEnd();
     }
 
-    protected void SetSpeed()
-    {
-        main.myRigid.linearVelocity = speed * main.myTransform.forward;
-    }
 
     protected void AfterEffect()
     {

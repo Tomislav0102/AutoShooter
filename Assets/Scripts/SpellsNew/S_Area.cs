@@ -9,11 +9,11 @@ public class S_Area : Spell
 {
 
     float _timer = Mathf.Infinity;
-    // public override void InitializeMe(Brain brain, Dictionary<Element, float> damage)
-    // {
-    //     base.InitializeMe(brain, damage);
-    //     spellParticles.InitializeMe(areaOfEffect);
-    // }
+    public override void InitializeMe(SpellControl mainSpell)
+    {
+        base.InitializeMe(mainSpell);
+        spellParticles.InitializeMe(areaOfEffect);
+    }
     
     protected override void Update()
     {
@@ -33,14 +33,16 @@ public class S_Area : Spell
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    protected override void CallEv_OnTriggerEnter(Collider other)
     {
+        base.CallEv_OnTriggerEnter(other);
         if (lifeTime == 0) return;
         collidersDetected.Add(other);
     }
-    
-    void OnTriggerExit(Collider other)
+
+    protected override void CallEv_OnTriggerExit(Collider other)
     {
+        base.CallEv_OnTriggerExit(other);
         if (lifeTime == 0) return;
         collidersDetected.Remove(other);
     }

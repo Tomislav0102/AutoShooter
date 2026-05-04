@@ -15,18 +15,18 @@ TagManager:
   - 
   - 
   - 
-  - Actors
+  - Actor
   - 
   - 
   - 
-  - 
-  - 
+  - Ground
+  - Obstacle
   - 
   - 
   - 
   - 
   - Spell
-  - SpellInterupt
+  - SpellInterrupt
   - 
   - 
   - 

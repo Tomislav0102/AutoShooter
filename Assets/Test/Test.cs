@@ -8,16 +8,11 @@ using TMPro;
 
 public class Test : MonoBehaviour
 {
-    public GameObject[] pooledCubes;
-    public GameObject myCube;
-    
+    public string someLayerName;
     [Button]
     void TestMethod()
     {
-        for (int i = 0; i < pooledCubes.Length; i++)
-        {
-            print($"{i} {Equals(pooledCubes[i],  myCube)}");
-        }
+        print(LayerMask.GetMask(new string[]{"Default", "Ground"}));
     }
 
 }

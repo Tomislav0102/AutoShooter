@@ -22,7 +22,7 @@ public class P_Mage : PlayerCombat
             damRanged = new Dictionary<Element, float>()
             {
               //  { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
-                { Element.Electricity, 1f },
+                { Element.Fire, 1f },
             };
 
             // if (activateTransporters[0])
@@ -67,10 +67,15 @@ public class P_Mage : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
 
-        // Spell lightningStrike = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-        // lightningStrike.InitializeMe(Br, damRanged);
-        // return;
-        //
+        // SpellControl areaFire = Instantiate(Ga.me.spells.areFire, Br.combat.MyTarget.position,Quaternion.identity, Ga.me.spells.myTransform); 
+        // areaFire.InitializeMe(Br, damRanged);
+
+        SpellControl homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform); 
+        homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
+        HomingTransporter homingTransporter = homing.transporter as  HomingTransporter;
+        homingTransporter.homingTarget = Br.combat.MyTarget;
+        homing.InitializeMe(Br, damRanged);
+        
         // float angle = 180f / (numOfHomingMissiles + 1);
         // for (int i = 0; i < numOfHomingMissiles; i++)
         // {

@@ -22,10 +22,10 @@ public class S_Homing : Spell
         main.myTransform.rotation = Quaternion.Slerp(main.myTransform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
     }
 
-    void FixedUpdate()
-    {
-        SetSpeed();
-    }
+    // void FixedUpdate()
+    // {
+    //     SetSpeed();
+    // }
 
     void OnTriggerEnter(Collider other)
     {
