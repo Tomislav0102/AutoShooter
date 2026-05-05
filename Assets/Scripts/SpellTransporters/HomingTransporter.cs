@@ -6,9 +6,10 @@ public class HomingTransporter : SpellTransporter
 {
     [ReadOnly] public Transform homingTarget;
     [SerializeField] float speed;
-    public override void InitializeMe(SpellControl spellControl)
+    
+    public override void InitializeMe(SpellControl spellControl, System.Action onAfterEffect = null)
     {
-        base.InitializeMe(spellControl);
+        base.InitializeMe(spellControl, onAfterEffect);
         main.spell.InitializeMe(main);
         main.myRigid.isKinematic = false;
     }

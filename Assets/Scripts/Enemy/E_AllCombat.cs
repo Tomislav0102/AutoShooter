@@ -20,15 +20,15 @@ public class E_AllCombat : EnemyCombat
                     Br.myTransform.rotation, Ga.me.spells.myTransform);
                 melee.InitializeMe(Br, damMelee);
                 break;
-            // case 1: //bullet
-            //     damRanged = new Dictionary<Element, float>()
-            //     {
-            //         { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
-            //     };
-            //     Spell bullet = Instantiate(rangedWeapon, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-            //     bullet.comp.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
-            //     bullet.InitializeMe(Br, damRanged);
-            //     break;
+            case 1: //bullet
+                damRanged = new Dictionary<Element, float>()
+                {
+                    { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
+                };
+                SpellControl bullet = Instantiate(rangedWeapon, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                bullet.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
+                bullet.InitializeMe(Br, damRanged);
+                break;
             // case 2: //lightning strike
             //     damRanged = new Dictionary<Element, float>()
             //     {

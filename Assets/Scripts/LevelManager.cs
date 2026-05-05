@@ -49,7 +49,7 @@ public class LevelManager : EventBus
         while (!canSpawn)
         {
             spawnPoint = Utils.GetRandomPosition(spawnArea);
-            Collider[] colliders = Physics.OverlapSphere(spawnPoint, 1f);
+            Collider[] colliders = Physics.OverlapSphere(spawnPoint, 1f, Utils.MyLayer(Ga.me.gameData.layActors));
             canSpawn = colliders.Length == 0;
         }
         

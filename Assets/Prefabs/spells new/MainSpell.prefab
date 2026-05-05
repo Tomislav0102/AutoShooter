@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 8903924178762673374}
   - component: {fileID: 6916548065277827116}
   - component: {fileID: 1553764786334897511}
-  - component: {fileID: 8203717929768111698}
   m_Layer: 20
   m_Name: MainSpell
   m_TagString: Untagged
@@ -88,7 +87,7 @@ MonoBehaviour:
   myRigid: {fileID: 8903924178762673374}
   mySphereCollider: {fileID: 6916548065277827116}
   myCapsuleCollider: {fileID: 1553764786334897511}
-  mySolidSphereCollider: {fileID: 8203717929768111698}
+  mySolidSphereCollider: {fileID: 0}
   myMesh: {fileID: 0}
   warningRend: {fileID: 9073325792066258589}
   visualization: {fileID: 1179571971146372210}
@@ -166,27 +165,6 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &8203717929768111698
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642924112247425467}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4936140572586544365
 GameObject:

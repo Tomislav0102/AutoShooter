@@ -21,6 +21,29 @@ public class Utils
         }
         return false;
     }
+    
+    public static int MyLayer(string layerName)
+    {
+        int lay = LayerMask.NameToLayer(layerName);
+        return  (1 << lay);
+    }
+    public static int MyLayers(string[] layerNames)
+    {
+        int lay = LayerMask.NameToLayer(layerNames[0]);
+        int result = (1 << lay);
+
+        if (layerNames.Length <= 1) return result;
+        for (int i = 1; i < layerNames.Length; i++)
+        {
+            result |= (1 << LayerMask.NameToLayer(layerNames[i]));
+        }
+
+        return result;
+        // layerMask = (1 << layer); //set layer a layermask
+        // layerMask |= (1 << layer); //add layer to layermask
+        // layerMask &= ~(1 << layer); //remove layer from layermask
+    }
+
 
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);

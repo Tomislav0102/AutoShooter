@@ -20,7 +20,8 @@ public class S_OverlapSphere : Spell
     void Hit()
     {
         Collider[] colliders = Physics.OverlapSphere(main.myTransform.position, 
-            areaOfEffect * 0.5f);
+            areaOfEffect * 0.5f,
+            Utils.MyLayer(Ga.me.gameData.layActors));
         foreach (Collider item in colliders)
         {
             if (item.TryGetComponent(out Brain collidersBrain))
@@ -39,7 +40,6 @@ public class S_OverlapSphere : Spell
         }
         
         spellParticles.InitializeMe(areaOfEffect);
-        AfterEffect();
 
     }
 

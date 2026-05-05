@@ -5,7 +5,7 @@ public class SpellTransporter : MonoBehaviour
 {
     protected SpellControl main;
 
-    public virtual void InitializeMe(SpellControl spellControl)
+    public virtual void InitializeMe(SpellControl spellControl, System.Action onAfterEffect = null)
     {
         main = spellControl;
     }

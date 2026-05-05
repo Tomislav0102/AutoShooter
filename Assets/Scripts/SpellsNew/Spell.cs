@@ -13,7 +13,6 @@ public class Spell : SerializedMonoBehaviour
     public float areaOfEffect = 1;
     [SerializeField] float startDelay;
     [SerializeField] protected float lifeTime;
-    [SerializeField] Spell afterEffect;
     [ReadOnly] public Transform anchor;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     float _timerLife;
@@ -95,13 +94,6 @@ public class Spell : SerializedMonoBehaviour
         OnEnd();
     }
 
-
-    protected void AfterEffect()
-    {
-        // if (afterEffect == null) return;
-        // Spell spell = Instantiate(afterEffect, container.compSpell.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        // spell.InitializeMeShared();
-    }
 
     public void OnEnd()
     {

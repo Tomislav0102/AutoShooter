@@ -2403,6 +2403,18 @@ PrefabInstance:
       propertyPath: moveIdlingDefault
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d1726ee06f2d06d44b49aae1b60faff5, type: 2}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b9ef93eef15990f4ebd27dc3c1c386c5, type: 2}
     - target: {fileID: 7830390144176176051, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.5
@@ -2524,8 +2536,8 @@ MonoBehaviour:
   <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
   detectRange: 3.4028235e+38
-  meleeWeapon: {fileID: 5907288675602046944, guid: 197c5347e3b911f489f668643315d5b6, type: 3}
-  rangedWeapon: {fileID: 7382490896092904807, guid: ef30158957142c94683212ca7b465314, type: 3}
+  meleeWeapon: {fileID: 0}
+  rangedWeapon: {fileID: 0}
   rangeRanged: 10
   spawnPoint: {fileID: 2031405845141860428}
 --- !u!114 &3853920283161297884 stripped

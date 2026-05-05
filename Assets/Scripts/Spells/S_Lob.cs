@@ -22,7 +22,7 @@ public class S_Lob : Spell
         main.myMesh.Rotate(Time.deltaTime * _rndRot);
         if (!Ga.me.LevelMan.InsideLevel(main.myTransform.position)) 
         {
-            AfterEffect();
+          //  AfterEffect();
             OnEnd();
         }
     }

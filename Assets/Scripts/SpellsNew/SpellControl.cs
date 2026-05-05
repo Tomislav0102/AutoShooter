@@ -8,7 +8,6 @@ public class SpellControl : MonoBehaviour
     public Rigidbody myRigid;
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
-    public SphereCollider mySolidSphereCollider;
     public Transform myMesh;
     public SpriteRenderer warningRend;
     public Transform visualization;
