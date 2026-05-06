@@ -15,17 +15,26 @@ public class SpellControl : MonoBehaviour
     [ReadOnly] public Dictionary<Element, float> damage;
     public Spell spell; //initialized in transporter
     public SpellTransporter transporter; //every spell has one
-    [ReadOnly] public bool isActive;
 
     public System.Action<Collider> onTrigEnter;
     public System.Action<Collider> onTrigExit;
     public System.Action<Collision> onCollisionEnter;
+    public System.Action onEnd;
+    System.Action _onAfterEffect;
 
-    public void InitializeMe(Brain brain, Dictionary<Element, float> dam = null)
+    public void InitializeMe(Brain brain, Dictionary<Element, float> dam = null, System.Action onAfterEffect = null)
     {
         ownersBrain = brain;
         damage = dam;
+        _onAfterEffect = onAfterEffect;
+        onEnd += CallEv_OnEnd;
         transporter.InitializeMe(this);
+    }
+
+    void CallEv_OnEnd()
+    {
+        _onAfterEffect?.Invoke();
+        Destroy(gameObject);
     }
     
     void OnTriggerEnter(Collider other)
@@ -42,4 +51,6 @@ public class SpellControl : MonoBehaviour
     {
         onCollisionEnter?.Invoke(collision);
     }
+    
+
 }

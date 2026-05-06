@@ -19,16 +19,16 @@ public class S_Area : Spell
     {
         base.Update();
         _timer += Time.deltaTime;
+        if (_timer < 1f) return;
         if (collidersDetected.Count == 0) return;
-        if (_timer >= 1f)
+        
+        _timer = 0f;
+        foreach (Collider item in collidersDetected)
         {
-            _timer = 0f;
-            foreach (Collider item in collidersDetected)
+            if (item == null) continue; //sometimes its null with afterEffect (Unity bug?)
+            if (item.TryGetComponent(out ITakeDamage takeDamage) && Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
             {
-                if (item.TryGetComponent(out ITakeDamage takeDamage) && Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
-                {
-                    takeDamage.TakeDamage(injectHealthData);
-                }
+                takeDamage.TakeDamage(injectHealthData);
             }
         }
     }

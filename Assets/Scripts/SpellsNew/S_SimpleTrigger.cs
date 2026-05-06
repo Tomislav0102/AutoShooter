@@ -11,13 +11,12 @@ public class S_SimpleTrigger : Spell
     protected override void CallEv_OnTriggerEnter(Collider other)
     {
         base.CallEv_OnTriggerEnter(other);
-        if (injectHealthData.damage.Count > 0 && 
+        if (injectHealthData.damage != null && injectHealthData.damage.Count > 0 && 
             other.TryGetComponent(out ITakeDamage takeDamage) && 
             Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
         {
             takeDamage.TakeDamage(injectHealthData);
         }
-        print(other.name);
-        OnEnd();
+        main.onEnd?.Invoke();
     }
 }

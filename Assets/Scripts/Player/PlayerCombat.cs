@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerCombat : Combat
 {
@@ -10,7 +11,7 @@ public class PlayerCombat : Combat
         set
         {
             base.Br = value;
-            Ga.me.ultimateUi.InitializeMe(specialCooldownTime);
+            Ga.me.ultimateUi.InitializeMe(ultimateCooldownTime);
             value.loco.lookAtTarget = true;
             _pLoco = Br.loco as P_Loco;
             
@@ -32,7 +33,7 @@ public class PlayerCombat : Combat
             _pLoco.Disp = distanceToTarget > engageRange ? Disposition.Wary : Disposition.Fighting;
         }
     }
-    [SerializeField] float specialCooldownTime;
+    [SerializeField] float ultimateCooldownTime;
     P_Loco _pLoco;
     
     void OnEnable()

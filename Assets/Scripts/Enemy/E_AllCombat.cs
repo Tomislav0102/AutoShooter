@@ -44,14 +44,25 @@ public class E_AllCombat : EnemyCombat
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
-        // switch (num)
-        // {
-        //     case 0:
-        //         Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
-        //             spawnPoint.position,
-        //             Quaternion.identity, Ga.me.spells.myTransform);
-        //         lob.InitializeMe(Br, new Dictionary<Element, float>());
-        //         break;
-        // }
+        switch (num)
+        {
+            case 0:
+                SpellControl lob = Instantiate(rangedWeapon, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                lob.InitializeMe(Br, null, Explosion);
+                // Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
+                //     spawnPoint.position,
+                //     Quaternion.identity, Ga.me.spells.myTransform);
+                // lob.InitializeMe(Br, new Dictionary<Element, float>());
+                break;
+        }
+        
+        return;
+        void Explosion()
+        {
+            if (Br.combat.MyTarget == null) return;
+            SpellControl explosion = Instantiate(Ga.me.spells.explosionFire, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+            explosion.InitializeMe(Br, damRanged);
+        }
+
     }
 }

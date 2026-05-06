@@ -16,14 +16,14 @@ public class S_Lob : Spell
     //     _rndRot = 500f * Random.insideUnitSphere;
     // }
 
-    protected override void Update()
-    {
-        base.Update();
-        main.myMesh.Rotate(Time.deltaTime * _rndRot);
-        if (!Ga.me.LevelMan.InsideLevel(main.myTransform.position)) 
-        {
-          //  AfterEffect();
-            OnEnd();
-        }
-    }
+    // protected override void Update()
+    // {
+    //     base.Update();
+    //     main.myMesh.Rotate(Time.deltaTime * _rndRot);
+    //     if (!Ga.me.LevelMan.InsideLevel(main.myTransform.position)) 
+    //     {
+    //       //  AfterEffect();
+    //         OnEnd();
+    //     }
+    // }
 }

@@ -22,7 +22,7 @@ public class P_Mage : PlayerCombat
             damRanged = new Dictionary<Element, float>()
             {
               //  { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
-                { Element.Fire, 1f },
+                { Element.Fire, 22f },
             };
 
             // if (activateTransporters[0])
@@ -67,25 +67,37 @@ public class P_Mage : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
 
-        // SpellControl areaFire = Instantiate(Ga.me.spells.areFire, Br.combat.MyTarget.position,Quaternion.identity, Ga.me.spells.myTransform); 
-        // areaFire.InitializeMe(Br, damRanged);
-
-        SpellControl homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform); 
-        homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
-        HomingTransporter homingTransporter = homing.transporter as  HomingTransporter;
-        homingTransporter.homingTarget = Br.combat.MyTarget;
-        homing.InitializeMe(Br, damRanged);
+        // Vector3 direction = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
+        // SpellControl carryFireball = Instantiate(Ga.me.spells.carryFireball, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
+        // carryFireball.InitializeMe(Br, null, Explosion);
+        // return;
+        //
+        // void Explosion()
+        // {
+        //     if (Br.combat.MyTarget == null) return;
+        //     SpellControl explosion = Instantiate(Ga.me.spells.explosionFire, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+        //     explosion.InitializeMe(Br, damRanged, AreaFire);
+        // }
+        //
+        // void AreaFire()
+        // {
+        //     if (Br.combat.MyTarget == null) return;
+        //     SpellControl areFire = Instantiate(Ga.me.spells.areFire, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+        //     areFire.InitializeMe(Br, damRanged);
+        // }
+        
         
         // float angle = 180f / (numOfHomingMissiles + 1);
         // for (int i = 0; i < numOfHomingMissiles; i++)
         // {
-        //     S_Homing spell = Instantiate(Ga.me.spells.homing, Ga.me.spells.myTransform) as S_Homing;
-        //     spell.homingTarget = Br.combat.MyTarget;
-        //     spell.comp.myTransform.position = Br.myTransform.position;
-        //     spell.comp.myTransform.forward = -Br.myTransform.right;
-        //     spell.comp.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);;
-        //     spell.comp.myMesh.position = new Vector3(spell.comp.myMesh.position.x, spawnPoint.position.y, spell.comp.myMesh.position.z);
-        //     spell.InitializeMe(Br, damRanged);
+        //     SpellControl homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+        //     homing.myTransform.forward = -Br.myTransform.right;
+        //     homing.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
+        //     homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
+        //     
+        //     HomingTransporter homingTransporter = homing.transporter as  HomingTransporter;
+        //     homingTransporter.homingTarget = Br.combat.MyTarget;
+        //     homing.InitializeMe(Br, damRanged);
         // }
     }
 }

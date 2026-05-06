@@ -8,30 +8,16 @@ public class SpellManager : MonoBehaviour
    [HideInInspector] public Transform myTransform;
    public SpellControl meleePlayer;
    public SpellControl meleeEnemy;
-   public SpellControl areFire;
+   public SpellControl bulletPlayer;
+   public SpellControl bulletEnemy;
    public SpellControl homingMissile;
-   [Title("Hit")]
-   // public Spell meleeEnemy;
-   // public Spell meleePlayer;
+   public SpellControl lobCarrySomething;
+   [Title("Fireball set")] 
+   public SpellControl carryFireball;
+   public SpellControl explosionFire;
+   public SpellControl areFire;
+   [Title("Old")]
    public Spell pushAll;
-   public Spell lightningStrike;
-   [Title("Bullet")]
-   public Spell projectileEnemy;
-   public Spell projectilePlayer;
-   [Title("Area")]
-   public Spell fireWalk;
-   [Title("Hook")]
-   public Spell hookHealDot;
-   [Title("Lob")]
-   public Spell lobCarrierFireball;
-   [Title("Homing")]
-   public Spell homing;
-   [Title("Shield")]
-   public Spell shieldPlayer;
-   [Title("Swords")] 
-   public Spell swordFire;
-   public Spell swordIce;
-   public Spell swordEle;
    
    void Awake() 
    {

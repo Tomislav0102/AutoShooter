@@ -13,15 +13,15 @@ public class S_Hook : Spell
     //     if (anchor == null || anchor.GetComponent<ITakeDamage>() == null) OnEnd();
     // }
 
-    protected override void Update()
-    {
-        base.Update();
-        _timer += Time.deltaTime;
-        if (_timer > 1f)
-        {
-            _timer = 0f;
-            anchor.GetComponent<ITakeDamage>().TakeDamage(injectHealthData);
-            if (lifeTime == 0) OnEnd();
-        }
-    }
+    // protected override void Update()
+    // {
+    //     base.Update();
+    //     _timer += Time.deltaTime;
+    //     if (_timer > 1f)
+    //     {
+    //         _timer = 0f;
+    //         anchor.GetComponent<ITakeDamage>().TakeDamage(injectHealthData);
+    //         if (lifeTime == 0) OnEnd();
+    //     }
+    // }
 }

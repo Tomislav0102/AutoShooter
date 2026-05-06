@@ -70,6 +70,14 @@ public class Spell : SerializedMonoBehaviour
         main.onTrigEnter += CallEv_OnTriggerEnter;
         main.onTrigExit += CallEv_OnTriggerExit;
         main.onCollisionEnter += CallEv_OnCollisionEnter;
+        main.onEnd += CallEv_End;
+    }
+
+    void CallEv_End()
+    {
+        main.onTrigEnter -= CallEv_OnTriggerEnter;
+        main.onTrigExit -= CallEv_OnTriggerExit;
+        main.onCollisionEnter -= CallEv_OnCollisionEnter;
     }
 
     protected virtual void CallEv_OnCollisionEnter(Collision collision) { }
@@ -91,17 +99,6 @@ public class Spell : SerializedMonoBehaviour
     {
         _endDelayStarted = true;
         yield return new WaitForFixedUpdate();
-        OnEnd();
+        main.onEnd?.Invoke();
     }
-
-
-    public void OnEnd()
-    {
-        main.onTrigEnter -= CallEv_OnTriggerEnter;
-        main.onTrigExit -= CallEv_OnTriggerExit;
-        main.onCollisionEnter -= CallEv_OnCollisionEnter;
-
-        Destroy(main.gameObject);
-    }
-
 }

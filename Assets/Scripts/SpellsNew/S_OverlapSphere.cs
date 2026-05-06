@@ -12,7 +12,8 @@ public class S_OverlapSphere : Spell
     protected override void Update()
     {
         base.Update();
-        if (_oneHIt || !timerStartDelay.completed) return;
+       // if (_oneHIt || !timerStartDelay.completed) return;
+        if (_oneHIt) return;
         _oneHIt = true;
         Hit();
     }
@@ -32,7 +33,7 @@ public class S_OverlapSphere : Spell
                     Vector3 dir = Utils.Direction(main.myTransform.position, collidersBrain.myTransform.position);
                     collidersBrain.loco.KnockBack(dir, injectHealthData.knockBack);
                 }
-                if (injectHealthData.damage.Count > 0 && item.TryGetComponent(out ITakeDamage takeDamage))
+                if (injectHealthData.damage != null && injectHealthData.damage.Count > 0 && item.TryGetComponent(out ITakeDamage takeDamage))
                 {
                     takeDamage.TakeDamage(injectHealthData);
                 }

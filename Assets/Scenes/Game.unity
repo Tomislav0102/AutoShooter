@@ -1407,6 +1407,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: numOfHomingMissiles
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: activateHelpers.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1428,7 +1432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3091,7 +3095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4104059289634720420, guid: 73d75e838a167df40828a8f73fe9c394, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8336944141700066544, guid: 73d75e838a167df40828a8f73fe9c394, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4673,20 +4677,14 @@ MonoBehaviour:
   myTransform: {fileID: 0}
   meleePlayer: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   meleeEnemy: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-  areFire: {fileID: 1808040132898285677, guid: a6065988ba6700941a0e3dd96bedd88a, type: 3}
+  bulletPlayer: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
+  bulletEnemy: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
   homingMissile: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
+  lobCarrySomething: {fileID: 0}
+  carryFireball: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
+  explosionFire: {fileID: 8836565589368749305, guid: 2643c897d8ad6c34a9ca06a330f4d3d9, type: 3}
+  areFire: {fileID: 1808040132898285677, guid: a6065988ba6700941a0e3dd96bedd88a, type: 3}
   pushAll: {fileID: 5907288675602046944, guid: 0ffa247d18d4c0c4790e8ece00eb8407, type: 3}
-  lightningStrike: {fileID: 7382490896092904807, guid: ef30158957142c94683212ca7b465314, type: 3}
-  projectileEnemy: {fileID: 251161728510779915, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
-  projectilePlayer: {fileID: 251161728510779915, guid: fa5ab1afe1c066147b91d412dc341345, type: 3}
-  fireWalk: {fileID: 8113628680216003888, guid: f993de661ffa9ca4f806735d65b4f525, type: 3}
-  hookHealDot: {fileID: 7231147536916187255, guid: 33efa2d4658674d4ba1e5cbc926629c2, type: 3}
-  lobCarrierFireball: {fileID: 7613158639127818843, guid: e3a4a0430993ebc4a816c36e4494e82e, type: 3}
-  homing: {fileID: 7560816250464232245, guid: 0eb3bf0d79dad484aae5720c25056204, type: 3}
-  shieldPlayer: {fileID: 8642242158750959403, guid: 1cd73cb19176866469de40e4bf2c7c89, type: 3}
-  swordFire: {fileID: 1225862944756925054, guid: b3546154cc0c86446a99815ca996b1a8, type: 3}
-  swordIce: {fileID: 3428090272295229028, guid: 71054688659751f438e9898fd0db9722, type: 3}
-  swordEle: {fileID: 5650217251532136267, guid: b80cd2b47cf6f544d9182a850a59de2a, type: 3}
 --- !u!4 &2141633716
 Transform:
   m_ObjectHideFlags: 0
