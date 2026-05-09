@@ -1411,6 +1411,18 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: spellActive.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'spellActive.Array.data[0]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'spellActive.Array.data[2]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: activateHelpers.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -2270,9 +2282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
-  layName: sdfsdf
-  endLayerInteger: 1
-  colliders: []
+  speed: 10
+  rbPrefab: {fileID: 2292030745387791089, guid: 32efb60b16ec7ca4abfcdbb668666b26, type: 3}
 --- !u!4 &885458253
 Transform:
   m_ObjectHideFlags: 0
@@ -2414,7 +2425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &933078169
 Transform:
   m_ObjectHideFlags: 0
@@ -4680,11 +4691,14 @@ MonoBehaviour:
   bulletPlayer: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
   bulletEnemy: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
   homingMissile: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
-  lobCarrySomething: {fileID: 0}
+  lobCarrySomething: {fileID: 7546444594929099885, guid: 425aa33e5e74c084b9090e2dd29e8c6d, type: 3}
+  lightningStrike: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
+  heal: {fileID: 1169358827584757187, guid: 1dfb1a612c8c2194e894fd3d1fb79baa, type: 3}
+  shieldFromProjectiles: {fileID: 1805232084315020725, guid: 2f22d8484b5757a4a80a8f8220621e77, type: 3}
+  push: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
   carryFireball: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
   explosionFire: {fileID: 8836565589368749305, guid: 2643c897d8ad6c34a9ca06a330f4d3d9, type: 3}
   areFire: {fileID: 1808040132898285677, guid: a6065988ba6700941a0e3dd96bedd88a, type: 3}
-  pushAll: {fileID: 5907288675602046944, guid: 0ffa247d18d4c0c4790e8ece00eb8407, type: 3}
 --- !u!4 &2141633716
 Transform:
   m_ObjectHideFlags: 0

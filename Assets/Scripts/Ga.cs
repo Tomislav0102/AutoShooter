@@ -93,34 +93,6 @@ public class Ga : SerializedMonoBehaviour
 
 }
 
-public class MyTimer
-{
-    float _maxTime;
-    float _timer;
-    bool _isLooping;
-    public bool completed;
-    System.Action _onComplete;
-
-    public MyTimer(float maxTime, System.Action onComplete, bool isLooping = false)
-    {
-        _maxTime = maxTime;
-        _onComplete = onComplete;
-        _isLooping = isLooping;
-    }
-
-    public void UpdateLoop()
-    {
-        if (!_isLooping && completed) return;
-        _timer += Time.deltaTime;
-        if (_timer > _maxTime)
-        {
-            _timer = 0;
-            _onComplete?.Invoke();
-            completed = true;
-        }
-    }
-}
-
 [System.Serializable]
 public class SpellParticles
 {

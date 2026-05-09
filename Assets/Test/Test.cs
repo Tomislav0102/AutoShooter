@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,25 +7,20 @@ using TMPro;
 
 public class Test : MonoBehaviour
 {
-    public string layName;
-    public int endLayerInteger;
-    public Collider[] colliders;
+    public float speed;
+    public Rigidbody rbPrefab;
+    Rigidbody _rb;
+    
     [Button]
     void TestMethod()
     {
-        colliders = Physics.OverlapSphere(transform.position, 1, FinalInteger(layName));
-    }
+        if (_rb != null) Destroy(_rb.gameObject);
+        transform.rotation = Quaternion.Euler(-45f, Random.Range(0f, 360f), 0);
+        _rb = Instantiate(rbPrefab, transform.position, transform.rotation);
+        _rb.AddForce(speed * transform.forward, ForceMode.VelocityChange);
 
-    int FinalInteger(string layerName)
-    {
-        int lay = LayerMask.NameToLayer(layerName);
-        return  (1 << lay);
     }
 
 }
 
 
-
-// layerMask = (1 << layer); //set layer a layermask
-// layerMask |= (1 << layer); //add layer to layermask
-// layerMask &= ~(1 << layer); //remove layer from layermask

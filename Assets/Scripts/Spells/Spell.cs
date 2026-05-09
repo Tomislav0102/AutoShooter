@@ -7,6 +7,38 @@ using UnityEngine;
 
 public class Spell : SerializedMonoBehaviour
 {
+    public enum Phase
+    {
+        BeginWarning,
+        SpellRuns,
+        EndStart,
+        EndEnd,
+    }
+    public Phase MyPhase
+    {
+        get => _phase;
+        set
+        {
+            _phase = value;
+            switch (value)
+            {
+                case Phase.BeginWarning:
+                    if (_timerPhase < startDelay) main.warningRend.enabled = true;
+                    break;
+                case Phase.SpellRuns:
+                    _timerPhase = 0f;
+                    main.warningRend.enabled = false;
+                    break;
+                case Phase.EndStart:
+                    MyPhase = Phase.EndEnd;
+                    main.onEnd?.Invoke();
+                    break;
+            }
+        }
+    }
+    [ShowInInspector, ReadOnly] Phase _phase;
+    float _timerPhase;
+    
     protected SpellControl main;
     [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
@@ -15,9 +47,6 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField] protected float lifeTime;
     [ReadOnly] public Transform anchor;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    float _timerLife;
-    bool _endDelayStarted;
-    protected MyTimer timerStartDelay;
     protected enum ColliderType { Sphere, Capsule, None }
     [SerializeField] protected ColliderType colliderType;
     [SerializeField, BoxGroup("Particles", false)] protected SpellParticles spellParticles;
@@ -32,6 +61,7 @@ public class Spell : SerializedMonoBehaviour
         main = mainSpell;
         myFaction = main.ownersBrain.faction;
         injectHealthData.damage = useInspectorDamageData ? inspectorDamage : main.damage;
+        injectHealthData.attacker = main.ownersBrain.myTransform;
         
         main.myRigid.isKinematic = true;
         main.visualization.localScale = areaOfEffect * Vector3.one;
@@ -60,12 +90,8 @@ public class Spell : SerializedMonoBehaviour
                 main.myCapsuleCollider.enabled = true;
                 break;
         }
-        
-        if (startDelay > 0) main.warningRend.enabled = true;
-        timerStartDelay = new MyTimer(startDelay, () =>
-        {
-            main.warningRend.enabled = false;
-        });
+
+        MyPhase = Phase.BeginWarning;
         
         main.onTrigEnter += CallEv_OnTriggerEnter;
         main.onTrigExit += CallEv_OnTriggerExit;
@@ -87,18 +113,32 @@ public class Spell : SerializedMonoBehaviour
 
     protected virtual void Update()
     {
-        // timerStartDelay.UpdateLoop();
-        // if (!timerStartDelay.completed) return;
-        if (anchor != null) main.myTransform.position = anchor.position;
-
-        _timerLife += Time.deltaTime;
-        if (!_endDelayStarted && _timerLife >= lifeTime) StartCoroutine(DelayEnd());
+        switch (MyPhase)
+        {
+            case Phase.BeginWarning:
+                if (_timerPhase >= startDelay) MyPhase = Phase.SpellRuns;
+                break;
+            case Phase.SpellRuns:
+                if (anchor != null) main.myTransform.position = anchor.position;
+                if (_timerPhase > lifeTime) MyPhase = Phase.EndStart;
+                break;
+        }
+        _timerPhase += Time.deltaTime;
     }
 
-    IEnumerator DelayEnd()
-    {
-        _endDelayStarted = true;
-        yield return new WaitForFixedUpdate();
-        main.onEnd?.Invoke();
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

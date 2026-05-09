@@ -18,6 +18,8 @@ public class S_Area : Spell
     protected override void Update()
     {
         base.Update();
+        if (MyPhase != Phase.SpellRuns) return;
+        
         _timer += Time.deltaTime;
         if (_timer < 1f) return;
         if (collidersDetected.Count == 0) return;

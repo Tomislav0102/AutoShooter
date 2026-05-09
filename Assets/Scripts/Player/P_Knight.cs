@@ -16,11 +16,11 @@ public class P_Knight : PlayerCombat
             base.Br = value;
             damMelee = new Dictionary<Element, float>()
             {
-                 { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
-                // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                // { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
-                // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
-                // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
+                 //{ Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                 // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
+                 // { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                 // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
+                 // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
             damUltimate = new Dictionary<Element, float>()
             {
@@ -40,18 +40,14 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Attack(num);
         SpellControl melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.InitializeMe(Br, damMelee);
-        // Spell melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        // melee.comp.myTransform.position += melee.areaOfEffect * 0.5f * Br.myTransform.forward;
-        // melee.InitializeMe(Br, damMelee);
     }
 
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
-       // Spell sp = Instantiate(Ga.me.spells.hookHealDot, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-       // sp.anchor = Br.myTransform;
-       // sp.InitializeMe(Br, damUltimate);
-        
+        SpellControl heal = Instantiate(Ga.me.spells.heal, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        heal.spell.anchor = Br.myTransform;
+        heal.InitializeMe(Br, damUltimate);
     }
 
     void Update()
@@ -70,6 +66,7 @@ public class P_Knight : PlayerCombat
 
     public override void HealthHitCallback(InjectHealth injectHealth)
     {
+        print("HealthHitCallback");
         if (_timerBlockReady > 0f)
         {
             counterHitReceived = 0;
@@ -86,11 +83,12 @@ public class P_Knight : PlayerCombat
             StartCoroutine(SpellPushDelay());
         }
 
+        return;
         IEnumerator SpellPushDelay()
         {
             yield return new WaitForSeconds(0.1f);
-            Spell push = Instantiate(Ga.me.spells.pushAll, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-           // push.InitializeMe(Br, new Dictionary<Element, float>());
+            SpellControl push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            push.InitializeMe(Br);
         }
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3182935743669500554
+--- !u!1001 &7058311895389631987
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,56 +50,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Name
-      value: MainSpell Variant
+      value: melee Pl
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 3084156768078692310}
+      objectReference: {fileID: 436923765588961532}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 8055317172071451836}
+      objectReference: {fileID: 3542227257138258497}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3084156768078692310}
+      addedObject: {fileID: 436923765588961532}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8055317172071451836}
+      addedObject: {fileID: 3542227257138258497}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
---- !u!1 &2895196295874662659 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-  m_PrefabInstance: {fileID: 3182935743669500554}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8055317172071451836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895196295874662659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ba6d1ba567e92241b5f8474398d0362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeleeTransporter
---- !u!1 &7542612946966967911 stripped
+--- !u!1 &2698950263744952606 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-  m_PrefabInstance: {fileID: 3182935743669500554}
+  m_PrefabInstance: {fileID: 7058311895389631987}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3084156768078692310
+--- !u!114 &436923765588961532
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7542612946966967911}
+  m_GameObject: {fileID: 2698950263744952606}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
@@ -133,7 +116,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -142,11 +137,9 @@ MonoBehaviour:
       Data: 
   myFaction: 0
   myFactionTarget: 1
-  areaOfEffect: 2
+  areaOfEffect: 3
   startDelay: 0
-  speed: 0
   lifeTime: 0
-  afterEffect: {fileID: 0}
   anchor: {fileID: 0}
   colliderType: 2
   spellParticles:
@@ -157,3 +150,20 @@ MonoBehaviour:
     canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0
+--- !u!1 &7347037599748218490 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+  m_PrefabInstance: {fileID: 7058311895389631987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3542227257138258497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7347037599748218490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba6d1ba567e92241b5f8474398d0362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeTransporter

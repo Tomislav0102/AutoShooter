@@ -12,12 +12,14 @@ public class SpellManager : MonoBehaviour
    public SpellControl bulletEnemy;
    public SpellControl homingMissile;
    public SpellControl lobCarrySomething;
+   public SpellControl lightningStrike;
+   public SpellControl heal;
+   public SpellControl shieldFromProjectiles;
+   public SpellControl push;
    [Title("Fireball set")] 
    public SpellControl carryFireball;
    public SpellControl explosionFire;
    public SpellControl areFire;
-   [Title("Old")]
-   public Spell pushAll;
    
    void Awake() 
    {

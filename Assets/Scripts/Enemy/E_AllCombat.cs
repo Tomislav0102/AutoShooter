@@ -47,22 +47,19 @@ public class E_AllCombat : EnemyCombat
         switch (num)
         {
             case 0:
-                SpellControl lob = Instantiate(rangedWeapon, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                lob.InitializeMe(Br, null, Explosion);
-                // Spell lob = Instantiate(Ga.me.spells.lobCarrierFireball,
-                //     spawnPoint.position,
-                //     Quaternion.identity, Ga.me.spells.myTransform);
-                // lob.InitializeMe(Br, new Dictionary<Element, float>());
+                damRanged = new Dictionary<Element, float>()
+                {
+                    { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
+                };
+
+                SpellControl lob = Instantiate(rangedWeapon, spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
+                lob.InitializeMe(Br, null, () =>
+                {
+                    SpellControl explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    explosion.InitializeMe(Br, damRanged);
+                });
                 break;
         }
         
-        return;
-        void Explosion()
-        {
-            if (Br.combat.MyTarget == null) return;
-            SpellControl explosion = Instantiate(Ga.me.spells.explosionFire, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-            explosion.InitializeMe(Br, damRanged);
-        }
-
     }
 }

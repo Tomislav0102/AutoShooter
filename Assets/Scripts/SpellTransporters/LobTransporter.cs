@@ -12,7 +12,7 @@ public class LobTransporter : SpellTransporter
         main.myTransform.rotation *= Quaternion.Euler(-45f, Random.Range(0f, 360f), 0);
         main.myRigid.isKinematic = false;
         main.myRigid.useGravity = true;
-        main.myRigid.AddForce(10 * Random.Range(0.6f, 1.4f) * main.myTransform.forward, ForceMode.VelocityChange);
+        main.myRigid.AddForce(10 * Random.Range(1f, 1.4f) * main.myTransform.forward, ForceMode.VelocityChange);
         _rndRot = 500f * Random.insideUnitSphere;
     }
     

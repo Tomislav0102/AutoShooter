@@ -43,6 +43,7 @@ public class Health: EventBus, ITakeDamage, IInit
         set
         {
             _healthCurrent = value;
+            if (_healthCurrent > _healthMax)  _healthCurrent = _healthMax;
             _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
             _healthBarTransform.localScale = new Vector3(_healthCurrent / _healthMax, 1, 1);
         }
