@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class SpellGroup : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected SpellControl[] mySpells;
+    protected Transform myTransform;
+    protected Brain brain;
+
+    public virtual void InitializeMe(Brain ownersBrain)
     {
-        
+        myTransform = transform;
+        brain = ownersBrain;
+        mySpells = Utils.AllChildren<SpellControl>(myTransform);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -104,6 +104,7 @@ public class Spell : SerializedMonoBehaviour
         main.onTrigEnter -= CallEv_OnTriggerEnter;
         main.onTrigExit -= CallEv_OnTriggerExit;
         main.onCollisionEnter -= CallEv_OnCollisionEnter;
+        main.onEnd -= CallEv_End;
     }
 
     protected virtual void CallEv_OnCollisionEnter(Collision collision) { }

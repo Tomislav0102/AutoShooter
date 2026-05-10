@@ -24,7 +24,7 @@ public class S_Shield : Spell
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {
-                if (spellControl.spell.GetType() != spellsToAffect[i].GetType()) continue;
+                if (spellControl.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
                 spellControl.spell.MyPhase = Phase.EndStart;
                 return;
             }

@@ -34,7 +34,8 @@ public class S_OverlapSphere : Spell
                     collidersBrain.loco.KnockBack(dir, injectHealthData.knockBack);
                 }
 
-                if (injectHealthData.damage != null && injectHealthData.damage.Count > 0 && item.TryGetComponent(out ITakeDamage takeDamage))
+                if (injectHealthData.damage != null && injectHealthData.damage.Count > 0 && 
+                    item.TryGetComponent(out ITakeDamage takeDamage))
                 {
                     takeDamage.TakeDamage(injectHealthData);
                 }

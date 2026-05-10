@@ -1,7 +1,6 @@
-   using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 public class SpellManager : MonoBehaviour
 {
@@ -16,6 +15,9 @@ public class SpellManager : MonoBehaviour
    public SpellControl heal;
    public SpellControl shieldFromProjectiles;
    public SpellControl push;
+   [Title("Groups")] 
+   public SpellGroup groupOrbitalShields;
+   public SpellGroup groupWalkTrail;
    [Title("Fireball set")] 
    public SpellControl carryFireball;
    public SpellControl explosionFire;

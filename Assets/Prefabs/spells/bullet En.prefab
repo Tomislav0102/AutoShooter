@@ -19865,6 +19865,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
   speed: 5
-  ricochet: 2
-  pierce: 1
-  bounce: 1
+  ricochet: 0
+  pierce: 0
+  bounce: 0

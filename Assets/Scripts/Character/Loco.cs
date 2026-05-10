@@ -43,7 +43,7 @@ public class Loco : EventBus, IInit
     public void KnockBack(Vector3 dir, int intensity = 1)
     {
         float diff = intensity - knockBackResistance;
-        if (diff < 0) return;
+        if (diff <= 0) return;
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
         _pushCoroutine = StartCoroutine(PushMeSequence(dir, diff));
     }

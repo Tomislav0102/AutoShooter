@@ -22,13 +22,39 @@ public class SpellControl : MonoBehaviour
     public System.Action onEnd;
     System.Action _onAfterEffect;
 
-    public void InitializeMe(Brain brain, Dictionary<Element, float> dam = null, System.Action onAfterEffect = null)
+    /// <summary>
+    /// Damage is from inspector, no after effect
+    /// </summary>
+    public void InitializeMe(Brain brain)
     {
         ownersBrain = brain;
-        damage = dam;
-        _onAfterEffect = onAfterEffect;
         onEnd += CallEv_OnEnd;
         transporter.InitializeMe(this);
+    }
+    /// <summary>
+    /// Damage is from code, no after effect
+    /// </summary>
+    public void InitializeMe(Brain brain, Dictionary<Element, float> dam)
+    {
+        damage = dam;
+        InitializeMe(brain);
+    }
+    /// <summary>
+    /// Damage is from inspector, with after effect
+    /// </summary>
+    public void InitializeMe(Brain brain, System.Action onAfterEffect)
+    {
+        _onAfterEffect = onAfterEffect;
+        InitializeMe(brain);        
+    }
+    /// <summary>
+    /// Damage is from code, with after effect
+    /// </summary>
+    public void InitializeMe(Brain brain, Dictionary<Element, float> dam, System.Action onAfterEffect)
+    {
+        damage = dam;
+        _onAfterEffect = onAfterEffect;
+        InitializeMe(brain); 
     }
 
     void CallEv_OnEnd()
@@ -37,20 +63,8 @@ public class SpellControl : MonoBehaviour
         Destroy(gameObject);
     }
     
-    void OnTriggerEnter(Collider other)
-    {
-        onTrigEnter?.Invoke(other);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        onTrigExit?.Invoke(other);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        onCollisionEnter?.Invoke(collision);
-    }
-    
+    void OnTriggerEnter(Collider other) => onTrigEnter?.Invoke(other);
+    void OnTriggerExit(Collider other) => onTrigExit?.Invoke(other);
+    void OnCollisionEnter(Collision collision) => onCollisionEnter?.Invoke(collision);
 
 }
