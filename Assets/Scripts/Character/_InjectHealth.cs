@@ -8,7 +8,7 @@ public class InjectHealth
     [HideInInspector] public Transform attacker;
     public bool canBeBlocked;
     [Range(0, 20)] public int knockBack;
-    public Dictionary<Element, float> damage;
+    public Dictionary<Element, float> damage =  new Dictionary<Element, float>();
 
     // public InjectHealth(Transform attacker, Dictionary<Element, float> damage, bool canBeBlocked, int knockBack)
     // {

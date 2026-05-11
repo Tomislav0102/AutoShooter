@@ -39,7 +39,8 @@ public class Ga : SerializedMonoBehaviour
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
     [FormerlySerializedAs("specialUi")] public UltimateUi ultimateUi;
-    
+    [Title("Debug")] 
+    public bool debug;
     
     void Awake()
     {
@@ -67,7 +68,6 @@ public class Ga : SerializedMonoBehaviour
 
     void CallEv_OnCharDeath(Transform tr)
     {
-        bool debug = false;
         if (team[Faction.GoodGuys].Contains(tr))
         {
             team[Faction.GoodGuys].Remove(tr);

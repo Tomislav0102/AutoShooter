@@ -12,7 +12,7 @@ public class SpellControl : MonoBehaviour
     public SpriteRenderer warningRend;
     public Transform visualization;
     [ReadOnly] public Brain ownersBrain;
-    [ReadOnly] public Dictionary<Element, float> damage;
+    [ReadOnly] public Dictionary<Element, float> damage = new Dictionary<Element, float>();
     public Spell spell; //initialized in transporter
     public SpellTransporter transporter; //every spell has one
 
@@ -36,6 +36,7 @@ public class SpellControl : MonoBehaviour
     /// </summary>
     public void InitializeMe(Brain brain, Dictionary<Element, float> dam)
     {
+        if (dam == null) dam = new Dictionary<Element, float>();
         damage = dam;
         InitializeMe(brain);
     }
@@ -52,6 +53,7 @@ public class SpellControl : MonoBehaviour
     /// </summary>
     public void InitializeMe(Brain brain, Dictionary<Element, float> dam, System.Action onAfterEffect)
     {
+        if (dam == null) dam = new Dictionary<Element, float>();
         damage = dam;
         _onAfterEffect = onAfterEffect;
         InitializeMe(brain); 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpellManager : MonoBehaviour
 {
-   [HideInInspector] public Transform myTransform;
+   public Transform myTransform;
    public SpellControl meleePlayer;
    public SpellControl meleeEnemy;
    public SpellControl bulletPlayer;
@@ -16,15 +16,13 @@ public class SpellManager : MonoBehaviour
    public SpellControl shieldFromProjectiles;
    public SpellControl push;
    [Title("Groups")] 
-   public SpellGroup groupOrbitalShields;
    public SpellGroup groupWalkTrail;
+   public SpellGroup groupOrbitalShields;
+   public SpellGroup groupOrbitalSwordsFire;
+   public SpellGroup groupOrbitalSwordsIce;
+   public SpellGroup groupOrbitalSwordsElectric;
    [Title("Fireball set")] 
    public SpellControl carryFireball;
    public SpellControl explosionFire;
    public SpellControl areFire;
-   
-   void Awake() 
-   {
-      myTransform = transform;
-   }
 }

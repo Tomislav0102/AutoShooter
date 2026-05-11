@@ -87,14 +87,12 @@ MonoBehaviour:
   myRigid: {fileID: 8903924178762673374}
   mySphereCollider: {fileID: 6916548065277827116}
   myCapsuleCollider: {fileID: 1553764786334897511}
-  mySolidSphereCollider: {fileID: 0}
   myMesh: {fileID: 0}
   warningRend: {fileID: 9073325792066258589}
   visualization: {fileID: 1179571971146372210}
   ownersBrain: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
-  isActive: 0
 --- !u!54 &8903924178762673374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -298,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4964944923284567743}
   m_Layer: 20
-  m_Name: PARTICLE PARENT
+  m_Name: VISUALS PARENT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

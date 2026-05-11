@@ -6,9 +6,10 @@ public class P_Mage : PlayerCombat
 {
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
-    [SerializeField] int numOfHomingMissiles;
     public int groupActive;
     public int spellActive;
+    [Title("Swords")]
+    public int swordCount = 1;
     
     public override Brain Br
     {
@@ -29,11 +30,11 @@ public class P_Mage : PlayerCombat
             switch (groupActive)
             {
                 case 0:
-                    SpellGroup group = Instantiate(Ga.me.spells.groupOrbitalShields, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    OrbitalGroup orbitalGroup = group as   OrbitalGroup;
-                    orbitalGroup.numOfActiveSpells = 1;
-                    orbitalGroup.orbitingAnchor = Br.myTransform;
-                    group.InitializeMe(Br);
+                    SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
+                    orbitalGroupShields.numOfActiveSpells = 3;
+                    orbitalGroupShields.orbitingAnchor = Br.myTransform;
+                    groupShields.InitializeMe(Br);
                     break;
                 case 1:
                     SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -43,6 +44,21 @@ public class P_Mage : PlayerCombat
                         { Element.Fire, 1f }
                     };
                     groupWalkTrail.InitializeMe(Br);
+                    break;
+                case 2:
+                    float angle = 180f / (swordCount);
+                    for (int i = 0; i < swordCount; i++)
+                    {
+                        SpellGroup prefab = null;
+                        if (i == 0) prefab = Ga.me.spells.groupOrbitalSwordsFire;
+                        if (i == 1) prefab = Ga.me.spells.groupOrbitalSwordsIce;
+                        if (i == 2) prefab = Ga.me.spells.groupOrbitalSwordsElectric;
+                        SpellGroup groupSwords = Instantiate(prefab, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                        groupSwords.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
+                        OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+                        orbitalGroupSwords.orbitingAnchor = Br.myTransform;
+                        groupSwords.InitializeMe(Br);
+                    }
                     break;
             }
         }
@@ -79,6 +95,7 @@ public class P_Mage : PlayerCombat
                 }
                 break;
             case 2:
+                int numOfHomingMissiles = 1;
                 float angle = 180f / (numOfHomingMissiles + 1);
                 for (int i = 0; i < numOfHomingMissiles; i++)
                 {

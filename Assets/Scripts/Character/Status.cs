@@ -12,6 +12,7 @@ public class Status : MonoBehaviour, IInit
         Confused, //attacks random character, changes target often, does not respond to aggro 
         Blinded, //like confused, but only close target
         Charmed, //behaves like summon
+        Fumbling, //every attack misses
         Dripping_wet, //+elFire, -eIce, -elEle
         Dehydrated_dry, //-elFire, +elEle
         Freezing_cold,//+elFire, -elForce, +elPoison
