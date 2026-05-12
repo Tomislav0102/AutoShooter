@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Spell : SerializedMonoBehaviour
 {
+
     public enum Phase
     {
         BeginWarning,
@@ -31,7 +32,8 @@ public class Spell : SerializedMonoBehaviour
                     break;
                 case Phase.EndStart:
                     MyPhase = Phase.EndEnd;
-                    main.onEnd?.Invoke();
+                    if (terminateOnHit) main.onEnd?.Invoke();
+                    else MyPhase = Phase.SpellRuns;
                     break;
             }
         }
@@ -45,6 +47,7 @@ public class Spell : SerializedMonoBehaviour
     public float areaOfEffect = 1;
     [SerializeField] float startDelay;
     [SerializeField] protected float lifeTime;
+    [SerializeField] protected bool terminateOnHit = true;
     [ReadOnly] public Transform anchor;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     protected enum ColliderType { Sphere, Capsule, None }
@@ -54,6 +57,8 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
     [SerializeField, BoxGroup] protected bool useInspectorDamageData;
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
+    protected enum HitEffect { Damage, Nullify, StatChange }
+    [SerializeField] protected List<HitEffect> hitEffects;
 
 
     public virtual void InitializeMe(SpellControl mainSpell)

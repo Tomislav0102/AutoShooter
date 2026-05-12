@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class S_Area : Spell
 {
-
     float _timer = Mathf.Infinity;
     public override void InitializeMe(SpellControl mainSpell)
     {
@@ -28,7 +27,8 @@ public class S_Area : Spell
         foreach (Collider item in collidersDetected)
         {
             if (item == null) continue; //sometimes its null with afterEffect (Unity bug?)
-            if (item.TryGetComponent(out ITakeDamage takeDamage) && Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
+            if (item.TryGetComponent(out ITakeDamage takeDamage) && 
+                Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
             {
                 takeDamage.TakeDamage(injectHealthData);
             }

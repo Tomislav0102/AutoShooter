@@ -58,7 +58,7 @@ public class S_Bullet : Spell
             void SetPierce()
             {
                 if (_myBulletTransporter.pierce > 0) _myBulletTransporter.pierce--;
-                else main.onEnd?.Invoke();
+                else main.spell.MyPhase = Phase.EndStart;
             }
 
         }
@@ -71,7 +71,7 @@ public class S_Bullet : Spell
         {
             _myBulletTransporter.BounceMethod(collision.GetContact(0).normal);
         }
-        else main.onEnd?.Invoke();
+        else main.spell.MyPhase = Phase.EndStart;
 
     }
 }

@@ -19,9 +19,9 @@ public class LobTransporter : SpellTransporter
     void Update()
     {
         main.myMesh.Rotate(Time.deltaTime * _rndRot);
-        if (!Ga.me.LevelMan.InsideLevel(main.myTransform.position)) 
+        if (!Ga.me.LevelMan.InsideLevel(main.myTransform.position))
         {
-            main.onEnd?.Invoke();
+            main.spell.MyPhase = Spell.Phase.EndStart;
         }
     }
 
