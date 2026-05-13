@@ -46,17 +46,20 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] float startDelay;
-    [SerializeField] protected float lifeTime;
-    [SerializeField] protected bool terminateOnHit = true;
+    protected enum DurationType { Instant, Endless, Specific }
+    [SerializeField] protected DurationType durationType = DurationType.Instant;
+    bool ShowLifeTime() => durationType == DurationType.Specific;
+    [SerializeField, ShowIf(nameof(ShowLifeTime))] float lifeTime;
+    [SerializeField] bool terminateOnHit = true;
     [ReadOnly] public Transform anchor;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    protected enum ColliderType { Sphere, Capsule, None }
-    [SerializeField] protected ColliderType colliderType;
+    enum ColliderType { Sphere, Capsule, None }
+    [SerializeField] ColliderType colliderType;
     [SerializeField, BoxGroup("Particles", false)] protected SpellParticles spellParticles;
     
     [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
-    [SerializeField, BoxGroup] protected bool useInspectorDamageData;
-    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
+    [SerializeField, BoxGroup] bool useInspectorDamageData;
+    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
     protected enum HitEffect { Damage, Nullify, StatChange }
     [SerializeField] protected List<HitEffect> hitEffects;
 
@@ -96,6 +99,15 @@ public class Spell : SerializedMonoBehaviour
                 break;
         }
 
+        switch (durationType)
+        {
+            case DurationType.Instant:
+                lifeTime = 0;
+                break;
+            case DurationType.Endless:
+                lifeTime = float.MaxValue;
+                break;
+        }
         MyPhase = Phase.BeginWarning;
         
         main.onTrigEnter += CallEv_OnTriggerEnter;

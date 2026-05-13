@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 2611498372281243978}
+      objectReference: {fileID: 4782607804132217251}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
@@ -216,7 +216,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2611498372281243978}
+      addedObject: {fileID: 4782607804132217251}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3488954626340846763}
@@ -231,7 +231,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 5430779227207044350}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2611498372281243978
+--- !u!114 &4782607804132217251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,9 +240,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143546371296788499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33738b65e0667f448fb15cdd3c75c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Shield
+  m_EditorClassIdentifier: Assembly-CSharp::S_SimpleTrigger
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -282,7 +282,9 @@ MonoBehaviour:
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
-  lifeTime: 1e+20
+  durationType: 1
+  lifeTime: 0
+  terminateOnHit: 0
   anchor: {fileID: 0}
   colliderType: 0
   spellParticles:
@@ -293,9 +295,12 @@ MonoBehaviour:
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0
+  hitEffects: 01000000
+  onEnter: 1
+  onExit: 0
   spellsToAffect:
-  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
   - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
 --- !u!1 &5719503837971982199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

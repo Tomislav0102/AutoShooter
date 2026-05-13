@@ -15074,7 +15074,9 @@ MonoBehaviour:
   myFactionTarget: 1
   areaOfEffect: 0.2
   startDelay: 0
+  durationType: 2
   lifeTime: 10
+  terminateOnHit: 1
   anchor: {fileID: 0}
   colliderType: 0
   spellParticles:
@@ -15085,6 +15087,7 @@ MonoBehaviour:
     canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0
+  hitEffects: 00000000
   solidCollider: {fileID: 2580093172220627405}
 --- !u!1 &4709213594771736486 stripped
 GameObject:

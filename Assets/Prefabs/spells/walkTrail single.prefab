@@ -152,7 +152,9 @@ MonoBehaviour:
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
+  durationType: 2
   lifeTime: 3
+  terminateOnHit: 1
   anchor: {fileID: 0}
   colliderType: 0
   spellParticles:
@@ -163,6 +165,7 @@ MonoBehaviour:
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0
+  hitEffects: 00000000
 --- !u!1001 &5176596925842145205
 PrefabInstance:
   m_ObjectHideFlags: 0

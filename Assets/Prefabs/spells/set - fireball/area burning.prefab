@@ -117,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Name
-      value: MainSpell Variant
+      value: area burning
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
@@ -202,8 +202,9 @@ MonoBehaviour:
   myFactionTarget: 1
   areaOfEffect: 3
   startDelay: 0
+  durationType: 2
   lifeTime: 5
-  afterEffect: {fileID: 0}
+  terminateOnHit: 1
   anchor: {fileID: 0}
   colliderType: 0
   spellParticles:
@@ -214,6 +215,7 @@ MonoBehaviour:
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0
+  hitEffects: 00000000
 --- !u!1 &5712193255030706863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

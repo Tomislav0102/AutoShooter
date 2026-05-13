@@ -38,14 +38,12 @@ public class S_Area : Spell
     protected override void CallEv_OnTriggerEnter(Collider other)
     {
         base.CallEv_OnTriggerEnter(other);
-        if (lifeTime == 0) return;
         collidersDetected.Add(other);
     }
 
     protected override void CallEv_OnTriggerExit(Collider other)
     {
         base.CallEv_OnTriggerExit(other);
-        if (lifeTime == 0) return;
         collidersDetected.Remove(other);
     }
 

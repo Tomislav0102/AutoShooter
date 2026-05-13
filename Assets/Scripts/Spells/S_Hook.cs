@@ -24,7 +24,7 @@ public class S_Hook : Spell
         {
             _timer = 0f;
             _anchorTakeDamage.TakeDamage(injectHealthData);
-            if (lifeTime == 0) MyPhase = Phase.EndStart;
+            if (durationType == DurationType.Instant) MyPhase = Phase.EndStart;
         }
     }
 }

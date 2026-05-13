@@ -38,9 +38,10 @@ public class Ga : SerializedMonoBehaviour
     [HideInInspector] public Transform playerTransform;
     public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
-    [FormerlySerializedAs("specialUi")] public UltimateUi ultimateUi;
+    public UltimateUi ultimateUi;
     [Title("Debug")] 
     public bool debug;
+    
     
     void Awake()
     {

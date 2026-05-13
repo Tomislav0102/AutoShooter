@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Name
-      value: MainSpell Variant
+      value: sword ice
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
@@ -303,7 +303,9 @@ MonoBehaviour:
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
+  durationType: 1
   lifeTime: 1e+26
+  terminateOnHit: 1
   anchor: {fileID: 0}
   colliderType: 1
   spellParticles:
@@ -314,6 +316,7 @@ MonoBehaviour:
     canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0
+  hitEffects: 00000000
 --- !u!4 &2124650323784398306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

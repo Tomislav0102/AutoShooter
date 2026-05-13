@@ -2,12 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class S_SimpleTrigger : Spell
+public class S_GeneralTrigger : Spell
 {
     [Title("Triggers")]
     [SerializeField] bool onEnter = true;
     [SerializeField] bool onExit;
 
+    //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'MainSpell' is in array that detects all.
+    bool IsNullify() => hitEffects.Contains(HitEffect.Nullify);
+    [SerializeField, ShowIf(nameof(IsNullify))] SpellControl[] spellsToAffect;
+    
+    
     public override void InitializeMe(SpellControl mainSpell)
     {
         base.InitializeMe(mainSpell);
@@ -27,6 +32,18 @@ public class S_SimpleTrigger : Spell
             takeDamage.TakeDamage(injectHealthData);
         }
 
+        if (hitEffects.Contains(HitEffect.Nullify) &&
+            other.TryGetComponent(out SpellControl spellControl) && 
+            Utils.CanTargetFaction(myFaction, spellControl.spell.myFaction, myFactionTarget))
+        {
+            for (int i = 0; i < spellsToAffect.Length; i++)
+            {
+                if (spellControl.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
+                spellControl.spell.MyPhase = Phase.EndStart;
+                break;
+            }
+        }
+
         if (hitEffects.Contains(HitEffect.StatChange))
         {
             
@@ -35,6 +52,7 @@ public class S_SimpleTrigger : Spell
         main.spell.MyPhase = Phase.EndStart;
     }
 
+    
     protected override void CallEv_OnTriggerExit(Collider other)
     {
         base.CallEv_OnTriggerExit(other);
