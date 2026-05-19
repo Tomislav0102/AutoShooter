@@ -18,7 +18,7 @@ public class S_Bullet : Spell
         _myBulletTransporter = main.transporter as BulletTransporter;
         solidCollider.enabled = _myBulletTransporter.bounce > 0;
         solidCollider.radius = main.mySphereCollider.radius + 0.01f;
-        spellParticles.InitializeMe(areaOfEffect);
+        spellParticles.InitializeMe(mainSpell);
     }
 
     protected override void CallEv_OnTriggerEnter(Collider other)

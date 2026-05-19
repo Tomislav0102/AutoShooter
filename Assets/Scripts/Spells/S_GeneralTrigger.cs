@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -8,6 +9,15 @@ public class S_GeneralTrigger : Spell
     [SerializeField] bool onEnter = true;
     [SerializeField] bool onExit;
 
+    enum ColliderPart
+    {
+        Whole,
+        FrontHalf,
+        BackHalf,
+    }
+    [SerializeField] ColliderPart colliderPart;
+    float MyZ(Vector3 pos) => main.myTransform.InverseTransformPoint(pos).z;
+        
     //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'MainSpell' is in array that detects all.
     bool IsNullify() => hitEffects.Contains(HitEffect.Nullify);
     [SerializeField, ShowIf(nameof(IsNullify))] SpellControl[] spellsToAffect;
@@ -16,13 +26,22 @@ public class S_GeneralTrigger : Spell
     public override void InitializeMe(SpellControl mainSpell)
     {
         base.InitializeMe(mainSpell);
-        spellParticles.InitializeMe(areaOfEffect);
+        spellParticles.InitializeMe(mainSpell);
     }
 
     protected override void CallEv_OnTriggerEnter(Collider other)
     {
         base.CallEv_OnTriggerEnter(other);
         if (!onEnter) return;
+        switch (colliderPart)
+        {
+            case ColliderPart.FrontHalf:
+                if (MyZ(other.transform.position) < 0) return;
+                break;
+            case ColliderPart.BackHalf:
+                if (MyZ(other.transform.position) > 0) return;
+                break;
+        }
         
         if (hitEffects.Contains(HitEffect.Damage) &&
             injectHealthData.damage.Count > 0 && 
@@ -44,9 +63,10 @@ public class S_GeneralTrigger : Spell
             }
         }
 
-        if (hitEffects.Contains(HitEffect.StatChange))
+        if (hitEffects.Contains(HitEffect.StatChange) && !collidersDetected.Contains(other))
         {
-            
+            collidersDetected.Add(other);
+            //change stats
         }
         
         main.spell.MyPhase = Phase.EndStart;
@@ -57,5 +77,21 @@ public class S_GeneralTrigger : Spell
     {
         base.CallEv_OnTriggerExit(other);
         if (!onExit) return;
+        switch (colliderPart)
+        {
+            case ColliderPart.FrontHalf:
+                if (MyZ(other.transform.position) < 0) return;
+                break;
+            case ColliderPart.BackHalf:
+                if (MyZ(other.transform.position) > 0) return;
+                break;
+        }
+
+        if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))
+        {
+            //revert change
+            collidersDetected.Remove(other);
+        }
+
     }
 }

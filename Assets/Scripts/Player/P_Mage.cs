@@ -85,6 +85,7 @@ public class P_Mage : PlayerCombat
                     if (Br.combat.MyTarget == null) return;
                     SpellControl explosion = Instantiate(Ga.me.spells.explosionFire, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                     explosion.InitializeMe(Br, damRanged, AreaFire);
+                    Instantiate(Ga.me.psDecalFire, explosion.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
                 }
                 
                 void AreaFire()

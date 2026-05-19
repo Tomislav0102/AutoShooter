@@ -9,6 +9,9 @@ public class InjectHealth
     public bool canBeBlocked;
     [Range(0, 20)] public int knockBack;
     public Dictionary<Element, float> damage =  new Dictionary<Element, float>();
+    public object extraData;
+    public static string DataExecutioner = "Executioner";
+    public static string DataStatusBleed = "Bleeding";
 
     // public InjectHealth(Transform attacker, Dictionary<Element, float> damage, bool canBeBlocked, int knockBack)
     // {

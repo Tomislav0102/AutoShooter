@@ -143,10 +143,6 @@ PrefabInstance:
       value: lob carry something
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: spell
-      value: 
-      objectReference: {fileID: 11130441160418790}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: myMesh
       value: 
       objectReference: {fileID: 9083238804321993625}
@@ -167,7 +163,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 11130441160418790}
+      addedObject: {fileID: 6915565584698138924}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6334399017835829008}
@@ -199,7 +195,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4244962106122269990}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &11130441160418790
+--- !u!114 &6915565584698138924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,59 +204,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9108973598013618635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69bb4af28905e2343b66598f4dc817fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Empty
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  myFaction: 0
-  myFactionTarget: 1
-  areaOfEffect: 1
-  startDelay: 0
-  durationType: 2
-  lifeTime: 10
-  terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 2
-  spellParticles:
-    ps: {fileID: 0}
-    particleSizeChange: 0
-  injectHealthData:
-    attacker: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter

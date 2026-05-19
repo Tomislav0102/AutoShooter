@@ -76,7 +76,7 @@ public class Health: EventBus, ITakeDamage, IInit
             }
         }
         HealthCurrent -= totalDamage;
-
+        Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(dam, Br.myTransform.position);
         
@@ -113,7 +113,7 @@ public class Health: EventBus, ITakeDamage, IInit
     void Death()
     {
         Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
-        ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot);
+        ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
         ps.Play();
         Destroy(_healthBar.gameObject);
         EventBus.OnCharDeath?.Invoke(Br.myTransform);

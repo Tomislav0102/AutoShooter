@@ -9,6 +9,7 @@ public enum GenMenuControl { Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
 #endregion
+public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }

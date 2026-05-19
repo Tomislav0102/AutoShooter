@@ -51,7 +51,7 @@ public class Brain : EventBus
         }
         ChangeFaction(faction);
         ChangeSize(size);
-        ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+        ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
         ps.transform.localScale = size * Vector3.one;
         ps.Play();
 

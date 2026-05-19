@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BulletTransporter : SpellTransporter
 {
-    [SerializeField] float speed;
+    public float speed;
     public int ricochet;
     public int pierce;
     public int bounce;

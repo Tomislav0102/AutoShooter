@@ -96,7 +96,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Intensity: 4.53
-    - SoftParticleToggle_: 1
+    - SoftParticleToggle_: 0
     - SoftParticle_: 8
     - _AlphaClip: 0
     - _Blend: 0
@@ -140,6 +140,7 @@ Material:
     - _SrcBlend: 5
     - _Surface: 1
     - _UVSec: 0
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

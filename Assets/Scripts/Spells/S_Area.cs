@@ -11,7 +11,7 @@ public class S_Area : Spell
     public override void InitializeMe(SpellControl mainSpell)
     {
         base.InitializeMe(mainSpell);
-        spellParticles.InitializeMe(areaOfEffect);
+        spellParticles.InitializeMe(mainSpell);
     }
     
     protected override void Update()

@@ -148,6 +148,9 @@ public class Utils
             case Image img:
                 img.enabled = activation == GenActivation.On;
                 break;
+            case MeshRenderer meshRenderer:
+                meshRenderer.enabled = activation == GenActivation.On;
+                break;
         }
     }
     public static GameObject[] AllChildrenGameObjects(Transform parGos)

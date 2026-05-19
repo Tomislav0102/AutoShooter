@@ -165,7 +165,7 @@ MonoBehaviour:
   colliderType: 0
   spellParticles:
     ps: {fileID: 92274647244686051}
-    particleSizeChange: 1
+    particleSizeChange: 0
   injectHealthData:
     attacker: {fileID: 0}
     canBeBlocked: 1

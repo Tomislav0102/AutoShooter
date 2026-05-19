@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -10,12 +9,13 @@ using UnityEngine.Serialization;
 
 public class Ga : SerializedMonoBehaviour
 {
+    public Drop dropPrefab;
     public static Ga me;
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
 
     [BoxGroup("Particles")] 
-    public ParticleSystem psSpawn, psDeath;
+    public ParticleSystem psSpawn, psDeath, psDecalFire;
     public LevelManager LevelMan
     {
         get => _levelMan;
@@ -92,35 +92,4 @@ public class Ga : SerializedMonoBehaviour
 
     }
 
-}
-
-[System.Serializable]
-public class SpellParticles
-{
-    public enum ParticleSizeChange
-    {
-        Emission_Shape, 
-        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
-        Other
-    }
-    [SerializeField] ParticleSystem ps;
-    public ParticleSizeChange particleSizeChange;
-
-    public void InitializeMe(float areaOfEffect)
-    {
-        if (ps == null) return;
-        switch (particleSizeChange)
-        {
-            case  ParticleSizeChange.Emission_Shape:
-                var emission = ps.emission;
-                emission.rateOverTime = areaOfEffect * 5;
-                var shape = ps.shape;
-                shape.radius = areaOfEffect * 0.5f;
-                break;
-            case  ParticleSizeChange.TransformScale:
-                ps.transform.parent.localScale = areaOfEffect * Vector3.one;
-                break;
-        }
-        ps.Play();
-    }
 }

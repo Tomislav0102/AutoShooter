@@ -45,6 +45,13 @@ public class P_Knight : PlayerCombat
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
+                SpellControl arc = Instantiate(Ga.me.spells.sweepingArc, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                arc.InitializeMe(Br, new Dictionary<Element, float>()
+                {
+                    { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                });
+                return;
+
         SpellControl heal = Instantiate(Ga.me.spells.heal, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         heal.spell.anchor = Br.myTransform;
         heal.InitializeMe(Br, damUltimate);
@@ -66,7 +73,6 @@ public class P_Knight : PlayerCombat
 
     public override void HealthHitCallback(InjectHealth injectHealth)
     {
-        print("HealthHitCallback");
         if (_timerBlockReady > 0f)
         {
             counterHitReceived = 0;

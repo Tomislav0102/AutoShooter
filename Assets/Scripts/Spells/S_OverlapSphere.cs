@@ -42,7 +42,7 @@ public class S_OverlapSphere : Spell
             }
         }
 
-        spellParticles.InitializeMe(areaOfEffect);
+        spellParticles.InitializeMe(main);
 
     }
 

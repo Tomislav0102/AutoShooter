@@ -6,6 +6,6 @@ public class MeleeTransporter : SpellTransporter
     {
         base.InitializeMe(spellControl);
         main.myTransform.position += main.spell.areaOfEffect * 0.5f * main.myTransform.forward;
-        main.spell.InitializeMe(main);
+        main.spell.InitializeMe(spellControl);
     }
 }

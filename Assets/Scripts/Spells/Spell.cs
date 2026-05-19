@@ -49,7 +49,7 @@ public class Spell : SerializedMonoBehaviour
     protected enum DurationType { Instant, Endless, Specific }
     [SerializeField] protected DurationType durationType = DurationType.Instant;
     bool ShowLifeTime() => durationType == DurationType.Specific;
-    [SerializeField, ShowIf(nameof(ShowLifeTime))] float lifeTime;
+    [ShowIf(nameof(ShowLifeTime))] public float lifeTime;
     [SerializeField] bool terminateOnHit = true;
     [ReadOnly] public Transform anchor;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();

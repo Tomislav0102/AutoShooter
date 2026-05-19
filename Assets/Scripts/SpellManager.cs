@@ -15,6 +15,7 @@ public class SpellManager : MonoBehaviour
    public SpellControl heal;
    public SpellControl shieldFromProjectiles;
    public SpellControl push;
+   public SpellControl sweepingArc;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
    public SpellGroup groupOrbitalShields;
@@ -25,4 +26,5 @@ public class SpellManager : MonoBehaviour
    public SpellControl carryFireball;
    public SpellControl explosionFire;
    public SpellControl areFire;
+   
 }
