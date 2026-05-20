@@ -3,9 +3,8 @@ using UnityEngine;
 public class EmptyTransporter : SpellTransporter
 {
     
-    public override void InitializeMe(SpellControl spellControl)
+    public override void InitializeMe(SpellMain spellMain)
     {
-        base.InitializeMe(spellControl);
-        main.spell.InitializeMe(spellControl);
+        base.InitializeMe(spellMain);
     }
 }

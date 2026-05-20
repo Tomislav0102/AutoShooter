@@ -32,8 +32,11 @@ public class Spell : SerializedMonoBehaviour
                     break;
                 case Phase.EndStart:
                     MyPhase = Phase.EndEnd;
-                    if (terminateOnHit) main.onEnd?.Invoke();
+                    if (terminateOnHit) MyPhase = Phase.EndEnd;
                     else MyPhase = Phase.SpellRuns;
+                    break;
+                case Phase.EndEnd:
+                    main.onEnd?.Invoke();
                     break;
             }
         }
@@ -41,7 +44,7 @@ public class Spell : SerializedMonoBehaviour
     [ShowInInspector, ReadOnly] Phase _phase;
     float _timerPhase;
     
-    protected SpellControl main;
+    protected SpellMain main;
     [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
@@ -51,20 +54,22 @@ public class Spell : SerializedMonoBehaviour
     bool ShowLifeTime() => durationType == DurationType.Specific;
     [ShowIf(nameof(ShowLifeTime))] public float lifeTime;
     [SerializeField] bool terminateOnHit = true;
-    [ReadOnly] public Transform anchor;
+    [ReadOnly] public Transform followTarget;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     enum ColliderType { Sphere, Capsule, None }
     [SerializeField] ColliderType colliderType;
-    [SerializeField, BoxGroup("Particles", false)] protected SpellParticles spellParticles;
+    [SerializeField, BoxGroup("Particles", false)] 
+    protected SpellParticles spellParticles;
     
     [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
     [SerializeField, BoxGroup] bool useInspectorDamageData;
-    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
+    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] 
+    Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
     protected enum HitEffect { Damage, Nullify, StatChange }
     [SerializeField] protected List<HitEffect> hitEffects;
 
 
-    public virtual void InitializeMe(SpellControl mainSpell)
+    public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
         myFaction = main.ownersBrain.faction;
@@ -137,8 +142,8 @@ public class Spell : SerializedMonoBehaviour
                 if (_timerPhase >= startDelay) MyPhase = Phase.SpellRuns;
                 break;
             case Phase.SpellRuns:
-                if (anchor != null) main.myTransform.position = anchor.position;
-                if (_timerPhase > lifeTime) MyPhase = Phase.EndStart;
+                if (followTarget != null) main.myTransform.position = followTarget.position;
+                if (_timerPhase > lifeTime) MyPhase = Phase.EndEnd;
                 break;
         }
         _timerPhase += Time.deltaTime;

@@ -142,11 +142,11 @@ MonoBehaviour:
   durationType: 0
   lifeTime: 0
   terminateOnHit: 1
-  anchor: {fileID: 0}
+  followTarget: {fileID: 0}
   colliderType: 2
   spellParticles:
-    ps: {fileID: 0}
-    particleSizeChange: 0
+    ps: []
+    particleSizeChange: 3
   injectHealthData:
     attacker: {fileID: 0}
     canBeBlocked: 1

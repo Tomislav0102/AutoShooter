@@ -207,7 +207,8 @@ MonoBehaviour:
   anchor: {fileID: 0}
   colliderType: 2
   spellParticles:
-    ps: {fileID: 6049384342366215728}
+    ps:
+    - {fileID: 6049384342366215728}
     particleSizeChange: 0
   injectHealthData:
     attacker: {fileID: 0}

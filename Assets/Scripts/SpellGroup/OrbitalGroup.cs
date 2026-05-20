@@ -16,11 +16,11 @@ public class OrbitalGroup : SpellGroup
         {
             if (i >= numOfActiveSpells) return;
             
-            SpellControl spellControl = mySpells[i];
-            spellControl.gameObject.SetActive(true);
-            spellControl.InitializeMe(ownersBrain);
-            spellControl.myTransform.localRotation = Quaternion.Euler(0, angle * (i + 1), 0);
-            spellControl.myTransform.position += distanceFromAnchor * spellControl.myTransform.forward;
+            SpellMain spellMain = mySpells[i];
+            spellMain.gameObject.SetActive(true);
+            spellMain.InitializeMe(ownersBrain);
+            spellMain.myTransform.localRotation = Quaternion.Euler(0, angle * (i + 1), 0);
+            spellMain.myTransform.position += distanceFromAnchor * spellMain.myTransform.forward;
         }
 
     }

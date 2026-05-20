@@ -87,6 +87,8 @@ MonoBehaviour:
   myRigid: {fileID: 8903924178762673374}
   mySphereCollider: {fileID: 6916548065277827116}
   myCapsuleCollider: {fileID: 1553764786334897511}
+  parSpells: {fileID: 308377353796318890}
+  parTransporters: {fileID: 4760714225645761043}
   myMesh: {fileID: 0}
   warningRend: {fileID: 9073325792066258589}
   visualization: {fileID: 1179571971146372210}

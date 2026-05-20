@@ -20,10 +20,10 @@ public class S_GeneralTrigger : Spell
         
     //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'MainSpell' is in array that detects all.
     bool IsNullify() => hitEffects.Contains(HitEffect.Nullify);
-    [SerializeField, ShowIf(nameof(IsNullify))] SpellControl[] spellsToAffect;
+    [SerializeField, ShowIf(nameof(IsNullify))] SpellMain[] spellsToAffect;
     
     
-    public override void InitializeMe(SpellControl mainSpell)
+    public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
         spellParticles.InitializeMe(mainSpell);
@@ -52,7 +52,7 @@ public class S_GeneralTrigger : Spell
         }
 
         if (hitEffects.Contains(HitEffect.Nullify) &&
-            other.TryGetComponent(out SpellControl spellControl) && 
+            other.TryGetComponent(out SpellMain spellControl) && 
             Utils.CanTargetFaction(myFaction, spellControl.spell.myFaction, myFactionTarget))
         {
             for (int i = 0; i < spellsToAffect.Length; i++)

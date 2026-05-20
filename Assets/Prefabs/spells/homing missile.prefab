@@ -164,7 +164,8 @@ MonoBehaviour:
   anchor: {fileID: 0}
   colliderType: 0
   spellParticles:
-    ps: {fileID: 92274647244686051}
+    ps:
+    - {fileID: 92274647244686051}
     particleSizeChange: 0
   injectHealthData:
     attacker: {fileID: 0}
@@ -174,6 +175,7 @@ MonoBehaviour:
   hitEffects: 00000000
   onEnter: 1
   onExit: 0
+  colliderPart: 0
   spellsToAffect: []
 --- !u!1001 &7365444540199606032
 PrefabInstance:

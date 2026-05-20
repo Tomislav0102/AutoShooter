@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class SpellTransporter : MonoBehaviour
 {
-    protected SpellControl main;
+    protected SpellMain main;
 
-    public virtual void InitializeMe(SpellControl spellControl)
+    public virtual void InitializeMe(SpellMain spellMain)
     {
-        main = spellControl;
+        main = spellMain;
+        main.spell.InitializeMe(spellMain);
     }
     
     protected void SetSpeed(float speed)

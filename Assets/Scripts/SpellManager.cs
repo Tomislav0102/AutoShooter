@@ -5,17 +5,18 @@ using UnityEngine;
 public class SpellManager : MonoBehaviour
 {
    public Transform myTransform;
-   public SpellControl meleePlayer;
-   public SpellControl meleeEnemy;
-   public SpellControl bulletPlayer;
-   public SpellControl bulletEnemy;
-   public SpellControl homingMissile;
-   public SpellControl lobCarrySomething;
-   public SpellControl lightningStrike;
-   public SpellControl heal;
-   public SpellControl shieldFromProjectiles;
-   public SpellControl push;
-   public SpellControl sweepingArc;
+   public SpellMain meleePlayer;
+   public SpellMain meleeEnemy;
+   public SpellMain bulletPlayer;
+   public SpellMain bulletEnemy;
+   public SpellMain homingMissile;
+   public SpellMain lobCarrySomething;
+   public SpellMain lightningStrike;
+   public SpellMain heal;
+   public SpellMain shieldFromProjectiles;
+   public SpellMain push;
+   public SpellMain sweepingArc;
+   public SpellMain armageddon;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
    public SpellGroup groupOrbitalShields;
@@ -23,8 +24,8 @@ public class SpellManager : MonoBehaviour
    public SpellGroup groupOrbitalSwordsIce;
    public SpellGroup groupOrbitalSwordsElectric;
    [Title("Fireball set")] 
-   public SpellControl carryFireball;
-   public SpellControl explosionFire;
-   public SpellControl areFire;
+   public SpellMain carryFireball;
+   public SpellMain explosionFire;
+   public SpellMain areFire;
    
 }

@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class SpellControl : MonoBehaviour
+
+public class SpellMain : MonoBehaviour
 {
     public Transform myTransform;
     public Rigidbody myRigid;
@@ -13,8 +14,9 @@ public class SpellControl : MonoBehaviour
     public Transform visualization;
     [ReadOnly] public Brain ownersBrain;
     [ReadOnly] public Dictionary<Element, float> damage = new Dictionary<Element, float>();
-    public Spell spell; //initialized in transporter
-    public SpellTransporter transporter; //every spell has one
+    public Spell spell; 
+    public SpellTransporter transporter;
+    [SerializeField, TextArea, HideLabel] string description;
 
     public System.Action<Collider> onTrigEnter;
     public System.Action<Collider> onTrigExit;

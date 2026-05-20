@@ -6,9 +6,9 @@ using UnityEngine;
 public class LobTransporter : SpellTransporter
 {
     Vector3 _rndRot;
-    public override void InitializeMe(SpellControl spellControl)
+    public override void InitializeMe(SpellMain spellMain)
     {
-        base.InitializeMe(spellControl);
+        base.InitializeMe(spellMain);
         main.myTransform.rotation *= Quaternion.Euler(-45f, Random.Range(0f, 360f), 0);
         main.myRigid.isKinematic = false;
         main.myRigid.useGravity = true;

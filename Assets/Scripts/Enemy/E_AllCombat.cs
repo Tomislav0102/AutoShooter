@@ -15,7 +15,7 @@ public class E_AllCombat : EnemyCombat
                 {
                     { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                 };
-                SpellControl melee = Instantiate(meleeWeapon,
+                SpellMain melee = Instantiate(meleeWeapon,
                     Br.myTransform.position,
                     Br.myTransform.rotation, Ga.me.spells.myTransform);
                 melee.InitializeMe(Br, damMelee);
@@ -25,7 +25,7 @@ public class E_AllCombat : EnemyCombat
                 {
                     { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
                 };
-                SpellControl bullet = Instantiate(rangedWeapon, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                SpellMain bullet = Instantiate(rangedWeapon, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 bullet.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
                 bullet.InitializeMe(Br, damRanged);
                 break;
@@ -52,10 +52,10 @@ public class E_AllCombat : EnemyCombat
                     { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
                 };
 
-                SpellControl lob = Instantiate(rangedWeapon, spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellMain lob = Instantiate(rangedWeapon, spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
                 lob.InitializeMe(Br, null, () =>
                 {
-                    SpellControl explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     explosion.InitializeMe(Br, damRanged);
                 });
                 break;

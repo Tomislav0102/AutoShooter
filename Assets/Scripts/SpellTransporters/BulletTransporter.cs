@@ -8,10 +8,9 @@ public class BulletTransporter : SpellTransporter
     public int pierce;
     public int bounce;
 
-    public override void InitializeMe(SpellControl spellControl)
+    public override void InitializeMe(SpellMain spellMain)
     {
-        base.InitializeMe(spellControl);
-        main.spell.InitializeMe(main);
+        base.InitializeMe(spellMain);
         main.myRigid.isKinematic = false;
         SetSpeed(speed);
     }

@@ -7,10 +7,9 @@ public class HomingTransporter : SpellTransporter
     [ReadOnly] public Transform homingTarget;
     [SerializeField] float speed;
     
-    public override void InitializeMe(SpellControl spellControl)
+    public override void InitializeMe(SpellMain spellMain)
     {
-        base.InitializeMe(spellControl);
-        main.spell.InitializeMe(spellControl);
+        base.InitializeMe(spellMain);
         main.myRigid.isKinematic = false;
     }
 

@@ -12,7 +12,7 @@ public class S_Bullet : Spell
     BulletTransporter _myBulletTransporter;
 
 
-    public override void InitializeMe(SpellControl mainSpell)
+    public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
         _myBulletTransporter = main.transporter as BulletTransporter;

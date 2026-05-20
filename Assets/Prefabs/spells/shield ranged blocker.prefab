@@ -288,7 +288,8 @@ MonoBehaviour:
   anchor: {fileID: 0}
   colliderType: 0
   spellParticles:
-    ps: {fileID: 2614154149570889060}
+    ps:
+    - {fileID: 2614154149570889060}
     particleSizeChange: 0
   injectHealthData:
     attacker: {fileID: 0}
@@ -298,6 +299,7 @@ MonoBehaviour:
   hitEffects: 01000000
   onEnter: 1
   onExit: 0
+  colliderPart: 0
   spellsToAffect:
   - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
   - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}

@@ -8,7 +8,7 @@ using UnityEngine;
 public class S_Area : Spell
 {
     float _timer = Mathf.Infinity;
-    public override void InitializeMe(SpellControl mainSpell)
+    public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
         spellParticles.InitializeMe(mainSpell);

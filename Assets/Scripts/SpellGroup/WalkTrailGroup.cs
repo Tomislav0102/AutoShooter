@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WalkTrailGroup : SpellGroup
 {
-    [SerializeField] SpellControl singleSpell; //temp, will change after pool implementation
+    [SerializeField] SpellMain singleSpell; //temp, will change after pool implementation
     public Dictionary<Element, float> myDamage;
     float _timer;
     const float CONST_SpawnRate = 0.1f;
@@ -31,7 +31,7 @@ public class WalkTrailGroup : SpellGroup
                 if (_spawns.Contains(colliders[i])) return;
             }
 
-            SpellControl spell = Instantiate(singleSpell, brain.myTransform.position, Quaternion.identity, myTransform);
+            SpellMain spell = Instantiate(singleSpell, brain.myTransform.position, Quaternion.identity, myTransform);
             spell.InitializeMe(brain, myDamage, () =>
             {
                 if (_spawns.Contains(spell.mySphereCollider)) _spawns.Remove(spell.mySphereCollider);

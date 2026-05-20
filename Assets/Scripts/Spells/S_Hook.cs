@@ -9,11 +9,11 @@ public class S_Hook : Spell
     float _timer = float.MaxValue;
     ITakeDamage _anchorTakeDamage;
 
-    public override void InitializeMe(SpellControl mainSpell)
+    public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
-        if (anchor == null || anchor.GetComponent<ITakeDamage>() == null) MyPhase = Phase.EndStart;
-        _anchorTakeDamage = anchor.GetComponent<ITakeDamage>();
+        if (followTarget == null || followTarget.GetComponent<ITakeDamage>() == null) MyPhase = Phase.EndStart;
+        _anchorTakeDamage = followTarget.GetComponent<ITakeDamage>();
     }
 
     protected override void Update()

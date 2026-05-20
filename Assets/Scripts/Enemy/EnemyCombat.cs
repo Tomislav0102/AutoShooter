@@ -14,8 +14,8 @@ public class EnemyCombat : Combat
     /// <returns></returns>
     bool Mel() => meleeWeapon != null;
     public bool Ran() => rangedWeapon != null;
-    [SerializeField] protected SpellControl meleeWeapon;
-    [SerializeField] protected SpellControl rangedWeapon;
+    [SerializeField] protected SpellMain meleeWeapon;
+    [SerializeField] protected SpellMain rangedWeapon;
     [ShowIf(nameof(Ran))]
     [SerializeField] float rangeRanged;
     [SerializeField][ShowIf(nameof(Ran))] protected Transform spawnPoint;
