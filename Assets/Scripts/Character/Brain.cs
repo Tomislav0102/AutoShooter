@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -19,8 +20,6 @@ public class Brain : EventBus
     [HideInInspector] public Status status;
     [HideInInspector] public Loco loco;
     [HideInInspector] public Combat combat;
-    System.Action<Disposition> _onDispoChange;
-    System.Action _onHitTaken;
     
     void Awake()
     {

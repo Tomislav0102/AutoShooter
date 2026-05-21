@@ -19,7 +19,7 @@ public class S_GeneralTrigger : Spell
     float MyZ(Vector3 pos) => main.myTransform.InverseTransformPoint(pos).z;
         
     //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'MainSpell' is in array that detects all.
-    bool IsNullify() => hitEffects.Contains(HitEffect.Nullify);
+    bool IsNullify() => hitEffects.Contains(HitEffect.Nullify) || hitEffects.Contains(HitEffect.Reflect);
     [SerializeField, ShowIf(nameof(IsNullify))] SpellMain[] spellsToAffect;
     
     
@@ -46,19 +46,30 @@ public class S_GeneralTrigger : Spell
         if (hitEffects.Contains(HitEffect.Damage) &&
             injectHealthData.damage.Count > 0 && 
             other.TryGetComponent(out ITakeDamage takeDamage) && 
-            Utils.CanTargetFaction(myFaction, takeDamage.Br.faction, myFactionTarget))
+            Utils.CanTargetFaction(main.OwnersBrain.faction, takeDamage.Br.faction, myFactionTarget))
         {
             takeDamage.TakeDamage(injectHealthData);
         }
 
         if (hitEffects.Contains(HitEffect.Nullify) &&
-            other.TryGetComponent(out SpellMain spellControl) && 
-            Utils.CanTargetFaction(myFaction, spellControl.spell.myFaction, myFactionTarget))
+            other.TryGetComponent(out SpellMain mainToNullify) && 
+            Utils.CanTargetFaction(main.OwnersBrain.faction, mainToNullify.OwnersBrain.faction, myFactionTarget))
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {
-                if (spellControl.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
-                spellControl.spell.MyPhase = Phase.EndStart;
+                if (mainToNullify.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
+                mainToNullify.spell.MyPhase = Phase.EndStart;
+                break;
+            }
+        }
+        if (hitEffects.Contains(HitEffect.Reflect) &&
+            other.TryGetComponent(out SpellMain mainToReflect) && 
+            Utils.CanTargetFaction(main.OwnersBrain.faction, mainToReflect.OwnersBrain.faction, myFactionTarget))
+        {
+            for (int i = 0; i < spellsToAffect.Length; i++)
+            {
+                if (mainToReflect.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
+                mainToReflect.transporter.ReflectProjectile(main.OwnersBrain);
                 break;
             }
         }

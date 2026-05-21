@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class Ga : SerializedMonoBehaviour
 {

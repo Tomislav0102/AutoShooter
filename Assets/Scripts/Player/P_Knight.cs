@@ -18,7 +18,7 @@ public class P_Knight : PlayerCombat
             {
                  //{ Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                 // { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                  { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -27,6 +27,10 @@ public class P_Knight : PlayerCombat
                 { Element.Physical, -Br.myChar.GetStat(Stats.MagicDamage) },
             };
             IsInitialized = true;
+            
+            SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            reflect.spell.followTarget = Br.myTransform;
+            reflect.InitializeMe(Br);
         }
     }
 
@@ -39,6 +43,10 @@ public class P_Knight : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
         SpellMain melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        melee.onHitTarget += (ITakeDamage it) =>
+        {
+            Br.myChar.RegisterSkillReqIncrease(it == null ? SkillReq.Miss : SkillReq.Hit);
+        };
         melee.InitializeMe(Br, damMelee);
     }
 

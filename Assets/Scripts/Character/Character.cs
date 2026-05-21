@@ -34,34 +34,24 @@ public class Character : MonoBehaviour, IInit
     Brain _br;
     StatSingle[] _myStats;
     [ReadOnly] public bool IsInitialized { get; set; }
-
-    
+    Dictionary<SkillReq, int> _requirements = new Dictionary<SkillReq, int>();
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
-    public void ChangeStat(Stats statToChange, GenChange change, BuffType buffType, int amount)
+
+    public void RegisterSkillReqIncrease(SkillReq skill)
     {
-        // switch (change)
-        // {
-        //     case GenChange.Add:
-        //         switch (modType)
-        //         {
-        //             case ModType.Inventory:
-        //                 if (_myStats[(int)statToChange].bonuses[ModType.Inventory] < amount)
-        //                 {
-        //                     _myStats[(int)statToChange].bonuses[ModType.Inventory] = amount;
-        //                 } 
-        //                 break;
-        //             default:
-        //                 _myStats[(int)statToChange].bonuses[modType] += amount;
-        //                 break;
-        //         }
-        //         break;
-        //     
-        //     case GenChange.Remove:
-        //         if (_myStats[(int)statToChange].bonuses[modType] >= amount) _myStats[(int)statToChange].bonuses[modType] -= amount;
-        //         break;
-        // }
+        if (_requirements == null || _requirements.Count == 0)
+        {
+            int length = System.Enum.GetNames(typeof(SkillReq)).Length;
+            for (int i = 0; i < length; i++)
+            {
+                _requirements.Add((SkillReq)i, 0);
+            }
+        }
+        print(skill.ToString());
+        _requirements[skill]++;
     }
+
 
     
     class StatSingle

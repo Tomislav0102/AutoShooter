@@ -5,14 +5,48 @@ using Sirenix.OdinInspector;
 
 public class SpellMain : MonoBehaviour
 {
+    public bool debug;
+    public Brain OwnersBrain
+    {
+        get => _ownersBrain;
+        set
+        {
+            if (_ownersBrain != null)
+            {
+                Physics.IgnoreCollision(mySphereCollider, OwnersBrain.myCollider, false);
+                Physics.IgnoreCollision(myCapsuleCollider, OwnersBrain.myCollider, false);
+            }
+            
+            _ownersBrain = value;
+            Physics.IgnoreCollision(mySphereCollider, OwnersBrain.myCollider, false);
+            Physics.IgnoreCollision(myCapsuleCollider, OwnersBrain.myCollider, false);
+            mySphereCollider.enabled = false;
+            myCapsuleCollider.enabled = false;
+            switch (colliderType)
+            {
+                case ColliderType.Sphere:
+                    Physics.IgnoreCollision(mySphereCollider, OwnersBrain.myCollider);
+                    mySphereCollider.enabled = true;
+                    break;
+                case ColliderType.Capsule:
+                    Physics.IgnoreCollision(myCapsuleCollider, OwnersBrain.myCollider);
+                    myCapsuleCollider.enabled = true;
+                    break;
+            }
+
+        }
+    }
+    [ReadOnly, ShowInInspector] Brain _ownersBrain;
     public Transform myTransform;
     public Rigidbody myRigid;
+    enum ColliderType { Sphere, Capsule, None }
+    [SerializeField] ColliderType colliderType;
+
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public Transform myMesh;
     public SpriteRenderer warningRend;
     public Transform visualization;
-    [ReadOnly] public Brain ownersBrain;
     [ReadOnly] public Dictionary<Element, float> damage = new Dictionary<Element, float>();
     public Spell spell; 
     public SpellTransporter transporter;
@@ -22,6 +56,7 @@ public class SpellMain : MonoBehaviour
     public System.Action<Collider> onTrigExit;
     public System.Action<Collision> onCollisionEnter;
     public System.Action onEnd;
+    public System.Action<ITakeDamage> onHitTarget;
     System.Action _onAfterEffect;
 
     /// <summary>
@@ -29,7 +64,7 @@ public class SpellMain : MonoBehaviour
     /// </summary>
     public void InitializeMe(Brain brain)
     {
-        ownersBrain = brain;
+        OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
         transporter.InitializeMe(this);
     }
@@ -60,7 +95,6 @@ public class SpellMain : MonoBehaviour
         _onAfterEffect = onAfterEffect;
         InitializeMe(brain); 
     }
-
     void CallEv_OnEnd()
     {
         _onAfterEffect?.Invoke();

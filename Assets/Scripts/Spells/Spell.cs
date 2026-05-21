@@ -31,7 +31,6 @@ public class Spell : SerializedMonoBehaviour
                     main.warningRend.enabled = false;
                     break;
                 case Phase.EndStart:
-                    MyPhase = Phase.EndEnd;
                     if (terminateOnHit) MyPhase = Phase.EndEnd;
                     else MyPhase = Phase.SpellRuns;
                     break;
@@ -45,7 +44,7 @@ public class Spell : SerializedMonoBehaviour
     float _timerPhase;
     
     protected SpellMain main;
-    [ReadOnly] public Faction myFaction;
+  //  [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] float startDelay;
@@ -56,8 +55,6 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField] bool terminateOnHit = true;
     [ReadOnly] public Transform followTarget;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    enum ColliderType { Sphere, Capsule, None }
-    [SerializeField] ColliderType colliderType;
     [SerializeField, BoxGroup("Particles", false)] 
     protected SpellParticles spellParticles;
     
@@ -65,54 +62,22 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField, BoxGroup] bool useInspectorDamageData;
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] 
     Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
-    protected enum HitEffect { Damage, Nullify, StatChange }
+    protected enum HitEffect { Damage, Nullify, Reflect, StatChange }
     [SerializeField] protected List<HitEffect> hitEffects;
 
 
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
-        myFaction = main.ownersBrain.faction;
         injectHealthData.damage = useInspectorDamageData ? inspectorDamage : main.damage;
-        injectHealthData.attacker = main.ownersBrain.myTransform;
-        
+        injectHealthData.attacker = main.OwnersBrain.myTransform;
         main.myRigid.isKinematic = true;
         main.visualization.localScale = areaOfEffect * Vector3.one;
         main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
+        main.mySphereCollider.radius = areaOfEffect * 0.5f;
+        main.myCapsuleCollider.height = areaOfEffect;
+        main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         
-        if (main.mySphereCollider != null)
-        {
-            Physics.IgnoreCollision(main.mySphereCollider, main.ownersBrain.myCollider);
-            main.mySphereCollider.enabled = false;
-            main.mySphereCollider.radius = areaOfEffect * 0.5f;
-        }
-        if (main.myCapsuleCollider != null) 
-        {
-            Physics.IgnoreCollision(main.myCapsuleCollider, main.ownersBrain.myCollider);
-            main.myCapsuleCollider.enabled = false;
-            main.myCapsuleCollider.height = areaOfEffect;
-            main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
-        }
-
-        switch (colliderType)
-        {
-            case ColliderType.Sphere:
-                main.mySphereCollider.enabled = true;
-                break;
-            case ColliderType.Capsule:
-                main.myCapsuleCollider.enabled = true;
-                break;
-        }
-
-        switch (durationType)
-        {
-            case DurationType.Instant:
-                lifeTime = 0;
-                break;
-            case DurationType.Endless:
-                lifeTime = float.MaxValue;
-                break;
-        }
         MyPhase = Phase.BeginWarning;
         
         main.onTrigEnter += CallEv_OnTriggerEnter;

@@ -25,7 +25,8 @@ public class E_AllCombat : EnemyCombat
                 {
                     { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
                 };
-                SpellMain bullet = Instantiate(rangedWeapon, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
+                SpellMain bullet = Instantiate(rangedWeapon, zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 bullet.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
                 bullet.InitializeMe(Br, damRanged);
                 break;

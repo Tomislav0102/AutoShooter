@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoGameData
   level: 1
   pushDuration: 0.2
+  matSeeThroughWalls: {fileID: 2100000, guid: 422123ba09d6e0b419c3d6362f748453, type: 2}
   element:
   - element: 0
     name: Physical
@@ -59,5 +60,6 @@ MonoBehaviour:
   layActors: Actor
   layGround: Ground
   layObstacle: Obstacle
+  layWallsSeeThrough: WallsSeeThrough
   laySpell: Spell
   laySpellInterrupt: SpellInterrupt

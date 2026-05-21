@@ -8,13 +8,14 @@ public enum GenConfirm { Yes, No }
 public enum GenMenuControl { Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
+public enum GenCalcChange { Increase,  Decrease, Replace }
 #endregion
 public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }
 public enum Disposition { Relaxed, Wary, Fighting }
-
+public enum SkillReq { Hit, Miss, GetHit, Block, Kill }
 public enum Stats
 {
     Strength, 
@@ -40,6 +41,7 @@ public enum Stats
     Loot,
     Resistances //opens another enum 'Element'
 }
+
 
 
 

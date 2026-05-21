@@ -17,6 +17,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain push;
    public SpellMain sweepingArc;
    public SpellMain armageddon;
+   public SpellMain reflectProjectile;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
    public SpellGroup groupOrbitalShields;

@@ -16,4 +16,12 @@ public class SpellTransporter : MonoBehaviour
           main.myRigid.linearVelocity = speed * main.myTransform.forward;
     }
 
+    public void ReflectProjectile(Brain newBrain)
+    {
+        main.OwnersBrain = newBrain;
+        float speed  = main.myRigid.linearVelocity.magnitude;
+        main.myTransform.Rotate(Vector3.up, 180f);
+        SetSpeed(speed);
+    }
+
 }
