@@ -2344,6 +2344,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: <Faction>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: 'myMaterials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b9ef93eef15990f4ebd27dc3c1c386c5, type: 2}

@@ -19,11 +19,12 @@ public class MyDuo<K, V>
     bool _canHaveDuplicateKeys;
     bool _canHaveDuplicateValues;
 
-    #region INITIALIZATION
+    #region CONSTRUCTORS
     
     public MyDuo(bool canHaveDuplicateKeys = false, bool canHaveDuplicateValues = true)
     {
-        InitializeArrays();
+        Key = Array.Empty<K>();
+        Value = Array.Empty<V>();
         _canHaveDuplicateKeys = canHaveDuplicateKeys;
         _canHaveDuplicateValues = canHaveDuplicateValues;
     }
@@ -40,13 +41,6 @@ public class MyDuo<K, V>
         }
         _canHaveDuplicateKeys = canHaveDuplicateKeys;
         _canHaveDuplicateValues = canHaveDuplicateValues;
-    }
-
-
-    void InitializeArrays()
-    {
-        Key = Array.Empty<K>();
-        Value = Array.Empty<V>();
     }
     #endregion
 

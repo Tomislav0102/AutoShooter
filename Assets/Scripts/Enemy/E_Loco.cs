@@ -29,7 +29,7 @@ public class E_Loco : Loco
             agent.speed = moveSpeed;
             weaponRange = RangeArea.OutOfRange;
             Renderer myRenderer =  GetComponentInChildren<Renderer>();
-            if (myRenderer != null && myMaterials.Length >= (int)value.faction) myRenderer.material = myMaterials[(int)value.faction];
+            if (myRenderer != null && myMaterials.Length >= (int)value.Faction) myRenderer.material = myMaterials[(int)value.Faction];
             IsInitialized = true;
         }
     }

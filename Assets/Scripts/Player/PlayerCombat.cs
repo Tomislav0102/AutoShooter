@@ -49,10 +49,6 @@ public class PlayerCombat : Combat
         
     }
 
-    public virtual void HealthHitCallback(InjectHealth injectHealth)
-    {
-        counterHitReceived++;
-    }
 
 
 }

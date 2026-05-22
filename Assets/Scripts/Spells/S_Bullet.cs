@@ -26,7 +26,7 @@ public class S_Bullet : Spell
         base.CallEv_OnTriggerEnter(other);
         if (injectHealthData.damage.Count > 0 &&
             other.TryGetComponent(out ITakeDamage takeDamage) &&
-            Utils.CanTargetFaction(main.OwnersBrain.faction, takeDamage.Br.faction, myFactionTarget))
+            Utils.CanTargetFaction(main.OwnersBrain.Faction, takeDamage.Br.Faction, myFactionTarget))
         {
             takeDamage.TakeDamage(injectHealthData);
             if (_myBulletTransporter.ricochet > 0)
@@ -39,7 +39,7 @@ public class S_Bullet : Spell
                 {
                     if (item == other) continue;
                     if (item.TryGetComponent(out ITakeDamage itemTakeDamage) &&
-                        Utils.CanTargetFaction(main.OwnersBrain.faction, itemTakeDamage.Br.faction, myFactionTarget))
+                        Utils.CanTargetFaction(main.OwnersBrain.Faction, itemTakeDamage.Br.Faction, myFactionTarget))
                     {
                         myTargets.Add(item.transform);
                     }

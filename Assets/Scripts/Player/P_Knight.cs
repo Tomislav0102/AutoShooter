@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -17,8 +18,8 @@ public class P_Knight : PlayerCombat
             damMelee = new Dictionary<Element, float>()
             {
                  //{ Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
-                  { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                  { Element.Magic, 2f },
+                //  { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
+                //  { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -37,6 +38,7 @@ public class P_Knight : PlayerCombat
     [Title("Knight")]
     [SerializeField][Range(1, 10)] int dashPower = 4;
     float _timerBlockReady;
+    const float CONST_BlockChance = 1f;
     const int CONST_BlockTimer = 2;
     
     public override void FromAnimEv_Attack(int num = 0)
@@ -78,31 +80,35 @@ public class P_Knight : PlayerCombat
         Br.loco.CastSpell();
     }
 
-    public override void HealthHitCallback(InjectHealth injectHealth)
+    public override void SkillReqCallback(SkillReq skillIncreased)
     {
-        if (_timerBlockReady > 0f)
+        base.SkillReqCallback(skillIncreased);
+        switch (skillIncreased)
         {
-            counterHitReceived = 0;
-            return;
+            case SkillReq.Hit:
+                break;
+            case SkillReq.Miss:
+                break;
+            case SkillReq.GetHit:
+                break;
+            case SkillReq.Block:
+                if (_timerBlockReady > 0f) return;
+                if (Random.value > CONST_BlockChance) return;
+                _timerBlockReady = CONST_BlockTimer;
+                Br.myChar.RegisterSkillReqIncrease(SkillReq.Block);
+                Br.loco.Block();
+                StartCoroutine(SpellPushDelay());
+                break;
+            case SkillReq.Kill:
+                break;
         }
-        base.HealthHitCallback(injectHealth);
-        
-        float rdn = Random.value * counterHitReceived;
-        if (rdn >= 1)
-        {
-            _timerBlockReady = CONST_BlockTimer;
-            counterHitReceived = 0;
-            Br.loco.Block();
-            StartCoroutine(SpellPushDelay());
-        }
-
-        return;
         IEnumerator SpellPushDelay()
         {
             yield return new WaitForSeconds(0.1f);
             SpellMain push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             push.InitializeMe(Br);
         }
+
     }
 
 

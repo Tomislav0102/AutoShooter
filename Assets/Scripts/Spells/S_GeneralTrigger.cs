@@ -16,7 +16,6 @@ public class S_GeneralTrigger : Spell
         BackHalf,
     }
     [SerializeField] ColliderPart colliderPart;
-    float MyZ(Vector3 pos) => main.myTransform.InverseTransformPoint(pos).z;
         
     //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'MainSpell' is in array that detects all.
     bool IsNullify() => hitEffects.Contains(HitEffect.Nullify) || hitEffects.Contains(HitEffect.Reflect);
@@ -33,27 +32,19 @@ public class S_GeneralTrigger : Spell
     {
         base.CallEv_OnTriggerEnter(other);
         if (!onEnter) return;
-        switch (colliderPart)
-        {
-            case ColliderPart.FrontHalf:
-                if (MyZ(other.transform.position) < 0) return;
-                break;
-            case ColliderPart.BackHalf:
-                if (MyZ(other.transform.position) > 0) return;
-                break;
-        }
+        if (!CheckColliderType(other.transform.position)) return;
         
         if (hitEffects.Contains(HitEffect.Damage) &&
             injectHealthData.damage.Count > 0 && 
             other.TryGetComponent(out ITakeDamage takeDamage) && 
-            Utils.CanTargetFaction(main.OwnersBrain.faction, takeDamage.Br.faction, myFactionTarget))
+            Utils.CanTargetFaction(main.OwnersBrain.Faction, takeDamage.Br.Faction, myFactionTarget))
         {
             takeDamage.TakeDamage(injectHealthData);
         }
 
         if (hitEffects.Contains(HitEffect.Nullify) &&
             other.TryGetComponent(out SpellMain mainToNullify) && 
-            Utils.CanTargetFaction(main.OwnersBrain.faction, mainToNullify.OwnersBrain.faction, myFactionTarget))
+            Utils.CanTargetFaction(main.OwnersBrain.Faction, mainToNullify.OwnersBrain.Faction, myFactionTarget))
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {
@@ -64,7 +55,7 @@ public class S_GeneralTrigger : Spell
         }
         if (hitEffects.Contains(HitEffect.Reflect) &&
             other.TryGetComponent(out SpellMain mainToReflect) && 
-            Utils.CanTargetFaction(main.OwnersBrain.faction, mainToReflect.OwnersBrain.faction, myFactionTarget))
+            Utils.CanTargetFaction(main.OwnersBrain.Faction, mainToReflect.OwnersBrain.Faction, myFactionTarget))
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {
@@ -88,21 +79,27 @@ public class S_GeneralTrigger : Spell
     {
         base.CallEv_OnTriggerExit(other);
         if (!onExit) return;
-        switch (colliderPart)
-        {
-            case ColliderPart.FrontHalf:
-                if (MyZ(other.transform.position) < 0) return;
-                break;
-            case ColliderPart.BackHalf:
-                if (MyZ(other.transform.position) > 0) return;
-                break;
-        }
-
+        if (!CheckColliderType(other.transform.position)) return;
         if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))
         {
             //revert change
             collidersDetected.Remove(other);
         }
 
+    }
+
+    bool CheckColliderType(Vector3 pos)
+    {
+        float posZ =  main.myTransform.InverseTransformPoint(pos).z;
+        switch (colliderPart)
+        {
+            case ColliderPart.FrontHalf:
+                if (posZ < 0) return false;
+                break;
+            case ColliderPart.BackHalf:
+                if (posZ > 0) return  false;
+                break;
+        }
+        return true;
     }
 }

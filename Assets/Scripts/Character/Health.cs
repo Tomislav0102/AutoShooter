@@ -76,12 +76,18 @@ public class Health: EventBus, ITakeDamage, IInit
             }
         }
         HealthCurrent -= totalDamage;
+        Br.myChar.RegisterSkillReqIncrease(SkillReq.GetHit);
         Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
         ft.SpawnMe(dam, Br.myTransform.position);
         
         if (HealthCurrent <= 0)
         {
+            if (dam.attacker != null)
+            {
+                Brain brainAttacker = dam.attacker.GetComponent<Brain>();
+                brainAttacker.myChar.RegisterSkillReqIncrease(SkillReq.Kill);
+            }
             Death();
             return;
         }
@@ -89,12 +95,16 @@ public class Health: EventBus, ITakeDamage, IInit
         
         Br.loco.Hit();
         Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized, dam.knockBack);
-        if (dam.canBeBlocked && Br.myTransform == Ga.me.playerTransform)
+        if (dam.canBeBlocked)
         {
-            PlayerCombat pc = Br.combat as PlayerCombat;
-            pc.HealthHitCallback(dam);
-            return;
+            Br.combat.SkillReqCallback(SkillReq.Block);
         }
+        // if (dam.canBeBlocked && Br.myTransform == Ga.me.playerTransform)
+        // {
+        //     PlayerCombat pc = Br.combat as PlayerCombat;
+        //     pc.HealthHitCallback(dam);
+        //     return;
+        // }
 
         if (Br.combat.MyTarget == null)
         {
@@ -117,6 +127,7 @@ public class Health: EventBus, ITakeDamage, IInit
         ps.Play();
         Destroy(_healthBar.gameObject);
         EventBus.OnCharDeath?.Invoke(Br.myTransform);
+        
     }
 
 

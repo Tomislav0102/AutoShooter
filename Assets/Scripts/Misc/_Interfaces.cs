@@ -8,6 +8,11 @@ public interface IInit
     bool IsInitialized { get; set; }
 }
 
+public interface IFaction
+{
+    Faction Faction { get; set; }
+}
+
 public interface ITakeDamage : IInit
 {
     void TakeDamage(InjectHealth dam);

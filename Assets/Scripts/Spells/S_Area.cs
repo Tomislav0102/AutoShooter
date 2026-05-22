@@ -28,7 +28,7 @@ public class S_Area : Spell
         {
             if (item == null) continue; //sometimes its null with afterEffect (Unity bug?)
             if (item.TryGetComponent(out ITakeDamage takeDamage) && 
-                Utils.CanTargetFaction(main.OwnersBrain.faction, takeDamage.Br.faction, myFactionTarget))
+                Utils.CanTargetFaction(main.OwnersBrain.Faction, takeDamage.Br.Faction, myFactionTarget))
             {
                 takeDamage.TakeDamage(injectHealthData);
             }

@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
 public class Brain : EventBus
 {
-    public Faction faction;
+    [field:SerializeField] public Faction Faction { get; set; }
     public Transform myTransform;
     public bool IsPlayer() => Ga.me.team[Faction.GoodGuys].Contains(myTransform);
     public Rigidbody myRigid;
@@ -48,7 +49,7 @@ public class Brain : EventBus
             combat = co;
             combat.Br = this;
         }
-        ChangeFaction(faction);
+        ChangeFaction(Faction);
         ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
         ps.transform.localScale = size * Vector3.one;
@@ -74,34 +75,20 @@ public class Brain : EventBus
     [Button]
     public void ToggleFaction()
     {
-        int f = (int)faction;
+        int f = (int)Faction;
         f = (1 + f) % 2;
         ChangeFaction((Faction)f);
     }
     void ChangeFaction(Faction newFaction)
     {
-        faction = newFaction;
+        Faction = newFaction;
         
         for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
         {
            if (Ga.me.team[(Faction)i].Contains(myTransform)) Ga.me.team[(Faction)i].Remove(myTransform);
         }
-        Ga.me.team[faction].Add(myTransform);
+        Ga.me.team[Faction].Add(myTransform);
 
         
     }
-
-    /// <summary>
-    /// only for Dash
-    /// </summary>
-    /// <param name="other"></param>
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other != myCollider && other.TryGetComponent(out Brain brain))
-    //     {
-    //         if (brain.loco != null) brain.loco.KnockBack(Utils.Direction(myTransform.position, other.transform
-    //             .position), 5);
-    //     }
-    // }
-
 }

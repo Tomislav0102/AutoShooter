@@ -48,8 +48,12 @@ public class Character : MonoBehaviour, IInit
                 _requirements.Add((SkillReq)i, 0);
             }
         }
-        print(skill.ToString());
         _requirements[skill]++;
+        // print($"{skill} {_requirements[skill]}");
+        // if (skill == SkillReq.Hit || skill == SkillReq.Miss)
+        // {
+        //     print($"Strike (hit + miss) {_requirements[SkillReq.Hit] + _requirements[SkillReq.Miss]}");
+        // }
     }
 
 

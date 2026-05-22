@@ -73,17 +73,20 @@ public class Drop : MonoBehaviour
         if (distance > _attractDistance) return;
         Vector3 direction = Utils.Direction(_myTransform.position, Ga.me.playerTransform.position).normalized;
         _speed *= 1.01f;
-        // _speed = Mathf.Clamp(_speed, 0, 30);
-       // _myTransform.position += _speed * Time.deltaTime * direction;
         myRigid.AddForce(_speed * direction);
         
         if (distance > _pickUpDistance) return;
-        switch (MyDrop)
-        {
-            case DropType.Heal:
-                break;
-        }
         _ready = false;
+        StartCoroutine(EndDelay());
+        
+    }
+
+    IEnumerator EndDelay()
+    {
+        parMeshes.gameObject.SetActive(false);
+        GetComponent<Collider>().enabled = false;
+        myRigid.isKinematic = true;
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 }

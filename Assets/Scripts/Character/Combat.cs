@@ -13,7 +13,7 @@ public class Combat : EventBus, IInit
         set
         {
             _br = value;
-            _targets = value.faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
+            _targets = value.Faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
             
             IEnumerator SearchTargetCoroutine(float searchWait)
@@ -52,13 +52,12 @@ public class Combat : EventBus, IInit
     protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
-    protected int counterHits;
-    protected int counterHitReceived;
 
 
+    public virtual void SkillReqCallback(SkillReq skillIncreased) { }
     public virtual void FromAnimEv_Attack(int num = 0)
     {
-        counterHits++;
+        
     }
 
     public virtual void FromAnimEv_Ultimate(int num = 0)
