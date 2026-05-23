@@ -21,7 +21,7 @@ public class S_Bullet : Spell
         spellParticles.InitializeMe(mainSpell);
     }
 
-    protected override void CallEv_OnTriggerEnter(Collider other)
+    public override void CallEv_OnTriggerEnter(Collider other)
     {
         base.CallEv_OnTriggerEnter(other);
         if (injectHealthData.damage.Count > 0 &&
@@ -62,9 +62,10 @@ public class S_Bullet : Spell
             }
 
         }
+        
     }
 
-    protected override void CallEv_OnCollisionEnter(Collision collision)
+    public override void CallEv_OnCollisionEnter(Collision collision)
     {
         base.CallEv_OnCollisionEnter(collision);
         if (_myBulletTransporter.bounce > 0)

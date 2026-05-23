@@ -52,12 +52,17 @@ public class SpellMain : MonoBehaviour
     public SpellTransporter transporter;
     [SerializeField, TextArea, HideLabel] string description;
 
-    public System.Action<Collider> onTrigEnter;
-    public System.Action<Collider> onTrigExit;
-    public System.Action<Collision> onCollisionEnter;
+    #region EVENTS, CALLBACKS
+    
     public System.Action onEnd;
     public System.Action<ITakeDamage> onHitTarget;
     System.Action _onAfterEffect;
+    void CallEv_OnEnd()
+    {
+        _onAfterEffect?.Invoke();
+        Destroy(gameObject);
+    }
+    #endregion
 
     /// <summary>
     /// Damage is from inspector, no after effect
@@ -95,14 +100,9 @@ public class SpellMain : MonoBehaviour
         _onAfterEffect = onAfterEffect;
         InitializeMe(brain); 
     }
-    void CallEv_OnEnd()
-    {
-        _onAfterEffect?.Invoke();
-        Destroy(gameObject);
-    }
-    
-    void OnTriggerEnter(Collider other) => onTrigEnter?.Invoke(other);
-    void OnTriggerExit(Collider other) => onTrigExit?.Invoke(other);
-    void OnCollisionEnter(Collision collision) => onCollisionEnter?.Invoke(collision);
+
+    void OnTriggerEnter(Collider other) => spell.CallEv_OnTriggerEnter(other);
+    void OnTriggerExit(Collider other) => spell.CallEv_OnTriggerExit(other);
+    void OnCollisionEnter(Collision collision) => spell.CallEv_OnCollisionEnter(collision);
 
 }

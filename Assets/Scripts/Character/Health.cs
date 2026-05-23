@@ -50,6 +50,7 @@ public class Health: EventBus, ITakeDamage, IInit
     }
     [ShowInInspector, ReadOnly] float _healthCurrent;
     [ShowInInspector, ReadOnly] float _healthMax;
+    public bool IsAtFullHealth() => HealthCurrent >= _healthMax;
     public bool IsInitialized { get; set; }
     
     [Title("Particles")]
@@ -61,6 +62,23 @@ public class Health: EventBus, ITakeDamage, IInit
 
     public void TakeDamage(InjectHealth dam)
     {
+        FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
+        if (dam.canBeBlocked)
+        {
+            Br.combat.CheckBlock(out bool blocked);
+            if (blocked)
+            {
+                ft.SpawnMe("Blocked!", Color.gold); 
+                return;
+            }
+            Br.combat.CheckDodge(out bool dodged);
+            if (dodged)
+            {
+                ft.SpawnMe("Dodged!", Color.moccasin); 
+                return;
+            }
+        }
+
         float totalDamage = 0f;
         foreach (KeyValuePair<Element, float> item in dam.damage)
         {
@@ -76,36 +94,26 @@ public class Health: EventBus, ITakeDamage, IInit
             }
         }
         HealthCurrent -= totalDamage;
-        Br.myChar.RegisterSkillReqIncrease(SkillReq.GetHit);
+        Br.myChar.ProcessSkillReqIncrease(SkillReq.GetHit);
         Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
-        FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Ga.me.floatingContainer);
-        ft.SpawnMe(dam, Br.myTransform.position);
+        ft.SpawnMe(dam);
         
         if (HealthCurrent <= 0)
         {
             if (dam.attacker != null)
             {
                 Brain brainAttacker = dam.attacker.GetComponent<Brain>();
-                brainAttacker.myChar.RegisterSkillReqIncrease(SkillReq.Kill);
+                brainAttacker.myChar.ProcessSkillReqIncrease(SkillReq.Kill);
             }
             Death();
             return;
         }
-        if (dam.attacker == null) return;
         
         Br.loco.Hit();
+        if (dam.attacker == null) return;
         Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized, dam.knockBack);
-        if (dam.canBeBlocked)
-        {
-            Br.combat.SkillReqCallback(SkillReq.Block);
-        }
-        // if (dam.canBeBlocked && Br.myTransform == Ga.me.playerTransform)
-        // {
-        //     PlayerCombat pc = Br.combat as PlayerCombat;
-        //     pc.HealthHitCallback(dam);
-        //     return;
-        // }
-
+        if (Br.myTransform == Ga.me.playerTransform) return;
+        
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");

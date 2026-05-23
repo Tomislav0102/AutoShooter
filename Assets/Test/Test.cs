@@ -7,6 +7,9 @@ using TMPro;
 
 public class Test : MonoBehaviour
 {
+    public int num1;
+    public int modulo;
+    public int result;
     
     [Button]
     void TestMethod()
@@ -14,6 +17,10 @@ public class Test : MonoBehaviour
         
     }
 
+    void Update()
+    {
+        result = num1 % modulo;
+    }
 }
 
 

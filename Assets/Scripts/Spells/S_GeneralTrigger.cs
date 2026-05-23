@@ -28,7 +28,7 @@ public class S_GeneralTrigger : Spell
         spellParticles.InitializeMe(mainSpell);
     }
 
-    protected override void CallEv_OnTriggerEnter(Collider other)
+    public override void CallEv_OnTriggerEnter(Collider other)
     {
         base.CallEv_OnTriggerEnter(other);
         if (!onEnter) return;
@@ -75,7 +75,7 @@ public class S_GeneralTrigger : Spell
     }
 
     
-    protected override void CallEv_OnTriggerExit(Collider other)
+    public override void CallEv_OnTriggerExit(Collider other)
     {
         base.CallEv_OnTriggerExit(other);
         if (!onExit) return;

@@ -2274,13 +2274,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 885458253}
+  - component: {fileID: 885458254}
   m_Layer: 14
   m_Name: TEST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &885458253
 Transform:
   m_ObjectHideFlags: 0
@@ -2296,6 +2297,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &885458254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885458251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test
+  num1: 0
+  modulo: 0
+  result: 0
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0

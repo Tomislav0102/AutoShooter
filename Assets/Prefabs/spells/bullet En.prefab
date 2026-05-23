@@ -19810,13 +19810,12 @@ MonoBehaviour:
       Entry: 8
       Data: 
   myFactionTarget: 1
-  areaOfEffect: 0.2
+  areaOfEffect: 0.3
   startDelay: 0
   durationType: 2
   lifeTime: 10
   terminateOnHit: 1
   followTarget: {fileID: 0}
-  colliderType: 0
   spellParticles:
     ps:
     - {fileID: 6968181303640538533}

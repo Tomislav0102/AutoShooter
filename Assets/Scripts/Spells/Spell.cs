@@ -79,24 +79,11 @@ public class Spell : SerializedMonoBehaviour
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         
         MyPhase = Phase.BeginWarning;
-        
-        main.onTrigEnter += CallEv_OnTriggerEnter;
-        main.onTrigExit += CallEv_OnTriggerExit;
-        main.onCollisionEnter += CallEv_OnCollisionEnter;
-        main.onEnd += CallEv_End;
     }
 
-    void CallEv_End()
-    {
-        main.onTrigEnter -= CallEv_OnTriggerEnter;
-        main.onTrigExit -= CallEv_OnTriggerExit;
-        main.onCollisionEnter -= CallEv_OnCollisionEnter;
-        main.onEnd -= CallEv_End;
-    }
-
-    protected virtual void CallEv_OnCollisionEnter(Collision collision) { }
-    protected virtual void CallEv_OnTriggerExit(Collider other) { }
-    protected virtual void CallEv_OnTriggerEnter(Collider other) { }
+    public virtual void CallEv_OnCollisionEnter(Collision collision) { }
+    public virtual void CallEv_OnTriggerExit(Collider other) { }
+    public virtual void CallEv_OnTriggerEnter(Collider other) { }
 
 
     protected virtual void Update()

@@ -21,7 +21,7 @@ public class FloatingText : MonoBehaviour
     int _widthSingle = 100;
     
     
-    public void SpawnMe(InjectHealth dam, Vector3 spawnPos, float offsetY = 2f)
+    public void SpawnMe(InjectHealth dam, float offsetY = 2f)
     {
         foreach (KeyValuePair<Element, float> item in dam.damage)
         {
@@ -41,7 +41,19 @@ public class FloatingText : MonoBehaviour
         
         GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * dam.damage.Count, 0);
         GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
-        _startPosition = spawnPos; 
+        _startPosition = transform.position; 
+        _startingOffsetY = offsetY;
+        
+        _initialized = true;
+    }    
+    public void SpawnMe(string st, Color col, float offsetY = 2f)
+    {
+        myTexts[0].enabled = true;
+        myTexts[0].text = st;
+        myTexts[0].color = col;
+        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle, 0);
+        GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
+        _startPosition = transform.position; 
         _startingOffsetY = offsetY;
         
         _initialized = true;

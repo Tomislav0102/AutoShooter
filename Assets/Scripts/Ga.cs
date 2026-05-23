@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
+
 public class Ga : SerializedMonoBehaviour
 {
     public Drop dropPrefab;

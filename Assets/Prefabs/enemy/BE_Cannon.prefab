@@ -420,6 +420,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: <Faction>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: 'myMaterials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 349872d92f8cccf459637a180931f050, type: 2}
@@ -483,6 +487,18 @@ PrefabInstance:
       propertyPath: moveFightingDefault
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 189e947ccb389ae45b6dc7615cf67dbf, type: 2}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3cc4a4a44579424ba324956da91b893, type: 2}
     - target: {fileID: 7911443292519778484, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Controller
       value: 
@@ -532,10 +548,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_AllTypes
+  <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
   detectRange: 3.4028235e+38
   meleeWeapon: {fileID: 0}
-  rangedWeapon: {fileID: 251161728510779915, guid: 83c505c99ecfc8a46a55083dca483495, type: 3}
+  rangedWeapon: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
   rangeRanged: 1.1111111e+15
   spawnPoint: {fileID: 1978644124713137738}
 --- !u!114 &8358142056746059755 stripped

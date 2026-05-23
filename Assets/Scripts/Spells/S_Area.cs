@@ -35,13 +35,13 @@ public class S_Area : Spell
         }
     }
 
-    protected override void CallEv_OnTriggerEnter(Collider other)
+    public override void CallEv_OnTriggerEnter(Collider other)
     {
         base.CallEv_OnTriggerEnter(other);
         collidersDetected.Add(other);
     }
 
-    protected override void CallEv_OnTriggerExit(Collider other)
+    public override void CallEv_OnTriggerExit(Collider other)
     {
         base.CallEv_OnTriggerExit(other);
         collidersDetected.Remove(other);
