@@ -17,17 +17,20 @@ public class P_Knight : PlayerCombat
             base.Br = value;
             damMelee = new Dictionary<Element, float>()
             {
-                 //{ Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
-                //  { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                //  { Element.Magic, 2f },
+               //  { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                  { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
+                  { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
+            };
+            damRanged = new Dictionary<Element, float>()
+            {
+                { Element.Physical, Br.myChar.GetStat(Stats.RangedDamage) },
             };
             damUltimate = new Dictionary<Element, float>()
             {
                 { Element.Physical, -Br.myChar.GetStat(Stats.MagicDamage) },
             };
-            Br.myChar.onSkillReqValidated += CallEv_OnSkillReqValidated;
             IsInitialized = true;
             
             SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -46,7 +49,8 @@ public class P_Knight : PlayerCombat
         SpellMain melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (ITakeDamage it) =>
         {
-            Br.myChar.ProcessSkillReqIncrease(it == null ? SkillReq.Miss : SkillReq.Hit);
+            if (it == null) CombatEventRegistered(CombatEvent.Miss);
+            else CombatEventRegistered(CombatEvent.Hit, it.Br);
         };
         melee.InitializeMe(Br, damMelee);
     }
@@ -65,29 +69,40 @@ public class P_Knight : PlayerCombat
         base.CallEv_OnUltimateActivated();
         Br.loco.CastSpell();
     }
-    
-    void CallEv_OnSkillReqValidated(SkillReq skill)
+
+    public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
     {
-        switch (skill)
+        base.CombatEventRegistered(combatEvent, otherBrain);
+        string st = otherBrain == null ? "" : $"on {otherBrain.name}";
+//        print($"{combatEvent} {st}");
+        switch (combatEvent)
         {
-            case SkillReq.Strike:
-                if (!Br.health.IsAtFullHealth()) return;
-                SpellMain arc = Instantiate(Ga.me.spells.sweepingArc, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                arc.InitializeMe(Br, new Dictionary<Element, float>()
-                {
-                    { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
-                });
+            case CombatEvent.Strike:
+                // if (!Br.health.IsAtFullHealth()) return;
+                // SpellMain arc = Instantiate(Ga.me.spells.sweepingArc, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                // arc.InitializeMe(Br, new Dictionary<Element, float>()
+                // {
+                //     { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) },
+                // });
                 break;
-            case SkillReq.Hit:
+            case CombatEvent.Hit:
                 break;
-            case SkillReq.Miss:
+            case CombatEvent.Miss:
+                // if (Random.value > 0.1f) return;
+                // SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                // shieldThrow.InitializeMe(Br, damRanged);
                 break;
-            case SkillReq.GetHit:
+            case CombatEvent.GetHit:
                 break;
-            case SkillReq.Block:
+            case CombatEvent.Block:
                 StartCoroutine(SpellPushDelay());
                 break;
-            case SkillReq.Kill:
+            case CombatEvent.Kill:
+                if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))
+                {
+                    print("magic damage increased");
+                    Br.myChar.ChangeStat(Stats.MagicDamage, 1);
+                }
                 break;
         }
         return;
@@ -98,7 +113,6 @@ public class P_Knight : PlayerCombat
             SpellMain push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             push.InitializeMe(Br);
         }
-
     }
 
 

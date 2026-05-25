@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class InjectHealth 
 {
-    [HideInInspector] public Transform attacker;
+    [HideInInspector] public Brain myBrain;
     public bool canBeBlocked;
     [Range(0, 20)] public int knockBack;
     public Dictionary<Element, float> damage =  new Dictionary<Element, float>();

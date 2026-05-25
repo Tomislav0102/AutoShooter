@@ -65,7 +65,7 @@ public class Health: EventBus, ITakeDamage, IInit
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
         if (dam.canBeBlocked)
         {
-            Br.combat.CheckBlock(out bool blocked);
+            Br.combat.CheckBlock(out bool blocked, dam.myBrain);
             if (blocked)
             {
                 ft.SpawnMe("Blocked!", Color.gold); 
@@ -93,31 +93,27 @@ public class Health: EventBus, ITakeDamage, IInit
                 if (ps != null) ps.Play();
             }
         }
-        HealthCurrent -= totalDamage;
-        Br.myChar.ProcessSkillReqIncrease(SkillReq.GetHit);
-        Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
+        Br.combat.CombatEventRegistered(CombatEvent.GetHit, dam.myBrain);
+       // Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
         ft.SpawnMe(dam);
         
+        HealthCurrent -= totalDamage;
         if (HealthCurrent <= 0)
         {
-            if (dam.attacker != null)
-            {
-                Brain brainAttacker = dam.attacker.GetComponent<Brain>();
-                brainAttacker.myChar.ProcessSkillReqIncrease(SkillReq.Kill);
-            }
+            if (dam.myBrain != null) dam.myBrain.combat.CombatEventRegistered(CombatEvent.Kill, Br);
             Death();
             return;
         }
         
         Br.loco.Hit();
-        if (dam.attacker == null) return;
-        Br.loco.KnockBack((Br.myTransform.position - dam.attacker.position).normalized, dam.knockBack);
+        if (dam.myBrain == null) return;
+        Br.loco.KnockBack((Br.myTransform.position - dam.myBrain.myTransform.position).normalized, dam.knockBack);
         if (Br.myTransform == Ga.me.playerTransform) return;
         
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
-            Br.combat.MyTarget =dam.attacker;
+            Br.combat.MyTarget = dam.myBrain.myTransform;
         }
     }
 

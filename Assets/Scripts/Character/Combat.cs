@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -51,25 +52,44 @@ public class Combat : EventBus, IInit
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;
 
-
     //cache
     protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
 
+    public virtual void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
+    {
+        switch (combatEvent)
+        {
+            case CombatEvent.Strike:
+                break;
+            case CombatEvent.Hit:
+                CombatEventRegistered(CombatEvent.Strike);
+                break;
+            case CombatEvent.Miss:
+                CombatEventRegistered(CombatEvent.Strike);
+                break;
+            case CombatEvent.GetHit:
+                break;
+            case CombatEvent.Block:
+                break;
+            case CombatEvent.Kill:
+                break;
+        }   
+    }
 
-    public void CheckBlock(out bool blocked)
+    public void CheckBlock(out bool blocked, Brain otherBrain = null)
     {
         blocked = _timerBlockReady >= 0 && Random.value * 100 < Br.myChar.GetStat(Stats.Block);
         if (!blocked) return;
-        _timerBlockReady = CONST_BlockTimer;
         StartCoroutine(ResetBlockTimer());
-        Br.myChar.ProcessSkillReqIncrease(SkillReq.Block);
+        CombatEventRegistered(CombatEvent.Block, otherBrain);
         Br.loco.Block();
         return;
         
         IEnumerator ResetBlockTimer()
         {
+            _timerBlockReady = CONST_BlockTimer;
             while (_timerBlockReady > 0)
             {
                 _timerBlockReady -= Time.deltaTime;

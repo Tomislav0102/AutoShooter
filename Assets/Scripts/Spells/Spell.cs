@@ -70,7 +70,7 @@ public class Spell : SerializedMonoBehaviour
     {
         main = mainSpell;
         injectHealthData.damage = useInspectorDamageData ? inspectorDamage : main.damage;
-        injectHealthData.attacker = main.OwnersBrain.myTransform;
+        injectHealthData.myBrain = main.OwnersBrain;
         main.myRigid.isKinematic = true;
         main.visualization.localScale = areaOfEffect * Vector3.one;
         main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
@@ -95,7 +95,7 @@ public class Spell : SerializedMonoBehaviour
                 break;
             case Phase.SpellRuns:
                 if (followTarget != null) main.myTransform.position = followTarget.position;
-                if (_timerPhase > lifeTime) MyPhase = Phase.EndEnd;
+                if (durationType == DurationType.Specific && _timerPhase > lifeTime) MyPhase = Phase.EndEnd;
                 break;
         }
         _timerPhase += Time.deltaTime;

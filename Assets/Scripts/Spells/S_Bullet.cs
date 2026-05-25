@@ -16,8 +16,11 @@ public class S_Bullet : Spell
     {
         base.InitializeMe(mainSpell);
         _myBulletTransporter = main.transporter as BulletTransporter;
-        solidCollider.enabled = _myBulletTransporter.bounce > 0;
-        solidCollider.radius = main.mySphereCollider.radius + 0.01f;
+        if (solidCollider != null)
+        {
+            solidCollider.enabled = _myBulletTransporter.bounce > 0;
+            solidCollider.radius = main.mySphereCollider.radius + 0.01f;
+        }
         spellParticles.InitializeMe(mainSpell);
     }
 

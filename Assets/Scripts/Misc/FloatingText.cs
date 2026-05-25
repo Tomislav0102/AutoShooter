@@ -13,6 +13,7 @@ public class FloatingText : MonoBehaviour
     
     [SerializeField] RectTransform myTransform;
     [SerializeField] TextMeshProUGUI[] myTexts;
+    Color[] _startColors;
     bool _initialized;
     float _lifeTime = 3f;
     float _timer;
@@ -23,6 +24,7 @@ public class FloatingText : MonoBehaviour
     
     public void SpawnMe(InjectHealth dam, float offsetY = 2f)
     {
+        _startColors = new Color[myTexts.Length];
         foreach (KeyValuePair<Element, float> item in dam.damage)
         {
             int index = (int)item.Key;
@@ -30,30 +32,31 @@ public class FloatingText : MonoBehaviour
             if (item.Value >= 0)
             {
                 myTexts[index].text = $" <sprite index={index}>{item.Value} ";
-                myTexts[index].color = Ga.me.gameData.GetElement((Element)index).col;
+                _startColors[index] = Ga.me.gameData.GetElement((Element)index).col;
             }
             else // healing
             {
                 myTexts[index].text =(-item.Value).ToString("0");
-                myTexts[index].color = Ga.me.gameData.colHeal;
+                _startColors[index] = Ga.me.gameData.colHeal;
             }
         }
         
         GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * dam.damage.Count, 0);
         GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
-        _startPosition = transform.position; 
+        _startPosition = myTransform.position; 
         _startingOffsetY = offsetY;
         
         _initialized = true;
     }    
     public void SpawnMe(string st, Color col, float offsetY = 2f)
     {
+        _startColors = new Color[myTexts.Length];
         myTexts[0].enabled = true;
         myTexts[0].text = st;
-        myTexts[0].color = col;
+        _startColors[0] = col;
         GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle, 0);
         GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
-        _startPosition = transform.position; 
+        _startPosition = myTransform.position; 
         _startingOffsetY = offsetY;
         
         _initialized = true;
@@ -70,7 +73,7 @@ public class FloatingText : MonoBehaviour
         myTransform.position = Ga.me.cam.WorldToScreenPoint(targetPos);
         for (int i = 0; i < myTexts.Length; i++)
         {
-            myTexts[i].color = Color.Lerp(Ga.me.gameData.GetElement((Element)i).col, _endColor, _timer / _lifeTime);
+            myTexts[i].color = Color.Lerp(_startColors[i], _endColor, _timer / _lifeTime);
         }
         if (_timer >= _lifeTime) EndMe();
     }
