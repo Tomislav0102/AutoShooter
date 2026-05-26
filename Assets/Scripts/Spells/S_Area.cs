@@ -27,23 +27,24 @@ public class S_Area : Spell
         foreach (Collider item in collidersDetected)
         {
             if (item == null) continue; //sometimes its null with afterEffect (Unity bug?)
-            if (item.TryGetComponent(out ITakeDamage takeDamage) && 
-                Utils.CanTargetFaction(main.OwnersBrain.Faction, takeDamage.Br.Faction, myFactionTarget))
+            if (item.TryGetComponent(out Brain collBrain) && 
+                Utils.CanTargetFaction(main.OwnersBrain.Faction, collBrain.Faction, myFactionTarget))
             {
-                takeDamage.TakeDamage(injectHealthData);
+                collBrain.health.TakeDamage(injectHealthData);
+                main.onHitTarget?.Invoke(collBrain);
             }
         }
     }
 
-    public override void CallEv_OnTriggerEnter(Collider other)
+    public override void OnTriggerEnterCallBack(Collider other)
     {
-        base.CallEv_OnTriggerEnter(other);
+        base.OnTriggerEnterCallBack(other);
         collidersDetected.Add(other);
     }
 
-    public override void CallEv_OnTriggerExit(Collider other)
+    public override void OnTriggerExitCallBack(Collider other)
     {
-        base.CallEv_OnTriggerExit(other);
+        base.OnTriggerExitCallBack(other);
         collidersDetected.Remove(other);
     }
 

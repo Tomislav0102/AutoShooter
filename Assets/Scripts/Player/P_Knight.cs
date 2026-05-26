@@ -17,7 +17,7 @@ public class P_Knight : PlayerCombat
             base.Br = value;
             damMelee = new Dictionary<Element, float>()
             {
-               //  { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                //  { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
                   { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
@@ -33,9 +33,13 @@ public class P_Knight : PlayerCombat
             };
             IsInitialized = true;
             
-            SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            reflect.spell.followTarget = Br.myTransform;
-            reflect.InitializeMe(Br);
+            // SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            // reflect.spell.followTarget = Br.myTransform;
+            // reflect.InitializeMe(Br);
+            //
+            // SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+            // aura.spell.followTarget = Br.myTransform;
+            // aura.InitializeMe(Br);
         }
     }
 
@@ -47,10 +51,10 @@ public class P_Knight : PlayerCombat
     {
         base.FromAnimEv_Attack(num);
         SpellMain melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-        melee.onHitTarget += (ITakeDamage it) =>
+        melee.onHitTarget += (Brain br) =>
         {
-            if (it == null) CombatEventRegistered(CombatEvent.Miss);
-            else CombatEventRegistered(CombatEvent.Hit, it.Br);
+            if (br == null) CombatEventRegistered(CombatEvent.Miss);
+            else CombatEventRegistered(CombatEvent.Hit, br);
         };
         melee.InitializeMe(Br, damMelee);
     }
@@ -88,9 +92,9 @@ public class P_Knight : PlayerCombat
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
-                // if (Random.value > 0.1f) return;
-                // SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                // shieldThrow.InitializeMe(Br, damRanged);
+                if (Random.value > 0.1f) return;
+                SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                shieldThrow.InitializeMe(Br, damRanged);
                 break;
             case CombatEvent.GetHit:
                 break;
@@ -100,8 +104,7 @@ public class P_Knight : PlayerCombat
             case CombatEvent.Kill:
                 if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))
                 {
-                    print("magic damage increased");
-                    Br.myChar.ChangeStat(Stats.MagicDamage, 1);
+                    Br.myChar.ChangeStat(Character.BuffType.Skill,Stats.MagicDamage, 1);
                 }
                 break;
         }

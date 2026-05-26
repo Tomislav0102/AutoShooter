@@ -7,24 +7,25 @@ using UnityEngine;
 public class S_Hook : Spell
 {
     float _timer = float.MaxValue;
-    ITakeDamage _anchorTakeDamage;
+    Brain _anchorBrain;
 
     public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
-        if (followTarget == null || followTarget.GetComponent<ITakeDamage>() == null) MyPhase = Phase.EndStart;
-        _anchorTakeDamage = followTarget.GetComponent<ITakeDamage>();
+        if (followTarget == null || followTarget.GetComponent<Brain>() == null) MyPhase = Phase.EndStart;
+        _anchorBrain = followTarget.GetComponent<Brain>();
     }
 
     protected override void Update()
     {
         base.Update();
+        if (!main.spell.IsActive) return;
         _timer += Time.deltaTime;
         if (_timer > 1f)
         {
             _timer = 0f;
-            _anchorTakeDamage.TakeDamage(injectHealthData);
-            if (durationType == DurationType.Instant) MyPhase = Phase.EndStart;
+            _anchorBrain.health.TakeDamage(injectHealthData);
+            main.onHitTarget?.Invoke(_anchorBrain);
         }
     }
 }

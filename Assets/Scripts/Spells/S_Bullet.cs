@@ -24,14 +24,15 @@ public class S_Bullet : Spell
         spellParticles.InitializeMe(mainSpell);
     }
 
-    public override void CallEv_OnTriggerEnter(Collider other)
+    public override void OnTriggerEnterCallBack(Collider other)
     {
-        base.CallEv_OnTriggerEnter(other);
+        base.OnTriggerEnterCallBack(other);
         if (injectHealthData.damage.Count > 0 &&
-            other.TryGetComponent(out ITakeDamage takeDamage) &&
-            Utils.CanTargetFaction(main.OwnersBrain.Faction, takeDamage.Br.Faction, myFactionTarget))
+            other.TryGetComponent(out Brain targetBrain) &&
+            Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
         {
-            takeDamage.TakeDamage(injectHealthData);
+            targetBrain.health.TakeDamage(injectHealthData);
+            main.onHitTarget?.Invoke(targetBrain);
             if (_myBulletTransporter.ricochet > 0)
             {
                 float range = 3f;
@@ -41,8 +42,8 @@ public class S_Bullet : Spell
                 foreach (Collider item in colliders)
                 {
                     if (item == other) continue;
-                    if (item.TryGetComponent(out ITakeDamage itemTakeDamage) &&
-                        Utils.CanTargetFaction(main.OwnersBrain.Faction, itemTakeDamage.Br.Faction, myFactionTarget))
+                    if (item.TryGetComponent(out Brain ricochetTargetBrain) &&
+                        Utils.CanTargetFaction(main.OwnersBrain.Faction, ricochetTargetBrain.Faction, myFactionTarget))
                     {
                         myTargets.Add(item.transform);
                     }
@@ -68,9 +69,9 @@ public class S_Bullet : Spell
         
     }
 
-    public override void CallEv_OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnterCallBack(Collision collision)
     {
-        base.CallEv_OnCollisionEnter(collision);
+        base.OnCollisionEnterCallBack(collision);
         if (_myBulletTransporter.bounce > 0)
         {
             _myBulletTransporter.BounceMethod(collision.GetContact(0).normal);

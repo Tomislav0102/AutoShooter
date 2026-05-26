@@ -18,6 +18,7 @@ public class SpellParticles
 
     public void InitializeMe(SpellMain spellMain)
     {
+        if (ps.Length == 0) return;
         foreach (ParticleSystem particleSystem in ps)
         {
             if (particleSystem == null)

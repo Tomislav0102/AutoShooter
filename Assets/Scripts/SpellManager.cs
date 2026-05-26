@@ -20,6 +20,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain sweepingArc;
    public SpellMain reflectProjectile;
    public SpellMain shieldThrow;
+   public SpellMain auraLowerAttSpeed;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
    public SpellGroup groupOrbitalShields;

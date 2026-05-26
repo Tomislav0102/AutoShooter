@@ -20,7 +20,7 @@ public class S_OverlapSphere : Spell
 
     void Hit()
     {
-        ITakeDamage callbackTakeDamage = null;
+        Brain targetBrain = null;
         
         Collider[] colliders = Physics.OverlapSphere(main.myTransform.position,
             areaOfEffect * 0.5f,
@@ -36,16 +36,12 @@ public class S_OverlapSphere : Spell
                     collidersBrain.loco.KnockBack(dir, injectHealthData.knockBack);
                 }
 
-                if (injectHealthData.damage.Count > 0 && 
-                    item.TryGetComponent(out ITakeDamage takeDamage))
-                {
-                    takeDamage.TakeDamage(injectHealthData);
-                    callbackTakeDamage = takeDamage;
-                }
+                collidersBrain.health.TakeDamage(injectHealthData);
+                targetBrain = collidersBrain;
             }
         }
         
-        main.onHitTarget?.Invoke(callbackTakeDamage);
+        main.onHitTarget?.Invoke(targetBrain);
         spellParticles.InitializeMe(main);
 
     }

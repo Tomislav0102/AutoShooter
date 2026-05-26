@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -53,19 +54,25 @@ public class SpellMain : MonoBehaviour
     [SerializeField, TextArea, HideLabel] string description;
 
     #region EVENTS, CALLBACKS
-    
     public System.Action onEnd;
-    public System.Action<ITakeDamage> onHitTarget;
-    System.Action _onAfterEffect;
+    public System.Action<Brain> onHitTarget;
+    System.Action _onAfterSpell;
     void CallEv_OnEnd()
     {
-        _onAfterEffect?.Invoke();
-        Destroy(gameObject);
+        _onAfterSpell?.Invoke();
+        StartCoroutine(DelayForParticles());
+
+        IEnumerator DelayForParticles()
+        {
+            spell.IsActive = false;
+            yield return new WaitForSeconds(5f);
+            Destroy(gameObject);
+        }
     }
     #endregion
 
     /// <summary>
-    /// Damage is from inspector, no after effect
+    /// Damage is from inspector, no after spell
     /// </summary>
     public void InitializeMe(Brain brain)
     {
@@ -74,7 +81,7 @@ public class SpellMain : MonoBehaviour
         transporter.InitializeMe(this);
     }
     /// <summary>
-    /// Damage is from code, no after effect
+    /// Damage is from code, no after spell
     /// </summary>
     public void InitializeMe(Brain brain, Dictionary<Element, float> dam)
     {
@@ -83,26 +90,35 @@ public class SpellMain : MonoBehaviour
         InitializeMe(brain);
     }
     /// <summary>
-    /// Damage is from inspector, with after effect
+    /// Damage is from inspector, with after spell
     /// </summary>
-    public void InitializeMe(Brain brain, System.Action onAfterEffect)
+    public void InitializeMe(Brain brain, System.Action onAfterSpell)
     {
-        _onAfterEffect = onAfterEffect;
+        _onAfterSpell = onAfterSpell;
         InitializeMe(brain);        
     }
     /// <summary>
-    /// Damage is from code, with after effect
+    /// Damage is from code, with after spell
     /// </summary>
-    public void InitializeMe(Brain brain, Dictionary<Element, float> dam, System.Action onAfterEffect)
+    public void InitializeMe(Brain brain, Dictionary<Element, float> dam, System.Action onAfterSpell)
     {
         if (dam == null) dam = new Dictionary<Element, float>();
         damage = dam;
-        _onAfterEffect = onAfterEffect;
+        _onAfterSpell = onAfterSpell;
         InitializeMe(brain); 
     }
 
-    void OnTriggerEnter(Collider other) => spell.CallEv_OnTriggerEnter(other);
-    void OnTriggerExit(Collider other) => spell.CallEv_OnTriggerExit(other);
-    void OnCollisionEnter(Collision collision) => spell.CallEv_OnCollisionEnter(collision);
+    void OnTriggerEnter(Collider other)
+    {
+        if (spell.IsActive) spell.OnTriggerEnterCallBack(other);
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (spell.IsActive) spell.OnTriggerExitCallBack(other);
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (spell.IsActive) spell.OnCollisionEnterCallBack(collision);
+    }
 
 }

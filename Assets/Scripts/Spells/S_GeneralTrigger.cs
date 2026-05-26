@@ -28,56 +28,54 @@ public class S_GeneralTrigger : Spell
         spellParticles.InitializeMe(mainSpell);
     }
 
-    public override void CallEv_OnTriggerEnter(Collider other)
+    public override void OnTriggerEnterCallBack(Collider other)
     {
-        base.CallEv_OnTriggerEnter(other);
+        base.OnTriggerEnterCallBack(other);
         if (!onEnter) return;
         if (!CheckColliderType(other.transform.position)) return;
         
-        if (hitEffects.Contains(HitEffect.Damage) &&
-            injectHealthData.damage.Count > 0 && 
-            other.TryGetComponent(out ITakeDamage takeDamage) && 
-            Utils.CanTargetFaction(main.OwnersBrain.Faction, takeDamage.Br.Faction, myFactionTarget))
+        if (other.TryGetComponent(out Brain targetBrain))
         {
-            takeDamage.TakeDamage(injectHealthData);
+            main.onHitTarget?.Invoke(targetBrain);
+            if (hitEffects.Contains(HitEffect.Damage) &&
+                injectHealthData.damage.Count > 0 && 
+                Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
+            {
+                targetBrain.health.TakeDamage(injectHealthData);
+            }
+            
+            if (hitEffects.Contains(HitEffect.StatChange) && !collidersDetected.Contains(other))
+            {
+                collidersDetected.Add(other);
+                //change stats
+            }
         }
-
-        if (hitEffects.Contains(HitEffect.Nullify) &&
-            other.TryGetComponent(out SpellMain mainToNullify) && 
-            Utils.CanTargetFaction(main.OwnersBrain.Faction, mainToNullify.OwnersBrain.Faction, myFactionTarget))
+        
+        if (other.TryGetComponent(out SpellMain targetSpell) && 
+            Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
         {
             for (int i = 0; i < spellsToAffect.Length; i++)
             {
-                if (mainToNullify.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
-                mainToNullify.spell.MyPhase = Phase.EndStart;
-                break;
+                if (targetSpell.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
+                main.onHitTarget?.Invoke(targetSpell.OwnersBrain); //might not work
+                
+                if (hitEffects.Contains(HitEffect.Nullify))  targetSpell.spell.MyPhase = Phase.EndStart;
+                
+                if (hitEffects.Contains(HitEffect.Reflect))
+                {
+                    Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
+                    targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
+                }
             }
-        }
-        if (hitEffects.Contains(HitEffect.Reflect) &&
-            other.TryGetComponent(out SpellMain mainToReflect) && 
-            Utils.CanTargetFaction(main.OwnersBrain.Faction, mainToReflect.OwnersBrain.Faction, myFactionTarget))
-        {
-            for (int i = 0; i < spellsToAffect.Length; i++)
-            {
-                if (mainToReflect.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
-                mainToReflect.transporter.ReflectProjectile(main.OwnersBrain);
-                break;
-            }
-        }
-
-        if (hitEffects.Contains(HitEffect.StatChange) && !collidersDetected.Contains(other))
-        {
-            collidersDetected.Add(other);
-            //change stats
         }
         
         main.spell.MyPhase = Phase.EndStart;
     }
 
     
-    public override void CallEv_OnTriggerExit(Collider other)
+    public override void OnTriggerExitCallBack(Collider other)
     {
-        base.CallEv_OnTriggerExit(other);
+        base.OnTriggerExitCallBack(other);
         if (!onExit) return;
         if (!CheckColliderType(other.transform.position)) return;
         if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))

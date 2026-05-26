@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Spell : SerializedMonoBehaviour
 {
-
+    [ReadOnly] public bool IsActive = true;
     public enum Phase
     {
         BeginWarning,
@@ -44,14 +44,11 @@ public class Spell : SerializedMonoBehaviour
     float _timerPhase;
     
     protected SpellMain main;
-  //  [ReadOnly] public Faction myFaction;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] float startDelay;
-    protected enum DurationType { Instant, Endless, Specific }
-    [SerializeField] protected DurationType durationType = DurationType.Instant;
-    bool ShowLifeTime() => durationType == DurationType.Specific;
-    [ShowIf(nameof(ShowLifeTime))] public float lifeTime;
+    [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
+    public float lifeTime;
     [SerializeField] bool terminateOnHit = true;
     [ReadOnly] public Transform followTarget;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
@@ -81,13 +78,14 @@ public class Spell : SerializedMonoBehaviour
         MyPhase = Phase.BeginWarning;
     }
 
-    public virtual void CallEv_OnCollisionEnter(Collision collision) { }
-    public virtual void CallEv_OnTriggerExit(Collider other) { }
-    public virtual void CallEv_OnTriggerEnter(Collider other) { }
+    public virtual void OnCollisionEnterCallBack(Collision collision) { }
+    public virtual void OnTriggerExitCallBack(Collider other) { }
+    public virtual void OnTriggerEnterCallBack(Collider other) { }
 
 
     protected virtual void Update()
     {
+        if (!IsActive) return;
         switch (MyPhase)
         {
             case Phase.BeginWarning:
@@ -95,7 +93,19 @@ public class Spell : SerializedMonoBehaviour
                 break;
             case Phase.SpellRuns:
                 if (followTarget != null) main.myTransform.position = followTarget.position;
-                if (durationType == DurationType.Specific && _timerPhase > lifeTime) MyPhase = Phase.EndEnd;
+                if (lifeTime < 0) return;
+                if (lifeTime == 0)
+                {
+                    lifeTime = -1;
+                    StartCoroutine(Delay());
+                    IEnumerator Delay()
+                    {
+                        yield return new WaitForFixedUpdate();
+                        MyPhase = Phase.EndEnd;
+                    }
+                    return;
+                }
+                if (_timerPhase > lifeTime) MyPhase = Phase.EndEnd;
                 break;
         }
         _timerPhase += Time.deltaTime;

@@ -37,7 +37,12 @@ public class Character : SerializedMonoBehaviour, IInit
     [ReadOnly] public bool IsInitialized { get; set; }
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
-    public void ChangeStat(Stats stat, int value) { }
+    public void ChangeStat(BuffType bType, Stats stat, int value)
+    {
+        print ($"{stat} is {_myStats[(int)stat].Value}");
+        _myStats[(int)stat].buffs.Add(new Buff(bType, value));
+        print ($"{stat} increased to {_myStats[(int)stat].Value}");
+    }
 
 
     
@@ -71,6 +76,14 @@ public class Character : SerializedMonoBehaviour, IInit
         public BuffType buffType;
         public int bonus;
         public float duration;
+
+        public Buff(BuffType bType, int val = 1, float dur = -1)
+        {
+            buffType = bType;
+            bonus = val;
+            duration = dur;
+        }
+
     }
 
 

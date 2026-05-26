@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Serialization;
 
 
-public class Health: EventBus, ITakeDamage, IInit
+public class Health: EventBus, IInit
 {
     public Brain Br
     {

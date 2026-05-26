@@ -34,7 +34,7 @@ public class Ga : SerializedMonoBehaviour
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
     [HideInInspector] public Transform playerTransform;
-    public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
+    [ReadOnly] public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
     [Title("Debug")] 
