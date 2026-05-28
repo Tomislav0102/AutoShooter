@@ -15,35 +15,28 @@ public class S_OverlapSphere : Spell
         if (MyPhase != Phase.SpellRuns) return;
         if (_oneHIt) return;
         _oneHIt = true;
+        
         Hit();
     }
 
     void Hit()
     {
-        Brain targetBrain = null;
-        
+        bool hasHit = false;
         Collider[] colliders = Physics.OverlapSphere(main.myTransform.position,
             areaOfEffect * 0.5f,
             Utils.MyLayer(Ga.me.gameData.layActors));
         foreach (Collider item in colliders)
         {
-            if (item.TryGetComponent(out Brain collidersBrain))
+            HitMethod(item, out Brain targetBrain);
+            if (targetBrain != null)
             {
-                if (!Utils.CanTargetFaction(main.OwnersBrain.Faction, collidersBrain.Faction, myFactionTarget)) continue;
-                if (injectHealthData.knockBack > 0 && collidersBrain.loco != null)
-                {
-                    Vector3 dir = Utils.Direction(main.myTransform.position, collidersBrain.myTransform.position);
-                    collidersBrain.loco.KnockBack(dir, injectHealthData.knockBack);
-                }
-
-                collidersBrain.health.TakeDamage(injectHealthData);
-                targetBrain = collidersBrain;
+                main.onHitTarget?.Invoke(targetBrain);
+                hasHit = true;
             }
         }
-        
-        main.onHitTarget?.Invoke(targetBrain);
+        if (!hasHit) main.onHitTarget?.Invoke(null);
         spellParticles.InitializeMe(main);
-
+        
     }
 
 }

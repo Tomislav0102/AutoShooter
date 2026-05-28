@@ -78,7 +78,7 @@ public class P_Knight : PlayerCombat
     {
         base.CombatEventRegistered(combatEvent, otherBrain);
         string st = otherBrain == null ? "" : $"on {otherBrain.name}";
-//        print($"{combatEvent} {st}");
+//       print($"{combatEvent} {st}");
         switch (combatEvent)
         {
             case CombatEvent.Strike:
@@ -92,7 +92,7 @@ public class P_Knight : PlayerCombat
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
-                if (Random.value > 0.1f) return;
+                if (Random.value > 0.05f) return;
                 SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 shieldThrow.InitializeMe(Br, damRanged);
                 break;

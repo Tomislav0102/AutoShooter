@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [System.Serializable]
 public class SpellParticles
 {
-    [SerializeField] ParticleSystem[] ps = System.Array.Empty<ParticleSystem>();
+    [FormerlySerializedAs("ps")] [SerializeField] ParticleSystem[] psStart = System.Array.Empty<ParticleSystem>();
+    [SerializeField] ParticleSystem[] psOnHit = System.Array.Empty<ParticleSystem>();
     public enum ParticleSizeChange
     {
         TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
@@ -14,23 +16,31 @@ public class SpellParticles
         Velocity_Over_Lifetime, //not used
         Other_None
     }
-    public ParticleSizeChange particleSizeChange;
+    [FormerlySerializedAs("particleSizeChange")] public ParticleSizeChange particleSizeChangeStart;
 
     public void InitializeMe(SpellMain spellMain)
     {
-        if (ps.Length == 0) return;
-        foreach (ParticleSystem particleSystem in ps)
+        spellMain.onHitTarget += (Brain br) =>
         {
-            if (particleSystem == null)
+           // if (psOnHit.Length == 0) return;
+            foreach (ParticleSystem particleSystem in psOnHit)
             {
-               return;
+                particleSystem.Play();
             }
-        }
+        };
+         if (psStart.Length == 0) return;
+        // foreach (ParticleSystem particleSystem in psStart)
+        // {
+        //     if (particleSystem == null)
+        //     {
+        //        return;
+        //     }
+        // }
 
-        switch (particleSizeChange)
+        switch (particleSizeChangeStart)
         {
             case ParticleSizeChange.Emission_Shape:
-                foreach (ParticleSystem particleSystem in ps)
+                foreach (ParticleSystem particleSystem in psStart)
                 {
                     var emission = particleSystem.emission;
                     emission.rateOverTime = spellMain.spell.areaOfEffect * 5;
@@ -39,10 +49,10 @@ public class SpellParticles
                 }
                 break;
             case ParticleSizeChange.TransformScale:
-                ps[0].transform.parent.localScale = spellMain.spell.areaOfEffect * Vector3.one;
+                psStart[0].transform.parent.localScale = spellMain.spell.areaOfEffect * Vector3.one;
                 break;
             case ParticleSizeChange.Velocity_Over_Lifetime:
-                foreach (ParticleSystem particleSystem in ps)
+                foreach (ParticleSystem particleSystem in psStart)
                 {
                     ParticleSystem.MainModule myMain = particleSystem.main;
                     myMain.duration = spellMain.spell.lifeTime;
@@ -52,7 +62,7 @@ public class SpellParticles
                 }
                 break;
         }
-        foreach (ParticleSystem particleSystem in ps)
+        foreach (ParticleSystem particleSystem in psStart)
         {
             particleSystem.Play();
         }

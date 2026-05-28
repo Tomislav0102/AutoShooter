@@ -19,7 +19,7 @@ public class S_Hook : Spell
     protected override void Update()
     {
         base.Update();
-        if (!main.spell.IsActive) return;
+        if (!main.IsActive) return;
         _timer += Time.deltaTime;
         if (_timer > 1f)
         {

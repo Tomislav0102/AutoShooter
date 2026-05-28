@@ -23,7 +23,8 @@ public class Combat : EventBus, IInit
                 yield return new WaitForSeconds(delay);
                 while (true)
                 {
-                    MyTarget = Utils.ClosestTransform(value.myTransform.position, _targets, detectRange);
+                   // MyTarget = Utils.ClosestTransform(value.myTransform.position, _targets, detectRange);
+                    MyTarget = Utils.ChoseTransform(value.myTransform.position, _targets, GenDistance.Closest, detectRange);
                     yield return new WaitForSeconds(0.15f);
                 }
             }

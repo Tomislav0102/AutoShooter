@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3543791737325319039}
   - component: {fileID: 6066119802472661424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Skeleton_Soldier_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7526936669610594846}
   - component: {fileID: 7739163040245538819}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Goblin_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2776186467868354688}
   - component: {fileID: 2531259422097636985}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Skeleton_Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -784,7 +784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5947025951973778950}
   - component: {fileID: 5153690756782787068}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Skeleton_Slave_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,7 +925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6796089854595027054}
   - component: {fileID: 988316281341218690}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Goblin_WarChief
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1835,7 +1835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6570405351421936451}
   - component: {fileID: 8173718593308338045}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Rock_Golem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1976,7 +1976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3545807850401824872}
   - component: {fileID: 3064635554429418633}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Hero_Knight_Male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2213,7 +2213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 542568174519116172}
   - component: {fileID: 7290554223337592639}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Goblin_Warrior_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2449,7 +2449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3670469410951294805}
   - component: {fileID: 7846816125839623977}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Tormented_Soul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2620,7 +2620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 334970364795993936}
   - component: {fileID: 3596510607508681632}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Goblin_Shaman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2761,7 +2761,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9137686802480144645}
   - component: {fileID: 5271545707195277533}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Ghost_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3056,7 +3056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1614791873423324305}
   - component: {fileID: 4565914437834850624}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Goblin_Male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3504,7 +3504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6303473446425485552}
   - component: {fileID: 1185839478967741935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Hero_Knight_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3801,7 +3801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3903423222232640616}
   - component: {fileID: 5790568647126988177}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Goblin_Warrior_Male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,7 +3942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4410576180251709629}
   - component: {fileID: 8268893913392981309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Skeleton_Soldier_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4338,7 +4338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819037572486512983}
   - component: {fileID: 7736529391966470861}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Character_Ghost_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,6 +4957,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1081531192646187538, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1081531192646187538, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
     - target: {fileID: 1949310856156830612, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -5152,4 +5156,3 @@ MonoBehaviour:
   knockBackResistance: 0
   lookAtTarget: 0
   weaponTrail: {fileID: 0}
-  engageDistance: 10

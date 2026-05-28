@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 5130754061657142097}
+      objectReference: {fileID: 7721710491215990893}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
@@ -66,7 +66,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5130754061657142097}
+      addedObject: {fileID: 7721710491215990893}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3542227257138258497}
@@ -76,7 +76,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 7058311895389631987}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5130754061657142097
+--- !u!114 &7721710491215990893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2698950263744952606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_GeneralTrigger
+  m_EditorClassIdentifier: Assembly-CSharp::S_OverlapSphere
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -123,26 +123,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  IsActive: 1
   myFactionTarget: 1
   areaOfEffect: 3
   startDelay: 0
   lifeTime: 0
-  terminateOnHit: 1
+  terminateOnHit: 0
   followTarget: {fileID: 0}
   spellParticles:
     ps: []
     particleSizeChange: 0
   injectHealthData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
+    canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0
   hitEffects: 00000000
-  onEnter: 1
-  onExit: 0
-  colliderPart: 0
-  spellsToAffect: []
 --- !u!1 &7347037599748218490 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

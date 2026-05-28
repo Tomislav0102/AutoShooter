@@ -11,6 +11,7 @@ public class Brain : EventBus
     public bool IsPlayer() => Ga.me.team[Faction.GoodGuys].Contains(myTransform);
     public Rigidbody myRigid;
     public SphereCollider myCollider;
+    [SerializeField] Transform fakeShadow;
     [SerializeField, Range(1, 5)] int size = 1;
     [SerializeField] Transform parPs;
     [Title("Body")]
@@ -66,7 +67,7 @@ public class Brain : EventBus
         myCollider.radius = size * 0.5f;
         parPs.localPosition = parPs.localPosition.y * size * Vector3.up;
         parPs.localScale = size * Vector3.one;
-        
+        fakeShadow.localScale = size * Vector3.one;
         if (loco == null) return;
         loco.transform.localScale = size * Vector3.one;
         E_Loco eLoco  = loco as E_Loco;

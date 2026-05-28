@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class Ga : SerializedMonoBehaviour
@@ -51,7 +52,7 @@ public class Ga : SerializedMonoBehaviour
             team.Add((Faction)i, new HashSet<Transform>());
         }
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
-      // SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
+        SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
     }
 
     void OnEnable()

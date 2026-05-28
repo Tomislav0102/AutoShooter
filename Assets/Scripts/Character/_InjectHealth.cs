@@ -12,6 +12,10 @@ public class InjectHealth
     public object extraData;
     public static string DataExecutioner = "Executioner";
     public static string DataStatusBleed = "Bleeding";
+    public static string DataStatusPoison = "Poisoned";
+    public static string DataStatusBurn = "Burning";
+    public static string DataStatusFreeze = "Freezing";
+    public static string DataStatusJolt = "Jolted";
 
     // public InjectHealth(Transform attacker, Dictionary<Element, float> damage, bool canBeBlocked, int knockBack)
     // {

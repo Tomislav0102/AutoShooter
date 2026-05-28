@@ -7,6 +7,8 @@ using Sirenix.OdinInspector;
 public class SpellMain : MonoBehaviour
 {
     public bool debug;
+    [ReadOnly] public bool IsActive = true;
+
     public Brain OwnersBrain
     {
         get => _ownersBrain;
@@ -64,7 +66,7 @@ public class SpellMain : MonoBehaviour
 
         IEnumerator DelayForParticles()
         {
-            spell.IsActive = false;
+            IsActive = false;
             yield return new WaitForSeconds(5f);
             Destroy(gameObject);
         }
@@ -87,7 +89,7 @@ public class SpellMain : MonoBehaviour
     {
         if (dam == null) dam = new Dictionary<Element, float>();
         damage = dam;
-        InitializeMe(brain);
+        InitializeMe(brain); 
     }
     /// <summary>
     /// Damage is from inspector, with after spell
@@ -108,17 +110,18 @@ public class SpellMain : MonoBehaviour
         InitializeMe(brain); 
     }
 
+    bool UseTriggers() => IsActive && Random.value < spell.hitChance;
     void OnTriggerEnter(Collider other)
     {
-        if (spell.IsActive) spell.OnTriggerEnterCallBack(other);
+        if (UseTriggers()) spell.OnTriggerEnterCallBack(other);
     }
     void OnTriggerExit(Collider other)
     {
-        if (spell.IsActive) spell.OnTriggerExitCallBack(other);
+        if (UseTriggers()) spell.OnTriggerExitCallBack(other);
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (spell.IsActive) spell.OnCollisionEnterCallBack(collision);
+        if (UseTriggers()) spell.OnCollisionEnterCallBack(collision);
     }
 
 }

@@ -1690,7 +1690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031405845141860460}
   - component: {fileID: 2031405845144805664}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Demon Wolf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2355,6 +2355,10 @@ PrefabInstance:
       propertyPath: 'myMaterials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: d1726ee06f2d06d44b49aae1b60faff5, type: 2}
+    - target: {fileID: 4358495847529664678, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4358495847529664678, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
     - target: {fileID: 5919550236166766193, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: healthMax
       value: 100

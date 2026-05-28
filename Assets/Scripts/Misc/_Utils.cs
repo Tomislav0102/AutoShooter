@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 
 public class Utils
@@ -51,22 +53,40 @@ public class Utils
     public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(MakeV2(v1), MakeV2(v2));
     public static Vector3 Direction(Vector3 fromPos, Vector3 toPos) => MakeV3(MakeV2(toPos) - (MakeV2(fromPos))).normalized;
     
-    public static Transform ClosestTransform(Vector3 fromPosition, HashSet<Transform> targets, float maxRange = float.MaxValue)
+
+    public static Transform ChoseTransform(Vector3 fromPosition, HashSet<Transform> allTargets, GenDistance distanceType = GenDistance.Closest, float maxRange = float.MaxValue)
     {
-        Transform closest = null;
-        float currentDistance = maxRange;
-        Vector2 from2d = MakeV2(fromPosition);
-        foreach (Transform item in targets)
+        Vector2 from2D = MakeV2(fromPosition);
+        Dictionary<Transform, float> dic = new Dictionary<Transform, float>();
+        foreach (Transform item in allTargets)
         {
-            float distance = Vector2.Distance(from2d, MakeV2(item.position));
-            if (distance < currentDistance)
-            {
-                closest = item;
-                currentDistance = distance;
-            }
+            float distance = Vector2.Distance(from2D, MakeV2(item.position));
+            dic.Add(item, distance);
         }
-        return closest;
+        var sorted = dic.ToList();
+        sorted.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+        List<Transform> results = new List<Transform>();
+        foreach (KeyValuePair<Transform, float> item in sorted)
+        {
+            results.Add(item.Key);
+        }
+
+        switch (distanceType)
+        {
+            case GenDistance.Closest:
+                return results[0];
+            case GenDistance.Furthest:
+                return results[^1];
+            case GenDistance.Random:
+                return results[Random.Range(0, results.Count)];
+            case GenDistance.Middle:
+                int mid = dic.Count / 2;
+                return results[mid];
+            default:
+                return null;
+        }
     }
+
     public static Vector3 GetRandomPosition(Transform horizontalSurface)
     {
         float width = horizontalSurface.localScale.x * 0.5f;
