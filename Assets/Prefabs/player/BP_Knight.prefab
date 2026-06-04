@@ -356,6 +356,10 @@ PrefabInstance:
       propertyPath: data
       value: 
       objectReference: {fileID: 11400000, guid: 3809e90010df9af4a8445f2671ae4b6f, type: 2}
+    - target: {fileID: 5505578628073212075, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5505578628073212075, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
     - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: weaponTrail
       value: 
@@ -418,18 +422,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff938ce8fb23e44ba429e74c5f90d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Knight
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  <MyTarget>k__BackingField: {fileID: 0}
+  <IsInitialized>k__BackingField: 0
+  distanceToTarget: 0
   detectRange: 3.4028235e+38
-  specialCooldownTime: 1
+  engageRange: 10
+  ultimateCooldownTime: 3
+  myShield: {fileID: 6815601301861273165}
   dashPower: 4
 --- !u!4 &3640929346580867816 stripped
 Transform:

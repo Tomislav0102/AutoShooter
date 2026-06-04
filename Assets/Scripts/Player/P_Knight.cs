@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class P_Knight : PlayerCombat
 {
+    [SerializeField] Transform myShield;
     public override Brain Br
     {
         get => base.Br;
@@ -17,9 +18,9 @@ public class P_Knight : PlayerCombat
             base.Br = value;
             damMelee = new Dictionary<Element, float>()
             {
-                //  { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
-                  { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                  { Element.Magic, 2f },
+                  { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                  // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
+                  // { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -99,7 +100,7 @@ public class P_Knight : PlayerCombat
             case CombatEvent.GetHit:
                 break;
             case CombatEvent.Block:
-                StartCoroutine(SpellPushDelay());
+              //  StartCoroutine(SpellPushDelay());
                 break;
             case CombatEvent.Kill:
                 if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))
@@ -113,7 +114,7 @@ public class P_Knight : PlayerCombat
         IEnumerator SpellPushDelay()
         {
             yield return new WaitForSeconds(0.1f);
-            SpellMain push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            SpellMain push = Instantiate(Ga.me.spells.push, myShield.position, Quaternion.identity, Ga.me.spells.myTransform);
             push.InitializeMe(Br);
         }
     }

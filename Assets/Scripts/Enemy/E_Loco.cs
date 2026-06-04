@@ -49,7 +49,7 @@ public class E_Loco : Loco
     const float CONST_FleeDistance = 10f;
     Transform FollowTarget()
     {
-        if (_followTarget == null)  _followTarget = Ga.me.playerTransform;
+        if (_followTarget == null)  _followTarget = Ga.me.team.playerTransform;
         return _followTarget;
     }
     Transform _followTarget;

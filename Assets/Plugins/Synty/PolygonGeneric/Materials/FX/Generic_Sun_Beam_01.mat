@@ -49,14 +49,13 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
   - GRABPASS
-  - DepthOnly
-  - SHADOWCASTER
   - MOTIONVECTORS
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -117,7 +116,7 @@ Material:
     - _Enable_Camera_Fade: 1
     - _Enable_Emission: 0
     - _Enable_Scene_Fog: 0
-    - _Enable_Soft_Particles: 1
+    - _Enable_Soft_Particles: 0
     - _FlipbookMode: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -145,8 +144,8 @@ Material:
     - _ViewEdgePower: 1
     - _XRMotionVectorsPass: 1
     - _ZTest: 4
-    - _ZWrite: 0
-    - _ZWriteControl: 0
+    - _ZWrite: 1
+    - _ZWriteControl: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 1, g: 0.33333334, b: 0, a: 0}

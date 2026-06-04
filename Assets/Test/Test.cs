@@ -8,33 +8,25 @@ using TMPro;
 
 public class Test : SerializedMonoBehaviour
 {
-    public Transform[] allTargets;
-    public Dictionary<Transform, float> dic = new Dictionary<Transform, float>();
-    public List<Transform> results = new List<Transform>();
+    public Canvas canvas;
+    public RectTransform rt1, rt2;
 
-    [Button]
-    void Reset()
+    void Start()
     {
-        dic = new Dictionary<Transform, float>();
-        foreach (Transform t in allTargets)
-        {
-            dic.Add(t, Vector3.Distance(t.position, transform.position));
-        }
-        
-    }
-    [Button]
-    void Sort()
-    {
-        Reset();
-        var sorted = dic.ToList();
-        sorted.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-        results.Clear();
-        foreach (KeyValuePair<Transform, float> item in sorted)
-        {
-            results.Add(item.Key);
-        }
+        rt1.anchoredPosition = new Vector2(Screen.width, Screen.height);
     }
 
+    [Button]
+    void Metoda()
+    {
+      //  print(canvas.pixelRect);
+        //print($"{Screen.width}x{Screen.height}");
+        rt1.anchoredPosition = new Vector2(Screen.width, Screen.height);
+        //right edge
+        // rt1.anchorMin = rt1.anchorMax = new Vector2(1, 0.5f);
+        // rt1.pivot = new Vector2(1f, 0.5f);
+        // rt1.anchoredPosition = new Vector2(0, rt1.anchoredPosition.y);
+    }
 }
 
 

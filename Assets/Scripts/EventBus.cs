@@ -4,7 +4,7 @@ using UnityEngine;
 public class EventBus : MonoBehaviour
 {
     public static System.Action OnLevelLoaded;
-    public static System.Action<Transform> OnCharDeath;
+    public static System.Action<Brain> OnCharDeath;
     public static System.Action OnPlayerDeath;
     public static System.Action OnUltimateActivated;
     
@@ -22,7 +22,7 @@ public class EventBus : MonoBehaviour
         OnLevelLoaded -= CallEv_OnLevelLoaded;
     }
 
-    protected virtual void CallEv_OnCharDeath(Transform tr)
+    protected virtual void CallEv_OnCharDeath(Brain brainDead)
     {
        
     }

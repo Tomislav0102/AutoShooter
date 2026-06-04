@@ -8,7 +8,6 @@ public class Brain : EventBus
 {
     [field:SerializeField] public Faction Faction { get; set; }
     public Transform myTransform;
-    public bool IsPlayer() => Ga.me.team[Faction.GoodGuys].Contains(myTransform);
     public Rigidbody myRigid;
     public SphereCollider myCollider;
     [SerializeField] Transform fakeShadow;
@@ -50,7 +49,7 @@ public class Brain : EventBus
             combat = co;
             combat.Br = this;
         }
-        ChangeFaction(Faction);
+        Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
         ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
         ps.transform.localScale = size * Vector3.one;
@@ -78,18 +77,7 @@ public class Brain : EventBus
     {
         int f = (int)Faction;
         f = (1 + f) % 2;
-        ChangeFaction((Faction)f);
-    }
-    void ChangeFaction(Faction newFaction)
-    {
-        Faction = newFaction;
-        
-        for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
-        {
-           if (Ga.me.team[(Faction)i].Contains(myTransform)) Ga.me.team[(Faction)i].Remove(myTransform);
-        }
-        Ga.me.team[Faction].Add(myTransform);
-
-        
+        Faction = (Faction)f;
+        Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
     }
 }

@@ -68,10 +68,10 @@ public class Drop : MonoBehaviour
     void Update()
     {
         if (!_ready) return;
-        float distance = Utils.Distance(Ga.me.playerTransform.position, _myTransform.position);
+        float distance = Utils.Distance(Ga.me.team.playerTransform.position, _myTransform.position);
         
         if (distance > _attractDistance) return;
-        Vector3 direction = Utils.Direction(_myTransform.position, Ga.me.playerTransform.position).normalized;
+        Vector3 direction = Utils.Direction(_myTransform.position, Ga.me.team.playerTransform.position).normalized;
         _speed *= 1.01f;
         myRigid.AddForce(_speed * direction);
         

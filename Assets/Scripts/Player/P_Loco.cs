@@ -12,7 +12,7 @@ public class P_Loco : Loco
         set
         {
             base.Br = value;
-            Ga.me.playerTransform = value.myTransform;
+            Ga.me.team.playerTransform = value.myTransform;
             IsInitialized = true;
         }
     }

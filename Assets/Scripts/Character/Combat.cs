@@ -14,7 +14,6 @@ public class Combat : EventBus, IInit
         set
         {
             _br = value;
-            _targets = value.Faction == Faction.GoodGuys ? Ga.me.team[Faction.BadGuys] : Ga.me.team[Faction.GoodGuys];
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
             return;
             
@@ -23,8 +22,7 @@ public class Combat : EventBus, IInit
                 yield return new WaitForSeconds(delay);
                 while (true)
                 {
-                   // MyTarget = Utils.ClosestTransform(value.myTransform.position, _targets, detectRange);
-                    MyTarget = Utils.ChoseTransform(value.myTransform.position, _targets, GenDistance.Closest, detectRange);
+                    MyTarget = Utils.ChoseTransform(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction), GenDistance.Closest, detectRange);
                     yield return new WaitForSeconds(0.15f);
                 }
             }
@@ -48,7 +46,7 @@ public class Combat : EventBus, IInit
     [ShowInInspector, ReadOnly] Transform _myTarget;
     [ReadOnly] public float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;
-    HashSet<Transform> _targets;
+  //  HashSet<Transform> _targets;
     
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;

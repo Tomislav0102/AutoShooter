@@ -70,7 +70,8 @@ public class Utils
         {
             results.Add(item.Key);
         }
-
+        if (allTargets.Count == 0) return null;
+        
         switch (distanceType)
         {
             case GenDistance.Closest:

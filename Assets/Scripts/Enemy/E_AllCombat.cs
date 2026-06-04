@@ -30,15 +30,8 @@ public class E_AllCombat : EnemyCombat
                 bullet.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
                 bullet.InitializeMe(Br, damRanged);
                 break;
-            // case 2: //lightning strike
-            //     damRanged = new Dictionary<Element, float>()
-            //     {
-            //         { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
-            //     };
-            //     Spell strike = Instantiate(rangedWeapon, Br.combat.MyTarget.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-            //     strike.comp.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
-            //     strike.InitializeMe(Br, damRanged);
-            //     break;
+            case 2: //lightning strike
+                break;
         }
     }
 

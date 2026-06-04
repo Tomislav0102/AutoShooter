@@ -108,7 +108,7 @@ public class Health: EventBus, IInit
         Br.loco.Hit();
         if (dam.myBrain == null) return;
         Br.loco.KnockBack((Br.myTransform.position - dam.myBrain.myTransform.position).normalized, dam.knockBack);
-        if (Br.myTransform == Ga.me.playerTransform) return;
+        if (Br.myTransform == Ga.me.team.playerTransform) return;
         
         if (Br.combat.MyTarget == null)
         {
@@ -129,9 +129,9 @@ public class Health: EventBus, IInit
         Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
         ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
         ps.Play();
+        EventBus.OnCharDeath?.Invoke(Br);
         Destroy(_healthBar.gameObject);
-        EventBus.OnCharDeath?.Invoke(Br.myTransform);
-        
+        Destroy(Br.gameObject);
     }
 
 

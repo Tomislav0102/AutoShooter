@@ -22,7 +22,7 @@ Material:
   m_LightmapFlags: 3
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -36,7 +36,7 @@ Material:
     - _Albedo_Map:
         m_Texture: {fileID: 2800000, guid: ad29a3f834a0477e8b4b6df2c9c57fa0, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 0, y: 1}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -79,7 +79,7 @@ Material:
     - _Enable_Camera_Fade: 0
     - _Enable_Emission: 0
     - _Enable_Scene_Fog: 0
-    - _Enable_Soft_Particles: 1
+    - _Enable_Soft_Particles: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -98,7 +98,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 1
     - _UVSec: 0
-    - _Use_View_Edge_Compensation: 1
+    - _Use_View_Edge_Compensation: 0
     - _ViewEdgePower: 1
     - _XRMotionVectorsPass: 1
     - _ZTest: 4

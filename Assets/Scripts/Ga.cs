@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -5,9 +6,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-public class Ga : SerializedMonoBehaviour
+public class Ga : MonoBehaviour
 {
+    [SerializeField] Transform parPointers;
+    [SerializeField] RectTransform offScreenPointerPrefab;
+    Dictionary<Transform, RectTransform> _offScreenEnemyPointerPair = new  Dictionary<Transform, RectTransform>();
+    
     public Drop dropPrefab;
     public static Ga me;
     [SerializeField] Transform parWaypoints;
@@ -34,25 +38,23 @@ public class Ga : SerializedMonoBehaviour
     public FloatingText floatingTextPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    [HideInInspector] public Transform playerTransform;
-    [ReadOnly] public Dictionary<Faction, HashSet<Transform>> team = new Dictionary<Faction, HashSet<Transform>>();
+    public TeamManagement team;
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
     [Title("Debug")] 
     public bool debug;
     
     
+    
     void Awake()
     {
         me = this;
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
-        team = new Dictionary<Faction, HashSet<Transform>>();
-        for (int i = 0; i < System.Enum.GetNames(typeof(Faction)).Length; i++)
-        {
-            team.Add((Faction)i, new HashSet<Transform>());
-        }
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
+#if (!UNITY_EDITOR)
         SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
+        
+#endif
     }
 
     void OnEnable()
@@ -64,31 +66,18 @@ public class Ga : SerializedMonoBehaviour
         EventBus.OnCharDeath -= CallEv_OnCharDeath;
     }
 
-
-
-    void CallEv_OnCharDeath(Transform tr)
+    void LateUpdate()
     {
-        if (team[Faction.GoodGuys].Contains(tr))
+        OffScreens();
+        void OffScreens()
         {
-            team[Faction.GoodGuys].Remove(tr);
-            if (tr == playerTransform)
-            {
-                EventBus.OnPlayerDeath?.Invoke();
-                if (debug) print("Player is dead");
-            }
-            else
-            {
-                Destroy(tr.gameObject);
-                if (debug) print("Summon is dead");
-            }
         }
-        else if (team[Faction.BadGuys].Contains(tr))
-        {
-            team[Faction.BadGuys].Remove(tr);
-            Destroy(tr.gameObject);
-            if (debug) print("enemy is dead");
-        }
+    }
+    
 
+    void CallEv_OnCharDeath(Brain brainDead)
+    {
+        
     }
 
 }
