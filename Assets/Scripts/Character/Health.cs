@@ -28,11 +28,20 @@ public class Health: EventBus, IInit
             {
                 _dictPsStatus.Add((Status.Effect)i, psStatus[i]);
             }
+            _camTransform = Ga.me.cam.transform;
+            _screenCenter = new Vector3(Screen.width, Screen.height, 0) * 0.5f;
+            _pointer = Instantiate(Ga.me.offScreenPointerPrefab, Ga.me.parPointers);
+            _pointerImage = _pointer.GetComponent<Image>();
+            
             IsInitialized = true;
         }
     }
     Brain _br;
 
+    Transform _camTransform;
+    Vector3 _screenCenter; 
+    RectTransform _pointer;
+    Image _pointerImage;
     Image _healthBar;
     Transform _healthBarTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
@@ -122,6 +131,35 @@ public class Health: EventBus, IInit
         if (!IsInitialized) return;
         Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
         _healthBarTransform.position = screenPos;
+        
+        bool isBehind = Vector3.Dot(_camTransform.forward, Br.myTransform.position - _camTransform.position) < 0;
+        if (isBehind)  screenPos = _screenCenter - (screenPos - _screenCenter).normalized * Screen.width;
+        int offset = 50;
+        bool isOffScreen = screenPos.x > Screen.width + offset || screenPos.x + offset < 0 ||
+                           screenPos.y > Screen.height + offset || screenPos.y + offset < 0 ||
+                           isBehind;
+    
+        if (isOffScreen)
+        {
+            _pointerImage.enabled = true;
+    
+            screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
+            screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
+    
+            RectTransform canvasRect = _pointer.parent as RectTransform;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, null, out Vector2 localPos);
+            _pointer.anchoredPosition = localPos;
+    
+            Vector3 angleDir = screenPos - _screenCenter;
+            if (isBehind) angleDir = _screenCenter - screenPos;
+            float angle = Mathf.Atan2(angleDir.y, angleDir.x) * Mathf.Rad2Deg;
+            _pointer.localRotation = Quaternion.Euler(0, 0, angle - 90f);
+        }
+        else
+        {
+            _pointerImage.enabled = false;
+        }
+
     }
 
     void Death()
@@ -131,6 +169,7 @@ public class Health: EventBus, IInit
         ps.Play();
         EventBus.OnCharDeath?.Invoke(Br);
         Destroy(_healthBar.gameObject);
+        Destroy(_pointer.gameObject);
         Destroy(Br.gameObject);
     }
 

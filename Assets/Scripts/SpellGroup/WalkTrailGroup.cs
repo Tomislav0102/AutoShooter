@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WalkTrailGroup : SpellGroup
 {
-    [SerializeField] SpellMain singleSpell; //temp, will change after pool implementation
     public Dictionary<Element, float> myDamage;
     float _timer;
     const float CONST_SpawnRate = 0.1f;
@@ -13,7 +13,7 @@ public class WalkTrailGroup : SpellGroup
     public override void InitializeMe(Brain ownersBrain)
     {
         base.InitializeMe(ownersBrain);
-        _radius = singleSpell.spell.areaOfEffect * 0.5f;
+        _radius = spellInstantiated.spell.areaOfEffect * 0.5f;
         _spawns = new HashSet<Collider>();
     }
 
@@ -31,7 +31,7 @@ public class WalkTrailGroup : SpellGroup
                 if (_spawns.Contains(colliders[i])) return;
             }
 
-            SpellMain spell = Instantiate(singleSpell, brain.myTransform.position, Quaternion.identity, myTransform);
+            SpellMain spell = Instantiate(spellInstantiated, brain.myTransform.position, Quaternion.identity, myTransform);
             spell.InitializeMe(brain, myDamage, () =>
             {
                 if (_spawns.Contains(spell.mySphereCollider)) _spawns.Remove(spell.mySphereCollider);

@@ -8,10 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Ga : MonoBehaviour
 {
-    [SerializeField] Transform parPointers;
-    [SerializeField] RectTransform offScreenPointerPrefab;
-    Dictionary<Transform, RectTransform> _offScreenEnemyPointerPair = new  Dictionary<Transform, RectTransform>();
-    
+    public Transform parPointers;
+    public RectTransform offScreenPointerPrefab;
     public Drop dropPrefab;
     public static Ga me;
     [SerializeField] Transform parWaypoints;
@@ -38,7 +36,7 @@ public class Ga : MonoBehaviour
     public FloatingText floatingTextPrefab;
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
-    public TeamManagement team;
+    public TeamManager team =  new TeamManager();
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
     [Title("Debug")] 
@@ -53,7 +51,7 @@ public class Ga : MonoBehaviour
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
 #if (!UNITY_EDITOR)
         SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
-        
+
 #endif
     }
 
@@ -77,7 +75,7 @@ public class Ga : MonoBehaviour
 
     void CallEv_OnCharDeath(Brain brainDead)
     {
-        
+        team.CallEv_OnCharDeath(brainDead);
     }
 
 }

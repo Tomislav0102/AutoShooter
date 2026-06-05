@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3450656d2118eb478a32b5d075de178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrbitalGroup
+  myTransform: {fileID: 2921548756231364214}
   orbitingAnchor: {fileID: 0}
   distanceFromAnchor: 1
   numOfActiveSpells: 1

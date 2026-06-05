@@ -10835,6 +10835,96 @@ Transform:
   - {fileID: 920325957}
   m_Father: {fileID: 1208241976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &166601012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166601015}
+  - component: {fileID: 166601014}
+  - component: {fileID: 166601013}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &166601013
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166601012}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &166601014
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166601012}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &166601015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166601012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178775461
 GameObject:
   m_ObjectHideFlags: 0
@@ -103280,7 +103370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &885458253
 Transform:
   m_ObjectHideFlags: 0
@@ -103317,9 +103407,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  canvas: {fileID: 747208672}
-  rt1: {fileID: 0}
-  rt2: {fileID: 0}
+  rt: {fileID: 0}
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -131284,7 +131372,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1349523940}
   - component: {fileID: 1349523939}
-  - component: {fileID: 1349523941}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -131321,7 +131408,6 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 5886353900442050348, guid: f9d91326456e2f64fa43f969e0cedfaa, type: 3}
   cameraRigTransform: {fileID: 895749635}
   cam: {fileID: 0}
-  team: {fileID: 1349523941}
   joystick: {fileID: 7896879426726389519}
   ultimateUi: {fileID: 1864630403}
   debug: 0
@@ -131340,19 +131426,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1349523941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349523938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f4a07c044045758b5ac3b6d635dbbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TeamManagement
-  playerTransform: {fileID: 0}
 --- !u!1 &1378758571
 GameObject:
   m_ObjectHideFlags: 0
@@ -233076,6 +233149,7 @@ MonoBehaviour:
   groupOrbitalSwordsFire: {fileID: 331804568073318909, guid: 543497fbb6244484ab5d52a82fc867c2, type: 3}
   groupOrbitalSwordsIce: {fileID: 6258537417200386015, guid: 662799f3f0290e1468284eb988acd6c0, type: 3}
   groupOrbitalSwordsElectric: {fileID: 2316800532690480909, guid: 7e4a0b5796b90a84386c851fe74a6da3, type: 3}
+  groupPulse: {fileID: 5352760174683494723, guid: 042e00eebbd794f49813d6ca264bc698, type: 3}
   carryFireball: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
   explosionFire: {fileID: 8836565589368749305, guid: 2643c897d8ad6c34a9ca06a330f4d3d9, type: 3}
   areFire: {fileID: 1808040132898285677, guid: a6065988ba6700941a0e3dd96bedd88a, type: 3}
@@ -233226,3 +233300,4 @@ SceneRoots:
   - {fileID: 1138873319}
   - {fileID: 933078169}
   - {fileID: 450085159}
+  - {fileID: 166601015}

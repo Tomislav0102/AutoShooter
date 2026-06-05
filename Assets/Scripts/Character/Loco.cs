@@ -18,7 +18,7 @@ public class Loco : EventBus, IInit
     Coroutine _pushCoroutine;
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
-      
+
 
     #region ANIMATOR
     

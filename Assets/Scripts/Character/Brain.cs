@@ -57,6 +57,7 @@ public class Brain : EventBus
 
     }
 
+
     [Title("Debug")] 
     public bool debugGeneral;
     [Button]

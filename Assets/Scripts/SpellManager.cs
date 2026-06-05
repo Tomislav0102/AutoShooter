@@ -27,6 +27,7 @@ public class SpellManager : MonoBehaviour
    public SpellGroup groupOrbitalSwordsFire;
    public SpellGroup groupOrbitalSwordsIce;
    public SpellGroup groupOrbitalSwordsElectric;
+   public SpellGroup groupPulse;
    [Title("Fireball set")] 
    public SpellMain carryFireball;
    public SpellMain explosionFire;

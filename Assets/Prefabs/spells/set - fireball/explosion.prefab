@@ -216,28 +216,40 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 3
   startDelay: 0
-  durationType: 2
+  hitChance: 1
   lifeTime: 2
   terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 0
   spellParticles:
-    ps: {fileID: 3708156408610075552}
-    particleSizeChange: 0
+    psStart:
+    - {fileID: 3708156408610075552}
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
+  useInspectorDamageData: 1
   hitEffects: 00000000

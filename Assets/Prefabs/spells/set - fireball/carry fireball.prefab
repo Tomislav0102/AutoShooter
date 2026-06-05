@@ -57,6 +57,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b367337f7702a12409e59c38f64e0fa0, type: 3}
+--- !u!198 &811885067253427062 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 685534999836454068, guid: b367337f7702a12409e59c38f64e0fa0, type: 3}
+  m_PrefabInstance: {fileID: 200383080199669698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8056618115608812134 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7856877150469348772, guid: b367337f7702a12409e59c38f64e0fa0, type: 3}
@@ -196,26 +201,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
-  durationType: 2
+  hitChance: 1
   lifeTime: 10
   terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 0
   spellParticles:
-    ps: {fileID: 0}
-    particleSizeChange: 1
+    psStart:
+    - {fileID: 811885067253427062}
+    psOnHit: []
+    particleSizeChangeStart: 1
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0
   hitEffects: 
   onEnter: 1
   onExit: 0
+  colliderPart: 0
   spellsToAffect: []
 --- !u!4 &1218270606949558742 stripped
 Transform:

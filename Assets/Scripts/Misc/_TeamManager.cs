@@ -1,15 +1,22 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 
-public class TeamManagement : MonoBehaviour
+public class TeamManager
 {
-    [ReadOnly] public Transform playerTransform;
+    public Transform playerTransform;
     HashSet<Brain> _good = new HashSet<Brain>();
     HashSet<Brain> _bad = new HashSet<Brain>();
     HashSet<Brain> _neutral = new HashSet<Brain>();
     
+    public void CallEv_OnCharDeath(Brain brainDead)
+    {
+       ChangeTeam(brainDead.Faction, brainDead, GenChange.Remove);
+    }
+
+
     public HashSet<Transform> ValidTargets(Faction faction)
     {
         HashSet<Transform> temp =  new HashSet<Transform>();
@@ -34,21 +41,6 @@ public class TeamManagement : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        EventBus.OnCharDeath += CallEv_OnCharDeath;
-    }
-    void OnDisable()
-    {
-        EventBus.OnCharDeath -= CallEv_OnCharDeath;
-    }
-    void CallEv_OnCharDeath(Brain brainDead)
-    {
-       ChangeTeam(brainDead.Faction, brainDead, GenChange.Remove);
-    }
-
-
-    
     public void ChangeTeam(Faction faction, Brain brain, GenChange change)
     {
         if (brain == null) return;
@@ -81,16 +73,16 @@ public class TeamManagement : MonoBehaviour
                     if (brain.myTransform == playerTransform)
                     {
                         EventBus.OnPlayerDeath?.Invoke();
-                        if (Ga.me.debug) print("Player is dead");
+                        if (Ga.me.debug) Debug.Log("Player is dead");
                     }
                     else
                     {
-                        if (Ga.me.debug) print("Summon is dead");
+                        if (Ga.me.debug) Debug.Log("Summon is dead");
                     }
                 }
                 else
                 {
-                    if (Ga.me.debug) print("Enemy is dead");
+                    if (Ga.me.debug) Debug.Log("Enemy is dead");
                 }
                 break;
         }
