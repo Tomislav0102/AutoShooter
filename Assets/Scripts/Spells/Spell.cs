@@ -50,6 +50,8 @@ public class Spell : SerializedMonoBehaviour
     [Range(0f, 1f)] public float hitChance = 1f;
     [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
     public float lifeTime;
+    public float rateOfFire;
+    [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField] bool terminateOnHit = true;
     
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
@@ -93,6 +95,7 @@ public class Spell : SerializedMonoBehaviour
             {
                 Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
                 targetBrain.loco.KnockBack(dir, injectHealthData.knockBack);
+                main.onHitTarget?.Invoke(targetBrain);
                 b = targetBrain;
             }
 

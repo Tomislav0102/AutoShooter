@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
 public class S_Hook : Spell
 {
-    float _timer = float.MaxValue;
+    float _timer = Mathf.Infinity;
+    bool _oneHit;
     Brain _anchorBrain;
 
     public override void InitializeMe(SpellMain mainSpell)
@@ -20,12 +21,28 @@ public class S_Hook : Spell
     {
         base.Update();
         if (!main.IsActive) return;
+        if (MyPhase != Phase.SpellRuns) return;
+        if (_oneHit) return;
+
+        if (rateOfFire == 0)
+        {
+            Hit();
+            _oneHit = true;
+            return;
+        }
+        
         _timer += Time.deltaTime;
-        if (_timer > 1f)
+        if (_timer > rateOfFire)
         {
             _timer = 0f;
-            _anchorBrain.health.TakeDamage(injectHealthData);
-            main.onHitTarget?.Invoke(_anchorBrain);
+            Hit();
         }
+    }
+
+    void Hit()
+    {
+        _anchorBrain.health.TakeDamage(injectHealthData);
+        main.onHitTarget?.Invoke(_anchorBrain);
+
     }
 }

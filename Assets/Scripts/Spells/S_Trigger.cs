@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class S_GeneralTrigger : Spell
+public class S_Trigger : Spell
 {
     [Title("Triggers")]
     [SerializeField] bool onEnter = true;
@@ -17,7 +17,7 @@ public class S_GeneralTrigger : Spell
     }
     [SerializeField] ColliderPart colliderPart;
         
-    //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'MainSpell' is in array that detects all.
+    //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'Spell' is in array that detects all.
     bool AffectsSpells() => hitEffects.Contains(HitEffect.Nullify) || hitEffects.Contains(HitEffect.Reflect);
     [SerializeField, ShowIf(nameof(AffectsSpells))] SpellMain[] spellsToAffect;
     
@@ -41,17 +41,17 @@ public class S_GeneralTrigger : Spell
     }
 
     
-    // public override void OnTriggerExitCallBack(Collider other)
-    // {
-    //     base.OnTriggerExitCallBack(other);
-    //     if (!onExit) return;
-    //     if (!CheckColliderType(other.transform.position)) return;
-    //     if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))
-    //     {
-    //         //revert change
-    //         collidersDetected.Remove(other);
-    //     }
-    // }
+    public override void OnTriggerExitCallBack(Collider other)
+    {
+        base.OnTriggerExitCallBack(other);
+        if (!onExit) return;
+        if (!CheckColliderType(other.transform.position)) return;
+        if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))
+        {
+            //revert change
+            collidersDetected.Remove(other);
+        }
+    }
 
     bool CheckColliderType(Vector3 pos)
     {
