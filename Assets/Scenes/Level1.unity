@@ -8482,7 +8482,7 @@ PrefabInstance:
       objectReference: {fileID: 3005999819023033884, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
     - target: {fileID: 4694166587580639160, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.78
+      value: -3.33
       objectReference: {fileID: 0}
     - target: {fileID: 4694166587580639160, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8490,7 +8490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4694166587580639160, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.67
+      value: 4.85
       objectReference: {fileID: 0}
     - target: {fileID: 4694166587580639160, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8519,6 +8519,18 @@ PrefabInstance:
     - target: {fileID: 4694166587580639160, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516341047759979139, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516341047759979139, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+    - target: {fileID: 8646946241886633486, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

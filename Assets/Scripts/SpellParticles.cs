@@ -68,4 +68,12 @@ public class SpellParticles
         }
     }
 
+    public void Stop()
+    {
+        foreach (ParticleSystem particleSystem in psStart)
+        {
+            particleSystem.Stop();
+        }
+    }
+
 }

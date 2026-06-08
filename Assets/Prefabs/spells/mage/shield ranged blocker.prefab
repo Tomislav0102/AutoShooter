@@ -278,21 +278,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
-  durationType: 1
-  lifeTime: 0
+  hitChance: 1
+  lifeTime: -1
+  rateOfFire: 0
   terminateOnHit: 0
-  anchor: {fileID: 0}
-  colliderType: 0
   spellParticles:
-    ps:
+    psStart:
     - {fileID: 2614154149570889060}
-    particleSizeChange: 0
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0

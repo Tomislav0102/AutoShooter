@@ -11,8 +11,7 @@ public class S_Overlap : Spell
     public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
-        if (followTarget == null || followTarget.GetComponent<Brain>() == null) MyPhase = Phase.EndStart;
-        _anchorBrain = followTarget.GetComponent<Brain>();
+        if (followTarget != null && followTarget.GetComponent<Brain>() != null) followTarget.GetComponent<Brain>();;
     }
 
 
@@ -45,7 +44,7 @@ public class S_Overlap : Spell
             bool eventCall = false;
             Collider[] colliders = Physics.OverlapSphere(main.myTransform.position,
                 areaOfEffect * 0.5f,
-                Utils.MyLayer(Ga.me.gameData.layActors));
+                Utils.MyLayers(new string[] {Ga.me.gameData.layActors, Ga.me.gameData.laySpell}));
             foreach (Collider item in colliders)
             {
                 HitMethod(item, out Brain targetBrain);

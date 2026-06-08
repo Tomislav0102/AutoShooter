@@ -95,19 +95,19 @@ public class P_Mage : PlayerCombat
                     areFire.InitializeMe(Br, damRanged);
                 }
                 break;
-            case 2:
-                // int numOfHomingMissiles = 1;
-                // float angle = 180f / (numOfHomingMissiles + 1);
-                // for (int i = 0; i < numOfHomingMissiles; i++)
-                // {
-                //     SpellControl homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-                //     homing.myTransform.forward = -Br.myTransform.right;
-                //     homing.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
-                //     homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
-                //     HomingTransporter transporter = homing.transporter as  HomingTransporter;
-                //     transporter.homingTarget = Br.combat.MyTarget;
-                //     homing.InitializeMe(Br, damRanged);
-                // }
+            case 2: 
+                int numOfHomingMissiles = 1;
+                float angle = 180f / (numOfHomingMissiles + 1);
+                for (int i = 0; i < numOfHomingMissiles; i++)
+                {
+                    SpellMain homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    homing.myTransform.forward = -Br.myTransform.right;
+                    homing.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
+                    homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
+                    HomingTransporter transporter = homing.transporter as  HomingTransporter;
+                    transporter.homingTarget = Br.combat.MyTarget;
+                    homing.InitializeMe(Br, damRanged);
+                }
                 break;
         }
     }

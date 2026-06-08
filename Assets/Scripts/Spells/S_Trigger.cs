@@ -34,6 +34,7 @@ public class S_Trigger : Spell
         base.OnTriggerEnterCallBack(other);
         if (!onEnter) return;
         if (!CheckColliderType(other.transform.position)) return;
+        if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
         SpellMain[] sps = AffectsSpells() ? spellsToAffect : null;
         HitMethod(other, out Brain targetBrain, sps);
         main.onHitTarget?.Invoke(targetBrain);
@@ -46,6 +47,7 @@ public class S_Trigger : Spell
         base.OnTriggerExitCallBack(other);
         if (!onExit) return;
         if (!CheckColliderType(other.transform.position)) return;
+        if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
         if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))
         {
             //revert change

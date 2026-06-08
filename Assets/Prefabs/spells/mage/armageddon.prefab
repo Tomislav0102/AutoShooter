@@ -266,7 +266,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 7813851313279093929}
+      objectReference: {fileID: 7490935668756659149}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
@@ -290,7 +290,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7813851313279093929}
+      addedObject: {fileID: 7490935668756659149}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4302225683334377199}
@@ -317,7 +317,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 1525356257560724709}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7813851313279093929
+--- !u!114 &7490935668756659149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,9 +326,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5884963216466479112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda8936b07d23974cb2772aa286cdae1, type: 3}
+  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Area
+  m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -364,23 +364,23 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 16
   startDelay: 0
-  durationType: 2
+  hitChance: 1
   lifeTime: 10
+  rateOfFire: 0.33333334
   terminateOnHit: 0
-  followTarget: {fileID: 0}
-  colliderType: 0
   spellParticles:
-    ps:
+    psStart:
     - {fileID: 5002662828972225213}
     - {fileID: 373713076123769344}
     - {fileID: 8643804377669422720}
-    particleSizeChange: 3
+    psOnHit: []
+    particleSizeChangeStart: 3
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0

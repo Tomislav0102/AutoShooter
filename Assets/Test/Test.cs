@@ -8,11 +8,12 @@ using TMPro;
 
 public class Test : SerializedMonoBehaviour
 {
-    public RectTransform rt;
+    public Faction myFaction, targetFaction;
+    public FactionToTarget factionToTarget;
     [Button]
     void Metoda()
     {
-        print(Screen.width);
+       print(Utils.CanTargetFaction(myFaction, targetFaction, factionToTarget));
     }
 }
 

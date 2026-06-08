@@ -6,15 +6,17 @@ public class SpellManager : MonoBehaviour
 {
    public Transform myTransform;
    public SpellMain meleeEnemy;
-   public SpellMain bulletPlayer;
    public SpellMain bulletEnemy;
-   public SpellMain homingMissile;
    public SpellMain lobCarrySomething;
-   public SpellMain lightningStrike;
    public SpellMain heal;
+   [Title("Archer")]
+   public SpellMain bulletPlayer;
+   [Title("Mage")]
+   public SpellMain homingMissile;
+   public SpellMain lightningStrike;
    public SpellMain shieldFromProjectiles;
    public SpellMain armageddon;
-   [Title("knight")]
+   [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;
    public SpellMain sweepingArc;

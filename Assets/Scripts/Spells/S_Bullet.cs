@@ -66,7 +66,8 @@ public class S_Bullet : Spell
             }
 
         }
-        
+        if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
+        main.spell.MyPhase = Phase.EndStart;
     }
 
     public override void OnCollisionEnterCallBack(Collision collision)

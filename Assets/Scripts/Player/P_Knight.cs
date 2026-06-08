@@ -20,7 +20,7 @@ public class P_Knight : PlayerCombat
             {
                  // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                  // { Element.Magic, 2f },
+                   { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -42,8 +42,8 @@ public class P_Knight : PlayerCombat
             // aura.spell.followTarget = Br.myTransform;
             // aura.InitializeMe(Br);
             
-            SpellGroup pulseGroup = Instantiate(Ga.me.spells.groupPulse, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            pulseGroup.InitializeMe(Br);
+            // SpellGroup pulseGroup = Instantiate(Ga.me.spells.groupPulse, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            // pulseGroup.InitializeMe(Br);
         }
     }
 
@@ -96,9 +96,9 @@ public class P_Knight : PlayerCombat
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
-                if (Random.value > 0.05f) return;
-                SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                shieldThrow.InitializeMe(Br, damRanged);
+                // if (Random.value > 0.05f) return;
+                // SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                // shieldThrow.InitializeMe(Br, damRanged);
                 break;
             case CombatEvent.GetHit:
                 break;
@@ -106,10 +106,10 @@ public class P_Knight : PlayerCombat
               //  StartCoroutine(SpellPushDelay());
                 break;
             case CombatEvent.Kill:
-                if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))
-                {
-                    Br.myChar.ChangeStat(Character.BuffType.Skill,Stats.MagicDamage, 1);
-                }
+                // if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))
+                // {
+                //     Br.myChar.ChangeStat(Character.BuffType.Skill,Stats.MagicDamage, 1);
+                // }
                 break;
         }
         return;

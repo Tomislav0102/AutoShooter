@@ -62,7 +62,9 @@ public class SpellMain : MonoBehaviour
     void CallEv_OnEnd()
     {
         _onAfterSpell?.Invoke();
-        StartCoroutine(DelayForParticles());
+        IsActive = false;
+        Destroy(gameObject);
+       // StartCoroutine(DelayForParticles());
 
         IEnumerator DelayForParticles()
         {

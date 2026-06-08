@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 4921662210564395571}
+      objectReference: {fileID: 8221757412927278807}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
@@ -66,7 +66,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4921662210564395571}
+      addedObject: {fileID: 8221757412927278807}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4105651119880949083}
@@ -76,7 +76,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4785387154700962952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4921662210564395571
+--- !u!114 &8221757412927278807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 498120488472608869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 871855f3240083e49a3085379df9c490, type: 3}
+  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Hook
+  m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -123,20 +123,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
-  durationType: 0
+  hitChance: 1
   lifeTime: 0
+  rateOfFire: 0
   terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 2
   spellParticles:
-    ps: {fileID: 0}
-    particleSizeChange: 0
+    psStart:
+    - {fileID: 0}
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0
