@@ -41842,7 +41842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -227623,8 +227623,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: spellActive
+      propertyPath: groupActive
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: spellActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name
@@ -227632,7 +227636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -233153,6 +233157,7 @@ MonoBehaviour:
   armageddon: {fileID: 5149970095435453870, guid: fe30684c13f5530448d6c01a748715af, type: 3}
   meleePlayer: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   push: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
+  pushPulsating: {fileID: 4182053067932181034, guid: 0d6db314f2c593b498989dacd0d821c8, type: 3}
   sweepingArc: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
   reflectProjectile: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
   shieldThrow: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
@@ -233162,7 +233167,6 @@ MonoBehaviour:
   groupOrbitalSwordsFire: {fileID: 331804568073318909, guid: 543497fbb6244484ab5d52a82fc867c2, type: 3}
   groupOrbitalSwordsIce: {fileID: 6258537417200386015, guid: 662799f3f0290e1468284eb988acd6c0, type: 3}
   groupOrbitalSwordsElectric: {fileID: 2316800532690480909, guid: 7e4a0b5796b90a84386c851fe74a6da3, type: 3}
-  groupPulse: {fileID: 5352760174683494723, guid: 042e00eebbd794f49813d6ca264bc698, type: 3}
   carryFireball: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
   explosionFire: {fileID: 8836565589368749305, guid: 2643c897d8ad6c34a9ca06a330f4d3d9, type: 3}
   areFire: {fileID: 1808040132898285677, guid: a6065988ba6700941a0e3dd96bedd88a, type: 3}

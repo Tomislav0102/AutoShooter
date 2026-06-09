@@ -19717,7 +19717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
@@ -19809,19 +19809,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 0.3
   startDelay: 0
-  durationType: 2
+  hitChance: 1
   lifeTime: 10
+  rateOfFire: 0
   terminateOnHit: 1
-  followTarget: {fileID: 0}
   spellParticles:
-    ps:
+    psStart:
     - {fileID: 6968181303640538533}
-    particleSizeChange: 0
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0

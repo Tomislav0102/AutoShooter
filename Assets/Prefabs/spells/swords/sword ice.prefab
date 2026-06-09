@@ -225,11 +225,11 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 4872175653188843108}
+      objectReference: {fileID: 884438492807903375}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 7612477052941877627}
+      objectReference: {fileID: 6406458556034842664}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -242,17 +242,17 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4872175653188843108}
+      addedObject: {fileID: 884438492807903375}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7612477052941877627}
+      addedObject: {fileID: 6406458556034842664}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &2097534616939073456 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 6456826149557699421}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4872175653188843108
+--- !u!114 &884438492807903375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,9 +261,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2097534616939073456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda8936b07d23974cb2772aa286cdae1, type: 3}
+  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Area
+  m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -299,21 +299,22 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
-  areaOfEffect: 1
+  areaOfEffect: 3
   startDelay: 0
-  durationType: 1
-  lifeTime: 1e+26
-  terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 1
+  hitChance: 1
+  lifeTime: -1
+  rateOfFire: 0.2
+  terminateOnHit: 0
   spellParticles:
-    ps: {fileID: 5130193011359968850}
-    particleSizeChange: 0
+    psStart:
+    - {fileID: 5130193011359968850}
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
-    canBeBlocked: 1
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0
   hitEffects: 00000000
@@ -327,7 +328,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 6456826149557699421}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7612477052941877627
+--- !u!114 &6406458556034842664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,6 +337,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6744848169485838548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter

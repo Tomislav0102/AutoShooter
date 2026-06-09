@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 3781490151636312459}
+      objectReference: {fileID: 4492760877488234037}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -76,7 +76,7 @@ PrefabInstance:
       addedObject: {fileID: 5710710455170707006}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3781490151636312459}
+      addedObject: {fileID: 4492760877488234037}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &4437619653583148580 stripped
 GameObject:
@@ -130,17 +130,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  IsActive: 1
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 5
   startDelay: 0
+  hitChance: 1
   lifeTime: -1
+  rateOfFire: 0
   terminateOnHit: 0
-  followTarget: {fileID: 0}
   spellParticles:
-    ps:
+    psStart:
     - {fileID: 6885404010821729640}
-    particleSizeChange: 0
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -161,7 +163,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 8724921783028259529}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3781490151636312459
+--- !u!114 &4492760877488234037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,9 +172,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9013080140464599360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
 --- !u!1001 &9138242517926343654
 PrefabInstance:
   m_ObjectHideFlags: 0

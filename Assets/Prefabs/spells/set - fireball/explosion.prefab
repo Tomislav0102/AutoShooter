@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 3787736903309122036}
+      objectReference: {fileID: 4884549934522950656}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -147,14 +147,14 @@ PrefabInstance:
       addedObject: {fileID: 1736381624671128185}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3787736903309122036}
+      addedObject: {fileID: 4884549934522950656}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &3239058992385885755 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 2950614765342338482}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3787736903309122036
+--- !u!114 &4884549934522950656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,9 +163,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3239058992385885755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
 --- !u!4 &7788332774162815757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -241,6 +241,7 @@ MonoBehaviour:
   startDelay: 0
   hitChance: 1
   lifeTime: 2
+  rateOfFire: 0
   terminateOnHit: 1
   spellParticles:
     psStart:

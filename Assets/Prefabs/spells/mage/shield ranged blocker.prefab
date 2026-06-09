@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 198342057214220678, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 198405074153969992, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: moveWithTransform
       value: 0
@@ -198,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 3488954626340846763}
+      objectReference: {fileID: 7422204331370452910}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
       value: 21
@@ -219,7 +223,7 @@ PrefabInstance:
       addedObject: {fileID: 4782607804132217251}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3488954626340846763}
+      addedObject: {fileID: 7422204331370452910}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!4 &1132945530964310593 stripped
 Transform:
@@ -308,7 +312,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 5430779227207044350}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3488954626340846763
+--- !u!114 &7422204331370452910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,6 +321,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5719503837971982199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter

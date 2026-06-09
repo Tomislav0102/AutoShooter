@@ -39651,7 +39651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
@@ -39660,7 +39660,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 2794139951542407535}
+      objectReference: {fileID: 2152824533558540911}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
       value: 21
@@ -39691,14 +39691,14 @@ PrefabInstance:
       addedObject: {fileID: 8745390515396982302}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2794139951542407535}
+      addedObject: {fileID: 2152824533558540911}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &1185049575741134598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 1473775281989074063}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2794139951542407535
+--- !u!114 &2152824533558540911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39707,9 +39707,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1185049575741134598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
 --- !u!4 &5806514127492139568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -39773,11 +39773,13 @@ MonoBehaviour:
   startDelay: 0
   hitChance: 0.5
   lifeTime: -1
+  rateOfFire: 0
   terminateOnHit: 0
   spellParticles:
-    ps:
+    psStart:
     - {fileID: 8502139232785976505}
-    particleSizeChange: 0
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0

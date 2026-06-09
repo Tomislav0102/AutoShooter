@@ -20,7 +20,7 @@ public class P_Knight : PlayerCombat
             {
                  // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                   { Element.Magic, 2f },
+                  // { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -42,8 +42,9 @@ public class P_Knight : PlayerCombat
             // aura.spell.followTarget = Br.myTransform;
             // aura.InitializeMe(Br);
             
-            // SpellGroup pulseGroup = Instantiate(Ga.me.spells.groupPulse, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            // pulseGroup.InitializeMe(Br);
+            SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+            pushPulse.spell.followTarget = Br.myTransform;
+            pushPulse.InitializeMe(Br);
         }
     }
 

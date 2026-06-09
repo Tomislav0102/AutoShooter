@@ -2544,7 +2544,7 @@ MonoBehaviour:
   <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
   detectRange: 3.4028235e+38
-  meleeWeapon: {fileID: 0}
+  meleeWeapon: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
   rangedWeapon: {fileID: 0}
   rangeRanged: 10
   spawnPoint: {fileID: 2031405845141860428}

@@ -50,33 +50,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Name
-      value: heal simple
+      value: heal
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 8221757412927278807}
+      objectReference: {fileID: 1912466414911216578}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 4105651119880949083}
+      objectReference: {fileID: 2663389831298433058}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8221757412927278807}
+      addedObject: {fileID: 1912466414911216578}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4105651119880949083}
+      addedObject: {fileID: 2663389831298433058}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &498120488472608869 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4785387154700962952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8221757412927278807
+--- !u!114 &1912466414911216578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 498120488472608869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
+  m_Script: {fileID: 11500000, guid: 871855f3240083e49a3085379df9c490, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
+  m_EditorClassIdentifier: Assembly-CSharp::S_Target
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -124,7 +124,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   followTarget: {fileID: 0}
-  myFactionTarget: 1
+  myFactionTarget: 0
   areaOfEffect: 1
   startDelay: 0
   hitChance: 1
@@ -132,10 +132,9 @@ MonoBehaviour:
   rateOfFire: 0
   terminateOnHit: 1
   spellParticles:
-    psStart:
-    - {fileID: 0}
+    psStart: []
     psOnHit: []
-    particleSizeChangeStart: 0
+    particleSizeChangeStart: 3
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -147,7 +146,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4785387154700962952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4105651119880949083
+--- !u!114 &2663389831298433058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,6 +155,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5073549912123746049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327911a3264db6c4dbc6a350c6329a8d, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EmptyTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter

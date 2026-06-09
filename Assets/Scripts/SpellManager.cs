@@ -19,6 +19,7 @@ public class SpellManager : MonoBehaviour
    [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;
+   public SpellMain pushPulsating;
    public SpellMain sweepingArc;
    public SpellMain reflectProjectile;
    public SpellMain shieldThrow;
@@ -29,7 +30,6 @@ public class SpellManager : MonoBehaviour
    public SpellGroup groupOrbitalSwordsFire;
    public SpellGroup groupOrbitalSwordsIce;
    public SpellGroup groupOrbitalSwordsElectric;
-   public SpellGroup groupPulse;
    [Title("Fireball set")] 
    public SpellMain carryFireball;
    public SpellMain explosionFire;

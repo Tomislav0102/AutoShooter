@@ -61,6 +61,8 @@ public class SpellParticles
                     velocityOverLifetime.y = (spellMain.transporter as BulletTransporter).speed;
                 }
                 break;
+                case ParticleSizeChange.Other_None:
+                return;
         }
         foreach (ParticleSystem particleSystem in psStart)
         {

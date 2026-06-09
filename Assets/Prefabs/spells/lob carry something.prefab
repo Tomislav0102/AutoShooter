@@ -143,6 +143,10 @@ PrefabInstance:
       value: lob carry something
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: spell
+      value: 
+      objectReference: {fileID: 2688387915360757227}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: myMesh
       value: 
       objectReference: {fileID: 9083238804321993625}
@@ -163,7 +167,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 657923610522328692}
+      addedObject: {fileID: 2688387915360757227}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6334399017835829008}
@@ -195,7 +199,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4244962106122269990}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &657923610522328692
+--- !u!114 &2688387915360757227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,9 +208,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9108973598013618635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69bb4af28905e2343b66598f4dc817fa, type: 3}
+  m_Script: {fileID: 11500000, guid: cc53d4cd792449647a473c22ea63c6cf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Empty
+  m_EditorClassIdentifier: Assembly-CSharp::Spell
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -242,20 +246,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
-  durationType: 1
-  lifeTime: 0
+  hitChance: 1
+  lifeTime: 15
+  rateOfFire: 0
   terminateOnHit: 1
-  followTarget: {fileID: 0}
-  colliderType: 2
   spellParticles:
-    ps: []
-    particleSizeChange: 3
+    psStart: []
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
   useInspectorDamageData: 0

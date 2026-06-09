@@ -90,7 +90,6 @@ public class Spell : SerializedMonoBehaviour
         Brain b = null;
         if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
         {
-            
             if (injectHealthData.knockBack > 0 && targetBrain.loco != null)
             {
                 Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
