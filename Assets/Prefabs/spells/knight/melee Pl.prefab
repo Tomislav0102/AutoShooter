@@ -123,19 +123,22 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 3
   startDelay: 0
+  hitChance: 1
   lifeTime: 0
+  rateOfFire: 0
   terminateOnHit: 0
-  followTarget: {fileID: 0}
   spellParticles:
-    ps: []
-    particleSizeChange: 0
+    psStart: []
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
-    knockBack: 0
+    knockBack: 7
   useInspectorDamageData: 0
   hitEffects: 00000000
 --- !u!1 &7347037599748218490 stripped

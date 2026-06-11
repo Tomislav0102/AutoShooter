@@ -13,6 +13,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain bulletPlayer;
    [Title("Mage")]
    public SpellMain homingMissile;
+   public SpellMain flameThrower;
    public SpellMain lightningStrike;
    public SpellMain shieldFromProjectiles;
    public SpellMain armageddon;
@@ -30,6 +31,7 @@ public class SpellManager : MonoBehaviour
    public SpellGroup groupOrbitalSwordsFire;
    public SpellGroup groupOrbitalSwordsIce;
    public SpellGroup groupOrbitalSwordsElectric;
+   public SpellGroup groupFlamethrowers;
    [Title("Fireball set")] 
    public SpellMain carryFireball;
    public SpellMain explosionFire;

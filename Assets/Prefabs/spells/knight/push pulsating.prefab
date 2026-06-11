@@ -145,7 +145,7 @@ MonoBehaviour:
   startDelay: 0
   hitChance: 1
   lifeTime: -1
-  rateOfFire: 0.5
+  rateOfFire: 1.5
   terminateOnHit: 0
   spellParticles:
     psStart:

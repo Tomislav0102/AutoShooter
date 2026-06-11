@@ -104,6 +104,24 @@ public class Health: EventBus, IInit
         }
         Br.combat.CombatEventRegistered(CombatEvent.GetHit, dam.myBrain);
        // Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
+
+        foreach (KeyValuePair<string, string> item in dam.tags)
+        {
+            switch (item.Key)
+            {
+                case InjectHealth.TagExecutioner:
+                    float chance = float.Parse(item.Value);
+                    float currentHpRatio = HealthCurrent / _healthMax;
+                    if (chance <= currentHpRatio)
+                    {
+                        HealthCurrent = 0;
+                    }
+                    break;
+                    case InjectHealth.TagStatusBleed:
+                        //apply bleed
+                        break;
+            }
+        }
         ft.SpawnMe(dam);
         
         HealthCurrent -= totalDamage;

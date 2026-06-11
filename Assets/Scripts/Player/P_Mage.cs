@@ -6,11 +6,15 @@ public class P_Mage : PlayerCombat
 {
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
+    [SerializeField] ParticleSystem psCast;
     public int groupActive;
     public int spellActive;
     [Title("Swords")]
     public int swordCount = 1;
-    
+    [Title("Debug")]
+    public int numOfFlames = 1;
+
+
     public override Brain Br
     {
         get => base.Br;
@@ -21,10 +25,10 @@ public class P_Mage : PlayerCombat
             IsInitialized = true;
             damRanged = new Dictionary<Element, float>()
             {
-              //  { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
-               { Element.Electricity, 1f },
-               // { Element.Fire, 22f },
-               // { Element.Physical, 3f },
+                //  { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
+                { Element.Electricity, 1f },
+                // { Element.Fire, 22f },
+                // { Element.Physical, 3f },
             };
 
             switch (groupActive)
@@ -38,8 +42,7 @@ public class P_Mage : PlayerCombat
                     break;
                 case 1:
                     SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    WalkTrailGroup walkTrail = groupWalkTrail as WalkTrailGroup;
-                    walkTrail.myDamage = new Dictionary<Element, float>()
+                    groupWalkTrail.myDamage = new Dictionary<Element, float>()
                     {
                         { Element.Fire, 1f }
                     };
@@ -53,14 +56,36 @@ public class P_Mage : PlayerCombat
                         if (i == 0) prefab = Ga.me.spells.groupOrbitalSwordsFire;
                         if (i == 1) prefab = Ga.me.spells.groupOrbitalSwordsIce;
                         if (i == 2) prefab = Ga.me.spells.groupOrbitalSwordsElectric;
-                        SpellGroup groupSwords = Instantiate(prefab, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                        groupSwords.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
+                        SpellGroup groupSwords = Instantiate(prefab, Br.myTransform.position, Quaternion.Euler(0f, angle * (i + 1), 0f), Ga.me.spells.myTransform);
+                        // groupSwords.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
                         OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
                         orbitalGroupSwords.orbitingAnchor = Br.myTransform;
                         groupSwords.InitializeMe(Br);
                     }
                     break;
+                case 3:
+                    SpellGroup groupFlamethrower = Instantiate(Ga.me.spells.groupFlamethrowers, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    OrbitalGroup orbitalGroupFlamethrower = groupFlamethrower as OrbitalGroup;
+                    orbitalGroupFlamethrower.orbitingAnchor = Br.myTransform;
+                    groupFlamethrower.myDamage = new Dictionary<Element, float>()
+                    {
+                        { Element.Fire, 1f }
+                    };
+                    groupFlamethrower.InitializeMe(Br);
+                    break;
             }
+
+            // SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+            // pushPulse.spell.followTarget = Br.myTransform;
+            // pushPulse.InitializeMe(Br);
+            // float angleFlamethrower = 180f / (numOfFlames + 1);
+            // for (int i = 0; i < numOfFlames; i++)
+            // {
+            //     SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower,  Br.myTransform.position, 
+            //         Quaternion.Euler(0f, angleFlamethrower * (i + 1) - 90, 0f), Ga.me.spells.myTransform);
+            //     flamethrower.spell.followTarget = Br.myTransform;
+            //     flamethrower.InitializeMe(Br);
+            // }
         }
     }
 
@@ -68,7 +93,8 @@ public class P_Mage : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
-
+        
+        psCast.Play();
         switch (spellActive)
         {
             case 0:

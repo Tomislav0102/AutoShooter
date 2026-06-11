@@ -11,6 +11,9 @@ public enum GenChange { Add, Remove }
 public enum GenCalcChange { Increase,  Decrease, Replace }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
+
+
+public enum ColliderType { Sphere, Capsule, None }//includes Overlap shape too. Capsule always has radius of 0.5f, regardless of areaOfEffect.
 public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }

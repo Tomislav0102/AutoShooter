@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class S_Trigger : Spell
+public class S_A_Trigger : S_A
 {
     [Title("Triggers")]
     [SerializeField] bool onEnter = true;
+    [SerializeField] bool onStayFake;
     [SerializeField] bool onExit;
 
     enum ColliderPart
@@ -27,7 +28,19 @@ public class S_Trigger : Spell
         base.InitializeMe(mainSpell);
         spellParticles.InitializeMe(mainSpell);
     }
-
+    
+    protected override void Hit()
+    {
+        base.Hit();
+        if (!onStayFake) return;
+        foreach (Collider item in collidersDetected)
+        {
+            if (item == null) continue;
+            SpellMain[] sps = AffectsSpells() ? spellsToAffect : null;
+            HitMethod(item, out Brain targetBrain, sps);
+            main.onHitTarget?.Invoke(targetBrain);
+        }
+    }
 
     public override void OnTriggerEnterCallBack(Collider other)
     {
@@ -35,6 +48,11 @@ public class S_Trigger : Spell
         if (!onEnter) return;
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
+        if (collidersDetected.Contains(other)) return;
+        
+        collidersDetected.Add(other);
+        if (onStayFake) return;
+        
         SpellMain[] sps = AffectsSpells() ? spellsToAffect : null;
         HitMethod(other, out Brain targetBrain, sps);
         main.onHitTarget?.Invoke(targetBrain);
@@ -48,10 +66,12 @@ public class S_Trigger : Spell
         if (!onExit) return;
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
-        if (hitEffects.Contains(HitEffect.StatChange) && collidersDetected.Contains(other))
+        if (!collidersDetected.Contains(other)) return;
+        
+        collidersDetected.Remove(other);
+        if (hitEffects.Contains(HitEffect.StatChange))
         {
             //revert change
-            collidersDetected.Remove(other);
         }
     }
 

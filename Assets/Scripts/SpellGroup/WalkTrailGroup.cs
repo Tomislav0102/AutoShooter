@@ -4,7 +4,6 @@ using UnityEngine.Serialization;
 
 public class WalkTrailGroup : SpellGroup
 {
-    public Dictionary<Element, float> myDamage;
     float _timer;
     const float CONST_SpawnRate = 0.1f;
     HashSet<Collider> _spawns;
@@ -25,7 +24,7 @@ public class WalkTrailGroup : SpellGroup
             _timer = 0;
             Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, 
                 _radius * 2, 
-                Utils.MyLayer(Ga.me.gameData.layActors));
+                Utils.MyLayer(Ga.me.gameData.laySpell));
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (_spawns.Contains(colliders[i])) return;

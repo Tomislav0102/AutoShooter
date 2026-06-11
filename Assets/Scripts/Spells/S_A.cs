@@ -22,6 +22,7 @@ public class S_A : Spell
         
         _timer += Time.deltaTime;
         if (_timer > rateOfFire)
+      //  if (_timer > Ga.me.gameData.rofSpells)
         {
             _timer = 0f;
             Hit();

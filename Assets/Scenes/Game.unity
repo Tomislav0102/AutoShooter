@@ -103282,7 +103282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &885458253
 Transform:
   m_ObjectHideFlags: 0
@@ -103319,9 +103319,15 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  myFaction: 1
-  targetFaction: 1
-  factionToTarget: 0
+  mats: []
+  startPosition: {x: 0, y: 0, z: 0}
+  endPosition: {x: 0, y: 0, z: 0}
+  radius: 0
+  gos: []
+  parent: {fileID: 0}
+  prefab: {fileID: 0}
+  gridSize: 0
+  offset: 0
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -227624,19 +227630,15 @@ PrefabInstance:
       objectReference: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: groupActive
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: spellActive
-      value: 0
+      propertyPath: numOfFlames
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name
       value: BP_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -233152,6 +233154,7 @@ MonoBehaviour:
   heal: {fileID: 1169358827584757187, guid: 1dfb1a612c8c2194e894fd3d1fb79baa, type: 3}
   bulletPlayer: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
   homingMissile: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
+  flameThrower: {fileID: 3141391959439269076, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
   lightningStrike: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
   shieldFromProjectiles: {fileID: 1805232084315020725, guid: 2f22d8484b5757a4a80a8f8220621e77, type: 3}
   armageddon: {fileID: 5149970095435453870, guid: fe30684c13f5530448d6c01a748715af, type: 3}
@@ -233167,6 +233170,7 @@ MonoBehaviour:
   groupOrbitalSwordsFire: {fileID: 331804568073318909, guid: 543497fbb6244484ab5d52a82fc867c2, type: 3}
   groupOrbitalSwordsIce: {fileID: 6258537417200386015, guid: 662799f3f0290e1468284eb988acd6c0, type: 3}
   groupOrbitalSwordsElectric: {fileID: 2316800532690480909, guid: 7e4a0b5796b90a84386c851fe74a6da3, type: 3}
+  groupFlamethrowers: {fileID: 1800718008164420412, guid: 3133660db93386b45a46574ef0b09e34, type: 3}
   carryFireball: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
   explosionFire: {fileID: 8836565589368749305, guid: 2643c897d8ad6c34a9ca06a330f4d3d9, type: 3}
   areFire: {fileID: 1808040132898285677, guid: a6065988ba6700941a0e3dd96bedd88a, type: 3}

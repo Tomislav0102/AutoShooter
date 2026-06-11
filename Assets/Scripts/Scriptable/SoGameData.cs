@@ -9,6 +9,7 @@ public class SoGameData : ScriptableObject
     [Title("Dynamic")] 
     public int level;
     [Title("General")]
+    public float rofSpells;
     public float pushDuration;
     public Material matSeeThroughWalls;
     [Title("Elements")]

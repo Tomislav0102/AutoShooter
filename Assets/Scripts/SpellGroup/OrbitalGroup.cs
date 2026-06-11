@@ -7,6 +7,7 @@ public class OrbitalGroup : SpellGroup
     [ReadOnly] public Transform orbitingAnchor;
     public float distanceFromAnchor;
     [Range(1, 6)] public int numOfActiveSpells = 1;
+    [SerializeField] int rotationSpeed = 20;
 
     public override void InitializeMe(Brain ownersBrain)
     {
@@ -28,6 +29,6 @@ public class OrbitalGroup : SpellGroup
     void Update()
     {
         myTransform.position = orbitingAnchor.position;
-        myTransform.Rotate(20f * Time.deltaTime * Vector3.up);
+        myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
     }
 }

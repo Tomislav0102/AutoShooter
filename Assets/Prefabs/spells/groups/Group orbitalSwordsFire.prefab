@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3450656d2118eb478a32b5d075de178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrbitalGroup
+  spellInstantiated: {fileID: 0}
   myTransform: {fileID: 8041289987916609986}
   orbitingAnchor: {fileID: 0}
   distanceFromAnchor: 1
@@ -58,6 +59,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8041289987916609986}
     m_Modifications:
+    - target: {fileID: 3154086892617260144, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 3154086892617260144, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
     - target: {fileID: 5002191739115988073, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
       propertyPath: m_Name
       value: sword fire
@@ -128,6 +133,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8041289987916609986}
     m_Modifications:
+    - target: {fileID: 3154086892617260144, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 3154086892617260144, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
     - target: {fileID: 5002191739115988073, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
       propertyPath: m_Name
       value: sword fire (1)

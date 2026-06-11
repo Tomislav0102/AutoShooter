@@ -42,8 +42,8 @@ public class SpellMain : MonoBehaviour
     [ReadOnly, ShowInInspector] Brain _ownersBrain;
     public Transform myTransform;
     public Rigidbody myRigid;
-    enum ColliderType { Sphere, Capsule, None }
-    [SerializeField] ColliderType colliderType;
+    
+    public ColliderType colliderType;
 
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
@@ -55,6 +55,7 @@ public class SpellMain : MonoBehaviour
     public SpellTransporter transporter;
     [SerializeField, TextArea, HideLabel] string description;
 
+    
     #region EVENTS, CALLBACKS
     public System.Action onEnd;
     public System.Action<Brain> onHitTarget;

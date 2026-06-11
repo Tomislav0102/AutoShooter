@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::SoGameData
   level: 1
+  rofSpells: 0.5
   pushDuration: 0.2
   matSeeThroughWalls: {fileID: 2100000, guid: 422123ba09d6e0b419c3d6362f748453, type: 2}
   element:

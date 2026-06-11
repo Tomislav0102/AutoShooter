@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 7713449299793807184}
+      objectReference: {fileID: 8934527533316784632}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
@@ -69,7 +69,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7713449299793807184}
+      addedObject: {fileID: 8934527533316784632}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7021115650856066523}
@@ -101,7 +101,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4236371836989135291}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7713449299793807184
+--- !u!114 &8934527533316784632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9100134441038042454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
+  m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
+  m_EditorClassIdentifier: Assembly-CSharp::S_Trigger
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -154,7 +154,7 @@ MonoBehaviour:
   startDelay: 0
   hitChance: 1
   lifeTime: 3
-  rateOfFire: 0.2
+  rateOfFire: 0.5
   terminateOnHit: 0
   spellParticles:
     psStart:
@@ -167,6 +167,11 @@ MonoBehaviour:
     knockBack: 0
   useInspectorDamageData: 0
   hitEffects: 00000000
+  onEnter: 1
+  onStayFake: 1
+  onExit: 1
+  colliderPart: 0
+  spellsToAffect: []
 --- !u!1001 &5176596925842145205
 PrefabInstance:
   m_ObjectHideFlags: 0

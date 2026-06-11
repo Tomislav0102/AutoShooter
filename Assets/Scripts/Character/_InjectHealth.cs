@@ -9,13 +9,14 @@ public class InjectHealth
     public bool canBeBlocked;
     [Range(0, 20)] public int knockBack;
     public Dictionary<Element, float> damage =  new Dictionary<Element, float>();
-    public object extraData;
-    public static string DataExecutioner = "Executioner";
-    public static string DataStatusBleed = "Bleeding";
-    public static string DataStatusPoison = "Poisoned";
-    public static string DataStatusBurn = "Burning";
-    public static string DataStatusFreeze = "Freezing";
-    public static string DataStatusJolt = "Jolted";
+
+    public Dictionary<string, string> tags = new Dictionary<string, string>();
+    public const string TagExecutioner = "Executioner";
+    public const string TagStatusBleed = "Bleeding";
+    public const string TagStatusPoison = "Poisoned";
+    public const string TagStatusBurn = "Burning";
+    public const string TagStatusFreeze = "Freezing";
+    public const string TagStatusJolt = "Jolted";
 
     // public InjectHealth(Transform attacker, Dictionary<Element, float> damage, bool canBeBlocked, int knockBack)
     // {

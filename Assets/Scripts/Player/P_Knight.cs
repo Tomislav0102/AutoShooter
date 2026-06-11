@@ -42,9 +42,6 @@ public class P_Knight : PlayerCombat
             // aura.spell.followTarget = Br.myTransform;
             // aura.InitializeMe(Br);
             
-            SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-            pushPulse.spell.followTarget = Br.myTransform;
-            pushPulse.InitializeMe(Br);
         }
     }
 

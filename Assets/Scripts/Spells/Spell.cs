@@ -42,6 +42,7 @@ public class Spell : SerializedMonoBehaviour
     [ShowInInspector, ReadOnly] Phase _phase;
     float _timerPhase;
     [ReadOnly] public Transform followTarget;
+
     protected SpellMain main;
     
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
@@ -66,6 +67,7 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField] protected List<HitEffect> hitEffects;
 
 
+    
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;

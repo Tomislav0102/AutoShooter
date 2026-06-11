@@ -2,9 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using Sirenix.OdinInspector;
-using UnityEngine.Rendering;
 
 
 public class Character : SerializedMonoBehaviour, IInit
