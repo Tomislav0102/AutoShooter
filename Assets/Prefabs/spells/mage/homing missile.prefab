@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomingTransporter
   homingTarget: {fileID: 0}
-  speed: 2.5
+  speed: 1
 --- !u!4 &8877991928408836941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -154,26 +154,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
+  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 0.2
   startDelay: 0
-  durationType: 2
+  hitChance: 1
   lifeTime: 50
+  rateOfFire: 0
   terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 0
   spellParticles:
-    ps:
+    psStart:
     - {fileID: 92274647244686051}
-    particleSizeChange: 0
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0
   hitEffects: 00000000
   onEnter: 1
+  onStayFake: 0
   onExit: 0
   colliderPart: 0
   spellsToAffect: []

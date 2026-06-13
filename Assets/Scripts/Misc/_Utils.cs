@@ -110,6 +110,32 @@ public class Utils
         z += (targetPos.z - z) * mod;
         camTr.position = new Vector3(x, camTr.position.y, z);
     }
+    
+    public static void RadialSpread(Transform[] transforms, float offsetZ = 0f, bool fullCircle = true, int arc = 180)
+    {
+        float angle = 0f;
+        if (fullCircle)
+        {
+            angle = 360 / (float)transforms.Length;
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                transforms[i].rotation = Quaternion.Euler(0f, angle * (i + 1) - (360f/transforms.Length), 0f);
+            }
+        }
+        else
+        {
+            angle = arc / (float)(transforms.Length + 1);
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                transforms[i].rotation = Quaternion.Euler(0f, angle * (i + 1) - arc * 0.5f, 0f);
+            }
+        }
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            transforms[i].position += offsetZ * transforms[i].forward;
+        }
+
+    }
 
     #region NOT USED
     public static bool IsInLayerMask(GameObject go, LayerMask mask)

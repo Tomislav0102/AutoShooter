@@ -5014,6 +5014,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6272300995295197705, guid: d6a462d82d6f1c74aa92df92874b16a9, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6272300995295197705, guid: d6a462d82d6f1c74aa92df92874b16a9, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.ctime0
       value: 12722
       objectReference: {fileID: 0}

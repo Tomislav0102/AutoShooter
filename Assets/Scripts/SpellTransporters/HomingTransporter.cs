@@ -18,7 +18,7 @@ public class HomingTransporter : SpellTransporter
         if (!main.IsActive ) return;
         if (homingTarget == null) return;
         Vector3 dir = Utils.Direction(main.myTransform.position, homingTarget.position);
-        main.myTransform.rotation = Quaternion.Slerp(main.myTransform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
+        main.myTransform.rotation = Quaternion.Slerp(main.myTransform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
     }
     
     void FixedUpdate()

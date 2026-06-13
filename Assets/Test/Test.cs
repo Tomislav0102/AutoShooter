@@ -5,63 +5,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class Test : SerializedMonoBehaviour
 {
-    public Material[] mats;
-    public Vector3 startPosition;
-    public Vector3 endPosition;
-    public float radius;
-    [Title("Generate")]
-    public List<GameObject> gos;
-    public Transform parent;
-    public GameObject prefab;
-    public int gridSize;
-    public float offset;
-    float _size = 1f;
-
-
-    void Update()
-    {
-        ResetColor();
-        Collider[] cols = Physics.OverlapCapsule(startPosition, endPosition, radius);
-        foreach (Collider item in cols)
-        {
-            item.GetComponent<MeshRenderer>().material = mats[1];
-        }
-    }
-
+    public GameObject[] children;
+    public bool fullCircle = true;
+    [Range(0, 359), HideIf(nameof(fullCircle))] public int arc = 359;
+    [Range(1, 25)] public int numVisible = 1;
+    
+    
     [Button]
     void Generate()
     {
-        while (parent.childCount > 0)
-        {
-            DestroyImmediate(parent.GetChild(0).gameObject);
-        }
-        parent.transform.position = Vector3.zero;
-        gos = new List<GameObject>();
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-            {
-                gos.Add(Instantiate(prefab, new Vector3(i + (offset * i), 0f, j + (offset * j)), Quaternion.identity, parent));
-            }
-        }
-        float move = -0.5f * (gridSize - 1);
-        parent.transform.position = new Vector3(move, 0f, move);
-        
-        ResetColor();
+        // for (int i = 0; i < children.Length; i++)
+        // {
+        //     children[i].SetActive(false);
+        // }
+        // Transform[] transforms = new Transform[numVisible];
+        // for (int i = 0; i < transforms.Length; i++)
+        // {
+        //     children[i].SetActive(true);
+        //     transforms[i] = children[i].GetComponent<Transform>();
+        // }
+        // RadialSpread(transforms, fullCircle, arc);
     }
 
-    void ResetColor()
+    void HalfCircle()
     {
-        for (int i = 0; i < gos.Count; i++)
+        float angle = arc / (float)(numVisible + 1);
+        for (int i = 0; i < children.Length; i++)
         {
-            gos[i].GetComponent<MeshRenderer>().material = mats[0];
+            children[i].transform.rotation = Quaternion.identity;
+            if (i < numVisible)
+            {
+                children[i].SetActive(true);
+                children[i].transform.rotation = Quaternion.Euler(0f, angle * (i + 1) - arc * 0.5f, 0f);
+            }
+            else children[i].SetActive(false);
         }
     }
-    
-    
+
+    void FullCircle()
+    {
+        float angle = 360 / (float)(numVisible);
+        for (int i = 0; i < children.Length; i++)
+        {
+            children[i].transform.rotation = Quaternion.identity;
+            if (i < numVisible)
+            {
+                children[i].SetActive(true);
+                children[i].transform.rotation = Quaternion.Euler(0f, angle * (i + 1), 0f);
+            }
+            else children[i].SetActive(false);
+        }
+    }
+
 }
 
 

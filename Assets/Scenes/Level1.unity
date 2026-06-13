@@ -898,6 +898,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_DemonWolf
       objectReference: {fileID: 0}
+    - target: {fileID: 5541319739651212763, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8012608620210102827, guid: 1046ce221b7516e4598916d18265673c, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -4270,7 +4274,7 @@ Transform:
   m_GameObject: {fileID: 1179504840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.91, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5816,7 +5820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1594592565
 Transform:
   m_ObjectHideFlags: 0

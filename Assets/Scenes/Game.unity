@@ -103282,7 +103282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &885458253
 Transform:
   m_ObjectHideFlags: 0
@@ -103319,15 +103319,35 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  mats: []
-  startPosition: {x: 0, y: 0, z: 0}
-  endPosition: {x: 0, y: 0, z: 0}
-  radius: 0
-  gos: []
-  parent: {fileID: 0}
-  prefab: {fileID: 0}
-  gridSize: 0
-  offset: 0
+  children:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullCircle: 0
+  arc: 233
+  numVisible: 8
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -227630,15 +227650,31 @@ PrefabInstance:
       objectReference: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: groupActive
-      value: 3
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: numOfFlames
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: numOfSwords
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: spellActive
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: numOfHomingMissiles
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name
       value: BP_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -233166,10 +233202,9 @@ MonoBehaviour:
   shieldThrow: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
   auraLowerAttSpeed: {fileID: 3118285111912860546, guid: 1ccb81ed7ee94c24bab8e49f6a08c37f, type: 3}
   groupWalkTrail: {fileID: 4097750650632919805, guid: 8ff03a2ecf095c243921ab413535e7d5, type: 3}
+  groupHomingMissile: {fileID: 3274411614939029717, guid: 2baefb01abb4d4e449f15a0023389643, type: 3}
   groupOrbitalShields: {fileID: 2030511890280774223, guid: 207058c7be783c84781d27fe3ed51235, type: 3}
-  groupOrbitalSwordsFire: {fileID: 331804568073318909, guid: 543497fbb6244484ab5d52a82fc867c2, type: 3}
-  groupOrbitalSwordsIce: {fileID: 6258537417200386015, guid: 662799f3f0290e1468284eb988acd6c0, type: 3}
-  groupOrbitalSwordsElectric: {fileID: 2316800532690480909, guid: 7e4a0b5796b90a84386c851fe74a6da3, type: 3}
+  groupOrbitalSwords: {fileID: 4935544611848341360, guid: d085c40fd9667b14e8983759559f6b26, type: 3}
   groupFlamethrowers: {fileID: 1800718008164420412, guid: 3133660db93386b45a46574ef0b09e34, type: 3}
   carryFireball: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
   explosionFire: {fileID: 8836565589368749305, guid: 2643c897d8ad6c34a9ca06a330f4d3d9, type: 3}

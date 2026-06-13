@@ -9,9 +9,9 @@ public class P_Mage : PlayerCombat
     [SerializeField] ParticleSystem psCast;
     public int groupActive;
     public int spellActive;
-    [Title("Swords")]
-    public int swordCount = 1;
     [Title("Debug")]
+    public int numOfSwords = 1;
+    public int numOfHomingMissiles = 1;
     public int numOfFlames = 1;
 
 
@@ -49,19 +49,19 @@ public class P_Mage : PlayerCombat
                     groupWalkTrail.InitializeMe(Br);
                     break;
                 case 2:
-                    float angle = 180f / (swordCount);
-                    for (int i = 0; i < swordCount; i++)
-                    {
-                        SpellGroup prefab = null;
-                        if (i == 0) prefab = Ga.me.spells.groupOrbitalSwordsFire;
-                        if (i == 1) prefab = Ga.me.spells.groupOrbitalSwordsIce;
-                        if (i == 2) prefab = Ga.me.spells.groupOrbitalSwordsElectric;
-                        SpellGroup groupSwords = Instantiate(prefab, Br.myTransform.position, Quaternion.Euler(0f, angle * (i + 1), 0f), Ga.me.spells.myTransform);
-                        // groupSwords.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
-                        OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
-                        orbitalGroupSwords.orbitingAnchor = Br.myTransform;
-                        groupSwords.InitializeMe(Br);
-                    }
+                    // float angle = 180f / (numOfSwords);
+                    // for (int i = 0; i < numOfSwords; i++)
+                    // {
+                    //     SpellGroup prefab = null;
+                    //     if (i == 0) prefab = Ga.me.spells.groupOrbitalSwordsFire;
+                    //     if (i == 1) prefab = Ga.me.spells.groupOrbitalSwordsIce;
+                    //     if (i == 2) prefab = Ga.me.spells.groupOrbitalSwordsElectric;
+                    //     SpellGroup groupSwords = Instantiate(prefab, Br.myTransform.position, Quaternion.Euler(0f, angle * (i + 1), 0f), Ga.me.spells.myTransform);
+                    //     // groupSwords.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
+                    //     OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+                    //     orbitalGroupSwords.orbitingAnchor = Br.myTransform;
+                    //     groupSwords.InitializeMe(Br);
+                    // }
                     break;
                 case 3:
                     SpellGroup groupFlamethrower = Instantiate(Ga.me.spells.groupFlamethrowers, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -72,6 +72,13 @@ public class P_Mage : PlayerCombat
                         { Element.Fire, 1f }
                     };
                     groupFlamethrower.InitializeMe(Br);
+                    break;
+                case 4:
+                    SpellGroup homing = Instantiate(Ga.me.spells.groupHomingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    OrbitalGroup orbitalHomingGroup = homing as OrbitalGroup;
+                    orbitalHomingGroup.myDamage = damRanged;
+                    orbitalHomingGroup.numOfActiveSpells = numOfHomingMissiles;
+                    homing.InitializeMe(Br);
                     break;
             }
 
@@ -93,7 +100,7 @@ public class P_Mage : PlayerCombat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
-        
+
         psCast.Play();
         switch (spellActive)
         {
@@ -105,7 +112,7 @@ public class P_Mage : PlayerCombat
                 Vector3 direction = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
                 SpellMain carryFireball = Instantiate(Ga.me.spells.carryFireball, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
                 carryFireball.InitializeMe(Br, null, Explosion);
-                
+
                 void Explosion()
                 {
                     if (Br.combat.MyTarget == null) return;
@@ -113,26 +120,30 @@ public class P_Mage : PlayerCombat
                     explosion.InitializeMe(Br, damRanged, AreaFire);
                     Instantiate(Ga.me.psDecalFire, explosion.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
                 }
-                
+
                 void AreaFire()
                 {
                     if (Br.combat.MyTarget == null) return;
                     SpellMain areFire = Instantiate(Ga.me.spells.areFire, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                     areFire.InitializeMe(Br, damRanged);
                 }
+
                 break;
-            case 2: 
-                int numOfHomingMissiles = 1;
-                float angle = 180f / (numOfHomingMissiles + 1);
+            case 2:
+                SpellMain[] spells = new SpellMain[numOfHomingMissiles];
+                Transform[] transforms = new Transform[numOfHomingMissiles];
                 for (int i = 0; i < numOfHomingMissiles; i++)
                 {
-                    SpellMain homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    homing.myTransform.forward = -Br.myTransform.right;
-                    homing.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
-                    homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
-                    HomingTransporter transporter = homing.transporter as  HomingTransporter;
+                    spells[i] = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    transforms[i] = spells[i].myTransform;
+                }
+                Utils.RadialSpread(transforms, 0f, false, 180);
+                for (int i = 0; i < spells.Length; i++)
+                {
+                    spells[i].myMesh.position = new Vector3(spells[i].myMesh.position.x, spawnPoint.position.y, spells[i].myMesh.position.z);
+                    HomingTransporter transporter = spells[i].transporter as HomingTransporter;
                     transporter.homingTarget = Br.combat.MyTarget;
-                    homing.InitializeMe(Br, damRanged);
+                    spells[i].InitializeMe(Br, damRanged);
                 }
                 break;
         }

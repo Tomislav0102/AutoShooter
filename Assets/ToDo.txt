@@ -1,0 +1,2 @@
+ENEMY
+- fix attack animation while chasing target. its switching between run and attack too often

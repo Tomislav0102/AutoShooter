@@ -54,8 +54,11 @@ MonoBehaviour:
   myTransform: {fileID: 8332490773276990792}
   orbitingAnchor: {fileID: 0}
   distanceFromAnchor: 0.2
-  numOfActiveSpells: 1
+  followPosition: 1
+  followRotation: 0
   rotationSpeed: 0
+  arcAngle: 180
+  numOfActiveSpells: 1
 --- !u!1001 &592409362028975422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: m_Name
       value: flamethrower (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8864291501183241101, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: serializationData.Prefab
@@ -134,6 +141,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: flamethrower (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8864291501183241101, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -199,6 +210,10 @@ PrefabInstance:
     - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: m_Name
       value: flamethrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8864291501183241101, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: serializationData.Prefab
@@ -266,6 +281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: flamethrower (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8864291501183241101, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -332,6 +351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: flamethrower (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8864291501183241101, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -397,6 +420,10 @@ PrefabInstance:
     - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: m_Name
       value: flamethrower (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000601282690204708, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8864291501183241101, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
       propertyPath: serializationData.Prefab

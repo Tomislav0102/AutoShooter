@@ -27,10 +27,9 @@ public class SpellManager : MonoBehaviour
    public SpellMain auraLowerAttSpeed;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
+   public SpellGroup groupHomingMissile;
    public SpellGroup groupOrbitalShields;
-   public SpellGroup groupOrbitalSwordsFire;
-   public SpellGroup groupOrbitalSwordsIce;
-   public SpellGroup groupOrbitalSwordsElectric;
+   public SpellGroup groupOrbitalSwords;
    public SpellGroup groupFlamethrowers;
    [Title("Fireball set")] 
    public SpellMain carryFireball;
