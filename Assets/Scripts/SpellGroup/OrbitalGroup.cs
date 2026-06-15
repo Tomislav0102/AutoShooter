@@ -5,11 +5,10 @@ using Sirenix.OdinInspector;
 public class OrbitalGroup : SpellGroup
 {
     [ReadOnly] public Transform orbitingAnchor;
-    public float distanceFromAnchor;
-    public bool followPosition = true;
-    public bool followRotation = true;
+    [SerializeField] float distanceFromAnchor;
+    [SerializeField] bool followPosition = true;
+    [SerializeField] bool followRotation = true;
     [SerializeField, ShowIf(nameof(followRotation))] int rotationSpeed = 20;
-    [Range(1, 6)] public int numOfActiveSpells = 1;
     [SerializeField] bool fullCircle = true;
     [SerializeField, Range(0, 359), HideIf(nameof(fullCircle))] int arc = 359;
 
@@ -17,24 +16,25 @@ public class OrbitalGroup : SpellGroup
     public override void InitializeMe(Brain ownersBrain)
     {
         base.InitializeMe(ownersBrain);
-        Transform[] spells = new Transform[numOfActiveSpells];
-        for (int i = 0; i < numOfActiveSpells; i++)
-        {
-            SpellMain current = mySpells[i];
-            spells[i] = current.myTransform;
-            current.gameObject.SetActive(true);
-            current.InitializeMe(ownersBrain);
-        }
-        Utils.RadialSpread(spells, distanceFromAnchor, fullCircle, arc);
-        // for (int i = 0; i < spells.Length; i++)
-        // {
-        //     SpellMain spellMain = mySpells[i];
-        //     spellMain.gameObject.SetActive(true);
-        //     spellMain.InitializeMe(ownersBrain);
-        //     spellMain.myTransform.rotation = Quaternion.Euler(0, angle * (i + 1), 0);
-        //     spellMain.myTransform.position += distanceFromAnchor * spellMain.myTransform.forward;
-        // }
+        InitializeMe_Shared(ownersBrain);
+    }
+    public override void InitializeMe(Brain ownersBrain, SpellMain[] spellsToAdd)
+    {
+        base.InitializeMe(ownersBrain, spellsToAdd);
+        InitializeMe_Shared(ownersBrain);
+    }
 
+    void InitializeMe_Shared(Brain ownersBrain)
+    {
+        float[] angles = Utils.RadialSpreadAngles(myTransform.childCount);
+        for (int i = 0; i < myTransform.childCount; i++)
+        {
+            SpellMain spell = mySpells[i];
+            spell.gameObject.SetActive(true);
+            spell.myTransform.localRotation = Quaternion.AngleAxis(angles[i], Vector3.up);
+            spell.myTransform.position += distanceFromAnchor * spell.myTransform.forward;
+            spell.InitializeMe(ownersBrain);
+        }
     }
 
     void Update()
@@ -42,7 +42,7 @@ public class OrbitalGroup : SpellGroup
         if (!followPosition && !followRotation) return;
         
         if (followPosition) myTransform.position = orbitingAnchor.position;
-        if (followRotation) myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
-        else myTransform.rotation = orbitingAnchor.rotation;
+        if (followRotation) myTransform.rotation = orbitingAnchor.rotation;
+        else myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
     }
 }

@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class WalkTrailGroup : SpellGroup
 {
+    SpellMain _main;
     float _timer;
     const float CONST_SpawnRate = 0.1f;
     HashSet<Collider> _spawns;
     float _radius;
 
-    public override void InitializeMe(Brain ownersBrain)
+    public override void InitializeMe(Brain ownersBrain, SpellMain spellToInstantiate)
     {
-        base.InitializeMe(ownersBrain);
-        _radius = spellInstantiated.spell.areaOfEffect * 0.5f;
+        base.InitializeMe(ownersBrain, spellToInstantiate);
+        _main = spellToInstantiate;
+        _radius = _main.spell.areaOfEffect * 0.5f;
         _spawns = new HashSet<Collider>();
     }
 
@@ -22,7 +23,7 @@ public class WalkTrailGroup : SpellGroup
         if (_timer >= CONST_SpawnRate)
         {
             _timer = 0;
-            Collider[] colliders = Physics.OverlapSphere(brain.myTransform.position, 
+            Collider[] colliders = Physics.OverlapSphere(owner.myTransform.position, 
                 _radius * 2, 
                 Utils.MyLayer(Ga.me.gameData.laySpell));
             for (int i = 0; i < colliders.Length; i++)
@@ -30,8 +31,8 @@ public class WalkTrailGroup : SpellGroup
                 if (_spawns.Contains(colliders[i])) return;
             }
 
-            SpellMain spell = Instantiate(spellInstantiated, brain.myTransform.position, Quaternion.identity, myTransform);
-            spell.InitializeMe(brain, myDamage, () =>
+            SpellMain spell = Instantiate(_main, owner.myTransform.position, Quaternion.identity, myTransform);
+            spell.InitializeMe(owner, () =>
             {
                 if (_spawns.Contains(spell.mySphereCollider)) _spawns.Remove(spell.mySphereCollider);
             });

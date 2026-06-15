@@ -11,7 +11,6 @@ public class SoGameData : ScriptableObject
     [Title("General")]
     public float rofSpells;
     public float pushDuration;
-    public Material matSeeThroughWalls;
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;
     public ElementGroup GetElement(Element el)
@@ -33,7 +32,6 @@ public class SoGameData : ScriptableObject
     public string sceneMain, sceneGame;
     public string SceneLevel() => $"Level{level}";
     public string layActors;
-    public string layGround;
     public string layObstacle;
     public string layWallsSeeThrough;
     public string laySpell;

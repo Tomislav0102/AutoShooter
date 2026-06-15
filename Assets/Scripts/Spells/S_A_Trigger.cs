@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
 public class S_A_Trigger : S_A
 {
     [Title("Triggers")]
     [SerializeField] bool onEnter = true;
-    [SerializeField] bool onStayFake;
+    [SerializeField] bool onFakeStay;
     [SerializeField] bool onExit;
 
     enum ColliderPart
@@ -32,7 +33,7 @@ public class S_A_Trigger : S_A
     protected override void Hit()
     {
         base.Hit();
-        if (!onStayFake) return;
+        if (!onFakeStay) return;
         foreach (Collider item in collidersDetected)
         {
             if (item == null) continue;
@@ -51,7 +52,7 @@ public class S_A_Trigger : S_A
         if (collidersDetected.Contains(other)) return;
         
         collidersDetected.Add(other);
-        if (onStayFake) return;
+        if (onFakeStay) return;
         
         SpellMain[] sps = AffectsSpells() ? spellsToAffect : null;
         HitMethod(other, out Brain targetBrain, sps);

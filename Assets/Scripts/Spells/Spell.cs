@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class Spell : SerializedMonoBehaviour
 {
+    protected bool initialized;
     public enum Phase
     {
         BeginWarning,
@@ -41,7 +43,6 @@ public class Spell : SerializedMonoBehaviour
     }
     [ShowInInspector, ReadOnly] Phase _phase;
     float _timerPhase;
-    [ReadOnly] public Transform followTarget;
 
     protected SpellMain main;
     
@@ -79,8 +80,8 @@ public class Spell : SerializedMonoBehaviour
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
-        
         MyPhase = Phase.BeginWarning;
+        initialized = true;
     }
 
     public virtual void OnCollisionEnterCallBack(Collision collision) { }
@@ -140,6 +141,7 @@ public class Spell : SerializedMonoBehaviour
 
     protected virtual void Update()
     {
+        if (!initialized) return;
         if (!main.IsActive) return;
         switch (MyPhase)
         {
@@ -147,7 +149,6 @@ public class Spell : SerializedMonoBehaviour
                 if (_timerPhase >= startDelay) MyPhase = Phase.SpellRuns;
                 break;
             case Phase.SpellRuns:
-                if (followTarget != null) main.myTransform.position = followTarget.position;
                 if (lifeTime < 0) return;
                 if (lifeTime == 0)
                 {

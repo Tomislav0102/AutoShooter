@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SpellTransporter : MonoBehaviour
 {
     protected SpellMain main;
+    [ReadOnly] public Transform myTarget;
 
     public virtual void InitializeMe(SpellMain spellMain)
     {

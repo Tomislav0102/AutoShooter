@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 
 public class HomingTransporter : SpellTransporter
 {
-    [ReadOnly] public Transform homingTarget;
     [SerializeField] float speed;
     
     public override void InitializeMe(SpellMain spellMain)
@@ -16,8 +15,8 @@ public class HomingTransporter : SpellTransporter
     void Update()
     {
         if (!main.IsActive ) return;
-        if (homingTarget == null) return;
-        Vector3 dir = Utils.Direction(main.myTransform.position, homingTarget.position);
+        if (myTarget == null) return;
+        Vector3 dir = Utils.Direction(main.myTransform.position, myTarget.position);
         main.myTransform.rotation = Quaternion.Slerp(main.myTransform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
     }
     

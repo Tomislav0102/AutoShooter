@@ -68,9 +68,9 @@ public class P_Loco : Loco
         
         if (Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)))
         {
-            Ga.me.gameData.matSeeThroughWalls.SetFloat(_sizeID, 0.5f);
+            Ga.me.matSeeThroughWalls.SetFloat(_sizeID, 0.5f);
         }
-        else Ga.me.gameData.matSeeThroughWalls.SetFloat(_sizeID, 0);
+        else Ga.me.matSeeThroughWalls.SetFloat(_sizeID, 0);
     }
 
 

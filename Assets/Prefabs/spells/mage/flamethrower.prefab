@@ -5171,7 +5171,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 4547355957553321228}
+      objectReference: {fileID: 8467775431474400546}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: colliderType
       value: 1
@@ -5191,7 +5191,7 @@ PrefabInstance:
       addedObject: {fileID: 8864291501183241101}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4547355957553321228}
+      addedObject: {fileID: 8467775431474400546}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!4 &4407908747933334304 stripped
 Transform:
@@ -5250,9 +5250,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
-  areaOfEffect: 1
+  areaOfEffect: 3
   startDelay: 0
   hitChance: 1
   lifeTime: -1
@@ -5274,7 +5273,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 8776124502752251295}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4547355957553321228
+--- !u!114 &8467775431474400546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5283,6 +5282,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9064281759076902422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5333ea9fb668b5f4a9fec625c6ff176a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
+  followPosition: 1
+  followRotation: 1

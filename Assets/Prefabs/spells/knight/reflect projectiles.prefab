@@ -106,7 +106,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
   randomSeed: 0
@@ -34667,14 +34667,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7733821054387828262}
   serializedVersion: 8
-  lengthInSec: 2
-  simulationSpeed: 1
+  lengthInSec: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -34742,7 +34742,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.2
+      scalar: 1
       minScalar: 0.35
       maxCurve:
         serializedVersion: 2
@@ -35606,7 +35606,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 0
+        scalar: 2
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -35671,19 +35671,19 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.4093933
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0
@@ -39660,7 +39660,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 2152824533558540911}
+      objectReference: {fileID: 4665519266688235161}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
       value: 21
@@ -39691,14 +39691,14 @@ PrefabInstance:
       addedObject: {fileID: 8745390515396982302}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2152824533558540911}
+      addedObject: {fileID: 4665519266688235161}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &1185049575741134598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 1473775281989074063}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2152824533558540911
+--- !u!114 &4665519266688235161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39707,9 +39707,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1185049575741134598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5333ea9fb668b5f4a9fec625c6ff176a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
+  myTarget: {fileID: 0}
+  followPosition: 1
+  followRotation: 1
 --- !u!4 &5806514127492139568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -39767,7 +39770,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 2
   startDelay: 0
@@ -39778,7 +39780,8 @@ MonoBehaviour:
   spellParticles:
     psStart:
     - {fileID: 8502139232785976505}
-    psOnHit: []
+    psOnHit:
+    - {fileID: 8737623117776381439}
     particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
@@ -39787,6 +39790,7 @@ MonoBehaviour:
   useInspectorDamageData: 0
   hitEffects: 02000000
   onEnter: 1
+  onFakeStay: 0
   onExit: 0
   colliderPart: 0
   spellsToAffect:

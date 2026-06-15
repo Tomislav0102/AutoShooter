@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class P_Knight : PlayerCombat
 {
-    [SerializeField] Transform myShield;
     public override Brain Br
     {
         get => base.Br;
@@ -33,21 +32,29 @@ public class P_Knight : PlayerCombat
                 { Element.Physical, -Br.myChar.GetStat(Stats.MagicDamage) },
             };
             IsInitialized = true;
+
+            switch (startActive)
+            {
+                case 0:
+                    SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    reflect.transporter.myTarget = Br.myTransform;
+                    reflect.InitializeMe(Br);
+                    break;
+                case 1:
+                    SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+                    aura.transporter.myTarget = Br.myTransform;
+                    aura.InitializeMe(Br);
+                    break;
+            }
             
-            // SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            // reflect.spell.followTarget = Br.myTransform;
-            // reflect.InitializeMe(Br);
-            //
-            // SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-            // aura.spell.followTarget = Br.myTransform;
-            // aura.InitializeMe(Br);
             
         }
     }
 
-
     [Title("Knight")]
+    [SerializeField] Transform myShield;
     [SerializeField][Range(1, 10)] int dashPower = 4;
+    public int startActive;
     
     public override void FromAnimEv_Attack(int num = 0)
     {
@@ -66,7 +73,7 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Ultimate(num);
 
         SpellMain heal = Instantiate(Ga.me.spells.heal, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        heal.spell.followTarget = Br.myTransform;
+        heal.transporter.myTarget = Br.myTransform;
         heal.InitializeMe(Br, damUltimate);
     }
 

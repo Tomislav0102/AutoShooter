@@ -17,6 +17,8 @@ public class SpellManager : MonoBehaviour
    public SpellMain lightningStrike;
    public SpellMain shieldFromProjectiles;
    public SpellMain armageddon;
+   public SpellMain walkTrailSingle;
+   public SpellMain swordFire, swordIce, swordElectricity;
    [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;
@@ -27,10 +29,8 @@ public class SpellManager : MonoBehaviour
    public SpellMain auraLowerAttSpeed;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
-   public SpellGroup groupHomingMissile;
    public SpellGroup groupOrbitalShields;
    public SpellGroup groupOrbitalSwords;
-   public SpellGroup groupFlamethrowers;
    [Title("Fireball set")] 
    public SpellMain carryFireball;
    public SpellMain explosionFire;

@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public class SpellParticles
 {
-    [FormerlySerializedAs("ps")] [SerializeField] ParticleSystem[] psStart = System.Array.Empty<ParticleSystem>();
+    [SerializeField] ParticleSystem[] psStart = System.Array.Empty<ParticleSystem>();
     [SerializeField] ParticleSystem[] psOnHit = System.Array.Empty<ParticleSystem>();
     public enum ParticleSizeChange
     {

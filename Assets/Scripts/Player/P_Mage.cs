@@ -7,12 +7,10 @@ public class P_Mage : PlayerCombat
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] ParticleSystem psCast;
-    public int groupActive;
-    public int spellActive;
+    public int startActive;
+    public int attackActive;
     [Title("Debug")]
-    public int numOfSwords = 1;
-    public int numOfHomingMissiles = 1;
-    public int numOfFlames = 1;
+    public int num;
 
 
     public override Brain Br
@@ -26,73 +24,75 @@ public class P_Mage : PlayerCombat
             damRanged = new Dictionary<Element, float>()
             {
                 //  { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
-                { Element.Electricity, 1f },
-                // { Element.Fire, 22f },
+                // { Element.Electricity, 1f },
+                { Element.Fire, 1f },
                 // { Element.Physical, 3f },
             };
 
-            switch (groupActive)
+            switch (startActive)
             {
                 case 0:
+                    SpellMain[] shields = new SpellMain[num];
+                    for (int i = 0; i < num; i++)
+                    {
+                        shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    }
                     SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
-                    orbitalGroupShields.numOfActiveSpells = 3;
                     orbitalGroupShields.orbitingAnchor = Br.myTransform;
-                    groupShields.InitializeMe(Br);
+                    groupShields.InitializeMe(Br, shields);
                     break;
                 case 1:
                     SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    groupWalkTrail.myDamage = new Dictionary<Element, float>()
-                    {
-                        { Element.Fire, 1f }
-                    };
-                    groupWalkTrail.InitializeMe(Br);
+                    groupWalkTrail.InitializeMe(Br, Ga.me.spells.walkTrailSingle);
                     break;
                 case 2:
-                    // float angle = 180f / (numOfSwords);
-                    // for (int i = 0; i < numOfSwords; i++)
-                    // {
-                    //     SpellGroup prefab = null;
-                    //     if (i == 0) prefab = Ga.me.spells.groupOrbitalSwordsFire;
-                    //     if (i == 1) prefab = Ga.me.spells.groupOrbitalSwordsIce;
-                    //     if (i == 2) prefab = Ga.me.spells.groupOrbitalSwordsElectric;
-                    //     SpellGroup groupSwords = Instantiate(prefab, Br.myTransform.position, Quaternion.Euler(0f, angle * (i + 1), 0f), Ga.me.spells.myTransform);
-                    //     // groupSwords.myTransform.rotation *= Quaternion.Euler(0f, angle * (i + 1), 0f);
-                    //     OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
-                    //     orbitalGroupSwords.orbitingAnchor = Br.myTransform;
-                    //     groupSwords.InitializeMe(Br);
-                    // }
+                    SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+                    orbitalGroupSwords.orbitingAnchor = Br.myTransform;
+                    
+                    SpellMain[] swords = new SpellMain[num];
+                    switch (num)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            swords[1] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            break;
+                        case 4:
+                            swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[2] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[3] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            break;
+                        case 6:
+                            swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[2] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[3] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[4] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[5] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            break;
+                        default:
+                            print("should only be 1, 2, 4, or 6 swords.");
+                            return;
+                    }
+                    swords[0] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    groupSwords.InitializeMe(Br, swords);
                     break;
                 case 3:
-                    SpellGroup groupFlamethrower = Instantiate(Ga.me.spells.groupFlamethrowers, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    OrbitalGroup orbitalGroupFlamethrower = groupFlamethrower as OrbitalGroup;
-                    orbitalGroupFlamethrower.orbitingAnchor = Br.myTransform;
-                    groupFlamethrower.myDamage = new Dictionary<Element, float>()
+                    float[] anglesY = Utils.RadialSpreadAngles(num, false);
+                    for (int i = 0; i < num; i++)
                     {
-                        { Element.Fire, 1f }
-                    };
-                    groupFlamethrower.InitializeMe(Br);
-                    break;
-                case 4:
-                    SpellGroup homing = Instantiate(Ga.me.spells.groupHomingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    OrbitalGroup orbitalHomingGroup = homing as OrbitalGroup;
-                    orbitalHomingGroup.myDamage = damRanged;
-                    orbitalHomingGroup.numOfActiveSpells = numOfHomingMissiles;
-                    homing.InitializeMe(Br);
+                        SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
+                            Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
+                        flamethrower.transporter.myTarget = Br.myTransform;
+                        flamethrower.InitializeMe(Br, damRanged);
+                    }
                     break;
             }
 
             // SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
             // pushPulse.spell.followTarget = Br.myTransform;
             // pushPulse.InitializeMe(Br);
-            // float angleFlamethrower = 180f / (numOfFlames + 1);
-            // for (int i = 0; i < numOfFlames; i++)
-            // {
-            //     SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower,  Br.myTransform.position, 
-            //         Quaternion.Euler(0f, angleFlamethrower * (i + 1) - 90, 0f), Ga.me.spells.myTransform);
-            //     flamethrower.spell.followTarget = Br.myTransform;
-            //     flamethrower.InitializeMe(Br);
-            // }
         }
     }
 
@@ -102,7 +102,7 @@ public class P_Mage : PlayerCombat
         base.FromAnimEv_Attack(num);
 
         psCast.Play();
-        switch (spellActive)
+        switch (attackActive)
         {
             case 0:
                 SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -130,30 +130,25 @@ public class P_Mage : PlayerCombat
 
                 break;
             case 2:
-                SpellMain[] spells = new SpellMain[numOfHomingMissiles];
-                Transform[] transforms = new Transform[numOfHomingMissiles];
-                for (int i = 0; i < numOfHomingMissiles; i++)
+                float[] anglesY = Utils.RadialSpreadAngles(num, false);
+                for (int i = 0; i < num; i++)
                 {
-                    spells[i] = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    transforms[i] = spells[i].myTransform;
-                }
-                Utils.RadialSpread(transforms, 0f, false, 180);
-                for (int i = 0; i < spells.Length; i++)
-                {
-                    spells[i].myMesh.position = new Vector3(spells[i].myMesh.position.x, spawnPoint.position.y, spells[i].myMesh.position.z);
-                    HomingTransporter transporter = spells[i].transporter as HomingTransporter;
-                    transporter.homingTarget = Br.combat.MyTarget;
-                    spells[i].InitializeMe(Br, damRanged);
+                    SpellMain homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                    homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
+                    homing.myMesh.position = new Vector3(homing.myMesh.position.x, spawnPoint.position.y, homing.myMesh.position.z);
+                    homing.transporter.myTarget = Br.combat.MyTarget;
+                    homing.InitializeMe(Br, damRanged);
                 }
                 break;
         }
     }
 
+    
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
         SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        armageddon.spell.followTarget = Br.myTransform;
+        armageddon.transporter.myTarget = Br.myTransform;
         armageddon.InitializeMe(Br, new Dictionary<Element, float>()
         {
             { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) * 0.1f },
