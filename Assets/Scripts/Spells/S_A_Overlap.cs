@@ -48,7 +48,7 @@ public class S_A_Overlap : S_A
             }
         }
         if (!eventCall) main.onHitTarget?.Invoke(null);
-        spellParticles.InitializeMe(main);
+        spellVisualsTemporary.InitializeMe(main);
     }
 
 }

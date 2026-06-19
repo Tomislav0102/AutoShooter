@@ -63,7 +63,10 @@ public class EnemyCombat : Combat
                 }
                 else
                 {
-                    if (distanceToTarget > rangeRanged) _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
+                    if (distanceToTarget > rangeRanged)
+                    {
+                        _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
+                    }
                     else if (meleeWeapon != null)
                     {
                         if (distanceToTarget <= meleeWeapon.spell.areaOfEffect) _eLoco.weaponRange = E_Loco.RangeArea.Melee;

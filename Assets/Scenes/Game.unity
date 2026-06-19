@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: 44c6da7d2a61495459437826769399db, type: 2}
+  m_LightingDataAsset: {fileID: 112000006, guid: 58d2f7e536319534ba2f25edd75ce2b1, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -154,6 +154,63 @@ Transform:
   - {fileID: 1652061136}
   m_Father: {fileID: 412413107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &16123387
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_Name
+      value: MainSpell
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1001 &50037858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41842,7 +41899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -82621,12 +82678,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -82727,9 +82784,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 773715119}
   myCapsuleCollider: {fileID: 773715118}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1727353994}
-  visualization: {fileID: 212869082}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -98013,12 +98069,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -98119,9 +98175,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 820929354}
   myCapsuleCollider: {fileID: 820929353}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 130398090}
-  visualization: {fileID: 71065957}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -103317,35 +103372,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  children:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  fullCircle: 0
-  arc: 233
-  numVisible: 8
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -103549,12 +103575,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -103655,9 +103681,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 902082715}
   myCapsuleCollider: {fileID: 902082714}
-  myMesh: {fileID: 1519306715}
   warningRend: {fileID: 57822206}
-  visualization: {fileID: 801215674}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -103731,12 +103756,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -103837,9 +103862,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 902128125}
   myCapsuleCollider: {fileID: 902128124}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1483349782}
-  visualization: {fileID: 1783358185}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -109039,12 +109063,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -109145,9 +109169,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1005891142}
   myCapsuleCollider: {fileID: 1005891141}
-  myMesh: {fileID: 781956205}
   warningRend: {fileID: 1954879984}
-  visualization: {fileID: 1733733373}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -109282,12 +109305,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -109388,9 +109411,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1011307171}
   myCapsuleCollider: {fileID: 1011307170}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 2090859690}
-  visualization: {fileID: 331670593}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -114461,12 +114483,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -114567,9 +114589,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1045770841}
   myCapsuleCollider: {fileID: 1045770840}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 2123032393}
-  visualization: {fileID: 848805131}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -114993,12 +115014,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -115099,9 +115120,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1098150862}
   myCapsuleCollider: {fileID: 1098150861}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1998322636}
-  visualization: {fileID: 1934264286}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -120295,12 +120315,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -120401,9 +120421,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1152482702}
   myCapsuleCollider: {fileID: 1152482701}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 141898118}
-  visualization: {fileID: 1534379130}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -125598,12 +125617,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -125704,9 +125723,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1198307890}
   myCapsuleCollider: {fileID: 1198307889}
-  myMesh: {fileID: 1165663281}
   warningRend: {fileID: 1450255066}
-  visualization: {fileID: 1833822768}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -125968,12 +125986,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -126074,9 +126092,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1221904440}
   myCapsuleCollider: {fileID: 1221904439}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 555757206}
-  visualization: {fileID: 100357685}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -136486,12 +136503,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -136592,9 +136609,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1398609311}
   myCapsuleCollider: {fileID: 1398609310}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1966407106}
-  visualization: {fileID: 1546489087}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -136690,12 +136706,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -136796,9 +136812,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1399806826}
   myCapsuleCollider: {fileID: 1399806825}
-  myMesh: {fileID: 2036409799}
   warningRend: {fileID: 200512844}
-  visualization: {fileID: 1056830882}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -147352,12 +147367,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -147458,9 +147473,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1529479430}
   myCapsuleCollider: {fileID: 1529479429}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1094599089}
-  visualization: {fileID: 1813374025}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -157558,12 +157572,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -157664,9 +157678,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1587200954}
   myCapsuleCollider: {fileID: 1587200953}
-  myMesh: {fileID: 559443696}
   warningRend: {fileID: 178775463}
-  visualization: {fileID: 2040676509}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -157740,12 +157753,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -157846,9 +157859,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1597853611}
   myCapsuleCollider: {fileID: 1597853610}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1073613606}
-  visualization: {fileID: 506464466}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -157922,12 +157934,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -158028,9 +158040,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1609179420}
   myCapsuleCollider: {fileID: 1609179419}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1654252541}
-  visualization: {fileID: 1787019780}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -158187,12 +158198,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -158293,9 +158304,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1616196744}
   myCapsuleCollider: {fileID: 1616196743}
-  myMesh: {fileID: 498422140}
   warningRend: {fileID: 868732078}
-  visualization: {fileID: 248770263}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -163601,12 +163611,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -163707,9 +163717,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1665966459}
   myCapsuleCollider: {fileID: 1665966458}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 2041556805}
-  visualization: {fileID: 1400651274}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -163844,12 +163853,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -163950,9 +163959,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1687319455}
   myCapsuleCollider: {fileID: 1687319454}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 2009639952}
-  visualization: {fileID: 1279272143}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -173991,12 +173999,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -174097,9 +174105,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1714118408}
   myCapsuleCollider: {fileID: 1714118407}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 497494809}
-  visualization: {fileID: 1117760922}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -174234,12 +174241,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -174340,9 +174347,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1714298548}
   myCapsuleCollider: {fileID: 1714298547}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1931747015}
-  visualization: {fileID: 1406196412}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -184409,12 +184415,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -184515,9 +184521,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1734049002}
   myCapsuleCollider: {fileID: 1734049001}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 920325958}
-  visualization: {fileID: 2033423761}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -189498,12 +189503,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -189604,9 +189609,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1738519382}
   myCapsuleCollider: {fileID: 1738519381}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 405726042}
-  visualization: {fileID: 708088976}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -209637,12 +209641,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -209743,9 +209747,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1787066945}
   myCapsuleCollider: {fileID: 1787066944}
-  myMesh: {fileID: 1781157615}
   warningRend: {fileID: 1777502520}
-  visualization: {fileID: 635287208}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -214829,12 +214832,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -214935,9 +214938,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1808311194}
   myCapsuleCollider: {fileID: 1808311193}
-  myMesh: {fileID: 1283648333}
   warningRend: {fileID: 1865361377}
-  visualization: {fileID: 795395837}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -215688,12 +215690,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -215794,9 +215796,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1871109867}
   myCapsuleCollider: {fileID: 1871109866}
-  myMesh: {fileID: 1804955906}
   warningRend: {fileID: 145712464}
-  visualization: {fileID: 1491373972}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -215984,12 +215985,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -216090,9 +216091,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1928420995}
   myCapsuleCollider: {fileID: 1928420994}
-  myMesh: {fileID: 324628750}
   warningRend: {fileID: 720697968}
-  visualization: {fileID: 1860374073}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -216656,12 +216656,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -216762,9 +216762,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 1989543223}
   myCapsuleCollider: {fileID: 1989543222}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1212110214}
-  visualization: {fileID: 338263813}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -217020,12 +217019,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -217126,9 +217125,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 2011650987}
   myCapsuleCollider: {fileID: 2011650986}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1704707358}
-  visualization: {fileID: 1181482356}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -217263,12 +217261,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 0}
     psOnHit: []
@@ -217369,9 +217367,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 2020320424}
   myCapsuleCollider: {fileID: 2020320423}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 1378758573}
-  visualization: {fileID: 1021426566}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -227618,6 +227615,38 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+    - target: {fileID: 5070116653905026877, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905026877, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905026877, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'm_VertexStreams.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905026877, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'm_VertexStreams.Array.data[2]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905042353, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905042353, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905042353, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'm_VertexStreams.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905042353, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'm_VertexStreams.Array.data[2]'
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: num
       value: 6
@@ -227640,7 +227669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: startActive
-      value: 2
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: attackActive
@@ -227660,7 +227689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -232952,12 +232981,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0
@@ -233058,9 +233087,8 @@ MonoBehaviour:
   colliderType: 0
   mySphereCollider: {fileID: 2133488738}
   myCapsuleCollider: {fileID: 2133488737}
-  myMesh: {fileID: 997453981}
   warningRend: {fileID: 1652367635}
-  visualization: {fileID: 1318132133}
+  visual: {fileID: 0}
   spell: {fileID: 0}
   transporter: {fileID: 0}
   description: 
@@ -233175,14 +233203,15 @@ MonoBehaviour:
   heal: {fileID: 1169358827584757187, guid: 1dfb1a612c8c2194e894fd3d1fb79baa, type: 3}
   bulletPlayer: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
   homingMissile: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
-  flameThrower: {fileID: 3141391959439269076, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
-  lightningStrike: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
   shieldFromProjectiles: {fileID: 1805232084315020725, guid: 2f22d8484b5757a4a80a8f8220621e77, type: 3}
-  armageddon: {fileID: 5149970095435453870, guid: fe30684c13f5530448d6c01a748715af, type: 3}
-  walkTrailSingle: {fileID: 7537306512381167856, guid: 614a1a6bae2dc724aabdc10c63ac937d, type: 3}
   swordFire: {fileID: 141007761697373337, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
   swordIce: {fileID: 848990959211647510, guid: 8ad852ff539746d4a85ebec8a1afe7e9, type: 3}
   swordElectricity: {fileID: 8597743067877788286, guid: 5c570555f9e952241bd60953e1bda885, type: 3}
+  flameThrower: {fileID: 3141391959439269076, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
+  meteorStrike: {fileID: 0}
+  walkTrailSingle: {fileID: 7537306512381167856, guid: 614a1a6bae2dc724aabdc10c63ac937d, type: 3}
+  armageddon: {fileID: 5149970095435453870, guid: fe30684c13f5530448d6c01a748715af, type: 3}
+  lightningStrike: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
   meleePlayer: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   push: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
   pushPulsating: {fileID: 4182053067932181034, guid: 0d6db314f2c593b498989dacd0d821c8, type: 3}
@@ -233344,3 +233373,4 @@ SceneRoots:
   - {fileID: 933078169}
   - {fileID: 450085159}
   - {fileID: 2076520104}
+  - {fileID: 16123387}

@@ -37,12 +37,12 @@ public class P_Knight : PlayerCombat
             {
                 case 0:
                     SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    reflect.transporter.myTarget = Br.myTransform;
+                    reflect.transporter.target = Br.myTransform;
                     reflect.InitializeMe(Br);
                     break;
                 case 1:
                     SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-                    aura.transporter.myTarget = Br.myTransform;
+                    aura.transporter.target = Br.myTransform;
                     aura.InitializeMe(Br);
                     break;
             }
@@ -73,7 +73,7 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Ultimate(num);
 
         SpellMain heal = Instantiate(Ga.me.spells.heal, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        heal.transporter.myTarget = Br.myTransform;
+        heal.transporter.target = Br.myTransform;
         heal.InitializeMe(Br, damUltimate);
     }
 

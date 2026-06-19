@@ -8,8 +8,8 @@ public class S_A_Target : S_A
     public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
-        if (main.transporter.myTarget == null || main.transporter.myTarget.GetComponent<Brain>() == null) MyPhase = Phase.EndStart;
-        _anchorBrain = main.transporter.myTarget.GetComponent<Brain>();
+        if (main.transporter.target == null || main.transporter.target.GetComponent<Brain>() == null) MyPhase = Phase.EndStart;
+        _anchorBrain = main.transporter.target.GetComponent<Brain>();
     }
 
     protected override void Hit()

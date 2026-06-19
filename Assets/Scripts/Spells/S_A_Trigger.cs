@@ -27,7 +27,7 @@ public class S_A_Trigger : S_A
     public override void InitializeMe(SpellMain mainSpell)
     {
         base.InitializeMe(mainSpell);
-        spellParticles.InitializeMe(mainSpell);
+        spellVisualsTemporary.InitializeMe(mainSpell);
     }
     
     protected override void Hit()

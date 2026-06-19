@@ -13,10 +13,10 @@ public class TargetTransporter : SpellTransporter
             case Spell.Phase.BeginWarning:
                 break;
             case Spell.Phase.SpellRuns:
-                if (myTarget != null)
+                if (target != null)
                 {
-                  if (followPosition)  main.myTransform.position = myTarget.position;
-                  if (followRotation)  main.myTransform.rotation = myTarget.rotation;
+                  if (followPosition)  main.myTransform.position = target.position;
+                  if (followRotation)  main.myTransform.rotation = target.rotation;
                 }
                 else main.spell.MyPhase = Spell.Phase.EndStart;
                 break;

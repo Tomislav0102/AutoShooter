@@ -5,37 +5,29 @@ using UnityEngine.Serialization;
 
 
 [System.Serializable]
-public class SpellParticles
+public class SpellVisualsTemporary
 {
     [SerializeField] ParticleSystem[] psStart = System.Array.Empty<ParticleSystem>();
     [SerializeField] ParticleSystem[] psOnHit = System.Array.Empty<ParticleSystem>();
-    public enum ParticleSizeChange
+    enum ParticleSizeChange
     {
         TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
         Emission_Shape, 
         Velocity_Over_Lifetime, //not used
         Other_None
     }
-    [FormerlySerializedAs("particleSizeChange")] public ParticleSizeChange particleSizeChangeStart;
+    [SerializeField] ParticleSizeChange particleSizeChangeStart;
 
     public void InitializeMe(SpellMain spellMain)
     {
         spellMain.onHitTarget += (Brain br) =>
         {
-           // if (psOnHit.Length == 0) return;
             foreach (ParticleSystem particleSystem in psOnHit)
             {
                 particleSystem.Play();
             }
         };
-         if (psStart.Length == 0) return;
-        // foreach (ParticleSystem particleSystem in psStart)
-        // {
-        //     if (particleSystem == null)
-        //     {
-        //        return;
-        //     }
-        // }
+        if (psStart.Length == 0) return;
 
         switch (particleSizeChangeStart)
         {
@@ -70,12 +62,12 @@ public class SpellParticles
         }
     }
 
-    public void Stop()
-    {
-        foreach (ParticleSystem particleSystem in psStart)
-        {
-            particleSystem.Stop();
-        }
-    }
+    // public void Stop()
+    // {
+    //     foreach (ParticleSystem particleSystem in psStart)
+    //     {
+    //         particleSystem.Stop();
+    //     }
+    // }
 
 }

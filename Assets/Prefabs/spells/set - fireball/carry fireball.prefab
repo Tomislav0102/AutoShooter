@@ -201,12 +201,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
   startDelay: 0
   hitChance: 1
   lifeTime: 10
+  rateOfFire: 0
   terminateOnHit: 1
   spellParticles:
     psStart:
@@ -220,6 +220,7 @@ MonoBehaviour:
   useInspectorDamageData: 0
   hitEffects: 
   onEnter: 1
+  onFakeStay: 0
   onExit: 0
   colliderPart: 0
   spellsToAffect: []
@@ -245,7 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
-  speed: 5
+  myTarget: {fileID: 0}
+  speed: 3
   ricochet: 0
   pierce: 0
   bounce: 0

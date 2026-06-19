@@ -27,7 +27,7 @@ public class E_AllCombat : EnemyCombat
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(rangedWeapon, zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                bullet.myMesh.localPosition = spawnPoint.position.y * Vector3.up;
+                bullet.visual.SetSpawnHeight(spawnPoint.position.y);
                 bullet.InitializeMe(Br, damRanged);
                 break;
             case 2: //lightning strike

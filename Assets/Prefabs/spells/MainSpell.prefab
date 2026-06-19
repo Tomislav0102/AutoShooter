@@ -83,18 +83,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4e4a5d99fa1b44b9bdde2bfe1591ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
+  debug: 0
+  IsActive: 1
   myTransform: {fileID: 548219163212640640}
   myRigid: {fileID: 8903924178762673374}
+  colliderType: 0
   mySphereCollider: {fileID: 6916548065277827116}
   myCapsuleCollider: {fileID: 1553764786334897511}
-  parSpells: {fileID: 308377353796318890}
-  parTransporters: {fileID: 4760714225645761043}
-  myMesh: {fileID: 0}
   warningRend: {fileID: 9073325792066258589}
-  visualization: {fileID: 1179571971146372210}
-  ownersBrain: {fileID: 0}
+  visual: {fileID: 2941170725548325989}
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  description: 
 --- !u!54 &8903924178762673374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -297,8 +297,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4964944923284567743}
+  - component: {fileID: 2941170725548325989}
+  - component: {fileID: 6990096043315784028}
   m_Layer: 20
-  m_Name: VISUALS PARENT
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,6 +321,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 548219163212640640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2941170725548325989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123683373555198328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f945d804d69e3479db65d7593b8942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpellVisual
+  psDefault: {fileID: 0}
+  psHit: {fileID: 0}
+  particleSizeChangeStart: 0
+  myMesh: {fileID: 0}
+  myLight: {fileID: 0}
+--- !u!54 &6990096043315784028
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123683373555198328}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &7239336305628434503
 GameObject:
   m_ObjectHideFlags: 0

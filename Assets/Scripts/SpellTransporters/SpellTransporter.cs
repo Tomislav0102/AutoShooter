@@ -6,8 +6,9 @@ using UnityEngine.Serialization;
 public class SpellTransporter : MonoBehaviour
 {
     protected SpellMain main;
-    [ReadOnly] public Transform myTarget;
+    [ReadOnly] public Transform target;
 
+    
     public virtual void InitializeMe(SpellMain spellMain)
     {
         main = spellMain;

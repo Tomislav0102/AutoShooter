@@ -153,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 6334399017835829008}
+      objectReference: {fileID: 7239388455767852448}
     - target: {fileID: 8903924178762673374, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Constraints
       value: 112
@@ -170,14 +170,14 @@ PrefabInstance:
       addedObject: {fileID: 2688387915360757227}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6334399017835829008}
+      addedObject: {fileID: 7239388455767852448}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &4533119365190246063 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4244962106122269990}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6334399017835829008
+--- !u!114 &7239388455767852448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,9 +186,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4533119365190246063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24782f4398cb76b408bbb2434c98efeb, type: 3}
+  m_Script: {fileID: 11500000, guid: b2e49c17263228d429fba975c3202879, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LobTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::VisualTransporter
+  target: {fileID: 9083238804321993625}
+  myType: 0
 --- !u!4 &9083238804321993625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -246,15 +248,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 15
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 0

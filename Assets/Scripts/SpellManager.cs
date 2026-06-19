@@ -13,12 +13,15 @@ public class SpellManager : MonoBehaviour
    public SpellMain bulletPlayer;
    [Title("Mage")]
    public SpellMain homingMissile;
-   public SpellMain flameThrower;
-   public SpellMain lightningStrike;
    public SpellMain shieldFromProjectiles;
-   public SpellMain armageddon;
-   public SpellMain walkTrailSingle;
    public SpellMain swordFire, swordIce, swordElectricity;
+   [Title("Mage Fire")]
+   public SpellMain flameThrower;
+   public SpellMain meteorStrike;
+   public SpellMain walkTrailSingle;
+   public SpellMain armageddon;
+   [Title("Mage Lightning")]
+   public SpellMain lightningStrike;
    [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;

@@ -47,9 +47,8 @@ public class SpellMain : MonoBehaviour
 
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
-    public Transform myMesh;
     public SpriteRenderer warningRend;
-    public Transform visualization;
+    public SpellVisual visual;
     [ReadOnly] public Dictionary<Element, float> damage = new Dictionary<Element, float>();
     public Spell spell; 
     public SpellTransporter transporter;

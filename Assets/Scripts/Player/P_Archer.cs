@@ -88,7 +88,7 @@ public class P_Archer : PlayerCombat
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
                 SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                sp.myMesh.position += spawnPoint.position.y * Vector3.up;
+                sp.visual.SetSpawnHeight(spawnPoint.position.y);
                 sp.myTransform.Rotate(rot);
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;

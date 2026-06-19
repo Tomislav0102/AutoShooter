@@ -19809,15 +19809,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 0.3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 6968181303640538533}
     psOnHit: []
@@ -19872,6 +19871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  target: {fileID: 0}
   speed: 5
   ricochet: 0
   pierce: 0

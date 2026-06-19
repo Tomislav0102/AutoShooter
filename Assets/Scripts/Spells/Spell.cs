@@ -25,11 +25,12 @@ public class Spell : SerializedMonoBehaviour
             switch (value)
             {
                 case Phase.BeginWarning:
-                    if (_timerPhase < startDelay) main.warningRend.enabled = true;
+                    if (_timerPhase < warningDelay) main.warningRend.enabled = true;
                     break;
                 case Phase.SpellRuns:
                     _timerPhase = 0f;
                     main.warningRend.enabled = false;
+                    main.visual.PlayDefault();
                     break;
                 case Phase.EndStart:
                     if (terminateOnHit) MyPhase = Phase.EndEnd;
@@ -48,22 +49,24 @@ public class Spell : SerializedMonoBehaviour
     
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
-    [SerializeField] float startDelay;
+    [SerializeField] float warningDelay;
     [Range(0f, 1f)] public float hitChance = 1f;
     [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
     public float lifeTime;
-    public float rateOfFire;
+    bool LifeTimeIs0() => lifeTime == 0f;
+    [HideIf(nameof(LifeTimeIs0))] public float rateOfFire;
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
-    [SerializeField] bool terminateOnHit = true;
+    [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    [SerializeField, BoxGroup("Particles", false)] 
-    protected SpellParticles spellParticles;
+    [FormerlySerializedAs("spellVisuals")] [FormerlySerializedAs("spellParticles")] [SerializeField, BoxGroup("Particles", false)] 
+    protected SpellVisualsTemporary spellVisualsTemporary;
     
     [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
     [SerializeField, BoxGroup] bool useInspectorDamageData;
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] 
     Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
+    
     protected enum HitEffect { Damage, Nullify, Reflect, StatChange }
     [SerializeField] protected List<HitEffect> hitEffects;
 
@@ -75,12 +78,12 @@ public class Spell : SerializedMonoBehaviour
         injectHealthData.damage = useInspectorDamageData ? inspectorDamage : main.damage;
         injectHealthData.myBrain = main.OwnersBrain;
         main.myRigid.isKinematic = true;
-        main.visualization.localScale = areaOfEffect * Vector3.one;
         main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         MyPhase = Phase.BeginWarning;
+        main.visual.InitializeMe(main);
         initialized = true;
     }
 
@@ -146,7 +149,7 @@ public class Spell : SerializedMonoBehaviour
         switch (MyPhase)
         {
             case Phase.BeginWarning:
-                if (_timerPhase >= startDelay) MyPhase = Phase.SpellRuns;
+                if (_timerPhase >= warningDelay) MyPhase = Phase.SpellRuns;
                 break;
             case Phase.SpellRuns:
                 if (lifeTime < 0) return;
