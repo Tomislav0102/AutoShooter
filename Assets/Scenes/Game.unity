@@ -154,63 +154,6 @@ Transform:
   - {fileID: 1652061136}
   m_Father: {fileID: 412413107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &16123387
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: m_Name
-      value: MainSpell
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1001 &50037858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41847,7 +41790,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4231247348864517342, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.29
       objectReference: {fileID: 0}
     - target: {fileID: 4231247348864517342, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -41855,7 +41798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4231247348864517342, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.45
       objectReference: {fileID: 0}
     - target: {fileID: 4231247348864517342, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -41893,13 +41836,25 @@ PrefabInstance:
       propertyPath: debugGeneral
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7876272250836494059, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7876272250836494059, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_Name
       value: BP_Knight
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: dashPower
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -82683,11 +82638,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -82785,9 +82735,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 773715119}
   myCapsuleCollider: {fileID: 773715118}
   warningRend: {fileID: 1727353994}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &781956204
 GameObject:
@@ -98074,11 +98028,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -98176,9 +98125,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 820929354}
   myCapsuleCollider: {fileID: 820929353}
   warningRend: {fileID: 130398090}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &848805130
 GameObject:
@@ -103329,7 +103282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 885458253}
   - component: {fileID: 885458254}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: TEST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103345,10 +103298,11 @@ Transform:
   m_GameObject: {fileID: 885458251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.99, y: 0, z: -0.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1845801137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &885458254
@@ -103580,10 +103534,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -103682,9 +103632,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 902082715}
   myCapsuleCollider: {fileID: 902082714}
   warningRend: {fileID: 57822206}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &902128122
 GameObject:
@@ -103761,11 +103715,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -103863,9 +103812,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 902128125}
   myCapsuleCollider: {fileID: 902128124}
   warningRend: {fileID: 1483349782}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &920325956
 GameObject:
@@ -109068,10 +109021,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -109170,9 +109119,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1005891142}
   myCapsuleCollider: {fileID: 1005891141}
   warningRend: {fileID: 1954879984}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1001 &1011307167
 PrefabInstance:
@@ -109310,11 +109263,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -109412,9 +109360,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1011307171}
   myCapsuleCollider: {fileID: 1011307170}
   warningRend: {fileID: 2090859690}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1020780956
 GameObject:
@@ -114488,11 +114440,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -114590,9 +114537,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1045770841}
   myCapsuleCollider: {fileID: 1045770840}
   warningRend: {fileID: 2123032393}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1056830881
 GameObject:
@@ -115019,11 +114970,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -115121,9 +115067,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1098150862}
   myCapsuleCollider: {fileID: 1098150861}
   warningRend: {fileID: 1998322636}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1105322249
 GameObject:
@@ -115246,6 +115196,96 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117760921}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1122821847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122821848}
+  - component: {fileID: 1122821850}
+  - component: {fileID: 1122821849}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122821848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122821847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.49, z: 0.277}
+  m_LocalScale: {x: 0.5856008, y: 0.4078, z: 0.78648305}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1845801137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1122821849
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122821847}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: aee84b85d091de442be7f6f85138297f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1122821850
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122821847}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1138873318
 GameObject:
   m_ObjectHideFlags: 0
@@ -120320,11 +120360,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -120422,9 +120457,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1152482702}
   myCapsuleCollider: {fileID: 1152482701}
   warningRend: {fileID: 141898118}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1165663280
 GameObject:
@@ -125622,10 +125661,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -125724,9 +125759,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1198307890}
   myCapsuleCollider: {fileID: 1198307889}
   warningRend: {fileID: 1450255066}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1208241975
 GameObject:
@@ -125991,11 +126030,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -126093,9 +126127,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1221904440}
   myCapsuleCollider: {fileID: 1221904439}
   warningRend: {fileID: 555757206}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1279272142
 GameObject:
@@ -136508,11 +136546,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -136610,9 +136643,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1398609311}
   myCapsuleCollider: {fileID: 1398609310}
   warningRend: {fileID: 1966407106}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1399806822
 GameObject:
@@ -136711,10 +136748,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -136813,9 +136846,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1399806826}
   myCapsuleCollider: {fileID: 1399806825}
   warningRend: {fileID: 200512844}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1400651273
 GameObject:
@@ -147372,11 +147409,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -147474,9 +147506,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1529479430}
   myCapsuleCollider: {fileID: 1529479429}
   warningRend: {fileID: 1094599089}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1534379129
 GameObject:
@@ -157577,10 +157613,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -157679,9 +157711,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1587200954}
   myCapsuleCollider: {fileID: 1587200953}
   warningRend: {fileID: 178775463}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1597853608
 GameObject:
@@ -157758,11 +157794,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -157860,9 +157891,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1597853611}
   myCapsuleCollider: {fileID: 1597853610}
   warningRend: {fileID: 1073613606}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1609179417
 GameObject:
@@ -157939,11 +157974,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -158041,9 +158071,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1609179420}
   myCapsuleCollider: {fileID: 1609179419}
   warningRend: {fileID: 1654252541}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1001 &1616196739
 PrefabInstance:
@@ -158203,10 +158237,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -158305,9 +158335,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1616196744}
   myCapsuleCollider: {fileID: 1616196743}
   warningRend: {fileID: 868732078}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1001 &1652061135
 PrefabInstance:
@@ -163616,11 +163650,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -163718,9 +163747,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1665966459}
   myCapsuleCollider: {fileID: 1665966458}
   warningRend: {fileID: 2041556805}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1001 &1687319451
 PrefabInstance:
@@ -163858,11 +163891,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -163960,9 +163988,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1687319455}
   myCapsuleCollider: {fileID: 1687319454}
   warningRend: {fileID: 2009639952}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1704707356
 GameObject:
@@ -174004,11 +174036,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -174106,9 +174133,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1714118408}
   myCapsuleCollider: {fileID: 1714118407}
   warningRend: {fileID: 497494809}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1001 &1714298544
 PrefabInstance:
@@ -174246,11 +174277,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -174348,9 +174374,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1714298548}
   myCapsuleCollider: {fileID: 1714298547}
   warningRend: {fileID: 1931747015}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1726621687
 GameObject:
@@ -184420,11 +184450,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -184522,9 +184547,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1734049002}
   myCapsuleCollider: {fileID: 1734049001}
   warningRend: {fileID: 920325958}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1737071530
 GameObject:
@@ -189508,11 +189537,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -189610,9 +189634,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1738519382}
   myCapsuleCollider: {fileID: 1738519381}
   warningRend: {fileID: 405726042}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1756329721
 GameObject:
@@ -209646,10 +209674,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -209748,9 +209772,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1787066945}
   myCapsuleCollider: {fileID: 1787066944}
   warningRend: {fileID: 1777502520}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1804955905
 GameObject:
@@ -214837,10 +214865,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -214939,9 +214963,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1808311194}
   myCapsuleCollider: {fileID: 1808311193}
   warningRend: {fileID: 1865361377}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1813374024
 GameObject:
@@ -215197,6 +215225,97 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833822767}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1845801136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1845801137}
+  - component: {fileID: 1845801140}
+  - component: {fileID: 1845801139}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1845801137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845801136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1122821848}
+  m_Father: {fileID: 885458253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1845801139
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845801136}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1845801140
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845801136}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1857475668
 GameObject:
   m_ObjectHideFlags: 0
@@ -215695,10 +215814,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -215797,9 +215912,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1871109867}
   myCapsuleCollider: {fileID: 1871109866}
   warningRend: {fileID: 145712464}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1873764375
 GameObject:
@@ -215990,10 +216109,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -216092,9 +216207,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1928420995}
   myCapsuleCollider: {fileID: 1928420994}
   warningRend: {fileID: 720697968}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1931747013
 GameObject:
@@ -216661,11 +216780,6 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -216763,9 +216877,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1989543223}
   myCapsuleCollider: {fileID: 1989543222}
   warningRend: {fileID: 1212110214}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &1998322634
 GameObject:
@@ -217024,11 +217142,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -217126,9 +217239,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 2011650987}
   myCapsuleCollider: {fileID: 2011650986}
   warningRend: {fileID: 1704707358}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1001 &2020320420
 PrefabInstance:
@@ -217266,11 +217383,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 0}
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 0
@@ -217368,9 +217480,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 2020320424}
   myCapsuleCollider: {fileID: 2020320423}
   warningRend: {fileID: 1378758573}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &2020564372
 GameObject:
@@ -227669,7 +227785,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: startActive
-      value: 99
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: attackActive
@@ -227689,7 +227805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -232986,10 +233102,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1
@@ -233088,9 +233200,13 @@ MonoBehaviour:
   mySphereCollider: {fileID: 2133488738}
   myCapsuleCollider: {fileID: 2133488737}
   warningRend: {fileID: 1652367635}
-  visual: {fileID: 0}
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   spell: {fileID: 0}
   transporter: {fileID: 0}
+  visual: {fileID: 0}
   description: 
 --- !u!1 &2137228346
 GameObject:
@@ -233219,6 +233335,7 @@ MonoBehaviour:
   reflectProjectile: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
   shieldThrow: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
   auraLowerAttSpeed: {fileID: 3118285111912860546, guid: 1ccb81ed7ee94c24bab8e49f6a08c37f, type: 3}
+  dash: {fileID: 8592503026931671577, guid: 7bad75f2dae142244b01aea2a0e730c9, type: 3}
   groupWalkTrail: {fileID: 4097750650632919805, guid: 8ff03a2ecf095c243921ab413535e7d5, type: 3}
   groupOrbitalShields: {fileID: 2030511890280774223, guid: 207058c7be783c84781d27fe3ed51235, type: 3}
   groupOrbitalSwords: {fileID: 4935544611848341360, guid: d085c40fd9667b14e8983759559f6b26, type: 3}
@@ -233373,4 +233490,3 @@ SceneRoots:
   - {fileID: 933078169}
   - {fileID: 450085159}
   - {fileID: 2076520104}
-  - {fileID: 16123387}

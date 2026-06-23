@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: homing missile
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 92274647244686051}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
@@ -95,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a287a43b004fdf459e2851528892b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomingTransporter
-  homingTarget: {fileID: 0}
+  target: {fileID: 0}
   speed: 2
 --- !u!4 &8877991928408836941 stripped
 Transform:
@@ -156,12 +160,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 50
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 92274647244686051}
     psOnHit: []
@@ -173,7 +177,7 @@ MonoBehaviour:
   useInspectorDamageData: 0
   hitEffects: 00000000
   onEnter: 1
-  onStayFake: 0
+  onFakeStay: 0
   onExit: 0
   colliderPart: 0
   spellsToAffect: []

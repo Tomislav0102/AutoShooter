@@ -24,12 +24,6 @@ public class S_A_Trigger : S_A
     [SerializeField, ShowIf(nameof(AffectsSpells))] SpellMain[] spellsToAffect;
     
     
-    public override void InitializeMe(SpellMain mainSpell)
-    {
-        base.InitializeMe(mainSpell);
-        spellVisualsTemporary.InitializeMe(mainSpell);
-    }
-    
     protected override void Hit()
     {
         base.Hit();

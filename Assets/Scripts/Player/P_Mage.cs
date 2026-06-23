@@ -28,6 +28,10 @@ public class P_Mage : PlayerCombat
                 { Element.Fire, 1f },
                 // { Element.Physical, 3f },
             };
+            damUltimate = new Dictionary<Element, float>()
+            {
+                { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) * 0.1f },
+            };
 
             switch (startActive)
             {
@@ -85,7 +89,8 @@ public class P_Mage : PlayerCombat
                         SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
                             Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
                         flamethrower.transporter.target = Br.myTransform;
-                        flamethrower.InitializeMe(Br, damRanged);
+                        injectHealth = new InjectHealth(damRanged);
+                        flamethrower.InitializeMe(Br, injectHealth);
                     }
                     break;
                 case 4:
@@ -108,7 +113,8 @@ public class P_Mage : PlayerCombat
         {
             case 0:
                 SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                lightning.InitializeMe(Br, damRanged);
+                injectHealth = new InjectHealth(damRanged);
+                lightning.InitializeMe(Br, injectHealth);
                 break;
             
             case 1:
@@ -121,7 +127,8 @@ public class P_Mage : PlayerCombat
                 {
                     if (Br.combat.MyTarget == null) return;
                     SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    explosion.InitializeMe(Br, damRanged, AreaFire);
+                    injectHealth = new InjectHealth(damRanged);
+                    explosion.InitializeMe(Br, injectHealth, AreaFire);
                     Instantiate(Ga.me.psDecalFire, explosion.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
                 }
 
@@ -129,7 +136,8 @@ public class P_Mage : PlayerCombat
                 {
                     if (Br.combat.MyTarget == null) return;
                     SpellMain areFire = Instantiate(Ga.me.spells.areFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    areFire.InitializeMe(Br, damRanged);
+                    injectHealth = new InjectHealth(damRanged);
+                    areFire.InitializeMe(Br, injectHealth);
                 }
                 break;
             
@@ -141,7 +149,8 @@ public class P_Mage : PlayerCombat
                     homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
                     homing.visual.SetSpawnHeight(spawnPoint.position.y);
                     homing.transporter.target = Br.combat.MyTarget;
-                    homing.InitializeMe(Br, damRanged);
+                    injectHealth = new InjectHealth(damRanged, true);
+                    homing.InitializeMe(Br, injectHealth);
                 }
                 break;
         }
@@ -153,10 +162,8 @@ public class P_Mage : PlayerCombat
         base.FromAnimEv_Ultimate(num);
         SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         armageddon.transporter.target = Br.myTransform;
-        armageddon.InitializeMe(Br, new Dictionary<Element, float>()
-        {
-            { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) * 0.1f },
-        });
+        injectHealth = new InjectHealth(damUltimate);
+        armageddon.InitializeMe(Br, injectHealth);
 
     }
 }

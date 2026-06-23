@@ -263,6 +263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: armageddon
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: particleSizeChangeStart
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
@@ -306,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
-  myTarget: {fileID: 0}
+  target: {fileID: 0}
 --- !u!1 &5884963216466479112 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

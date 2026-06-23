@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 21
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 2614154149570889060}
     - target: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
       value: 21
@@ -282,15 +286,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: -1
   rateOfFire: 0
   terminateOnHit: 0
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 2614154149570889060}
     psOnHit: []
@@ -302,6 +305,7 @@ MonoBehaviour:
   useInspectorDamageData: 0
   hitEffects: 01000000
   onEnter: 1
+  onFakeStay: 0
   onExit: 0
   colliderPart: 0
   spellsToAffect:
@@ -324,3 +328,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  target: {fileID: 0}

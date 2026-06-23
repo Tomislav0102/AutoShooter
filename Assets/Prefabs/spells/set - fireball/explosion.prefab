@@ -127,6 +127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: explosion
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 3708156408610075552}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
@@ -166,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  target: {fileID: 0}
 --- !u!4 &7788332774162815757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -235,15 +240,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 1
   areaOfEffect: 3
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 2
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 3708156408610075552}
     psOnHit: []

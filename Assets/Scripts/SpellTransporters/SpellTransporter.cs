@@ -12,7 +12,6 @@ public class SpellTransporter : MonoBehaviour
     public virtual void InitializeMe(SpellMain spellMain)
     {
         main = spellMain;
-        main.spell.InitializeMe(spellMain);
     }
 
     protected void SetSpeed(float speed)

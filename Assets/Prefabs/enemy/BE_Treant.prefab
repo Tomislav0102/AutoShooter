@@ -15663,7 +15663,7 @@ PrefabInstance:
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: 'myMaterials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 89cf69bdb152cae4584a1bec5e662877, type: 2}
+      objectReference: {fileID: 2100000, guid: c7d43f0bb4fb8994cb973172d374a3f3, type: 2}
     - target: {fileID: 7911443292519778484, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Avatar
       value: 

@@ -30,6 +30,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain reflectProjectile;
    public SpellMain shieldThrow;
    public SpellMain auraLowerAttSpeed;
+   public SpellMain dash;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
    public SpellGroup groupOrbitalShields;

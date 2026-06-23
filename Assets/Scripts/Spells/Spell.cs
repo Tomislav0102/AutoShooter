@@ -58,10 +58,6 @@ public class Spell : SerializedMonoBehaviour
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     
-    protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    [FormerlySerializedAs("spellVisuals")] [FormerlySerializedAs("spellParticles")] [SerializeField, BoxGroup("Particles", false)] 
-    protected SpellVisualsTemporary spellVisualsTemporary;
-    
     [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
     [SerializeField, BoxGroup] bool useInspectorDamageData;
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] 
@@ -69,21 +65,20 @@ public class Spell : SerializedMonoBehaviour
     
     protected enum HitEffect { Damage, Nullify, Reflect, StatChange }
     [SerializeField] protected List<HitEffect> hitEffects;
+    protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
 
 
     
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
-        injectHealthData.damage = useInspectorDamageData ? inspectorDamage : main.damage;
+        if (!useInspectorDamageData) injectHealthData = main.injectHealth;
         injectHealthData.myBrain = main.OwnersBrain;
-        main.myRigid.isKinematic = true;
         main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         MyPhase = Phase.BeginWarning;
-        main.visual.InitializeMe(main);
         initialized = true;
     }
 

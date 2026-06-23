@@ -123,6 +123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shield throw
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 6461859252280342951}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.334
@@ -170,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  target: {fileID: 0}
   speed: 10
   ricochet: 2
   pierce: 0
@@ -228,15 +233,15 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
-  durationType: 2
+  warningDelay: 0
+  hitChance: 1
   lifeTime: 10
+  rateOfFire: 0
   terminateOnHit: 1
-  followTarget: {fileID: 0}
-  spellParticles:
-    ps:
-    - {fileID: 6461859252280342951}
-    particleSizeChange: 0
+  spellVisualsTemporary:
+    psStart: []
+    psOnHit: []
+    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1

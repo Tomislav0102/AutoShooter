@@ -52,6 +52,7 @@ public class Combat : EventBus, IInit
     const int CONST_BlockTimer = 2;
 
     //cache
+    protected InjectHealth injectHealth;
     protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();

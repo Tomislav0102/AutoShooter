@@ -18,11 +18,14 @@ public class InjectHealth
     public const string TagStatusFreeze = "Freezing";
     public const string TagStatusJolt = "Jolted";
 
-    // public InjectHealth(Transform attacker, Dictionary<Element, float> damage, bool canBeBlocked, int knockBack)
-    // {
-    //     this.attacker = attacker;
-    //     this.damage = damage;
-    //     this.canBeBlocked = canBeBlocked;
-    //     this.knockBack = knockBack;
-    // }
+    public InjectHealth()
+    {
+        
+    }
+    public InjectHealth(Dictionary<Element, float> damage, bool canBeBlocked = false, int knockBack = 0)
+    {
+        this.damage = damage;
+        this.canBeBlocked = canBeBlocked;
+        this.knockBack = knockBack;
+    }
 }

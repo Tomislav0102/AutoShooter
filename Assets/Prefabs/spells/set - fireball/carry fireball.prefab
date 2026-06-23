@@ -119,6 +119,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: carry fireball
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 811885067253427062}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: particleSizeChangeStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1
@@ -203,12 +211,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 811885067253427062}
     psOnHit: []
@@ -246,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
-  myTarget: {fileID: 0}
+  target: {fileID: 0}
   speed: 3
   ricochet: 0
   pierce: 0

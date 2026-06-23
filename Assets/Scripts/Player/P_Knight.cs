@@ -19,7 +19,7 @@ public class P_Knight : PlayerCombat
             {
                  // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                  // { Element.Magic, 2f },
+                   { Element.Magic, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -29,10 +29,8 @@ public class P_Knight : PlayerCombat
             };
             damUltimate = new Dictionary<Element, float>()
             {
-                { Element.Physical, -Br.myChar.GetStat(Stats.MagicDamage) },
+                { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
             };
-            IsInitialized = true;
-
             switch (startActive)
             {
                 case 0:
@@ -47,13 +45,13 @@ public class P_Knight : PlayerCombat
                     break;
             }
             
-            
+            IsInitialized = true;
         }
     }
 
     [Title("Knight")]
     [SerializeField] Transform myShield;
-    [SerializeField][Range(1, 10)] int dashPower = 4;
+    [SerializeField] int dashPower = 4;
     public int startActive;
     
     public override void FromAnimEv_Attack(int num = 0)
@@ -65,16 +63,18 @@ public class P_Knight : PlayerCombat
             if (br == null) CombatEventRegistered(CombatEvent.Miss);
             else CombatEventRegistered(CombatEvent.Hit, br);
         };
-        melee.InitializeMe(Br, damMelee);
+        injectHealth = new InjectHealth(damMelee, true, 1);
+        melee.InitializeMe(Br, injectHealth);
     }
 
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
-
-        SpellMain heal = Instantiate(Ga.me.spells.heal, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        heal.transporter.target = Br.myTransform;
-        heal.InitializeMe(Br, damUltimate);
+        SpellMain dash = Instantiate(Ga.me.spells.dash, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        dash.transporter.target = Br.myTransform;
+        injectHealth = new InjectHealth(damUltimate, false, dashPower);
+        dash.InitializeMe(Br, injectHealth);
+        Br.myRigid.AddRelativeForce(dashPower * Vector3.forward, ForceMode.VelocityChange);
     }
 
     protected override void CallEv_OnUltimateActivated()

@@ -21,7 +21,6 @@ public class S_Bullet : Spell
             solidCollider.enabled = _myBulletTransporter.bounce > 0;
             solidCollider.radius = main.mySphereCollider.radius + 0.01f;
         }
-        spellVisualsTemporary.InitializeMe(mainSpell);
     }
 
     public override void OnTriggerEnterCallBack(Collider other)

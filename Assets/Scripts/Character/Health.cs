@@ -134,7 +134,6 @@ public class Health: EventBus, IInit
         
         Br.loco.Hit();
         if (dam.myBrain == null) return;
-        Br.loco.KnockBack((Br.myTransform.position - dam.myBrain.myTransform.position).normalized, dam.knockBack);
         if (Br.myTransform == Ga.me.team.playerTransform) return;
         
         if (Br.combat.MyTarget == null)

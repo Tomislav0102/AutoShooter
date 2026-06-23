@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: aura LowerAttackSpeed
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 6885404010821729640}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.1
@@ -132,12 +136,12 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 5
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: -1
   rateOfFire: 0
   terminateOnHit: 0
-  spellParticles:
+  spellVisualsTemporary:
     psStart:
     - {fileID: 6885404010821729640}
     psOnHit: []
@@ -175,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5333ea9fb668b5f4a9fec625c6ff176a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
-  myTarget: {fileID: 0}
+  target: {fileID: 0}
   followPosition: 1
   followRotation: 1
 --- !u!1001 &9138242517926343654

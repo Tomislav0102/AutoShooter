@@ -48,10 +48,10 @@ public class SpellMain : MonoBehaviour
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public SpriteRenderer warningRend;
-    public SpellVisual visual;
-    [ReadOnly] public Dictionary<Element, float> damage = new Dictionary<Element, float>();
+    [ReadOnly] public InjectHealth injectHealth;
     public Spell spell; 
     public SpellTransporter transporter;
+    public SpellVisual visual;
     [SerializeField, TextArea, HideLabel] string description;
 
     
@@ -82,15 +82,18 @@ public class SpellMain : MonoBehaviour
     {
         OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
+        myRigid.isKinematic = true;
         transporter.InitializeMe(this);
+        spell.InitializeMe(this);
+        visual.InitializeMe(this);
     }
     /// <summary>
     /// Damage is from code, no after spell
     /// </summary>
-    public void InitializeMe(Brain brain, Dictionary<Element, float> dam)
+    public void InitializeMe(Brain brain, InjectHealth inject)
     {
-        if (dam == null) dam = new Dictionary<Element, float>();
-        damage = dam;
+        if (inject == null) inject = new InjectHealth();
+        injectHealth = inject;
         InitializeMe(brain); 
     }
     /// <summary>
@@ -104,13 +107,14 @@ public class SpellMain : MonoBehaviour
     /// <summary>
     /// Damage is from code, with after spell
     /// </summary>
-    public void InitializeMe(Brain brain, Dictionary<Element, float> dam, System.Action onAfterSpell)
+    public void InitializeMe(Brain brain, InjectHealth inject, System.Action onAfterSpell)
     {
-        if (dam == null) dam = new Dictionary<Element, float>();
-        damage = dam;
+        if (inject == null) inject = new InjectHealth();
+        injectHealth = inject;
         _onAfterSpell = onAfterSpell;
         InitializeMe(brain); 
     }
+
 
     bool UseTriggers() => IsActive && Random.value < spell.hitChance;
     void OnTriggerEnter(Collider other)

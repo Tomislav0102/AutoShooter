@@ -15,52 +15,59 @@ public class Loco : EventBus, IInit
     [SerializeField] protected Animator anim;
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
     [SerializeField] protected float moveSpeed;
-    Coroutine _pushCoroutine;
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
-
-
-    #region ANIMATOR
+    protected bool controlsEnabled = true;
     
+    #region ANIMATOR
+    int _moveHor = Animator.StringToHash("moveHor");
+    int _moveVer = Animator.StringToHash("moveVer");
+    int _walk = Animator.StringToHash("walk");
+    int _attack = Animator.StringToHash("attack");
+    int _attack1 = Animator.StringToHash("attack1");
+    int _cast = Animator.StringToHash("cast");
+    int _hit = Animator.StringToHash("hit");
+    int _block = Animator.StringToHash("block");
     public void AE_Attack(int  num) => Br.combat.FromAnimEv_Attack(num);
 
     public void AE_Ultimate(int num) => Br.combat.FromAnimEv_Ultimate(num);
 
     protected void Direction_Move(float hor, float ver)
     {
-        anim.SetFloat("moveHor", hor);
-        anim.SetFloat("moveVer", ver);
+        anim.SetFloat(_moveHor, hor);
+        anim.SetFloat(_moveVer, ver);
     }
-    protected void Toggle_Move(bool isMoving) => anim.SetBool("walk", isMoving);
-    public void AttInputEnemy(bool isAttacking) =>  anim.SetBool("attack", isAttacking);
-    public void Att1InputEnemy(bool isAttacking1) => anim.SetBool("attack1", isAttacking1);
-    public void CastSpell() =>  anim.SetTrigger("cast");
-    public void Hit() =>  anim.SetTrigger("hit");
-    public void Block() =>  anim.SetTrigger("block");
+    protected void Toggle_Move(bool isMoving) => anim.SetBool(_walk, isMoving);
+    public void AttInputEnemy(bool isAttacking) =>  anim.SetBool(_attack, isAttacking);
+    public void Att1InputEnemy(bool isAttacking1) => anim.SetBool(_attack1, isAttacking1);
+    public void CastSpell() =>  anim.SetTrigger(_cast);
+    public void Hit() =>  anim.SetTrigger(_hit);
+    public void Block() =>  anim.SetTrigger(_block);
     #endregion
 
     #region TOOLS
     public void KnockBack(Vector3 dir, int intensity = 1)
     {
         float diff = intensity - knockBackResistance;
-        if (diff <= 0) return;
-        if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
-        _pushCoroutine = StartCoroutine(PushMeSequence(dir, diff));
+        if (diff <= 0.5f) return;
+        if (controlsEnabled) StartCoroutine(PushMeSequence(dir, diff));
     }
-    IEnumerator PushMeSequence(Vector3 dir, float intensity = 1)
+    protected virtual IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1) 
     {
-        ControlsEnabled(false);
-        if (dir == Vector3.zero)
-        {
-            dir = Utils.MakeV3(Random.insideUnitCircle);
-        }
-        Br.myRigid.AddForce(intensity * 10 * dir, ForceMode.VelocityChange);
-        yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
-        ControlsEnabled(true);
+        yield break;
     }
-
-
-    protected virtual void ControlsEnabled(bool isEnabled) { }
+    
+    // IEnumerator PushMeSequence(Vector3 dir, float intensity = 1)
+    // {
+    //     ControlsEnabled(false);
+    //     if (dir == Vector3.zero)
+    //     {
+    //         dir = Utils.MakeV3(Random.insideUnitCircle);
+    //     }
+    //     Br.myRigid.AddForce(intensity * 10 * dir, ForceMode.VelocityChange);
+    //     yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
+    //     ControlsEnabled(true);
+    // }
     
     protected void LookAtMethod()
     {

@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: heal
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: particleSizeChangeStart
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
@@ -123,15 +127,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  followTarget: {fileID: 0}
   myFactionTarget: 0
   areaOfEffect: 1
-  startDelay: 0
+  warningDelay: 0
   hitChance: 1
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellParticles:
+  spellVisualsTemporary:
     psStart: []
     psOnHit: []
     particleSizeChangeStart: 3
@@ -158,3 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  target: {fileID: 0}

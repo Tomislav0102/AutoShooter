@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: melee En
       objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: particleSizeChangeStart
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
@@ -92,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba6d1ba567e92241b5f8474398d0362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeTransporter
+  target: {fileID: 0}
 --- !u!1 &7542612946966967911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -144,20 +149,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  myFaction: 0
   myFactionTarget: 1
   areaOfEffect: 2
-  startDelay: 0
-  durationType: 0
-  lifeTime: 1
+  warningDelay: 0
+  hitChance: 1
+  lifeTime: 0
+  rateOfFire: 0
   terminateOnHit: 1
-  followTarget: {fileID: 0}
-  colliderType: 2
-  spellParticles:
-    ps: []
-    particleSizeChange: 3
   injectHealthData:
-    attacker: {fileID: 0}
+    myBrain: {fileID: 0}
     canBeBlocked: 1
     knockBack: 0
   useInspectorDamageData: 0

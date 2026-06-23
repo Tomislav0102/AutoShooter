@@ -18,7 +18,8 @@ public class E_AllCombat : EnemyCombat
                 SpellMain melee = Instantiate(meleeWeapon,
                     Br.myTransform.position,
                     Br.myTransform.rotation, Ga.me.spells.myTransform);
-                melee.InitializeMe(Br, damMelee);
+                injectHealth = new InjectHealth(damRanged, true);
+                melee.InitializeMe(Br, injectHealth);
                 break;
             case 1: //bullet
                 damRanged = new Dictionary<Element, float>()
@@ -28,7 +29,8 @@ public class E_AllCombat : EnemyCombat
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(rangedWeapon, zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
-                bullet.InitializeMe(Br, damRanged);
+                injectHealth = new InjectHealth(damRanged, true);
+                bullet.InitializeMe(Br, injectHealth);
                 break;
             case 2: //lightning strike
                 break;
@@ -47,10 +49,11 @@ public class E_AllCombat : EnemyCombat
                 };
 
                 SpellMain lob = Instantiate(rangedWeapon, spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
-                lob.InitializeMe(Br, null, () =>
+                injectHealth = new InjectHealth(damRanged);
+                lob.InitializeMe(Br, new InjectHealth(null), () =>
                 {
                     SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    explosion.InitializeMe(Br, damRanged);
+                    explosion.InitializeMe(Br, injectHealth);
                 });
                 break;
         }
