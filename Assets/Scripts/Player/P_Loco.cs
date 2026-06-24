@@ -79,4 +79,15 @@ public class P_Loco : Loco
         base.CallEv_OnLevelLoaded();
         Physics.IgnoreCollision(Ga.me.LevelMan.ground.GetComponent<Collider>(), Br.myCollider);
     }
+
+    protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
+    {
+        yield return base.PushMeSequence(dir, deltaIntensity);
+        controlsEnabled = false;
+        float effIntensity = 5 * deltaIntensity;
+        effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
+        Br.myRigid.AddForce(effIntensity * dir, ForceMode.VelocityChange);
+        yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
+        controlsEnabled = true;
+    }
 }

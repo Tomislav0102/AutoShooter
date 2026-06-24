@@ -48,13 +48,12 @@ public class SpellMain : MonoBehaviour
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public SpriteRenderer warningRend;
-    [ReadOnly] public InjectHealth injectHealth;
+    [ReadOnly] public InjectHealth injectHealthPass;
     public Spell spell; 
     public SpellTransporter transporter;
     public SpellVisual visual;
     [SerializeField, TextArea, HideLabel] string description;
 
-    
     #region EVENTS, CALLBACKS
     public System.Action onEnd;
     public System.Action<Brain> onHitTarget;
@@ -93,7 +92,7 @@ public class SpellMain : MonoBehaviour
     public void InitializeMe(Brain brain, InjectHealth inject)
     {
         if (inject == null) inject = new InjectHealth();
-        injectHealth = inject;
+        injectHealthPass = inject;
         InitializeMe(brain); 
     }
     /// <summary>
@@ -110,7 +109,7 @@ public class SpellMain : MonoBehaviour
     public void InitializeMe(Brain brain, InjectHealth inject, System.Action onAfterSpell)
     {
         if (inject == null) inject = new InjectHealth();
-        injectHealth = inject;
+        injectHealthPass = inject;
         _onAfterSpell = onAfterSpell;
         InitializeMe(brain); 
     }

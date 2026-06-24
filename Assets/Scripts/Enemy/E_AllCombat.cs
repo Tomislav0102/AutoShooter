@@ -18,7 +18,7 @@ public class E_AllCombat : EnemyCombat
                 SpellMain melee = Instantiate(meleeWeapon,
                     Br.myTransform.position,
                     Br.myTransform.rotation, Ga.me.spells.myTransform);
-                injectHealth = new InjectHealth(damRanged, true);
+                injectHealth = new InjectHealth(damMelee, true);
                 melee.InitializeMe(Br, injectHealth);
                 break;
             case 1: //bullet

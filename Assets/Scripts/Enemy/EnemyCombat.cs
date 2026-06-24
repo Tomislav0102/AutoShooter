@@ -79,8 +79,11 @@ public class EnemyCombat : Combat
         }
     }
 
-
-
+    public override void FromAnimEv_Attack(int num = 0)
+    {
+        base.FromAnimEv_Attack(num);
+        _eLoco.AttackDone();
+    }
 }
 
 

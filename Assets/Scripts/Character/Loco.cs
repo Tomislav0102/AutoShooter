@@ -25,6 +25,7 @@ public class Loco : EventBus, IInit
     int _walk = Animator.StringToHash("walk");
     int _attack = Animator.StringToHash("attack");
     int _attack1 = Animator.StringToHash("attack1");
+    int _isAttacking = Animator.StringToHash("isAttacking");
     int _cast = Animator.StringToHash("cast");
     int _hit = Animator.StringToHash("hit");
     int _block = Animator.StringToHash("block");
@@ -38,8 +39,9 @@ public class Loco : EventBus, IInit
         anim.SetFloat(_moveVer, ver);
     }
     protected void Toggle_Move(bool isMoving) => anim.SetBool(_walk, isMoving);
-    public void AttInputEnemy(bool isAttacking) =>  anim.SetBool(_attack, isAttacking);
-    public void Att1InputEnemy(bool isAttacking1) => anim.SetBool(_attack1, isAttacking1);
+    public void AttInputEnemy(bool attack) =>  anim.SetBool(_attack, attack);
+    public void Att1InputEnemy(bool attack1) => anim.SetBool(_attack1, attack1);
+    public void AttackDone() => anim.SetBool(_isAttacking, false);
     public void CastSpell() =>  anim.SetTrigger(_cast);
     public void Hit() =>  anim.SetTrigger(_hit);
     public void Block() =>  anim.SetTrigger(_block);
@@ -50,24 +52,14 @@ public class Loco : EventBus, IInit
     {
         float diff = intensity - knockBackResistance;
         if (diff <= 0.5f) return;
-        if (controlsEnabled) StartCoroutine(PushMeSequence(dir, diff));
+        if (dir == Vector3.zero)  dir = Utils.MakeV3(Random.insideUnitCircle);
+        StartCoroutine(PushMeSequence(dir, diff));
     }
     protected virtual IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1) 
     {
         yield break;
     }
     
-    // IEnumerator PushMeSequence(Vector3 dir, float intensity = 1)
-    // {
-    //     ControlsEnabled(false);
-    //     if (dir == Vector3.zero)
-    //     {
-    //         dir = Utils.MakeV3(Random.insideUnitCircle);
-    //     }
-    //     Br.myRigid.AddForce(intensity * 10 * dir, ForceMode.VelocityChange);
-    //     yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
-    //     ControlsEnabled(true);
-    // }
     
     protected void LookAtMethod()
     {

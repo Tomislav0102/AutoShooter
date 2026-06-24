@@ -119,7 +119,6 @@ public class E_Loco : Loco
     protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
     {
         yield return base.PushMeSequence(dir, deltaIntensity);
-        if (!controlsEnabled) yield break;
         controlsEnabled = false;
         float effIntensity = 5 * deltaIntensity;
         effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
@@ -193,26 +192,27 @@ public class E_Loco : Loco
     }
     void Chase()
     {
-        if (Br.combat.MyTarget != null)
+        if (Br.combat.MyTarget == null) return;
+        
+        if (weaponRange == RangeArea.OutOfRange && !anim.GetBool("isAttacking"))
         {
-            if (weaponRange == RangeArea.OutOfRange) agent.destination = Br.combat.MyTarget.position;
-            else if (agent.hasPath) agent.ResetPath();
+            agent.destination = Br.combat.MyTarget.position;
         }
+        else if (agent.hasPath) agent.ResetPath();
     }
     void Flee()
     {
-        if (Br.combat.MyTarget != null)
+        if (Br.combat.MyTarget == null) return;
+        
+        if (Br.combat.distanceToTarget < CONST_FleeDistance)
         {
-            if (Br.combat.distanceToTarget < CONST_FleeDistance)
-            {
-                Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
-                direction.y = 0f;
-                direction.Normalize();
-                Vector3 targetPosition = Br.myTransform.position + 2f * direction;
-                NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
-                if (!hit.hit) return;
-                agent.destination = hit.position;
-            }
+            Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
+            direction.y = 0f;
+            direction.Normalize();
+            Vector3 targetPosition = Br.myTransform.position + 2f * direction;
+            NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
+            if (!hit.hit) return;
+            agent.destination = hit.position;
         }
     }
 

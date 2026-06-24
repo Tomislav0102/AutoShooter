@@ -58,10 +58,10 @@ public class Spell : SerializedMonoBehaviour
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     
-    [SerializeField, BoxGroup] protected InjectHealth injectHealthData;
     [SerializeField, BoxGroup] bool useInspectorDamageData;
-    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] 
-    Dictionary<Element, float> inspectorDamage =  new Dictionary<Element, float>();
+    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected InjectHealth injectHealth;
+    //need this, because dictionary can't be serialized in non-monobehaviour C# class
+    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] Dictionary<Element, float> _damageInspector;
     
     protected enum HitEffect { Damage, Nullify, Reflect, StatChange }
     [SerializeField] protected List<HitEffect> hitEffects;
@@ -72,8 +72,10 @@ public class Spell : SerializedMonoBehaviour
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
-        if (!useInspectorDamageData) injectHealthData = main.injectHealth;
-        injectHealthData.myBrain = main.OwnersBrain;
+        if (!useInspectorDamageData) injectHealth = main.injectHealthPass;
+        else injectHealth.damage = _damageInspector;
+        injectHealth.myBrain = main.OwnersBrain;
+        
         main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
@@ -91,17 +93,17 @@ public class Spell : SerializedMonoBehaviour
         Brain b = null;
         if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
         {
-            if (injectHealthData.knockBack > 0 && targetBrain.loco != null)
+            if (injectHealth.knockBack > 0 && targetBrain.loco != null)
             {
                 Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
-                targetBrain.loco.KnockBack(dir, injectHealthData.knockBack);
+                targetBrain.loco.KnockBack(dir, injectHealth.knockBack);
                 main.onHitTarget?.Invoke(targetBrain);
                 b = targetBrain;
             }
 
-            if (hitEffects.Contains(HitEffect.Damage) && injectHealthData.damage.Count > 0)
+            if (hitEffects.Contains(HitEffect.Damage) && injectHealth.damage.Count > 0)
             {
-                targetBrain.health.TakeDamage(injectHealthData);
+                targetBrain.health.TakeDamage(injectHealth);
                 b = targetBrain;
             }
 

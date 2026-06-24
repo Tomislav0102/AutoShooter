@@ -129,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 6461859252280342951}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
@@ -238,10 +238,6 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
   injectHealthData:
     myBrain: {fileID: 0}
     canBeBlocked: 1

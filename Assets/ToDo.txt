@@ -1,12 +1,7 @@
 GENERAL
-- knockback - remove rigidbodies, all can be done through navmesh.
-              see if this can be used to fix Dash.
 
 ENEMY
-- fix attack animation while chasing target. it's switching between run and attack too often
 
-KNIGHT
-- shield throw animation can be made using Anim Rigging
 
-ALTERNATIVES
-- consider having dedicated transform for colliders/triggers for both actors and spells
+
+

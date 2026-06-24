@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [System.Serializable]
-public class InjectHealth 
+public class InjectHealth
 {
     [HideInInspector] public Brain myBrain;
     public bool canBeBlocked;

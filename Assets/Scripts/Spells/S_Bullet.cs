@@ -26,11 +26,11 @@ public class S_Bullet : Spell
     public override void OnTriggerEnterCallBack(Collider other)
     {
         base.OnTriggerEnterCallBack(other);
-        if (injectHealthData.damage.Count > 0 &&
+        if (injectHealth.damage.Count > 0 &&
             other.TryGetComponent(out Brain targetBrain) &&
             Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
         {
-            targetBrain.health.TakeDamage(injectHealthData);
+            targetBrain.health.TakeDamage(injectHealth);
             main.onHitTarget?.Invoke(targetBrain);
             if (_myBulletTransporter.ricochet > 0)
             {

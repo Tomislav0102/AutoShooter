@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.Animations.Rigging;
 
 public class P_Knight : PlayerCombat
 {
@@ -63,7 +63,7 @@ public class P_Knight : PlayerCombat
             if (br == null) CombatEventRegistered(CombatEvent.Miss);
             else CombatEventRegistered(CombatEvent.Hit, br);
         };
-        injectHealth = new InjectHealth(damMelee, true, 1);
+        injectHealth = new InjectHealth(damMelee, true);
         melee.InitializeMe(Br, injectHealth);
     }
 
@@ -74,7 +74,7 @@ public class P_Knight : PlayerCombat
         dash.transporter.target = Br.myTransform;
         injectHealth = new InjectHealth(damUltimate, false, dashPower);
         dash.InitializeMe(Br, injectHealth);
-        Br.myRigid.AddRelativeForce(dashPower * Vector3.forward, ForceMode.VelocityChange);
+        Br.myRigid.AddRelativeForce(dashPower * 5 * Vector3.forward, ForceMode.VelocityChange);
     }
 
     protected override void CallEv_OnUltimateActivated()
@@ -101,14 +101,16 @@ public class P_Knight : PlayerCombat
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
-                // if (Random.value > 0.05f) return;
-                // SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                // shieldThrow.InitializeMe(Br, damRanged);
+                float chance = 0.05f;
+                if (Random.value > chance || Br.combat.MyTarget == null) return;
+                Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget.position);
+                SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
+                shieldThrow.InitializeMe(Br, new InjectHealth(damRanged));
                 break;
             case CombatEvent.GetHit:
                 break;
             case CombatEvent.Block:
-              //  StartCoroutine(SpellPushDelay());
+                StartCoroutine(SpellPushDelay());
                 break;
             case CombatEvent.Kill:
                 // if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))

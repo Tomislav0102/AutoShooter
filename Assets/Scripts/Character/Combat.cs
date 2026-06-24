@@ -46,7 +46,6 @@ public class Combat : EventBus, IInit
     [ShowInInspector, ReadOnly] Transform _myTarget;
     [ReadOnly] public float distanceToTarget;
     [SerializeField] protected float detectRange = float.MaxValue;
-  //  HashSet<Transform> _targets;
     
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;

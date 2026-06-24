@@ -33,6 +33,7 @@ public class SoGameData : ScriptableObject
     public string SceneLevel() => $"Level{level}";
     public string layActors;
     public string layObstacle;
+    public string layGround;
     public string layWallsSeeThrough;
     public string laySpell;
     public string laySpellInterrupt;
