@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,8 +11,10 @@ public class P_Mage : PlayerCombat
     [SerializeField] ParticleSystem psCast;
     public int startActive;
     public int attackActive;
+    Coroutine _arcaneShieldCoroutine;
+    float _arcaneShieldWaitDuration = 3f;
     [Title("Debug")]
-    public int num;
+    public int numOfObjects;
 
 
     public override Brain Br
@@ -36,8 +40,8 @@ public class P_Mage : PlayerCombat
             switch (startActive)
             {
                 case 0:
-                    SpellMain[] shields = new SpellMain[num];
-                    for (int i = 0; i < num; i++)
+                    SpellMain[] shields = new SpellMain[numOfObjects];
+                    for (int i = 0; i < numOfObjects; i++)
                     {
                         shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     }
@@ -55,8 +59,8 @@ public class P_Mage : PlayerCombat
                     OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
                     orbitalGroupSwords.orbitingAnchor = Br.myTransform;
                     
-                    SpellMain[] swords = new SpellMain[num];
-                    switch (num)
+                    SpellMain[] swords = new SpellMain[numOfObjects];
+                    switch (numOfObjects)
                     {
                         case 1:
                             break;
@@ -83,8 +87,8 @@ public class P_Mage : PlayerCombat
                     groupSwords.InitializeMe(Br, swords);
                     break;
                 case 3:
-                    float[] anglesY = Utils.RadialSpreadAngles(num, false);
-                    for (int i = 0; i < num; i++)
+                    float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
+                    for (int i = 0; i < numOfObjects; i++)
                     {
                         SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
                             Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
@@ -98,11 +102,63 @@ public class P_Mage : PlayerCombat
                     pushPulse.transporter.target = Br.myTransform;
                     pushPulse.InitializeMe(Br);
                     break;
+                case 5:
+                    ArcaneShieldSpawn();
+                    break;
             }
 
         }
     }
 
+    void ArcaneShieldSpawn()
+    {
+        SpellMain arcaneShield = Instantiate(Ga.me.spells.arcaneShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        arcaneShield.transporter.target = Br.myTransform;
+        arcaneShield.InitializeMe(Br);
+        arcaneShield.onHitTarget += (Brain br) =>
+        {
+            ArcaneShieldCoroutineControl();
+        };
+    }
+
+    void ArcaneShieldCoroutineControl()
+    {
+        if (_arcaneShieldCoroutine != null) StopCoroutine(_arcaneShieldCoroutine);
+        _arcaneShieldCoroutine = StartCoroutine(ArcaneShieldWait(_arcaneShieldWaitDuration));
+        return;
+        
+        IEnumerator ArcaneShieldWait(float waitTime)
+        {
+            yield return  new WaitForSeconds(waitTime);
+            ArcaneShieldSpawn();
+        }
+
+    }
+
+
+    public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
+    {
+        base.CombatEventRegistered(combatEvent, otherBrain);
+        switch (combatEvent)
+        {
+            case CombatEvent.Strike:
+                break;
+            case CombatEvent.Hit:
+                break;
+            case CombatEvent.Miss:
+                break;
+            case CombatEvent.GetHit:
+                if (startActive == 5) //arcane shield
+                {
+                    ArcaneShieldCoroutineControl();
+                }
+                break;
+            case CombatEvent.Block:
+                break;
+            case CombatEvent.Kill:
+                break;
+        }
+    }
 
     public override void FromAnimEv_Attack(int num = 0)
     {
@@ -142,8 +198,8 @@ public class P_Mage : PlayerCombat
                 break;
             
             case 2:
-                float[] anglesY = Utils.RadialSpreadAngles(num, false);
-                for (int i = 0; i < num; i++)
+                float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
+                for (int i = 0; i < numOfObjects; i++)
                 {
                     SpellMain homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                     homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
@@ -156,7 +212,6 @@ public class P_Mage : PlayerCombat
         }
     }
 
-    
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);

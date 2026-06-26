@@ -11,25 +11,12 @@ using Random = UnityEngine.Random;
 
 public class Test : SerializedMonoBehaviour
 {
-    bool _started = false;
-    float _timer;
+    
     [Button]
     void Generate()
     {
-        _started = true;
-        _timer = 0;
     }
 
-    void Update()
-    {
-        if (!_started) return;
-        _timer += Time.deltaTime;
-        transform.position += _timer * Vector3.forward;
-        if (_timer > 1f)
-        {
-            _started = false;
-        }
-    }
 }
 
 public class AngledShot

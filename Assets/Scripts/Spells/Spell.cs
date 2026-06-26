@@ -46,7 +46,6 @@ public class Spell : SerializedMonoBehaviour
     float _timerPhase;
 
     protected SpellMain main;
-    
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
     public float areaOfEffect = 1;
     [SerializeField] float warningDelay;
@@ -63,10 +62,15 @@ public class Spell : SerializedMonoBehaviour
     //need this, because dictionary can't be serialized in non-monobehaviour C# class
     [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] Dictionary<Element, float> _damageInspector;
     
-    protected enum HitEffect { Damage, Nullify, Reflect, StatChange }
-    [SerializeField] protected List<HitEffect> hitEffects;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-
+    
+    protected enum HitEffect { OnHealth, OnSpell, OnStats }
+    protected enum HitEffectOnSpell { Nullify, Reflect }
+    [SerializeField] protected HitEffect hitEffect;
+    bool AffectsSpells() => hitEffect == HitEffect.OnSpell;
+    [SerializeField, ShowIf(nameof(AffectsSpells))] protected  HitEffectOnSpell hitEffectOnSpell;
+    //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If array is empty that detects all.
+    [SerializeField, ShowIf(nameof(AffectsSpells))] protected SpellMain[] spellsToAffect = System.Array.Empty<SpellMain>();
 
     
     public virtual void InitializeMe(SpellMain mainSpell)
@@ -88,56 +92,61 @@ public class Spell : SerializedMonoBehaviour
     public virtual void OnTriggerExitCallBack(Collider other) { }
     public virtual void OnTriggerEnterCallBack(Collider other) { }
 
-    protected void HitMethod(Collider colliderHit, out Brain collidersBrain, SpellMain[] spellsToAffect = null)
+
+    protected void HitCurrent(Collider colliderHit, out Brain collidersBrain)
     {
         Brain b = null;
-        if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
+        switch (hitEffect)
         {
-            if (injectHealth.knockBack > 0 && targetBrain.loco != null)
-            {
-                Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
-                targetBrain.loco.KnockBack(dir, injectHealth.knockBack);
-                main.onHitTarget?.Invoke(targetBrain);
-                b = targetBrain;
-            }
-
-            if (hitEffects.Contains(HitEffect.Damage) && injectHealth.damage.Count > 0)
-            {
-                targetBrain.health.TakeDamage(injectHealth);
-                b = targetBrain;
-            }
-
-            if (!collidersDetected.Contains(colliderHit))
-            {
-                collidersDetected.Add(colliderHit);
-                if (hitEffects.Contains(HitEffect.StatChange))
+            case HitEffect.OnHealth:
+                if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
                 {
-                    //change stats
+                    if (injectHealth.knockBack > 0 && targetBrain.loco != null)
+                    {
+                        Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
+                        targetBrain.loco.KnockBack(dir, injectHealth.knockBack);
+                        b = targetBrain;
+                    }
+                    if (injectHealth.damage.Count > 0)
+                    {
+                        targetBrain.health.TakeDamage(injectHealth);
+                        b = targetBrain;
+                    }
                 }
-            }
+                break;
+            
+            case HitEffect.OnSpell:
+                if (colliderHit.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+                {
+                    if (spellsToAffect.Length == 0) Method();
+                    else
+                    {
+                        for (int i = 0; i < spellsToAffect.Length; i++)
+                        {
+                            if (targetSpell.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
+                            Method();
+                        }
+                    }
+                }
+                void Method()
+                {
+                    switch (hitEffectOnSpell)
+                    {
+                        case HitEffectOnSpell.Nullify:
+                            targetSpell.spell.MyPhase = Phase.EndStart;
+                            break;
+                        case HitEffectOnSpell.Reflect:
+                            Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
+                            targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
+                            break;
+                    }
+                    b = targetSpell.OwnersBrain;
+                }
+                break;
         }
+        
         collidersBrain = b;
-
-        if (colliderHit.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-        {
-            if (spellsToAffect == null) return;
-            for (int i = 0; i < spellsToAffect.Length; i++)
-            {
-                if (targetSpell.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
-                main.onHitTarget?.Invoke(targetSpell.OwnersBrain); //might not work
-
-                if (hitEffects.Contains(HitEffect.Nullify)) targetSpell.spell.MyPhase = Phase.EndStart;
-
-                if (hitEffects.Contains(HitEffect.Reflect))
-                {
-                    Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
-                    targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
-                }
-            }
-
-        }
     }
-
 
     protected virtual void Update()
     {
@@ -152,7 +161,7 @@ public class Spell : SerializedMonoBehaviour
                 if (lifeTime < 0) return;
                 if (lifeTime == 0)
                 {
-                    lifeTime = -1;
+                    lifeTime = Mathf.NegativeInfinity;
                     StartCoroutine(Delay());
                     IEnumerator Delay()
                     {
@@ -170,6 +179,73 @@ public class Spell : SerializedMonoBehaviour
 }
 
 
+
+
+
+    // protected void HitMethod(Collider colliderHit, out Brain collidersBrain, SpellMain[] spellsAffected = null)
+    // {
+    //     Brain b = null;
+    //     if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
+    //     {
+    //         if (injectHealth.knockBack > 0 && targetBrain.loco != null)
+    //         {
+    //             Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
+    //             targetBrain.loco.KnockBack(dir, injectHealth.knockBack);
+    //             b = targetBrain;
+    //         }
+    //
+    //         switch (hitEffect)
+    //         {
+    //             case HitEffect.OnHealth:
+    //                 if (injectHealth.damage.Count > 0)
+    //                 {
+    //                     targetBrain.health.TakeDamage(injectHealth);
+    //                     b = targetBrain;
+    //                 }
+    //                 break;
+    //             case HitEffect.OnStats:
+    //                 if (!collidersDetected.Contains(colliderHit))
+    //                 {
+    //                     collidersDetected.Add(colliderHit);
+    //                     //change stats
+    //                 }
+    //                 break;
+    //         }
+    //
+    //     }
+    //     collidersBrain = b;
+    //
+    //     if (colliderHit.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+    //     {
+    //         if (spellsAffected.Length == 0)
+    //         {
+    //             HitMethod_Continue();
+    //         }
+    //         for (int i = 0; i < spellsAffected.Length; i++)
+    //         {
+    //             if (targetSpell.spell.GetType() != spellsAffected[i].spell.GetType()) continue;
+    //             HitMethod_Continue();            
+    //         }
+    //         
+    //         void HitMethod_Continue()
+    //         {
+    //             switch (hitEffect)
+    //             {
+    //                 case HitEffect.OnHealth:
+    //                     break;
+    //                 // case HitEffect.Nullify:
+    //                 //     targetSpell.spell.MyPhase = Phase.EndStart;
+    //                 //     break;
+    //                 // case HitEffect.Reflect:
+    //                 //     Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
+    //                 //     targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
+    //                 //     break;
+    //                 case HitEffect.OnStats:
+    //                     break;
+    //             }
+    //         }
+    //     }
+    // }
 
 
 

@@ -5294,12 +5294,12 @@ MonoBehaviour:
   distanceToTarget: 0
   detectRange: 3.4028235e+38
   engageRange: 10
-  ultimateCooldownTime: 0
+  ultimateCooldownTime: 2
   spawnPoint: {fileID: 2471835065303500449}
   psCast: {fileID: 351111234578652109}
-  groupActive: 1
-  spellActive: 99
-  swordCount: 3
+  startActive: 0
+  attackActive: 0
+  num: 0
 --- !u!137 &5165482686685167941 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5271545707195277533, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

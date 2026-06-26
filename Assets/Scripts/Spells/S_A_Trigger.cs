@@ -19,9 +19,6 @@ public class S_A_Trigger : S_A
     }
     [SerializeField] ColliderPart colliderPart;
         
-    //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If 'Spell' is in array that detects all.
-    bool AffectsSpells() => hitEffects.Contains(HitEffect.Nullify) || hitEffects.Contains(HitEffect.Reflect);
-    [SerializeField, ShowIf(nameof(AffectsSpells))] SpellMain[] spellsToAffect;
     
     
     protected override void Hit()
@@ -31,25 +28,25 @@ public class S_A_Trigger : S_A
         foreach (Collider item in collidersDetected)
         {
             if (item == null) continue;
-            SpellMain[] sps = AffectsSpells() ? spellsToAffect : null;
-            HitMethod(item, out Brain targetBrain, sps);
+            HitCurrent(item, out Brain targetBrain);
             main.onHitTarget?.Invoke(targetBrain);
         }
     }
 
+    
     public override void OnTriggerEnterCallBack(Collider other)
     {
         base.OnTriggerEnterCallBack(other);
         if (!onEnter) return;
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
+
         if (collidersDetected.Contains(other)) return;
         
         collidersDetected.Add(other);
         if (onFakeStay) return;
         
-        SpellMain[] sps = AffectsSpells() ? spellsToAffect : null;
-        HitMethod(other, out Brain targetBrain, sps);
+        HitCurrent(other, out Brain targetBrain);
         main.onHitTarget?.Invoke(targetBrain);
         main.spell.MyPhase = Phase.EndStart;
     }
@@ -64,10 +61,6 @@ public class S_A_Trigger : S_A
         if (!collidersDetected.Contains(other)) return;
         
         collidersDetected.Remove(other);
-        if (hitEffects.Contains(HitEffect.StatChange))
-        {
-            //revert change
-        }
     }
 
     bool CheckColliderType(Vector3 pos)

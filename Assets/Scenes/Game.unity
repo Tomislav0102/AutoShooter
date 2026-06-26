@@ -41832,6 +41832,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BP_Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: tr
       value: 
@@ -82598,31 +82602,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -82631,12 +82612,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &773715118
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -82728,7 +82711,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 773715119}
   myCapsuleCollider: {fileID: 773715118}
   warningRend: {fileID: 1727353994}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -97988,31 +97971,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
@@ -98021,12 +97981,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &820929353
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -98118,7 +98080,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 820929354}
   myCapsuleCollider: {fileID: 820929353}
   warningRend: {fileID: 130398090}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -103494,31 +103456,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -103527,12 +103466,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &902082714
 CapsuleCollider:
@@ -103625,7 +103566,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 902082715}
   myCapsuleCollider: {fileID: 902082714}
   warningRend: {fileID: 57822206}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -103675,31 +103616,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -103708,12 +103626,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &902128124
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -103805,7 +103725,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 902128125}
   myCapsuleCollider: {fileID: 902128124}
   warningRend: {fileID: 1483349782}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -108981,31 +108901,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -109014,12 +108911,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1005891141
 CapsuleCollider:
@@ -109112,7 +109011,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1005891142}
   myCapsuleCollider: {fileID: 1005891141}
   warningRend: {fileID: 1954879984}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -109223,31 +109122,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
@@ -109256,12 +109132,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1011307170
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -109353,7 +109231,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1011307171}
   myCapsuleCollider: {fileID: 1011307170}
   warningRend: {fileID: 2090859690}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -114400,31 +114278,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -114433,12 +114288,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1045770840
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -114530,7 +114387,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1045770841}
   myCapsuleCollider: {fileID: 1045770840}
   warningRend: {fileID: 2123032393}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -114930,31 +114787,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
@@ -114963,12 +114797,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1098150861
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -115060,7 +114896,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1098150862}
   myCapsuleCollider: {fileID: 1098150861}
   warningRend: {fileID: 1998322636}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -120320,31 +120156,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -120353,12 +120166,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1152482701
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -120450,7 +120265,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1152482702}
   myCapsuleCollider: {fileID: 1152482701}
   warningRend: {fileID: 141898118}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -125621,31 +125436,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -125654,12 +125446,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1198307889
 CapsuleCollider:
@@ -125752,7 +125546,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1198307890}
   myCapsuleCollider: {fileID: 1198307889}
   warningRend: {fileID: 1450255066}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -125990,31 +125784,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -126023,12 +125794,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1221904439
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -126120,7 +125893,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1221904440}
   myCapsuleCollider: {fileID: 1221904439}
   warningRend: {fileID: 555757206}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -136506,31 +136279,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -136539,12 +136289,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1398609310
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -136636,7 +136388,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1398609311}
   myCapsuleCollider: {fileID: 1398609310}
   warningRend: {fileID: 1966407106}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -136708,31 +136460,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -136741,12 +136470,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1399806825
 CapsuleCollider:
@@ -136839,7 +136570,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1399806826}
   myCapsuleCollider: {fileID: 1399806825}
   warningRend: {fileID: 200512844}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -147369,31 +147100,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -147402,12 +147110,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1529479429
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -147499,7 +147209,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1529479430}
   myCapsuleCollider: {fileID: 1529479429}
   warningRend: {fileID: 1094599089}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -157573,31 +157283,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -157606,12 +157293,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1587200953
 CapsuleCollider:
@@ -157704,7 +157393,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1587200954}
   myCapsuleCollider: {fileID: 1587200953}
   warningRend: {fileID: 178775463}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -157754,31 +157443,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
@@ -157787,12 +157453,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1597853610
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -157884,7 +157552,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1597853611}
   myCapsuleCollider: {fileID: 1597853610}
   warningRend: {fileID: 1073613606}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -157934,31 +157602,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -157967,12 +157612,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1609179419
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -158064,7 +157711,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1609179420}
   myCapsuleCollider: {fileID: 1609179419}
   warningRend: {fileID: 1654252541}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -158197,31 +157844,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -158230,12 +157854,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1616196743
 CapsuleCollider:
@@ -158328,7 +157954,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1616196744}
   myCapsuleCollider: {fileID: 1616196743}
   warningRend: {fileID: 868732078}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -163610,31 +163236,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
@@ -163643,12 +163246,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1665966458
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -163740,7 +163345,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1665966459}
   myCapsuleCollider: {fileID: 1665966458}
   warningRend: {fileID: 2041556805}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -163851,31 +163456,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
@@ -163884,12 +163466,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1687319454
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -163981,7 +163565,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1687319455}
   myCapsuleCollider: {fileID: 1687319454}
   warningRend: {fileID: 2009639952}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -173996,31 +173580,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -174029,12 +173590,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1714118407
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -174126,7 +173689,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1714118408}
   myCapsuleCollider: {fileID: 1714118407}
   warningRend: {fileID: 497494809}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -174237,31 +173800,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -174270,12 +173810,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1714298547
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -174367,7 +173909,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1714298548}
   myCapsuleCollider: {fileID: 1714298547}
   warningRend: {fileID: 1931747015}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -184410,31 +183952,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
@@ -184443,12 +183962,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1734049001
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -184540,7 +184061,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1734049002}
   myCapsuleCollider: {fileID: 1734049001}
   warningRend: {fileID: 920325958}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -189497,31 +189018,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 3
@@ -189530,12 +189028,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1738519381
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -189627,7 +189127,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1738519382}
   myCapsuleCollider: {fileID: 1738519381}
   warningRend: {fileID: 405726042}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -209634,31 +209134,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -209667,12 +209144,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1787066944
 CapsuleCollider:
@@ -209765,7 +209244,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1787066945}
   myCapsuleCollider: {fileID: 1787066944}
   warningRend: {fileID: 1777502520}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -214825,31 +214304,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -214858,12 +214314,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1808311193
 CapsuleCollider:
@@ -214956,7 +214414,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1808311194}
   myCapsuleCollider: {fileID: 1808311193}
   warningRend: {fileID: 1865361377}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -215774,31 +215232,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -215807,12 +215242,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1871109866
 CapsuleCollider:
@@ -215905,7 +215342,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1871109867}
   myCapsuleCollider: {fileID: 1871109866}
   warningRend: {fileID: 145712464}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -216069,31 +215506,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -216102,12 +215516,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &1928420994
 CapsuleCollider:
@@ -216200,7 +215616,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1928420995}
   myCapsuleCollider: {fileID: 1928420994}
   warningRend: {fileID: 720697968}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -216740,31 +216156,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
@@ -216773,12 +216166,14 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &1989543222
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -216870,7 +216265,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 1989543223}
   myCapsuleCollider: {fileID: 1989543222}
   warningRend: {fileID: 1212110214}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -217102,31 +216497,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
@@ -217135,12 +216507,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &2011650986
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -217232,7 +216606,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 2011650987}
   myCapsuleCollider: {fileID: 2011650986}
   warningRend: {fileID: 1704707358}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -217343,31 +216717,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
@@ -217376,12 +216727,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!136 &2020320423
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -217473,7 +216826,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 2020320424}
   myCapsuleCollider: {fileID: 2020320423}
   warningRend: {fileID: 1378758573}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -232929,31 +232282,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 0.2
@@ -232962,12 +232292,14 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 0}
 --- !u!136 &2133488737
 CapsuleCollider:
@@ -233060,7 +232392,7 @@ MonoBehaviour:
   mySphereCollider: {fileID: 2133488738}
   myCapsuleCollider: {fileID: 2133488737}
   warningRend: {fileID: 1652367635}
-  injectHealth:
+  injectHealthPass:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
@@ -233179,6 +232511,7 @@ MonoBehaviour:
   heal: {fileID: 1169358827584757187, guid: 1dfb1a612c8c2194e894fd3d1fb79baa, type: 3}
   bulletPlayer: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
   homingMissile: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
+  arcaneShield: {fileID: 7824342474178875377, guid: 78ad79ba5df44fc4b95678875156e0ed, type: 3}
   shieldFromProjectiles: {fileID: 1805232084315020725, guid: 2f22d8484b5757a4a80a8f8220621e77, type: 3}
   swordFire: {fileID: 141007761697373337, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
   swordIce: {fileID: 848990959211647510, guid: 8ad852ff539746d4a85ebec8a1afe7e9, type: 3}
@@ -233217,6 +232550,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &679694668381619956
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: startActive
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: attackActive
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: numOfObjects
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_Name
+      value: BP_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
 --- !u!1001 &1201415325920892830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -233349,3 +232755,4 @@ SceneRoots:
   - {fileID: 1138873319}
   - {fileID: 933078169}
   - {fileID: 450085159}
+  - {fileID: 679694668381619956}

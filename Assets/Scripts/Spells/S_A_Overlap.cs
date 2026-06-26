@@ -40,7 +40,7 @@ public class S_A_Overlap : S_A
         }
         foreach (Collider item in colliders)
         {
-            HitMethod(item, out Brain targetBrain);
+            HitCurrent(item, out Brain targetBrain);
             if (targetBrain != null)
             {
                 main.onHitTarget?.Invoke(targetBrain);

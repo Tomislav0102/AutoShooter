@@ -101,16 +101,16 @@ public class P_Knight : PlayerCombat
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
-                float chance = 0.05f;
-                if (Random.value > chance || Br.combat.MyTarget == null) return;
-                Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget.position);
-                SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
-                shieldThrow.InitializeMe(Br, new InjectHealth(damRanged));
+                // float chance = 0.05f;
+                // if (Random.value > chance || Br.combat.MyTarget == null) return;
+                // Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget.position);
+                // SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
+                // shieldThrow.InitializeMe(Br, new InjectHealth(damRanged));
                 break;
             case CombatEvent.GetHit:
                 break;
             case CombatEvent.Block:
-                StartCoroutine(SpellPushDelay());
+               // StartCoroutine(SpellPushDelay());
                 break;
             case CombatEvent.Kill:
                 // if (otherBrain.myChar.GetStat(Stats.MagicDamage) >= Br.myChar.GetStat(Stats.MagicDamage))

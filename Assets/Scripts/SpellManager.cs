@@ -13,6 +13,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain bulletPlayer;
    [Title("Mage")]
    public SpellMain homingMissile;
+   public SpellMain arcaneShield;
    public SpellMain shieldFromProjectiles;
    public SpellMain swordFire, swordIce, swordElectricity;
    [Title("Mage Fire")]

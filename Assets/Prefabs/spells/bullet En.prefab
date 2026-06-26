@@ -19787,7 +19787,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
+    - Name: _damageInspector
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
@@ -19806,7 +19806,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
       Data: 0
+    - Name: $v
+      Entry: 4
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -19820,16 +19832,11 @@ MonoBehaviour:
   lifeTime: 10
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 6968181303640538533}
-    psOnHit: []
-    particleSizeChangeStart: 0
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
   hitEffects: 00000000
   solidCollider: {fileID: 4612130815277741316}
 --- !u!1 &5194372066175661020 stripped

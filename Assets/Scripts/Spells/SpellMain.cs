@@ -63,14 +63,6 @@ public class SpellMain : MonoBehaviour
         _onAfterSpell?.Invoke();
         IsActive = false;
         Destroy(gameObject);
-       // StartCoroutine(DelayForParticles());
-
-        IEnumerator DelayForParticles()
-        {
-            IsActive = false;
-            yield return new WaitForSeconds(5f);
-            Destroy(gameObject);
-        }
     }
     #endregion
 
