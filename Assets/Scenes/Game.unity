@@ -41841,6 +41841,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 450085161}
     - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: dashPower
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: startActive
       value: 99
       objectReference: {fileID: 0}
@@ -82705,6 +82709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 773715116}
   myRigid: {fileID: 773715120}
   colliderType: 0
@@ -98074,6 +98079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 347408082}
   myRigid: {fileID: 820929355}
   colliderType: 0
@@ -103253,11 +103259,10 @@ Transform:
   m_GameObject: {fileID: 885458251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.99, y: 0, z: -0.66}
+  m_LocalPosition: {x: -1.7, y: 1, z: 3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1845801137}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &885458254
@@ -103560,6 +103565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 556543119}
   myRigid: {fileID: 902082716}
   colliderType: 0
@@ -103719,6 +103725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 292056042}
   myRigid: {fileID: 902128126}
   colliderType: 0
@@ -109005,6 +109012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 242006063}
   myRigid: {fileID: 1005891143}
   colliderType: 0
@@ -109225,6 +109233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1011307168}
   myRigid: {fileID: 1011307172}
   colliderType: 0
@@ -114381,6 +114390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 50037859}
   myRigid: {fileID: 1045770842}
   colliderType: 0
@@ -114890,6 +114900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 507614800}
   myRigid: {fileID: 1098150863}
   colliderType: 0
@@ -115025,96 +115036,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117760921}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1122821847
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1122821848}
-  - component: {fileID: 1122821850}
-  - component: {fileID: 1122821849}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1122821848
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122821847}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0.277}
-  m_LocalScale: {x: 0.5856008, y: 0.4078, z: 0.78648305}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1845801137}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1122821849
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122821847}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: aee84b85d091de442be7f6f85138297f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1122821850
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122821847}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1138873318
 GameObject:
   m_ObjectHideFlags: 0
@@ -120259,6 +120180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1152482699}
   myRigid: {fileID: 1152482703}
   colliderType: 0
@@ -125540,6 +125462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1198307886}
   myRigid: {fileID: 1198307891}
   colliderType: 0
@@ -125887,6 +125810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1221904437}
   myRigid: {fileID: 1221904441}
   colliderType: 0
@@ -136382,6 +136306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 729204529}
   myRigid: {fileID: 1398609312}
   colliderType: 0
@@ -136564,6 +136489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 725656112}
   myRigid: {fileID: 1399806827}
   colliderType: 0
@@ -147203,6 +147129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1529479427}
   myRigid: {fileID: 1529479431}
   colliderType: 0
@@ -157387,6 +157314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1410757106}
   myRigid: {fileID: 1587200955}
   colliderType: 0
@@ -157546,6 +157474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 805084833}
   myRigid: {fileID: 1597853612}
   colliderType: 0
@@ -157705,6 +157634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 812413674}
   myRigid: {fileID: 1609179421}
   colliderType: 0
@@ -157948,6 +157878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1616196740}
   myRigid: {fileID: 1616196745}
   colliderType: 0
@@ -163339,6 +163270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1665966456}
   myRigid: {fileID: 1665966460}
   colliderType: 0
@@ -163559,6 +163491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1687319452}
   myRigid: {fileID: 1687319456}
   colliderType: 0
@@ -173683,6 +173616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1714118405}
   myRigid: {fileID: 1714118409}
   colliderType: 0
@@ -173903,6 +173837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1714298545}
   myRigid: {fileID: 1714298549}
   colliderType: 0
@@ -184055,6 +183990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 159291317}
   myRigid: {fileID: 1734049003}
   colliderType: 0
@@ -189121,6 +189057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 430738315}
   myRigid: {fileID: 1738519383}
   colliderType: 0
@@ -209238,6 +209175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 680601236}
   myRigid: {fileID: 1787066946}
   colliderType: 0
@@ -214408,6 +214346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1808311190}
   myRigid: {fileID: 1808311195}
   colliderType: 0
@@ -214676,97 +214615,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833822767}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1845801136
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1845801137}
-  - component: {fileID: 1845801140}
-  - component: {fileID: 1845801139}
-  m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1845801137
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845801136}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1122821848}
-  m_Father: {fileID: 885458253}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1845801139
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845801136}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1845801140
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845801136}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1857475668
 GameObject:
   m_ObjectHideFlags: 0
@@ -215336,6 +215184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1652061136}
   myRigid: {fileID: 1871109868}
   colliderType: 0
@@ -215610,6 +215459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1928420991}
   myRigid: {fileID: 1928420996}
   colliderType: 0
@@ -216259,6 +216109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 1989543220}
   myRigid: {fileID: 1989543224}
   colliderType: 0
@@ -216600,6 +216451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 793833808}
   myRigid: {fileID: 2011650988}
   colliderType: 0
@@ -216820,6 +216672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 2020320421}
   myRigid: {fileID: 2020320425}
   colliderType: 0
@@ -232386,6 +232239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
   IsActive: 1
+  isInterrupt: 0
   myTransform: {fileID: 2133488734}
   myRigid: {fileID: 2133488739}
   colliderType: 0
@@ -232600,7 +232454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: startActive
-      value: 5
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: attackActive
@@ -232608,7 +232462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: numOfObjects
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name

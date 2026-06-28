@@ -14,7 +14,8 @@ public class S_A_Target : S_A
 
     protected override void Hit()
     {
-        HitCurrent(_anchorBrain.myCollider, out _);
+        base.Hit();
+        HitGeneric(_anchorBrain, out _);
         main.onHitTarget?.Invoke(_anchorBrain);
     }
 }

@@ -1,23 +1,16 @@
 using System;
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using TMPro;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 public class Test : SerializedMonoBehaviour
 {
-    
     [Button]
     void Generate()
     {
     }
-
 }
+
 
 public class AngledShot
 {

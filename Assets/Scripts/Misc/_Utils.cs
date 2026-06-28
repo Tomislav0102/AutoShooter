@@ -88,6 +88,19 @@ public class Utils
         }
     }
 
+    public static List<Transform> AllOnScreen(HashSet<Transform> allTargets)
+    {
+        List<Transform> result = new List<Transform>();
+        foreach (Transform item in allTargets)
+        {
+            Bounds bounds = new Bounds(item.position, 0.5f * Vector3.one);
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Ga.me.cam);
+            if (GeometryUtility.TestPlanesAABB(planes, bounds)) result.Add(item);
+        }
+        
+        return  result;
+    }
+
     public static Vector3 GetRandomPosition(Transform horizontalSurface)
     {
         float width = horizontalSurface.localScale.x * 0.5f;

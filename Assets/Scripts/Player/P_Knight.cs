@@ -77,12 +77,6 @@ public class P_Knight : PlayerCombat
         Br.myRigid.AddRelativeForce(dashPower * 5 * Vector3.forward, ForceMode.VelocityChange);
     }
 
-    protected override void CallEv_OnUltimateActivated()
-    {
-        base.CallEv_OnUltimateActivated();
-        Br.loco.CastSpell();
-    }
-
     public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
     {
         base.CombatEventRegistered(combatEvent, otherBrain);

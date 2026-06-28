@@ -28,7 +28,7 @@ public class S_A_Trigger : S_A
         foreach (Collider item in collidersDetected)
         {
             if (item == null) continue;
-            HitCurrent(item, out Brain targetBrain);
+            HitGeneric(item, out Brain targetBrain);
             main.onHitTarget?.Invoke(targetBrain);
         }
     }
@@ -42,13 +42,20 @@ public class S_A_Trigger : S_A
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
 
         if (collidersDetected.Contains(other)) return;
-        
         collidersDetected.Add(other);
         if (onFakeStay) return;
         
-        HitCurrent(other, out Brain targetBrain);
+        HitGeneric(other, out Brain targetBrain);
         main.onHitTarget?.Invoke(targetBrain);
-        main.spell.MyPhase = Phase.EndStart;
+        if (!main.isInterrupt)
+        {
+            main.spell.MyPhase = Phase.EndStart;
+        }
+        else if (targetBrain != null) //if null, interrupt hits its owners spell so contact/trigger should be ignored
+        {
+            main.spell.MyPhase = Phase.EndStart;
+        }
+       
     }
 
     

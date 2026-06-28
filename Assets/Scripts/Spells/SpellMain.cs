@@ -6,8 +6,9 @@ using Sirenix.OdinInspector;
 
 public class SpellMain : MonoBehaviour
 {
-    public bool debug;
+    [BoxGroup] public bool debug;
     [ReadOnly] public bool IsActive = true;
+    public bool isInterrupt;
 
     public Brain OwnersBrain
     {
@@ -74,6 +75,7 @@ public class SpellMain : MonoBehaviour
         OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
         myRigid.isKinematic = true;
+        if (isInterrupt) gameObject.layer = LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt);
         transporter.InitializeMe(this);
         spell.InitializeMe(this);
         visual.InitializeMe(this);

@@ -44,9 +44,9 @@ public class PlayerCombat : Combat
     {
         EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
-    protected virtual void CallEv_OnUltimateActivated()
+    void CallEv_OnUltimateActivated()
     {
-        
+        Br.loco.CastSpell();
     }
 
 

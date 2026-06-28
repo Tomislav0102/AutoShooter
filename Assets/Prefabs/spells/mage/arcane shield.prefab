@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1017223056374047799}
   - component: {fileID: 7776291975759410868}
   - component: {fileID: 1555770347869444346}
-  m_Layer: 21
+  m_Layer: 20
   m_Name: m_MagicShieldPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4850,7 +4850,7 @@ GameObject:
   - component: {fileID: 9073810704708632141}
   - component: {fileID: 7196067360048469059}
   - component: {fileID: 3439271103352870004}
-  m_Layer: 21
+  m_Layer: 20
   m_Name: TinySparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9670,7 +9670,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9718,7 +9718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_IsActive
@@ -9730,7 +9730,7 @@ PrefabInstance:
       objectReference: {fileID: 7776291975759410868}
     - target: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9738,7 +9738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5888372677282405375, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: debug
@@ -9749,16 +9749,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 173716795780428085}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: isInterrupt
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
       objectReference: {fileID: 5229543076894612583}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7239336305628434503, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9829,7 +9833,7 @@ MonoBehaviour:
       Entry: 6
       Data: 
   myFactionTarget: 1
-  areaOfEffect: 1
+  areaOfEffect: 1.1
   warningDelay: 0
   hitChance: 1
   lifeTime: -1
@@ -9841,8 +9845,9 @@ MonoBehaviour:
     canBeBlocked: 0
     knockBack: 0
   hitEffect: 1
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   onEnter: 1
   onFakeStay: 0
   onExit: 0
   colliderPart: 0
-  spellsToAffect: []

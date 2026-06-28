@@ -151,12 +151,13 @@ MonoBehaviour:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  hitEffects: 00000000
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   onEnter: 1
   onFakeStay: 0
   onExit: 0
   colliderPart: 0
-  spellsToAffect: []
 --- !u!1001 &7365444540199606032
 PrefabInstance:
   m_ObjectHideFlags: 0

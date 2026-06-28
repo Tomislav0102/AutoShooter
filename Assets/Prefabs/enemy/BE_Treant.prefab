@@ -5236,7 +5236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6723710492350244154
 Transform:
   m_ObjectHideFlags: 0
@@ -5245,9 +5245,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4842565458693497784}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.59624654, y: -0.38145256, z: -0.59158283, w: -0.38602316}
-  m_LocalPosition: {x: -3.5144405, y: -12.788567, z: -3.6300862}
-  m_LocalScale: {x: 0.9998999, y: 0.9998998, z: 0.9998998}
+  m_LocalRotation: {x: 0.59624654, y: -0.38145253, z: -0.59158283, w: -0.38602316}
+  m_LocalPosition: {x: -0.3467682, y: 0.036019985, z: -0.00008970271}
+  m_LocalScale: {x: 0.99989986, y: 0.9999, z: 0.9999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 733760317200889457}
@@ -10409,7 +10409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2833402191777694832
 Transform:
   m_ObjectHideFlags: 0
@@ -10418,9 +10418,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6765019308037953712}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.59624654, y: -0.38145256, z: -0.59158283, w: -0.38602316}
-  m_LocalPosition: {x: -3.5144405, y: -12.788567, z: -3.6300862}
-  m_LocalScale: {x: 0.9998999, y: 0.9998998, z: 0.9998998}
+  m_LocalRotation: {x: 0.59624654, y: -0.38145253, z: -0.59158283, w: -0.38602316}
+  m_LocalPosition: {x: -0.3467682, y: 0.036019985, z: -0.00008970271}
+  m_LocalScale: {x: 0.99989986, y: 0.9999, z: 0.9999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 733760317200889457}
@@ -15650,7 +15650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveSpeed
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myMaterials.Array.size

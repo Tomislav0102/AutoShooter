@@ -93,13 +93,15 @@ public class Spell : SerializedMonoBehaviour
     public virtual void OnTriggerEnterCallBack(Collider other) { }
 
 
-    protected void HitCurrent(Collider colliderHit, out Brain collidersBrain)
+    protected void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
         Brain b = null;
-        switch (hitEffect)
+        if (targetGeneric.TryGetComponent(out Brain br))
         {
+            switch (hitEffect)
+            {
             case HitEffect.OnHealth:
-                if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
+                if (targetGeneric.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
                 {
                     if (injectHealth.knockBack > 0 && targetBrain.loco != null)
                     {
@@ -116,7 +118,7 @@ public class Spell : SerializedMonoBehaviour
                 break;
             
             case HitEffect.OnSpell:
-                if (colliderHit.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+                if (targetGeneric.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
                 {
                     if (spellsToAffect.Length == 0) Method();
                     else
@@ -142,11 +144,13 @@ public class Spell : SerializedMonoBehaviour
                     }
                     b = targetSpell.OwnersBrain;
                 }
-                break;
+                break;            
+            }
         }
-        
-        collidersBrain = b;
+        targetsBrain = b;
     }
+    
+
 
     protected virtual void Update()
     {

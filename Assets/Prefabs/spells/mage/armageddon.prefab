@@ -201,11 +201,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e9002a4cb9ce75418a1b333090c512b, type: 3}
---- !u!198 &373713076123769344 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 647227140135524420, guid: 2e9002a4cb9ce75418a1b333090c512b, type: 3}
-  m_PrefabInstance: {fileID: 996662999509074500}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &373713076123769351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 647227140135524419, guid: 2e9002a4cb9ce75418a1b333090c512b, type: 3}
@@ -264,20 +259,24 @@ PrefabInstance:
       value: armageddon
       objectReference: {fileID: 0}
     - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: psDefault
+      value: 
+      objectReference: {fileID: 5002662828972225213}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: particleSizeChangeStart
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
-      objectReference: {fileID: 7490935668756659149}
+      objectReference: {fileID: 5129601345381124616}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 4154465660353987195}
+      objectReference: {fileID: 3872299777950273704}
     - target: {fileID: 7239336305628434503, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -288,17 +287,17 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7490935668756659149}
+      addedObject: {fileID: 5129601345381124616}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4154465660353987195}
+      addedObject: {fileID: 3872299777950273704}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &1237053865633853292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 1525356257560724709}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4154465660353987195
+--- !u!114 &3872299777950273704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,16 +306,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1237053865633853292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5333ea9fb668b5f4a9fec625c6ff176a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
   target: {fileID: 0}
+  followPosition: 1
+  followRotation: 0
 --- !u!1 &5884963216466479112 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 1525356257560724709}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7490935668756659149
+--- !u!114 &5129601345381124616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,9 +326,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5884963216466479112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
+  m_Script: {fileID: 11500000, guid: f4c766320bfafaf47860b8d8f5989a48, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
+  m_EditorClassIdentifier: Assembly-CSharp::S_A_Screen
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -337,52 +338,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
-  areaOfEffect: 16
+  areaOfEffect: 1
   warningDelay: 0
   hitChance: 1
   lifeTime: 10
   rateOfFire: 0.33333334
   terminateOnHit: 0
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 5002662828972225213}
-    - {fileID: 373713076123769344}
-    - {fileID: 8643804377669422720}
-    psOnHit: []
-    particleSizeChangeStart: 3
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 00000000
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!4 &5894121699440521818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -485,11 +458,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a7c4cf1d03d8f849a42904e4d944801, type: 3}
---- !u!198 &8643804377669422720 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7977144226437396498, guid: 9a7c4cf1d03d8f849a42904e4d944801, type: 3}
-  m_PrefabInstance: {fileID: 1819581930717853330}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8643804377669422727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7977144226437396501, guid: 9a7c4cf1d03d8f849a42904e4d944801, type: 3}

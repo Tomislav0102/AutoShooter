@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1712508169313856, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1720898210683986, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1720898210683986, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: m_IsActive
@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1829984411696848, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4209707071704364, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: m_LocalScale.x
@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: psDefault
@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 2614154149570889060}
     - target: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -197,23 +197,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5888372677282405375, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: debug
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 4782607804132217251}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: isInterrupt
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
       objectReference: {fileID: 7422204331370452910}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7239336305628434503, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -260,31 +268,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: _damageInspector
+      Entry: 6
       Data: 
   myFactionTarget: 1
   areaOfEffect: 1
@@ -293,24 +278,20 @@ MonoBehaviour:
   lifeTime: -1
   rateOfFire: 0
   terminateOnHit: 0
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 2614154149570889060}
-    psOnHit: []
-    particleSizeChangeStart: 0
-  injectHealthData:
+  useInspectorDamageData: 0
+  injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 01000000
+  hitEffect: 1
+  hitEffectOnSpell: 0
+  spellsToAffect:
+  - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
   onEnter: 1
   onFakeStay: 0
   onExit: 0
   colliderPart: 0
-  spellsToAffect:
-  - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
 --- !u!1 &5719503837971982199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
