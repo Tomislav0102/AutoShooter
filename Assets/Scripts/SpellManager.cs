@@ -14,6 +14,7 @@ public class SpellManager : MonoBehaviour
    [Title("Mage")]
    public SpellMain homingMissile;
    public SpellMain arcaneShield;
+   public SpellMain manaShield;
    public SpellMain shieldFromProjectiles;
    public SpellMain swordFire, swordIce, swordElectricity;
    [Title("Mage Fire")]

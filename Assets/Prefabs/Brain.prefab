@@ -242,7 +242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7462514812626402230}
   - component: {fileID: 599049667507147954}
-  - component: {fileID: 7014450503520605381}
   - component: {fileID: 3487588509260044675}
   - component: {fileID: 5108658236475643279}
   m_Layer: 10
@@ -268,6 +267,7 @@ Transform:
   - {fileID: 1452470349685697244}
   - {fileID: 2770398451001259322}
   - {fileID: 2271902258048050949}
+  - {fileID: 525171092069335605}
   - {fileID: 6905425996237525255}
   - {fileID: 8083083952741573449}
   m_Father: {fileID: 0}
@@ -293,7 +293,7 @@ MonoBehaviour:
   parPs: {fileID: 6905425996237525255}
   skin: 0
   characterGo: {fileID: 3754761399459115488}
-  healthGo: {fileID: 3230883051578875362}
+  healthGo: {fileID: 6991791254565888746}
   statusGo: {fileID: 3754761399459115488}
   locoGo: {fileID: 4538719372461997736}
   combatGo: {fileID: 8859920748719717955}
@@ -303,44 +303,6 @@ MonoBehaviour:
   loco: {fileID: 0}
   combat: {fileID: 0}
   debugGeneral: 0
---- !u!114 &7014450503520605381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3230883051578875362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d722a4b68683dbd409dfff62f8b265b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  psElements:
-  - {fileID: 383115058285339682}
-  - {fileID: 8760345511290848548}
-  - {fileID: 3166312490022124763}
-  - {fileID: 7838775258928442680}
-  - {fileID: 1316538088453288545}
-  - {fileID: 4191619477013776601}
-  - {fileID: 6811752376184495340}
-  psStatus:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 5208034093055470584}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  psHeal: {fileID: 846251808505076292}
-  psBleed: {fileID: 2890882838969859811}
-  psStun: {fileID: 0}
-  psRoot: {fileID: 0}
-  psConfuse: {fileID: 0}
-  psBlind: {fileID: 0}
-  psCharm: {fileID: 0}
 --- !u!54 &3487588509260044675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -434,15 +396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a347948231971c044b13eb4c1b3c736b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   data: {fileID: 0}
 --- !u!114 &8704573881872995164
 MonoBehaviour:
@@ -559,6 +512,76 @@ MonoBehaviour:
   - m_Rig: {fileID: 7773284091888558241}
     m_Active: 1
   m_Effectors: []
+--- !u!1 &6991791254565888746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525171092069335605}
+  - component: {fileID: 4208724391549928284}
+  m_Layer: 0
+  m_Name: Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525171092069335605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6991791254565888746}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7462514812626402230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4208724391549928284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6991791254565888746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d722a4b68683dbd409dfff62f8b265b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  psElements:
+  - {fileID: 383115058285339682}
+  - {fileID: 8760345511290848548}
+  - {fileID: 3166312490022124763}
+  - {fileID: 7838775258928442680}
+  - {fileID: 1316538088453288545}
+  - {fileID: 4191619477013776601}
+  - {fileID: 6811752376184495340}
+  psStatus:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 5208034093055470584}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  psHeal: {fileID: 846251808505076292}
+  psBleed: {fileID: 2890882838969859811}
+  psStun: {fileID: 0}
+  psRoot: {fileID: 0}
+  psConfuse: {fileID: 0}
+  psBlind: {fileID: 0}
+  psCharm: {fileID: 0}
 --- !u!1 &7776910641071059818
 GameObject:
   m_ObjectHideFlags: 0

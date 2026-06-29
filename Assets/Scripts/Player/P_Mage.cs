@@ -105,6 +105,11 @@ public class P_Mage : PlayerCombat
                 case 5:
                     ArcaneShieldSpawn();
                     break;
+                case 6:
+                    SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    manaShield.transporter.target = Br.myTransform;
+                    manaShield.InitializeMe(Br); //values are defined in inspector
+                    break;
             }
 
         }

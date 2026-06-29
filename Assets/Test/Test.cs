@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
 public class Test : SerializedMonoBehaviour
@@ -9,6 +10,7 @@ public class Test : SerializedMonoBehaviour
     void Generate()
     {
     }
+
 }
 
 

@@ -35,6 +35,7 @@ public enum Stats
     Block,
     Dodge,
     Health,
+    RegenerationRate, //hp increase (divided by 100) per second
     Toughness,
     Resolve,
     ///

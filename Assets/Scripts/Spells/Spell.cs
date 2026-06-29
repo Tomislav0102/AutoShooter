@@ -64,7 +64,7 @@ public class Spell : SerializedMonoBehaviour
     
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     
-    protected enum HitEffect { OnHealth, OnSpell, OnStats }
+    protected enum HitEffect { OnHealth, OnSpell, OnStats, OnShield }
     protected enum HitEffectOnSpell { Nullify, Reflect }
     [SerializeField] protected HitEffect hitEffect;
     bool AffectsSpells() => hitEffect == HitEffect.OnSpell;
@@ -96,27 +96,24 @@ public class Spell : SerializedMonoBehaviour
     protected void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
         Brain b = null;
-        if (targetGeneric.TryGetComponent(out Brain br))
+        switch (hitEffect)
         {
-            switch (hitEffect)
-            {
             case HitEffect.OnHealth:
-                if (targetGeneric.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
+                if (targetGeneric.TryGetComponent(out Brain br) && Utils.CanTargetFaction(main.OwnersBrain.Faction, br.Faction, myFactionTarget))
                 {
-                    if (injectHealth.knockBack > 0 && targetBrain.loco != null)
+                    if (injectHealth.knockBack > 0 && br.loco != null)
                     {
-                        Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
-                        targetBrain.loco.KnockBack(dir, injectHealth.knockBack);
-                        b = targetBrain;
+                        Vector3 dir = Utils.Direction(main.myTransform.position, br.myTransform.position);
+                        br.loco.KnockBack(dir, injectHealth.knockBack);
+                        b = br;
                     }
                     if (injectHealth.damage.Count > 0)
                     {
-                        targetBrain.health.TakeDamage(injectHealth);
-                        b = targetBrain;
+                        br.health.TakeDamage(injectHealth);
+                        b = br;
                     }
                 }
                 break;
-            
             case HitEffect.OnSpell:
                 if (targetGeneric.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
                 {
@@ -130,6 +127,7 @@ public class Spell : SerializedMonoBehaviour
                         }
                     }
                 }
+
                 void Method()
                 {
                     switch (hitEffectOnSpell)
@@ -144,12 +142,21 @@ public class Spell : SerializedMonoBehaviour
                     }
                     b = targetSpell.OwnersBrain;
                 }
-                break;            
-            }
+
+                break;
+            case HitEffect.OnShield: //only one spell uses this, consider different solution for shield logic. Too much of the edge-case
+                if (targetGeneric.TryGetComponent(out Brain brShield) && 
+                    Utils.CanTargetFaction(main.OwnersBrain.Faction, brShield.Faction, myFactionTarget) &&
+                    injectHealth.damage.ContainsKey(Element.Physical))
+                {
+                    brShield.health.SetShield(injectHealth.damage[Element.Physical]);
+                    b = brShield;
+                }
+                break;
         }
         targetsBrain = b;
     }
-    
+
 
 
     protected virtual void Update()
