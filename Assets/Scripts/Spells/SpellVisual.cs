@@ -9,53 +9,58 @@ public class SpellVisual : MonoBehaviour
     Light _lightDefault;
     [SerializeField] ParticleSystem psHit;
     Light _lightHit;
-    enum ParticleSizeChange
+    enum SizeModifierType
     {
         TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
         Emission_Shape, 
         Velocity_Over_Lifetime, //not used
         Other_None
     }
-    [SerializeField] ParticleSizeChange particleSizeChangeStart;
+    [SerializeField] SizeModifierType sizeModifier;
     [SerializeField] Transform myMesh;
+    [SerializeField] SpriteRenderer myTiledSpriteRenderer;
 
     
     public void InitializeMe(SpellMain main)
     {
         _main = main;
-        if (psDefault != null) _lightDefault = psDefault.GetComponent<Light>();
-        if (_lightDefault != null) _lightDefault.enabled = false;
-        if (psHit != null) _lightHit = psHit.GetComponent<Light>();
-        if (_lightHit != null) _lightHit.enabled = false;
+        if (psDefault != null)
+        {
+            _lightDefault = psDefault.GetComponent<Light>();
+            if (_lightDefault != null) _lightDefault.enabled = false;
+        }
+        if (psHit != null)
+        {
+            _lightHit = psHit.GetComponent<Light>();
+            if (_lightHit != null) _lightHit.enabled = false;
+        }
+        if (myTiledSpriteRenderer != null) myTiledSpriteRenderer.size = new Vector2(myTiledSpriteRenderer.size.x, _main.spell.areaOfEffect);
         _main.onHitTarget += (Brain br) =>
         {
             if (psHit != null) psHit.Play();
             StartCoroutine(LightDelay(_lightDefault));
         };
 
-        if (psDefault != null)
+        switch (sizeModifier)
         {
-            switch (particleSizeChangeStart)
-            {
-                case ParticleSizeChange.Emission_Shape:
-                    var emission = psDefault.emission;
-                    emission.rateOverTime = _main.spell.areaOfEffect * 5;
-                    var shape = psDefault.shape;
-                    shape.radius = _main.spell.areaOfEffect * 0.5f;
-                    break;
-                case ParticleSizeChange.TransformScale:
-                    psDefault.transform.parent.localScale = _main.spell.areaOfEffect * Vector3.one;
-                    break;
-                case ParticleSizeChange.Velocity_Over_Lifetime:
-                    ParticleSystem.MainModule myMain = psDefault.main;
-                    myMain.duration = _main.spell.lifeTime;
-                    myMain.startLifetime = _main.spell.lifeTime;
-                    ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
-                    velocityOverLifetime.y = (_main.transporter as BulletTransporter).speed;
-                    break;
-                case ParticleSizeChange.Other_None:
-                    return;
-            }
+            case SizeModifierType.Emission_Shape:
+                var emission = psDefault.emission;
+                emission.rateOverTime = _main.spell.areaOfEffect * 5;
+                var shape = psDefault.shape;
+                shape.radius = _main.spell.areaOfEffect * 0.5f;
+                break;
+            case SizeModifierType.TransformScale:
+                transform.localScale = _main.spell.areaOfEffect * Vector3.one;
+                break;
+            case SizeModifierType.Velocity_Over_Lifetime:
+                ParticleSystem.MainModule myMain = psDefault.main;
+                myMain.duration = _main.spell.lifeTime;
+                myMain.startLifetime = _main.spell.lifeTime;
+                ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
+                velocityOverLifetime.y = (_main.transporter as BulletTransporter).speed;
+                break;
+            case SizeModifierType.Other_None:
+                return;
         }
 
     }

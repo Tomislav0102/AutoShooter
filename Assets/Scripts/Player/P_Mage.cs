@@ -28,8 +28,8 @@ public class P_Mage : PlayerCombat
             damRanged = new Dictionary<Element, float>()
             {
                 //  { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
-                // { Element.Electricity, 1f },
-                { Element.Fire, 1f },
+                 { Element.Electricity, 2f },
+                //{ Element.Fire, 1f },
                 // { Element.Physical, 3f },
             };
             damUltimate = new Dictionary<Element, float>()
@@ -170,19 +170,29 @@ public class P_Mage : PlayerCombat
         base.FromAnimEv_Attack(num);
 
         psCast.Play();
+        List<Transform> foundTargets;
         switch (attackActive)
         {
             case 0:
-                SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, Br.combat.MyTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                injectHealth = new InjectHealth(damRanged);
-                lightning.InitializeMe(Br, injectHealth);
+                foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest);
+                Transform furthestTarget = foundTargets.Count == 0 ? null : foundTargets[0];
+                if (furthestTarget != null)
+                {
+                    SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    injectHealth = new InjectHealth(damRanged);
+                    lightning.InitializeMe(Br, injectHealth);
+                }
                 break;
-            
+
             case 1:
-                Transform middleTarget = Utils.ChoseTransform(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle);
-                Vector3 direction = Utils.Direction(Br.myTransform.position, middleTarget.position);
-                SpellMain carryFireball = Instantiate(Ga.me.spells.carryFireball, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
-                carryFireball.InitializeMe(Br, null, Explosion);
+                foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle);
+                Transform middleTarget = foundTargets.Count == 0 ? null : foundTargets[0];
+                if (middleTarget != null)
+                {
+                    Vector3 direction = Utils.Direction(Br.myTransform.position, middleTarget.position);
+                    SpellMain carryFireball = Instantiate(Ga.me.spells.carryFireball, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
+                    carryFireball.InitializeMe(Br, null, Explosion);
+                }
 
                 void Explosion()
                 {
@@ -200,8 +210,9 @@ public class P_Mage : PlayerCombat
                     injectHealth = new InjectHealth(damRanged);
                     areFire.InitializeMe(Br, injectHealth);
                 }
+
                 break;
-            
+
             case 2:
                 float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
                 for (int i = 0; i < numOfObjects; i++)
@@ -212,6 +223,60 @@ public class P_Mage : PlayerCombat
                     homing.transporter.target = Br.combat.MyTarget;
                     injectHealth = new InjectHealth(damRanged, true);
                     homing.InitializeMe(Br, injectHealth);
+                }
+                break;
+            case 3:
+                foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, numOfObjects);
+                Vector3[] targetPositions = new Vector3[foundTargets.Count];
+                for (int i = 0; i < foundTargets.Count; i++)
+                {
+                    targetPositions[i] = foundTargets[i].position;
+                }
+                StartCoroutine(ChainLightningCoroutine());
+
+                IEnumerator ChainLightningCoroutine()
+                {
+                    for (int i = 0; i < foundTargets.Count; i++)
+                    {
+                        if (i == 0) ChainLightningMethod(Br.myTransform.position, targetPositions[i], i);
+                        else ChainLightningMethod(targetPositions[i - 1], targetPositions[i], i);
+                        yield return new WaitForFixedUpdate();
+                        yield return new WaitForFixedUpdate();
+                    }
+                    void ChainLightningMethod(Vector3 from, Vector3 to, int index) //index -> every consecutive strike does half damage
+                    {
+                        Vector3 direction = to - from;
+                        SpellMain chainLightning = Instantiate(Ga.me.spells.chainLightning, from, Quaternion.LookRotation(direction.normalized), Ga.me.spells.myTransform);
+                        chainLightning.spell.areaOfEffect = direction.magnitude;
+                        Dictionary<Element, float> effDamage = new Dictionary<Element, float>();
+                        foreach (KeyValuePair<Element, float> item in damRanged)
+                        {
+                            effDamage.Add(item.Key, item.Value);
+                        }
+                        effDamage[Element.Electricity] /= (index * index + 1);
+                        print($"at {index} damage is {effDamage[Element.Electricity]}");
+                        chainLightning.InitializeMe(Br, new InjectHealth(effDamage));
+                    }
+                }
+                break;
+            case 4:
+                float maxRange = 5f;
+                foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, numOfObjects, maxRange);
+                for (int i = 0; i < foundTargets.Count; i++)
+                {
+                    Vector3 distance = foundTargets[i].position - Br.myTransform.position;
+                    SpellMain overload = Instantiate(Ga.me.spells.overload, Br.myTransform.position, Quaternion.LookRotation(distance.normalized), Ga.me.spells.myTransform);
+                    overload.spell.areaOfEffect = distance.magnitude;
+                    overload.transporter.target = foundTargets[i];
+                    overload.InitializeMe(Br, new InjectHealth(damRanged));
+                }
+                break;
+            case 5:
+                foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random);
+                if (foundTargets.Count > 0)
+                {
+                    SpellMain meteorStrike = Instantiate(Ga.me.spells.meteorStrike, foundTargets[0].position, Quaternion.identity, Ga.me.spells.myTransform);
+                    meteorStrike.InitializeMe(Br, new InjectHealth(damRanged));
                 }
                 break;
         }

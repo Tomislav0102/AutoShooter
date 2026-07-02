@@ -14745,7 +14745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8811127397012689545
 Transform:
   m_ObjectHideFlags: 0
@@ -19837,7 +19837,9 @@ MonoBehaviour:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  hitEffects: 00000000
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 4612130815277741316}
 --- !u!1 &5194372066175661020 stripped
 GameObject:

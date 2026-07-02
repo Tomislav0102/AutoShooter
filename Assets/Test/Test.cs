@@ -6,12 +6,30 @@ using Sirenix.OdinInspector;
 
 public class Test : SerializedMonoBehaviour
 {
+    public Animator anim;
+    public float velMag;
     [Button]
     void Generate()
     {
+        anim.applyRootMotion = true;
+        anim.SetTrigger("roll");
+    }
+    [Button]
+    void ResetPosition()
+    {
+        anim.transform.localPosition = Vector3.zero;
     }
 
+    void OnAnimatorMove()
+    {
+        
+    }
 }
+
+
+
+
+
 
 
 public class AngledShot

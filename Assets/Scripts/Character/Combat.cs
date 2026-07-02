@@ -16,17 +16,17 @@ public class Combat : EventBus, IInit
             _br = value;
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
             return;
-            
+
             IEnumerator SearchTargetCoroutine(float delay)
             {
                 yield return new WaitForSeconds(delay);
                 while (true)
                 {
-                    MyTarget = Utils.ChoseTransform(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction), GenDistance.Closest, detectRange);
+                    List<Transform> foundTargets = Utils.ChooseGroupTransforms(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction), GenDistance.Closest, 1, detectRange);
+                    MyTarget = foundTargets.Count == 0 ? null : foundTargets[0];
                     yield return new WaitForSeconds(0.15f);
                 }
             }
-
         }
     }
 

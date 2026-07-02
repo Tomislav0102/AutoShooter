@@ -17,7 +17,7 @@ public class Loco : EventBus, IInit
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float knockBackResistance;
     [ReadOnly] public bool lookAtTarget;
-    protected bool controlsEnabled = true;
+    [ReadOnly] public bool controlsEnabled = true;
     
     #region ANIMATOR
     int _moveHor = Animator.StringToHash("moveHor");
@@ -29,6 +29,7 @@ public class Loco : EventBus, IInit
     int _cast = Animator.StringToHash("cast");
     int _hit = Animator.StringToHash("hit");
     int _block = Animator.StringToHash("block");
+    int _roll = Animator.StringToHash("roll");
     public void AE_Attack(int  num) => Br.combat.FromAnimEv_Attack(num);
 
     public void AE_Ultimate(int num) => Br.combat.FromAnimEv_Ultimate(num);
@@ -43,6 +44,7 @@ public class Loco : EventBus, IInit
     public void Att1InputEnemy(bool attack1) => anim.SetBool(_attack1, attack1);
     public void AttackDone() => anim.SetBool(_isAttacking, false);
     public void CastSpell() =>  anim.SetTrigger(_cast);
+    public void Roll() =>  anim.SetTrigger(_roll);
     public void Hit() =>  anim.SetTrigger(_hit);
     public void Block() =>  anim.SetTrigger(_block);
     #endregion

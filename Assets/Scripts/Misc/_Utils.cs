@@ -52,41 +52,6 @@ public class Utils
 
     public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(MakeV2(v1), MakeV2(v2));
     public static Vector3 Direction(Vector3 fromPos, Vector3 toPos) => MakeV3(MakeV2(toPos) - (MakeV2(fromPos))).normalized;
-    
-
-    public static Transform ChoseTransform(Vector3 fromPosition, HashSet<Transform> allTargets, GenDistance distanceType = GenDistance.Closest, float maxRange = float.MaxValue)
-    {
-        Vector2 from2D = MakeV2(fromPosition);
-        Dictionary<Transform, float> dic = new Dictionary<Transform, float>();
-        foreach (Transform item in allTargets)
-        {
-            float distance = Vector2.Distance(from2D, MakeV2(item.position));
-            dic.Add(item, distance);
-        }
-        var sorted = dic.ToList();
-        sorted.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-        List<Transform> results = new List<Transform>();
-        foreach (KeyValuePair<Transform, float> item in sorted)
-        {
-            results.Add(item.Key);
-        }
-        if (allTargets.Count == 0) return null;
-        
-        switch (distanceType)
-        {
-            case GenDistance.Closest:
-                return results[0];
-            case GenDistance.Furthest:
-                return results[^1];
-            case GenDistance.Random:
-                return results[Random.Range(0, results.Count)];
-            case GenDistance.Middle:
-                int mid = dic.Count / 2;
-                return results[mid];
-            default:
-                return null;
-        }
-    }
 
     public static List<Transform> AllOnScreen(HashSet<Transform> allTargets)
     {
@@ -99,6 +64,60 @@ public class Utils
         }
         
         return  result;
+    }
+
+    public static List<Transform> ChooseGroupTransforms(Vector3 fromPosition, HashSet<Transform> allTargets, GenDistance distanceType = GenDistance.Closest, int count = 1, float maxRange = float.MaxValue)
+    {
+        List<Transform> result =  new List<Transform>();
+        if (allTargets.Count == 0 || count <= 0) return result;
+        
+        Vector2 from2D = MakeV2(fromPosition);
+        Dictionary<Transform, float> dic = new Dictionary<Transform, float>();
+        foreach (Transform item in allTargets)
+        {
+            float distance = Vector2.Distance(from2D, MakeV2(item.position));
+            if (distance <= maxRange) dic.Add(item, distance);
+        }
+        List<KeyValuePair<Transform, float>> sorted = dic.ToList();
+        sorted.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+        List<Transform> tempResults = new List<Transform>();
+        foreach (KeyValuePair<Transform, float> item in sorted)
+        {
+            tempResults.Add(item.Key);
+        }
+        
+        int effCount = Mathf.Min(count, tempResults.Count);
+        switch (distanceType)
+        {
+            case GenDistance.Closest:
+                for (int i = 0; i < effCount; i++)
+                {
+                    result.Add(tempResults[i]);
+                }
+                break;
+            
+            case GenDistance.Furthest:
+                for (int i = 0; i < effCount; i++)
+                {
+                    result.Add(tempResults[tempResults.Count - 1 - i]);
+                }
+                break;
+
+            case GenDistance.Random:
+                List<Transform> rdn = Utils.RandomListByType(tempResults);
+                for (int i = 0; i < effCount; i++)
+                {
+                    result.Add(rdn[i]);
+                }
+                break;
+            
+            case GenDistance.Middle:
+                int mid = dic.Count / 2;
+                result.Add(tempResults[mid]);
+                break;
+        }
+
+        return result;
     }
 
     public static Vector3 GetRandomPosition(Transform horizontalSurface)
@@ -148,6 +167,14 @@ public class Utils
     }
 
     #region NOT USED
+    static readonly Dictionary<float, WaitForSeconds> WaitDictionary = new Dictionary<float, WaitForSeconds>();
+    public static WaitForSeconds GetWait(float time)
+    {
+        if (WaitDictionary.TryGetValue(time, out WaitForSeconds wait)) return wait;
+        WaitDictionary[time] = new WaitForSeconds(time);
+        return WaitDictionary[time];
+    }
+    
     public static bool IsInLayerMask(GameObject go, LayerMask mask)
     {
         return (mask & (1 << go.layer)) != 0;

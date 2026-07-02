@@ -24,6 +24,8 @@ public class SpellManager : MonoBehaviour
    public SpellMain armageddon;
    [Title("Mage Lightning")]
    public SpellMain lightningStrike;
+   public SpellMain chainLightning;
+   public SpellMain overload;
    [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;

@@ -10007,7 +10007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1059102087156725223
 Transform:
   m_ObjectHideFlags: 0
@@ -15044,51 +15044,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+    - Name: _damageInspector
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  myFaction: 0
   myFactionTarget: 1
   areaOfEffect: 0.2
-  startDelay: 0
-  durationType: 2
+  warningDelay: 0
+  hitChance: 1
   lifeTime: 10
+  rateOfFire: 0
   terminateOnHit: 1
-  anchor: {fileID: 0}
-  colliderType: 0
-  spellParticles:
-    ps:
-    - {fileID: 3818323523079235556}
-    particleSizeChange: 0
-  injectHealthData:
-    attacker: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 00000000
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
   solidCollider: {fileID: 2580093172220627405}
 --- !u!1 &4709213594771736486 stripped
 GameObject:
@@ -15107,6 +15080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  target: {fileID: 0}
   speed: 5
   ricochet: 0
   pierce: 0

@@ -1,5 +1,8 @@
 GENERAL
 
+OPTIMIZATION
+Coroutine - cache 'WaitForSeconds' in Dictionary
+
 ENEMY
 
 

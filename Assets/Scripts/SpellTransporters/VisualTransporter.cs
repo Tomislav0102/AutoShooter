@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// should have 'warningDelay' = 0 in 'Spell'
+/// </summary>
 public class VisualTransporter : SpellTransporter
 {
     enum MyType { Lob, Fall }
@@ -28,7 +31,13 @@ public class VisualTransporter : SpellTransporter
                 _rndRot = Random.insideUnitSphere.normalized;
                 break;
             
+            //used only in meteor strike. Transforms of particles need to be aligned in prefab
             case MyType.Fall:
+                main.IsActive = false;
+                _targetRigid.isKinematic = false;
+                _targetRigid.useGravity = false;
+                _targetRigid.linearVelocity = 10f * target.forward;
+                main.visual.PlayDefault();
                 break;
         }
     }
@@ -43,7 +52,7 @@ public class VisualTransporter : SpellTransporter
                 target.Rotate(_rndRot);
                 if (!Ga.me.LevelMan.InsideLevel(target.position))
                 {
-                    main.myTransform.position = new Vector3(target.position.x, 0f, target.position.z);
+                    main.myTransform.position = new Vector3(target.position.x, 0.2f, target.position.z);
                     main.spell.MyPhase = Spell.Phase.EndStart;
                 }
                 break;
@@ -51,7 +60,8 @@ public class VisualTransporter : SpellTransporter
             case MyType.Fall:
                 if (target.position.y < 0.1f)
                 {
-                    main.spell.MyPhase = Spell.Phase.EndStart;
+                    main.myTransform.position = new Vector3(main.myTransform.position.x, 0f, main.myTransform.position.z);
+                    main.IsActive = true;
                 }
                 break;
         }

@@ -27,7 +27,8 @@ public class P_Loco : Loco
             AttInputEnemy(false);
             rotationConstraint.weight = 0; 
            // if (weaponTrail != null) weaponTrail.Stop();
-            switch (value)
+           if (!controlsEnabled) _disp = Disposition.Relaxed;
+            switch (_disp)
             {
                 case Disposition.Relaxed:
                     anim.SetLayerWeight(1, 0);
@@ -44,7 +45,7 @@ public class P_Loco : Loco
         }
     }
     [ShowInInspector, ReadOnly] Disposition _disp;
-    
+    [HideInInspector] public Vector2 effJoystickValue;
     int _posId = Shader.PropertyToID("_Position");
     int _sizeID = Shader.PropertyToID("_Size");
     Transform _camTransform;
@@ -57,14 +58,16 @@ public class P_Loco : Loco
     void FixedUpdate()
     {
         Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
+        if (!controlsEnabled) return;
+        
         float camAngle = Ga.me.cameraRigTransform.eulerAngles.y;
-        Vector2 val = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
-        float dotVer = Vector3.Dot(Utils.MakeV3(val), Br.myTransform.forward);
-        float dotHor = Vector3.Dot(Utils.MakeV3(val), Br.myTransform.right);
+        effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
+        float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
+        float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
         Direction_Move(dotHor, dotVer);
 
-        Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * val));
-        LookAtMethod(Utils.MakeV3(val));
+        Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * effJoystickValue));
+        LookAtMethod(Utils.MakeV3(effJoystickValue));
         
         if (Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)))
         {
