@@ -23,7 +23,6 @@ public class P_Mage : PlayerCombat
         set
         {
             base.Br = value;
-            value.loco.lookAtTarget = false;
             IsInitialized = true;
             damRanged = new Dictionary<Element, float>()
             {

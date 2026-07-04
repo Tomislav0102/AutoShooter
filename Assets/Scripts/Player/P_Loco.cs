@@ -13,39 +13,48 @@ public class P_Loco : Loco
         {
             base.Br = value;
             Ga.me.team.playerTransform = value.myTransform;
+            Impaired = Impairment.None;
             IsInitialized = true;
         }
     }
-
-    public Disposition Disp
+    public override Impairment Impaired
+    {
+        get => base.Impaired;
+        set
+        {
+            base.Impaired = value;
+            if (joystickLookAt && value == Impairment.None) Impaired = Impairment.Orientate;
+        }
+    }
+    public Alertness Disp
     {
         set
         {
             if (value == _disp) return;
             _disp = value;
             anim.SetLayerWeight(1, 1);
-            AttInputEnemy(false);
+            Attack(false);
             rotationConstraint.weight = 0; 
            // if (weaponTrail != null) weaponTrail.Stop();
-           if (!controlsEnabled) _disp = Disposition.Relaxed;
             switch (_disp)
             {
-                case Disposition.Relaxed:
+                case Alertness.Relaxed:
                     anim.SetLayerWeight(1, 0);
                     break;
-                case Disposition.Wary:
+                case Alertness.Alarmed:
                     break;
-                case Disposition.Fighting:
+                case Alertness.Fighting:
                   //  if (weaponTrail != null) weaponTrail.Play();
-                    AttInputEnemy(true);
+                    Attack(true);
                     rotationConstraint.weight = 1;
                     break;
             }
 
         }
     }
-    [ShowInInspector, ReadOnly] Disposition _disp;
+    [ShowInInspector, ReadOnly] Alertness _disp;
     [HideInInspector] public Vector2 effJoystickValue;
+    [SerializeField] bool joystickLookAt = true;
     int _posId = Shader.PropertyToID("_Position");
     int _sizeID = Shader.PropertyToID("_Size");
     Transform _camTransform;
@@ -58,22 +67,41 @@ public class P_Loco : Loco
     void FixedUpdate()
     {
         Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
-        if (!controlsEnabled) return;
-        
         float camAngle = Ga.me.cameraRigTransform.eulerAngles.y;
         effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
-        float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
-        float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
-        Direction_Move(dotHor, dotVer);
-
-        Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * effJoystickValue));
-        LookAtMethod(Utils.MakeV3(effJoystickValue));
-        
-        if (Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)))
+        switch (Impaired)
         {
-            Ga.me.matSeeThroughWalls.SetFloat(_sizeID, 0.5f);
+            case Impairment.None:
+                Move();
+                Orientation();
+                break;
+            case Impairment.Move:
+                Orientation();
+                break;
+            case Impairment.Orientate:
+                Move();
+                Orientation();
+                break;
+            case Impairment.Both:
+                break;
         }
-        else Ga.me.matSeeThroughWalls.SetFloat(_sizeID, 0);
+        
+        float shaderFloat = Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)) ? 0.5f: 0f;
+        Ga.me.matSeeThroughWalls.SetFloat(_sizeID, shaderFloat);
+
+        void Move()
+        {
+            float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
+            float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
+            Direction_Move(dotHor, dotVer);
+            Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * effJoystickValue));
+        }
+
+        void Orientation()
+        {
+            if (effJoystickValue.Equals(Vector2.zero)) return;
+            Br.myTransform.rotation = Quaternion.LookRotation(Utils.MakeV3(effJoystickValue));
+        }
     }
 
 
@@ -86,11 +114,11 @@ public class P_Loco : Loco
     protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
     {
         yield return base.PushMeSequence(dir, deltaIntensity);
-        controlsEnabled = false;
+        Impaired = Impairment.Both;
         float effIntensity = 5 * deltaIntensity;
         effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
         Br.myRigid.AddForce(effIntensity * dir, ForceMode.VelocityChange);
         yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
-        controlsEnabled = true;
+        Impaired = Impairment.None;
     }
 }

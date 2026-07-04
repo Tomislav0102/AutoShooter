@@ -6,18 +6,25 @@ using Sirenix.OdinInspector;
 
 public class Test : SerializedMonoBehaviour
 {
-    public Animator anim;
-    public float velMag;
+    public float rotSpeed;
+    bool _isRotating;
     [Button]
     void Generate()
     {
-        anim.applyRootMotion = true;
-        anim.SetTrigger("roll");
+        ResetThing();
+        _isRotating = !_isRotating;
     }
     [Button]
-    void ResetPosition()
+    void ResetThing()
     {
-        anim.transform.localPosition = Vector3.zero;
+        _isRotating = false;
+        transform.rotation = Quaternion.identity;
+    }
+
+    void Update()
+    {
+        if(!_isRotating) return;
+        transform.Rotate(rotSpeed * Time.deltaTime * Vector3.up);
     }
 
     void OnAnimatorMove()

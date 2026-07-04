@@ -104,7 +104,7 @@ public class Spell : SerializedMonoBehaviour
                     if (injectHealth.knockBack > 0 && br.loco != null)
                     {
                         Vector3 dir = Utils.Direction(main.myTransform.position, br.myTransform.position);
-                        br.loco.KnockBack(dir, injectHealth.knockBack);
+                        br.loco.MotionOverrideKnockBack(dir, injectHealth.knockBack);
                         b = br;
                     }
                     if (injectHealth.damage.Count > 0)

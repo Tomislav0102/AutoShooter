@@ -6,6 +6,7 @@ public class Status : MonoBehaviour, IInit
 {
     public enum Effect
     {
+        Invulnerable,
         Slowed, //attack and move speed
         Rooted, //move speed is 0, attack speed unaffected
         Stunned, //completely passive, enemy does nothing

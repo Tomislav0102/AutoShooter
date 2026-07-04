@@ -11,6 +11,8 @@ public class SoGameData : ScriptableObject
     [Title("General")]
     public float rofSpells;
     public float pushDuration;
+    [Title("Navigation")]
+    public float agentRotSpeed;
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;
     public ElementGroup GetElement(Element el)

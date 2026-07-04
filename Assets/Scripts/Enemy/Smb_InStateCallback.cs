@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class smb : StateMachineBehaviour
+public class Smb_InStateCallback : StateMachineBehaviour
 {
     int _isAttacking = Animator.StringToHash("isAttacking");
 
@@ -9,5 +9,6 @@ public class smb : StateMachineBehaviour
         animator.SetBool(_isAttacking, true);
     }
 
+    
 
 }

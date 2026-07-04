@@ -52,13 +52,13 @@ public class P_Archer : PlayerCombat
         _rollCoroutine = StartCoroutine(RollCoroutine());
         IEnumerator RollCoroutine()
         {
-            Br.loco.controlsEnabled = false;
+            pLoco.Impaired = Loco.Impairment.Both;
             Br.loco.Roll();
             psRoll.Play();
             Vector3 dir = pLoco.effJoystickValue == Vector2.zero ? Br.myTransform.forward : Utils.MakeV3(pLoco.effJoystickValue);
-            Br.myRigid.AddForce(75f * dir, ForceMode.VelocityChange);
+            Br.myRigid.AddForce(80 * dir, ForceMode.VelocityChange);
             yield return new WaitForSeconds(CONST_RollTime);
-            Br.loco.controlsEnabled = true;
+            pLoco.Impaired = Loco.Impairment.None;
             psRoll.Stop();
         }
 

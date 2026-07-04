@@ -12,9 +12,7 @@ public class PlayerCombat : Combat
         {
             base.Br = value;
             Ga.me.ultimateUi.InitializeMe(ultimateCooldownTime);
-            value.loco.lookAtTarget = true;
             pLoco = Br.loco as P_Loco;
-            
         }
     }
 
@@ -26,11 +24,11 @@ public class PlayerCombat : Combat
             base.MyTarget = value;
             if (value == null)
             {
-                pLoco.Disp = Disposition.Relaxed;
+                pLoco.Disp = Alertness.Relaxed;
                 return;
             }
 
-            pLoco.Disp = distanceToTarget > engageRange ? Disposition.Wary : Disposition.Fighting;
+            pLoco.Disp = distanceToTarget > engageRange ? Alertness.Alarmed : Alertness.Fighting;
         }
     }
     [SerializeField] float ultimateCooldownTime;

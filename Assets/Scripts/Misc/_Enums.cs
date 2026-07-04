@@ -18,7 +18,8 @@ public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }
-public enum Disposition { Relaxed, Wary, Fighting }
+public enum Alertness { Relaxed, Alarmed, Fighting }
+
 public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill }
 public enum Stats
 {

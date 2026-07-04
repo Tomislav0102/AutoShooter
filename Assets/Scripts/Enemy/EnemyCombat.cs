@@ -40,15 +40,16 @@ public class EnemyCombat : Combat
             base.MyTarget = value;
             if (value == null)
             {
-                _eLoco.moveCurrent = _eLoco.moveIdlingDefault;
-                _eLoco.AttInputEnemy(false);
-                _eLoco.Att1InputEnemy(false);
-    
+                _eLoco.MoveCurrent = _eLoco.moveIdlingDefault;
+                for (int i = 0; i < 2; i++)
+                {
+                    _eLoco.Attack(false, i);
+                }
                 _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
             }
             else
             {
-                _eLoco.moveCurrent = _eLoco.moveFightingDefault;
+                _eLoco.MoveCurrent = _eLoco.moveFightingDefault;
                 
                 if (rangedWeapon == null)
                 {

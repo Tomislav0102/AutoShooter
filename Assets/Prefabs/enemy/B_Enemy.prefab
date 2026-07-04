@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: relation
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: <Faction>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 612648274609747974, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -125,11 +129,13 @@ MonoBehaviour:
   moveSpeed: 0
   knockBackResistance: 0
   lookAtTarget: 0
-  ra: 0
+  controlsEnabled: 1
+  weaponRange: 2
   moveIdlingDefault: 0
   moveFightingDefault: 4
   moveCurrent: 0
   agent: {fileID: 7100723032775579262}
+  myMaterials: []
 --- !u!1 &2281149104477910870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
