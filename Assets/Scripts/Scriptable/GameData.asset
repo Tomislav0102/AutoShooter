@@ -15,7 +15,7 @@ MonoBehaviour:
   level: 1
   rofSpells: 0.5
   pushDuration: 0.2
-  agentRotSpeed: 300
+  agentRotSpeed: 100
   element:
   - element: 0
     name: Physical

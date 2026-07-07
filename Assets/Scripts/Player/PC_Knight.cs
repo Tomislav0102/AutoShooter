@@ -7,7 +7,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Animations.Rigging;
 
-public class P_Knight : PlayerCombat
+public class PC_Knight : P_Combat
 {
     public override Brain Br
     {
@@ -19,17 +19,17 @@ public class P_Knight : PlayerCombat
             {
                  // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                   { Element.Magic, 2f },
+                   { Element.Electricity, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
             damRanged = new Dictionary<Element, float>()
             {
-                { Element.Physical, Br.myChar.GetStat(Stats.RangedDamage) },
+                { Element.Physical, Br.character.GetStat(Stats.RangedDamage) },
             };
             damUltimate = new Dictionary<Element, float>()
             {
-                { Element.Electricity, Br.myChar.GetStat(Stats.MagicDamage) },
+                { Element.Electricity, Br.character.GetStat(Stats.MagicDamage) },
             };
             switch (startActive)
             {
@@ -51,7 +51,7 @@ public class P_Knight : PlayerCombat
 
     [Title("Knight")]
     [SerializeField] Transform myShield;
-    [SerializeField] int dashPower = 4;
+    [SerializeField] int power = 2;
     public int startActive;
     
     public override void FromAnimEv_Attack(int num = 0)
@@ -63,7 +63,7 @@ public class P_Knight : PlayerCombat
             if (br == null) CombatEventRegistered(CombatEvent.Miss);
             else CombatEventRegistered(CombatEvent.Hit, br);
         };
-        injectHealth = new InjectHealth(damMelee, true);
+        injectHealth = new InjectHealth(damMelee, true, power);
         melee.InitializeMe(Br, injectHealth);
     }
 
@@ -72,9 +72,9 @@ public class P_Knight : PlayerCombat
         base.FromAnimEv_Ultimate(num);
         SpellMain dash = Instantiate(Ga.me.spells.dash, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         dash.transporter.target = Br.myTransform;
-        injectHealth = new InjectHealth(damUltimate, false, dashPower);
+        injectHealth = new InjectHealth(damUltimate, false, power);
         dash.InitializeMe(Br, injectHealth);
-        Br.myRigid.AddRelativeForce(dashPower * 5 * Vector3.forward, ForceMode.VelocityChange);
+        Br.myRigid.AddRelativeForce(power * 5 * Vector3.forward, ForceMode.VelocityChange);
     }
 
     public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)

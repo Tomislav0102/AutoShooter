@@ -5296,6 +5296,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P_Mage
   <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
+  weapons:
+  - {fileID: 2258241833145700990, guid: 1bbf318075619b54f9a7e2ee00ca7001, type: 3}
+  - {fileID: 4551912923362254910, guid: a6d32198d40d7f749a19d7716b0d89c9, type: 3}
+  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
+  - {fileID: 4182053067932181034, guid: 0d6db314f2c593b498989dacd0d821c8, type: 3}
   detectRange: 3.4028235e+38
   engageRange: 10
   ultimateCooldownTime: 2

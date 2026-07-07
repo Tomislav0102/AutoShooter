@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerCombat : Combat
+public class P_Combat : Combat
 {
     [SerializeField] int engageRange = 10;
     public override Brain Br
@@ -16,6 +16,7 @@ public class PlayerCombat : Combat
         }
     }
 
+    
     public override Transform MyTarget
     {
         get => base.MyTarget;

@@ -6,13 +6,13 @@ using Sirenix.OdinInspector;
 
 public class Test : SerializedMonoBehaviour
 {
+    public Transform target;
     public float rotSpeed;
     bool _isRotating;
     [Button]
     void Generate()
     {
-        ResetThing();
-        _isRotating = !_isRotating;
+        target.RotateAround(transform.position, Vector3.up, 30);
     }
     [Button]
     void ResetThing()
@@ -21,16 +21,7 @@ public class Test : SerializedMonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    void Update()
-    {
-        if(!_isRotating) return;
-        transform.Rotate(rotSpeed * Time.deltaTime * Vector3.up);
-    }
-
-    void OnAnimatorMove()
-    {
-        
-    }
+    
 }
 
 

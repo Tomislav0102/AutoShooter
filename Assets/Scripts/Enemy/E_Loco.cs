@@ -14,12 +14,6 @@ public class E_Loco : Loco
     [ReadOnly] public RangeArea weaponRange = RangeArea.OutOfRange;
 
     public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee }
-
-    // public enum Movement { Stationary, Roam, Patrol, Follow, Chase, Flee, 
-    //     OverrideAgent, // move and rotation
-    //     OverrideAgentMove, //only move
-    //     OverrideAgentRotation } //only rotation
-    public enum MultiShot { AllAtOnce, Consecutive, Random }
     public Movement moveIdlingDefault;
     public Movement moveFightingDefault;
     public Movement MoveCurrent
@@ -45,8 +39,7 @@ public class E_Loco : Loco
             }
         }
     }
-    Movement _moveCurrent;
-    public NavMeshAgent agent;
+    [ReadOnly, ShowInInspector] Movement _moveCurrent;
     public override Brain Br
     {
         get => base.Br;
@@ -54,9 +47,9 @@ public class E_Loco : Loco
         {
             base.Br = value;
             MoveCurrent = moveIdlingDefault;
-            agent.enabled = true;
-            agent.speed = moveSpeed;
-            agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
+            Br.agent.enabled = true;
+            Br.agent.speed = moveSpeed;
+            Br.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
             weaponRange = RangeArea.OutOfRange;
             Renderer myRenderer =  GetComponentInChildren<Renderer>();
             myRenderer.material = myMaterials[(int)value.Faction];
@@ -66,7 +59,15 @@ public class E_Loco : Loco
     [SerializeField] Material[] myMaterials;
     bool _canMoveNavigation;
     bool _canMoveCombat;
-
+    public override bool OvrOrientation
+    {
+        get => base.OvrOrientation;
+        set
+        {
+            base.OvrOrientation = value;
+            Br.agent.updateRotation = !value;
+        }
+    }
 
     #region MOVEMENT SPECIFIC VARIABLES
     float _timerGeneral;
@@ -77,109 +78,108 @@ public class E_Loco : Loco
     Vector3 _stationaryRotAxis;
     int _counterWaypoints;
     const float CONST_FleeDistance = 10f;
-    Transform FollowTarget()
+    Transform FollowTarget() //placeholder
     {
         if (_followTarget == null)  _followTarget = Ga.me.team.playerTransform;
         return _followTarget;
     }
     Transform _followTarget;
     const float CONST_FollowDistance = 5f;
-    float _chaseRange;
     #endregion
 
-    
+
+    bool IsAttackAnimationOver()
+    {
+        return !anim.GetCurrentAnimatorStateInfo(0 ).IsTag("Attacks");
+    }
     void Update()
     {
-        switch (Impaired)
+        _canMoveNavigation = true;
+        _canMoveCombat = false;
+        OvrOrientation = false;
+        if (OvrMove) return;
+        
+        switch (MoveCurrent)
         {
-            case Impairment.None:
-                _canMoveNavigation = true;
-                _canMoveCombat = false;
-                
-                switch (MoveCurrent)
-                {
-                    case Movement.Stationary:
-                        Stationary();
-                        break;
-                    case Movement.Roam:
-                        Roam();
-                        break;
-                    case Movement.Patrol:
-                        Patrol();
-                        break;
-                    case Movement.Follow:
-                        Follow();
-                        break;
-                    case Movement.Chase:
-                        Chase();
-                        break;
-                    case Movement.Flee:
-                        Flee();
-                        break;
-                }
-                
-                bool[] attacks = new bool[2];
-                switch (weaponRange)
-                {
-                    case RangeArea.Melee:
-                        attacks[0] = true;
-                        break;
-                    case RangeArea.Ranged:
-                        attacks[1] = true;
-                        break;
-                    case RangeArea.OutOfRange:
-                        _canMoveCombat = true;
-                        break;
-                }
-                for (int i = 0; i < attacks.Length; i++)
-                {
-                    Attack(attacks[i], i);
-                }
-                
-                bool canMove = _canMoveNavigation && _canMoveCombat;
-                Toggle_Move(canMove);
-                agent.speed = canMove ? moveSpeed : 0f;
+            case Movement.Stationary:
+                Stationary();
+                break;
+            case Movement.Roam:
+                Roam();
+                break;
+            case Movement.Patrol:
+                Patrol();
+                break;
+            case Movement.Follow:
+                Follow();
+                break;
+            case Movement.Chase:
+                Chase();
+                break;
+            case Movement.Flee:
+                Flee();
                 break;
         }
 
+        bool[] attacks = new bool[2];
+        switch (weaponRange)
+        {
+            case RangeArea.Melee:
+                attacks[0] = true;
+                break;
+            case RangeArea.Ranged:
+                attacks[1] = true;
+                break;
+            case RangeArea.OutOfRange:
+                _canMoveCombat = true;
+                break;
+        }
+        for (int i = 0; i < attacks.Length; i++)
+        {
+            AttackAnimation(attacks[i], i);
+        }
+
+        bool canMove = _canMoveNavigation && _canMoveCombat && IsAttackAnimationOver();
+        Toggle_Move(canMove);
+        Br.agent.speed = canMove ? moveSpeed : 0f;
+        
+        if (OvrOrientation) Orientation(Br.combat.MyTarget);
     }
+
     protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
     {
         yield return base.PushMeSequence(dir, deltaIntensity);
-        Impaired = Impairment.Move;
+        OvrMove = true;
         float effIntensity = 5 * deltaIntensity;
         effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
         Vector3 velocity = effIntensity * dir;
-        agent.ResetPath();
+        Br.agent.ResetPath();
         while (velocity.magnitude > 0.2f)
         {
             Vector3 translationThisFrame = velocity * Time.deltaTime;
-            agent.Move(translationThisFrame);
+            Br.agent.Move(translationThisFrame);
             velocity = Vector3.MoveTowards(velocity, Vector3.zero, effIntensity * 1.5f * Time.deltaTime);
             yield return null;
         }
-        Impaired = Impairment.None;
+        OvrMove = false;
     }
-
     public override void MotionOverrideMagnet(bool isOn, Vector3 center)
     {
         base.MotionOverrideMagnet(isOn, center);
-        agent.updateRotation = !isOn;
+        Br.agent.updateRotation = !isOn;
+        OvrMove = isOn;
         if (isOn)
         {
-            Impaired = Impairment.Move;
             Vector3 pullDirection = center - Br.myTransform.position;
-            agent.destination = center;
-        }
-        else
-        {
-            Impaired = Impairment.None;
+            Br.agent.destination = center;
         }
     }
+    
     #region NAVIGATION
     void Stationary() //no movement, just rotation
     {
         _canMoveNavigation = false;
+        OvrOrientation = true;
         if (_stationaryIsTurning)
         {
             Br.myTransform.Rotate(_stationaryRotAxis, _timerStationary * 0.2f);
@@ -197,11 +197,11 @@ public class E_Loco : Loco
     void Roam()
     {
         _timerGeneral += Time.deltaTime;
-        if (agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
+        if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
         {
             Vector3 newDestination = Utils.GetRandomPosition(Ga.me.LevelMan.spawnArea);
             // print($"New roam destination {newDestination}");
-            agent.destination = newDestination;
+            Br.agent.destination = newDestination;
             _timerGeneral = 0f;
         }
     }
@@ -214,9 +214,9 @@ public class E_Loco : Loco
         }
 
         _timerGeneral += Time.deltaTime;
-        if (agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
+        if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
         {
-            agent.destination = Ga.me.waypoints[_counterWaypoints].position;
+            Br.agent.destination = Ga.me.waypoints[_counterWaypoints].position;
             _counterWaypoints = (1 + _counterWaypoints) % Ga.me.waypoints.Length;
             _timerGeneral = 0f;
         }
@@ -225,23 +225,24 @@ public class E_Loco : Loco
     {
         if (Utils.Distance(Br.myTransform.position, FollowTarget().position) > CONST_FollowDistance)
         {
-            agent.destination = FollowTarget().position;
+            Br.agent.destination = FollowTarget().position;
         }
         else
         {
-            if (agent.hasPath) agent.ResetPath();
+            if (Br.agent.hasPath) Br.agent.ResetPath();
             Stationary();
         }
     }
     void Chase()
     {
+        OvrOrientation = true;
         if (Br.combat.MyTarget == null) return;
         
-        if (weaponRange == RangeArea.OutOfRange && !anim.GetBool("isAttacking"))
+        if (weaponRange == RangeArea.OutOfRange)
         {
-            agent.destination = Br.combat.MyTarget.position;
+            Br.agent.destination = Br.combat.MyTarget.position;
         }
-        else if (agent.hasPath) agent.ResetPath();
+        else if (Br.agent.hasPath) Br.agent.ResetPath();
     }
     void Flee()
     {
@@ -255,7 +256,7 @@ public class E_Loco : Loco
             Vector3 targetPosition = Br.myTransform.position + 2f * direction;
             NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
             if (!hit.hit) return;
-            agent.destination = hit.position;
+            Br.agent.destination = hit.position;
         }
     }
 
@@ -265,7 +266,7 @@ public class E_Loco : Loco
     {
         if (!Application.isPlaying) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(agent.destination, 0.2f);
+        Gizmos.DrawSphere(Br.agent.destination, 0.2f);
     }
 
 }
@@ -310,7 +311,7 @@ public class E_Loco : Loco
 //         }
 //     }
 //     Movement _moveCurrent;
-//     public NavMeshAgent agent;
+//     public NavMeshAgent Br.agent;
 //     public override Brain Br
 //     {
 //         get => base.Br;
@@ -318,9 +319,9 @@ public class E_Loco : Loco
 //         {
 //             base.Br = value;
 //             MoveCurrent = moveIdlingDefault;
-//             agent.enabled = true;
-//             agent.speed = moveSpeed;
-//             agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
+//             Br.agent.enabled = true;
+//             Br.agent.speed = moveSpeed;
+//             Br.agent.angularSpeed = Ga.me.gameData.Br.agentRotSpeed;
 //             weaponRange = RangeArea.OutOfRange;
 //             Renderer myRenderer =  GetComponentInChildren<Renderer>();
 //             myRenderer.material = myMaterials[(int)value.Faction];
@@ -333,7 +334,7 @@ public class E_Loco : Loco
 //         set
 //         {
 //             base.IsOrientationOverriden = value;
-//             agent.updateRotation = !value;
+//             Br.agent.updateRotation = !value;
 //         }
 //     }
 //     [SerializeField] Material[] myMaterials;
@@ -393,7 +394,7 @@ public class E_Loco : Loco
 //
 //         
 //         _canMoveCombat = false;
-//         agent.speed = 0f;
+//         Br.agent.speed = 0f;
 //         bool att = false;
 //         bool att1 = false;
 //         switch (weaponRange)
@@ -407,7 +408,7 @@ public class E_Loco : Loco
 //                 if (IsOrientationOverriden) LookAtMethod();
 //                 break;
 //             case RangeArea.OutOfRange:
-//                 agent.speed = moveSpeed;
+//                 Br.agent.speed = moveSpeed;
 //                 _canMoveCombat = true;
 //                 break;
 //         }
@@ -416,7 +417,7 @@ public class E_Loco : Loco
 //         
 //         bool canMove = _canMoveNavigation && _canMoveCombat;
 //         Toggle_Move(canMove);
-//         agent.speed = canMove ? moveSpeed : 0f;
+//         Br.agent.speed = canMove ? moveSpeed : 0f;
 //     }
 //     protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
 //     {
@@ -425,11 +426,11 @@ public class E_Loco : Loco
 //         float effIntensity = 5 * deltaIntensity;
 //         effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
 //         Vector3 velocity = effIntensity * dir;
-//         agent.ResetPath();
+//         Br.agent.ResetPath();
 //         while (velocity.magnitude > 0.2f)
 //         {
 //             Vector3 translationThisFrame = velocity * Time.deltaTime;
-//             agent.Move(translationThisFrame);
+//             Br.agent.Move(translationThisFrame);
 //             velocity = Vector3.MoveTowards(velocity, Vector3.zero, effIntensity * 1.5f * Time.deltaTime);
 //             yield return null;
 //         }
@@ -440,11 +441,11 @@ public class E_Loco : Loco
 //     {
 //         base.MotionOverrideMagnet(isOn, center);
 //         IsMoveOverriden = !isOn;
-//         agent.updateRotation = !isOn;
+//         Br.agent.updateRotation = !isOn;
 //         if (isOn)
 //         {
 //             Vector3 pullDirection = center - Br.myTransform.position;
-//             agent.destination = center;
+//             Br.agent.destination = center;
 //         }
 //     }
 //     #region NAVIGATION
@@ -468,11 +469,11 @@ public class E_Loco : Loco
 //     void Roam()
 //     {
 //         _timerGeneral += Time.deltaTime;
-//         if (agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
+//         if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
 //         {
 //             Vector3 newDestination = Utils.GetRandomPosition(Ga.me.LevelMan.spawnArea);
 //             // print($"New roam destination {newDestination}");
-//             agent.destination = newDestination;
+//             Br.agent.destination = newDestination;
 //             _timerGeneral = 0f;
 //         }
 //     }
@@ -485,9 +486,9 @@ public class E_Loco : Loco
 //         }
 //
 //         _timerGeneral += Time.deltaTime;
-//         if (agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
+//         if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
 //         {
-//             agent.destination = Ga.me.waypoints[_counterWaypoints].position;
+//             Br.agent.destination = Ga.me.waypoints[_counterWaypoints].position;
 //             _counterWaypoints = (1 + _counterWaypoints) % Ga.me.waypoints.Length;
 //             _timerGeneral = 0f;
 //         }
@@ -496,11 +497,11 @@ public class E_Loco : Loco
 //     {
 //         if (Utils.Distance(Br.myTransform.position, FollowTarget().position) > CONST_FollowDistance)
 //         {
-//             agent.destination = FollowTarget().position;
+//             Br.agent.destination = FollowTarget().position;
 //         }
 //         else
 //         {
-//             if (agent.hasPath) agent.ResetPath();
+//             if (Br.agent.hasPath) Br.agent.ResetPath();
 //             Stationary();
 //         }
 //     }
@@ -510,9 +511,9 @@ public class E_Loco : Loco
 //         
 //         if (weaponRange == RangeArea.OutOfRange && !anim.GetBool("isAttacking"))
 //         {
-//             agent.destination = Br.combat.MyTarget.position;
+//             Br.agent.destination = Br.combat.MyTarget.position;
 //         }
-//         else if (agent.hasPath) agent.ResetPath();
+//         else if (Br.agent.hasPath) Br.agent.ResetPath();
 //     }
 //     void Flee()
 //     {
@@ -526,7 +527,7 @@ public class E_Loco : Loco
 //             Vector3 targetPosition = Br.myTransform.position + 2f * direction;
 //             NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
 //             if (!hit.hit) return;
-//             agent.destination = hit.position;
+//             Br.agent.destination = hit.position;
 //         }
 //     }
 //
@@ -540,7 +541,7 @@ public class E_Loco : Loco
 //     {
 //         if (!Application.isPlaying) return;
 //         Gizmos.color = Color.red;
-//         Gizmos.DrawSphere(agent.destination, 0.2f);
+//         Gizmos.DrawSphere(Br.agent.destination, 0.2f);
 //     }
 //
 // }

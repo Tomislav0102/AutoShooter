@@ -424,13 +424,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P_Knight
   <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
+  weapons:
+  - {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   detectRange: 3.4028235e+38
   engageRange: 10
   ultimateCooldownTime: 3
   myShield: {fileID: 6815601301861273165}
-  myShieldRotationConstraint: {fileID: 0}
-  dashPower: 0
-  startActive: 0
+  power: 1
+  startActive: 99
 --- !u!4 &3640929346580867816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3227542870493095737, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

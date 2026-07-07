@@ -7,6 +7,7 @@ public class VisualTransporter : SpellTransporter
 {
     enum MyType { Lob, Fall }
     [SerializeField] MyType myType;
+    [SerializeField] bool randomizeYRot = true;
     Vector3 _rndRot;
     Rigidbody _targetRigid;
     
@@ -33,6 +34,7 @@ public class VisualTransporter : SpellTransporter
             
             //used only in meteor strike. Transforms of particles need to be aligned in prefab
             case MyType.Fall:
+                if (randomizeYRot) target.RotateAround(main.myTransform.position, Vector3.up, Random.Range(0f, 360f));
                 main.IsActive = false;
                 _targetRigid.isKinematic = false;
                 _targetRigid.useGravity = false;

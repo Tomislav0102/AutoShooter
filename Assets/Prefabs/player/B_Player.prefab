@@ -4985,10 +4985,6 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3487588509260044675, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3696184041424430218, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -5182,6 +5178,8 @@ MonoBehaviour:
   rotationConstraint: {fileID: 4887120585361979903}
   moveSpeed: 5
   knockBackResistance: 0
+  <OvrMove>k__BackingField: 0
+  <OvrOrientation>k__BackingField: 0
   weaponTrail: {fileID: 0}
   effJoystickValue: {x: 0, y: 0}
   joystickLookAt: 0

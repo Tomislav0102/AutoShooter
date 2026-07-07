@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class P_Mage : PlayerCombat
+public class PC_Mage : P_Combat
 {
     [Title("Mage")]
     [SerializeField] Transform spawnPoint;
@@ -33,7 +33,7 @@ public class P_Mage : PlayerCombat
             };
             damUltimate = new Dictionary<Element, float>()
             {
-                { Element.Magic, Br.myChar.GetStat(Stats.MagicDamage) * 0.1f },
+                { Element.Magic, Br.character.GetStat(Stats.MagicDamage) * 0.1f },
             };
 
             switch (startActive)

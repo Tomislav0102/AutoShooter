@@ -15,6 +15,7 @@ public class Combat : EventBus, IInit
         {
             _br = value;
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
+            if (weapons.Length > 0) _weaponsSorted = weapons.OrderBy(n => n.spell.areaOfEffect).ToArray();
             return;
 
             IEnumerator SearchTargetCoroutine(float delay)
@@ -40,11 +41,22 @@ public class Combat : EventBus, IInit
         set
         {
             _myTarget = value;
-            if (value != null) distanceToTarget = Utils.Distance(Br.myTransform.position, value.position);
+            if (value != null)
+            {
+                targetsBrain = value.GetComponent<Brain>();
+                distanceToTarget = Utils.Distance(Br.myTransform.position, value.position);
+            }
+            else
+            {
+                targetsBrain = null;
+            }
         }
     }
     [ShowInInspector, ReadOnly] Transform _myTarget;
     [ReadOnly] public float distanceToTarget;
+    [ReadOnly] public Brain targetsBrain;
+    public SpellMain[] weapons = System.Array.Empty<SpellMain>();
+    SpellMain[] _weaponsSorted = System.Array.Empty<SpellMain>();
     [SerializeField] protected float detectRange = float.MaxValue;
     
     float _timerBlockReady;
@@ -79,7 +91,7 @@ public class Combat : EventBus, IInit
 
     public void CheckBlock(out bool blocked, Brain otherBrain = null)
     {
-        blocked = _timerBlockReady >= 0 && Random.value * 100 < Br.myChar.GetStat(Stats.Block);
+        blocked = _timerBlockReady >= 0 && Random.value * 100 < Br.character.GetStat(Stats.Block);
         if (!blocked) return;
         StartCoroutine(ResetBlockTimer());
         CombatEventRegistered(CombatEvent.Block, otherBrain);

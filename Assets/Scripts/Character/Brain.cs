@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 public class Brain : EventBus
@@ -10,13 +11,14 @@ public class Brain : EventBus
     public Transform myTransform;
     public Rigidbody myRigid;
     public SphereCollider myCollider;
+    public NavMeshAgent agent;
     [SerializeField] Transform fakeShadow;
-    [SerializeField, Range(1, 5)] int size = 1;
+    [Range(1, 5)] public int size = 1;
     [SerializeField] Transform parPs;
     [Title("Body")]
     public GenOrder skin;
     [SerializeField] GameObject characterGo, healthGo, statusGo, locoGo, combatGo;
-    [HideInInspector] public Character myChar;
+    [HideInInspector] public Character character;
     [HideInInspector] public Health health;
     [HideInInspector] public Status status;
     [HideInInspector] public Loco loco;
@@ -26,8 +28,8 @@ public class Brain : EventBus
     {
         if (characterGo.TryGetComponent(out Character c))
         {
-            myChar = c;
-            myChar.Br = this;
+            character = c;
+            character.Br = this;
         }
         if (healthGo.TryGetComponent(out Health h))
         {
@@ -70,9 +72,9 @@ public class Brain : EventBus
         fakeShadow.localScale = size * Vector3.one;
         if (loco == null) return;
         loco.transform.localScale = size * Vector3.one;
-        E_Loco eLoco  = loco as E_Loco;
-        if (eLoco != null) eLoco.agent.radius = size * 0.5f;
+        agent.radius = size * 0.5f;
     }
+    
     [Button]
     public void ToggleFaction()
     {
@@ -81,4 +83,19 @@ public class Brain : EventBus
         Faction = (Faction)f;
         Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
     }
+
+
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //   //  print($"I am {gameObject.name} and have collided with {collision.gameObject.name}");
+    //     if (collision.gameObject.TryGetComponent(out Brain br))
+    //     {
+    //         if (myTransform == Ga.me.team.playerTransform)
+    //         {
+    //             Vector3 dir = Utils.Direction(br.myTransform.position, myTransform.position);
+    //             myRigid.AddForce(100f * dir, ForceMode.VelocityChange);
+    //         }
+    //         print($"I am {gameObject.name} and have collided with {br.myTransform.name} and it has a brain");
+    //     }
+    // }
 }

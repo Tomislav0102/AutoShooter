@@ -13,7 +13,7 @@ public class E_AllCombat : EnemyCombat
             case 0: //melee
                 damMelee = new Dictionary<Element, float>()
                 {
-                    { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
+                    { Element.Physical, Br.character.GetStat(Stats.MeleeDamage) },
                 };
                 SpellMain melee = Instantiate(meleeWeapon,
                     Br.myTransform.position,
@@ -24,7 +24,7 @@ public class E_AllCombat : EnemyCombat
             case 1: //bullet
                 damRanged = new Dictionary<Element, float>()
                 {
-                    { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
+                    { Element.Fire, Br.character.GetStat(Stats.RangedDamage) },
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(rangedWeapon, zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
@@ -45,7 +45,7 @@ public class E_AllCombat : EnemyCombat
             case 0:
                 damRanged = new Dictionary<Element, float>()
                 {
-                    { Element.Fire, Br.myChar.GetStat(Stats.RangedDamage) },
+                    { Element.Fire, Br.character.GetStat(Stats.RangedDamage) },
                 };
 
                 SpellMain lob = Instantiate(rangedWeapon, spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);

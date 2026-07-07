@@ -43,7 +43,7 @@ public class EnemyCombat : Combat
                 _eLoco.MoveCurrent = _eLoco.moveIdlingDefault;
                 for (int i = 0; i < 2; i++)
                 {
-                    _eLoco.Attack(false, i);
+                    _eLoco.AttackAnimation(false, i);
                 }
                 _eLoco.weaponRange = E_Loco.RangeArea.OutOfRange;
             }
@@ -78,12 +78,6 @@ public class EnemyCombat : Combat
     
             }
         }
-    }
-
-    public override void FromAnimEv_Attack(int num = 0)
-    {
-        base.FromAnimEv_Attack(num);
-        _eLoco.AttackDone();
     }
 }
 

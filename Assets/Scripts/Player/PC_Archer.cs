@@ -5,7 +5,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
-public class P_Archer : PlayerCombat
+public class PC_Archer : P_Combat
 {
     public override Brain Br
     {
@@ -15,7 +15,7 @@ public class P_Archer : PlayerCombat
             base.Br = value;
             damRanged = new Dictionary<Element, float>()
             {
-                { Element.Physical, Br.myChar.GetStat(Stats.RangedDamage) }
+                { Element.Physical, Br.character.GetStat(Stats.RangedDamage) }
             };
             IsInitialized = true;
         }
@@ -52,13 +52,15 @@ public class P_Archer : PlayerCombat
         _rollCoroutine = StartCoroutine(RollCoroutine());
         IEnumerator RollCoroutine()
         {
-            pLoco.Impaired = Loco.Impairment.Both;
+            // Br.loco.OvrMove = true;
+            // Br.loco.OvrOrientation = true;
             Br.loco.Roll();
             psRoll.Play();
             Vector3 dir = pLoco.effJoystickValue == Vector2.zero ? Br.myTransform.forward : Utils.MakeV3(pLoco.effJoystickValue);
             Br.myRigid.AddForce(80 * dir, ForceMode.VelocityChange);
             yield return new WaitForSeconds(CONST_RollTime);
-            pLoco.Impaired = Loco.Impairment.None;
+            // Br.loco.OvrMove = false;
+            // Br.loco.OvrOrientation = false;
             psRoll.Stop();
         }
 

@@ -9577,7 +9577,7 @@ GameObject:
   - component: {fileID: 8649677837526488170}
   - component: {fileID: 7280936722291055722}
   m_Layer: 12
-  m_Name: Bow  (1)
+  m_Name: 'Bow '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14618,6 +14618,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P_Archer
   <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
+  weapons:
+  - {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
   detectRange: 3.4028235e+38
   engageRange: 10
   ultimateCooldownTime: 2

@@ -15,7 +15,7 @@ public class Health: EventBus, IInit
         {
             _br = value;
             _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
-            _healthMax = value.myChar.GetStat(Stats.Health);
+            _healthMax = value.character.GetStat(Stats.Health);
             _healthBarTransform = _healthBar.transform;
             _shieldBar = _healthBarTransform.GetChild(0).GetComponent<Image>();
             HealthCurrent = _healthMax;
@@ -182,7 +182,7 @@ public class Health: EventBus, IInit
             if (_timerRegenerate >= 1f)
             {
                 _timerRegenerate = 0f;
-                HealthCurrent += Br.myChar.GetStat(Stats.RegenerationRate) * 0.01f;
+                HealthCurrent += Br.character.GetStat(Stats.RegenerationRate) * 0.01f;
             }
         }
         else _timerRegenerate = 0f;

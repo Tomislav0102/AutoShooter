@@ -1,7 +1,12 @@
 GENERAL
+Consider using flow field instead of NavMesh.
+Continue implementing NavMesh to player.
 
 OPTIMIZATION
 Coroutine - cache 'WaitForSeconds' in Dictionary
+
+KNIGHT
+Fix stab animation (animator is ready)
 
 ENEMY
 

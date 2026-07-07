@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5108658236475643279, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7462514812626402230, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -100,9 +104,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7100723032775579262}
     - targetCorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7364825630562513233}
@@ -128,41 +129,13 @@ MonoBehaviour:
   rotationConstraint: {fileID: 3731593144273461746}
   moveSpeed: 0
   knockBackResistance: 0
-  lookAtTarget: 0
-  controlsEnabled: 1
+  <OvrMove>k__BackingField: 0
+  <OvrOrientation>k__BackingField: 0
   weaponRange: 2
   moveIdlingDefault: 0
   moveFightingDefault: 4
-  moveCurrent: 0
-  agent: {fileID: 7100723032775579262}
+  agent: {fileID: 0}
   myMaterials: []
---- !u!1 &2281149104477910870 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3230883051578875362, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 3710440535994624692}
-  m_PrefabAsset: {fileID: 0}
---- !u!195 &7100723032775579262
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2281149104477910870}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 0
-  m_Acceleration: 1.11111114e+21
-  avoidancePriority: 50
-  m_AngularSpeed: 300
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &3731593144273461746 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
