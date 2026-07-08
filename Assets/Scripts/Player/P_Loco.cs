@@ -15,7 +15,7 @@ public class P_Loco : Loco
         {
             base.Br = value;
             Ga.me.team.playerTransform = value.myTransform;
-            agent.updateRotation = false;
+            value.agent.updateRotation = false;
 
             IsInitialized = true;
         }
@@ -65,7 +65,6 @@ public class P_Loco : Loco
     int _posId = Shader.PropertyToID("_Position");
     int _sizeID = Shader.PropertyToID("_Size");
     Transform _camTransform;
-    public NavMeshAgent agent;
 
     void Awake()
     {
@@ -76,29 +75,25 @@ public class P_Loco : Loco
     {
         float camAngle = Ga.me.cameraRigTransform.eulerAngles.y;
         effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
-        Vector3 myForward = Vector3.zero;
+        Vector3 myForward;
         if (OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
         else myForward = Utils.MakeV3(effJoystickValue);
         Orientation(myForward);
         Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
-    }
-
-    void FixedUpdate()
-    {
         if (!OvrMove) Move();
-        
-        float shaderFloat = Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)) ? 0.5f: 0f;
-        Ga.me.matSeeThroughWalls.SetFloat(_sizeID, shaderFloat);
-
         void Move()
         {
             float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
             float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
             Direction_Move(dotHor, dotVer);
-          //  Br.myRigid.AddForce(1000 * Utils.MakeV3(moveSpeed * effJoystickValue));
-          agent.velocity = Utils.MakeV3(moveSpeed * effJoystickValue);
+            Br.agent.velocity = moveSpeed * Utils.MakeV3(effJoystickValue);
         }
+    }
 
+    void FixedUpdate()
+    {
+        float shaderFloat = Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)) ? 0.5f: 0f;
+        Ga.me.matSeeThroughWalls.SetFloat(_sizeID, shaderFloat);
     }
 
     protected override void CallEv_OnLevelLoaded()
@@ -107,14 +102,4 @@ public class P_Loco : Loco
         Physics.IgnoreCollision(Ga.me.LevelMan.ground.GetComponent<Collider>(), Br.myCollider);
     }
 
-    protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
-    {
-        yield return base.PushMeSequence(dir, deltaIntensity);
-        OvrMove = true;
-        float effIntensity = 5 * deltaIntensity;
-        effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
-        Br.myRigid.AddForce(effIntensity * dir, ForceMode.VelocityChange);
-        yield return new WaitForSeconds(Ga.me.gameData.pushDuration);
-        OvrMove = false;
-    }
 }

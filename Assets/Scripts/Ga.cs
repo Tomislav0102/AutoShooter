@@ -16,7 +16,7 @@ public class Ga : MonoBehaviour
     [HideInInspector] public Transform[] waypoints;
 
     [BoxGroup("Particles")] 
-    public ParticleSystem psSpawn, psDeath, psDecalFire;
+    public ParticleSystem psGenericImpact, psSpawn, psDeath, psDecalFire;
     public LevelManager LevelMan
     {
         get => _levelMan;

@@ -43,7 +43,6 @@ public class Character : MonoBehaviour, IInit
     }
 
 
-    
     class StatSingle
     {
         public List<Buff> buffs;
@@ -69,7 +68,7 @@ public class Character : MonoBehaviour, IInit
         }
 
     }
-    public class Buff
+    class Buff
     {
         public BuffType buffType;
         public int bonus;

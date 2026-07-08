@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Brain : EventBus
 {
@@ -13,7 +14,7 @@ public class Brain : EventBus
     public SphereCollider myCollider;
     public NavMeshAgent agent;
     [SerializeField] Transform fakeShadow;
-    [Range(1, 5)] public int size = 1;
+    [Range(0.2f, 5f)] public float size = 1;
     [SerializeField] Transform parPs;
     [Title("Body")]
     public GenOrder skin;
@@ -52,6 +53,7 @@ public class Brain : EventBus
             combat.Br = this;
         }
         Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
+        if (myTransform != Ga.me.team.playerTransform) size *= Random.Range(0.9f, 1.1f);
         ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
         ps.transform.localScale = size * Vector3.one;
@@ -63,7 +65,7 @@ public class Brain : EventBus
     [Title("Debug")] 
     public bool debugGeneral;
     [Button]
-    void ChangeSize(int newSize)
+    void ChangeSize(float newSize)
     {
         size = newSize;
         myCollider.radius = size * 0.5f;

@@ -2405,7 +2405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveSpeed
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveIdlingDefault
@@ -2543,6 +2543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
   <IsInitialized>k__BackingField: 0
   distanceToTarget: 0
+  targetsBrain: {fileID: 0}
   weapons:
   - {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
   detectRange: 3.4028235e+38

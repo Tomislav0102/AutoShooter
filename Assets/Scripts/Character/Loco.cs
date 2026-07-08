@@ -24,11 +24,11 @@ public class Loco : EventBus, IInit
     public bool IsInitialized { get; set; } //only called in children (because they're on scene)
     [SerializeField] protected Animator anim;
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
-    [SerializeField] protected float moveSpeed;
-    [SerializeField] protected float knockBackResistance;
+    [SerializeField, Range(0, 10)] protected int moveSpeed = 1;
+    [SerializeField] protected int knockBackResistance;
     [field:SerializeField] public virtual bool OvrMove { get; set; } //can control player, override agent destination
     [field:SerializeField] public virtual bool OvrOrientation { get; set; } //has player joystickLookAt, agent.updateRotation
-    Coroutine _pushCoroutine;
+    Coroutine _pushCoroutine, _magnetCoroutine;
     
     #region ANIMATOR
     int _moveHor = Animator.StringToHash("moveHor");
@@ -90,17 +90,42 @@ public class Loco : EventBus, IInit
     {
         float diff = intensity - knockBackResistance;
         if (diff <= 0.5f) return;
+        
         if (dir == Vector3.zero) dir = Utils.MakeV3(Random.insideUnitCircle);
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
-        _pushCoroutine = StartCoroutine(PushMeSequence(dir, diff));
-    }
+        _pushCoroutine = StartCoroutine(PushMe());
+        IEnumerator PushMe()
+        {
+            OvrMove = true;
+            float effIntensity = 5 * diff;
+            effIntensity = Mathf.Clamp(effIntensity, 0f, 10f);
+            Vector3 velocity = effIntensity * dir;
+            Br.agent.ResetPath();
+            while (velocity.magnitude > 0.2f)
+            {
+                Br.agent.velocity = velocity;
+                velocity = Vector3.MoveTowards(velocity, Vector3.zero, effIntensity * Time.deltaTime);
+                yield return null;
+            }
+            OvrMove = false;
+        }
+    }    
 
-    protected virtual IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
+
+    public void Magnet(Vector3 center, int intensity = 1)
     {
-        yield break;
+        if (intensity <= knockBackResistance) return;
+        Vector2 vDelta = Utils.MakeV2(Br.myTransform.position) - Utils.MakeV2(center);
+        if (vDelta.sqrMagnitude < 0.1f) return;
+        if (_magnetCoroutine != null) StopCoroutine(_magnetCoroutine);
+        _magnetCoroutine = StartCoroutine(AttractMe());
+        IEnumerator AttractMe()
+        {
+            OvrMove = true;
+            yield break;
+            OvrMove = false;
+        }
     }
-
-    public virtual void MotionOverrideMagnet(bool isOn, Vector3 center) { }
 
     #endregion
 

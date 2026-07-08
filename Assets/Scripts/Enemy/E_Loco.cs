@@ -48,7 +48,6 @@ public class E_Loco : Loco
             base.Br = value;
             MoveCurrent = moveIdlingDefault;
             Br.agent.enabled = true;
-            Br.agent.speed = moveSpeed;
             Br.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
             weaponRange = RangeArea.OutOfRange;
             Renderer myRenderer =  GetComponentInChildren<Renderer>();
@@ -94,92 +93,71 @@ public class E_Loco : Loco
     }
     void Update()
     {
-        _canMoveNavigation = true;
-        _canMoveCombat = false;
-        OvrOrientation = false;
-        if (OvrMove) return;
-        
-        switch (MoveCurrent)
+        if (OvrMove)
         {
-            case Movement.Stationary:
-                Stationary();
-                break;
-            case Movement.Roam:
-                Roam();
-                break;
-            case Movement.Patrol:
-                Patrol();
-                break;
-            case Movement.Follow:
-                Follow();
-                break;
-            case Movement.Chase:
-                Chase();
-                break;
-            case Movement.Flee:
-                Flee();
-                break;
+            OvrOrientation = true;
         }
+        else
+        {
+            _canMoveNavigation = true;
+            _canMoveCombat = false;
+            OvrOrientation = false;
+            
+            switch (MoveCurrent)
+            {
+                case Movement.Stationary:
+                    Stationary();
+                    _canMoveNavigation = false;
+                    OvrOrientation = true;
+                    break;
+                case Movement.Roam:
+                    Roam();
+                    break;
+                case Movement.Patrol:
+                    Patrol();
+                    break;
+                case Movement.Follow:
+                    Follow();
+                    break;
+                case Movement.Chase:
+                    Chase();
+                    OvrOrientation = true;
+                    break;
+                case Movement.Flee:
+                    Flee();
+                    break;
+            }
 
-        bool[] attacks = new bool[2];
-        switch (weaponRange)
-        {
-            case RangeArea.Melee:
-                attacks[0] = true;
-                break;
-            case RangeArea.Ranged:
-                attacks[1] = true;
-                break;
-            case RangeArea.OutOfRange:
-                _canMoveCombat = true;
-                break;
-        }
-        for (int i = 0; i < attacks.Length; i++)
-        {
-            AttackAnimation(attacks[i], i);
-        }
+            bool[] attacks = new bool[2];
+            switch (weaponRange)
+            {
+                case RangeArea.Melee:
+                    attacks[0] = true;
+                    break;
+                case RangeArea.Ranged:
+                    attacks[1] = true;
+                    break;
+                case RangeArea.OutOfRange:
+                    _canMoveCombat = true;
+                    break;
+            }
+            for (int i = 0; i < attacks.Length; i++)
+            {
+                AttackAnimation(attacks[i], i);
+            }
 
-        bool canMove = _canMoveNavigation && _canMoveCombat && IsAttackAnimationOver();
-        Toggle_Move(canMove);
-        Br.agent.speed = canMove ? moveSpeed : 0f;
+            bool canMove = _canMoveNavigation && _canMoveCombat && IsAttackAnimationOver();
+            Toggle_Move(canMove);
+            Br.agent.speed = canMove ? moveSpeed : 0;
+        }
         
         if (OvrOrientation) Orientation(Br.combat.MyTarget);
     }
-
-    protected override IEnumerator PushMeSequence(Vector3 dir, float deltaIntensity = 1)
-    {
-        yield return base.PushMeSequence(dir, deltaIntensity);
-        OvrMove = true;
-        float effIntensity = 5 * deltaIntensity;
-        effIntensity = Mathf.Clamp(effIntensity, 0f, 30f);
-        Vector3 velocity = effIntensity * dir;
-        Br.agent.ResetPath();
-        while (velocity.magnitude > 0.2f)
-        {
-            Vector3 translationThisFrame = velocity * Time.deltaTime;
-            Br.agent.Move(translationThisFrame);
-            velocity = Vector3.MoveTowards(velocity, Vector3.zero, effIntensity * 1.5f * Time.deltaTime);
-            yield return null;
-        }
-        OvrMove = false;
-    }
-    public override void MotionOverrideMagnet(bool isOn, Vector3 center)
-    {
-        base.MotionOverrideMagnet(isOn, center);
-        Br.agent.updateRotation = !isOn;
-        OvrMove = isOn;
-        if (isOn)
-        {
-            Vector3 pullDirection = center - Br.myTransform.position;
-            Br.agent.destination = center;
-        }
-    }
+    
     
     #region NAVIGATION
     void Stationary() //no movement, just rotation
     {
-        _canMoveNavigation = false;
-        OvrOrientation = true;
         if (_stationaryIsTurning)
         {
             Br.myTransform.Rotate(_stationaryRotAxis, _timerStationary * 0.2f);
@@ -235,7 +213,6 @@ public class E_Loco : Loco
     }
     void Chase()
     {
-        OvrOrientation = true;
         if (Br.combat.MyTarget == null) return;
         
         if (weaponRange == RangeArea.OutOfRange)

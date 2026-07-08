@@ -1,9 +1,12 @@
 GENERAL
-Consider using flow field instead of NavMesh.
-Continue implementing NavMesh to player.
+Knockback feature works, now it needs to be extended to Magnet feature.
+
+TRAPS
+Spikes on walls - stationary. damage is proportional to velocity of target. great for knockback enemies. 
 
 OPTIMIZATION
 Coroutine - cache 'WaitForSeconds' in Dictionary
+Consider using flow field instead of NavMesh.
 
 KNIGHT
 Fix stab animation (animator is ready)

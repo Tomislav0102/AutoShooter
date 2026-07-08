@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 51156530275059416, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: m_Acceleration
+      value: 1e+27
+      objectReference: {fileID: 0}
     - target: {fileID: 508819144775660111, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -134,7 +138,6 @@ MonoBehaviour:
   weaponRange: 2
   moveIdlingDefault: 0
   moveFightingDefault: 4
-  agent: {fileID: 0}
   myMaterials: []
 --- !u!114 &3731593144273461746 stripped
 MonoBehaviour:
