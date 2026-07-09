@@ -4917,6 +4917,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 51156530275059416, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: avoidancePriority
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 51156530275059416, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Weight
       value: 0

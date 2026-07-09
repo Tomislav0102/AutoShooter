@@ -1,12 +1,14 @@
 GENERAL
-Knockback feature works, now it needs to be extended to Magnet feature.
+Knockback - scale for knockback effect is 0-99, should be the same for resistance
 
 TRAPS
-Spikes on walls - stationary. damage is proportional to velocity of target. great for knockback enemies. 
+Basic floor trap - stationary spell, always active, invulnerable
+Spikes on walls - stationary, damage is proportional to velocity of target, great for knockback enemies. 
 
 OPTIMIZATION
 Coroutine - cache 'WaitForSeconds' in Dictionary
 Consider using flow field instead of NavMesh.
+NavMeshAgent for player is set to low quality and high priority, maybe that will cause bugs.
 
 KNIGHT
 Fix stab animation (animator is ready)

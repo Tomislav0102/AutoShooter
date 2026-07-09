@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using UnityEngine.AI;
 
 public class Test : SerializedMonoBehaviour
 {
-    public Transform target;
-    public float rotSpeed;
-    bool _isRotating;
+    
+    public NavMeshAgent agent;
+    public Transform main;
+    public Vector3 addedVelocity;
     [Button]
     void Generate()
     {
-        target.RotateAround(transform.position, Vector3.up, 30);
+        agent.ResetPath();
+        agent.destination = main.position;
+        agent.velocity += addedVelocity;
     }
     [Button]
     void ResetThing()
     {
-        _isRotating = false;
-        transform.rotation = Quaternion.identity;
+        
     }
 
-    
 }
 
 

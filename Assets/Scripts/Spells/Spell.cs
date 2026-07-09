@@ -103,7 +103,7 @@ public class Spell : SerializedMonoBehaviour
                 {
                     if (injectHealth.knockBack > 0 && br.loco != null)
                     {
-                        Vector3 dir = Utils.Direction(main.myTransform.position, br.myTransform.position);
+                        Vector3 dir = Utils.Direction(main.OwnersBrain.myTransform.position, br.myTransform.position);
                         br.loco.KnockBack(dir, injectHealth.knockBack);
                         b = br;
                     }

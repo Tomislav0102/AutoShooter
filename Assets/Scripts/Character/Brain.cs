@@ -86,6 +86,12 @@ public class Brain : EventBus
         Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
     }
 
+    [Button]
+    public void PushMe()
+    {
+        agent.velocity += 10 * Vector3.forward;
+    }
+
 
     // void OnCollisionEnter(Collision collision)
     // {
