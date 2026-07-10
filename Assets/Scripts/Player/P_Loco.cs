@@ -79,7 +79,6 @@ public class P_Loco : Loco
         if (OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
         else myForward = Utils.MakeV3(effJoystickValue);
         Orientation(myForward);
-        Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
         if (!OvrMove) Move();
         void Move()
         {
@@ -90,16 +89,9 @@ public class P_Loco : Loco
         }
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
-        float shaderFloat = Physics.Linecast(_camTransform.position, Br.myTransform.position, Utils.MyLayer(Ga.me.gameData.layWallsSeeThrough)) ? 0.5f: 0f;
-        Ga.me.matSeeThroughWalls.SetFloat(_sizeID, shaderFloat);
-    }
-
-    protected override void CallEv_OnLevelLoaded()
-    {
-        base.CallEv_OnLevelLoaded();
-        Physics.IgnoreCollision(Ga.me.LevelMan.ground.GetComponent<Collider>(), Br.myCollider);
+        Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
     }
 
 }

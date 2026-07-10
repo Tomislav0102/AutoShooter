@@ -99,6 +99,7 @@ public class Loco : EventBus, IInit
 
         IEnumerator PushMe()
         {
+            OvrMove = true;
             Br.agent.acceleration = 10;
             Br.agent.velocity = 0.2f * diff * dir;
             float timer = 0.5f;
@@ -108,6 +109,7 @@ public class Loco : EventBus, IInit
                 yield return null;
             }
             Br.agent.acceleration = 10000;
+            OvrMove = false;
         }
     }
 

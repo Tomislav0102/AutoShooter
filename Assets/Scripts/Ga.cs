@@ -37,7 +37,6 @@ public class Ga : MonoBehaviour
     public Transform cameraRigTransform;
     [HideInInspector] public Camera cam;
     public TeamManager team =  new TeamManager();
-    public Material matSeeThroughWalls;
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
     [Title("Debug")] 

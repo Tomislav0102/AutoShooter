@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 
 public class LevelManager : EventBus
 {
-    public Transform ground;
     [BoxGroup("Enemy spawns")]
     public Transform spawnArea;
     [BoxGroup("Enemy spawns")]

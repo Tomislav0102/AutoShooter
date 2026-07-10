@@ -17,6 +17,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain manaShield;
    public SpellMain shieldFromProjectiles;
    public SpellMain swordFire, swordIce, swordElectricity;
+   public SpellMain pushPulsating;
    [Title("Mage Fire")]
    public SpellMain flameThrower;
    public SpellMain meteorStrike;
@@ -29,7 +30,6 @@ public class SpellManager : MonoBehaviour
    [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;
-   public SpellMain pushPulsating;
    public SpellMain sweepingArc;
    public SpellMain reflectProjectile;
    public SpellMain shieldThrow;

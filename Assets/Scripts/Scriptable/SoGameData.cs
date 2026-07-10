@@ -13,6 +13,7 @@ public class SoGameData : ScriptableObject
     public float pushDuration;
     [Title("Navigation")]
     public float agentRotSpeed;
+    
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;
     public ElementGroup GetElement(Element el)
@@ -23,6 +24,15 @@ public class SoGameData : ScriptableObject
         }
         return default;
     }
+     [System.Serializable] public struct ElementGroup
+    {
+        public Element element;
+        public string name;
+        public Color col;
+        public Sprite sprite;
+        public TMP_ColorGradient gradient;
+    }
+
 
     [Title("Colors")]
     public Color colHeal;
@@ -35,8 +45,6 @@ public class SoGameData : ScriptableObject
     public string SceneLevel() => $"Level{level}";
     public string layActors;
     public string layObstacle;
-    public string layGround;
-    public string layWallsSeeThrough;
     public string laySpell;
     public string laySpellInterrupt;
     
@@ -51,14 +59,5 @@ public class SoGameData : ScriptableObject
     
     
     
-    [System.Serializable]
-    public struct ElementGroup
-    {
-        public Element element;
-        public string name;
-        public Color col;
-        public Sprite sprite;
-        public TMP_ColorGradient gradient;
-    }
 }
 

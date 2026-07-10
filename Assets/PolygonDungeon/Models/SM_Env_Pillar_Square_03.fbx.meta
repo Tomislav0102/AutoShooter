@@ -86,21 +86,21 @@ ModelImporter:
     maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 1
-    secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
-    secondaryUVHardAngle: 88
-    secondaryUVMarginMethod: 0
-    secondaryUVMinLightmapResolution: 40
+    secondaryUVAngleDistortion: 18
+    secondaryUVAreaDistortion: 13
+    secondaryUVHardAngle: 90
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 1
     secondaryUVMinObjectScale: 1
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 1
     useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
-    normalSmoothAngle: 5
-    normalImportMode: 1
+    normalSmoothAngle: 9
+    normalImportMode: 0
     tangentImportMode: 1
     normalCalculationMode: 0
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []

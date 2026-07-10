@@ -134,7 +134,7 @@ public class Utils
     {
         //  const float CONST_CamEdgeBottom = 7f;
 
-        float mod = 0.05f;
+        float mod = 0.015f;
         float x = camTr.position.x;
         float z = camTr.position.z;
         

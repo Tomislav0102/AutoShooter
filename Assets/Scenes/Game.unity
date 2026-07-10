@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: 44c6da7d2a61495459437826769399db, type: 2}
+  m_LightingDataAsset: {fileID: 112000004, guid: ad10484639c2b2542be8429d52187fce, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -10985,6 +10985,14 @@ PrefabInstance:
     - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: power
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: powerDash
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: powerKnockback
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -103409,7 +103417,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885458251}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
@@ -103433,7 +103441,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885458251}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -131323,7 +131331,6 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 5886353900442050348, guid: f9d91326456e2f64fa43f969e0cedfaa, type: 3}
   cameraRigTransform: {fileID: 895749635}
   cam: {fileID: 0}
-  matSeeThroughWalls: {fileID: 2100000, guid: 422123ba09d6e0b419c3d6362f748453, type: 2}
   joystick: {fileID: 7896879426726389519}
   ultimateUi: {fileID: 1864630403}
   debug: 0
@@ -232829,6 +232836,7 @@ MonoBehaviour:
   swordFire: {fileID: 141007761697373337, guid: b955b70fd384ae2478146dabbffd07d6, type: 3}
   swordIce: {fileID: 848990959211647510, guid: 8ad852ff539746d4a85ebec8a1afe7e9, type: 3}
   swordElectricity: {fileID: 8597743067877788286, guid: 5c570555f9e952241bd60953e1bda885, type: 3}
+  pushPulsating: {fileID: 4182053067932181034, guid: 0d6db314f2c593b498989dacd0d821c8, type: 3}
   flameThrower: {fileID: 3141391959439269076, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
   meteorStrike: {fileID: 508540452596679946, guid: 11d6aef39fe45a2498b2b92ee3c1a691, type: 3}
   walkTrailSingle: {fileID: 7537306512381167856, guid: 614a1a6bae2dc724aabdc10c63ac937d, type: 3}
@@ -232838,7 +232846,6 @@ MonoBehaviour:
   overload: {fileID: 2258241833145700990, guid: 1bbf318075619b54f9a7e2ee00ca7001, type: 3}
   meleePlayer: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   push: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
-  pushPulsating: {fileID: 4182053067932181034, guid: 0d6db314f2c593b498989dacd0d821c8, type: 3}
   sweepingArc: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
   reflectProjectile: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
   shieldThrow: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}

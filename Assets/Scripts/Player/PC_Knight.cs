@@ -51,7 +51,8 @@ public class PC_Knight : P_Combat
 
     [Title("Knight")]
     [SerializeField] Transform myShield;
-    [SerializeField] int power = 2;
+    [SerializeField] int powerKnockback = 2;
+    [SerializeField] int powerDash = 2;
     public int startActive;
     
     public override void FromAnimEv_Attack(int num = 0)
@@ -63,7 +64,7 @@ public class PC_Knight : P_Combat
             if (br == null) CombatEventRegistered(CombatEvent.Miss);
             else CombatEventRegistered(CombatEvent.Hit, br);
         };
-        injectHealth = new InjectHealth(damMelee, true, power);
+        injectHealth = new InjectHealth(damMelee, true, powerKnockback);
         melee.InitializeMe(Br, injectHealth);
     }
 
@@ -72,9 +73,9 @@ public class PC_Knight : P_Combat
         base.FromAnimEv_Ultimate(num);
         SpellMain dash = Instantiate(Ga.me.spells.dash, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         dash.transporter.target = Br.myTransform;
-        injectHealth = new InjectHealth(damUltimate, false, power);
+        injectHealth = new InjectHealth(damUltimate, false, powerKnockback);
         dash.InitializeMe(Br, injectHealth);
-        Br.myRigid.AddRelativeForce(power * 5 * Vector3.forward, ForceMode.VelocityChange);
+        Br.loco.KnockBack(Br.myTransform.forward, powerDash);
     }
 
     public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
