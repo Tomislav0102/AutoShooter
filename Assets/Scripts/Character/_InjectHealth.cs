@@ -8,6 +8,7 @@ public class InjectHealth
     [HideInInspector] public Brain myBrain;
     public bool canBeBlocked;
     [Range(0, 20)] public int knockBack;
+    public Vector2 knockBackDirection; //ignored if = Vector2.zero
     public Dictionary<Element, float> damage =  new Dictionary<Element, float>();
 
     public Dictionary<string, string> tags = new Dictionary<string, string>();

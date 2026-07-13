@@ -10,9 +10,10 @@ public class SoGameData : ScriptableObject
     public int level;
     [Title("General")]
     public float rofSpells;
-    public float pushDuration;
     [Title("Navigation")]
     public float agentRotSpeed;
+    [Title("Player class specific")]
+    public float dashTime = 1;
     
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;

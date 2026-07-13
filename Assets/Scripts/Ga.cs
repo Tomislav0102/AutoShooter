@@ -49,7 +49,7 @@ public class Ga : MonoBehaviour
         cam = cameraRigTransform.GetComponentInChildren<Camera>();
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
 #if (!UNITY_EDITOR)
-        SceneManager.LoadScene(gameData.SceneLevel(), LoadSceneMode.Additive);
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
 
 #endif
     }

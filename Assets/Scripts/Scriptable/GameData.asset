@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoGameData
   level: 1
   rofSpells: 0.5
-  pushDuration: 0.2
   agentRotSpeed: 100
+  dashTime: 0.2
   element:
   - element: 0
     name: Physical
@@ -60,7 +60,5 @@ MonoBehaviour:
   sceneGame: Game
   layActors: Actor
   layObstacle: Obstacle
-  layGround: Ground
-  layWallsSeeThrough: WallsSeeThrough
   laySpell: Spell
   laySpellInterrupt: SpellInterrupt

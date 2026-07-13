@@ -12,7 +12,15 @@ public enum GenCalcChange { Increase,  Decrease, Replace }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
 
-
+public enum AnimAttackType
+{
+    Melee,
+    //MeleeBig,
+    Ranged,
+    //RangedBig,
+    //  Cast,
+    Ultimate
+}
 public enum ColliderType { Sphere, Capsule, None }//includes Overlap shape too. Capsule always has radius of 0.5f, regardless of areaOfEffect.
 public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
@@ -23,11 +31,13 @@ public enum Alertness { Relaxed, Alarmed, Fighting }
 public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill }
 public enum Stats
 {
+    //primary
     Strength, 
     Dexterity, 
     Constitution, 
     Intelligence,
-    //
+    
+    //secondary - derived form primaries
     MeleeDamage, 
     RangedDamage, 
     MagicDamage, 
@@ -39,13 +49,21 @@ public enum Stats
     RegenerationRate, //hp increase (divided by 100) per second
     Toughness,
     Resolve,
-    ///
+    Resistances, //opens another enum 'Element'
+    
+    //tertiary - adds to spell variables
+    Size, 
+    Area,
+    Duration,
+    KnockBack,
     CritChance,
     CritMod,
+    
+    //quaternary
     Xp,
     Gold,
-    Loot,
-    Resistances //opens another enum 'Element'
+    Loot
+    //quinary
 }
 
 

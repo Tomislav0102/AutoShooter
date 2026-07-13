@@ -175,16 +175,18 @@ MonoBehaviour:
       Data: 
   myFactionTarget: 1
   areaOfEffect: 2
+  range: 1
   warningDelay: 0
   hitChance: 1
-  lifeTime: 1
+  lifeTime: 0
   rateOfFire: 0
-  terminateOnHit: 1
+  terminateOnHit: 0
   useInspectorDamageData: 1
   injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
+    knockBackDirection: {x: 0, y: 0}
   hitEffect: 0
   hitEffectOnSpell: 0
   spellsToAffect: []

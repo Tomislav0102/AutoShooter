@@ -5,10 +5,10 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-
 public class Spell : SerializedMonoBehaviour
 {
     protected bool initialized;
+
     public enum Phase
     {
         BeginWarning,
@@ -47,7 +47,7 @@ public class Spell : SerializedMonoBehaviour
 
     protected SpellMain main;
     [SerializeField] protected FactionToTarget myFactionTarget = FactionToTarget.Enemy;
-    public float areaOfEffect = 1;
+    public float areaOfEffect = 1f;
     [SerializeField] float warningDelay;
     [Range(0f, 1f)] public float hitChance = 1f;
     [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
@@ -103,8 +103,11 @@ public class Spell : SerializedMonoBehaviour
                 {
                     if (injectHealth.knockBack > 0 && br.loco != null)
                     {
-                        Vector3 dir = Utils.Direction(main.OwnersBrain.myTransform.position, br.myTransform.position);
-                        br.loco.KnockBack(dir, injectHealth.knockBack);
+                        Vector3 dir;
+                        if (injectHealth.knockBackDirection.Equals(Vector2.zero)) dir = Utils.Direction(main.OwnersBrain.myTransform.position, br.myTransform.position);
+                        else dir = Utils.MakeV3(injectHealth.knockBackDirection);
+                        if (main.debug) print(dir);
+                        br.loco.PushMe(dir, Loco.MoveOverrideType.KnockBack, injectHealth.knockBack);
                         b = br;
                     }
                     if (injectHealth.damage.Count > 0)

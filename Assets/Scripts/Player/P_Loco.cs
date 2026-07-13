@@ -36,23 +36,22 @@ public class P_Loco : Loco
             if (value == _alertness) return;
             _alertness = value;
             anim.SetLayerWeight(1, 1);
-            AttackAnimation(false);
-            AttackAnimation(false, 1);
             rotationConstraint.weight = 0; 
            // if (weaponTrail != null) weaponTrail.Stop();
            OvrOrientation = true;
             switch (_alertness)
             {
                 case Alertness.Relaxed:
+                    AttackAnimation(null);              
                     OvrOrientation = false;
                     anim.SetLayerWeight(1, 0);
                     break;
                 case Alertness.Alarmed:
+                    AttackAnimation(null);              
                     break;
                 case Alertness.Fighting:
                   //  if (weaponTrail != null) weaponTrail.Play();
-                    AttackAnimation(true);
-                    AttackAnimation(true, 1);
+                    AttackAnimation(AnimAttackType.Melee);
                     rotationConstraint.weight = 1;
                     break;
             }

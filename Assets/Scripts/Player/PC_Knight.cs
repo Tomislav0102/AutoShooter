@@ -19,7 +19,7 @@ public class PC_Knight : P_Combat
             {
                  // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
                   // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                   { Element.Electricity, 2f },
+                //   { Element.Electricity, 2f },
                  // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
                  // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
             };
@@ -29,7 +29,7 @@ public class PC_Knight : P_Combat
             };
             damUltimate = new Dictionary<Element, float>()
             {
-                { Element.Electricity, Br.character.GetStat(Stats.MagicDamage) },
+                { Element.Poison, Br.character.GetStat(Stats.MagicDamage) },
             };
             switch (startActive)
             {
@@ -71,11 +71,20 @@ public class PC_Knight : P_Combat
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
+        Br.loco.PushMe(Br.myTransform.forward, Loco.MoveOverrideType.Dash, powerDash);
+        
         SpellMain dash = Instantiate(Ga.me.spells.dash, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         dash.transporter.target = Br.myTransform;
-        injectHealth = new InjectHealth(damUltimate, false, powerKnockback);
+        
+        injectHealth = new InjectHealth(damUltimate, false, 30);
+        Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
+        knockBackDir2.Normalize();
+        knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (Random.Range(0,2) - 1));
+        injectHealth.knockBackDirection = knockBackDir2;
         dash.InitializeMe(Br, injectHealth);
-        Br.loco.KnockBack(Br.myTransform.forward, powerDash);
+        
+        dash.spell.areaOfEffect = Br.size + 1;
+        dash.spell.lifeTime = Ga.me.gameData.dashTime;
     }
 
     public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)

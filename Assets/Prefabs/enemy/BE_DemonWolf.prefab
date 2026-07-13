@@ -2408,8 +2408,16 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: behIdlingDefault
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveIdlingDefault
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: behFightingDefault
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myMaterials.Array.size
@@ -2541,15 +2549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
+  trios:
+  - spellMain: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
+    attackType: 0
+    range: 0
   <IsInitialized>k__BackingField: 0
-  distanceToTarget: 0
-  targetsBrain: {fileID: 0}
-  weapons:
-  - {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-  detectRange: 3.4028235e+38
-  meleeWeapon: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-  rangedWeapon: {fileID: 0}
-  rangeRanged: 10
   spawnPoint: {fileID: 2031405845141860428}
 --- !u!114 &3853920283161297884 stripped
 MonoBehaviour:

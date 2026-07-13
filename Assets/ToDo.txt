@@ -1,8 +1,10 @@
 GENERAL
+Push feature - define knockback, dash, magnet
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
-          - while OvrMove = true, cant switch "Movemement" - cant attack("Chase")
+Combat -> public SpellMain[] weapons - finish
+          
 TRAPS
-Basic floor trap - stationary spell, always active, invulnerable
+Basic floor trap - stationary spell, always active
 Spikes on walls - stationary, damage is proportional to velocity of target, great for knockback enemies. 
 
 OPTIMIZATION

@@ -7,16 +7,16 @@ using UnityEngine.AI;
 
 public class Test : SerializedMonoBehaviour
 {
-    
-    public NavMeshAgent agent;
-    public Transform main;
-    public Vector3 addedVelocity;
+    public LayerMask lm;
+    public bool isInLm;
+    public GameObject[] gos;
     [Button]
     void Generate()
     {
-        agent.ResetPath();
-        agent.destination = main.position;
-        agent.velocity += addedVelocity;
+        for (int i = gos.Length - 1; i >= 0; i--)
+        {
+            print(gos[i].name);
+        }
     }
     [Button]
     void ResetThing()

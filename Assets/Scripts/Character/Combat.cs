@@ -4,10 +4,19 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Combat : EventBus, IInit
 {
+    [System.Serializable]
+    public class Trio
+    {
+        public SpellMain spellMain;
+        public AnimAttackType attackType; 
+        public float range; 
+    }
+    public Trio[] trios;
     public virtual Brain Br
     {
         get => _br;
@@ -15,7 +24,10 @@ public class Combat : EventBus, IInit
         {
             _br = value;
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
-            if (weapons.Length > 0) _weaponsSorted = weapons.OrderBy(n => n.spell.areaOfEffect).ToArray();
+            if (trios.Length > 0)
+            {
+                Array.Sort(trios, (x, y) => x.range.CompareTo(y.range));
+            }
             return;
 
             IEnumerator SearchTargetCoroutine(float delay)
@@ -23,7 +35,7 @@ public class Combat : EventBus, IInit
                 yield return new WaitForSeconds(delay);
                 while (true)
                 {
-                    List<Transform> foundTargets = Utils.ChooseGroupTransforms(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction), GenDistance.Closest, 1, detectRange);
+                    List<Transform> foundTargets = Utils.ChooseGroupTransforms(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction));
                     MyTarget = foundTargets.Count == 0 ? null : foundTargets[0];
                     yield return new WaitForSeconds(0.15f);
                 }
@@ -43,21 +55,25 @@ public class Combat : EventBus, IInit
             _myTarget = value;
             if (value != null)
             {
-                targetsBrain = value.GetComponent<Brain>();
                 distanceToTarget = Utils.Distance(Br.myTransform.position, value.position);
             }
             else
             {
-                targetsBrain = null;
+                Br.loco.AttackAnimation(null);
             }
         }
     }
     [ShowInInspector, ReadOnly] Transform _myTarget;
-    [ReadOnly] public float distanceToTarget;
-    [ReadOnly] public Brain targetsBrain;
-    public SpellMain[] weapons = System.Array.Empty<SpellMain>();
-    SpellMain[] _weaponsSorted = System.Array.Empty<SpellMain>();
-    [SerializeField] protected float detectRange = float.MaxValue;
+    protected float distanceToTarget;
+    [ReadOnly] public AnimAttackType? InAttackRange()
+    {
+        if (MyTarget == null) return null;
+        for (int i = trios.Length - 1; i >= 0; i--)
+        {
+            if (trios[i].range >= distanceToTarget) return trios[i].attackType;
+        }
+        return null;
+    }
     
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;
@@ -93,12 +109,12 @@ public class Combat : EventBus, IInit
     {
         blocked = _timerBlockReady >= 0 && Random.value * 100 < Br.character.GetStat(Stats.Block);
         if (!blocked) return;
-        StartCoroutine(ResetBlockTimer());
+        StartCoroutine(resetBlockTimer());
         CombatEventRegistered(CombatEvent.Block, otherBrain);
         Br.loco.Block();
         return;
         
-        IEnumerator ResetBlockTimer()
+        IEnumerator resetBlockTimer()
         {
             _timerBlockReady = CONST_BlockTimer;
             while (_timerBlockReady > 0)

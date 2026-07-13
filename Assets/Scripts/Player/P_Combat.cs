@@ -47,7 +47,7 @@ public class P_Combat : Combat
     }
     void CallEv_OnUltimateActivated()
     {
-        Br.loco.CastSpell();
+        Br.loco.AttackAnimation(AnimAttackType.Ultimate);
     }
 
 

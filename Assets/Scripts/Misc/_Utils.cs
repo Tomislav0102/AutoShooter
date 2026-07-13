@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
-public class Utils
+public static class Utils
 {
     public static bool CanTargetFaction(Faction myFaction, Faction target, FactionToTarget targetFaction)
     {
@@ -45,8 +45,18 @@ public class Utils
         // layerMask |= (1 << layer); //add layer to layermask
         // layerMask &= ~(1 << layer); //remove layer from layermask
     }
+    public static bool IsInLayerMask(GameObject go, LayerMask mask) => (mask & (1 << go.layer)) != 0;
+    public static LayerMask CreateLayerMaskFromLayerInt(int layer) => 1 << layer;
 
-
+    public static Vector2 RotateV2(Vector2 v, float deltaDegrees)
+    {
+        float deltaRadians = deltaDegrees * Mathf.Deg2Rad;
+        return new Vector2
+        (
+            v.x * Mathf.Cos(deltaRadians) - v.y * Mathf.Sin(deltaRadians),
+            v.x * Mathf.Sin(deltaRadians) + v.y * Mathf.Cos(deltaRadians)
+        );
+    }
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
 
@@ -175,10 +185,6 @@ public class Utils
         return WaitDictionary[time];
     }
     
-    public static bool IsInLayerMask(GameObject go, LayerMask mask)
-    {
-        return (mask & (1 << go.layer)) != 0;
-    }
 
     public static Vector2 GetWorldPositionOfCanvasElement(RectTransform rectElement) //sets gameobject behind the UI element
     {
