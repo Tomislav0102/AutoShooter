@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,7 @@ public class LevelManager : EventBus
     [BoxGroup("Enemy spawns")]
     [SerializeField] int numOfEnemies;
     [BoxGroup("Enemy spawns")]
-    [SerializeField] E_Loco[] enemyPrefabs;
+    [SerializeField] Brain[] enemyPrefabs;
     
     public bool InsideLevel(Vector3 myPos)
     {
@@ -24,14 +25,6 @@ public class LevelManager : EventBus
         return true;
     }
 
-    [Button]
-    void SpawnEnemies()
-    {
-        for (int i = 0; i < numOfEnemies; i++)
-        {
-            SpawnEnemy();
-        }
-    }
 
     void Awake()
     {
@@ -41,21 +34,39 @@ public class LevelManager : EventBus
     void Start()
     {
         SceneManager.SetActiveScene(gameObject.scene);
+        SpawnEnemies();
+    }
+    
+    
+    [Button]
+    void SpawnEnemies()
+    {
+        StartCoroutine(SpawnDelay());
     }
 
-    void SpawnEnemy()
+    IEnumerator SpawnDelay()
     {
-        bool canSpawn = false;
-        Vector3 spawnPoint = Vector3.zero;
-        while (!canSpawn)
+        for (int i = 0; i < numOfEnemies; i++)
         {
-            spawnPoint = Utils.GetRandomPosition(spawnArea);
-            Collider[] colliders = Physics.OverlapSphere(spawnPoint, 1f, Utils.MyLayer(Ga.me.gameData.layActors));
-            canSpawn = colliders.Length == 0;
+            spawnSingleEnemy();
+            yield return new WaitForFixedUpdate();
         }
         
-        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoint, Quaternion.identity);
+        void spawnSingleEnemy()
+        {
+            bool canSpawn = false;
+            Vector3 spawnPoint = Vector3.zero;
+            while (!canSpawn)
+            {
+                spawnPoint = Utils.GetRandomPosition(spawnArea);
+                Collider[] colliders = Physics.OverlapSphere(spawnPoint, 1f, Utils.MyLayer(Ga.me.gameData.layActors));
+                canSpawn = colliders.Length == 0;
+            }
+            
+            Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoint, Quaternion.identity);
+        }
     }
+
 
 
 }

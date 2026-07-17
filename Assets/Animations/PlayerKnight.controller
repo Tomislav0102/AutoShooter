@@ -183,7 +183,7 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
+  m_Name: Tran
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8973872228591542759}
@@ -334,7 +334,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HumanM@Attack1H01_R
+  m_Name: Swing 1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -590,7 +590,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sword And Shield Casting
+  m_Name: Ultimate
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -659,9 +659,9 @@ AnimatorStateTransition:
   m_ExitTime: 0.8787062
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_CanTransitionToSelf: 0
 --- !u!1107 &6856811298111670186
 AnimatorStateMachine:
   serializedVersion: 6
@@ -787,7 +787,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HumanM@Attack1H02_R
+  m_Name: Swing 2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

@@ -69,7 +69,7 @@ public static class Utils
         foreach (Transform item in allTargets)
         {
             Bounds bounds = new Bounds(item.position, 0.5f * Vector3.one);
-            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Ga.me.cam);
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Ga.me.camRig.cam);
             if (GeometryUtility.TestPlanesAABB(planes, bounds)) result.Add(item);
         }
         
@@ -144,12 +144,12 @@ public static class Utils
     {
         //  const float CONST_CamEdgeBottom = 7f;
 
-        float mod = 0.015f;
+        float followSpeed = 0.03f;
         float x = camTr.position.x;
         float z = camTr.position.z;
         
-        x += (targetPos.x - x) * mod;
-        z += (targetPos.z - z) * mod;
+        x += (targetPos.x - x) * followSpeed;
+        z += (targetPos.z - z) * followSpeed;
         camTr.position = new Vector3(x, camTr.position.y, z);
     }
     public static float[] RadialSpreadAngles(int numOfElements, bool fullCircle = true, int arc = 180)

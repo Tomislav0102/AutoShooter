@@ -59,7 +59,6 @@ public class E_Loco : Loco
             Br.agent.updateRotation = !value;
         }
     }
-    public string myString;
     #region MOVEMENT SPECIFIC VARIABLES
     float _timerGeneral;
     float _timerStationary, _timerStationaryMaxTime;
@@ -174,8 +173,15 @@ public class E_Loco : Loco
                 break;
         }
 
-        bool canMove = BehCurrent != Behavior.Stationary && animAttackType == null && !IsAttackAnimationPlaying();
-        if (animAttackType != null) AttackAnimation(animAttackType);
+        bool canAttack = animAttackType != null;
+        if (canAttack) AttackAnimation(animAttackType);
+        else
+        {
+            AttackAnimation(null);
+        }
+        
+        
+        bool canMove = BehCurrent != Behavior.Stationary && !canAttack && !IsAttackAnimationPlaying();
         Toggle_Move(canMove);
         if (!OvrMove) Br.agent.speed = canMove ? moveSpeed : 0;
         if (OvrOrientation) Orientation(Br.combat.MyTarget);

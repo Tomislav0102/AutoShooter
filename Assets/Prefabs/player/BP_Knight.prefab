@@ -364,6 +364,10 @@ PrefabInstance:
       propertyPath: weaponTrail
       value: 
       objectReference: {fileID: 411896415165417912}
+    - target: {fileID: 5800728338630505276, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: isOrientationAlwaysFalse
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8048925875864285019, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Name
       value: BP_Knight
@@ -422,24 +426,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff938ce8fb23e44ba429e74c5f90d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Knight
-  trioStart:
+  weapons:
   - spellMain: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
     attackType: 0
     range: 0
   - spellMain: {fileID: 8592503026931671577, guid: 7bad75f2dae142244b01aea2a0e730c9, type: 3}
     attackType: 2
     range: 0
-  trioSorted: []
   <IsInitialized>k__BackingField: 0
-  duoWeapons:
-    <Key>k__BackingField: []
-    <Value>k__BackingField: 
-  detectRange: 3.4028235e+38
   engageRange: 10
   ultimateCooldownTime: 3
   myShield: {fileID: 6815601301861273165}
-  powerKnockback: 2
-  powerDash: 2
+  powerKnockback: 1
+  powerDash: 30
   startActive: 99
 --- !u!4 &3640929346580867816 stripped
 Transform:

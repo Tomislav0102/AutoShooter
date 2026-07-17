@@ -101,7 +101,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: inspectorDamage
+    - Name: _damageInspector
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
         mscorlib]], mscorlib
@@ -134,12 +134,15 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 0
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 1
-    knockBack: 0
   useInspectorDamageData: 0
-  hitEffects: 00000000
+  injectHealth:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    knockBack: 0
+    knockBackDirection: {x: 0, y: 0}
+  hitEffect: 0
+  hitEffectOnSpell: 0
+  spellsToAffect: []
 --- !u!1 &7347037599748218490 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

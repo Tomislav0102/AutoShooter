@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 public class SpellMain : MonoBehaviour
 {
     [BoxGroup] public bool debug;
-    [ReadOnly] public bool IsActive = true;
+    [ReadOnly] public bool mainActive = true;
     public bool isInterrupt;
 
     public Brain OwnersBrain
@@ -41,32 +41,22 @@ public class SpellMain : MonoBehaviour
         }
     }
     [ReadOnly, ShowInInspector] Brain _ownersBrain;
+    
     public Transform myTransform;
     public Rigidbody myRigid;
-    
     public ColliderType colliderType;
-
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public SpriteRenderer warningRend;
-    [ReadOnly] public InjectHealth injectHealthPass;
+    [ReadOnly] public InjectHealth injectHealthOverride;
     public Spell spell; 
     public SpellTransporter transporter;
     public SpellVisual visual;
     [SerializeField, TextArea, HideLabel] string description;
 
-    #region EVENTS, CALLBACKS
-    public System.Action onEnd;
-    public System.Action<Brain> onHitTarget;
-    System.Action _onAfterSpell;
-    void CallEv_OnEnd()
-    {
-        _onAfterSpell?.Invoke();
-        IsActive = false;
-        Destroy(gameObject);
-    }
-    #endregion
 
+    #region INITIALIZATION
+    
     /// <summary>
     /// Damage is from inspector, no after spell
     /// </summary>
@@ -86,7 +76,7 @@ public class SpellMain : MonoBehaviour
     public void InitializeMe(Brain brain, InjectHealth inject)
     {
         if (inject == null) inject = new InjectHealth();
-        injectHealthPass = inject;
+        injectHealthOverride = inject;
         InitializeMe(brain); 
     }
     /// <summary>
@@ -103,13 +93,27 @@ public class SpellMain : MonoBehaviour
     public void InitializeMe(Brain brain, InjectHealth inject, System.Action onAfterSpell)
     {
         if (inject == null) inject = new InjectHealth();
-        injectHealthPass = inject;
+        injectHealthOverride = inject;
         _onAfterSpell = onAfterSpell;
         InitializeMe(brain); 
     }
+    #endregion
 
+    #region EVENTS, CALLBACKS
+    public System.Action onEnd;
+    public System.Action<Brain> onHitTarget;
+    System.Action _onAfterSpell;
+    void CallEv_OnEnd()
+    {
+        _onAfterSpell?.Invoke();
+        mainActive = false;
+        Destroy(gameObject);
+    }
+    #endregion
 
-    bool UseTriggers() => IsActive && Random.value < spell.hitChance;
+    #region TRIGGERS/COLLSIONS
+    
+    bool UseTriggers() => mainActive && Random.value < spell.hitChance;
     void OnTriggerEnter(Collider other)
     {
         if (UseTriggers()) spell.OnTriggerEnterCallBack(other);
@@ -122,5 +126,6 @@ public class SpellMain : MonoBehaviour
     {
         if (UseTriggers()) spell.OnCollisionEnterCallBack(collision);
     }
+    #endregion
 
 }

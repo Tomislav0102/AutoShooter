@@ -92,8 +92,7 @@ public class PC_Mage : P_Combat
                         SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
                             Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
                         flamethrower.transporter.target = Br.myTransform;
-                        injectHealth = new InjectHealth(damRanged);
-                        flamethrower.InitializeMe(Br, injectHealth);
+                        flamethrower.InitializeMe(Br, new InjectHealth(damRanged));
                     }
                     break;
                 case 4:
@@ -107,7 +106,9 @@ public class PC_Mage : P_Combat
                 case 6:
                     SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     manaShield.transporter.target = Br.myTransform;
-                    manaShield.InitializeMe(Br); //values are defined in inspector
+                    InjectHealth ihMs = new InjectHealth();
+                    ihMs.manaShieldPoints = 100;
+                    manaShield.InitializeMe(Br, ihMs); 
                     break;
             }
 
@@ -178,8 +179,7 @@ public class PC_Mage : P_Combat
                 if (furthestTarget != null)
                 {
                     SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    injectHealth = new InjectHealth(damRanged);
-                    lightning.InitializeMe(Br, injectHealth);
+                    lightning.InitializeMe(Br, new InjectHealth(damRanged));
                 }
                 break;
 
@@ -197,8 +197,7 @@ public class PC_Mage : P_Combat
                 {
                     if (Br.combat.MyTarget == null) return;
                     SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    injectHealth = new InjectHealth(damRanged);
-                    explosion.InitializeMe(Br, injectHealth, AreaFire);
+                    explosion.InitializeMe(Br, new InjectHealth(damRanged), AreaFire);
                     Instantiate(Ga.me.psDecalFire, explosion.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
                 }
 
@@ -206,8 +205,7 @@ public class PC_Mage : P_Combat
                 {
                     if (Br.combat.MyTarget == null) return;
                     SpellMain areFire = Instantiate(Ga.me.spells.areFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    injectHealth = new InjectHealth(damRanged);
-                    areFire.InitializeMe(Br, injectHealth);
+                    areFire.InitializeMe(Br, new InjectHealth(damRanged));
                 }
 
                 break;
@@ -220,8 +218,7 @@ public class PC_Mage : P_Combat
                     homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
                     homing.visual.SetSpawnHeight(spawnPoint.position.y);
                     homing.transporter.target = Br.combat.MyTarget;
-                    injectHealth = new InjectHealth(damRanged, true);
-                    homing.InitializeMe(Br, injectHealth);
+                    homing.InitializeMe(Br, new InjectHealth(damRanged, true));
                 }
                 break;
             case 3:
@@ -286,8 +283,7 @@ public class PC_Mage : P_Combat
         base.FromAnimEv_Ultimate(num);
         SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         armageddon.transporter.target = Br.myTransform;
-        injectHealth = new InjectHealth(damUltimate);
-        armageddon.InitializeMe(Br, injectHealth);
+        armageddon.InitializeMe(Br, new InjectHealth(damUltimate));
 
     }
 }

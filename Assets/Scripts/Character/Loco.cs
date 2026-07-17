@@ -17,6 +17,7 @@ public class Loco : EventBus, IInit
             _br = value;
             OvrMove = false;
             OvrOrientation = false;
+            _avoidancePriorityDefault = value.agent.avoidancePriority;
         }
     }
     Brain _br;
@@ -26,11 +27,22 @@ public class Loco : EventBus, IInit
     [SerializeField, Range(0, 10)] protected int moveSpeed = 1;
     [SerializeField] protected int knockBackResistance;
     [field: SerializeField] public virtual bool OvrMove { get; set; } //can control player, override agent destination
-    [field: SerializeField] public virtual bool OvrOrientation { get; set; } //has player joystickLookAt, agent.updateRotation
-    
+
+    public virtual bool OvrOrientation //has player joystickLookAt, agent.updateRotation
+    {
+        get => _ovrOrientation;
+        set
+        {
+            _ovrOrientation = value;
+            if (value && isOrientationAlwaysFalse) OvrOrientation = false;
+        }
+    }
+    bool _ovrOrientation;
+    [SerializeField] protected bool isOrientationAlwaysFalse = true;
     Coroutine _pushCoroutine;
-    public enum MoveOverrideType { KnockBack, Dash, Magnet }
-    MoveOverrideType? _currentMoveOverride = null;
+    public enum MoveOverrideType { None, KnockBack, Dash, Magnet }
+    MoveOverrideType _currentMoveOverride = MoveOverrideType.None;
+    int _avoidancePriorityDefault;
     
     #region ANIMATOR
     int _moveHor = Animator.StringToHash("moveHor");
@@ -66,9 +78,11 @@ public class Loco : EventBus, IInit
         switch (attackType)
         {
             case AnimAttackType.Melee:
+            anim.SetBool(_attRanged, false);
                 anim.SetBool(_attMelee, true);
                 break;
             case AnimAttackType.Ranged:
+            anim.SetBool(_attMelee, false);
                 anim.SetBool(_attRanged, true);
                 break;
             case AnimAttackType.Ultimate:
@@ -81,22 +95,18 @@ public class Loco : EventBus, IInit
     public void Block() => anim.SetTrigger(_block);
     #endregion
 
-
-
     #region TOOLS
     protected void Orientation(Vector3 lookAtDirection)
     {
         lookAtDirection.y = 0;
         OrientationFinal(lookAtDirection);
     }
-
     protected void Orientation(Transform lookAtPosition)
     {
         if (lookAtPosition == null) return;
         Vector3 pos = new Vector3(lookAtPosition.position.x, 0f, lookAtPosition.position.z);
         OrientationFinal(Utils.Direction(Br.myTransform.position, pos));
     }
-
     void OrientationFinal(Vector3 look)
     {
         if (look.Equals(Vector3.zero)) return;
@@ -104,7 +114,6 @@ public class Loco : EventBus, IInit
         // Quaternion rot = Quaternion.LookRotation(lookAtTarget);
         // Br.myTransform.rotation = Quaternion.RotateTowards(Br.myTransform.rotation, rot, Ga.me.gameData.agentRotSpeed * Time.deltaTime);
     }
-
 
     public void PushMe(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
     {
@@ -135,7 +144,7 @@ public class Loco : EventBus, IInit
             OvrMove = true;
             Br.agent.acceleration = 10;
             Br.agent.velocity = intensity * dir;
-            int avoidancePriority = Br.agent.avoidancePriority;
+            _avoidancePriorityDefault = Br.agent.avoidancePriority;
             if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = 40;
             while (timer > 0f)
             {
@@ -144,12 +153,10 @@ public class Loco : EventBus, IInit
             }
             Br.agent.acceleration = 10000;
             OvrMove = false;
-            if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = avoidancePriority;
-            _currentMoveOverride = null;
+            if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = _avoidancePriorityDefault;
+            _currentMoveOverride = MoveOverrideType.None;
         }
     }
-
-
 
     public void Magnet(Vector3 center, int intensity = 1)
     {

@@ -16,7 +16,7 @@ public class SpellTransporter : MonoBehaviour
 
     protected void SetSpeed(float speed)
     {
-        float sp = main.IsActive ? speed : 0f;
+        float sp = main.mainActive ? speed : 0f;
         main.myRigid.linearVelocity = sp * main.myTransform.forward;
     }
 

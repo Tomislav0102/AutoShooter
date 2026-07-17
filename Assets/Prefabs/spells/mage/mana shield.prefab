@@ -142,12 +142,16 @@ MonoBehaviour:
   lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  useInspectorDamageData: 1
+  useInspectorDamageData: 0
   injectHealth:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     knockBack: 0
-  hitEffect: 3
+    knockBackDirection: {x: 0, y: 0}
+    isDamage: 0
+    isPush: 0
+    isSpellCounter: 0
+  hitEffect: 0
   hitEffectOnSpell: 0
   spellsToAffect: []
 --- !u!1 &6835653942317723284 stripped

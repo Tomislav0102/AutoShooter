@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Spell : SerializedMonoBehaviour
 {
@@ -64,7 +63,7 @@ public class Spell : SerializedMonoBehaviour
     
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     
-    protected enum HitEffect { OnHealth, OnSpell, OnStats, OnShield }
+    protected enum HitEffect { OnBody, OnSpell, OnStats }
     protected enum HitEffectOnSpell { Nullify, Reflect }
     [SerializeField] protected HitEffect hitEffect;
     bool AffectsSpells() => hitEffect == HitEffect.OnSpell;
@@ -76,7 +75,7 @@ public class Spell : SerializedMonoBehaviour
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
-        if (!useInspectorDamageData) injectHealth = main.injectHealthPass;
+        if (!useInspectorDamageData) injectHealth = main.injectHealthOverride;
         else injectHealth.damage = _damageInspector;
         injectHealth.myBrain = main.OwnersBrain;
         
@@ -86,6 +85,7 @@ public class Spell : SerializedMonoBehaviour
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         MyPhase = Phase.BeginWarning;
         initialized = true;
+        
     }
 
     public virtual void OnCollisionEnterCallBack(Collision collision) { }
@@ -98,7 +98,7 @@ public class Spell : SerializedMonoBehaviour
         Brain b = null;
         switch (hitEffect)
         {
-            case HitEffect.OnHealth:
+            case HitEffect.OnBody:
                 if (targetGeneric.TryGetComponent(out Brain br) && Utils.CanTargetFaction(main.OwnersBrain.Faction, br.Faction, myFactionTarget))
                 {
                     if (injectHealth.knockBack > 0 && br.loco != null)
@@ -115,23 +115,28 @@ public class Spell : SerializedMonoBehaviour
                         br.health.TakeDamage(injectHealth);
                         b = br;
                     }
+                    if (injectHealth.manaShieldPoints > 0)
+                    {
+                        br.health.SetShield(injectHealth.manaShieldPoints);
+                        b = br;
+                    }
                 }
                 break;
             case HitEffect.OnSpell:
                 if (targetGeneric.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
                 {
-                    if (spellsToAffect.Length == 0) Method();
+                    if (spellsToAffect.Length == 0) onSpell();
                     else
                     {
                         for (int i = 0; i < spellsToAffect.Length; i++)
                         {
                             if (targetSpell.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
-                            Method();
+                            onSpell();
                         }
                     }
                 }
-
-                void Method()
+                break;
+                void onSpell()
                 {
                     switch (hitEffectOnSpell)
                     {
@@ -145,17 +150,15 @@ public class Spell : SerializedMonoBehaviour
                     }
                     b = targetSpell.OwnersBrain;
                 }
-
-                break;
-            case HitEffect.OnShield: //only one spell uses this, consider different solution for shield logic. Too much of the edge-case
-                if (targetGeneric.TryGetComponent(out Brain brShield) && 
-                    Utils.CanTargetFaction(main.OwnersBrain.Faction, brShield.Faction, myFactionTarget) &&
-                    injectHealth.damage.ContainsKey(Element.Physical))
-                {
-                    brShield.health.SetShield(injectHealth.damage[Element.Physical]);
-                    b = brShield;
-                }
-                break;
+            // case HitEffect.OnShield: //only one spell uses this, consider different solution for shield logic. Too much of the edge-case
+            //     if (targetGeneric.TryGetComponent(out Brain brShield) && 
+            //         Utils.CanTargetFaction(main.OwnersBrain.Faction, brShield.Faction, myFactionTarget) &&
+            //         injectHealth.damage.ContainsKey(Element.Physical))
+            //     {
+            //         brShield.health.SetShield(injectHealth.damage[Element.Physical]);
+            //         b = brShield;
+            //     }
+            //     break;
         }
         targetsBrain = b;
     }
@@ -165,7 +168,7 @@ public class Spell : SerializedMonoBehaviour
     protected virtual void Update()
     {
         if (!initialized) return;
-        if (!main.IsActive) return;
+        if (!main.mainActive) return;
         switch (MyPhase)
         {
             case Phase.BeginWarning:
@@ -176,13 +179,13 @@ public class Spell : SerializedMonoBehaviour
                 if (lifeTime == 0)
                 {
                     lifeTime = Mathf.NegativeInfinity;
-                    StartCoroutine(Delay());
-                    IEnumerator Delay()
+                    StartCoroutine(delay());
+                    return;
+                    IEnumerator delay()
                     {
                         yield return new WaitForFixedUpdate();
                         MyPhase = Phase.EndEnd;
                     }
-                    return;
                 }
                 if (_timerPhase > lifeTime) MyPhase = Phase.EndEnd;
                 break;
@@ -194,72 +197,6 @@ public class Spell : SerializedMonoBehaviour
 
 
 
-
-
-    // protected void HitMethod(Collider colliderHit, out Brain collidersBrain, SpellMain[] spellsAffected = null)
-    // {
-    //     Brain b = null;
-    //     if (colliderHit.TryGetComponent(out Brain targetBrain) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetBrain.Faction, myFactionTarget))
-    //     {
-    //         if (injectHealth.knockBack > 0 && targetBrain.loco != null)
-    //         {
-    //             Vector3 dir = Utils.Direction(main.myTransform.position, targetBrain.myTransform.position);
-    //             targetBrain.loco.KnockBack(dir, injectHealth.knockBack);
-    //             b = targetBrain;
-    //         }
-    //
-    //         switch (hitEffect)
-    //         {
-    //             case HitEffect.OnHealth:
-    //                 if (injectHealth.damage.Count > 0)
-    //                 {
-    //                     targetBrain.health.TakeDamage(injectHealth);
-    //                     b = targetBrain;
-    //                 }
-    //                 break;
-    //             case HitEffect.OnStats:
-    //                 if (!collidersDetected.Contains(colliderHit))
-    //                 {
-    //                     collidersDetected.Add(colliderHit);
-    //                     //change stats
-    //                 }
-    //                 break;
-    //         }
-    //
-    //     }
-    //     collidersBrain = b;
-    //
-    //     if (colliderHit.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-    //     {
-    //         if (spellsAffected.Length == 0)
-    //         {
-    //             HitMethod_Continue();
-    //         }
-    //         for (int i = 0; i < spellsAffected.Length; i++)
-    //         {
-    //             if (targetSpell.spell.GetType() != spellsAffected[i].spell.GetType()) continue;
-    //             HitMethod_Continue();            
-    //         }
-    //         
-    //         void HitMethod_Continue()
-    //         {
-    //             switch (hitEffect)
-    //             {
-    //                 case HitEffect.OnHealth:
-    //                     break;
-    //                 // case HitEffect.Nullify:
-    //                 //     targetSpell.spell.MyPhase = Phase.EndStart;
-    //                 //     break;
-    //                 // case HitEffect.Reflect:
-    //                 //     Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
-    //                 //     targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
-    //                 //     break;
-    //                 case HitEffect.OnStats:
-    //                     break;
-    //             }
-    //         }
-    //     }
-    // }
 
 
 

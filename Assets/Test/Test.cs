@@ -1,29 +1,36 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using UnityEngine.AI;
 
 public class Test : SerializedMonoBehaviour
 {
-    public LayerMask lm;
-    public bool isInLm;
-    public GameObject[] gos;
+    public Transform cube, sphere;
+    public float speed = 1f;
+    
     [Button]
-    void Generate()
+    void GenerateEvent()
     {
-        for (int i = gos.Length - 1; i >= 0; i--)
-        {
-            print(gos[i].name);
-        }
     }
     [Button]
-    void ResetThing()
+    void InvokeEvent()
     {
         
     }
+    [Button]
+    void ClearEvent()
+    {
+       
+    }
 
+
+    void Update()
+    {
+        cube.RotateAround(sphere.position, Vector3.one, speed * Time.deltaTime);
+    }
 }
 
 

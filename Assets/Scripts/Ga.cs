@@ -8,14 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class Ga : MonoBehaviour
 {
+    public static Ga me;
+    public CameraRig camRig;
     public Transform parPointers;
     public RectTransform offScreenPointerPrefab;
     public Drop dropPrefab;
-    public static Ga me;
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
 
-    [BoxGroup("Particles")] 
+    [BoxGroup("Particles prefabs")] 
     public ParticleSystem psGenericImpact, psSpawn, psDeath, psDecalFire;
     public LevelManager LevelMan
     {
@@ -34,8 +35,6 @@ public class Ga : MonoBehaviour
     public RectTransform healthBarPrefab;
     public Transform floatingContainer;
     public FloatingText floatingTextPrefab;
-    public Transform cameraRigTransform;
-    [HideInInspector] public Camera cam;
     public TeamManager team =  new TeamManager();
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
@@ -46,7 +45,6 @@ public class Ga : MonoBehaviour
     void Awake()
     {
         me = this;
-        cam = cameraRigTransform.GetComponentInChildren<Camera>();
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
 #if (!UNITY_EDITOR)
         SceneManager.LoadScene(1, LoadSceneMode.Additive);
@@ -62,19 +60,17 @@ public class Ga : MonoBehaviour
     {
         EventBus.OnCharDeath -= CallEv_OnCharDeath;
     }
-
-    void LateUpdate()
-    {
-        OffScreens();
-        void OffScreens()
-        {
-        }
-    }
     
 
     void CallEv_OnCharDeath(Brain brainDead)
     {
         team.CallEv_OnCharDeath(brainDead);
     }
+
+    public void BtnRestart()
+    {
+        SceneManager.LoadScene(gameData.sceneGame);
+    }
+
 
 }

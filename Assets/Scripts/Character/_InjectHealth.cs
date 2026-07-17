@@ -7,8 +7,13 @@ public class InjectHealth
 {
     [HideInInspector] public Brain myBrain;
     public bool canBeBlocked;
-    [Range(0, 20)] public int knockBack;
-    public Vector2 knockBackDirection; //ignored if = Vector2.zero
+    
+    //knockback, push
+    [Range(0, 20), GUIColor("orange")] public int knockBack;
+    [GUIColor("orange")] public Vector2 knockBackDirection; //ignored if = Vector2.zero
+    //mana shield, extra hp
+    [Range(0, 1000), GUIColor("blue")]public int manaShieldPoints;
+    //just damage
     public Dictionary<Element, float> damage =  new Dictionary<Element, float>();
 
     public Dictionary<string, string> tags = new Dictionary<string, string>();
@@ -21,11 +26,12 @@ public class InjectHealth
 
     public InjectHealth()
     {
-        
+        damage = new Dictionary<Element, float>();
     }
     public InjectHealth(Dictionary<Element, float> damage, bool canBeBlocked = false, int knockBack = 0)
     {
         this.damage = damage;
+        if (this.damage == null) this.damage = new Dictionary<Element, float>();
         this.canBeBlocked = canBeBlocked;
         this.knockBack = knockBack;
     }

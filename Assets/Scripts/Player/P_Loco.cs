@@ -20,16 +20,7 @@ public class P_Loco : Loco
             IsInitialized = true;
         }
     }
-    public override bool OvrOrientation
-    {
-        get => base.OvrOrientation;
-        set
-        {
-            base.OvrOrientation = value;
-            if (value && joystickLookAt) OvrOrientation = false;
-        }
-    }
-    public Alertness Disp
+    public Alertness Alert
     {
         set
         {
@@ -37,7 +28,7 @@ public class P_Loco : Loco
             _alertness = value;
             anim.SetLayerWeight(1, 1);
             rotationConstraint.weight = 0; 
-           // if (weaponTrail != null) weaponTrail.Stop();
+          //  if (weaponTrail != null) weaponTrail.Stop();
            OvrOrientation = true;
             switch (_alertness)
             {
@@ -60,19 +51,13 @@ public class P_Loco : Loco
     }
     [ShowInInspector, ReadOnly] Alertness _alertness;
     [HideInInspector] public Vector2 effJoystickValue;
-    [SerializeField] bool joystickLookAt = true;
     int _posId = Shader.PropertyToID("_Position");
     int _sizeID = Shader.PropertyToID("_Size");
-    Transform _camTransform;
 
-    void Awake()
-    {
-        _camTransform = Ga.me.cam.transform;
-    }
 
     void Update()
     {
-        float camAngle = Ga.me.cameraRigTransform.eulerAngles.y;
+        float camAngle = Ga.me.camRig.myTransform.eulerAngles.y;
         effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
         Vector3 myForward;
         if (OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
@@ -87,10 +72,4 @@ public class P_Loco : Loco
             Br.agent.velocity = moveSpeed * Utils.MakeV3(effJoystickValue);
         }
     }
-
-    void LateUpdate()
-    {
-        Utils.CameraFollowAsymptotic(Br.myTransform.position, Ga.me.cameraRigTransform);
-    }
-
 }

@@ -35,7 +35,7 @@ public class VisualTransporter : SpellTransporter
             //used only in meteor strike. Transforms of particles need to be aligned in prefab
             case MyType.Fall:
                 if (randomizeYRot) target.RotateAround(main.myTransform.position, Vector3.up, Random.Range(0f, 360f));
-                main.IsActive = false;
+                main.mainActive = false;
                 _targetRigid.isKinematic = false;
                 _targetRigid.useGravity = false;
                 _targetRigid.linearVelocity = 10f * target.forward;
@@ -63,7 +63,7 @@ public class VisualTransporter : SpellTransporter
                 if (target.position.y < 0.1f)
                 {
                     main.myTransform.position = new Vector3(main.myTransform.position.x, 0f, main.myTransform.position.z);
-                    main.IsActive = true;
+                    main.mainActive = true;
                 }
                 break;
         }

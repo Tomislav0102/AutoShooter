@@ -10,7 +10,7 @@ public class S_A : Spell
     {
         base.Update();
         if (!initialized) return;
-        if (!main.IsActive) return;
+        if (!main.mainActive) return;
         if (MyPhase != Phase.SpellRuns) return;
         if (_oneHit) return;
 

@@ -2327,14 +2327,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_DemonWolf
       objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 2031405845141860428}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].range
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].spellMain
+      value: 
+      objectReference: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: loco
       value: 
       objectReference: {fileID: 3853920283161297884}
-    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: combat
-      value: 
-      objectReference: {fileID: 7609808775189050478}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myRenderer
       value: 
@@ -2527,34 +2539,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       insertIndex: 26
       addedObject: {fileID: 2031405845141860742}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7609808775189050478}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
---- !u!1 &1928698492586829434 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 6003014594537091725}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7609808775189050478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928698492586829434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::E_Melee
-  trios:
-  - spellMain: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-    attackType: 0
-    range: 0
-  <IsInitialized>k__BackingField: 0
-  spawnPoint: {fileID: 2031405845141860428}
 --- !u!114 &3853920283161297884 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

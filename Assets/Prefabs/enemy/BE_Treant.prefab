@@ -15572,6 +15572,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_Treant
       objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 8030913400019200557}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].range
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[1].range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].spellMain
+      value: 
+      objectReference: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[1].spellMain
+      value: 
+      objectReference: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[1].attackType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3731593144273461746, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Data.m_ConstrainedObject
       value: 
@@ -15673,10 +15701,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 10533acd9c9921e468682b25265f976e, type: 2}
     - target: {fileID: 8181266544076932727, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: agent
-      value: 
-      objectReference: {fileID: 442809936571060630}
-    - target: {fileID: 8181266544076932727, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: moveSpeed
       value: 0.5
       objectReference: {fileID: 0}
@@ -15748,11 +15772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Loco
---- !u!195 &442809936571060630 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 7100723032775579262, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 7255290962422859752}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3253033004250387231 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
@@ -15770,15 +15789,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Melee
-  <IsInitialized>k__BackingField: 0
-  distanceToTarget: 0
   weapons:
-  - {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-  - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-  detectRange: 3.4028235e+38
-  meleeWeapon: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-  rangedWeapon: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-  rangeRanged: 5
+  - spellMain: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
+    attackType: 0
+    range: 1.5
+  - spellMain: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+    attackType: 1
+    range: 5
+  <IsInitialized>k__BackingField: 0
   spawnPoint: {fileID: 8030913400019200557}
 --- !u!4 &8188586477152802918 stripped
 Transform:

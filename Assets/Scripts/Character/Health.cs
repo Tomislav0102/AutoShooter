@@ -29,7 +29,6 @@ public class Health: EventBus, IInit
             {
                 _dictPsStatus.Add((Status.Effect)i, psStatus[i]);
             }
-            _camTransform = Ga.me.cam.transform;
             _screenCenter = new Vector3(Screen.width, Screen.height, 0) * 0.5f;
             _pointer = Instantiate(Ga.me.offScreenPointerPrefab, Ga.me.parPointers);
             _pointerImage = _pointer.GetComponent<Image>();
@@ -39,7 +38,6 @@ public class Health: EventBus, IInit
     }
     Brain _br;
 
-    Transform _camTransform;
     Vector3 _screenCenter; 
     RectTransform _pointer;
     Image _pointerImage;
@@ -207,9 +205,9 @@ public class Health: EventBus, IInit
         
         void UIdisplay()
         {
-            Vector3 screenPos = Ga.me.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
+            Vector3 screenPos = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
             _healthBarTransform.position = screenPos;
-            bool isBehind = Vector3.Dot(_camTransform.forward, Br.myTransform.position - _camTransform.position) < 0;
+            bool isBehind = Vector3.Dot(Ga.me.camRig.camTransform.forward, Br.myTransform.position - Ga.me.camRig.camTransform.position) < 0;
             if (isBehind)  screenPos = _screenCenter - (screenPos - _screenCenter).normalized * Screen.width;
             int offset = 50;
             bool isOffScreen = screenPos.x > Screen.width + offset || screenPos.x + offset < 0 ||

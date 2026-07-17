@@ -70,7 +70,7 @@ public class FloatingText : MonoBehaviour
         _timer += Time.deltaTime;
         float moveY = _startingOffsetY + _timer * 5f;
         Vector3 targetPos = new Vector3(_startPosition.x, moveY, _startPosition.z);
-        myTransform.position = Ga.me.cam.WorldToScreenPoint(targetPos);
+        myTransform.position = Ga.me.camRig.cam.WorldToScreenPoint(targetPos);
         for (int i = 0; i < myTexts.Length; i++)
         {
             myTexts[i].color = Color.Lerp(_startColors[i], _endColor, _timer / _lifeTime);

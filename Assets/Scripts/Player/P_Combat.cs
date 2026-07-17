@@ -25,11 +25,11 @@ public class P_Combat : Combat
             base.MyTarget = value;
             if (value == null)
             {
-                pLoco.Disp = Alertness.Relaxed;
+                pLoco.Alert = Alertness.Relaxed;
                 return;
             }
 
-            pLoco.Disp = distanceToTarget > engageRange ? Alertness.Alarmed : Alertness.Fighting;
+            pLoco.Alert = distanceToTarget > engageRange ? Alertness.Alarmed : Alertness.Fighting;
         }
     }
     [SerializeField] float ultimateCooldownTime;

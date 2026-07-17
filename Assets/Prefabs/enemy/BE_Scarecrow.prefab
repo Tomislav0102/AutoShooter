@@ -12188,14 +12188,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_Scarecrow
       objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1036074922458254914}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].spellMain
+      value: 
+      objectReference: {fileID: 7546444594929099885, guid: 425aa33e5e74c084b9090e2dd29e8c6d, type: 3}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].attackType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: loco
       value: 
       objectReference: {fileID: 8364016265973567967}
-    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: combat
-      value: 
-      objectReference: {fileID: 5797465817244497739}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myRenderer
       value: 
@@ -12349,40 +12365,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       insertIndex: 21
       addedObject: {fileID: 1036074922458254948}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5797465817244497739}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
 --- !u!4 &516688198995083008 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
   m_PrefabInstance: {fileID: 1308271061366694030}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6605946544179459193 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 1308271061366694030}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5797465817244497739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6605946544179459193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::E_Melee
-  <IsInitialized>k__BackingField: 0
-  distanceToTarget: 0
-  detectRange: 3.4028235e+38
-  meleeWeapon: {fileID: 0}
-  rangedWeapon: {fileID: 7546444594929099885, guid: 425aa33e5e74c084b9090e2dd29e8c6d, type: 3}
-  rangeRanged: 1.1111111e+15
-  spawnPoint: {fileID: 1036074922458254914}
 --- !u!114 &8364016265973567967 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

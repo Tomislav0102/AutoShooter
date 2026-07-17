@@ -10,13 +10,22 @@ using Random = UnityEngine.Random;
 public class Combat : EventBus, IInit
 {
     [System.Serializable]
-    public class Trio
+    class WeaponSet
     {
         public SpellMain spellMain;
         public AnimAttackType attackType; 
         public float range; 
     }
-    public Trio[] trios;
+    [SerializeField] WeaponSet[] weapons;
+
+    protected SpellMain GetSpellByAttackType(AnimAttackType animAttackType)
+    {
+        foreach (WeaponSet item in weapons)
+        {
+            if (item.attackType == animAttackType) return item.spellMain;
+        }
+        return null;
+    }
     public virtual Brain Br
     {
         get => _br;
@@ -24,9 +33,9 @@ public class Combat : EventBus, IInit
         {
             _br = value;
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
-            if (trios.Length > 0)
+            if (weapons.Length > 0)
             {
-                Array.Sort(trios, (x, y) => x.range.CompareTo(y.range));
+                Array.Sort(weapons, (x, y) => x.range.CompareTo(y.range));
             }
             return;
 
@@ -68,9 +77,9 @@ public class Combat : EventBus, IInit
     [ReadOnly] public AnimAttackType? InAttackRange()
     {
         if (MyTarget == null) return null;
-        for (int i = trios.Length - 1; i >= 0; i--)
+        for (int i = 0; i < weapons.Length; i++)
         {
-            if (trios[i].range >= distanceToTarget) return trios[i].attackType;
+            if (distanceToTarget <= weapons[i].range) return weapons[i].attackType;
         }
         return null;
     }
@@ -79,7 +88,6 @@ public class Combat : EventBus, IInit
     const int CONST_BlockTimer = 2;
 
     //cache
-    protected InjectHealth injectHealth;
     protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
     protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
@@ -91,8 +99,6 @@ public class Combat : EventBus, IInit
             case CombatEvent.Strike:
                 break;
             case CombatEvent.Hit:
-                CombatEventRegistered(CombatEvent.Strike);
-                break;
             case CombatEvent.Miss:
                 CombatEventRegistered(CombatEvent.Strike);
                 break;
@@ -107,7 +113,7 @@ public class Combat : EventBus, IInit
 
     public void CheckBlock(out bool blocked, Brain otherBrain = null)
     {
-        blocked = _timerBlockReady >= 0 && Random.value * 100 < Br.character.GetStat(Stats.Block);
+        blocked = _timerBlockReady >= 0f && Random.value * 100 < Br.character.GetStat(Stats.Block);
         if (!blocked) return;
         StartCoroutine(resetBlockTimer());
         CombatEventRegistered(CombatEvent.Block, otherBrain);
