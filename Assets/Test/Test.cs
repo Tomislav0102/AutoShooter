@@ -10,10 +10,18 @@ public class Test : SerializedMonoBehaviour
 {
     public Transform cube, sphere;
     public float speed = 1f;
+    [SerializeReference] public List<PassData> final;
+    [SerializeReference] public List<PassData> second;
     
     [Button]
-    void GenerateEvent()
+    void TestEvent()
     {
+        foreach (PassData item in final)
+        {
+            if (item is PassDataShared) print("shared");
+            if (item is PassDataDamage) print("dam");
+            if (item is PassDataKnockBack) print("knock");
+        }
     }
     [Button]
     void InvokeEvent()
@@ -26,10 +34,15 @@ public class Test : SerializedMonoBehaviour
        
     }
 
-
-    void Update()
+    void SetPassData()
     {
-        cube.RotateAround(sphere.position, Vector3.one, speed * Time.deltaTime);
+        PassDataShared pdShared = new PassDataShared(Ga.me.team.playerTransform.GetComponent<Brain>(), true);
+        PassDataKnockBack pdKnock = new PassDataKnockBack(7);
+
+        final = new List<PassData>();
+        final.Add(pdShared);
+        final.Add(pdShared);
+        final.Add(pdKnock);
     }
 }
 

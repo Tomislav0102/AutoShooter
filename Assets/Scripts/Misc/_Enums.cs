@@ -2,7 +2,7 @@
 public enum GenOrder { Primary, Secondary, Tertiary }
 public enum GenSize { Small, Medium, Big }
 public enum GenDirection { Enter, Exit }
-public enum GenSide { Left, Right }
+public enum GenSide { Left, Center, Right }
 public enum GenActivation { On, Off }
 public enum GenConfirm { Yes, No }
 public enum GenMenuControl { Open, Close, Toggle }

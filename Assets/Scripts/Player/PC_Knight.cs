@@ -54,7 +54,7 @@ public class PC_Knight : P_Combat
     [SerializeField] int powerKnockback = 2;
     [SerializeField] int powerDash = 2;
     public int startActive;
-    
+
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
@@ -66,6 +66,16 @@ public class PC_Knight : P_Combat
         };
         InjectHealth ihMelee = new InjectHealth(damMelee, true, powerKnockback);
         melee.InitializeMe(Br, ihMelee);
+
+        PassDataShared pdShared = new PassDataShared( Br, true);
+        PassDataDamage pdDam = new PassDataDamage(new MyDuo<Element, float>(damMelee));
+        PassDataKnockBack pdKnock = new PassDataKnockBack(powerKnockback);
+
+        List<PassData> final = new List<PassData>();
+        final.Add(pdShared);
+        final.Add(pdDam);
+        final.Add(pdKnock);
+
     }
 
     public override void FromAnimEv_Ultimate(int num = 0)

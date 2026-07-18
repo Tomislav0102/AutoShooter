@@ -64,21 +64,17 @@ public class Spell : SerializedMonoBehaviour
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
     
     protected enum HitEffect { OnBody, OnSpell, OnStats }
-    protected enum HitEffectOnSpell { Nullify, Reflect }
+    public enum HitEffectOnSpell { Nullify, Reflect }
     [SerializeField] protected HitEffect hitEffect;
     bool AffectsSpells() => hitEffect == HitEffect.OnSpell;
     [SerializeField, ShowIf(nameof(AffectsSpells))] protected  HitEffectOnSpell hitEffectOnSpell;
     //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If array is empty that detects all.
     [SerializeField, ShowIf(nameof(AffectsSpells))] protected SpellMain[] spellsToAffect = System.Array.Empty<SpellMain>();
-
+    [SerializeReference] public PassData[] passDataInspector; //maybe for debug only
     
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
-        if (!useInspectorDamageData) injectHealth = main.injectHealthOverride;
-        else injectHealth.damage = _damageInspector;
-        injectHealth.myBrain = main.OwnersBrain;
-        
         main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
@@ -87,6 +83,21 @@ public class Spell : SerializedMonoBehaviour
         initialized = true;
         
     }
+    // public virtual void InitializeMe(SpellMain mainSpell)
+    // {
+    //     main = mainSpell;
+    //     if (!useInspectorDamageData) injectHealth = main.injectHealthOverride;
+    //     else injectHealth.damage = _damageInspector;
+    //     injectHealth.myBrain = main.OwnersBrain;
+    //     
+    //     main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
+    //     main.mySphereCollider.radius = areaOfEffect * 0.5f;
+    //     main.myCapsuleCollider.height = areaOfEffect;
+    //     main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
+    //     MyPhase = Phase.BeginWarning;
+    //     initialized = true;
+    //     
+    // }
 
     public virtual void OnCollisionEnterCallBack(Collision collision) { }
     public virtual void OnTriggerExitCallBack(Collider other) { }

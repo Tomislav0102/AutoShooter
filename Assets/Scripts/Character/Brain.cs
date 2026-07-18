@@ -77,33 +77,18 @@ public class Brain : EventBus
         agent.radius = size * 0.5f;
     }
     
-    [Button]
-    public void ToggleFaction()
-    {
-        int f = (int)Faction;
-        f = (1 + f) % 2;
-        Faction = (Faction)f;
-        Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
-    }
-
-    [Button]
-    public void PushMe()
-    {
-        agent.velocity += 10 * Vector3.forward;
-    }
-
-
-    // void OnCollisionEnter(Collision collision)
+    // [Button]
+    // public void ToggleFaction()
     // {
-    //   //  print($"I am {gameObject.name} and have collided with {collision.gameObject.name}");
-    //     if (collision.gameObject.TryGetComponent(out Brain br))
-    //     {
-    //         if (myTransform == Ga.me.team.playerTransform)
-    //         {
-    //             Vector3 dir = Utils.Direction(br.myTransform.position, myTransform.position);
-    //             myRigid.AddForce(100f * dir, ForceMode.VelocityChange);
-    //         }
-    //         print($"I am {gameObject.name} and have collided with {br.myTransform.name} and it has a brain");
-    //     }
+    //     int f = (int)Faction;
+    //     f = (1 + f) % 2;
+    //     Faction = (Faction)f;
+    //     Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
+    // }
+    //
+    // [Button]
+    // public void PushMe()
+    // {
+    //     agent.velocity += 10 * Vector3.forward;
     // }
 }

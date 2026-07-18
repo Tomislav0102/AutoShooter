@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class Ga : MonoBehaviour
 {
     public static Ga me;
+    [SerializeReference] public PassData[] passData;
     public CameraRig camRig;
     public Transform parPointers;
     public RectTransform offScreenPointerPrefab;
@@ -35,7 +36,7 @@ public class Ga : MonoBehaviour
     public RectTransform healthBarPrefab;
     public Transform floatingContainer;
     public FloatingText floatingTextPrefab;
-    public TeamManager team =  new TeamManager();
+    public TeamManager team;
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
     [Title("Debug")] 
@@ -46,6 +47,7 @@ public class Ga : MonoBehaviour
     {
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
+        team = new TeamManager();
 #if (!UNITY_EDITOR)
         SceneManager.LoadScene(1, LoadSceneMode.Additive);
 

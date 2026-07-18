@@ -7,9 +7,16 @@ using UnityEngine;
 public class TeamManager
 {
     public Transform playerTransform;
-    HashSet<Brain> _good = new HashSet<Brain>();
-    HashSet<Brain> _bad = new HashSet<Brain>();
-    HashSet<Brain> _neutral = new HashSet<Brain>();
+    HashSet<Brain> _good;
+    HashSet<Brain> _bad;
+    HashSet<Brain> _neutral;
+
+    public TeamManager()
+    {
+        _good = new HashSet<Brain>();
+        _bad = new HashSet<Brain>();
+        _neutral = new HashSet<Brain>();
+    }
     
     public void CallEv_OnCharDeath(Brain brainDead)
     {
@@ -21,11 +28,11 @@ public class TeamManager
     {
         HashSet<Transform> temp =  new HashSet<Transform>();
         HashSet<Brain> brains =  ValidTargetBrain(faction);
+        
         foreach (Brain item in brains)
         {
             temp.Add(item.myTransform);
         }
-        
         return temp;
     }
     HashSet<Brain> ValidTargetBrain(Faction faction)

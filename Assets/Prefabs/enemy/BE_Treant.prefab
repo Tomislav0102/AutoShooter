@@ -15582,7 +15582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: weapons.Array.data[0].range
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: weapons.Array.data[1].range
@@ -15608,10 +15608,6 @@ PrefabInstance:
       propertyPath: loco
       value: 
       objectReference: {fileID: 187714480662116025}
-    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: combat
-      value: 
-      objectReference: {fileID: 1472948413442300051}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myRenderer
       value: 
@@ -15756,10 +15752,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       insertIndex: 14
       addedObject: {fileID: 6485067896971437470}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1472948413442300051}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
 --- !u!114 &187714480662116025 stripped
 MonoBehaviour:
@@ -15772,32 +15765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Loco
---- !u!1 &3253033004250387231 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5299295269889135863, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 7255290962422859752}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1472948413442300051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3253033004250387231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7350529cbc155f45aa13e8b3dd0a04d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::E_Melee
-  weapons:
-  - spellMain: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
-    attackType: 0
-    range: 1.5
-  - spellMain: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-    attackType: 1
-    range: 5
-  <IsInitialized>k__BackingField: 0
-  spawnPoint: {fileID: 8030913400019200557}
 --- !u!4 &8188586477152802918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}

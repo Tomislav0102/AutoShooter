@@ -9,17 +9,18 @@ public class CameraRig : MonoBehaviour
     [SerializeField] Transform playerFocus;
     [SerializeField] int focusOffset = 10;
     [SerializeField] int yawSpeed = 100;
+    public GenSide rotatingTo = GenSide.Center;
+
+    void Start()
+    {
+        camTransform.position += focusOffset * Vector3.forward;
+    }
+
     void LateUpdate()
     {
-        playerFocus.localPosition = focusOffset * Vector3.up;
         Utils.CameraFollowAsymptotic(Ga.me.team.playerTransform.position, myTransform);
-    }
-    
-    
-    public void BtnCameraYaw(bool isLeftDirection)// can't use buttons, will need IPointerEnter interface with a new Monobehaviour for every UI element
-    {
-        int dir = isLeftDirection ? -1 : 1;
-        myTransform.RotateAround(playerFocus.position, Vector3.up, dir * yawSpeed * Time.deltaTime);
+        int dir = (int)rotatingTo - 1;
+        myTransform.Rotate(dir * yawSpeed * Time.deltaTime * Vector3.up);
     }
 
 }
