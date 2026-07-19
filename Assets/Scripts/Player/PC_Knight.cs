@@ -15,22 +15,6 @@ public class PC_Knight : P_Combat
         set
         {
             base.Br = value;
-            damMelee = new Dictionary<Element, float>()
-            {
-                 // { Element.Physical, Br.myChar.GetStat(Stats.MeleeDamage) },
-                  // { Element.Ice, Br.myChar.GetStat(Stats.RangedDamage) },
-                   { Element.Electricity, 2f },
-                 // { Element.Poison, Br.myChar.GetStat(Stats.MeleeDamage) },
-                 // { Element.Fire, Br.myChar.GetStat(Stats.MeleeDamage) },
-            };
-            damRanged = new Dictionary<Element, float>()
-            {
-                { Element.Physical, Br.character.GetStat(Stats.RangedDamage) },
-            };
-            damUltimate = new Dictionary<Element, float>()
-            {
-                { Element.Poison, Br.character.GetStat(Stats.MagicDamage) },
-            };
             switch (startActive)
             {
                 case 0:
@@ -58,51 +42,51 @@ public class PC_Knight : P_Combat
     public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
+        container = new PassDataContainer()
+        {
+            myBrain = Br,
+            canBeBlocked = true,
+            data = new PassData[2]
+            {
+                new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
+                new PassDataKnockBack(5)
+            }
+        };
+
         SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee), Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
             if (br == null) CombatEventRegistered(CombatEvent.Miss);
             else CombatEventRegistered(CombatEvent.Hit, br);
         };
-        InjectHealth ihMelee = new InjectHealth(damMelee, true, powerKnockback);
-        melee.InitializeMe(Br, ihMelee);
-
-        PassDataShared pdShared = new PassDataShared( Br, true);
-        PassDataDamage pdDam = new PassDataDamage(new MyDuo<Element, float>(damMelee));
-        PassDataKnockBack pdKnock = new PassDataKnockBack(powerKnockback);
-
-        List<PassData> final = new List<PassData>();
-        final.Add(pdShared);
-        final.Add(pdDam);
-        final.Add(pdKnock);
-
+        melee.InitializeMe(Br, container);
     }
 
     public override void FromAnimEv_Ultimate(int num = 0)
     {
         base.FromAnimEv_Ultimate(num);
-        
-        Br.loco.PushMe(Br.myTransform.forward, Loco.MoveOverrideType.Dash, powerDash);
-        SpellMain dash = Instantiate(GetSpellByAttackType(AnimAttackType.Ultimate), Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        dash.transporter.target = Br.myTransform;
-    
-        InjectHealth ihDash = new InjectHealth(damUltimate, false, 30);
-        Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
-        knockBackDir2.Normalize();
-        knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (Random.Range(0,2) - 1));
-        ihDash.knockBackDirection = knockBackDir2;
-        dash.InitializeMe(Br, ihDash, afterSpellPush);
-    
-        dash.spell.areaOfEffect = Br.size + 1;
-        dash.spell.lifeTime = Ga.me.gameData.dashTime;
-        return;
-        
-        void afterSpellPush()
-        {
-            SpellMain push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            InjectHealth ihPush = new InjectHealth(damUltimate, false, 30);
-            push.InitializeMe(Br, ihPush);
-        }
+        //
+        // Br.loco.PushMe(Br.myTransform.forward, Loco.MoveOverrideType.Dash, powerDash);
+        // SpellMain dash = Instantiate(GetSpellByAttackType(AnimAttackType.Ultimate), Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        // dash.transporter.target = Br.myTransform;
+        //
+        // InjectHealth ihDash = new InjectHealth(damUltimate, false, 30);
+        // Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
+        // knockBackDir2.Normalize();
+        // knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (Random.Range(0,2) - 1));
+        // ihDash.knockBackDirection = knockBackDir2;
+        // dash.InitializeMe(Br, ihDash, afterSpellPush);
+        //
+        // dash.spell.areaOfEffect = Br.size + 1;
+        // dash.spell.lifeTime = Ga.me.gameData.dashTime;
+        // return;
+        //
+        // void afterSpellPush()
+        // {
+        //     SpellMain push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        //     InjectHealth ihPush = new InjectHealth(damUltimate, false, 30);
+        //     push.InitializeMe(Br, ihPush);
+        // }
 
     }
 
@@ -147,9 +131,17 @@ public class PC_Knight : P_Combat
         IEnumerator SpellPushDelay()
         {
             yield return new WaitForSeconds(0.1f);
+            container = new PassDataContainer()
+            {
+                myBrain = Br,
+                canBeBlocked = false,
+                data = new PassData[1]
+                {
+                    new PassDataKnockBack(30)
+                }
+            };
             SpellMain push = Instantiate(Ga.me.spells.push, myShield.position, Quaternion.identity, Ga.me.spells.myTransform);
-            InjectHealth ihPush = new InjectHealth(new Dictionary<Element, float>(), false, 30);
-            push.InitializeMe(Br, ihPush);
+            push.InitializeMe(Br, container);
         }
     }
 

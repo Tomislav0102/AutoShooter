@@ -55,23 +55,12 @@ public class Spell : SerializedMonoBehaviour
     [HideIf(nameof(LifeTimeIs0))] public float rateOfFire;
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
-    
-    [SerializeField, BoxGroup] bool useInspectorDamageData;
-    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] protected InjectHealth injectHealth;
-    //need this, because dictionary can't be serialized in non-monobehaviour C# class
-    [SerializeField, ShowIf(nameof(useInspectorDamageData)), BoxGroup] Dictionary<Element, float> _damageInspector;
-    
+    [SerializeReference] PassDataContainer _pd;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    
-    protected enum HitEffect { OnBody, OnSpell, OnStats }
     public enum HitEffectOnSpell { Nullify, Reflect }
-    [SerializeField] protected HitEffect hitEffect;
-    bool AffectsSpells() => hitEffect == HitEffect.OnSpell;
-    [SerializeField, ShowIf(nameof(AffectsSpells))] protected  HitEffectOnSpell hitEffectOnSpell;
-    //Only type matters. All instances of same type are treated the same. E.g., any 'S_Bullet' in array detects all variations. If array is empty that detects all.
-    [SerializeField, ShowIf(nameof(AffectsSpells))] protected SpellMain[] spellsToAffect = System.Array.Empty<SpellMain>();
-    [SerializeReference] public PassData[] passDataInspector; //maybe for debug only
-    
+
+
+
     public virtual void InitializeMe(SpellMain mainSpell)
     {
         main = mainSpell;
@@ -79,25 +68,12 @@ public class Spell : SerializedMonoBehaviour
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
+        if (_pd == null) _pd = main.pd;
+        else _pd.myBrain = main.OwnersBrain;
         MyPhase = Phase.BeginWarning;
         initialized = true;
         
     }
-    // public virtual void InitializeMe(SpellMain mainSpell)
-    // {
-    //     main = mainSpell;
-    //     if (!useInspectorDamageData) injectHealth = main.injectHealthOverride;
-    //     else injectHealth.damage = _damageInspector;
-    //     injectHealth.myBrain = main.OwnersBrain;
-    //     
-    //     main.warningRend.transform.localScale = areaOfEffect * Vector3.one;
-    //     main.mySphereCollider.radius = areaOfEffect * 0.5f;
-    //     main.myCapsuleCollider.height = areaOfEffect;
-    //     main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
-    //     MyPhase = Phase.BeginWarning;
-    //     initialized = true;
-    //     
-    // }
 
     public virtual void OnCollisionEnterCallBack(Collision collision) { }
     public virtual void OnTriggerExitCallBack(Collider other) { }
@@ -106,72 +82,53 @@ public class Spell : SerializedMonoBehaviour
 
     protected void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
-        Brain b = null;
-        switch (hitEffect)
+        Brain oustedTargetsBrain = null;
+        foreach (PassData item in _pd.data)
         {
-            case HitEffect.OnBody:
-                if (targetGeneric.TryGetComponent(out Brain br) && Utils.CanTargetFaction(main.OwnersBrain.Faction, br.Faction, myFactionTarget))
-                {
-                    if (injectHealth.knockBack > 0 && br.loco != null)
+            switch (item)
+            {
+                case PassDataDamage dam:
+                case PassDataKnockBack knockBack:
+                case PassDataManaShield manaShield:
+                    if (targetGeneric.TryGetComponent(out Brain br) && 
+                        Utils.CanTargetFaction(main.OwnersBrain.Faction, br.Faction, myFactionTarget))
                     {
-                        Vector3 dir;
-                        if (injectHealth.knockBackDirection.Equals(Vector2.zero)) dir = Utils.Direction(main.OwnersBrain.myTransform.position, br.myTransform.position);
-                        else dir = Utils.MakeV3(injectHealth.knockBackDirection);
-                        if (main.debug) print(dir);
-                        br.loco.PushMe(dir, Loco.MoveOverrideType.KnockBack, injectHealth.knockBack);
-                        b = br;
+                        br.health.TakeDamage(_pd);
+                        oustedTargetsBrain = br;
                     }
-                    if (injectHealth.damage.Count > 0)
+                    break;
+                
+                case PassDataSpell spellData:
+                    if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
+                        Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
                     {
-                        br.health.TakeDamage(injectHealth);
-                        b = br;
-                    }
-                    if (injectHealth.manaShieldPoints > 0)
-                    {
-                        br.health.SetShield(injectHealth.manaShieldPoints);
-                        b = br;
-                    }
-                }
-                break;
-            case HitEffect.OnSpell:
-                if (targetGeneric.TryGetComponent(out SpellMain targetSpell) && Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-                {
-                    if (spellsToAffect.Length == 0) onSpell();
-                    else
-                    {
-                        for (int i = 0; i < spellsToAffect.Length; i++)
+                        if (spellData.spellsToAffect.Length == 0) onSpell();
+                        else
                         {
-                            if (targetSpell.spell.GetType() != spellsToAffect[i].spell.GetType()) continue;
-                            onSpell();
+                            for (int i = 0; i < spellData.spellsToAffect.Length; i++)
+                            {
+                                if (targetSpell.spell.GetType() != spellData.spellsToAffect[i].spell.GetType()) continue;
+                                onSpell();
+                            }
+                        }
+                        void onSpell()
+                        {
+                            switch (spellData.effect)
+                            {
+                                case HitEffectOnSpell.Nullify:
+                                    targetSpell.spell.MyPhase = Phase.EndStart;
+                                    break;
+                                case HitEffectOnSpell.Reflect:
+                                    Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
+                                    targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
+                                    break;
+                            }
                         }
                     }
-                }
-                break;
-                void onSpell()
-                {
-                    switch (hitEffectOnSpell)
-                    {
-                        case HitEffectOnSpell.Nullify:
-                            targetSpell.spell.MyPhase = Phase.EndStart;
-                            break;
-                        case HitEffectOnSpell.Reflect:
-                            Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
-                            targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
-                            break;
-                    }
-                    b = targetSpell.OwnersBrain;
-                }
-            // case HitEffect.OnShield: //only one spell uses this, consider different solution for shield logic. Too much of the edge-case
-            //     if (targetGeneric.TryGetComponent(out Brain brShield) && 
-            //         Utils.CanTargetFaction(main.OwnersBrain.Faction, brShield.Faction, myFactionTarget) &&
-            //         injectHealth.damage.ContainsKey(Element.Physical))
-            //     {
-            //         brShield.health.SetShield(injectHealth.damage[Element.Physical]);
-            //         b = brShield;
-            //     }
-            //     break;
+                    break;
+            }
         }
-        targetsBrain = b;
+        targetsBrain = oustedTargetsBrain;
     }
 
 

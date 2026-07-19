@@ -48,7 +48,7 @@ public class SpellMain : MonoBehaviour
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public SpriteRenderer warningRend;
-    [ReadOnly] public InjectHealth injectHealthOverride;
+    [ReadOnly] public PassDataContainer pd;
     public Spell spell; 
     public SpellTransporter transporter;
     public SpellVisual visual;
@@ -73,10 +73,9 @@ public class SpellMain : MonoBehaviour
     /// <summary>
     /// Damage is from code, no after spell
     /// </summary>
-    public void InitializeMe(Brain brain, InjectHealth inject)
+    public void InitializeMe(Brain brain, PassDataContainer passData)
     {
-        if (inject == null) inject = new InjectHealth();
-        injectHealthOverride = inject;
+        pd = passData;
         InitializeMe(brain); 
     }
     /// <summary>
@@ -90,10 +89,9 @@ public class SpellMain : MonoBehaviour
     /// <summary>
     /// Damage is from code, with after spell
     /// </summary>
-    public void InitializeMe(Brain brain, InjectHealth inject, System.Action onAfterSpell)
+    public void InitializeMe(Brain brain, PassDataContainer passData, System.Action onAfterSpell)
     {
-        if (inject == null) inject = new InjectHealth();
-        injectHealthOverride = inject;
+        pd = passData;
         _onAfterSpell = onAfterSpell;
         InitializeMe(brain); 
     }

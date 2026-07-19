@@ -88,12 +88,10 @@ public class Combat : EventBus, IInit
     const int CONST_BlockTimer = 2;
 
     //cache
-    protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
-    protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
-    protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
-    protected PassDataDamage[] pdDamageMelee;
-    protected PassDataDamage[] pdDamageRanged;
-    protected PassDataDamage[] pdDamageUltimate;
+    // protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
+    // protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
+    // protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
+    protected PassDataContainer container;
 
     public virtual void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
     {

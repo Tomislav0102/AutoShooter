@@ -85,83 +85,88 @@ public class Health: EventBus, IInit
     Dictionary<Status.Effect, ParticleSystem> _dictPsStatus;
     [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
-    public void TakeDamage(InjectHealth dam)
+    public void TakeDamage(PassDataContainer pd)
     {
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
-        if (dam.canBeBlocked)
+
+        if (pd.canBeBlocked)
         {
-            Br.combat.CheckBlock(out bool blocked, dam.myBrain);
+            Br.combat.CheckBlock(out bool blocked, pd.myBrain);
             if (blocked)
             {
-                ft.SpawnMe("Blocked!", Color.gold); 
+                ft.SpawnMe("Blocked!", Color.gold);
                 return;
             }
             Br.combat.CheckDodge(out bool dodged);
             if (dodged)
             {
-                ft.SpawnMe("Dodged!", Color.moccasin); 
+                ft.SpawnMe("Dodged!", Color.moccasin);
                 return;
             }
+        }
+        
+        foreach (PassData item in pd.data)
+        {
+            switch (item)
+            {
+                case PassDataDamage dam:
+                    float totalDamage = 0f;
+                    for (int i = 0; i < dam.pair.Length(); i++)
+                    {
+                        float val = dam.pair.GetValue(i);
+                        switch (val)
+                        {
+                            case < 0:
+                                psHeal.Play();
+                                break;
+                            case > 0:
+                            {
+                                ParticleSystem ps = _dictPsElements[(Element)i];
+                                if (ps != null) ps.Play();
+                                break;
+                            }
+                        }
+                        totalDamage += val;
+                    }
+
+                    float shield = ShieldCurrent;
+                    ShieldCurrent -= totalDamage;
+                    if (ShieldCurrent <= 0)
+                    {
+                        HealthCurrent -= (totalDamage - shield);
+                        if (HealthCurrent <= 0)
+                        {
+                            if (pd.myBrain != null) pd.myBrain.combat.CombatEventRegistered(CombatEvent.Kill, Br);
+                            Death();
+                            return;
+                        }
+                    }
+                    ft.SpawnMe(dam.pair);
+                    break;
+
+                case PassDataManaShield manaShield:
+                    SetShield(manaShield.manaShieldPoints);
+                    break;
+                
+                case PassDataKnockBack knockBack:
+                    Vector3 dir;
+                    if (knockBack.knockBackDirection.Equals(Vector2.zero)) dir = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
+                    else dir = Utils.MakeV3(knockBack.knockBackDirection);
+                    Br.loco.PushMe(dir, Loco.MoveOverrideType.KnockBack, knockBack.knockBack);
+                    break;
+            }
+
         }
 
         _timerRegenerate = _timerShield = 0f;
-        float totalDamage = 0f;
-        foreach (KeyValuePair<Element, float> item in dam.damage)
-        {
-            totalDamage += item.Value;
-            if (item.Value < 0)
-            {
-                psHeal.Play();
-            }
-            else
-            {
-                ParticleSystem ps = _dictPsElements[item.Key];
-                if (ps != null) ps.Play();
-            }
-        }
-        Br.combat.CombatEventRegistered(CombatEvent.GetHit, dam.myBrain);
-       // Instantiate(Ga.me.dropPrefab, Br.myTransform.position + Vector3.up, Quaternion.identity, Ga.me.transform);
-
-        foreach (KeyValuePair<string, string> item in dam.tags)
-        {
-            switch (item.Key)
-            {
-                case InjectHealth.TagExecutioner:
-                    float chance = float.Parse(item.Value);
-                    float currentHpRatio = HealthCurrent / _healthMax;
-                    if (chance <= currentHpRatio)
-                    {
-                        HealthCurrent = 0;
-                    }
-                    break;
-                    case InjectHealth.TagStatusBleed:
-                        //apply bleed
-                        break;
-            }
-        }
-        ft.SpawnMe(dam);
-        
-        float shield = ShieldCurrent;
-        ShieldCurrent -= totalDamage;
-        if (ShieldCurrent <= 0)
-        {
-            HealthCurrent -= (totalDamage - shield);
-            if (HealthCurrent <= 0)
-            {
-                if (dam.myBrain != null) dam.myBrain.combat.CombatEventRegistered(CombatEvent.Kill, Br);
-                Death();
-                return;
-            }
-        }
-        
+        Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
         Br.loco.Hit();
-        if (dam.myBrain == null) return;
+        if (pd.myBrain == null) return;
         if (Br.myTransform == Ga.me.team.playerTransform) return;
-        
         if (Br.combat.MyTarget == null)
         {
             print("UnderAttack");
-            Br.combat.MyTarget = dam.myBrain.myTransform;
+            Br.combat.MyTarget = pd.myBrain.myTransform;
         }
     }
 

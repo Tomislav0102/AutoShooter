@@ -13,10 +13,6 @@ public class PC_Archer : P_Combat
         set
         {
             base.Br = value;
-            damRanged = new Dictionary<Element, float>()
-            {
-                { Element.Physical, Br.character.GetStat(Stats.RangedDamage) }
-            };
             IsInitialized = true;
         }
     }
@@ -50,6 +46,7 @@ public class PC_Archer : P_Combat
     {
         if (_rollCoroutine != null) StopCoroutine(_rollCoroutine);
         _rollCoroutine = StartCoroutine(RollCoroutine());
+        //need fix, replace Br.myRigid.AddForce with Br.agent.velocity
         IEnumerator RollCoroutine()
         {
             // Br.loco.OvrMove = true;
@@ -116,6 +113,15 @@ public class PC_Archer : P_Combat
         void SpawnProjectile(float rotation)
         {
             Vector3 rot = rotation * Vector3.up;
+            container = new PassDataContainer()
+            {
+                myBrain = Br,
+                canBeBlocked = false,
+                data = new PassData[1]
+                {
+                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                }
+            };
             for (int i = 0; i < parallel + 1; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
@@ -125,7 +131,7 @@ public class PC_Archer : P_Combat
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
                 float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
                 sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-                sp.InitializeMe(Br, new InjectHealth(damRanged));
+                sp.InitializeMe(Br, container);
             }
         }
     }

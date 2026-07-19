@@ -42,6 +42,46 @@ public class MyDuo<K, V>
         _canHaveDuplicateKeys = canHaveDuplicateKeys;
         _canHaveDuplicateValues = canHaveDuplicateValues;
     }
+
+    public MyDuo(K[] keys, V[] values)
+    {
+        if (keys.Length != values.Length) return;
+        Key = keys;
+        Value = values;
+
+        for (int i = 0; i < Length(); i++)
+        {
+            if (isDuplicateKey(Key[i])) _canHaveDuplicateKeys = true;
+            if (isDuplicateValue(Value[i])) _canHaveDuplicateValues = true;
+        }
+
+        bool isDuplicateKey(K key)
+        {
+            bool foundMyself = false;
+            for (int i = 0; i < Length(); i++)
+            {
+                if (Key[i].Equals(key))
+                {
+                    if (foundMyself) return true;
+                    foundMyself = true;
+                }
+            }
+            return false;
+        }
+        bool isDuplicateValue(V val)
+        {
+            bool foundMyself = false;
+            for (int i = 0; i < Length(); i++)
+            {
+                if (Value[i].Equals(val))
+                {
+                    if (foundMyself) return true;
+                    foundMyself = true;
+                }
+            }
+            return false;
+        }
+    }
     #endregion
 
     #region MAINPULATE DATA
@@ -165,6 +205,8 @@ public class MyDuo<K, V>
     #endregion
 
     #region GET DATA
+    public K GetKey(int index) => Key[index];
+    public V GetValue(int index) => Value[index];
     public V GetValueByKey(K key)
     {
         for (int i = 0; i < Key.Length; i++)

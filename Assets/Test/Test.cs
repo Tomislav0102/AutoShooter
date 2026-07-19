@@ -18,7 +18,6 @@ public class Test : SerializedMonoBehaviour
     {
         foreach (PassData item in final)
         {
-            if (item is PassDataShared) print("shared");
             if (item is PassDataDamage) print("dam");
             if (item is PassDataKnockBack) print("knock");
         }
@@ -36,12 +35,9 @@ public class Test : SerializedMonoBehaviour
 
     void SetPassData()
     {
-        PassDataShared pdShared = new PassDataShared(Ga.me.team.playerTransform.GetComponent<Brain>(), true);
         PassDataKnockBack pdKnock = new PassDataKnockBack(7);
 
         final = new List<PassData>();
-        final.Add(pdShared);
-        final.Add(pdShared);
         final.Add(pdKnock);
     }
 }

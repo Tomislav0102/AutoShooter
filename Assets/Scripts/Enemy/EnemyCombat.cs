@@ -34,33 +34,42 @@ public class EnemyCombat : Combat
             }
         }
     }
-    
-        public override void FromAnimEv_Attack(int num = 0)
+
+    public override void FromAnimEv_Attack(int num = 0)
     {
         base.FromAnimEv_Attack(num);
         switch (num)
         {
             case 0: //melee
-                damMelee = new Dictionary<Element, float>()
+                container = new PassDataContainer()
                 {
-                    { Element.Physical, Br.character.GetStat(Stats.MeleeDamage) },
+                    myBrain = Br,
+                    canBeBlocked = true,
+                    data = new PassData[2]
+                    {
+                        new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
+                        new PassDataKnockBack(5)
+                    }
                 };
                 SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee),
-                    Br.myTransform.position,
-                    Br.myTransform.rotation, Ga.me.spells.myTransform);
-                InjectHealth ihMelee = new InjectHealth(damMelee, true);
-                melee.InitializeMe(Br, ihMelee);
+                    Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                melee.InitializeMe(Br, container);
                 break;
             case 1: //bullet
-                damRanged = new Dictionary<Element, float>()
+                container = new PassDataContainer()
                 {
-                    { Element.Fire, Br.character.GetStat(Stats.RangedDamage) },
+                    myBrain = Br,
+                    canBeBlocked = true,
+                    data = new PassData[1]
+                    {
+                        new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    }
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
-                SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
+                    zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
-                InjectHealth ihRange = new InjectHealth(damRanged, true);
-                bullet.InitializeMe(Br, ihRange);
+                bullet.InitializeMe(Br, container);
                 break;
         }
     }
@@ -71,17 +80,21 @@ public class EnemyCombat : Combat
         switch (num)
         {
             case 0:
-                damRanged = new Dictionary<Element, float>()
+                SpellMain lob = Instantiate(GetSpellByAttackType(AnimAttackType.Ultimate), 
+                    spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
+                container = new PassDataContainer()
                 {
-                    { Element.Fire, Br.character.GetStat(Stats.RangedDamage) },
+                    myBrain = Br,
+                    canBeBlocked = true,
+                    data = new PassData[1]
+                    {
+                        new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    }
                 };
-            
-                SpellMain lob = Instantiate(GetSpellByAttackType(AnimAttackType.Ultimate), spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
-                InjectHealth ihExplosion = new InjectHealth(damRanged);
-                lob.InitializeMe(Br, new InjectHealth(new Dictionary<Element, float>()), () =>
+                lob.InitializeMe(Br, () =>
                 {
                     SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    explosion.InitializeMe(Br, ihExplosion);
+                    explosion.InitializeMe(Br, container);
                 });
                 break;
         }
