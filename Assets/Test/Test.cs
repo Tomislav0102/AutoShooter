@@ -6,40 +6,24 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using UnityEngine.AI;
 
-public class Test : SerializedMonoBehaviour
+public class Test : MonoBehaviour
 {
-    public Transform cube, sphere;
-    public float speed = 1f;
-    [SerializeReference] public List<PassData> final;
-    [SerializeReference] public List<PassData> second;
-    
+
+    public OvrPassData passData;
+
+
+
     [Button]
     void TestEvent()
-    {
-        foreach (PassData item in final)
-        {
-            if (item is PassDataDamage) print("dam");
-            if (item is PassDataKnockBack) print("knock");
-        }
-    }
-    [Button]
-    void InvokeEvent()
     {
         
     }
     [Button]
     void ClearEvent()
     {
-       
+      
     }
 
-    void SetPassData()
-    {
-        PassDataKnockBack pdKnock = new PassDataKnockBack(7);
-
-        final = new List<PassData>();
-        final.Add(pdKnock);
-    }
 }
 
 

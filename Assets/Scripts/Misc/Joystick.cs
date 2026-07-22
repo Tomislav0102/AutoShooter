@@ -10,15 +10,18 @@ namespace TomoJoystick
     {
         [SerializeField] InputActionReference inputClick;
         [SerializeField] RectTransform knob, rayTarget, pointerRect;
-        GameObject _rayTargetGo;
+        GameObject _knobGo, _rayTargetGo;
         RectTransform _myRect;
         float _maxRadius;
         [HideInInspector] public Vector2 value;
         bool _isUsed;
+        
+        
         void Awake()
         {
             _myRect = GetComponent<RectTransform>();
             _maxRadius = rayTarget.rect.width * 0.5f;
+            _knobGo = knob.gameObject;
             _rayTargetGo = rayTarget.gameObject;
         }
 
@@ -43,6 +46,8 @@ namespace TomoJoystick
             
             void setKnob(bool pressed)
             {
+                _rayTargetGo.SetActive(pressed);
+                _knobGo.SetActive(pressed);
                 if (pressed)
                 {
                     pointerRect.position = PointerPos();

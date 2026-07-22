@@ -56,8 +56,10 @@ MonoBehaviour:
   colBleed: {r: 0.33962262, g: 0, b: 0.157, a: 1}
   prefsEnergyStartTime: energy countdown started
   prefsEnergyFinishTime: energy countdown finished
+  prefsTestEnemyCount: test - enemy count
   sceneMain: MainMenu
   sceneGame: Game
+  sceneLevel: Level_template
   layActors: Actor
   layObstacle: Obstacle
   laySpell: Spell

@@ -14704,7 +14704,7 @@ MonoBehaviour:
   rateOfFire: 0
   terminateOnHit: 0
   _pd:
-    rid: -2
+    rid: 7628225219551559773
   onEnter: 1
   onFakeStay: 0
   onExit: 0
@@ -14714,3 +14714,10 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 7628225219551559773
+      type: {class: PassDataContainer, ns: , asm: Assembly-CSharp}
+      data:
+        myBrain: {fileID: 0}
+        canBeBlocked: 0
+        data:
+        - rid: -2

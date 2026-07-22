@@ -24,90 +24,110 @@ public class PC_Mage : P_Combat
         {
             base.Br = value;
             IsInitialized = true;
-            // switch (startActive)
-            // {
-            //     case 0:
-            //         SpellMain[] shields = new SpellMain[numOfObjects];
-            //         for (int i = 0; i < numOfObjects; i++)
-            //         {
-            //             shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         }
-            //         SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
-            //         orbitalGroupShields.orbitingAnchor = Br.myTransform;
-            //         groupShields.InitializeMe(Br, shields);
-            //         break;
-            //     case 1:
-            //         SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         groupWalkTrail.InitializeMe(Br, Ga.me.spells.walkTrailSingle);
-            //         break;
-            //     case 2:
-            //         SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
-            //         orbitalGroupSwords.orbitingAnchor = Br.myTransform;
-            //         
-            //         SpellMain[] swords = new SpellMain[numOfObjects];
-            //         switch (numOfObjects)
-            //         {
-            //             case 1:
-            //                 break;
-            //             case 2:
-            //                 swords[1] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 break;
-            //             case 4:
-            //                 swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 swords[2] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 swords[3] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 break;
-            //             case 6:
-            //                 swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 swords[2] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 swords[3] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 swords[4] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 swords[5] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //                 break;
-            //             default:
-            //                 print("should only be 1, 2, 4, or 6 swords.");
-            //                 return;
-            //         }
-            //         swords[0] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         groupSwords.InitializeMe(Br, swords);
-            //         break;
-            //     case 3:
-            //         float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
-            //         for (int i = 0; i < numOfObjects; i++)
-            //         {
-            //             SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
-            //                 Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
-            //             flamethrower.transporter.target = Br.myTransform;
-            //             flamethrower.InitializeMe(Br, new InjectHealth(damRanged));
-            //         }
-            //         break;
-            //     case 4:
-            //         SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-            //         pushPulse.transporter.target = Br.myTransform;
-            //         pushPulse.InitializeMe(Br);
-            //         break;
-            //     case 5:
-            //         ArcaneShieldSpawn();
-            //         break;
-            //     case 6:
-            //         SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         manaShield.transporter.target = Br.myTransform;
-            //         InjectHealth ihMs = new InjectHealth();
-            //         ihMs.manaShieldPoints = 100;
-            //         manaShield.InitializeMe(Br, ihMs); 
-            //         break;
-            // }
-            //
+            switch (startActive)
+            {
+                case 0:
+                    SpellMain[] shields = new SpellMain[numOfObjects];
+                    for (int i = 0; i < numOfObjects; i++)
+                    {
+                        shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    }
+                    SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
+                    orbitalGroupShields.orbitingAnchor = Br.myTransform;
+                    groupShields.InitializeMe(Br, shields);
+                    break;
+                case 1:
+                    SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    groupWalkTrail.InitializeMe(Br, Ga.me.spells.walkTrailSingle);
+                    break;
+                case 2:
+                    SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+                    orbitalGroupSwords.orbitingAnchor = Br.myTransform;
+                    
+                    SpellMain[] swords = new SpellMain[numOfObjects];
+                    switch (numOfObjects)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            swords[1] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            break;
+                        case 4:
+                            swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[2] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[3] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            break;
+                        case 6:
+                            swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[2] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[3] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[4] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[5] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            break;
+                        default:
+                            print("should only be 1, 2, 4, or 6 swords.");
+                            return;
+                    }
+                    swords[0] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    groupSwords.InitializeMe(Br, swords);
+                    break;
+                case 3:
+                    container = new PassDataContainer()
+                    {
+                        data = new PassData[1]
+                        {
+                            new PassDataDamage(new Element[1] { Element.Fire },
+                                new float[1] { Br.character.GetStat(Stats.RangedDamage) })
+                        }
+                    };
+                    float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
+                    for (int i = 0; i < numOfObjects; i++)
+                    {
+                        SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
+                            Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
+                        flamethrower.transporter.target = Br.myTransform;
+                        flamethrower.InitializeMe(Br, container);
+                    }
+                    break;
+                case 4:
+                    SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+                    pushPulse.transporter.target = Br.myTransform;
+                    pushPulse.InitializeMe(Br);
+                    break;
+                case 5:
+                    ArcaneShieldSpawn();
+                    break;
+                case 6:
+                    container = new PassDataContainer()
+                    {
+                        data = new PassData[1]
+                        {
+                            new PassDataManaShield(100)
+                        }
+                    };
+                    SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    manaShield.transporter.target = Br.myTransform;
+                    manaShield.InitializeMe(Br, container); 
+                    break;
+            }
+            
         }
     }
 
     void ArcaneShieldSpawn()
     {
+        container = new PassDataContainer()
+        {
+            data = new PassData[1]
+            {
+                new PassDataSpell(System.Array.Empty<SpellMain>(), PassData.HitEffectOnSpell.Nullify)
+            }
+        };
         SpellMain arcaneShield = Instantiate(Ga.me.spells.arcaneShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         arcaneShield.transporter.target = Br.myTransform;
-        arcaneShield.InitializeMe(Br);
+        arcaneShield.InitializeMe(Br, container);
         arcaneShield.onHitTarget += (Brain br) =>
         {
             ArcaneShieldCoroutineControl();
@@ -273,7 +293,6 @@ public class PC_Mage : P_Combat
         armageddon.transporter.target = Br.myTransform;
         container = new PassDataContainer()
         {
-            myBrain = Br,
             canBeBlocked = false,
             data = new PassData[1]
             {
@@ -281,7 +300,7 @@ public class PC_Mage : P_Combat
             }
         };
 
-        armageddon.InitializeMe(Br,container);
+        armageddon.InitializeMe(Br, container);
 
     }
 }

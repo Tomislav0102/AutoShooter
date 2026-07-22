@@ -12206,7 +12206,7 @@ PrefabInstance:
       objectReference: {fileID: 7546444594929099885, guid: 425aa33e5e74c084b9090e2dd29e8c6d, type: 3}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: weapons.Array.data[0].attackType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: loco

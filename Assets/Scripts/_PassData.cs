@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+
+
 [System.Serializable]
 public class PassDataContainer
 {
     public Brain myBrain;
     public bool canBeBlocked;
-    [SerializeReference] public PassData[] data;
+    public PassData[] data;
 
     
     // public PassDataContainer(Brain brain, PassData[] data, bool canBeBlocked = false)
@@ -22,9 +24,9 @@ public class PassDataContainer
 [System.Serializable]
 public class PassData
 {
+    public enum HitEffectOnSpell { None, Nullify, Reflect }
     [ReadOnly] public int priority;
 }
-
 
 
 [System.Serializable]
@@ -75,6 +77,23 @@ public class PassDataDamage : PassData
     void SetPriority() => priority = 40;
 }
 
+
+[System.Serializable]
+public class PassDataSpell: PassData
+{
+    bool IsNone() => effect == HitEffectOnSpell.None;
+    [HideIf(nameof(IsNone))] public SpellMain[] spellsToAffect;
+    public HitEffectOnSpell effect;
+
+    public PassDataSpell(SpellMain[] spellsToAffect, HitEffectOnSpell effect)
+    {
+        priority = 100;
+        this.spellsToAffect = spellsToAffect;
+        this.effect = effect;
+    }
+}
+
+
 // [System.Serializable]
 // public class PassDataStats : PassData 
 // {
@@ -85,19 +104,6 @@ public class PassDataDamage : PassData
 //         this.pair = pair;
 //     }
 // }
-[System.Serializable]
-public class PassDataSpell: PassData
-{
-    public SpellMain[] spellsToAffect;
-    public Spell.HitEffectOnSpell effect;
-
-    public PassDataSpell(SpellMain[] spellsToAffect, Spell.HitEffectOnSpell effect)
-    {
-        priority = 100;
-        this.spellsToAffect = spellsToAffect;
-        this.effect = effect;
-    }
-}
 // [System.Serializable]
 // public class PassDataTag: PassData
 // {

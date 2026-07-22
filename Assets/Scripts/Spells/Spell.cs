@@ -55,10 +55,8 @@ public class Spell : SerializedMonoBehaviour
     [HideIf(nameof(LifeTimeIs0))] public float rateOfFire;
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
-    [SerializeReference] PassDataContainer _pd;
+    PassDataContainer _pd;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    public enum HitEffectOnSpell { Nullify, Reflect }
-
 
 
     public virtual void InitializeMe(SpellMain mainSpell)
@@ -68,8 +66,12 @@ public class Spell : SerializedMonoBehaviour
         main.mySphereCollider.radius = areaOfEffect * 0.5f;
         main.myCapsuleCollider.height = areaOfEffect;
         main.myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
-        if (_pd == null) _pd = main.pd;
-        else _pd.myBrain = main.OwnersBrain;
+        
+        OvrPassData ovrPassData = GetComponent<OvrPassData>();
+        if (ovrPassData != null) _pd = ovrPassData.GetContainer();
+        else _pd = mainSpell.pd;
+        _pd.myBrain = main.OwnersBrain;
+        
         MyPhase = Phase.BeginWarning;
         initialized = true;
         
@@ -115,10 +117,10 @@ public class Spell : SerializedMonoBehaviour
                         {
                             switch (spellData.effect)
                             {
-                                case HitEffectOnSpell.Nullify:
+                                case PassData.HitEffectOnSpell.Nullify:
                                     targetSpell.spell.MyPhase = Phase.EndStart;
                                     break;
-                                case HitEffectOnSpell.Reflect:
+                                case PassData.HitEffectOnSpell.Reflect:
                                     Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
                                     targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
                                     break;

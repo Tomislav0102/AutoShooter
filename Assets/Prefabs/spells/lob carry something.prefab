@@ -147,6 +147,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 2688387915360757227}
@@ -195,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VisualTransporter
   target: {fileID: 9083238804321993625}
   myType: 0
+  randomizeYRot: 1
 --- !u!4 &9083238804321993625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -225,33 +230,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   myFactionTarget: 1
   areaOfEffect: 1
   warningDelay: 0
@@ -259,13 +238,3 @@ MonoBehaviour:
   lifeTime: 15
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart: []
-    psOnHit: []
-    particleSizeChangeStart: 0
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 

@@ -25,10 +25,11 @@ public class VisualTransporter : SpellTransporter
                     print("no rigidbody, terminating.");
                     return;
                 }
-                target.rotation *= Quaternion.Euler(-45f, Random.Range(0f, 360f), 0);
+                int y = randomizeYRot ? Random.Range(0, 360) : 0;
+                target.rotation *= Quaternion.Euler(-45f, y, 0);
                 _targetRigid.isKinematic = false;
                 _targetRigid.useGravity = true;
-                _targetRigid.AddForce(10 * Random.Range(1f, 1.4f) * target.forward, ForceMode.VelocityChange);
+                _targetRigid.AddForce(7 * Random.Range(1f, 1.4f) * target.forward, ForceMode.VelocityChange);
                 _rndRot = Random.insideUnitSphere.normalized;
                 break;
             

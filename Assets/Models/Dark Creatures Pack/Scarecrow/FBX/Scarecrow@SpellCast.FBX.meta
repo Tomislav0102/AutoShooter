@@ -8,7 +8,7 @@ AssetOrigin:
   assetPath: Assets/Dark Creatures Pack/Scarecrow/FBX/Scarecrow@SpellCast.FBX
   uploadId: 293423
 ModelImporter:
-  serializedVersion: 24200
+  serializedVersion: 24300
   internalIDToNameTable:
   - first:
       1: 100000
@@ -439,6 +439,7 @@ ModelImporter:
     materialName: 0
     materialSearch: 1
     materialLocation: 0
+    searchTexturesGlobally: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -486,11 +487,11 @@ ModelImporter:
       curves: []
       events:
       - time: 0.2670157
-        functionName: AE_Ultimate
+        functionName: AE_Attack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 2
         messageOptions: 0
       transformMask: []
       maskType: 3

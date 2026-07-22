@@ -1,7 +1,7 @@
 GENERAL
 Push feature - define knockback, dash, magnet
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
-Combat -> public SpellMain[] weapons - finish
+SpellGroup - implement new PassData
           
 TRAPS
 Basic floor trap - stationary spell, always active
@@ -16,7 +16,8 @@ KNIGHT
 Fix stab animation (animator is ready)
 
 ENEMY
-
-
+Charging enemy, contact damage. Typical enemy in simple action games.
+Ultimate Attack Type - not working, maybe its redundant (melee and ranged cover everything)
+When enemy dies before his spell has effect (ranged, lobs), spell is fucked up because ownersBrain = null. This will be fixed automatically with pooling.
 
 

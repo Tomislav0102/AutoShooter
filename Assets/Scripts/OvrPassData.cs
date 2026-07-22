@@ -1,0 +1,37 @@
+using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+
+/// <summary>
+/// used in 'Reflect projectiles'
+/// </summary>
+public class OvrPassData : MonoBehaviour
+{
+    public bool canBeBlocked;
+
+    public PassDataDamage damage;
+    public PassDataKnockBack knockBack;
+    public PassDataManaShield manaShield;
+    public PassDataSpell spellData;
+
+    
+    public PassDataContainer GetContainer()
+    {
+        PassDataContainer container = new PassDataContainer()
+        {
+            canBeBlocked = canBeBlocked,
+        };
+        List<PassData> data = new List<PassData>();   
+        if (damage.pair.Length() > 0) data.Add(damage);
+        if (knockBack.knockBack > 0) data.Add(knockBack);
+        if (manaShield.manaShieldPoints > 0) data.Add(manaShield);
+        if (spellData.effect != PassData.HitEffectOnSpell.None) data.Add(spellData);
+        
+        container.data = data.ToArray();
+        
+        return container;
+    }
+}
+

@@ -51,9 +51,7 @@ public class Combat : EventBus, IInit
             }
         }
     }
-
     Brain _br;
-
     [field:SerializeField, ReadOnly] public bool IsInitialized { get; set; }
 
     public virtual Transform MyTarget
@@ -83,16 +81,11 @@ public class Combat : EventBus, IInit
         }
         return null;
     }
-    
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;
-
-    //cache
-    // protected Dictionary<Element, float> damMelee = new Dictionary<Element, float>();
-    // protected Dictionary<Element, float> damRanged = new Dictionary<Element, float>();
-    // protected Dictionary<Element, float> damUltimate = new Dictionary<Element, float>();
     protected PassDataContainer container;
 
+    
     public virtual void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
     {
         switch (combatEvent)

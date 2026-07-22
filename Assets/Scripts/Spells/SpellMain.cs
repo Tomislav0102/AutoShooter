@@ -56,16 +56,21 @@ public class SpellMain : MonoBehaviour
 
 
     #region INITIALIZATION
-    
     /// <summary>
     /// Damage is from inspector, no after spell
     /// </summary>
     public void InitializeMe(Brain brain)
     {
+        if (brain == null) //it's a hack, but it works
+        {
+            Destroy(gameObject);
+            return;
+        }
         OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
         myRigid.isKinematic = true;
         if (isInterrupt) gameObject.layer = LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt);
+        pd.myBrain = OwnersBrain;
         transporter.InitializeMe(this);
         spell.InitializeMe(this);
         visual.InitializeMe(this);

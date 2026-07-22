@@ -42,8 +42,8 @@ public class SoGameData : ScriptableObject
     [Title("Strings")]
     public string prefsEnergyStartTime;
     public string prefsEnergyFinishTime;
-    public string sceneMain, sceneGame;
-    public string SceneLevel() => $"Level{level}";
+    public string prefsTestEnemyCount;
+    public string sceneMain, sceneGame, sceneLevel;
     public string layActors;
     public string layObstacle;
     public string laySpell;

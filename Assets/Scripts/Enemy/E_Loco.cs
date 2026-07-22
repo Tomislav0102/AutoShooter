@@ -11,37 +11,14 @@ public class E_Loco : Loco
     public enum Behavior { Stationary, Roam, Patrol, Follow, Chase, Flee }
     public Behavior behIdlingDefault;
     public Behavior behFightingDefault;
-    public Behavior BehCurrent
-    {
-        get =>  _behCurrent;
-        set
-        {
-            _behCurrent = value;
-            switch (_behCurrent)
-            {
-                case Behavior.Stationary:
-                    break;
-                case Behavior.Roam:
-                    break;
-                case Behavior.Patrol:
-                    break;
-                case Behavior.Follow:
-                    break;
-                case Behavior.Chase:
-                    break;
-                case Behavior.Flee:
-                    break;
-            }
-        }
-    }
-    [ReadOnly, ShowInInspector] Behavior _behCurrent;
+    [ReadOnly] public Behavior behCurrent;
     public override Brain Br
     {
         get => base.Br;
         set
         {
             base.Br = value;
-            BehCurrent = behIdlingDefault;
+            behCurrent = behIdlingDefault;
             Br.agent.enabled = true;
             Br.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
             Renderer myRenderer =  GetComponentInChildren<Renderer>();
@@ -83,7 +60,7 @@ public class E_Loco : Loco
     {
         OvrOrientation = false;
         AnimAttackType? animAttackType = Br.combat.InAttackRange();
-        switch (BehCurrent)
+        switch (behCurrent)
         {
             case Behavior.Stationary:
                 stationary();
@@ -111,7 +88,7 @@ public class E_Loco : Loco
                     if (OvrMove) return;
                     if (Ga.me.waypoints == null || Ga.me.waypoints.Length == 0)
                     {
-                        BehCurrent = Behavior.Stationary;
+                        behCurrent = Behavior.Stationary;
                         return;
                     }
 
@@ -175,13 +152,9 @@ public class E_Loco : Loco
 
         bool canAttack = animAttackType != null;
         if (canAttack) AttackAnimation(animAttackType);
-        else
-        {
-            AttackAnimation(null);
-        }
+        else AttackAnimation(null);
         
-        
-        bool canMove = BehCurrent != Behavior.Stationary && !canAttack && !IsAttackAnimationPlaying();
+        bool canMove = behCurrent != Behavior.Stationary && !canAttack && !IsAttackAnimationPlaying();
         Toggle_Move(canMove);
         if (!OvrMove) Br.agent.speed = canMove ? moveSpeed : 0;
         if (OvrOrientation) Orientation(Br.combat.MyTarget);
