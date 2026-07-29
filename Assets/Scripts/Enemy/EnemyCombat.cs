@@ -6,6 +6,34 @@ using UnityEngine;
 
 public class EnemyCombat : Combat
 {
+    [System.Serializable]
+    class WeaponSet
+    {
+        public SpellMain spellMain;
+        public AnimAttackType animAttackType; 
+        public float range; 
+    }
+    [SerializeField] WeaponSet[] weapons;
+    [Button]
+    void SortWeaponsByRange() =>  Array.Sort(weapons, (x, y) => x.range.CompareTo(y.range));
+
+    public AnimAttackType? InAttackRange()
+    {
+        if (MyTarget == null) return null;
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (distanceToTarget <= weapons[i].range) return weapons[i].animAttackType;
+        }
+        return null;
+    }
+    protected SpellMain GetSpellByAttackType(AnimAttackType animAttackType)
+    {
+        foreach (WeaponSet item in weapons)
+        {
+            if (item.animAttackType == animAttackType) return item.spellMain;
+        }
+        return null;
+    }
     [SerializeField] protected Transform spawnPoint;
     public override Brain Br
     {
@@ -14,7 +42,7 @@ public class EnemyCombat : Combat
         {
             base.Br = value;
             _eLoco = Br.loco as E_Loco;
-            IsInitialized = true;
+            if (weapons.Length > 0) SortWeaponsByRange();
         }
     }
     E_Loco _eLoco;
@@ -41,7 +69,7 @@ public class EnemyCombat : Combat
         switch (num)
         {
             case 0: //melee
-                container = new PassDataContainer()
+                PassDataContainer containerMelee = new PassDataContainer()
                 {
                     myBrain = Br,
                     canBeBlocked = true,
@@ -53,28 +81,28 @@ public class EnemyCombat : Combat
                 };
                 SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee),
                     Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                melee.InitializeMe(Br, container);
+                melee.InitializeMe(Br, containerMelee);
                 break;
             case 1: //bullet
-                container = new PassDataContainer()
+                PassDataContainer containerBullet = new PassDataContainer()
                 {
                     myBrain = Br,
                     canBeBlocked = true,
                     data = new PassData[1]
                     {
-                        new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                        new PassDataDamage(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                     }
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
                     zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
-                bullet.InitializeMe(Br, container);
+                bullet.InitializeMe(Br, containerBullet);
                 break;
             case 2: //extra
                 SpellMain lob = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
                     spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
-                container = new PassDataContainer()
+                PassDataContainer containerExplo = new PassDataContainer()
                 {
                     myBrain = Br,
                     canBeBlocked = true,
@@ -86,7 +114,7 @@ public class EnemyCombat : Combat
                 lob.InitializeMe(Br, () =>
                 {
                     SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    explosion.InitializeMe(Br, container);
+                    explosion.InitializeMe(Br, containerExplo);
                 });
                 break;
         }

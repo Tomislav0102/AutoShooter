@@ -9,23 +9,7 @@ using Random = UnityEngine.Random;
 
 public class Combat : EventBus, IInit
 {
-    [System.Serializable]
-    class WeaponSet
-    {
-        public SpellMain spellMain;
-        public AnimAttackType attackType; 
-        public float range; 
-    }
-    [SerializeField] WeaponSet[] weapons;
 
-    protected SpellMain GetSpellByAttackType(AnimAttackType animAttackType)
-    {
-        foreach (WeaponSet item in weapons)
-        {
-            if (item.attackType == animAttackType) return item.spellMain;
-        }
-        return null;
-    }
     public virtual Brain Br
     {
         get => _br;
@@ -33,10 +17,6 @@ public class Combat : EventBus, IInit
         {
             _br = value;
             StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
-            if (weapons.Length > 0)
-            {
-                Array.Sort(weapons, (x, y) => x.range.CompareTo(y.range));
-            }
             return;
 
             IEnumerator SearchTargetCoroutine(float delay)
@@ -52,7 +32,6 @@ public class Combat : EventBus, IInit
         }
     }
     Brain _br;
-    [field:SerializeField, ReadOnly] public bool IsInitialized { get; set; }
 
     public virtual Transform MyTarget
     {
@@ -72,18 +51,9 @@ public class Combat : EventBus, IInit
     }
     [ShowInInspector, ReadOnly] Transform _myTarget;
     protected float distanceToTarget;
-    [ReadOnly] public AnimAttackType? InAttackRange()
-    {
-        if (MyTarget == null) return null;
-        for (int i = 0; i < weapons.Length; i++)
-        {
-            if (distanceToTarget <= weapons[i].range) return weapons[i].attackType;
-        }
-        return null;
-    }
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;
-    protected PassDataContainer container;
+    
 
     
     public virtual void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)

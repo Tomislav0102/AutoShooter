@@ -101,33 +101,67 @@ public class Spell : SerializedMonoBehaviour
                     break;
                 
                 case PassDataSpell spellData:
-                    if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
-                        Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+                    if (targetGeneric.TryGetComponent(out SpellMain targetSpell))
                     {
-                        if (spellData.spellsToAffect.Length == 0) onSpell();
-                        else
+                        if (Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction,myFactionTarget))
                         {
-                            for (int i = 0; i < spellData.spellsToAffect.Length; i++)
+                            if (spellData.spellsToAffect.Length == 0) onSpell();
+                            else
                             {
-                                if (targetSpell.spell.GetType() != spellData.spellsToAffect[i].spell.GetType()) continue;
-                                onSpell();
+                                for (int i = 0; i < spellData.spellsToAffect.Length; i++)
+                                {
+                                    if (targetSpell.spell.GetType() != spellData.spellsToAffect[i].spell.GetType())
+                                        continue;
+                                    onSpell();
+                                }
+                            }
+
+                            void onSpell()
+                            {
+                                switch (spellData.effect)
+                                {
+                                    case PassData.HitEffectOnSpell.Nullify:
+                                        targetSpell.spell.MyPhase = Phase.EndStart;
+                                        break;
+                                    case PassData.HitEffectOnSpell.Reflect:
+                                        Vector3 newDirection = Utils.Direction(main.myTransform.position,
+                                            targetSpell.myTransform.position);
+                                        targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
+                                        break;
+                                }
                             }
                         }
-                        void onSpell()
-                        {
-                            switch (spellData.effect)
-                            {
-                                case PassData.HitEffectOnSpell.Nullify:
-                                    targetSpell.spell.MyPhase = Phase.EndStart;
-                                    break;
-                                case PassData.HitEffectOnSpell.Reflect:
-                                    Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
-                                    targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
-                                    break;
-                            }
-                        }
+                        oustedTargetsBrain = targetSpell.OwnersBrain;
                     }
                     break;
+                // case PassDataSpell spellData:
+                //     if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
+                //         Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+                //     {
+                //         if (spellData.spellsToAffect.Length == 0) onSpell();
+                //         else
+                //         {
+                //             for (int i = 0; i < spellData.spellsToAffect.Length; i++)
+                //             {
+                //                 if (targetSpell.spell.GetType() != spellData.spellsToAffect[i].spell.GetType()) continue;
+                //                 onSpell();
+                //             }
+                //         }
+                //         void onSpell()
+                //         {
+                //             switch (spellData.effect)
+                //             {
+                //                 case PassData.HitEffectOnSpell.Nullify:
+                //                     targetSpell.spell.MyPhase = Phase.EndStart;
+                //                     break;
+                //                 case PassData.HitEffectOnSpell.Reflect:
+                //                     Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
+                //                     targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
+                //                     break;
+                //             }
+                //         }
+                //     }
+                //     break;
             }
         }
         targetsBrain = oustedTargetsBrain;

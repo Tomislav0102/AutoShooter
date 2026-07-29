@@ -8,6 +8,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] SoGameData gameData;
     [SerializeField] TextMeshProUGUI enemiesCountText;
+    [SerializeField] TMP_Dropdown playerDropdown;
 
 
     void Start()
@@ -17,6 +18,12 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(gameData.prefsTestEnemyCount, 1);
         }
         enemiesCountText.text = PlayerPrefs.GetInt(gameData.prefsTestEnemyCount).ToString();
+
+        if (!PlayerPrefs.HasKey(gameData.prefsTestChosenPlayer))
+        {
+            PlayerPrefs.SetInt(gameData.prefsTestChosenPlayer, 0);
+        }
+        playerDropdown.value = PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer);
     }
 
     public void BtnPlay()
@@ -32,5 +39,10 @@ public class MainMenuManager : MonoBehaviour
         if (count < 0) count = 0;
         PlayerPrefs.SetInt(gameData.prefsTestEnemyCount,  count);
         enemiesCountText.text = PlayerPrefs.GetInt(gameData.prefsTestEnemyCount).ToString();
+    }
+
+    public void DropDownChosePlayer()
+    {
+        PlayerPrefs.SetInt(gameData.prefsTestChosenPlayer, playerDropdown.value);
     }
 }

@@ -16,8 +16,6 @@ public class P_Loco : Loco
             base.Br = value;
             Ga.me.team.playerTransform = value.myTransform;
             value.agent.updateRotation = false;
-
-            IsInitialized = true;
         }
     }
     public Alertness Alert
@@ -51,8 +49,6 @@ public class P_Loco : Loco
     }
     [ShowInInspector, ReadOnly] Alertness _alertness;
     [HideInInspector] public Vector2 effJoystickValue;
-    int _posId = Shader.PropertyToID("_Position");
-    int _sizeID = Shader.PropertyToID("_Size");
 
 
     void Update()
@@ -63,8 +59,8 @@ public class P_Loco : Loco
         if (OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
         else myForward = Utils.MakeV3(effJoystickValue);
         Orientation(myForward);
-        if (!OvrMove) Move();
-        void Move()
+        if (!OvrMove) move();
+        void move()
         {
             float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
             float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);

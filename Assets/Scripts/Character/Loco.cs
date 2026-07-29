@@ -21,7 +21,6 @@ public class Loco : EventBus, IInit
         }
     }
     Brain _br;
-    public bool IsInitialized { get; set; } //only called in children (because they're on scene)
     [SerializeField] protected Animator anim;
     [SerializeField] protected MultiRotationConstraint rotationConstraint;
     [SerializeField, Range(0, 10)] protected int moveSpeed = 1;
@@ -54,18 +53,15 @@ public class Loco : EventBus, IInit
     int _hit = Animator.StringToHash("hit");
     int _block = Animator.StringToHash("block");
     int _roll = Animator.StringToHash("roll");
+    
     public void AE_Attack(int num) => Br.combat.FromAnimEv_Attack(num);
-
     public void AE_Ultimate(int num) => Br.combat.FromAnimEv_Ultimate(num);
-
     protected void Direction_Move(float hor, float ver)
     {
         anim.SetFloat(_moveHor, hor);
         anim.SetFloat(_moveVer, ver);
     }
-
     protected void Toggle_Move(bool isMoving) => anim.SetBool(_walk, isMoving);
-
     public void AttackAnimation(AnimAttackType? attackType)
     {
         if (attackType == null)

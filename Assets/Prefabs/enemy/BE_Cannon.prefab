@@ -467,6 +467,10 @@ PrefabInstance:
       propertyPath: weapons.Array.data[0].attackType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: weapons.Array.data[0].animAttackType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3267598986132562567, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Layer
       value: 10

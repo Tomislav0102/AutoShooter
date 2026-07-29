@@ -18,6 +18,7 @@ public class CameraRig : MonoBehaviour
 
     void LateUpdate()
     {
+        if (Ga.me.team.playerTransform == null) return;
         Utils.CameraFollowAsymptotic(Ga.me.team.playerTransform.position, myTransform);
         int dir = (int)rotatingTo - 1;
         myTransform.Rotate(dir * yawSpeed * Time.deltaTime * Vector3.up);

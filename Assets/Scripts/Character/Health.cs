@@ -33,7 +33,6 @@ public class Health: EventBus, IInit
             _pointer = Instantiate(Ga.me.offScreenPointerPrefab, Ga.me.parPointers);
             _pointerImage = _pointer.GetComponent<Image>();
             
-            IsInitialized = true;
         }
     }
     Brain _br;
@@ -76,7 +75,6 @@ public class Health: EventBus, IInit
     float _timerShield;
     const int CONST_ShieldWaitTime = 3;
     const int CONST_ShieldRegenAmount = 100;
-    public bool IsInitialized { get; set; }
     
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
@@ -121,7 +119,7 @@ public class Health: EventBus, IInit
                                 break;
                             case > 0:
                             {
-                                ParticleSystem ps = _dictPsElements[(Element)i];
+                                ParticleSystem ps = _dictPsElements[dam.pair.GetKey(i)];
                                 if (ps != null) ps.Play();
                                 break;
                             }
@@ -177,8 +175,6 @@ public class Health: EventBus, IInit
     }
     void Update()
     {
-        if (!IsInitialized) return;
-        
         if (!IsAtFullHealth())
         {
             _timerRegenerate += Time.deltaTime;
@@ -203,8 +199,6 @@ public class Health: EventBus, IInit
 
     void LateUpdate()
     {
-        if (!IsInitialized) return;
-        
         UIdisplay();
         return;
         

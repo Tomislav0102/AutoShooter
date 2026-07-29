@@ -2,6 +2,7 @@ GENERAL
 Push feature - define knockback, dash, magnet
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
 SpellGroup - implement new PassData
+Composition over inheritance - consider implementing in 'Loco' and 'Combat'
           
 TRAPS
 Basic floor trap - stationary spell, always active

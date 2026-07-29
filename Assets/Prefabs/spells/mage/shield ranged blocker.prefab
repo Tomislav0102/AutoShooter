@@ -233,6 +233,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4782607804132217251}
+    - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8323655854273086368}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7422204331370452910}
@@ -267,10 +270,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: _damageInspector
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   myFactionTarget: 1
   areaOfEffect: 1
   warningDelay: 0
@@ -278,20 +278,40 @@ MonoBehaviour:
   lifeTime: -1
   rateOfFire: 0
   terminateOnHit: 0
-  useInspectorDamageData: 0
-  injectHealth:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  hitEffect: 1
-  hitEffectOnSpell: 0
-  spellsToAffect:
-  - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
   onEnter: 1
   onFakeStay: 0
   onExit: 0
   colliderPart: 0
+--- !u!114 &8323655854273086368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143546371296788499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  canBeBlocked: 0
+  damage:
+    priority: 0
+    pair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+  knockBack:
+    priority: 0
+    knockBack: 0
+    knockBackDirection: {x: 0, y: 0}
+  manaShield:
+    priority: 0
+    manaShieldPoints: 0
+  spellData:
+    priority: 0
+    spellsToAffect:
+    - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+    effect: 1
 --- !u!1 &5719503837971982199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

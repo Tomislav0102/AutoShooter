@@ -25,7 +25,8 @@ public class SoGameData : ScriptableObject
         }
         return default;
     }
-     [System.Serializable] public struct ElementGroup
+     [System.Serializable] 
+     public struct ElementGroup
     {
         public Element element;
         public string name;
@@ -39,10 +40,12 @@ public class SoGameData : ScriptableObject
     public Color colHeal;
     public Color colBleed;
 
+    
     [Title("Strings")]
     public string prefsEnergyStartTime;
     public string prefsEnergyFinishTime;
     public string prefsTestEnemyCount;
+    public string prefsTestChosenPlayer;
     public string sceneMain, sceneGame, sceneLevel;
     public string layActors;
     public string layObstacle;

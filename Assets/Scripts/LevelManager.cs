@@ -34,10 +34,10 @@ public class LevelManager : EventBus
     void Start()
     {
         SceneManager.SetActiveScene(gameObject.scene);
-        if (enemyPrefabs == null || enemyPrefabs.Length == 0) return;
-        
-        numOfEnemies = PlayerPrefs.GetInt(Ga.me.gameData.prefsTestEnemyCount);
-        SpawnEnemies();
+        // if (enemyPrefabs == null || enemyPrefabs.Length == 0) return;
+        //
+        // numOfEnemies = PlayerPrefs.GetInt(Ga.me.gameData.prefsTestEnemyCount);
+        // SpawnEnemies();
     }
 
 

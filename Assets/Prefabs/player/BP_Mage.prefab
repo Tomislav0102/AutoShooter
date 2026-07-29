@@ -5294,21 +5294,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5b286da572ebb44859296d26bfeaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Mage
-  <IsInitialized>k__BackingField: 0
-  distanceToTarget: 0
   weapons:
-  - {fileID: 2258241833145700990, guid: 1bbf318075619b54f9a7e2ee00ca7001, type: 3}
-  - {fileID: 4551912923362254910, guid: a6d32198d40d7f749a19d7716b0d89c9, type: 3}
-  - {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
-  - {fileID: 4182053067932181034, guid: 0d6db314f2c593b498989dacd0d821c8, type: 3}
-  detectRange: 3.4028235e+38
+  - spellMain: {fileID: 0}
+    attackType: 0
+    range: 0
+  - spellMain: {fileID: 0}
+    attackType: 0
+    range: 0
+  - spellMain: {fileID: 0}
+    attackType: 0
+    range: 0
+  - spellMain: {fileID: 0}
+    attackType: 0
+    range: 0
+  <IsInitialized>k__BackingField: 0
   engageRange: 10
   ultimateCooldownTime: 2
   spawnPoint: {fileID: 2471835065303500449}
   psCast: {fileID: 351111234578652109}
   startActive: 0
   attackActive: 0
-  numOfObjects: 0
+  numOfObjects: 1
 --- !u!137 &5165482686685167941 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5271545707195277533, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

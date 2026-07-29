@@ -815,7 +815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 748526691518759404, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4694166587580639160, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2121,6 +2121,18 @@ MonoBehaviour:
   numOfEnemies: 0
   enemyPrefabs:
   - {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+  - {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+  - {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+  - {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 7521186794883337355, guid: 1046ce221b7516e4598916d18265673c, type: 3}
+  - {fileID: 2957048445406305928, guid: 4ce18d7dbc37f5a429488a485b0131f4, type: 3}
+  - {fileID: 3379224144854632636, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
 --- !u!4 &440457999
 Transform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class Ga : MonoBehaviour
 {
     public static Ga me;
+    [SerializeField] GameObject[] players;
     public CameraRig camRig;
     public Transform parPointers;
     public RectTransform offScreenPointerPrefab;
@@ -47,11 +48,16 @@ public class Ga : MonoBehaviour
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new TeamManager();
-     //  SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
-// #if (!UNITY_EDITOR)
-//         SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
-//
-// #endif
+      // SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
+#if (!UNITY_EDITOR)
+        SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
+
+#endif
+    }
+
+    void Start()
+    {
+       // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
     }
 
     void OnEnable()

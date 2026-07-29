@@ -8,15 +8,12 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-
-    public OvrPassData passData;
-
-
-
+    
+    
     [Button]
     void TestEvent()
     {
-        
+       
     }
     [Button]
     void ClearEvent()
@@ -25,8 +22,6 @@ public class Test : MonoBehaviour
     }
 
 }
-
-
 
 
 

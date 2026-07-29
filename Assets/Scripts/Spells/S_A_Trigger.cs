@@ -50,8 +50,10 @@ public class S_A_Trigger : S_A
         if (!main.isInterrupt)
         {
             main.spell.MyPhase = Phase.EndStart;
+            return;
         }
-        else if (targetBrain != null) //if null, interrupt hits its owners spell so contact/trigger should be ignored
+
+        if (targetBrain == main.OwnersBrain) //interrupt hits its owners spell so contact/trigger should be ignored
         {
             main.spell.MyPhase = Phase.EndStart;
         }

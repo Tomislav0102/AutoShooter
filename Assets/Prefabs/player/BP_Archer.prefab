@@ -14616,11 +14616,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed58c9ee2e35ff428f11d0f7d913ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Archer
-  <IsInitialized>k__BackingField: 0
-  distanceToTarget: 0
   weapons:
-  - {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
-  detectRange: 3.4028235e+38
+  - spellMain: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
+    attackType: 1
+    range: 10
+  <IsInitialized>k__BackingField: 0
   engageRange: 10
   ultimateCooldownTime: 2
   spawnPoint: {fileID: 3734369076805066266}

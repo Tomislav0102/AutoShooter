@@ -7,16 +7,6 @@ using UnityEngine.Serialization;
 
 public class PC_Archer : P_Combat
 {
-    public override Brain Br
-    {
-        get => base.Br;
-        set
-        {
-            base.Br = value;
-            IsInitialized = true;
-        }
-    }
-
 
     [Title("Archer")]
     [SerializeField] Transform spawnPoint;
@@ -83,37 +73,37 @@ public class PC_Archer : P_Combat
     {
         if (front)
         {
-            SpawnProjectile(0f);
+            spawnProjectile(0f);
         }
         if (back)
         {
-            SpawnProjectile(180f);
+            spawnProjectile(180f);
         }
         if (diagonal)
         {
             for (int i = 0; i < 2; i++)
             {
-                SpawnProjectile(45 * (i * 2 - 1));
+                spawnProjectile(45 * (i * 2 - 1));
             }
         }
         if (side)
         {
             for (int i = 0; i < 2; i++)
             {
-                SpawnProjectile(90 * (i * 2 - 1));
+                spawnProjectile(90 * (i * 2 - 1));
             }
         }
         if (forward)
         {
             Vector3 fw = Br.myTransform.forward;
             float angle = Mathf.Atan2(fw.x, fw.z) * Mathf.Rad2Deg;
-            SpawnProjectile(angle);
+            spawnProjectile(angle);
         }
         
-        void SpawnProjectile(float rotation)
+        void spawnProjectile(float rotation)
         {
             Vector3 rot = rotation * Vector3.up;
-            container = new PassDataContainer()
+            PassDataContainer container = new PassDataContainer()
             {
                 myBrain = Br,
                 canBeBlocked = false,
@@ -124,14 +114,14 @@ public class PC_Archer : P_Combat
             };
             for (int i = 0; i < parallel + 1; i++)
             {
-                float xOffset = i * CONST_HorGapBetweenProjectiles;
-                SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                sp.visual.SetSpawnHeight(spawnPoint.position.y);
-                sp.myTransform.Rotate(rot);
-                sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
-                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-                sp.InitializeMe(Br, container);
+                // float xOffset = i * CONST_HorGapBetweenProjectiles;
+                // SpellMain sp = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                // sp.visual.SetSpawnHeight(spawnPoint.position.y);
+                // sp.myTransform.Rotate(rot);
+                // sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
+                // float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+                // sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+                // sp.InitializeMe(Br, container);
             }
         }
     }

@@ -57,6 +57,7 @@ MonoBehaviour:
   prefsEnergyStartTime: energy countdown started
   prefsEnergyFinishTime: energy countdown finished
   prefsTestEnemyCount: test - enemy count
+  prefsTestChosenPlayer: test - chosen player
   sceneMain: MainMenu
   sceneGame: Game
   sceneLevel: Level_template

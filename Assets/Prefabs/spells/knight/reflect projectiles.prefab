@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7371277964604371165}
   - component: {fileID: 1089882667147011220}
   - component: {fileID: 1430417482271266872}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: RisingClouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4971,7 +4971,7 @@ GameObject:
   - component: {fileID: 5725130587545121456}
   - component: {fileID: 7667404626322316114}
   - component: {fileID: 7789082014239109834}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: ChargeParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9886,7 +9886,7 @@ GameObject:
   - component: {fileID: 2227680417301841685}
   - component: {fileID: 8502139232785976505}
   - component: {fileID: 4477321404314356671}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: m_AuraChargePink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14848,7 +14848,7 @@ GameObject:
   - component: {fileID: 5851236909263732648}
   - component: {fileID: 8737623117776381439}
   - component: {fileID: 4103030985340289441}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Rings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19798,7 +19798,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 548219163212640640, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19846,7 +19846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: psHit
@@ -19856,9 +19856,13 @@ PrefabInstance:
       propertyPath: psDefault
       value: 
       objectReference: {fileID: 8502139232785976505}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: playHitEvenIfTargetIsNull
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19866,27 +19870,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5888372677282405375, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 8745390515396982302}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: isInterrupt
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
       objectReference: {fileID: 4665519266688235161}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7239336305628434503, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7239336305628434503, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_IsActive
@@ -19966,7 +19974,7 @@ MonoBehaviour:
   myFactionTarget: 1
   areaOfEffect: 2
   warningDelay: 0
-  hitChance: 0.5
+  hitChance: 1
   lifeTime: -1
   rateOfFire: 0
   terminateOnHit: 0
@@ -19987,8 +19995,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
   canBeBlocked: 0
-  passData:
-  - rid: 7628225270812246096
   damage:
     priority: 0
     pair:
@@ -20006,10 +20012,3 @@ MonoBehaviour:
     spellsToAffect:
     - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
     effect: 2
-  references:
-    version: 2
-    RefIds:
-    - rid: 7628225270812246096
-      type: {class: PassData, ns: , asm: Assembly-CSharp}
-      data:
-        priority: 0
