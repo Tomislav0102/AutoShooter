@@ -7,7 +7,7 @@ using UnityEngine.Animations.Rigging;
 using Random = UnityEngine.Random;
 
 
-public class Loco : EventBus, IInit
+public class Loco : MonoBehaviour, IInit
 {
     public virtual Brain Br
     {

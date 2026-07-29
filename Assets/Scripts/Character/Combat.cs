@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Combat : EventBus, IInit
+public class Combat : MonoBehaviour, IInit
 {
 
     public virtual Brain Br

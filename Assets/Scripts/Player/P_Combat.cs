@@ -35,14 +35,12 @@ public class P_Combat : Combat
     [SerializeField] float ultimateCooldownTime;
     protected P_Loco pLoco;
     
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
         EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
         EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
     void CallEv_OnUltimateActivated()

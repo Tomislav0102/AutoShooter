@@ -20,14 +20,12 @@ public class PC_Archer : P_Combat
     const float CONST_RollTime = 0.3f;
     [SerializeField] ParticleSystem psRoll;
 
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
         EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
         EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
     

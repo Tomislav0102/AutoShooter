@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class LevelManager : EventBus
+public class LevelManager : MonoBehaviour
 {
     [BoxGroup("Enemy spawns")]
     public Transform spawnArea;

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Brain : EventBus
+public class Brain : MonoBehaviour
 {
     [field:SerializeField] public Faction Faction { get; set; }
     public Transform myTransform;
