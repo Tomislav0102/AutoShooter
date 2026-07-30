@@ -2,24 +2,28 @@ using System;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Combat : MonoBehaviour, IInit
+public class Combat : MonoBehaviour, IInitialization, ITargetTracker
 {
-
-    public virtual Brain Br
+    [SerializeField] UnityEvent<Brain> brainEv;
+    [SerializeField] UnityEvent<Transform> targetEv;
+    [SerializeField] UnityEvent<int> animAttackEv;
+    [SerializeField] UnityEvent<int> animAttackUltimateEv;
+    [SerializeField] UnityEvent<CombatEvent, Brain> combatRegisterEv;
+    public Brain Br
     {
         get => _br;
         set
         {
             _br = value;
-            StartCoroutine(SearchTargetCoroutine(Random.Range(0.1f, 0.2f)));
+            brainEv?.Invoke(value);
+            StartCoroutine(searchTargetCoroutine(Random.Range(0.1f, 0.2f)));
             return;
-
-            IEnumerator SearchTargetCoroutine(float delay)
+            IEnumerator searchTargetCoroutine(float delay)
             {
                 yield return new WaitForSeconds(delay);
                 while (true)
@@ -33,7 +37,7 @@ public class Combat : MonoBehaviour, IInit
     }
     Brain _br;
 
-    public virtual Transform MyTarget
+    public Transform MyTarget
     {
         get => _myTarget;
         set
@@ -47,32 +51,26 @@ public class Combat : MonoBehaviour, IInit
             {
                 Br.loco.AttackAnimation(null);
             }
+            targetEv?.Invoke(value);
         }
     }
     [ShowInInspector, ReadOnly] Transform _myTarget;
-    protected float distanceToTarget;
+    [HideInInspector] public float distanceToTarget;
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;
     
 
     
-    public virtual void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
+    public void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
     {
         switch (combatEvent)
         {
-            case CombatEvent.Strike:
-                break;
             case CombatEvent.Hit:
             case CombatEvent.Miss:
                 CombatEventRegistered(CombatEvent.Strike);
                 break;
-            case CombatEvent.GetHit:
-                break;
-            case CombatEvent.Block:
-                break;
-            case CombatEvent.Kill:
-                break;
         }   
+        combatRegisterEv?.Invoke(combatEvent, otherBrain);
     }
 
     public void CheckBlock(out bool blocked, Brain otherBrain = null)
@@ -101,13 +99,14 @@ public class Combat : MonoBehaviour, IInit
     {
         dodged = false;
     }
-    public virtual void FromAnimEv_Attack(int num = 0)
+    public void FromAnimEv_Attack(int num = 0)
     {
-        
+        animAttackEv?.Invoke(num);
     }
 
-    public virtual void FromAnimEv_Ultimate(int num = 0)
+    public void FromAnimEv_Ultimate(int num = 0)
     {
+        animAttackUltimateEv?.Invoke(num);
     }
 
 }

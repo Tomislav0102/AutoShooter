@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 2770398451001259322}
   - component: {fileID: 6824419910096167424}
   - component: {fileID: 1067489471781460417}
+  - component: {fileID: 1445883970454945719}
   m_Layer: 10
   m_Name: Locomotion
   m_TagString: Untagged
@@ -536,6 +537,26 @@ MonoBehaviour:
   - m_Rig: {fileID: 7773284091888558241}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &1445883970454945719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538719372461997736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1488cf88fb82744ace1ef0de9e7ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Loco
+  brainEv:
+    m_PersistentCalls:
+      m_Calls: []
+  anim: {fileID: 6824419910096167424}
+  moveSpeed: 1
+  knockBackResistance: 0
+  <OvrMotion>k__BackingField: 0
+  isOrientationAlwaysFalse: 1
 --- !u!1 &6991791254565888746
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2271902258048050949}
+  - component: {fileID: 7897372484551954396}
   m_Layer: 10
   m_Name: Combat
   m_TagString: Untagged
@@ -728,6 +750,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7462514812626402230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7897372484551954396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8859920748719717955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a910a42330f295646a84c355019c8c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat
+  brainEv:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  targetEv:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  distanceToTarget: 0
 --- !u!1001 &97131920832433140
 PrefabInstance:
   m_ObjectHideFlags: 0

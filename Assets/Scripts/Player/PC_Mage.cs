@@ -4,73 +4,62 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PC_Mage : P_Combat
+public class PC_Mage : MonoBehaviour, IInitialization
 {
-    [Title("Mage")]
-    [SerializeField] Transform spawnPoint;
-    [SerializeField] ParticleSystem psCast;
-    public int startActive;
-    public int attackActive;
-    Coroutine _arcaneShieldCoroutine;
-    float _arcaneShieldWaitDuration = 3f;
-    [Title("Debug")]
-    public int numOfObjects;
-
-
-    public override Brain Br
+    public Brain Br
     {
-        get => base.Br;
+        get => _br;
         set
         {
-            base.Br = value;
+            _br = value;
             switch (startActive)
             {
                 case 0:
                     SpellMain[] shields = new SpellMain[numOfObjects];
                     for (int i = 0; i < numOfObjects; i++)
                     {
-                        shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                        shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     }
-                    SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
-                    orbitalGroupShields.orbitingAnchor = Br.myTransform;
-                    groupShields.InitializeMe(Br, shields);
+                    orbitalGroupShields.orbitingAnchor = value.myTransform;
+                    groupShields.InitializeMe(value, shields);
                     break;
                 case 1:
-                    SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    groupWalkTrail.InitializeMe(Br, Ga.me.spells.walkTrailSingle);
+                    SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    groupWalkTrail.InitializeMe(value, Ga.me.spells.walkTrailSingle);
                     break;
                 case 2:
-                    SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
-                    orbitalGroupSwords.orbitingAnchor = Br.myTransform;
-                    
+                    orbitalGroupSwords.orbitingAnchor = value.myTransform;
+
                     SpellMain[] swords = new SpellMain[numOfObjects];
                     switch (numOfObjects)
                     {
                         case 1:
                             break;
                         case 2:
-                            swords[1] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[1] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                             break;
                         case 4:
-                            swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[2] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[3] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[1] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[2] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[3] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                             break;
                         case 6:
-                            swords[1] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[2] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[3] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[4] = Instantiate(Ga.me.spells.swordIce, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[5] = Instantiate(Ga.me.spells.swordElectricity, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[1] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[2] = Instantiate(Ga.me.spells.swordElectricity, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[3] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[4] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[5] = Instantiate(Ga.me.spells.swordElectricity, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                             break;
                         default:
                             print("should only be 1, 2, 4, or 6 swords.");
                             return;
                     }
-                    swords[0] = Instantiate(Ga.me.spells.swordFire, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    groupSwords.InitializeMe(Br, swords);
+                    swords[0] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    groupSwords.InitializeMe(value, swords);
                     break;
                 case 3:
                     PassDataContainer container = new PassDataContainer()
@@ -78,22 +67,22 @@ public class PC_Mage : P_Combat
                         data = new PassData[1]
                         {
                             new PassDataDamage(new Element[1] { Element.Fire },
-                                new float[1] { Br.character.GetStat(Stats.RangedDamage) })
+                                new float[1] { value.character.GetStat(Stats.RangedDamage) })
                         }
                     };
                     float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
                     for (int i = 0; i < numOfObjects; i++)
                     {
-                        SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, Br.myTransform.position,
+                        SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, value.myTransform.position,
                             Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
-                        flamethrower.transporter.target = Br.myTransform;
-                        flamethrower.InitializeMe(Br, container);
+                        flamethrower.transporter.target = value.myTransform;
+                        flamethrower.InitializeMe(value, container);
                     }
                     break;
                 case 4:
-                    SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-                    pushPulse.transporter.target = Br.myTransform;
-                    pushPulse.InitializeMe(Br);
+                    SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    pushPulse.transporter.target = value.myTransform;
+                    pushPulse.InitializeMe(value);
                     break;
                 case 5:
                     ArcaneShieldSpawn();
@@ -106,15 +95,25 @@ public class PC_Mage : P_Combat
                             new PassDataManaShield(100)
                         }
                     };
-                    SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    manaShield.transporter.target = Br.myTransform;
-                    manaShield.InitializeMe(Br, containerManaShield); 
+                    SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    manaShield.transporter.target = value.myTransform;
+                    manaShield.InitializeMe(value, containerManaShield);
                     break;
             }
-            
         }
     }
+    Brain _br;
 
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] ParticleSystem psCast;
+    public int startActive;
+    public int attackActive;
+    Coroutine _arcaneShieldCoroutine;
+    float _arcaneShieldWaitDuration = 3f;
+    [Title("Debug")]
+    public int numOfObjects;
+
+    
     void ArcaneShieldSpawn()
     {
         PassDataContainer container = new PassDataContainer()
@@ -148,9 +147,8 @@ public class PC_Mage : P_Combat
     }
 
 
-    public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
+    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
     {
-        base.CombatEventRegistered(combatEvent, otherBrain);
         switch (combatEvent)
         {
             case CombatEvent.Strike:
@@ -171,11 +169,10 @@ public class PC_Mage : P_Combat
                 break;
         }
     }
-
-    public override void FromAnimEv_Attack(int num = 0)
+    
+    
+    public void AnimEv_AttackCallback(int num = 0)
     {
-        base.FromAnimEv_Attack(num);
-
         psCast.Play();
         List<Transform> foundTargets;
         switch (attackActive)
@@ -334,9 +331,8 @@ public class PC_Mage : P_Combat
         }
     }
 
-    public override void FromAnimEv_Ultimate(int num = 0)
+    public void AnimEv_UltimateCallback(int num = 0)
     {
-        base.FromAnimEv_Ultimate(num);
         SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         armageddon.transporter.target = Br.myTransform;
         PassDataContainer container = new PassDataContainer()
@@ -351,4 +347,5 @@ public class PC_Mage : P_Combat
         armageddon.InitializeMe(Br, container);
 
     }
+
 }

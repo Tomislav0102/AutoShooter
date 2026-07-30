@@ -4952,7 +4952,7 @@ PrefabInstance:
     - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: loco
       value: 
-      objectReference: {fileID: 5800728338630505276}
+      objectReference: {fileID: 0}
     - target: {fileID: 599049667507147954, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: myMaterials.Array.size
       value: 1
@@ -4969,6 +4969,38 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1081531192646187538, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: isOrientationAlwaysFalse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 18118311837547947}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Br
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerLoco, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1949310856156830612, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -5049,6 +5081,46 @@ PrefabInstance:
       propertyPath: m_Weight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1059554215997535304}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1059554215997535304}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Br
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_MyTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8184641197531375474, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -5114,13 +5186,44 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5800728338630505276}
+      addedObject: {fileID: 18118311837547947}
+    - targetCorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1059554215997535304}
   m_SourcePrefab: {fileID: 100100000, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
---- !u!95 &2148451991947694265 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+--- !u!114 &3385856013189954917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 4856534562519872185}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4148134728218332410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a910a42330f295646a84c355019c8c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Combat
+--- !u!1 &4148134728218332410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+  m_PrefabInstance: {fileID: 4856534562519872185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1059554215997535304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4148134728218332410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52aaca27f9ff5d74a95f8a2fcf981ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+  animAttackType: 0
+  engageRange: 10
+  ultimateCooldownTime: 2
+  playerLoco: {fileID: 18118311837547947}
+  combat: {fileID: 3385856013189954917}
 --- !u!114 &4887120585361979903 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -5142,7 +5245,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 4856534562519872185}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5800728338630505276
+--- !u!114 &18118311837547947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5153,12 +5256,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1484b500775899c45b0936bf499a4429, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::P_Loco
-  anim: {fileID: 2148451991947694265}
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLoco
   rotationConstraint: {fileID: 4887120585361979903}
-  moveSpeed: 5
-  knockBackResistance: 0
-  <OvrMove>k__BackingField: 0
-  isOrientationAlwaysFalse: 0
+  playerCombat: {fileID: 1059554215997535304}
   weaponTrail: {fileID: 0}
   effJoystickValue: {x: 0, y: 0}

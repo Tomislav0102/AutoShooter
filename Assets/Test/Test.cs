@@ -8,8 +8,11 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    
-    
+
+    public void M()
+    {
+        print(gameObject.name);
+    }
     [Button]
     void TestEvent()
     {

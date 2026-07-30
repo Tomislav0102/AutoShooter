@@ -3,31 +3,30 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEngine.Animations.Rigging;
-using Random = UnityEngine.Random;
+using UnityEngine.Events;
 
-
-public class Loco : MonoBehaviour, IInit
+public class Loco : MonoBehaviour, IInitialization
 {
-    public virtual Brain Br
+    [SerializeField] UnityEvent<Brain> brainEv;
+    public Brain Br
     {
         get => _br;
         set
         {
             _br = value;
-            OvrMove = false;
+            OvrMotion = false;
             OvrOrientation = false;
             _avoidancePriorityDefault = value.agent.avoidancePriority;
+            brainEv?.Invoke(value);
         }
     }
     Brain _br;
-    [SerializeField] protected Animator anim;
-    [SerializeField] protected MultiRotationConstraint rotationConstraint;
-    [SerializeField, Range(0, 10)] protected int moveSpeed = 1;
+    public Animator anim;
+    [SerializeField, Range(0, 10)] public int moveSpeed = 1;
     [SerializeField] protected int knockBackResistance;
-    [field: SerializeField] public virtual bool OvrMove { get; set; } //can control player, override agent destination
+    [field: SerializeField] public bool OvrMotion { get; set; } //can control player, override agent destination
 
-    public virtual bool OvrOrientation //has player joystickLookAt, agent.updateRotation
+    public bool OvrOrientation //has player joystickLookAt, agent.updateRotation
     {
         get => _ovrOrientation;
         set
@@ -54,14 +53,15 @@ public class Loco : MonoBehaviour, IInit
     int _block = Animator.StringToHash("block");
     int _roll = Animator.StringToHash("roll");
     
+    public bool IsAttackAnimationPlaying() => anim.GetCurrentAnimatorStateInfo(0 ).IsTag("Attacks");
     public void AE_Attack(int num) => Br.combat.FromAnimEv_Attack(num);
     public void AE_Ultimate(int num) => Br.combat.FromAnimEv_Ultimate(num);
-    protected void Direction_Move(float hor, float ver)
+    public void Direction_Move(float hor, float ver)
     {
         anim.SetFloat(_moveHor, hor);
         anim.SetFloat(_moveVer, ver);
     }
-    protected void Toggle_Move(bool isMoving) => anim.SetBool(_walk, isMoving);
+    public void Toggle_Move(bool isMoving) => anim.SetBool(_walk, isMoving);
     public void AttackAnimation(AnimAttackType? attackType)
     {
         if (attackType == null)
@@ -92,12 +92,12 @@ public class Loco : MonoBehaviour, IInit
     #endregion
 
     #region TOOLS
-    protected void Orientation(Vector3 lookAtDirection)
+    public void Orientation(Vector3 lookAtDirection)
     {
         lookAtDirection.y = 0;
         OrientationFinal(lookAtDirection);
     }
-    protected void Orientation(Transform lookAtPosition)
+    public void Orientation(Transform lookAtPosition)
     {
         if (lookAtPosition == null) return;
         Vector3 pos = new Vector3(lookAtPosition.position.x, 0f, lookAtPosition.position.z);
@@ -106,9 +106,14 @@ public class Loco : MonoBehaviour, IInit
     void OrientationFinal(Vector3 look)
     {
         if (look.Equals(Vector3.zero)) return;
+        
+        //instant
         Br.myTransform.rotation = Quaternion.LookRotation(look);
-        // Quaternion rot = Quaternion.LookRotation(lookAtTarget);
-        // Br.myTransform.rotation = Quaternion.RotateTowards(Br.myTransform.rotation, rot, Ga.me.gameData.agentRotSpeed * Time.deltaTime);
+        return;
+        
+        //animated
+        Quaternion rot = Quaternion.LookRotation(look);
+        Br.myTransform.rotation = Quaternion.RotateTowards(Br.myTransform.rotation, rot, Ga.me.gameData.agentRotSpeed * Time.deltaTime);
     }
 
     public void PushMe(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
@@ -137,7 +142,7 @@ public class Loco : MonoBehaviour, IInit
 
         IEnumerator pushDelay()
         {
-            OvrMove = true;
+            OvrMotion = true;
             Br.agent.acceleration = 10;
             Br.agent.velocity = intensity * dir;
             _avoidancePriorityDefault = Br.agent.avoidancePriority;
@@ -148,7 +153,7 @@ public class Loco : MonoBehaviour, IInit
                 yield return null;
             }
             Br.agent.acceleration = 10000;
-            OvrMove = false;
+            OvrMotion = false;
             if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = _avoidancePriorityDefault;
             _currentMoveOverride = MoveOverrideType.None;
         }
@@ -163,9 +168,9 @@ public class Loco : MonoBehaviour, IInit
 
         IEnumerator attractDelay()
         {
-            OvrMove = true;
+            OvrMotion = true;
             yield break;
-            OvrMove = false;
+            OvrMotion = false;
         }
     }
 

@@ -4,43 +4,50 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using UnityEngine.Animations.Rigging;
 
-public class P_Loco : Loco
+
+public class PlayerLoco : MonoBehaviour, IInitialization
 {
-    [SerializeField] ParticleSystem weaponTrail;
-    public override Brain Br
+    public Brain Br
     {
-        get => base.Br;
+        get => _br;
         set
         {
-            base.Br = value;
+            _br = value;
             Ga.me.team.playerTransform = value.myTransform;
             value.agent.updateRotation = false;
         }
     }
+    Brain _br;
+    
+    [SerializeField] MultiRotationConstraint rotationConstraint;
+    [SerializeField] PlayerCombat playerCombat;
+    
+    [SerializeField] ParticleSystem weaponTrail;
     public Alertness Alert
     {
         set
         {
             if (value == _alertness) return;
             _alertness = value;
-            anim.SetLayerWeight(1, 1);
-            rotationConstraint.weight = 0; 
-          //  if (weaponTrail != null) weaponTrail.Stop();
-           OvrOrientation = true;
+            Br.loco.anim.SetLayerWeight(1, 1);
+            rotationConstraint.weight = 0;
+            //  if (weaponTrail != null) weaponTrail.Stop();
+            Br.loco.OvrOrientation = true;
             switch (_alertness)
             {
                 case Alertness.Relaxed:
-                    AttackAnimation(null);              
-                    OvrOrientation = false;
-                    anim.SetLayerWeight(1, 0);
+                    Br.loco.AttackAnimation(null);
+                    Br.loco.OvrOrientation = false;
+                    Br.loco.anim.SetLayerWeight(1, 0);
                     break;
                 case Alertness.Alarmed:
-                    AttackAnimation(null);              
+                    Br.loco.AttackAnimation(null);
                     break;
                 case Alertness.Fighting:
-                  //  if (weaponTrail != null) weaponTrail.Play();
-                    AttackAnimation(AnimAttackType.Melee);
+                    //  if (weaponTrail != null) weaponTrail.Play();
+                    Br.loco.AttackAnimation(playerCombat.animAttackType);
                     rotationConstraint.weight = 1;
                     break;
             }
@@ -50,22 +57,21 @@ public class P_Loco : Loco
     [ShowInInspector, ReadOnly] Alertness _alertness;
     [HideInInspector] public Vector2 effJoystickValue;
 
-
     void Update()
     {
         float camAngle = Ga.me.camRig.myTransform.eulerAngles.y;
         effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
         Vector3 myForward;
-        if (OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
+        if (Br.loco.OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
         else myForward = Utils.MakeV3(effJoystickValue);
-        Orientation(myForward);
-        if (!OvrMove) move();
+        Br.loco.Orientation(myForward);
+        if (!Br.loco.OvrMotion) move();
         void move()
         {
             float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
             float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
-            Direction_Move(dotHor, dotVer);
-            Br.agent.velocity = moveSpeed * Utils.MakeV3(effJoystickValue);
+            Br.loco.Direction_Move(dotHor, dotVer);
+            Br.agent.velocity = Br.loco.moveSpeed * Utils.MakeV3(effJoystickValue);
         }
     }
 }

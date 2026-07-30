@@ -32,6 +32,38 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: isOrientationAlwaysFalse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 833663454441030006}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Br
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyLoco, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445883970454945719, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1949310856156830612, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -96,6 +128,106 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3079515422155241503}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3079515422155241503}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Br
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3079515422155241503}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_MyTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AnimEv_AttackCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3079515422155241503}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AnimEv_Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8184641197531375474, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 24
@@ -110,7 +242,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7364825630562513233}
+      addedObject: {fileID: 833663454441030006}
     - targetCorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3079515422155241503}
@@ -120,7 +252,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4538719372461997736, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
   m_PrefabInstance: {fileID: 3710440535994624692}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7364825630562513233
+--- !u!114 &833663454441030006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,26 +264,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Loco
-  anim: {fileID: 7911443292519778484}
-  rotationConstraint: {fileID: 3731593144273461746}
-  moveSpeed: 0
-  knockBackResistance: 0
-  <OvrMove>k__BackingField: 0
-  isOrientationAlwaysFalse: 0
   behIdlingDefault: 0
   behFightingDefault: 4
+  behCurrent: 0
   myMaterials: []
---- !u!114 &3731593144273461746 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 51626690674723654, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 3710440535994624692}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb90b913935e644baaa86c076d788e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiRotationConstraint
+  eCombat: {fileID: 3079515422155241503}
 --- !u!1 &5299295269889135863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -170,10 +287,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
   weapons: []
-  <IsInitialized>k__BackingField: 0
   spawnPoint: {fileID: 0}
---- !u!95 &7911443292519778484 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6824419910096167424, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
-  m_PrefabInstance: {fileID: 3710440535994624692}
-  m_PrefabAsset: {fileID: 0}
+  enemyLoco: {fileID: 833663454441030006}

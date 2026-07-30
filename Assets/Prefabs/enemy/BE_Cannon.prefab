@@ -415,6 +415,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 833663454441030006, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 833663454441030006, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6864f4d89ba55a840b1f75514f8c9017, type: 2}
+    - target: {fileID: 833663454441030006, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: aee84b85d091de442be7f6f85138297f, type: 2}
     - target: {fileID: 958508345494665759, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -442,6 +454,18 @@ PrefabInstance:
     - target: {fileID: 2418992023405540017, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: moveSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: knockBackResistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: isOrientationAlwaysFalse
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2914803020684407072, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Layer
@@ -507,10 +531,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: loco
-      value: 
-      objectReference: {fileID: 8358142056746059755}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myRenderer
       value: 
@@ -680,14 +700,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
   m_PrefabInstance: {fileID: 1570357730433365690}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8358142056746059755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 1570357730433365690}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::E_Loco

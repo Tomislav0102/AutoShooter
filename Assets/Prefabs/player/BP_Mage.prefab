@@ -5202,6 +5202,90 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AnimEv_AttackCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CombatEventCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AnimEv_UltimateCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4076984038216319734, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5217,7 +5301,7 @@ PrefabInstance:
     - target: {fileID: 5419413698751178251, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combat
       value: 
-      objectReference: {fileID: 5886414157575731664}
+      objectReference: {fileID: 0}
     - target: {fileID: 5419413698751178251, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: myRenderer
       value: 
@@ -5237,6 +5321,14 @@ PrefabInstance:
     - target: {fileID: 6244620212994932702, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: moveSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: isOrientationAlwaysFalse
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6946829470440141043, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_IsActive
@@ -5294,22 +5386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5b286da572ebb44859296d26bfeaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Mage
-  weapons:
-  - spellMain: {fileID: 0}
-    attackType: 0
-    range: 0
-  - spellMain: {fileID: 0}
-    attackType: 0
-    range: 0
-  - spellMain: {fileID: 0}
-    attackType: 0
-    range: 0
-  - spellMain: {fileID: 0}
-    attackType: 0
-    range: 0
-  <IsInitialized>k__BackingField: 0
-  engageRange: 10
-  ultimateCooldownTime: 2
   spawnPoint: {fileID: 2471835065303500449}
   psCast: {fileID: 351111234578652109}
   startActive: 0

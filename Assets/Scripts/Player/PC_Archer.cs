@@ -5,7 +5,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
-public class PC_Archer : P_Combat
+public class PC_Archer : MonoBehaviour
 {
 
     [Title("Archer")]
@@ -20,6 +20,13 @@ public class PC_Archer : P_Combat
     const float CONST_RollTime = 0.3f;
     [SerializeField] ParticleSystem psRoll;
 
+    Combat _combat;
+    public void BrainInitialization()
+    {
+        _combat = GetComponent<Combat>();
+    }
+
+    
     void OnEnable()
     {
         EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
@@ -32,31 +39,31 @@ public class PC_Archer : P_Combat
     //archers Ultimate is not triggered by animation event
     void CallEv_OnUltimateActivated()
     {
-        if (_rollCoroutine != null) StopCoroutine(_rollCoroutine);
-        _rollCoroutine = StartCoroutine(RollCoroutine());
-        //need fix, replace Br.myRigid.AddForce with Br.agent.velocity
-        IEnumerator RollCoroutine()
-        {
-            // Br.loco.OvrMove = true;
-            // Br.loco.OvrOrientation = true;
-            Br.loco.Roll();
-            psRoll.Play();
-            Vector3 dir = pLoco.effJoystickValue == Vector2.zero ? Br.myTransform.forward : Utils.MakeV3(pLoco.effJoystickValue);
-            Br.myRigid.AddForce(80 * dir, ForceMode.VelocityChange);
-            yield return new WaitForSeconds(CONST_RollTime);
-            // Br.loco.OvrMove = false;
-            // Br.loco.OvrOrientation = false;
-            psRoll.Stop();
-        }
+        // if (_rollCoroutine != null) StopCoroutine(_rollCoroutine);
+        // _rollCoroutine = StartCoroutine(RollCoroutine());
+        // //need fix, replace Br.myRigid.AddForce with Br.agent.velocity
+        // IEnumerator RollCoroutine()
+        // {
+        //     // Br.loco.OvrMove = true;
+        //     // Br.loco.OvrOrientation = true;
+        //     Br.loco.Roll();
+        //     psRoll.Play();
+        //     Vector3 dir = playerLoco.effJoystickValue == Vector2.zero ? Br.myTransform.forward : Utils.MakeV3(playerLoco.effJoystickValue);
+        //     Br.myRigid.AddForce(80 * dir, ForceMode.VelocityChange);
+        //     yield return new WaitForSeconds(CONST_RollTime);
+        //     // Br.loco.OvrMove = false;
+        //     // Br.loco.OvrOrientation = false;
+        //     psRoll.Stop();
+        // }
 
     }
 
-    public override void FromAnimEv_Attack(int num = 0)
-    {
-        base.FromAnimEv_Attack(num);
-        Shoot();
-        if (followUp > 0) StartCoroutine(ShootFollowUp());
-    }
+    // public override void FromAnimEv_Attack(int num = 0)
+    // {
+    //     base.FromAnimEv_Attack(num);
+    //     Shoot();
+    //     if (followUp > 0) StartCoroutine(ShootFollowUp());
+    // }
 
     IEnumerator ShootFollowUp()
     {
@@ -93,7 +100,7 @@ public class PC_Archer : P_Combat
         }
         if (forward)
         {
-            Vector3 fw = Br.myTransform.forward;
+            Vector3 fw = _combat.Br.myTransform.forward;
             float angle = Mathf.Atan2(fw.x, fw.z) * Mathf.Rad2Deg;
             spawnProjectile(angle);
         }
@@ -103,11 +110,11 @@ public class PC_Archer : P_Combat
             Vector3 rot = rotation * Vector3.up;
             PassDataContainer container = new PassDataContainer()
             {
-                myBrain = Br,
+                myBrain = _combat.Br,
                 canBeBlocked = false,
                 data = new PassData[1]
                 {
-                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { _combat.Br.character.GetStat(Stats.RangedDamage) }),
                 }
             };
             for (int i = 0; i < parallel + 1; i++)

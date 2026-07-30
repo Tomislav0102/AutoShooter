@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 
-public class Character : MonoBehaviour, IInit
+public class Character : MonoBehaviour, IInitialization
 {
     public enum BuffType
     {

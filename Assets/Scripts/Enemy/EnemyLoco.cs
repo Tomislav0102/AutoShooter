@@ -5,37 +5,30 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class E_Loco : Loco
+public class EnemyLoco : MonoBehaviour, IInitialization
 {
+    public Brain Br
+    {
+        get => _br;
+        set
+        {
+            _br = value;
+            behCurrent = behIdlingDefault;
+            value.agent.enabled = true;
+            value.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
+            Renderer myRenderer =  GetComponentInChildren<Renderer>();
+            myRenderer.material = myMaterials[(int)value.Faction];
+
+        }
+    }
+    Brain _br;
+
     public enum Behavior { Stationary, Roam, Patrol, Follow, Chase, Flee }
     public Behavior behIdlingDefault;
     public Behavior behFightingDefault;
     [ReadOnly] public Behavior behCurrent;
-    public override Brain Br
-    {
-        get => base.Br;
-        set
-        {
-            base.Br = value;
-            behCurrent = behIdlingDefault;
-            Br.agent.enabled = true;
-            Br.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
-            Renderer myRenderer =  GetComponentInChildren<Renderer>();
-            myRenderer.material = myMaterials[(int)value.Faction];
-            _eCombat = value.combat.GetComponent<EnemyCombat>();
-        }
-    }
     [SerializeField] Material[] myMaterials;
-    public override bool OvrOrientation
-    {
-        get => base.OvrOrientation;
-        set
-        {
-            base.OvrOrientation = value;
-            Br.agent.updateRotation = !value;
-        }
-    }
-    EnemyCombat _eCombat;
+    [SerializeField] EnemyCombat eCombat;
     #region MOVEMENT SPECIFIC VARIABLES
     float _timerGeneral;
     float _timerStationary, _timerStationaryMaxTime;
@@ -53,13 +46,11 @@ public class E_Loco : Loco
     const float CONST_FollowDistance = 5f;
     #endregion
 
-
-    bool IsAttackAnimationPlaying() => anim.GetCurrentAnimatorStateInfo(0 ).IsTag("Attacks");
-
+    
     void Update()
     {
-        OvrOrientation = false;
-        AnimAttackType? animAttackType = _eCombat.InAttackRange();
+        Br.loco.OvrOrientation = false;
+        AnimAttackType? animAttackType = eCombat.InAttackRange();
         switch (behCurrent)
         {
             case Behavior.Stationary:
@@ -70,7 +61,7 @@ public class E_Loco : Loco
                 roam();
                 void roam()
                 {
-                    if (OvrMove) return;
+                    if (Br.loco.OvrMotion) return;
                     _timerGeneral += Time.deltaTime;
                     if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
                     {
@@ -85,7 +76,7 @@ public class E_Loco : Loco
                 patrol();
                 void patrol()
                 {
-                    if (OvrMove) return;
+                    if (Br.loco.OvrMotion) return;
                     if (Ga.me.waypoints == null || Ga.me.waypoints.Length == 0)
                     {
                         behCurrent = Behavior.Stationary;
@@ -106,7 +97,7 @@ public class E_Loco : Loco
                 follow();
                 void follow()
                 {
-                    if (OvrMove) return;
+                    if (Br.loco.OvrMotion) return;
                     if (Utils.Distance(Br.myTransform.position, FollowTarget().position) > CONST_FollowDistance)  Br.agent.destination = FollowTarget().position;
                     else
                     {
@@ -120,8 +111,8 @@ public class E_Loco : Loco
                 chase();
                 void chase()
                 {
-                    if (OvrMove) return;
-                    OvrOrientation = true;
+                    if (Br.loco.OvrMotion) return;
+                    Br.loco.OvrOrientation = true;
                     if (animAttackType == null)
                     {
                         Br.agent.destination = Br.combat.MyTarget.position;
@@ -134,7 +125,7 @@ public class E_Loco : Loco
                 flee();
                 void flee()
                 {
-                    if (OvrMove) return;
+                    if (Br.loco.OvrMotion) return;
                     if (animAttackType == null) return;
                     Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
                     direction.y = 0f;
@@ -147,12 +138,12 @@ public class E_Loco : Loco
                 break;
         }
 
-        AttackAnimation(animAttackType);
-        bool canMove = behCurrent != Behavior.Stationary && animAttackType == null && !IsAttackAnimationPlaying();
-        Toggle_Move(canMove);
-        if (!OvrMove) Br.agent.speed = canMove ? moveSpeed : 0;
-        if (OvrOrientation) Orientation(Br.combat.MyTarget);
-
+        Br.loco.AttackAnimation(animAttackType);
+        bool canMove = behCurrent != Behavior.Stationary && animAttackType == null && !Br.loco.IsAttackAnimationPlaying();
+        Br.loco.Toggle_Move(canMove);
+        if (!Br.loco.OvrMotion) Br.agent.speed = canMove ? Br.loco.moveSpeed : 0;
+        if (Br.loco.OvrOrientation) Br.loco.Orientation(Br.combat.MyTarget);
+        Br.agent.updateRotation = !Br.loco.OvrOrientation;
 
         void stationary()
         {
@@ -218,8 +209,8 @@ public class E_Loco : Loco
 //         {
 //             base.Br = value;
 //             BehCurrent = behIdlingDefault;
-//             Br.agent.enabled = true;
-//             Br.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
+//             loco.Br.agent.enabled = true;
+//             loco.Br.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
 //             weaponRange = RangeArea.OutOfRange;
 //             Renderer myRenderer =  GetComponentInChildren<Renderer>();
 //             myRenderer.material = myMaterials[(int)value.Faction];
@@ -229,13 +220,13 @@ public class E_Loco : Loco
 //     [SerializeField] Material[] myMaterials;
 //     bool _canMoveNavigation;
 //     bool _canMoveCombat;
-//     public override bool OvrOrientation
+//     public override bool loco.OvrOrientation
 //     {
-//         get => base.OvrOrientation;
+//         get => base.loco.OvrOrientation;
 //         set
 //         {
-//             base.OvrOrientation = value;
-//             Br.agent.updateRotation = !value;
+//             base.loco.OvrOrientation = value;
+//             loco.Br.agent.updateRotation = !value;
 //         }
 //     }
 //
@@ -265,8 +256,8 @@ public class E_Loco : Loco
 //
 //     void Update()
 //     {
-//         if (OvrMove) OvrOrientation = true;
-//         if (OvrOrientation) Orientation(Br.combat.MyTarget);
+//         if (OvrMove) loco.OvrOrientation = true;
+//         if (loco.OvrOrientation) Orientation(loco.Br.combat.MyTarget);
 //         _canMoveNavigation = true;
 //         _canMoveCombat = false;
 //
@@ -282,10 +273,10 @@ public class E_Loco : Loco
 //                 {
 //                     if (OvrMove) return;
 //                     _timerGeneral += Time.deltaTime;
-//                     if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
+//                     if (loco.Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
 //                     {
 //                         Vector3 newDestination = Utils.GetRandomPosition(Ga.me.LevelMan.spawnArea);
-//                         Br.agent.destination = newDestination;
+//                         loco.Br.agent.destination = newDestination;
 //                         _timerGeneral = 0f;
 //                     }
 //                 }
@@ -303,9 +294,9 @@ public class E_Loco : Loco
 //                     }
 //
 //                     _timerGeneral += Time.deltaTime;
-//                     if (Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
+//                     if (loco.Br.agent.remainingDistance <= 0.5f || _timerGeneral > 10f)
 //                     {
-//                         Br.agent.destination = Ga.me.waypoints[_counterWaypoints].position;
+//                         loco.Br.agent.destination = Ga.me.waypoints[_counterWaypoints].position;
 //                         _counterWaypoints = (1 + _counterWaypoints) % Ga.me.waypoints.Length;
 //                         _timerGeneral = 0f;
 //                     }
@@ -317,10 +308,10 @@ public class E_Loco : Loco
 //                 void Follow()
 //                 {
 //                     if (OvrMove) return;
-//                     if (Utils.Distance(Br.myTransform.position, FollowTarget().position) > CONST_FollowDistance)  Br.agent.destination = FollowTarget().position;
+//                     if (Utils.Distance(loco.Br.myTransform.position, FollowTarget().position) > CONST_FollowDistance)  loco.Br.agent.destination = FollowTarget().position;
 //                     else
 //                     {
-//                         if (Br.agent.hasPath) Br.agent.ResetPath();
+//                         if (loco.Br.agent.hasPath) loco.Br.agent.ResetPath();
 //                         stationary();
 //                     }
 //                 }
@@ -331,12 +322,12 @@ public class E_Loco : Loco
 //                 void Chase()
 //                 {
 //                     if (OvrMove) return;
-//                     if (Br.combat.MyTarget == null) return;
+//                     if (loco.Br.combat.MyTarget == null) return;
 //                     if (weaponRange == RangeArea.OutOfRange)
 //                     {
-//                         Br.agent.destination = Br.combat.MyTarget.position;
+//                         loco.Br.agent.destination = loco.Br.combat.MyTarget.position;
 //                     }
-//                     else if (Br.agent.hasPath) Br.agent.ResetPath();
+//                     else if (loco.Br.agent.hasPath) loco.Br.agent.ResetPath();
 //                 }
 //
 //                 break;
@@ -346,16 +337,16 @@ public class E_Loco : Loco
 //                 void Flee()
 //                 {
 //                     if (OvrMove) return;
-//                     if (Br.combat.MyTarget == null) return;
-//                     if (Br.combat.distanceToTarget < CONST_FleeDistance)
+//                     if (loco.Br.combat.MyTarget == null) return;
+//                     if (loco.Br.combat.distanceToTarget < CONST_FleeDistance)
 //                     {
-//                         Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
+//                         Vector3 direction = loco.Br.myTransform.position - loco.Br.combat.MyTarget.position;
 //                         direction.y = 0f;
 //                         direction.Normalize();
-//                         Vector3 targetPosition = Br.myTransform.position + 2f * direction;
+//                         Vector3 targetPosition = loco.Br.myTransform.position + 2f * direction;
 //                         NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 4f, NavMesh.AllAreas);
 //                         if (!hit.hit) return;
-//                         Br.agent.destination = hit.position;
+//                         loco.Br.agent.destination = hit.position;
 //                     }
 //                 }
 //                 break;
@@ -365,13 +356,13 @@ public class E_Loco : Loco
 //
 //         bool canMove = _canMoveNavigation && _canMoveCombat && IsAttackAnimationOver();
 //         Toggle_Move(canMove);
-//         if (!OvrMove) Br.agent.speed = canMove ? moveSpeed : 0;
+//         if (!OvrMove) loco.Br.agent.speed = canMove ? moveSpeed : 0;
 //
 //         void stationary() 
 //         {
 //             _canMoveNavigation = false;
 //
-//             if (_stationaryIsTurning) Br.myTransform.Rotate(_stationaryRotAxis, _timerStationary * 0.2f);
+//             if (_stationaryIsTurning) loco.Br.myTransform.Rotate(_stationaryRotAxis, _timerStationary * 0.2f);
 //         
 //             _timerStationary += Time.deltaTime;
 //             if (_timerStationary >= _timerStationaryMaxTime)
@@ -409,7 +400,7 @@ public class E_Loco : Loco
 //     {
 //         if (!Application.isPlaying) return;
 //         Gizmos.color = Color.red;
-//         Gizmos.DrawSphere(Br.agent.destination, 0.2f);
+//         Gizmos.DrawSphere(loco.Br.agent.destination, 0.2f);
 //     }
 //
 // }

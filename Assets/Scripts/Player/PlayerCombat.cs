@@ -2,39 +2,40 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class P_Combat : Combat
+public class PlayerCombat : MonoBehaviour, IInitialization, ITargetTracker
 {
-    [SerializeField] int engageRange = 10;
-    public override Brain Br
+    public Brain Br
     {
-        get => base.Br;
+        get => _br;
         set
         {
-            base.Br = value;
+            _br = value;
             Ga.me.ultimateUi.InitializeMe(ultimateCooldownTime);
-            pLoco = Br.loco as P_Loco;
         }
     }
-
-    
-    public override Transform MyTarget
+    Brain _br;
+    public Transform MyTarget
     {
-        get => base.MyTarget;
+        get => _myTarget;
         set
         {
-            base.MyTarget = value;
+            _myTarget = value;
             if (value == null)
             {
-                pLoco.Alert = Alertness.Relaxed;
+                playerLoco.Alert = Alertness.Relaxed;
                 return;
             }
-
-            pLoco.Alert = distanceToTarget > engageRange ? Alertness.Alarmed : Alertness.Fighting;
+            playerLoco.Alert = Br.combat.distanceToTarget > engageRange ? Alertness.Alarmed : Alertness.Fighting;
         }
     }
+    Transform _myTarget;
+
+    public AnimAttackType animAttackType;
+    [SerializeField] int engageRange = 10;
     [SerializeField] float ultimateCooldownTime;
-    protected P_Loco pLoco;
+    [SerializeField] PlayerLoco playerLoco;
     
+
     void OnEnable()
     {
         EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;

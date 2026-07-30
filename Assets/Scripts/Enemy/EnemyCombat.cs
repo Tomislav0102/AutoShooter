@@ -4,8 +4,30 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class EnemyCombat : Combat
+
+public class EnemyCombat : MonoBehaviour, IInitialization, ITargetTracker
 {
+    public Brain Br
+    {
+        get => _br;
+        set
+        {
+            _br = value;
+            if (weapons.Length > 0) SortWeaponsByRange();
+        }
+    }
+    Brain _br;
+    public Transform MyTarget
+    {
+        get => _myTarget;
+        set
+        {
+            _myTarget = value;
+            enemyLoco.behCurrent = value == null ? enemyLoco.behIdlingDefault: enemyLoco.behFightingDefault;
+        }
+    }
+    Transform _myTarget;
+
     [System.Serializable]
     class WeaponSet
     {
@@ -17,12 +39,13 @@ public class EnemyCombat : Combat
     [Button]
     void SortWeaponsByRange() =>  Array.Sort(weapons, (x, y) => x.range.CompareTo(y.range));
 
+    
     public AnimAttackType? InAttackRange()
     {
         if (MyTarget == null) return null;
         for (int i = 0; i < weapons.Length; i++)
         {
-            if (distanceToTarget <= weapons[i].range) return weapons[i].animAttackType;
+            if (Br.combat.distanceToTarget <= weapons[i].range) return weapons[i].animAttackType;
         }
         return null;
     }
@@ -34,38 +57,11 @@ public class EnemyCombat : Combat
         }
         return null;
     }
-    [SerializeField] protected Transform spawnPoint;
-    public override Brain Br
-    {
-        get => base.Br;
-        set
-        {
-            base.Br = value;
-            _eLoco = Br.loco as E_Loco;
-            if (weapons.Length > 0) SortWeaponsByRange();
-        }
-    }
-    E_Loco _eLoco;
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] EnemyLoco enemyLoco;
 
-    public override Transform MyTarget
+    public void AnimEv_AttackCallback(int num = 0)
     {
-        set
-        {
-            base.MyTarget = value;
-            if (value == null)
-            {
-                _eLoco.behCurrent = _eLoco.behIdlingDefault;
-            }
-            else
-            {
-                _eLoco.behCurrent = _eLoco.behFightingDefault;
-            }
-        }
-    }
-
-    public override void FromAnimEv_Attack(int num = 0)
-    {
-        base.FromAnimEv_Attack(num);
         switch (num)
         {
             case 0: //melee

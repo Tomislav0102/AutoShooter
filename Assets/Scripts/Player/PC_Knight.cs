@@ -2,133 +2,131 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using UnityEngine.Animations.Rigging;
 
-public class PC_Knight : P_Combat
+
+public class PC_Knight : MonoBehaviour, IInitialization
 {
-    public override Brain Br
+    public Brain Br
     {
-        get => base.Br;
+        get => _br;
         set
         {
-            base.Br = value;
+            _br = value;
             switch (startActive)
             {
                 case 0:
-                    SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    reflect.transporter.target = Br.myTransform;
-                    reflect.InitializeMe(Br);
+                    SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    reflect.transporter.target = value.myTransform;
+                    reflect.InitializeMe(value);
                     break;
                 case 1:
-                    SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-                    aura.transporter.target = Br.myTransform;
-                    aura.InitializeMe(Br);
+                    SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
+                    aura.transporter.target = value.myTransform;
+                    aura.InitializeMe(value);
                     break;
             }
+
         }
     }
+    Brain _br;
 
-    [Title("Knight")]
+
     [SerializeField] Transform myShield;
-    [SerializeField] int powerKnockback = 2;
-    [SerializeField] int powerDash = 2;
+    [SerializeField] int powerKnockback = 5;
+    [SerializeField] int powerDash = 30;
     public int startActive;
 
-    // public override void FromAnimEv_Attack(int num = 0)
-    // {
-    //     base.FromAnimEv_Attack(num);
-    //     PassDataContainer container = new PassDataContainer()
-    //     {
-    //         canBeBlocked = true,
-    //         data = new PassData[2]
-    //         {
-    //             new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
-    //             new PassDataKnockBack(5)
-    //         }
-    //     };
-    //
-    //     SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee), Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-    //     melee.onHitTarget += (Brain br) =>
-    //     {
-    //         if (br == null) CombatEventRegistered(CombatEvent.Miss);
-    //         else CombatEventRegistered(CombatEvent.Hit, br);
-    //     };
-    //     melee.InitializeMe(Br, container);
-    // }
-    //
-    // public override void FromAnimEv_Ultimate(int num = 0)
-    // {
-    //     base.FromAnimEv_Ultimate(num);
-    //     
-    //     Br.loco.PushMe(Br.myTransform.forward, Loco.MoveOverrideType.Dash, powerDash);
-    //     Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
-    //     knockBackDir2.Normalize();
-    //     knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (Random.Range(0,2) - 1));
-    //     PassDataContainer container = new PassDataContainer()
-    //     {
-    //         data = new PassData[2]
-    //         {
-    //             new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
-    //             new PassDataKnockBack(30, knockBackDir2)
-    //         }
-    //     };
-    //     SpellMain dash = Instantiate(GetSpellByAttackType(AnimAttackType.Ultimate), Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-    //     dash.transporter.target = Br.myTransform;
-    //     dash.spell.areaOfEffect = Br.size + 1;
-    //     dash.spell.lifeTime = Ga.me.gameData.dashTime;
-    //     dash.InitializeMe(Br, container, afterSpellPush);
-    //     return;
-    //     
-    //     void afterSpellPush()
-    //     {
-    //         PassDataContainer containerAfterSpellPush = new PassDataContainer()
-    //         {
-    //             data = new PassData[1]
-    //             {
-    //                 new PassDataKnockBack(30)
-    //             }
-    //         };
-    //         SpellMain push = Instantiate(Ga.me.spells.push, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-    //         push.InitializeMe(Br, containerAfterSpellPush);
-    //     }
-    //
-    // }
-
-    public override void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
+    public void AnimEv_AttackCallback(int num = 0)
     {
-        base.CombatEventRegistered(combatEvent, otherBrain);
+        PassDataContainer container = new PassDataContainer()
+        {
+            canBeBlocked = true,
+            data = new PassData[2]
+            {
+                new PassDataDamage(new Element[1] { Element.Physical }, new float[1] {Br.character.GetStat(Stats.MeleeDamage) }),
+                new PassDataKnockBack(powerKnockback)
+            }
+        };
+    
+        SpellMain melee = Instantiate(Ga.me.spells.meleePlayer,Br.myTransform.position,Br.myTransform.rotation, Ga.me.spells.myTransform);
+        melee.onHitTarget += (Brain br) =>
+        {
+            if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
+            else Br.combat.CombatEventRegistered(CombatEvent.Hit, br);
+        };
+        melee.InitializeMe(Br, container);
+    }
+    
+    public void AnimEv_UltimateCallback(int num = 0)
+    {
+       Br.loco.PushMe(Br.myTransform.forward, Loco.MoveOverrideType.Dash, powerDash);
+        Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
+        knockBackDir2.Normalize();
+        knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (Random.Range(0,2) - 1));
+        PassDataContainer container = new PassDataContainer()
+        {
+            data = new PassData[2]
+            {
+                new PassDataDamage(new Element[1] { Element.Physical }, new float[1] {Br.character.GetStat(Stats.MeleeDamage) }),
+                new PassDataKnockBack(30, knockBackDir2)
+            }
+        };
+        SpellMain dash = Instantiate(Ga.me.spells.dash,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        dash.transporter.target =Br.myTransform;
+        dash.spell.areaOfEffect =Br.size + 1;
+        dash.spell.lifeTime = Ga.me.gameData.dashTime;
+        dash.InitializeMe(Br, container, afterSpellPush);
+        return;
+        
+        void afterSpellPush()
+        {
+            PassDataContainer containerAfterSpellPush = new PassDataContainer()
+            {
+                data = new PassData[1]
+                {
+                    new PassDataKnockBack(30)
+                }
+            };
+            SpellMain push = Instantiate(Ga.me.spells.push,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            push.InitializeMe(Br, containerAfterSpellPush);
+        }
+    
+    }
+
+    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
+    {
+        return;
         string st = otherBrain == null ? "" : $", target is {otherBrain.name}.";
-//       print($"{combatEvent} {st}");
+     //  print($"{combatEvent} {st}");
         switch (combatEvent)
         {
             case CombatEvent.Strike:
-                // if (!Br.health.IsAtFullHealth()) return;
-                // PassDataContainer containerArc = new PassDataContainer()
-                // {
-                //     canBeBlocked = true,
-                //     data = new PassData[1]
-                //     {
-                //         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                //     }
-                // };
-                // SpellMain arc = Instantiate(Ga.me.spells.sweepingArc, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                // arc.InitializeMe(Br, containerArc);
+                if (!Br.health.IsAtFullHealth()) return;
+                PassDataContainer containerArc = new PassDataContainer()
+                {
+                    canBeBlocked = true,
+                    data = new PassData[1]
+                    {
+                        new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MagicDamage) }),
+                    }
+                };
+                SpellMain arc = Instantiate(Ga.me.spells.sweepingArc,Br.myTransform.position,Br.myTransform.rotation, Ga.me.spells.myTransform);
+                arc.InitializeMe(Br, containerArc);
                 break;
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
                 float chance = 0.05f;
-                if (Random.value > chance || Br.combat.MyTarget == null) return;
-                Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget.position);
+                if (Random.value > chance ||Br.combat.MyTarget == null) return;
+                Vector3 dir = Utils.Direction(myShield.position,Br.combat.MyTarget.position);
                 PassDataContainer containerThrow = new PassDataContainer()
                 {
                     canBeBlocked = true,
                     data = new PassData[1]
                     {
-                        new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                        new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MagicDamage) }),
                     }
                 };
                 SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
@@ -140,9 +138,9 @@ public class PC_Knight : P_Combat
                 StartCoroutine(SpellPushDelay());
                 break;
             case CombatEvent.Kill:
-                if (otherBrain.character.GetStat(Stats.MagicDamage) >= Br.character.GetStat(Stats.MagicDamage))
+                if (otherBrain.character.GetStat(Stats.MagicDamage) >=Br.character.GetStat(Stats.MagicDamage))
                 {
-                    Br.character.ChangeStat(Character.BuffType.Skill,Stats.MagicDamage, 1);
+                   Br.character.ChangeStat(Character.BuffType.Skill,Stats.MagicDamage, 1);
                 }
                 break;
         }
@@ -153,7 +151,7 @@ public class PC_Knight : P_Combat
             yield return new WaitForSeconds(0.1f);
             PassDataContainer container = new PassDataContainer()
             {
-                myBrain = Br,
+                myBrain =Br,
                 data = new PassData[1]
                 {
                     new PassDataKnockBack(30)
@@ -163,7 +161,4 @@ public class PC_Knight : P_Combat
             push.InitializeMe(Br, container);
         }
     }
-
-
-
 }
