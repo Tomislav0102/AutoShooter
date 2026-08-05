@@ -9,7 +9,7 @@ public class S_A : Spell
     protected override void Update()
     {
         base.Update();
-        if (!initialized) return;
+        if (!initializedSpell) return;
         if (!main.mainActive) return;
         if (MyPhase != Phase.SpellRuns) return;
         if (_oneHit) return;

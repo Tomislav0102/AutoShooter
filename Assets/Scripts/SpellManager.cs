@@ -27,6 +27,8 @@ public class SpellManager : MonoBehaviour
    public SpellMain lightningStrike;
    public SpellMain chainLightning;
    public SpellMain overload;
+   [Title("Mage Arcane")]
+   public SpellMain gravityWell;
    [Title("Knight")]
    public SpellMain meleePlayer;
    public SpellMain push;

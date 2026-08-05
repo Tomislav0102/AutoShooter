@@ -124,6 +124,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 904374454408797328}
     - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: sizeModifier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: particleSizeChangeStart
       value: 1
       objectReference: {fileID: 0}
@@ -179,33 +183,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   myFactionTarget: 1
   areaOfEffect: 3
   warningDelay: 0
@@ -213,17 +191,6 @@ MonoBehaviour:
   lifeTime: 5
   rateOfFire: 0.2
   terminateOnHit: 0
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 904374454408797328}
-    psOnHit: []
-    particleSizeChangeStart: 1
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  useInspectorDamageData: 0
-  hitEffects: 00000000
 --- !u!1 &5712193255030706863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

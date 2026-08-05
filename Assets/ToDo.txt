@@ -2,10 +2,11 @@ GENERAL
 Push feature - define knockback, dash, magnet
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
 SpellGroup - implement new PassData
-Composition over inheritance - consider implementing in 'Loco' and 'Combat'
+DOT - (burn, poison, etc...) Define mechanics.
           
 TRAPS
-Basic floor trap - stationary spell, always active
+Faction of traps is always neutral, meaning it targets everyone. Logic is simpler that way.
+Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.
 Spikes on walls - stationary, damage is proportional to velocity of target, great for knockback enemies. 
 
 OPTIMIZATION

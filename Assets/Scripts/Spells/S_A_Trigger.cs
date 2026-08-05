@@ -10,6 +10,7 @@ public class S_A_Trigger : S_A
     [SerializeField] bool onEnter = true;
     [SerializeField] bool onFakeStay;
     [SerializeField] bool onExit;
+    [ShowIf(nameof(onExit))] public SpellMain effectAtExit; //public so it can be added through code
 
     enum ColliderPart
     {
@@ -19,7 +20,6 @@ public class S_A_Trigger : S_A
     }
     [SerializeField] ColliderPart colliderPart;
         
-    
     
     protected override void Hit()
     {
@@ -37,13 +37,12 @@ public class S_A_Trigger : S_A
     public override void OnTriggerEnterCallBack(Collider other)
     {
         base.OnTriggerEnterCallBack(other);
-        if (!onEnter) return;
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
 
         if (collidersDetected.Contains(other)) return;
         collidersDetected.Add(other);
-        if (onFakeStay) return;
+        if (!onEnter || onFakeStay) return;
         
         HitGeneric(other, out Brain targetBrain);
         main.onHitTarget?.Invoke(targetBrain);
@@ -64,12 +63,12 @@ public class S_A_Trigger : S_A
     public override void OnTriggerExitCallBack(Collider other)
     {
         base.OnTriggerExitCallBack(other);
-        if (!onExit) return;
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
         if (!collidersDetected.Contains(other)) return;
-        
         collidersDetected.Remove(other);
+        
+        if (!onExit || effectAtExit == null) return;
     }
 
     bool CheckColliderType(Vector3 pos)

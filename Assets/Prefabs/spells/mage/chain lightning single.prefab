@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4878400958612436460}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 9081011820180520459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5080,12 +5080,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 726979740004396183}
     - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: sizeModifier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: myTiledSpriteRenderer
       value: 
       objectReference: {fileID: 6652552692296886430}
     - target: {fileID: 2941170725548325989, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: particleSizeChangeStart
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
@@ -5146,25 +5154,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: _damageInspector
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   myFactionTarget: 1
   areaOfEffect: 1
   warningDelay: 0
   hitChance: 1
-  lifeTime: 0.3
+  extraLifeTimeForParticles: 1
+  lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 0
-  useInspectorDamageData: 0
-  injectHealth:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  hitEffect: 0
-  hitEffectOnSpell: 0
-  spellsToAffect: []
 --- !u!1 &7600140773223684860 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

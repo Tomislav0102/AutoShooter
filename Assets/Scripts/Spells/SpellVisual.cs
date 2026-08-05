@@ -18,7 +18,7 @@ public class SpellVisual : MonoBehaviour
     }
     [SerializeField] SizeModifierType sizeModifier;
     [SerializeField] Transform myMesh;
-    [SerializeField] SpriteRenderer myTiledSpriteRenderer;
+    [Tooltip("if != null, SizeModifierType should be Other_None")] [SerializeField] SpriteRenderer myTiledSpriteRenderer;
 
     
     public void InitializeMe(SpellMain main)

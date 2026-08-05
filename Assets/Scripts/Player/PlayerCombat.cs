@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -31,7 +32,7 @@ public class PlayerCombat : MonoBehaviour, IInitialization, ITargetTracker
     Transform _myTarget;
 
     public AnimAttackType animAttackType;
-    [SerializeField] int engageRange = 10;
+    public int engageRange = 10;
     [SerializeField] float ultimateCooldownTime;
     [SerializeField] PlayerLoco playerLoco;
     
@@ -48,7 +49,5 @@ public class PlayerCombat : MonoBehaviour, IInitialization, ITargetTracker
     {
         Br.loco.AttackAnimation(AnimAttackType.Ultimate);
     }
-
-
-
 }
+

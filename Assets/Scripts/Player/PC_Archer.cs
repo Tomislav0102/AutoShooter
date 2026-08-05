@@ -7,8 +7,16 @@ using UnityEngine.Serialization;
 
 public class PC_Archer : MonoBehaviour
 {
+    public Brain Br
+    {
+        get => _br;
+        set
+        {
+            _br = value;
+        }
+    }
+    Brain _br;
 
-    [Title("Archer")]
     [SerializeField] Transform spawnPoint;
     [SerializeField] bool forward;
     [SerializeField] bool front;
@@ -19,13 +27,6 @@ public class PC_Archer : MonoBehaviour
     Coroutine _rollCoroutine;
     const float CONST_RollTime = 0.3f;
     [SerializeField] ParticleSystem psRoll;
-
-    Combat _combat;
-    public void BrainInitialization()
-    {
-        _combat = GetComponent<Combat>();
-    }
-
     
     void OnEnable()
     {
@@ -57,13 +58,15 @@ public class PC_Archer : MonoBehaviour
         // }
 
     }
-
-    // public override void FromAnimEv_Attack(int num = 0)
-    // {
-    //     base.FromAnimEv_Attack(num);
-    //     Shoot();
-    //     if (followUp > 0) StartCoroutine(ShootFollowUp());
-    // }
+    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
+    {
+        
+    }
+    public void AnimEv_AttackCallback(int num = 0)
+    {
+        Shoot();
+        if (followUp > 0) StartCoroutine(ShootFollowUp());
+    }
 
     IEnumerator ShootFollowUp()
     {
@@ -100,7 +103,7 @@ public class PC_Archer : MonoBehaviour
         }
         if (forward)
         {
-            Vector3 fw = _combat.Br.myTransform.forward;
+            Vector3 fw = Br.myTransform.forward;
             float angle = Mathf.Atan2(fw.x, fw.z) * Mathf.Rad2Deg;
             spawnProjectile(angle);
         }
@@ -110,23 +113,23 @@ public class PC_Archer : MonoBehaviour
             Vector3 rot = rotation * Vector3.up;
             PassDataContainer container = new PassDataContainer()
             {
-                myBrain = _combat.Br,
+                myBrain = Br,
                 canBeBlocked = false,
                 data = new PassData[1]
                 {
-                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { _combat.Br.character.GetStat(Stats.RangedDamage) }),
+                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                 }
             };
             for (int i = 0; i < parallel + 1; i++)
             {
-                // float xOffset = i * CONST_HorGapBetweenProjectiles;
-                // SpellMain sp = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                // sp.visual.SetSpawnHeight(spawnPoint.position.y);
-                // sp.myTransform.Rotate(rot);
-                // sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
-                // float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-                // sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-                // sp.InitializeMe(Br, container);
+                float xOffset = i * CONST_HorGapBetweenProjectiles;
+                SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                sp.visual.SetSpawnHeight(spawnPoint.position.y);
+                sp.myTransform.Rotate(rot);
+                sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
+                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+                sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+                sp.InitializeMe(Br, container);
             }
         }
     }

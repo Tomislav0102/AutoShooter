@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-
+using UnityEngine.Serialization;
 
 
 [System.Serializable]
@@ -44,14 +44,25 @@ public class PassDataManaShield : PassData
 [System.Serializable]
 public class PassDataKnockBack : PassData
 {
-    public int knockBack;
+    [FormerlySerializedAs("knockBack")] public int knockBackPower;
     public Vector2 knockBackDirection; //ignored if = Vector2.zero
 
-    public PassDataKnockBack(int knockBack, Vector2 knockBackDirection = new Vector2())
+    public PassDataKnockBack(int knockBackPower, Vector2 knockBackDirection = new Vector2())
     {
         priority = 30;
-        this.knockBack = knockBack;
+        this.knockBackPower = knockBackPower;
         this.knockBackDirection = knockBackDirection;
+    }
+}
+[System.Serializable]
+public class PassDataMagnet : PassData
+{
+    public int magnetPower;
+
+    public PassDataMagnet(int magnetPower)
+    {
+        priority = 40;
+        this.magnetPower = magnetPower;
     }
 }
 [System.Serializable]
@@ -74,7 +85,7 @@ public class PassDataDamage : PassData
         pair = new MyDuo<Element, float>(keys, values);
         SetPriority();
     }
-    void SetPriority() => priority = 40;
+    void SetPriority() => priority = 50;
 }
 
 

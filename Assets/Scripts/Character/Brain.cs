@@ -10,12 +10,12 @@ public class Brain : MonoBehaviour
 {
     [field:SerializeField] public Faction Faction { get; set; }
     public Transform myTransform;
-    public Rigidbody myRigid;
     public SphereCollider myCollider;
     public NavMeshAgent agent;
     [SerializeField] Transform fakeShadow;
     [Range(0.2f, 5f)] public float size = 1;
     [SerializeField] Transform parPs;
+    Trap _trap;
     [Title("Body")]
     public GenOrder skin;
     [SerializeField] GameObject characterGo, healthGo, statusGo, locoGo, combatGo;
@@ -27,6 +27,13 @@ public class Brain : MonoBehaviour
     
     void Awake()
     {
+        _trap = GetComponent<Trap>();
+        if (_trap != null)
+        {
+            _trap.Br = this;
+            return;
+        }
+        
         if (characterGo.TryGetComponent(out Character c))
         {
             character = c;

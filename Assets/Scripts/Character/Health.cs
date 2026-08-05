@@ -147,10 +147,15 @@ public class Health: MonoBehaviour, IInitialization
                     break;
                 
                 case PassDataKnockBack knockBack:
-                    Vector3 dir;
-                    if (knockBack.knockBackDirection.Equals(Vector2.zero)) dir = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
-                    else dir = Utils.MakeV3(knockBack.knockBackDirection);
-                    Br.loco.PushMe(dir, Loco.MoveOverrideType.KnockBack, knockBack.knockBack);
+                    Vector3 dirKnockback;
+                    if (knockBack.knockBackDirection.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
+                    else dirKnockback = Utils.MakeV3(knockBack.knockBackDirection);
+                    Br.loco.PushMe(dirKnockback, Loco.MoveOverrideType.KnockBack, knockBack.knockBackPower);
+                    break;
+                
+                case PassDataMagnet magnet:
+                    Vector3 dirMagnet = Vector3.zero;
+                    Br.loco.PushMe(dirMagnet, Loco.MoveOverrideType.Magnet, magnet.magnetPower);
                     break;
             }
 

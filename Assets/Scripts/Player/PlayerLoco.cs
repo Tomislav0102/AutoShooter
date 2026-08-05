@@ -65,13 +65,11 @@ public class PlayerLoco : MonoBehaviour, IInitialization
         if (Br.loco.OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
         else myForward = Utils.MakeV3(effJoystickValue);
         Br.loco.Orientation(myForward);
-        if (!Br.loco.OvrMotion) move();
-        void move()
-        {
-            float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
-            float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
-            Br.loco.Direction_Move(dotHor, dotVer);
-            Br.agent.velocity = Br.loco.moveSpeed * Utils.MakeV3(effJoystickValue);
-        }
+        if (Br.loco.OvrMotion) return;
+        
+        float dotVer = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.forward);
+        float dotHor = Vector3.Dot(Utils.MakeV3(effJoystickValue), Br.myTransform.right);
+        Br.loco.Direction_Move(dotHor, dotVer);
+        Br.agent.velocity = Br.loco.moveSpeed * Utils.MakeV3(effJoystickValue);
     }
 }

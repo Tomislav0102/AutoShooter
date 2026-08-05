@@ -124,6 +124,7 @@ public class Loco : MonoBehaviour, IInitialization
             case MoveOverrideType.KnockBack:
                 if (_currentMoveOverride == MoveOverrideType.Dash) return;
                 intensity -= knockBackResistance;
+                if (intensity <= 0) return;
                 timer = 0.2f;
                 break;
             case MoveOverrideType.Dash:
@@ -132,10 +133,10 @@ public class Loco : MonoBehaviour, IInitialization
                 break;
             case MoveOverrideType.Magnet:
                 intensity -= knockBackResistance;
+                if (intensity <= 0) return;
                 break;
         }
         _currentMoveOverride =  moveOverrideType;
-        if (intensity <= 0) return;
         
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
         _pushCoroutine = StartCoroutine(pushDelay());

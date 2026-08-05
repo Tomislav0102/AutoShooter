@@ -13,10 +13,10 @@ public class S_A_Overlap : S_A
 
     protected override void Hit()
     {
-        Collider[] colliders = null;
+        Collider[] colliders = System.Array.Empty<Collider>();
         bool eventCall = false;
-        int layerMask = Utils.MyLayers(new string[] { Ga.me.gameData.layActors, Ga.me.gameData.laySpell });
-
+       // int layerMask = Utils.MyLayers(new string[] { Ga.me.gameData.layActors, Ga.me.gameData.laySpell });
+       int layerMask = Utils.MyLayer(main.isInterrupt ? Ga.me.gameData.laySpell : Ga.me.gameData.layActors);
         switch (main.colliderType)
         {
             case ColliderType.Sphere:

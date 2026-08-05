@@ -194,25 +194,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: _damageInspector
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   myFactionTarget: 1
   areaOfEffect: 1
   warningDelay: 0
   hitChance: 1
-  lifeTime: 0.2
+  extraLifeTimeForParticles: 1
+  lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 0
-  useInspectorDamageData: 0
-  injectHealth:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  hitEffect: 0
-  hitEffectOnSpell: 0
-  spellsToAffect: []
 --- !u!4 &712303260422239626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

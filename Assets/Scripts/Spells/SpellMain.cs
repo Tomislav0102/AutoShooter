@@ -52,7 +52,6 @@ public class SpellMain : MonoBehaviour
     public Spell spell; 
     public SpellTransporter transporter;
     public SpellVisual visual;
-    [SerializeField, TextArea, HideLabel] string description;
 
 
     #region INITIALIZATION
@@ -108,9 +107,17 @@ public class SpellMain : MonoBehaviour
     System.Action _onAfterSpell;
     void CallEv_OnEnd()
     {
+        if (!mainActive) return;
         _onAfterSpell?.Invoke();
         mainActive = false;
-        Destroy(gameObject);
+        float time = spell.extraLifeTimeForParticles ? 3f : 0f;
+        StartCoroutine(endDelay());
+    
+        IEnumerator endDelay()
+        {
+            yield return new WaitForSeconds(time);
+            Destroy(gameObject);
+        }
     }
     #endregion
 

@@ -5150,6 +5150,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: engageRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: animAttackType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2148451991947694265, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Controller
       value: 
@@ -5203,6 +5211,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5211,12 +5223,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_Br
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5259,6 +5287,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AnimEv_UltimateCallback
       objectReference: {fileID: 0}
@@ -5273,6 +5305,10 @@ PrefabInstance:
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -5388,9 +5424,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P_Mage
   spawnPoint: {fileID: 2471835065303500449}
   psCast: {fileID: 351111234578652109}
-  startActive: 0
-  attackActive: 0
-  numOfObjects: 1
+  startActive: 99
+  weaponRangePair:
+    <Key>k__BackingField: 00000000000000
+    <Value>k__BackingField:
+    - 15
+    - 100
+    - 5
+    - 20
+    - 25
+    - 100
+    - 20
+  numOfObjects: 3
 --- !u!137 &5165482686685167941 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5271545707195277533, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

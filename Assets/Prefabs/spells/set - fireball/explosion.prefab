@@ -201,60 +201,12 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 4
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   myFactionTarget: 1
   areaOfEffect: 3
   warningDelay: 0
   hitChance: 1
-  lifeTime: 2
+  extraLifeTimeForParticles: 1
+  lifeTime: 0
   rateOfFire: 0
   terminateOnHit: 1
-  spellVisualsTemporary:
-    psStart:
-    - {fileID: 3708156408610075552}
-    psOnHit: []
-    particleSizeChangeStart: 0
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  useInspectorDamageData: 1
-  hitEffects: 00000000

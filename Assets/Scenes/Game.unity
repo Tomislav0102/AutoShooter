@@ -1204,8 +1204,11 @@ MonoBehaviour:
       <Value>k__BackingField: []
   knockBack:
     priority: 0
-    knockBack: 0
+    knockBackPower: 0
     knockBackDirection: {x: 0, y: 0}
+  magnet:
+    priority: 0
+    magnetPower: 0
   manaShield:
     priority: 0
     manaShieldPoints: 0
@@ -2272,96 +2275,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[0].range
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[1].range
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[2].range
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[3].range
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[4].range
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[0].spellMain
-      value: 
-      objectReference: {fileID: 2258241833145700990, guid: 1bbf318075619b54f9a7e2ee00ca7001, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[1].spellMain
-      value: 
-      objectReference: {fileID: 4551912923362254910, guid: a6d32198d40d7f749a19d7716b0d89c9, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[2].spellMain
-      value: 
-      objectReference: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[3].spellMain
-      value: 
-      objectReference: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[4].spellMain
-      value: 
-      objectReference: {fileID: 508540452596679946, guid: 11d6aef39fe45a2498b2b92ee3c1a691, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[0].attackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[1].attackType
+      propertyPath: 'weaponRangePair.<Key>k__BackingField.Array.data[1]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[2].attackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[3].attackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[4].attackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[0].animAttackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[1].animAttackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[2].animAttackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[3].animAttackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.Array.data[4].animAttackType
-      value: 1
+      propertyPath: 'weaponRangePair.<Key>k__BackingField.Array.data[3]'
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_Name
       value: BP_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3141,6 +3064,7 @@ MonoBehaviour:
   lightningStrike: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
   chainLightning: {fileID: 4551912923362254910, guid: a6d32198d40d7f749a19d7716b0d89c9, type: 3}
   overload: {fileID: 2258241833145700990, guid: 1bbf318075619b54f9a7e2ee00ca7001, type: 3}
+  gravityWell: {fileID: 4984419709639385011, guid: 1802f7f86cc001a4b84965b26a6ba8ef, type: 3}
   meleePlayer: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   push: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
   sweepingArc: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}

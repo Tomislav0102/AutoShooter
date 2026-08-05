@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Spell : SerializedMonoBehaviour
+public class Spell : MonoBehaviour
 {
-    protected bool initialized;
+    protected bool initializedSpell;
 
     public enum Phase
     {
@@ -49,6 +49,7 @@ public class Spell : SerializedMonoBehaviour
     public float areaOfEffect = 1f;
     [SerializeField] float warningDelay;
     [Range(0f, 1f)] public float hitChance = 1f;
+    public bool extraLifeTimeForParticles;
     [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
     public float lifeTime;
     bool LifeTimeIs0() => lifeTime == 0f;
@@ -57,7 +58,6 @@ public class Spell : SerializedMonoBehaviour
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     PassDataContainer _pd;
     protected HashSet<Collider> collidersDetected = new HashSet<Collider>();
-
 
     public virtual void InitializeMe(SpellMain mainSpell)
     {
@@ -71,9 +71,10 @@ public class Spell : SerializedMonoBehaviour
         if (ovrPassData != null) _pd = ovrPassData.GetContainer();
         else _pd = mainSpell.pd;
         _pd.myBrain = main.OwnersBrain;
+        if (_pd.data == null) _pd.data = System.Array.Empty<PassData>();
         
         MyPhase = Phase.BeginWarning;
-        initialized = true;
+        initializedSpell = true;
         
     }
 
@@ -91,6 +92,7 @@ public class Spell : SerializedMonoBehaviour
             {
                 case PassDataDamage dam:
                 case PassDataKnockBack knockBack:
+                case PassDataMagnet magnet:
                 case PassDataManaShield manaShield:
                     if (targetGeneric.TryGetComponent(out Brain br) && 
                         Utils.CanTargetFaction(main.OwnersBrain.Faction, br.Faction, myFactionTarget))
@@ -134,34 +136,6 @@ public class Spell : SerializedMonoBehaviour
                         oustedTargetsBrain = targetSpell.OwnersBrain;
                     }
                     break;
-                // case PassDataSpell spellData:
-                //     if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
-                //         Utils.CanTargetFaction(main.OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-                //     {
-                //         if (spellData.spellsToAffect.Length == 0) onSpell();
-                //         else
-                //         {
-                //             for (int i = 0; i < spellData.spellsToAffect.Length; i++)
-                //             {
-                //                 if (targetSpell.spell.GetType() != spellData.spellsToAffect[i].spell.GetType()) continue;
-                //                 onSpell();
-                //             }
-                //         }
-                //         void onSpell()
-                //         {
-                //             switch (spellData.effect)
-                //             {
-                //                 case PassData.HitEffectOnSpell.Nullify:
-                //                     targetSpell.spell.MyPhase = Phase.EndStart;
-                //                     break;
-                //                 case PassData.HitEffectOnSpell.Reflect:
-                //                     Vector3 newDirection = Utils.Direction(main.myTransform.position, targetSpell.myTransform.position);
-                //                     targetSpell.transporter.ReflectProjectile(main.OwnersBrain, newDirection);
-                //                     break;
-                //             }
-                //         }
-                //     }
-                //     break;
             }
         }
         targetsBrain = oustedTargetsBrain;
@@ -171,7 +145,7 @@ public class Spell : SerializedMonoBehaviour
 
     protected virtual void Update()
     {
-        if (!initialized) return;
+        if (!initializedSpell) return;
         if (!main.mainActive) return;
         switch (MyPhase)
         {
