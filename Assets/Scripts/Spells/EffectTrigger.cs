@@ -4,9 +4,17 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
-public class S_A_Trigger : S_A
+public class EffectTrigger : SpellEffect
 {
-    [Title("Triggers")]
+    public override SpellMain Spell
+    {
+        get => base.Spell;
+        set
+        {
+            base.Spell = value;
+        }
+    }
+
     [SerializeField] bool onEnter = true;
     [SerializeField] bool onFakeStay;
     [SerializeField] bool onExit;
@@ -19,61 +27,58 @@ public class S_A_Trigger : S_A
         BackHalf,
     }
     [SerializeField] ColliderPart colliderPart;
-        
+
     
-    protected override void Hit()
+    public void Hit()
     {
-        base.Hit();
         if (!onFakeStay) return;
-        foreach (Collider item in collidersDetected)
+        foreach (Collider item in Spell.collidersDetected)
         {
             if (item == null) continue;
-            HitGeneric(item, out Brain targetBrain);
-            main.onHitTarget?.Invoke(targetBrain);
+            Spell.HitGeneric(item, out Brain targetBrain);
+            Spell.onHitTarget?.Invoke(targetBrain);
         }
     }
 
     
-    public override void OnTriggerEnterCallBack(Collider other)
+    public void OnTriggerEnterCallBack(Collider other)
     {
-        base.OnTriggerEnterCallBack(other);
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
 
-        if (collidersDetected.Contains(other)) return;
-        collidersDetected.Add(other);
+        if (Spell.collidersDetected.Contains(other)) return;
+        Spell.collidersDetected.Add(other);
         if (!onEnter || onFakeStay) return;
         
-        HitGeneric(other, out Brain targetBrain);
-        main.onHitTarget?.Invoke(targetBrain);
-        if (!main.isInterrupt)
+        Spell.HitGeneric(other, out Brain targetBrain);
+        Spell.onHitTarget?.Invoke(targetBrain);
+        if (!Spell.isInterrupt)
         {
-            main.spell.MyPhase = Phase.EndStart;
+            Spell.MyPhase = SpellMain.Phase.EndStart;
             return;
         }
 
-        if (targetBrain == main.OwnersBrain) //interrupt hits its owners spell so contact/trigger should be ignored
+        if (targetBrain == Spell.OwnersBrain) //interrupt hits its owners spell so contact/trigger should be ignored
         {
-            main.spell.MyPhase = Phase.EndStart;
+            Spell.MyPhase = SpellMain.Phase.EndStart;
         }
        
     }
 
     
-    public override void OnTriggerExitCallBack(Collider other)
+    public void OnTriggerExitCallBack(Collider other)
     {
-        base.OnTriggerExitCallBack(other);
         if (!CheckColliderType(other.transform.position)) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
-        if (!collidersDetected.Contains(other)) return;
-        collidersDetected.Remove(other);
+        if (!Spell.collidersDetected.Contains(other)) return;
+        Spell.collidersDetected.Remove(other);
         
         if (!onExit || effectAtExit == null) return;
     }
 
     bool CheckColliderType(Vector3 pos)
     {
-        float posZ =  main.myTransform.InverseTransformPoint(pos).z;
+        float posZ =  Spell.myTransform.InverseTransformPoint(pos).z;
         switch (colliderPart)
         {
             case ColliderPart.FrontHalf:

@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class Combat : MonoBehaviour, IInitialization, ITargetTracker
+public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
 {
     [SerializeField] UnityEvent<Brain> brainEv;
     [SerializeField] UnityEvent<Transform> targetEv;
@@ -20,7 +20,7 @@ public class Combat : MonoBehaviour, IInitialization, ITargetTracker
         set
         {
             _br = value;
-            brainEv?.Invoke(value);
+            brainEv.Invoke(value);
             StartCoroutine(searchTargetCoroutine(Random.Range(0.1f, 0.2f)));
             return;
             IEnumerator searchTargetCoroutine(float delay)
@@ -51,7 +51,7 @@ public class Combat : MonoBehaviour, IInitialization, ITargetTracker
             {
                 Br.loco.AttackAnimation(null);
             }
-            targetEv?.Invoke(value);
+            targetEv.Invoke(value);
         }
     }
     [ShowInInspector, ReadOnly] Transform _myTarget;
@@ -70,7 +70,7 @@ public class Combat : MonoBehaviour, IInitialization, ITargetTracker
                 CombatEventRegistered(CombatEvent.Strike);
                 break;
         }   
-        combatRegisterEv?.Invoke(combatEvent, otherBrain);
+        combatRegisterEv.Invoke(combatEvent, otherBrain);
     }
 
     public void CheckBlock(out bool blocked, Brain otherBrain = null)
@@ -101,12 +101,12 @@ public class Combat : MonoBehaviour, IInitialization, ITargetTracker
     }
     public void FromAnimEv_Attack(int num = 0)
     {
-        animAttackEv?.Invoke(num);
+        animAttackEv.Invoke(num);
     }
 
     public void FromAnimEv_Ultimate(int num = 0)
     {
-        animAttackUltimateEv?.Invoke(num);
+        animAttackUltimateEv.Invoke(num);
     }
 
 }

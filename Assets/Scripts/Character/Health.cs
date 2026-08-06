@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Serialization;
 
 
-public class Health: MonoBehaviour, IInitialization
+public class Health: MonoBehaviour, IIniBrain
 {
     public Brain Br
     {

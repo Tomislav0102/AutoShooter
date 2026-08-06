@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 
-public class EnemyCombat : MonoBehaviour, IInitialization, ITargetTracker
+public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
 {
     public Brain Br
     {

@@ -3,26 +3,31 @@ using UnityEngine;
 
 public class TargetTransporter : SpellTransporter
 {
+    public override SpellMain Spell
+    {
+        get => base.Spell;
+        set
+        {
+            base.Spell = value;
+        }
+    }
+
     [SerializeField] bool followPosition = true;
     [SerializeField] bool followRotation;
 
     void Update()
     {
-        switch (main.spell.MyPhase)
+        switch (Spell.MyPhase)
         {
-            case Spell.Phase.BeginWarning:
+            case SpellMain.Phase.BeginWarning:
                 break;
-            case Spell.Phase.SpellRuns:
+            case SpellMain.Phase.SpellRuns:
                 if (target != null)
                 {
-                  if (followPosition)  main.myTransform.position = target.position;
-                  if (followRotation)  main.myTransform.rotation = target.rotation;
+                  if (followPosition)  Spell.myTransform.position = target.position;
+                  if (followRotation)  Spell.myTransform.rotation = target.rotation;
                 }
-                else main.spell.MyPhase = Spell.Phase.EndStart;
-                break;
-            case Spell.Phase.EndStart:
-                break;
-            case Spell.Phase.EndEnd:
+                else Spell.MyPhase = SpellMain.Phase.EndStart;
                 break;
         }
     }

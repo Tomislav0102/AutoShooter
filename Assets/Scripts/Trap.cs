@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Trap : MonoBehaviour, IInitialization
+public class Trap : MonoBehaviour, IIniBrain
 {
     public Brain Br
     {

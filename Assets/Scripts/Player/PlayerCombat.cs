@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerCombat : MonoBehaviour, IInitialization, ITargetTracker
+public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
 {
     public Brain Br
     {

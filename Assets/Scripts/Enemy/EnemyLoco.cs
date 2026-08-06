@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class EnemyLoco : MonoBehaviour, IInitialization
+public class EnemyLoco : MonoBehaviour, IIniBrain
 {
     public Brain Br
     {

@@ -4,20 +4,25 @@ using Sirenix.OdinInspector;
 
 public class HomingTransporter : SpellTransporter
 {
+    public override SpellMain Spell
+    {
+        get => base.Spell;
+        set
+        {
+            base.Spell = value;
+            value.myRigid.isKinematic = false;
+        }
+    }
+
     [SerializeField] float speed;
     
-    public override void InitializeMe(SpellMain spellMain)
-    {
-        base.InitializeMe(spellMain);
-        main.myRigid.isKinematic = false;
-    }
 
     void Update()
     {
-        if (!main.mainActive ) return;
+        if (!Spell.spellActive ) return;
         if (target == null) return;
-        Vector3 dir = Utils.Direction(main.myTransform.position, target.position);
-        main.myTransform.rotation = Quaternion.Slerp(main.myTransform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
+        Vector3 dir = Utils.Direction(Spell.myTransform.position, target.position);
+        Spell.myTransform.rotation = Quaternion.Slerp(Spell.myTransform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
     }
     
     void FixedUpdate()

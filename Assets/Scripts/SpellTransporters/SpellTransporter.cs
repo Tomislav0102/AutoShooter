@@ -3,28 +3,24 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class SpellTransporter : MonoBehaviour
+public class SpellTransporter : MonoBehaviour, IIniSpell
 {
-    protected SpellMain main;
+    public virtual SpellMain Spell { get; set; }
+
     [ReadOnly] public Transform target;
 
-    
-    public virtual void InitializeMe(SpellMain spellMain)
-    {
-        main = spellMain;
-    }
 
     protected void SetSpeed(float speed)
     {
-        float sp = main.mainActive ? speed : 0f;
-        main.myRigid.linearVelocity = sp * main.myTransform.forward;
+        float sp = Spell.spellActive ? speed : 0f;
+        Spell.myRigid.linearVelocity = sp * Spell.myTransform.forward;
     }
 
     public void ReflectProjectile(Brain newBrain, Vector3 newDirection)
     {
-        main.OwnersBrain = newBrain;
-        main.myTransform.rotation = Quaternion.LookRotation(newDirection);
-        float speed  = main.myRigid.linearVelocity.magnitude;
+        Spell.OwnersBrain = newBrain;
+        Spell.myTransform.rotation = Quaternion.LookRotation(newDirection);
+        float speed  = Spell.myRigid.linearVelocity.magnitude;
         SetSpeed(speed);
     }
 

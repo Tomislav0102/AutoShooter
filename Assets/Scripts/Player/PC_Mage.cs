@@ -8,7 +8,7 @@ using UnityEngine;
 /// errors appear because enemy is destroyed
 /// it will be fixed automatically once pool is implemented
 /// </summary>
-public class PC_Mage : MonoBehaviour, IInitialization
+public class PC_Mage : MonoBehaviour, IIniBrain
 {
     public Brain Br
     {
@@ -194,189 +194,189 @@ public class PC_Mage : MonoBehaviour, IInitialization
     public void AnimEv_AttackCallback(int num = 0)
     {
         psCast.Play(); 
-        if (weaponRangePair.GetKey(0)) WeaponHomingMissile(weaponRangePair.GetValue(0));
-        if (weaponRangePair.GetKey(1)) WeaponLightning(weaponRangePair.GetValue(1));
-        if (weaponRangePair.GetKey(2)) WeaponOverload(weaponRangePair.GetValue(2));
-        if (weaponRangePair.GetKey(3)) WeaponFireball(weaponRangePair.GetValue(3));
-        if (weaponRangePair.GetKey(4)) WeaponChainLightning(weaponRangePair.GetValue(4));
-        if (weaponRangePair.GetKey(5)) WeaponMeteorStrike(weaponRangePair.GetValue(5));
-        if (weaponRangePair.GetKey(6)) WeaponGravityWell(weaponRangePair.GetValue(6));
+        // if (weaponRangePair.GetKey(0)) WeaponHomingMissile(weaponRangePair.GetValue(0));
+        // if (weaponRangePair.GetKey(1)) WeaponLightning(weaponRangePair.GetValue(1));
+        // if (weaponRangePair.GetKey(2)) WeaponOverload(weaponRangePair.GetValue(2));
+        // if (weaponRangePair.GetKey(3)) WeaponFireball(weaponRangePair.GetValue(3));
+        // if (weaponRangePair.GetKey(4)) WeaponChainLightning(weaponRangePair.GetValue(4));
+        // if (weaponRangePair.GetKey(5)) WeaponMeteorStrike(weaponRangePair.GetValue(5));
+        // if (weaponRangePair.GetKey(6)) WeaponGravityWell(weaponRangePair.GetValue(6));
     }
     
-    void WeaponHomingMissile(float maxRange)
-    {
-        List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, numOfObjects, maxRange);
-        if (foundTargets.Count == 0) return;
-        
-        float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
-        var containerHoming = new PassDataContainer()
-        {
-            canBeBlocked = true,
-            data = new PassData[1]
-            {
-                new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-            }
-        };
-        StartCoroutine(rapidStrikes());
-
-        IEnumerator rapidStrikes()
-        {
-            int counter = 0;
-            for (int i = 0; i < numOfObjects; i++)
-            {
-                SpellMain homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
-                homing.visual.SetSpawnHeight(spawnPoint.position.y);
-                Transform target =  foundTargets[counter];
-                counter = (1 + counter) % foundTargets.Count;
-                homing.transporter.target = target;
-                homing.InitializeMe(Br, containerHoming);
-                yield return _waitForSeconds;
-            }
-        }
-    }
-
-    void WeaponLightning(float maxRange)
-    {
-        List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, maxRange);
-        Transform furthestTarget = foundTargets.Count == 0 ? null : foundTargets[0];
-        if (furthestTarget == null) return;
-        
-        var containerLightning = new PassDataContainer()
-        {
-            data = new PassData[1]
-            {
-                new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-            }
-        };
-        SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-        lightning.InitializeMe(Br, containerLightning);
-    }
-    void WeaponOverload(float maxRange)
-    {
-        List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, numOfObjects, maxRange);
-        var containerOverload= new PassDataContainer()
-        {
-            data = new PassData[1]
-            {
-                new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-            }
-        };
-        StartCoroutine(rapidStrikes());
-
-        IEnumerator rapidStrikes()
-        {
-            int counter = 0;
-            for (int i = 0; i < numOfObjects; i++)
-            {
-                Transform target =  foundTargets[counter];
-                counter = (1 + counter) % foundTargets.Count;
-                Vector3 distance = target.position - Br.myTransform.position;
-                SpellMain overload = Instantiate(Ga.me.spells.overload, Br.myTransform.position, Quaternion.LookRotation(distance.normalized), Ga.me.spells.myTransform);
-                overload.spell.areaOfEffect = distance.magnitude;
-                overload.transporter.target = target;
-                overload.InitializeMe(Br, containerOverload);
-                yield return _waitForSeconds;
-            }
-        }
-    }
-    void WeaponFireball(float maxRange)
-    {
-        List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, maxRange);
-        Transform middleTarget = foundTargets.Count == 0 ? null : foundTargets[0];
-        var carrier = new PassDataContainer()
-        {
-
-        };
-        if (middleTarget != null)
-        {
-            Vector3 direction = Utils.Direction(Br.myTransform.position, middleTarget.position);
-            SpellMain carryFireball = Instantiate(Ga.me.spells.carryFireball, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
-            carryFireball.InitializeMe(Br, carrier, explosion);
-        }
-            
-        void explosion()
-        {
-            if (Br.combat.MyTarget == null) return;
-            var containerExplosion = new PassDataContainer()
-            {
-                canBeBlocked = true,
-                data = new PassData[1]
-                {
-                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                }
-            };
-            SpellMain expl = Instantiate(Ga.me.spells.explosionFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-            expl.InitializeMe(Br, containerExplosion, areaFire);
-            Instantiate(Ga.me.psDecalFire, expl.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
-        }
-            
-        void areaFire()
-        {
-            if (Br.combat.MyTarget == null) return;
-            var containerArea = new PassDataContainer()
-            {
-                data = new PassData[1]
-                {
-                    new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                }
-            };
-            SpellMain areFire = Instantiate(Ga.me.spells.areFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-            areFire.InitializeMe(Br, containerArea);
-        }
-    }
-    void WeaponChainLightning(float maxRange)
-    {
-        List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, numOfObjects,  maxRange);
-        Vector3[] targetPositions = new Vector3[foundTargets.Count];
-        for (int i = 0; i < foundTargets.Count; i++)
-        {
-            targetPositions[i] = foundTargets[i].position;
-        }
-        StartCoroutine(chainLightningCoroutine());
-            
-        IEnumerator chainLightningCoroutine()
-        {
-            for (int i = 0; i < foundTargets.Count; i++)
-            {
-                if (i == 0) chainLightningMethod(Br.myTransform.position, targetPositions[i], i);
-                else chainLightningMethod(targetPositions[i - 1], targetPositions[i], i);
-                yield return new WaitForFixedUpdate();
-                yield return new WaitForFixedUpdate();
-            }
-            void chainLightningMethod(Vector3 from, Vector3 to, int index) //index -> every consecutive strike does half damage
-            {
-                Vector3 direction = to - from;
-                SpellMain chainLightning = Instantiate(Ga.me.spells.chainLightning, from, Quaternion.LookRotation(direction.normalized), Ga.me.spells.myTransform);
-                chainLightning.spell.areaOfEffect = direction.magnitude;
-                float dam = Br.character.GetStat(Stats.MagicDamage);
-                dam /= (index * index + 1);
-                var container = new PassDataContainer()
-                {
-                    data = new PassData[1]
-                    {
-                        new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { dam }),
-                    }
-                };
-                // print($"at {index} damage is {dam}");
-                chainLightning.InitializeMe(Br, container);
-            }
-        }
-    }
-    void WeaponMeteorStrike(float maxRange)
-    {
-        List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, 1, maxRange);
-        if (foundTargets.Count == 0) return;
-        var containerMeteor = new PassDataContainer()
-        {
-            data = new PassData[1]
-            {
-                new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-            }
-        };
-        SpellMain meteorStrike = Instantiate(Ga.me.spells.meteorStrike, foundTargets[0].position, Quaternion.identity, Ga.me.spells.myTransform);
-        meteorStrike.InitializeMe(Br, containerMeteor);
-    }
+    // void WeaponHomingMissile(float maxRange)
+    // {
+    //     List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, numOfObjects, maxRange);
+    //     if (foundTargets.Count == 0) return;
+    //     
+    //     float[] anglesY = Utils.RadialSpreadAngles(numOfObjects, false);
+    //     var containerHoming = new PassDataContainer()
+    //     {
+    //         canBeBlocked = true,
+    //         data = new PassData[1]
+    //         {
+    //             new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+    //         }
+    //     };
+    //     StartCoroutine(rapidStrikes());
+    //
+    //     IEnumerator rapidStrikes()
+    //     {
+    //         int counter = 0;
+    //         for (int i = 0; i < numOfObjects; i++)
+    //         {
+    //             SpellMain homing = Instantiate(Ga.me.spells.homingMissile, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+    //             homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
+    //             homing.visual.SetSpawnHeight(spawnPoint.position.y);
+    //             Transform target =  foundTargets[counter];
+    //             counter = (1 + counter) % foundTargets.Count;
+    //             homing.transporter.target = target;
+    //             homing.InitializeMe(Br, containerHoming);
+    //             yield return _waitForSeconds;
+    //         }
+    //     }
+    // }
+    //
+    // void WeaponLightning(float maxRange)
+    // {
+    //     List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, maxRange);
+    //     Transform furthestTarget = foundTargets.Count == 0 ? null : foundTargets[0];
+    //     if (furthestTarget == null) return;
+    //     
+    //     var containerLightning = new PassDataContainer()
+    //     {
+    //         data = new PassData[1]
+    //         {
+    //             new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+    //         }
+    //     };
+    //     SpellMain lightning = Instantiate(Ga.me.spells.lightningStrike, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+    //     lightning.InitializeMe(Br, containerLightning);
+    // }
+    // void WeaponOverload(float maxRange)
+    // {
+    //     List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, numOfObjects, maxRange);
+    //     var containerOverload= new PassDataContainer()
+    //     {
+    //         data = new PassData[1]
+    //         {
+    //             new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+    //         }
+    //     };
+    //     StartCoroutine(rapidStrikes());
+    //
+    //     IEnumerator rapidStrikes()
+    //     {
+    //         int counter = 0;
+    //         for (int i = 0; i < numOfObjects; i++)
+    //         {
+    //             Transform target =  foundTargets[counter];
+    //             counter = (1 + counter) % foundTargets.Count;
+    //             Vector3 distance = target.position - Br.myTransform.position;
+    //             SpellMain overload = Instantiate(Ga.me.spells.overload, Br.myTransform.position, Quaternion.LookRotation(distance.normalized), Ga.me.spells.myTransform);
+    //             overload.spell.areaOfEffect = distance.magnitude;
+    //             overload.transporter.target = target;
+    //             overload.InitializeMe(Br, containerOverload);
+    //             yield return _waitForSeconds;
+    //         }
+    //     }
+    // }
+    // void WeaponFireball(float maxRange)
+    // {
+    //     List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, maxRange);
+    //     Transform middleTarget = foundTargets.Count == 0 ? null : foundTargets[0];
+    //     var carrier = new PassDataContainer()
+    //     {
+    //
+    //     };
+    //     if (middleTarget != null)
+    //     {
+    //         Vector3 direction = Utils.Direction(Br.myTransform.position, middleTarget.position);
+    //         SpellMain carryFireball = Instantiate(Ga.me.spells.carryFireball, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
+    //         carryFireball.InitializeMe(Br, carrier, explosion);
+    //     }
+    //         
+    //     void explosion()
+    //     {
+    //         if (Br.combat.MyTarget == null) return;
+    //         var containerExplosion = new PassDataContainer()
+    //         {
+    //             canBeBlocked = true,
+    //             data = new PassData[1]
+    //             {
+    //                 new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+    //             }
+    //         };
+    //         SpellMain expl = Instantiate(Ga.me.spells.explosionFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+    //         expl.InitializeMe(Br, containerExplosion, areaFire);
+    //         Instantiate(Ga.me.psDecalFire, expl.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
+    //     }
+    //         
+    //     void areaFire()
+    //     {
+    //         if (Br.combat.MyTarget == null) return;
+    //         var containerArea = new PassDataContainer()
+    //         {
+    //             data = new PassData[1]
+    //             {
+    //                 new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+    //             }
+    //         };
+    //         SpellMain areFire = Instantiate(Ga.me.spells.areFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+    //         areFire.InitializeMe(Br, containerArea);
+    //     }
+    // }
+    // void WeaponChainLightning(float maxRange)
+    // {
+    //     List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, numOfObjects,  maxRange);
+    //     Vector3[] targetPositions = new Vector3[foundTargets.Count];
+    //     for (int i = 0; i < foundTargets.Count; i++)
+    //     {
+    //         targetPositions[i] = foundTargets[i].position;
+    //     }
+    //     StartCoroutine(chainLightningCoroutine());
+    //         
+    //     IEnumerator chainLightningCoroutine()
+    //     {
+    //         for (int i = 0; i < foundTargets.Count; i++)
+    //         {
+    //             if (i == 0) chainLightningMethod(Br.myTransform.position, targetPositions[i], i);
+    //             else chainLightningMethod(targetPositions[i - 1], targetPositions[i], i);
+    //             yield return new WaitForFixedUpdate();
+    //             yield return new WaitForFixedUpdate();
+    //         }
+    //         void chainLightningMethod(Vector3 from, Vector3 to, int index) //index -> every consecutive strike does half damage
+    //         {
+    //             Vector3 direction = to - from;
+    //             SpellMain chainLightning = Instantiate(Ga.me.spells.chainLightning, from, Quaternion.LookRotation(direction.normalized), Ga.me.spells.myTransform);
+    //             chainLightning.spell.areaOfEffect = direction.magnitude;
+    //             float dam = Br.character.GetStat(Stats.MagicDamage);
+    //             dam /= (index * index + 1);
+    //             var container = new PassDataContainer()
+    //             {
+    //                 data = new PassData[1]
+    //                 {
+    //                     new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { dam }),
+    //                 }
+    //             };
+    //             // print($"at {index} damage is {dam}");
+    //             chainLightning.InitializeMe(Br, container);
+    //         }
+    //     }
+    // }
+    // void WeaponMeteorStrike(float maxRange)
+    // {
+    //     List<Transform> foundTargets = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, 1, maxRange);
+    //     if (foundTargets.Count == 0) return;
+    //     var containerMeteor = new PassDataContainer()
+    //     {
+    //         data = new PassData[1]
+    //         {
+    //             new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+    //         }
+    //     };
+    //     SpellMain meteorStrike = Instantiate(Ga.me.spells.meteorStrike, foundTargets[0].position, Quaternion.identity, Ga.me.spells.myTransform);
+    //     meteorStrike.InitializeMe(Br, containerMeteor);
+    // }
     void WeaponGravityWell(float maxRange)
     {
         
@@ -384,18 +384,18 @@ public class PC_Mage : MonoBehaviour, IInitialization
 
     public void AnimEv_UltimateCallback(int num = 0)
     {
-        SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        armageddon.transporter.target = Br.myTransform;
-        PassDataContainer container = new PassDataContainer()
-        {
-            canBeBlocked = false,
-            data = new PassData[1]
-            {
-                new PassDataDamage(new Element[2] { Element.Physical, Element.Fire }, new float[2] { Br.character.GetStat(Stats.MagicDamage), Br.character.GetStat(Stats.MagicDamage) }),
-            }
-        };
-
-        armageddon.InitializeMe(Br, container);
+        // SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        // armageddon.transporter.target = Br.myTransform;
+        // PassDataContainer container = new PassDataContainer()
+        // {
+        //     canBeBlocked = false,
+        //     data = new PassData[1]
+        //     {
+        //         new PassDataDamage(new Element[2] { Element.Physical, Element.Fire }, new float[2] { Br.character.GetStat(Stats.MagicDamage), Br.character.GetStat(Stats.MagicDamage) }),
+        //     }
+        // };
+        //
+        // armageddon.InitializeMe(Br, container);
 
     }
 

@@ -13,7 +13,7 @@ public class WalkTrailGroup : SpellGroup
     {
         base.InitializeMe(ownersBrain, spellToInstantiate);
         _main = spellToInstantiate;
-        _radius = _main.spell.areaOfEffect * 0.5f;
+        _radius = _main.areaOfEffect * 0.5f;
         _spawns = new HashSet<Collider>();
     }
 

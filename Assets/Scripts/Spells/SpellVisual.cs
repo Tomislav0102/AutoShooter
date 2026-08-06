@@ -2,9 +2,56 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class SpellVisual : MonoBehaviour
+public class SpellVisual : MonoBehaviour, IIniSpell
 {
-    SpellMain _main;
+    public SpellMain Spell
+    {
+        get => _spell;
+        set
+        {
+            _spell = value;
+            if (psDefault != null)
+            {
+                _lightDefault = psDefault.GetComponent<Light>();
+                if (_lightDefault != null) _lightDefault.enabled = false;
+            }
+            if (psHit != null)
+            {
+                _lightHit = psHit.GetComponent<Light>();
+                if (_lightHit != null) _lightHit.enabled = false;
+            }
+            if (myTiledSpriteRenderer != null) myTiledSpriteRenderer.size = new Vector2(myTiledSpriteRenderer.size.x, value.areaOfEffect);
+            value.onHitTarget += (Brain br) =>
+            {
+                if (psHit != null) psHit.Play();
+                StartCoroutine(LightDelay(_lightDefault));
+            };
+
+            switch (sizeModifier)
+            {
+                case SizeModifierType.Emission_Shape:
+                    var emission = psDefault.emission;
+                    emission.rateOverTime = value.areaOfEffect * 5;
+                    var shape = psDefault.shape;
+                    shape.radius = value.areaOfEffect * 0.5f;
+                    break;
+                case SizeModifierType.TransformScale:
+                    transform.localScale = value.areaOfEffect * Vector3.one;
+                    break;
+                case SizeModifierType.Velocity_Over_Lifetime:
+                    ParticleSystem.MainModule myMain = psDefault.main;
+                    myMain.duration = value.lifeTime;
+                    myMain.startLifetime = value.lifeTime;
+                    ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
+                    velocityOverLifetime.y = (value.transporter as BulletTransporter).speed;
+                    break;
+                case SizeModifierType.Other_None:
+                    return;
+            }
+        }
+    }
+    SpellMain _spell;
+
     [SerializeField] ParticleSystem psDefault;
     Light _lightDefault;
     [SerializeField] ParticleSystem psHit;
@@ -21,49 +68,7 @@ public class SpellVisual : MonoBehaviour
     [Tooltip("if != null, SizeModifierType should be Other_None")] [SerializeField] SpriteRenderer myTiledSpriteRenderer;
 
     
-    public void InitializeMe(SpellMain main)
-    {
-        _main = main;
-        if (psDefault != null)
-        {
-            _lightDefault = psDefault.GetComponent<Light>();
-            if (_lightDefault != null) _lightDefault.enabled = false;
-        }
-        if (psHit != null)
-        {
-            _lightHit = psHit.GetComponent<Light>();
-            if (_lightHit != null) _lightHit.enabled = false;
-        }
-        if (myTiledSpriteRenderer != null) myTiledSpriteRenderer.size = new Vector2(myTiledSpriteRenderer.size.x, _main.spell.areaOfEffect);
-        _main.onHitTarget += (Brain br) =>
-        {
-            if (psHit != null) psHit.Play();
-            StartCoroutine(LightDelay(_lightDefault));
-        };
 
-        switch (sizeModifier)
-        {
-            case SizeModifierType.Emission_Shape:
-                var emission = psDefault.emission;
-                emission.rateOverTime = _main.spell.areaOfEffect * 5;
-                var shape = psDefault.shape;
-                shape.radius = _main.spell.areaOfEffect * 0.5f;
-                break;
-            case SizeModifierType.TransformScale:
-                transform.localScale = _main.spell.areaOfEffect * Vector3.one;
-                break;
-            case SizeModifierType.Velocity_Over_Lifetime:
-                ParticleSystem.MainModule myMain = psDefault.main;
-                myMain.duration = _main.spell.lifeTime;
-                myMain.startLifetime = _main.spell.lifeTime;
-                ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
-                velocityOverLifetime.y = (_main.transporter as BulletTransporter).speed;
-                break;
-            case SizeModifierType.Other_None:
-                return;
-        }
-
-    }
 
     public void PlayDefault()
     {

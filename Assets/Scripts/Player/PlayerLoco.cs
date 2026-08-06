@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 using UnityEngine.Animations.Rigging;
 
 
-public class PlayerLoco : MonoBehaviour, IInitialization
+public class PlayerLoco : MonoBehaviour, IIniBrain
 {
     public Brain Br
     {

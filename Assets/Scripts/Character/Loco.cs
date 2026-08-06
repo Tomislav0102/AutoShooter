@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
 
-public class Loco : MonoBehaviour, IInitialization
+public class Loco : MonoBehaviour, IIniBrain
 {
     [SerializeField] UnityEvent<Brain> brainEv;
     public Brain Br
@@ -17,7 +17,7 @@ public class Loco : MonoBehaviour, IInitialization
             OvrMotion = false;
             OvrOrientation = false;
             _avoidancePriorityDefault = value.agent.avoidancePriority;
-            brainEv?.Invoke(value);
+            brainEv.Invoke(value);
         }
     }
     Brain _br;

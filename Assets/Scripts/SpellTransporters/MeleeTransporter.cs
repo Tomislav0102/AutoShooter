@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class MeleeTransporter : SpellTransporter
 {
-    public override void InitializeMe(SpellMain spellMain)
+    public override SpellMain Spell
     {
-        spellMain.myTransform.position += spellMain.spell.areaOfEffect * 0.5f * spellMain.myTransform.forward;
-        base.InitializeMe(spellMain);
-
+        get => base.Spell;
+        set
+        {
+            base.Spell = value;
+            value.myTransform.position += value.areaOfEffect * 0.5f * value.myTransform.forward;
+        }
     }
 }

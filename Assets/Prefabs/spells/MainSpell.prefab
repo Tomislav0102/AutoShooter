@@ -83,21 +83,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompSpell
   debug: 0
-  mainActive: 1
-  isInterrupt: 0
   myTransform: {fileID: 548219163212640640}
   myRigid: {fileID: 8903924178762673374}
   colliderType: 0
   mySphereCollider: {fileID: 6916548065277827116}
   myCapsuleCollider: {fileID: 1553764786334897511}
   warningRend: {fileID: 9073325792066258589}
+  effectGo: {fileID: 4936140572586544365}
+  transporterGo: {fileID: 288725710350232457}
+  visualGo: {fileID: 7123683373555198328}
+  transporter: {fileID: 0}
+  visual: {fileID: 2941170725548325989}
+  isInterrupt: 0
+  spellActive: 0
   pd:
     myBrain: {fileID: 0}
     canBeBlocked: 0
     data: []
-  spell: {fileID: 0}
-  transporter: {fileID: 0}
-  visual: {fileID: 2941170725548325989}
+  warningDelay: 0
+  myFactionTarget: 1
+  areaOfEffect: 1
+  hitChance: 1
+  extraLifeTimeForParticles: 0
+  lifeTime: 0
+  terminateOnHit: 1
+  onTrigEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrigExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &8903924178762673374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -179,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 308377353796318890}
   m_Layer: 20
-  m_Name: Spell
+  m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

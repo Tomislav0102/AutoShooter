@@ -21,33 +21,6 @@ public class FloatingText : MonoBehaviour
     float _startingOffsetY;
     int _widthSingle = 100;
     
-    
-    // public void SpawnMe(InjectHealth dam, float offsetY = 2f)
-    // {
-    //     _startColors = new Color[myTexts.Length];
-    //     foreach (KeyValuePair<Element, float> item in dam.damage)
-    //     {
-    //         int index = (int)item.Key;
-    //         myTexts[index].enabled = true;
-    //         if (item.Value >= 0)
-    //         {
-    //             myTexts[index].text = $" <sprite index={index}>{item.Value} ";
-    //             _startColors[index] = Ga.me.gameData.GetElement((Element)index).col;
-    //         }
-    //         else // healing
-    //         {
-    //             myTexts[index].text =(-item.Value).ToString("0");
-    //             _startColors[index] = Ga.me.gameData.colHeal;
-    //         }
-    //     }
-    //     
-    //     GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * dam.damage.Count, 0);
-    //     GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
-    //     _startPosition = myTransform.position; 
-    //     _startingOffsetY = offsetY;
-    //     
-    //     _initialized = true;
-    // }    
     public void SpawnMe(MyDuo<Element, float> damage, float offsetY = 2f)
     {
         _startColors = new Color[myTexts.Length];

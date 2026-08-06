@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Status : MonoBehaviour, IInitialization
+public class Status : MonoBehaviour, IIniBrain
 {
     public enum Effect
     {
