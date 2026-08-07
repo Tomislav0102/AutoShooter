@@ -16,6 +16,7 @@ public class OvrPassData : MonoBehaviour
     public PassDataMagnet magnet;
     public PassDataManaShield manaShield;
     public PassDataSpell spellData;
+    public PassDataStats stats;
 
     
     public PassDataContainer GetContainer()
@@ -29,6 +30,7 @@ public class OvrPassData : MonoBehaviour
         if (knockBack.knockBackPower > 0) data.Add(knockBack);
         if (manaShield.manaShieldPoints > 0) data.Add(manaShield);
         if (spellData.effect != PassData.HitEffectOnSpell.None) data.Add(spellData);
+        if (stats.change != GenCalcChange.None) data.Add(stats);
         
         container.data = data.ToArray();
         

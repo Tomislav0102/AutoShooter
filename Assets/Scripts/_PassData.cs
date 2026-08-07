@@ -105,16 +105,20 @@ public class PassDataSpell: PassData
 }
 
 
-// [System.Serializable]
-// public class PassDataStats : PassData 
-// {
-//     public MyDuo<Stats, int> pair;
-//     public PassDataStats(MyDuo<Stats, int> pair)
-//     {
-//         priority = 50;
-//         this.pair = pair;
-//     }
-// }
+[System.Serializable]
+public class PassDataStats : PassData 
+{
+    public Stats stat;
+    public int value;
+    public GenCalcChange change;
+    public PassDataStats(Stats stat, int value, GenCalcChange change)
+    {
+        priority = 50;
+        this.stat = stat;
+        this.value = value;
+        this.change = change;
+    }
+}
 // [System.Serializable]
 // public class PassDataTag: PassData
 // {

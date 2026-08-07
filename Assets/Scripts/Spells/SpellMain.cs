@@ -231,6 +231,7 @@ public class SpellMain : MonoBehaviour
                 case PassDataKnockBack knockBack:
                 case PassDataMagnet magnet:
                 case PassDataManaShield manaShield:
+                case PassDataStats stats:
                     if (targetGeneric.TryGetComponent(out Brain br) &&
                         Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))
                     {

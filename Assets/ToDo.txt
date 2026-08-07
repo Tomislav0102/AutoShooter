@@ -3,9 +3,9 @@ Push feature - define knockback, dash, magnet
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
 SpellGroup - implement new PassData
 DOT - (burn, poison, etc...) Define mechanics.
+Enter/exit spell logic doesn't work
           
 TRAPS
-Faction of traps is always neutral, meaning it targets everyone. Logic is simpler that way.
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.
 Spikes on walls - stationary, damage is proportional to velocity of target, great for knockback enemies. 
 

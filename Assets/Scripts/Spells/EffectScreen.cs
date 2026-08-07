@@ -2,20 +2,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EffectScreen : SpellEffect
+public class EffectScreen : MonoBehaviour, IIniSpell
 {
-    public override SpellMain Spell
+    public SpellMain Spell
     {
-        get => base.Spell;
+        get => _spell;
         set
         {
-            base.Spell = value;
+            _spell = value;
             value.mySphereCollider.enabled = false;
             value.myCapsuleCollider.enabled = false;
 
         }
     }
-
+    SpellMain _spell;
+    
     public void Hit()
     {
         List<Transform> targets = Utils.AllOnScreen(Ga.me.team.ValidTargets(Spell.OwnersBrain.Faction));

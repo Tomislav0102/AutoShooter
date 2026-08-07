@@ -6,14 +6,14 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class EffectProjectile : SpellEffect
+public class EffectProjectile : MonoBehaviour, IIniSpell
 {
-    public override SpellMain Spell
+    public SpellMain Spell
     {
-        get => base.Spell;
+        get => _spell;
         set
         {
-            base.Spell = value;
+            _spell = value;
             _myBulletTransporter = value.transporter as BulletTransporter;
             if (solidCollider == null) return;
         
@@ -21,7 +21,7 @@ public class EffectProjectile : SpellEffect
             solidCollider.radius = value.mySphereCollider.radius + 0.01f;
         }
     }
-
+    SpellMain _spell;
     [SerializeField] SphereCollider solidCollider;
     BulletTransporter _myBulletTransporter;
 

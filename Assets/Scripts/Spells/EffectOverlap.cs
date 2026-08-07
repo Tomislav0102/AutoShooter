@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EffectOverlap : SpellEffect
+public class EffectOverlap : MonoBehaviour, IIniSpell
 {
-    public override SpellMain Spell
+    public SpellMain Spell
     {
-        get => base.Spell;
+        get => _spell;
         set
         {
-            base.Spell = value;
+            _spell= value;
             value.mySphereCollider.enabled = false;
             value.myCapsuleCollider.enabled = false;
 
         }
     }
-
+    SpellMain _spell;
 
     public void Hit()
     {

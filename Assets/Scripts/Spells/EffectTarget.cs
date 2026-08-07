@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EffectTarget : SpellEffect
+public class EffectTarget : MonoBehaviour, IIniSpell
 {
-    public override SpellMain Spell
+    public SpellMain Spell
     {
-        get => base.Spell;
+        get => _spell;
         set
         {
-            base.Spell = value;
+            _spell = value;
             value.mySphereCollider.enabled = false;
             value.myCapsuleCollider.enabled = false;
             if (value.transporter.target == null || value.transporter.target.GetComponent<Brain>() == null) value.MyPhase = SpellMain.Phase.EndStart;
@@ -17,7 +17,8 @@ public class EffectTarget : SpellEffect
 
         }
     }
-
+    SpellMain _spell;
+    
     Brain _anchorBrain;
 
 

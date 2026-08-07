@@ -13,7 +13,7 @@ public class Brain : MonoBehaviour
     public SphereCollider myCollider;
     public NavMeshAgent agent;
     [SerializeField] Transform fakeShadow;
-    [Range(0.2f, 5f)] public float size = 1;
+    [Range(0.2f, 10f)] public float size = 1;
     [SerializeField] Transform parPs;
     Trap _trap;
     [Title("Body")]

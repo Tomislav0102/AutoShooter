@@ -8,7 +8,7 @@ public enum GenConfirm { Yes, No }
 public enum GenMenuControl { Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
-public enum GenCalcChange { Increase,  Decrease, Replace }
+public enum GenCalcChange { Increase, Decrease, Set, None }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
 

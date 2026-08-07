@@ -160,20 +160,20 @@ public class Loco : MonoBehaviour, IIniBrain
         }
     }
 
-    public void Magnet(Vector3 center, int intensity = 1)
-    {
-        if (intensity <= knockBackResistance) return;
-        Vector2 vDelta = Utils.MakeV2(Br.myTransform.position) - Utils.MakeV2(center);
-        if (vDelta.sqrMagnitude < 0.1f) return;
-        StartCoroutine(attractDelay());
-
-        IEnumerator attractDelay()
-        {
-            OvrMotion = true;
-            yield break;
-            OvrMotion = false;
-        }
-    }
+    // public void Magnet(Vector3 center, int intensity = 1)
+    // {
+    //     if (intensity <= knockBackResistance) return;
+    //     Vector2 vDelta = Utils.MakeV2(Br.myTransform.position) - Utils.MakeV2(center);
+    //     if (vDelta.sqrMagnitude < 0.1f) return;
+    //     StartCoroutine(attractDelay());
+    //
+    //     IEnumerator attractDelay()
+    //     {
+    //         OvrMotion = true;
+    //         yield break;
+    //         OvrMotion = false;
+    //     }
+    // }
 
     #endregion
 

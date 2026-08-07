@@ -4,17 +4,17 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
-public class EffectTrigger : SpellEffect
+public class EffectTrigger : MonoBehaviour, IIniSpell
 {
-    public override SpellMain Spell
+    public SpellMain Spell
     {
-        get => base.Spell;
+        get => _spell;
         set
         {
-            base.Spell = value;
+            _spell = value;
         }
     }
-
+    SpellMain _spell;
     [SerializeField] bool onEnter = true;
     [SerializeField] bool onFakeStay;
     [SerializeField] bool onExit;
