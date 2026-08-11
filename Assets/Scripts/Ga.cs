@@ -42,14 +42,12 @@ public class Ga : MonoBehaviour
     [Title("Debug")] 
     public bool debug;
     
-    
-    
     void Awake()
     {
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new TeamManager();
-      // SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
+        // SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
 #if (!UNITY_EDITOR)
         SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
 

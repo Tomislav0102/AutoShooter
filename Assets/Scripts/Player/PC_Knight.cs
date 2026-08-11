@@ -155,10 +155,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 StartCoroutine(SpellPushDelay());
                 break;
             case CombatEvent.Kill:
-                if (otherBrain.character.GetStat(Stats.MagicDamage) >=Br.character.GetStat(Stats.MagicDamage))
-                {
-                   Br.character.ChangeStat(Character.BuffType.Skill,Stats.MagicDamage, 1);
-                }
+                // if (otherBrain.character.GetStat(Stats.MagicDamage) >=Br.character.GetStat(Stats.MagicDamage))
+                // {
+                //    Br.character.AddBuff(Stats.MagicDamage, 1);
+                // }
                 break;
         }
         return;

@@ -8,7 +8,6 @@ public enum GenConfirm { Yes, No }
 public enum GenMenuControl { Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
-public enum GenCalcChange { Increase, Decrease, Set, None }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
 
@@ -21,13 +20,12 @@ public enum AnimAttackType
     //  Cast,
     Ultimate
 }
-public enum ColliderType { Sphere, Capsule, None }//includes Overlap shape too. Capsule always has radius of 0.5f, regardless of areaOfEffect.
+public enum ColliderType { Sphere, Capsule, None }//Capsule always has radius of 0.5f, regardless of areaOfEffect.
 public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }
 public enum Alertness { Relaxed, Alarmed, Fighting }
-
 public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill }
 public enum Stats
 {

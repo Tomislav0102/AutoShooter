@@ -157,19 +157,6 @@ public class Health: MonoBehaviour, IIniBrain
                     Vector3 dirMagnet = Vector3.zero;
                     Br.loco.PushMe(dirMagnet, Loco.MoveOverrideType.Magnet, magnet.magnetPower);
                     break;
-                
-                case PassDataStats stats:
-                    switch (stats.change)
-                    {
-                        case GenCalcChange.Increase:
-                            break;
-                        case GenCalcChange.Decrease:
-                            break;
-                        case GenCalcChange.Set:
-                            Br.character.ChangeStat(Character.BuffType.Skill, stats.stat, stats.value);
-                            break;
-                    }
-                    break;
             }
 
         }

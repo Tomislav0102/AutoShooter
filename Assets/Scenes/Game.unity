@@ -875,7 +875,7 @@ PrefabInstance:
     - target: {fileID: 3399166547194561352, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
       propertyPath: spellPrefab
       value: 
-      objectReference: {fileID: 3784267232435459989, guid: 6e9b4e7fc5933c747812088f79063381, type: 3}
+      objectReference: {fileID: 4984419709639385011, guid: 1802f7f86cc001a4b84965b26a6ba8ef, type: 3}
     - target: {fileID: 3399166547194561352, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
       propertyPath: sizeOfTrapDefinesSizeOfSpell
       value: 1
@@ -887,10 +887,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1685364956}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
 --- !u!1 &747208669
 GameObject:
@@ -2128,48 +2125,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671053223}
   m_CullTransparentMesh: 1
---- !u!1 &1685364950 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
-  m_PrefabInstance: {fileID: 646059186}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1685364956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685364950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  canBeBlocked: 0
-  damage:
-    priority: 0
-    pair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-  knockBack:
-    priority: 0
-    knockBackPower: 0
-    knockBackDirection: {x: 0, y: 0}
-  magnet:
-    priority: 0
-    magnetPower: 0
-  manaShield:
-    priority: 0
-    manaShieldPoints: 0
-  spellData:
-    priority: 0
-    spellsToAffect: []
-    effect: 0
-  stats:
-    priority: 0
-    stat: 0
-    value: 22
-    change: 2
 --- !u!1 &1690533558
 GameObject:
   m_ObjectHideFlags: 0

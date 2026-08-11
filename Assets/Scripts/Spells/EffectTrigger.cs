@@ -74,6 +74,9 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
         Spell.collidersDetected.Remove(other);
         
         if (!onExit || effectAtExit == null) return;
+        SpellMain exitSpell = Instantiate(effectAtExit, other.transform.position, Quaternion.identity, Ga.me.spells.myTransform);
+        exitSpell.transporter.target = other.transform;
+        exitSpell.InitializeMe(Spell.OwnersBrain);
     }
 
     bool CheckColliderType(Vector3 pos)

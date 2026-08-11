@@ -19910,16 +19910,65 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5851236909263732648}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2297448835640246806}
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8745390515396982302}
-    - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8699962132441646645}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4665519266688235161}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+--- !u!1 &197929723955459380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+  m_PrefabInstance: {fileID: 1473775281989074063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2297448835640246806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197929723955459380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  canBeBlocked: 0
+  hasDamage: 0
+  damage:
+    priority: 0
+    pair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+  hasKnockback: 0
+  knockBack:
+    priority: 0
+    knockBackPower: 0
+    knockBackDirection: {x: 0, y: 0}
+  hasMagnet: 0
+  magnet:
+    priority: 0
+    magnetPower: 0
+  hasManaShield: 0
+  manaShield:
+    priority: 0
+    manaShieldPoints: 0
+  hasSpell: 1
+  spellData:
+    priority: 0
+    spellsToAffect:
+    - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+    effect: 1
+  hasStats: 0
+  stats:
+    priority: 0
+    stat: 0
+    value: 0
+    change: 0
 --- !u!1 &1185049575741134598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -19962,53 +20011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_GeneralTrigger
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  myFactionTarget: 1
-  areaOfEffect: 2
-  warningDelay: 0
-  hitChance: 1
-  lifeTime: -1
-  rateOfFire: 0
-  terminateOnHit: 0
   onEnter: 1
   onFakeStay: 0
   onExit: 0
+  effectAtExit: {fileID: 0}
   colliderPart: 0
---- !u!114 &8699962132441646645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5833102137560641634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  canBeBlocked: 0
-  damage:
-    priority: 0
-    pair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-  knockBack:
-    priority: 0
-    knockBack: 0
-    knockBackDirection: {x: 0, y: 0}
-  manaShield:
-    priority: 0
-    manaShieldPoints: 0
-  spellData:
-    priority: 0
-    spellsToAffect:
-    - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-    effect: 2

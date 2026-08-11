@@ -17,9 +17,9 @@ public class SpellMain : MonoBehaviour
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public SpriteRenderer warningRend;
-    [SerializeField] GameObject effectGo, transporterGo, visualGo;
-    [HideInInspector] public SpellTransporter transporter;
-    [HideInInspector] public SpellVisual visual;
+    [SerializeField] GameObject effectGo;
+    public SpellTransporter transporter;
+    public SpellVisual visual;
     
     [Title("Data")]
     public bool isInterrupt;
@@ -136,9 +136,7 @@ public class SpellMain : MonoBehaviour
         
         MyPhase = Phase.BeginWarning;
         spellActive = true;
-        transporter = transporterGo.GetComponent<SpellTransporter>();
         transporter.Spell = this;
-        visual = visualGo.GetComponent<SpellVisual>();
         visual.Spell = this;
         IIniSpell[] effects = effectGo.GetComponents<IIniSpell>();
         foreach (IIniSpell item in effects)
@@ -231,12 +229,19 @@ public class SpellMain : MonoBehaviour
                 case PassDataKnockBack knockBack:
                 case PassDataMagnet magnet:
                 case PassDataManaShield manaShield:
-                case PassDataStats stats:
-                    if (targetGeneric.TryGetComponent(out Brain br) &&
-                        Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))
+                    if (targetGeneric.TryGetComponent(out Brain brHealth) &&
+                        Utils.CanTargetFaction(OwnersBrain.Faction, brHealth.Faction, myFactionTarget))
                     {
-                        br.health.TakeDamage(pd);
-                        oustedTargetsBrain = br;
+                        brHealth.health.TakeDamage(pd);
+                        oustedTargetsBrain = brHealth;
+                    }
+                    break;
+                case PassDataStats stats:
+                    if (targetGeneric.TryGetComponent(out Brain brCharacter) &&
+                        Utils.CanTargetFaction(OwnersBrain.Faction, brCharacter.Faction, myFactionTarget))
+                    {
+                        brCharacter.character.BuffManagement(stats);
+                        oustedTargetsBrain = brCharacter;
                     }
                     break;
 

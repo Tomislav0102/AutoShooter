@@ -7,13 +7,13 @@ using Sirenix.OdinInspector;
 
 public class Character : MonoBehaviour, IIniBrain
 {
-    public enum BuffType
-    {
-        Inventory, 
-        Status, //slowed, wet, cold...
-        Skill, //e.g. Ultimate increases attack speed for 10 sec
-        Spell //buffs from cast spells
-    }
+    // public enum BuffType //only to handle stacking (e.g. Inventory buffs don't stack, while Status do
+    // {
+    //     Inventory, 
+    //     Status, //slowed, wet, cold...
+    //     Skill, //e.g. Ultimate increases attack speed for 10 sec
+    //     Spell //buffs from cast spells
+    // }
     [SerializeField] SoCharacter data;
     public Brain Br
     {
@@ -25,26 +25,62 @@ public class Character : MonoBehaviour, IIniBrain
             _myStats = new StatSingle[System.Enum.GetNames(typeof(Stats)).Length];
             for (int i = 0; i < _myStats.Length; i++)
             {
-                _myStats[i] = new StatSingle(data.stats[(Stats)i]);
+                _myStats[i] = new StatSingle((Stats)i, data.baseStats[(Stats)i]);
             }
-            IsInitialized = true;
         }
     }
     Brain _br;
-    StatSingle[] _myStats;
-    [ReadOnly] public bool IsInitialized { get; set; }
+    [ShowInInspector, ReadOnly] StatSingle[] _myStats;
+    
+    
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
-    public void ChangeStat(BuffType bType, Stats stat, int value)
+    public void BuffManagement(PassDataStats pds)
     {
-        print ($"{stat} is {_myStats[(int)stat].Value}");
-        _myStats[(int)stat].buffs.Add(new Buff(bType, value));
-        print ($"{stat} increased to {_myStats[(int)stat].Value}");
+        switch (pds.change)
+        {
+            case GenChange.Add:
+                int previousValue = _myStats[(int)pds.stat].Value;
+                _myStats[(int)pds.stat].buffs.Add(new Buff(pds.value, pds.hasDuration? pds.duration : float.PositiveInfinity));
+                print ($"{pds.stat} changed from {previousValue} to {_myStats[(int)pds.stat].Value}");
+                break;
+            case GenChange.Remove:
+                foreach (Buff item in _myStats[(int)pds.stat].buffs)
+                {
+                    if (!(item.bonus == pds.value && float.IsPositiveInfinity(item.duration))) continue;
+                    _myStats[(int)pds.stat].buffs.Remove(item);
+                    print ($"Buff on {pds.stat} with value {_myStats[(int)pds.stat].Value} is removed.");
+                    break;
+                }
+
+                break;
+        }
     }
 
+    void Update()
+    {
+        foreach (StatSingle stat in _myStats)
+        {
+            int count = stat.buffs.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Buff buff = stat.buffs[i];
+                if (float.IsPositiveInfinity(buff.duration)) continue;
+                if (buff.duration > 0)
+                {
+                    buff.duration -= Time.deltaTime;
+                    continue;
+                }
+                stat.buffs.RemoveAt(i);
+                if (stat.Value == 0); //only to update 'Value' for debug
+            }
+        }
+    }
 
+    [System.Serializable] //debug only
     class StatSingle
     {
+        public Stats stat;
         public List<Buff> buffs;
         int _baseValue;
         public int Value
@@ -56,27 +92,29 @@ public class Character : MonoBehaviour, IIniBrain
                 {
                     res += buffs[i].bonus;
                 }
+                valueDisplay = res;
                 return res;
             }
         }
+        public int valueDisplay;
         
 
-        public StatSingle(int baseValue)
+        public StatSingle(Stats stat, int baseValue)
         {
+            this.stat = stat;
             _baseValue = baseValue;
             buffs = new List<Buff>();
+            if (Value == 0); //only to update 'Value' for debug
         }
 
     }
     class Buff
     {
-        public BuffType buffType;
         public int bonus;
         public float duration;
 
-        public Buff(BuffType bType, int val = 1, float dur = -1)
+        public Buff(int val, float dur = float.PositiveInfinity)
         {
-            buffType = bType;
             bonus = val;
             duration = dur;
         }

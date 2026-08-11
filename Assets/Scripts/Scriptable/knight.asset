@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: stats
+    - Name: baseStats
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Stats, Assembly-CSharp],[System.Int32,
         mscorlib]], mscorlib
@@ -97,7 +97,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 3
-      Data: 7
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -109,7 +109,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 3
-      Data: 12
+      Data: 2
     - Name: 
       Entry: 8
       Data: 

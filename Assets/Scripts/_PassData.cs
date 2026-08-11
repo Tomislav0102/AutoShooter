@@ -9,22 +9,14 @@ public class PassDataContainer
 {
     public Brain myBrain;
     public bool canBeBlocked;
+    public bool canBeDodged;
     public PassData[] data;
-
-    
-    // public PassDataContainer(Brain brain, PassData[] data, bool canBeBlocked = false)
-    // {
-    //     myBrain = brain;
-    //     this.data = data;
-    //     System.Array.Sort(data, (x, y) => x.priority.CompareTo(y.priority));
-    //     this.canBeBlocked = canBeBlocked;
-    // }
 }
 
 [System.Serializable]
 public class PassData
 {
-    public enum HitEffectOnSpell { None, Nullify, Reflect }
+    public enum HitEffectOnSpell { Nullify, Reflect }
     [ReadOnly] public int priority;
 }
 
@@ -92,8 +84,7 @@ public class PassDataDamage : PassData
 [System.Serializable]
 public class PassDataSpell: PassData
 {
-    bool IsNone() => effect == HitEffectOnSpell.None;
-    [HideIf(nameof(IsNone))] public SpellMain[] spellsToAffect;
+    public SpellMain[] spellsToAffect;
     public HitEffectOnSpell effect;
 
     public PassDataSpell(SpellMain[] spellsToAffect, HitEffectOnSpell effect)
@@ -109,14 +100,20 @@ public class PassDataSpell: PassData
 public class PassDataStats : PassData 
 {
     public Stats stat;
+    public GenChange change;
     public int value;
-    public GenCalcChange change;
-    public PassDataStats(Stats stat, int value, GenCalcChange change)
+    bool ShowHasDuration() => change == GenChange.Add;
+    bool ShowHDuration() => change == GenChange.Add && hasDuration;
+    [ShowIf(nameof(ShowHasDuration))] public bool hasDuration;
+    [ShowIf(nameof(ShowHDuration))] public float duration;
+    
+    public PassDataStats(Stats stat, GenChange change, int value, float duration = float.PositiveInfinity)
     {
         priority = 50;
         this.stat = stat;
-        this.value = value;
         this.change = change;
+        this.value = value;
+        hasDuration = !float.IsPositiveInfinity(duration);
     }
 }
 // [System.Serializable]

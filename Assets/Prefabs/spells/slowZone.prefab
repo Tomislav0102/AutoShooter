@@ -61,6 +61,10 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: transporter
+      value: 
+      objectReference: {fileID: 4346078832630820896}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: areaOfEffect
       value: 3
       objectReference: {fileID: 0}
@@ -132,6 +136,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9214437476245126174}
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4431393705725142514}
@@ -179,3 +186,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
   target: {fileID: 0}
+--- !u!1 &8078267866020499301 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+  m_PrefabInstance: {fileID: 7410412690058004190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9214437476245126174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078267866020499301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  canBeBlocked: 0
+  canBeDodged: 0
+  hasDamage: 0
+  damage:
+    priority: 0
+    pair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+  hasKnockback: 0
+  knockBack:
+    priority: 0
+    knockBackPower: 0
+    knockBackDirection: {x: 0, y: 0}
+  hasMagnet: 0
+  magnet:
+    priority: 0
+    magnetPower: 0
+  hasManaShield: 0
+  manaShield:
+    priority: 0
+    manaShieldPoints: 0
+  hasSpell: 0
+  spellData:
+    priority: 0
+    spellsToAffect: []
+    effect: 0
+  hasStats: 1
+  stats:
+    priority: 0
+    stat: 0
+    change: 0
+    value: 33
+    hasDuration: 0
+    duration: 155

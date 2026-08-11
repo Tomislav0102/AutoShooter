@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 
 /// <summary>
@@ -9,28 +10,36 @@ using System.Collections.Generic;
 /// </summary>
 public class OvrPassData : MonoBehaviour
 {
-    public bool canBeBlocked;
+    [BoxGroup] public bool canBeBlocked;
+    [BoxGroup] public bool canBeDodged;
 
-    public PassDataDamage damage;
-    public PassDataKnockBack knockBack;
-    public PassDataMagnet magnet;
-    public PassDataManaShield manaShield;
-    public PassDataSpell spellData;
-    public PassDataStats stats;
+    [SerializeField] bool hasDamage;
+    [ShowIf(nameof(hasDamage))] public PassDataDamage damage;
+    [SerializeField] bool hasKnockback;
+    [ShowIf(nameof(hasKnockback))] public PassDataKnockBack knockBack;
+    [SerializeField] bool hasMagnet;
+    [ShowIf(nameof(hasMagnet))] public PassDataMagnet magnet;
+    [SerializeField] bool hasManaShield;
+    [ShowIf(nameof(hasManaShield))] public PassDataManaShield manaShield;
+    [SerializeField] bool hasSpell;
+    [ShowIf(nameof(hasSpell))] public PassDataSpell spellData;
+    [SerializeField] bool hasStats;
+    [ShowIf(nameof(hasStats))] public PassDataStats stats;
 
     
     public PassDataContainer GetContainer()
     {
         PassDataContainer container = new PassDataContainer()
         {
-            canBeBlocked = canBeBlocked,
+            canBeBlocked = this.canBeBlocked,
+            canBeDodged = this.canBeDodged,
         };
         List<PassData> data = new List<PassData>();   
-        if (damage.pair.Length() > 0) data.Add(damage);
-        if (knockBack.knockBackPower > 0) data.Add(knockBack);
-        if (manaShield.manaShieldPoints > 0) data.Add(manaShield);
-        if (spellData.effect != PassData.HitEffectOnSpell.None) data.Add(spellData);
-        if (stats.change != GenCalcChange.None) data.Add(stats);
+        if (hasDamage && damage.pair.Length() > 0) data.Add(damage);
+        if (hasKnockback && knockBack.knockBackPower > 0) data.Add(knockBack);
+        if (hasManaShield && manaShield.manaShieldPoints > 0) data.Add(manaShield);
+        if (hasSpell) data.Add(spellData);
+        if (hasStats) data.Add(stats);
         
         container.data = data.ToArray();
         
