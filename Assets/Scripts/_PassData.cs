@@ -18,6 +18,7 @@ public class PassData
 {
     public enum HitEffectOnSpell { Nullify, Reflect }
     [ReadOnly] public int priority;
+
 }
 
 
@@ -49,35 +50,30 @@ public class PassDataKnockBack : PassData
 [System.Serializable]
 public class PassDataMagnet : PassData
 {
-    public int magnetPower;
+    [InfoBox("If power is greater than knockback resist, magnet is on. Negative value of power turns it off (no comparison to knockback resist.")]
+    public int power;
+    public Vector3 center;
 
-    public PassDataMagnet(int magnetPower)
+    public PassDataMagnet(int magnetPower, Vector3 center)
     {
         priority = 40;
-        this.magnetPower = magnetPower;
+        this.power = magnetPower;
+        this.center = center;
     }
 }
 [System.Serializable]
 public class PassDataDamage : PassData
 {
     public MyDuo<Element, float> pair; //can't serialize dictionary in inspector
+    public bool addSpellVelocity; //damage is affected by motion of spell/target. used in 'spiked wall' trap.
+    [HideInInspector] public Vector3 spellsVelocity; 
 
-    public PassDataDamage(MyDuo<Element, float> pair)
-    {
-        this.pair = pair;
-        SetPriority();
-    }
-    public PassDataDamage(Dictionary<Element, float> dict)
-    {
-        pair = new MyDuo<Element, float>(dict);
-        SetPriority();
-    }
-    public PassDataDamage(Element[] keys, float[] values)
+    public PassDataDamage(Element[] keys, float[] values, bool addVelocity = false)
     {
         pair = new MyDuo<Element, float>(keys, values);
-        SetPriority();
+        addSpellVelocity = addVelocity;
+        priority = 50;
     }
-    void SetPriority() => priority = 50;
 }
 
 
@@ -94,7 +90,6 @@ public class PassDataSpell: PassData
         this.effect = effect;
     }
 }
-
 
 [System.Serializable]
 public class PassDataStats : PassData 

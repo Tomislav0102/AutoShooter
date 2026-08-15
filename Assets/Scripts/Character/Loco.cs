@@ -38,6 +38,7 @@ public class Loco : MonoBehaviour, IIniBrain
     bool _ovrOrientation;
     [SerializeField] protected bool isOrientationAlwaysFalse = true;
     Coroutine _pushCoroutine;
+    bool _magnetActive;
     public enum MoveOverrideType { None, KnockBack, Dash, Magnet }
     MoveOverrideType _currentMoveOverride = MoveOverrideType.None;
     int _avoidancePriorityDefault;
@@ -116,6 +117,10 @@ public class Loco : MonoBehaviour, IIniBrain
         Br.myTransform.rotation = Quaternion.RotateTowards(Br.myTransform.rotation, rot, Ga.me.gameData.agentRotSpeed * Time.deltaTime);
     }
 
+    public void LocoInjectData(PassDataContainer pd)
+    {
+        
+    }
     public void PushMe(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
     {
         float timer = 0f;
@@ -131,15 +136,13 @@ public class Loco : MonoBehaviour, IIniBrain
               //  intensity = 5;
                 timer = Ga.me.gameData.dashTime;
                 break;
-            case MoveOverrideType.Magnet:
-                intensity -= knockBackResistance;
-                if (intensity <= 0) return;
-                break;
         }
         _currentMoveOverride =  moveOverrideType;
         
         if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
         _pushCoroutine = StartCoroutine(pushDelay());
+        return;
+        
 
         IEnumerator pushDelay()
         {
@@ -160,20 +163,14 @@ public class Loco : MonoBehaviour, IIniBrain
         }
     }
 
-    // public void Magnet(Vector3 center, int intensity = 1)
-    // {
-    //     if (intensity <= knockBackResistance) return;
-    //     Vector2 vDelta = Utils.MakeV2(Br.myTransform.position) - Utils.MakeV2(center);
-    //     if (vDelta.sqrMagnitude < 0.1f) return;
-    //     StartCoroutine(attractDelay());
-    //
-    //     IEnumerator attractDelay()
-    //     {
-    //         OvrMotion = true;
-    //         yield break;
-    //         OvrMotion = false;
-    //     }
-    // }
+    public void AttractMe(Vector3 center, int intensity)
+    {
+        if (intensity <= knockBackResistance) return;
+        Vector2 vDelta = Utils.MakeV2(Br.myTransform.position) - Utils.MakeV2(center);
+        if (vDelta.sqrMagnitude < 0.1f) return;
+        OvrMotion = true;
+        _currentMoveOverride = MoveOverrideType.Magnet;
+    }
 
     #endregion
 

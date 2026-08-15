@@ -42,6 +42,7 @@ public class Ga : MonoBehaviour
     [Title("Debug")] 
     public bool debug;
     
+    
     void Awake()
     {
         me = this;

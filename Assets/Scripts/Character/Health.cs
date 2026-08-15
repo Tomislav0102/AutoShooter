@@ -83,7 +83,7 @@ public class Health: MonoBehaviour, IIniBrain
     Dictionary<Status.Effect, ParticleSystem> _dictPsStatus;
     [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
-    public void TakeDamage(PassDataContainer pd)
+    public void HealthInjectData(PassDataContainer pd)
     {
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
 
@@ -126,7 +126,8 @@ public class Health: MonoBehaviour, IIniBrain
                         }
                         totalDamage += val;
                     }
-
+                    velocityAddition();
+                    
                     float shield = ShieldCurrent;
                     ShieldCurrent -= totalDamage;
                     if (ShieldCurrent <= 0)
@@ -140,6 +141,16 @@ public class Health: MonoBehaviour, IIniBrain
                         }
                     }
                     ft.SpawnMe(dam.pair);
+
+                    void velocityAddition()
+                    {
+                        if (!dam.addSpellVelocity || dam.spellsVelocity.Equals(Vector3.zero)) return;
+                        
+                        Vector2 result = Utils.MakeV2(dam.spellsVelocity) - Utils.MakeV2(Br.agent.velocity);
+                        float totalDamageDebug = totalDamage;
+                        totalDamage *= result.magnitude;
+                        print($"Velocity changed damage from {totalDamageDebug} to {totalDamage}");
+                    }
                     break;
 
                 case PassDataManaShield manaShield:
@@ -154,8 +165,7 @@ public class Health: MonoBehaviour, IIniBrain
                     break;
                 
                 case PassDataMagnet magnet:
-                    Vector3 dirMagnet = Vector3.zero;
-                    Br.loco.PushMe(dirMagnet, Loco.MoveOverrideType.Magnet, magnet.magnetPower);
+                    Br.loco.AttractMe(magnet.center, magnet.power);
                     break;
             }
 

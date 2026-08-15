@@ -211,6 +211,7 @@ MonoBehaviour:
     pair:
       <Key>k__BackingField: 
       <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0, z: 0}
   hasKnockback: 0
   knockBack:
     priority: 0
@@ -219,7 +220,8 @@ MonoBehaviour:
   hasMagnet: 0
   magnet:
     priority: 0
-    magnetPower: 0
+    power: 0
+    center: {x: 0, y: 0, z: 0}
   hasManaShield: 0
   manaShield:
     priority: 0
@@ -232,8 +234,8 @@ MonoBehaviour:
   hasStats: 1
   stats:
     priority: 0
-    stat: 0
+    stat: 7
     change: 0
-    value: 33
+    value: -55
     hasDuration: 0
     duration: 155

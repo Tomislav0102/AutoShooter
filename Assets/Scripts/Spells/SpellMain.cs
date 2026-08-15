@@ -226,22 +226,27 @@ public class SpellMain : MonoBehaviour
             switch (item)
             {
                 case PassDataDamage dam:
-                case PassDataKnockBack knockBack:
-                case PassDataMagnet magnet:
                 case PassDataManaShield manaShield:
-                    if (targetGeneric.TryGetComponent(out Brain brHealth) &&
-                        Utils.CanTargetFaction(OwnersBrain.Faction, brHealth.Faction, myFactionTarget))
+                    if (targetHasBrain(out Brain brHealth))
                     {
-                        brHealth.health.TakeDamage(pd);
-                        oustedTargetsBrain = brHealth;
+                        PassDataDamage d = item as  PassDataDamage;
+                        if (d.addSpellVelocity) d.spellsVelocity = myRigid.linearVelocity;
+                        brHealth.health.HealthInjectData(pd);
                     }
                     break;
+                
                 case PassDataStats stats:
-                    if (targetGeneric.TryGetComponent(out Brain brCharacter) &&
-                        Utils.CanTargetFaction(OwnersBrain.Faction, brCharacter.Faction, myFactionTarget))
+                    if (targetHasBrain(out Brain brCharacter))
                     {
-                        brCharacter.character.BuffManagement(stats);
-                        oustedTargetsBrain = brCharacter;
+                        brCharacter.character.BuffInjectData(stats);
+                    }
+                    break;
+                
+                case PassDataKnockBack knockBack:
+                case PassDataMagnet magnet:
+                    if (targetHasBrain(out Brain brLoco))
+                    {
+                        brLoco.loco.LocoInjectData(pd);
                     }
                     break;
 
@@ -282,6 +287,18 @@ public class SpellMain : MonoBehaviour
             }
         }
         targetsBrain = oustedTargetsBrain;
+        return;
+        
+        bool targetHasBrain(out Brain br)
+        {
+            if (targetGeneric.TryGetComponent(out br) &&
+                Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))
+            {
+                oustedTargetsBrain = br;
+                return true;
+            }
+            return false;
+        }
     }
 
     #region TRIGGERS/COLLSIONS

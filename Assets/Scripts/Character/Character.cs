@@ -35,7 +35,7 @@ public class Character : MonoBehaviour, IIniBrain
     
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
-    public void BuffManagement(PassDataStats pds)
+    public void BuffInjectData(PassDataStats pds)
     {
         switch (pds.change)
         {
@@ -45,14 +45,16 @@ public class Character : MonoBehaviour, IIniBrain
                 print ($"{pds.stat} changed from {previousValue} to {_myStats[(int)pds.stat].Value}");
                 break;
             case GenChange.Remove:
+                bool buffFound = false;
                 foreach (Buff item in _myStats[(int)pds.stat].buffs)
                 {
                     if (!(item.bonus == pds.value && float.IsPositiveInfinity(item.duration))) continue;
                     _myStats[(int)pds.stat].buffs.Remove(item);
                     print ($"Buff on {pds.stat} with value {_myStats[(int)pds.stat].Value} is removed.");
+                    buffFound = true;
                     break;
                 }
-
+                if (!buffFound) print("No buff found, nothing is removed");
                 break;
         }
     }

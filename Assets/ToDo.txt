@@ -1,25 +1,37 @@
+------TODO------
+
 GENERAL
-Push feature - define knockback, dash, magnet
-Knockback - scale for knockback effect is 0-99, should be the same for resistance
 SpellGroup - implement new PassData
 DOT - (burn, poison, etc...) Define mechanics.
-Enter/exit spell logic doesn't work
           
 TRAPS
-Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.
 Spikes on walls - stationary, damage is proportional to velocity of target, great for knockback enemies. 
 
 OPTIMIZATION
 Coroutine - cache 'WaitForSeconds' in Dictionary
-Consider using flow field instead of NavMesh.
-NavMeshAgent for player is set to low quality and high priority, maybe that will cause bugs.
 
 KNIGHT
 Fix stab animation (animator is ready)
 
 ENEMY
-Charging enemy, contact damage. Typical enemy in simple action games.
+Charging enemy with contact damage
+Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
+
+
+
+------INFO------
+
+GENERAL
+Magnet feature - development paused for now
+Knockback - scale for knockback effect is 0-99, should be the same for resistance
+
+TRAPS
+Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.
+
+OPTIMIZATION
+NavMeshAgent for player is set to low quality and high priority, maybe that will cause bugs.
+Consider using flow field instead of NavMesh.
+
+ENEMY
 Ultimate Attack Type - not working, maybe its redundant (melee and ranged cover everything)
 When enemy dies before his spell has effect (ranged, lobs), spell is fucked up because ownersBrain = null. This will be fixed automatically with pooling.
-
-
