@@ -60,6 +60,12 @@ public class MyDuo<K, V>
             bool foundMyself = false;
             for (int i = 0; i < Length(); i++)
             {
+                if (Key[i] == null && key == null) //if value is null, 'Equals()' throws an error
+                {
+                    if (foundMyself) return true;
+                    foundMyself = true;
+                    continue;
+                }
                 if (Key[i].Equals(key))
                 {
                     if (foundMyself) return true;
@@ -73,6 +79,12 @@ public class MyDuo<K, V>
             bool foundMyself = false;
             for (int i = 0; i < Length(); i++)
             {
+                if (Value[i] == null && val == null)
+                {
+                    if (foundMyself) return true;
+                    foundMyself = true;
+                    continue;
+                }
                 if (Value[i].Equals(val))
                 {
                     if (foundMyself) return true;

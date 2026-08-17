@@ -2335,6 +2335,14 @@ PrefabInstance:
       propertyPath: 'myMaterials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: d1726ee06f2d06d44b49aae1b60faff5, type: 2}
+    - target: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2281149104477910870, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_Name
       value: BE_DemonWolf

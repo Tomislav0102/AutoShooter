@@ -8,35 +8,23 @@ public class OrbitalGroup : SpellGroup
     [SerializeField] float distanceFromAnchor;
     [SerializeField] bool followPosition = true;
     [SerializeField] bool followRotation = true;
-    [SerializeField, ShowIf(nameof(followRotation))] int rotationSpeed = 20;
+    [SerializeField, HideIf(nameof(followRotation))] int rotationSpeed = 20;
     [SerializeField] bool fullCircle = true;
     [SerializeField, Range(0, 359), HideIf(nameof(fullCircle))] int arc = 359;
 
 
-    public override void InitializeMe(Brain ownersBrain)
+    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassDataContainer> duo)
     {
-        base.InitializeMe(ownersBrain);
-        InitializeMe_Shared(ownersBrain);
-    }
-    public override void InitializeMe(Brain ownersBrain, SpellMain[] spellsToAdd)
-    {
-        base.InitializeMe(ownersBrain, spellsToAdd);
-        InitializeMe_Shared(ownersBrain);
-    }
-
-    void InitializeMe_Shared(Brain ownersBrain)
-    {
-        float[] angles = Utils.RadialSpreadAngles(myTransform.childCount);
-        for (int i = 0; i < myTransform.childCount; i++)
+        base.InitializeMe(ownersBrain, duo);
+        float[] angles = Utils.RadialSpreadAngles(duo.Length());
+        for (int i = 0; i < duo.Length(); i++)
         {
-            SpellMain spell = mySpells[i];
-            spell.gameObject.SetActive(true);
+            SpellMain spell = Instantiate(duo.GetKey(i), myTransform.position, Quaternion.identity, myTransform);
             spell.myTransform.localRotation = Quaternion.AngleAxis(angles[i], Vector3.up);
             spell.myTransform.position += distanceFromAnchor * spell.myTransform.forward;
-            spell.InitializeMe(ownersBrain);
+            spell.InitializeMe(ownersBrain, duo.GetValue(i));
         }
     }
-
     void Update()
     {
         if (!followPosition && !followRotation) return;

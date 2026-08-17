@@ -103,6 +103,8 @@ public class Health: MonoBehaviour, IIniBrain
             }
         }
         
+
+        
         foreach (PassData item in pd.data)
         {
             switch (item)
@@ -183,7 +185,7 @@ public class Health: MonoBehaviour, IIniBrain
         }
     }
 
-    public void SetShield(float value)
+    void SetShield(float value)
     {
         _shieldMax = value;
         ShieldCurrent = _shieldMax;
@@ -263,6 +265,5 @@ public class Health: MonoBehaviour, IIniBrain
         Destroy(_pointer.gameObject);
         Destroy(Br.gameObject);
     }
-
 
 }

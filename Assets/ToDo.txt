@@ -1,16 +1,15 @@
 ------TODO------
 
 GENERAL
-SpellGroup - implement new PassData
+Implement stats mechanics
+Implement status mechanics
 DOT - (burn, poison, etc...) Define mechanics.
           
-TRAPS
-Spikes on walls - stationary, damage is proportional to velocity of target, great for knockback enemies. 
-
 OPTIMIZATION
 Coroutine - cache 'WaitForSeconds' in Dictionary
 
 KNIGHT
+Implement Slash and Blunt skills 
 Fix stab animation (animator is ready)
 
 ENEMY
@@ -22,8 +21,12 @@ Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated b
 ------INFO------
 
 GENERAL
+Every player class should have several Ultimate skills
 Magnet feature - development paused for now
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
+Blocking can activate from front side (180 arc front)
+Dodging can activate from both sides
+Sneak attack is from back side (180 arc back)
 
 TRAPS
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.

@@ -49,6 +49,6 @@ MonoBehaviour:
   distanceFromAnchor: 1
   followPosition: 1
   followRotation: 0
-  rotationSpeed: 20
+  rotationSpeed: 40
   fullCircle: 1
   arc: 359

@@ -8,7 +8,11 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-
+    public Transform tr;
+    public float dot;
+    public Vector2 dir;
+    
+    
     [Button]
     void TestEvent()
     {
@@ -20,9 +24,10 @@ public class Test : MonoBehaviour
       
     }
 
-    public void M()
+    void Update()
     {
-        print("M");
+      //  dot = Vector2.Dot(Utils.MakeV2(tr.forward), Utils.MakeV2(Vector3.forward));
+      //dir = (Utils.MakeV2(transform.position) - Utils.MakeV2(tr.position)).normalized;
     }
 }
 

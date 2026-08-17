@@ -43,10 +43,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         PassDataContainer container = new PassDataContainer()
         {
             canBeBlocked = true,
-            data = new PassData[1]
+            data = new PassData[2]
             {
                 new PassDataDamage(new Element[1] { Element.Poison }, new float[1] {Br.character.GetStat(Stats.MeleeDamage) }, true),
-              //  new PassDataKnockBack(powerKnockback)
+                new PassDataKnockBack(powerKnockback)
             }
         };
 

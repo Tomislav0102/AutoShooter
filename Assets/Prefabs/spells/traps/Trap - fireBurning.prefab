@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4292718763882096794
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 844886795906179889, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179113758840321005, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: <Faction>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399166547194561352, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: spellPrefab
+      value: 
+      objectReference: {fileID: 7537306512381167856, guid: 3e1168de1d848e24194991c75144d039, type: 3}
+    - target: {fileID: 3399166547194561352, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: activationType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399166547194561352, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: sizeOfTrapDefinesSizeOfSpell
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      propertyPath: m_Name
+      value: Trap Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5154265208706404684}
+  m_SourcePrefab: {fileID: 100100000, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+--- !u!1 &1105177445206643552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+  m_PrefabInstance: {fileID: 4292718763882096794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5154265208706404684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105177445206643552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  canBeBlocked: 0
+  canBeDodged: 0
+  hasDamage: 1
+  damage:
+    priority: 0
+    pair:
+      <Key>k__BackingField: 02000000
+      <Value>k__BackingField:
+      - 1
+    addSpellVelocity: 0
+    spellsVelocity: {x: 0, y: 0, z: 0}
+  hasKnockback: 0
+  knockBack:
+    priority: 0
+    knockBackPower: 0
+    knockBackDirection: {x: 0, y: 0}
+  hasMagnet: 0
+  magnet:
+    priority: 0
+    power: 0
+    center: {x: 0, y: 0, z: 0}
+  hasManaShield: 0
+  manaShield:
+    priority: 0
+    manaShieldPoints: 0
+  hasSpell: 0
+  spellData:
+    priority: 0
+    spellsToAffect: []
+    effect: 0
+  hasStats: 0
+  stats:
+    priority: 0
+    stat: 0
+    change: 0
+    value: 0
+    hasDuration: 0
+    duration: 0

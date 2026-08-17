@@ -165,11 +165,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8140797277388057660, guid: 299a95a8fa4cf1e4f953ea3f2f0bf5f4, type: 3}
   m_PrefabInstance: {fileID: 3631558089142357664}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &5130193011359968850 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8455501203957850354, guid: 299a95a8fa4cf1e4f953ea3f2f0bf5f4, type: 3}
-  m_PrefabInstance: {fileID: 3631558089142357664}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6456826149557699421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -227,12 +222,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 884438492807903375}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: lifeTime
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
       objectReference: {fileID: 6406458556034842664}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: colliderType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: terminateOnHit
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -247,6 +250,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 884438492807903375}
+    - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6490412835890432898}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6406458556034842664}
@@ -268,71 +274,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Overlap
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: inspectorDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Element, Assembly-CSharp],[System.Single,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Element, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  myFactionTarget: 1
-  areaOfEffect: 3
-  startDelay: 0
-  hitChance: 1
-  lifeTime: -1
-  rateOfFire: 0.2
-  terminateOnHit: 0
-  spellParticles:
-    psStart:
-    - {fileID: 5130193011359968850}
-    psOnHit: []
-    particleSizeChangeStart: 0
-  injectHealthData:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  useInspectorDamageData: 1
-  hitEffects: 00000000
+--- !u!114 &6490412835890432898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097534616939073456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df82f9ecdd31574882d1fa2302c4230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpellPeriod
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 884438492807903375}
+        m_TargetAssemblyTypeName: EffectOverlap, Assembly-CSharp
+        m_MethodName: Hit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  rateOfFire: 0.5
 --- !u!4 &2124650323784398306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -355,3 +324,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe190ad67450ac4095a90a2964f61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
+  target: {fileID: 0}

@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-/// <summary>
-/// lots of errors with spells that have many projectiles and coroutines for delays between shots (rate of fire)
-/// errors appear because enemy is destroyed
-/// it will be fixed automatically once pool is implemented
-/// </summary>
 public class PC_Mage : MonoBehaviour, IIniBrain
 {
     public Brain Br
@@ -22,51 +17,122 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             switch (startActive)
             {
                 case 0:
-                    SpellMain[] shields = new SpellMain[numOfObjects];
-                    for (int i = 0; i < numOfObjects; i++)
-                    {
-                        shields[i] = Instantiate(Ga.me.spells.shieldFromProjectiles, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    }
                     SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
                     orbitalGroupShields.orbitingAnchor = value.myTransform;
-                    groupShields.InitializeMe(value, shields);
+                    SpellMain[] shieldsPrefabs = new SpellMain[numOfObjects];
+                    PassDataContainer[] pdShields = new PassDataContainer[numOfObjects];
+                    for (int i = 0; i < numOfObjects; i++)
+                    {
+                        shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
+                        pdShields[i] = null;
+                    }
+                    groupShields.InitializeMe(value, new MyDuo<SpellMain, PassDataContainer>(shieldsPrefabs, pdShields));
                     break;
                 case 1:
                     SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    groupWalkTrail.InitializeMe(value, Ga.me.spells.walkTrailSingle);
+                    PassDataContainer pd = new PassDataContainer()
+                    {
+                        data = new PassData[1]
+                        {
+                            new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { 1f })
+                        },
+                    };
+                    groupWalkTrail.InitializeMe(value, new MyDuo<SpellMain, PassDataContainer>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassDataContainer[1] { pd }));
                     break;
                 case 2:
                     SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
                     orbitalGroupSwords.orbitingAnchor = value.myTransform;
-
+                    
                     SpellMain[] swords = new SpellMain[numOfObjects];
+                    swords[0] = Ga.me.spells.swordFire;
+                    float[] swordsDamage = new float[1] { 0.3f * Br.character.GetStat(Stats.MagicDamage) };
+                    PassDataContainer pdFire = new PassDataContainer()
+                    {
+                        data = new PassData[1]
+                        {
+                            new PassDataDamage(new Element[1] { Element.Fire }, swordsDamage)
+                        }
+                    };
+                    PassDataContainer pdIce= new PassDataContainer()
+                    {
+                        data = new PassData[1]
+                        {
+                            new PassDataDamage(new Element[1] { Element.Ice }, swordsDamage)
+                        }
+                    };
+                    PassDataContainer pdElectricity = new PassDataContainer()
+                    {
+                        data = new PassData[1]
+                        {
+                            new PassDataDamage(new Element[1] { Element.Electricity }, swordsDamage)
+                        }
+                    };
+                    PassDataContainer[] pds = new PassDataContainer[numOfObjects];
+                    pds[0] = pdFire;
                     switch (numOfObjects)
                     {
-                        case 1:
-                            break;
                         case 2:
-                            swords[1] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[1] = Ga.me.spells.swordFire;
+                            pds[1] = pdFire;    
                             break;
                         case 4:
-                            swords[1] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[2] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[3] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[1] = Ga.me.spells.swordIce;
+                            swords[2] = Ga.me.spells.swordFire;
+                            swords[3] = Ga.me.spells.swordIce;
+                            pds[1] = pdIce;    
+                            pds[2] = pdFire;    
+                            pds[3] = pdIce;    
                             break;
                         case 6:
-                            swords[1] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[2] = Instantiate(Ga.me.spells.swordElectricity, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[3] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[4] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                            swords[5] = Instantiate(Ga.me.spells.swordElectricity, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            swords[1] = Ga.me.spells.swordIce;
+                            swords[2] = Ga.me.spells.swordElectricity;
+                            swords[3] = Ga.me.spells.swordFire;
+                            swords[4] = Ga.me.spells.swordIce;
+                            swords[5] = Ga.me.spells.swordElectricity;
+                            pds[1] = pdIce;    
+                            pds[2] = pdElectricity;    
+                            pds[3] = pdFire;    
+                            pds[4] = pdIce;    
+                            pds[5] = pdElectricity;    
                             break;
                         default:
-                            print("should only be 1, 2, 4, or 6 swords.");
+                            print("should only be 2, 4, or 6 swords.");
                             return;
                     }
-                    swords[0] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    groupSwords.InitializeMe(value, swords);
+                    groupSwords.InitializeMe(value, new MyDuo<SpellMain, PassDataContainer>(swords, pds));
+                    
+                    // // SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    // OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+                    // orbitalGroupSwords.orbitingAnchor = value.myTransform;
+                    //
+                    // SpellMain[] swords = new SpellMain[numOfObjects];
+                    // switch (numOfObjects)
+                    // {
+                    //     case 1:
+                    //         break;
+                    //     case 2:
+                    //         swords[1] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         break;
+                    //     case 4:
+                    //         swords[1] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         swords[2] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         swords[3] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         break;
+                    //     case 6:
+                    //         swords[1] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         swords[2] = Instantiate(Ga.me.spells.swordElectricity, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         swords[3] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         swords[4] = Instantiate(Ga.me.spells.swordIce, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         swords[5] = Instantiate(Ga.me.spells.swordElectricity, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    //         break;
+                    //     default:
+                    //         print("should only be 1, 2, 4, or 6 swords.");
+                    //         return;
+                    // }
+                    // swords[0] = Instantiate(Ga.me.spells.swordFire, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    // groupSwords.InitializeMe(value, swords);
                     break;
                 case 3:
                     PassDataContainer container = new PassDataContainer()

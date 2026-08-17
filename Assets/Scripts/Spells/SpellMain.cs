@@ -108,6 +108,7 @@ public class SpellMain : MonoBehaviour
     [SerializeField] UnityEvent<Collider> onTrigExit;
     [SerializeField] UnityEvent<Collision> onCollEnter;
 
+
     #region INITIALIZATION
     /// <summary>
     /// Damage is from inspector, no after spell
@@ -131,6 +132,12 @@ public class SpellMain : MonoBehaviour
         
         OvrPassData ovrPassData = GetComponent<OvrPassData>();
         if (ovrPassData != null) pd = ovrPassData.GetContainer();
+        if (pd == null)
+        {
+            print($"No PassData found, destroying {gameObject.name} spell.");
+            Destroy(gameObject);
+            return;
+        }
         pd.myBrain = OwnersBrain;
         if (pd.data == null) pd.data = System.Array.Empty<PassData>();
         

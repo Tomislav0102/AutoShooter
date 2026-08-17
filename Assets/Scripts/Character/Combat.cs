@@ -73,9 +73,9 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
         combatRegisterEv.Invoke(combatEvent, otherBrain);
     }
 
-    public void CheckBlock(out bool blocked, Brain otherBrain = null)
+    public void CheckBlock(out bool blocked, Brain otherBrain)
     {
-        blocked = _timerBlockReady >= 0f && Random.value * 100 < Br.character.GetStat(Stats.Block);
+        blocked = _timerBlockReady >= 0f && Random.value * 100 < Br.character.GetStat(Stats.Block) && !isFlanked();
         if (!blocked) return;
         StartCoroutine(resetBlockTimer());
         CombatEventRegistered(CombatEvent.Block, otherBrain);
@@ -91,6 +91,12 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
                 yield return null;
             }
             _timerBlockReady = 0;
+        }
+
+        bool isFlanked() //true -> target can be sneak attacked, false -> target can block
+        {
+            Vector2 attackDirection = (Utils.MakeV2(otherBrain.myTransform.position) - Utils.MakeV2(Br.myTransform.position)).normalized;
+            return Vector2.Dot(Utils.MakeV2(Br.myTransform.forward), attackDirection) <= 0;
         }
 
     }

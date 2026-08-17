@@ -88,5 +88,4 @@ public class Ga : MonoBehaviour
         SceneManager.LoadScene(gameData.sceneMain);
     }
 
-
 }
