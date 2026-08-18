@@ -36,7 +36,7 @@ public class OvrPassData : MonoBehaviour
         };
         List<PassData> data = new List<PassData>();   
         if (hasDamage && damage.pair.Length() > 0) data.Add(damage);
-        if (hasKnockback && knockBack.knockBackPower > 0) data.Add(knockBack);
+        if (hasKnockback && knockBack.power > 0) data.Add(knockBack);
         if (hasManaShield && manaShield.manaShieldPoints > 0) data.Add(manaShield);
         if (hasSpell) data.Add(spellData);
         if (hasStats) data.Add(stats);

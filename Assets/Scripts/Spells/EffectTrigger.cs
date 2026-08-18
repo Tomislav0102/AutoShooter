@@ -49,7 +49,6 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
         if (Spell.collidersDetected.Contains(other)) return;
         Spell.collidersDetected.Add(other);
         if (!onEnter || onFakeStay) return;
-        
         Spell.HitGeneric(other, out Brain targetBrain);
         Spell.onHitTarget?.Invoke(targetBrain);
         if (!Spell.isInterrupt)

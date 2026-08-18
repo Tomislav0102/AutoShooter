@@ -250,6 +250,7 @@ public class SpellMain : MonoBehaviour
                     break;
                 
                 case PassDataKnockBack knockBack:
+                case PassDataDash dash:
                 case PassDataMagnet magnet:
                     if (targetHasBrain(out Brain brLoco))
                     {

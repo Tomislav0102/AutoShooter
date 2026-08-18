@@ -37,14 +37,26 @@ public class PassDataManaShield : PassData
 [System.Serializable]
 public class PassDataKnockBack : PassData
 {
-    [FormerlySerializedAs("knockBack")] public int knockBackPower;
-    public Vector2 knockBackDirection; //ignored if = Vector2.zero
+    [FormerlySerializedAs("knockBackPower")] public int power;
+    [FormerlySerializedAs("knockBackDirection")] public Vector2 direction; //ignored if = Vector2.zero
 
-    public PassDataKnockBack(int knockBackPower, Vector2 knockBackDirection = new Vector2())
+    public PassDataKnockBack(int power, Vector2 direction = new Vector2())
     {
         priority = 30;
-        this.knockBackPower = knockBackPower;
-        this.knockBackDirection = knockBackDirection;
+        this.power = power;
+        this.direction = direction;
+    }
+}
+public class PassDataDash : PassData
+{
+    public int power;
+    public Vector2 direction; //if Vector2.zero then use Br.MyTransform.forward
+    
+    public PassDataDash(int power, Vector2 direction = new Vector2())
+    {
+        priority = 25;
+        this.power = power;
+        this.direction = direction;
     }
 }
 [System.Serializable]

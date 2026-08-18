@@ -49,13 +49,21 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
         }
         return null;
     }
-    protected SpellMain GetSpellByAttackType(AnimAttackType animAttackType)
+    SpellMain GetSpellByAttackType(AnimAttackType animAttackType)
     {
         foreach (WeaponSet item in weapons)
         {
             if (item.animAttackType == animAttackType) return item.spellMain;
         }
         return null;
+    }
+    float GetRangeByAttackType(AnimAttackType animAttackType)
+    {
+        foreach (WeaponSet item in weapons)
+        {
+            if (item.animAttackType == animAttackType) return item.range;
+        }
+        return 0f;
     }
     [SerializeField] Transform spawnPoint;
     [SerializeField] EnemyLoco enemyLoco;
@@ -69,14 +77,15 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new PassData[2]
+                    data = new PassData[1]
                     {
                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
-                        new PassDataKnockBack(5)
+                       // new PassDataKnockBack(5)
                     }
                 };
                 SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee),
                     Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                melee.areaOfEffect = 1.1f * GetRangeByAttackType(AnimAttackType.Melee);
                 melee.InitializeMe(Br, containerMelee);
                 break;
             case 1: //bullet

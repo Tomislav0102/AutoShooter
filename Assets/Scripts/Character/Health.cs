@@ -158,17 +158,6 @@ public class Health: MonoBehaviour, IIniBrain
                 case PassDataManaShield manaShield:
                     SetShield(manaShield.manaShieldPoints);
                     break;
-                
-                case PassDataKnockBack knockBack:
-                    Vector3 dirKnockback;
-                    if (knockBack.knockBackDirection.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
-                    else dirKnockback = Utils.MakeV3(knockBack.knockBackDirection);
-                    Br.loco.PushMe(dirKnockback, Loco.MoveOverrideType.KnockBack, knockBack.knockBackPower);
-                    break;
-                
-                case PassDataMagnet magnet:
-                    Br.loco.AttractMe(magnet.center, magnet.power);
-                    break;
             }
 
         }

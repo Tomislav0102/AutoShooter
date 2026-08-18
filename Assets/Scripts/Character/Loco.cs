@@ -119,9 +119,25 @@ public class Loco : MonoBehaviour, IIniBrain
 
     public void LocoInjectData(PassDataContainer pd)
     {
-        
+        foreach (PassData item in pd.data)
+        {
+            switch (item)
+            {
+                case PassDataKnockBack knockBack:
+                    Vector3 dirKnockback;
+                    if (knockBack.direction.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
+                    else dirKnockback = Utils.MakeV3(knockBack.direction);
+                    PushMe(dirKnockback, MoveOverrideType.KnockBack, knockBack.power);
+
+                    break;
+                case PassDataDash dash:
+                    Vector3 dashDirection = dash.direction.Equals(Vector2.zero) ? Br.myTransform.forward : Utils.MakeV3(dash.direction);
+                    PushMe(dashDirection, MoveOverrideType.Dash, dash.power);
+                    break;
+            }
+        }
     }
-    public void PushMe(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
+    void PushMe(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
     {
         float timer = 0f;
         switch (moveOverrideType)
@@ -133,7 +149,6 @@ public class Loco : MonoBehaviour, IIniBrain
                 timer = 0.2f;
                 break;
             case MoveOverrideType.Dash:
-              //  intensity = 5;
                 timer = Ga.me.gameData.dashTime;
                 break;
         }

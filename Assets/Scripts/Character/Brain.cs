@@ -70,7 +70,7 @@ public class Brain : MonoBehaviour
 
 
     [Title("Debug")] 
-    public bool debugGeneral;
+    public bool debug;
     [Button]
     void ChangeSize(float newSize)
     {

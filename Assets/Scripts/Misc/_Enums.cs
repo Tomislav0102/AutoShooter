@@ -22,7 +22,7 @@ public enum AnimAttackType
 }
 public enum ColliderType { Sphere, Capsule, None }//Capsule always has radius of 0.5f, regardless of areaOfEffect.
 public enum DropType { Gold, Xp, Heal, ItemSpell }
-public enum Element { Physical, Fire, Ice, Electricity, Poison, Force, Magic }
+public enum Element { Physical, Fire, Ice, Electricity, Poison, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }
 public enum Alertness { Relaxed, Alarmed, Fighting }

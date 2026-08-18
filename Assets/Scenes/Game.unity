@@ -173,15 +173,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: startActive
-      value: 0
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: powerKnockback
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2249,7 +2249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: startActive
-      value: 2
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: numOfObjects
@@ -2269,7 +2269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3033,6 +3033,7 @@ MonoBehaviour:
   bulletEnemy: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
   lobCarrySomething: {fileID: 7546444594929099885, guid: 425aa33e5e74c084b9090e2dd29e8c6d, type: 3}
   heal: {fileID: 1169358827584757187, guid: 1dfb1a612c8c2194e894fd3d1fb79baa, type: 3}
+  contactDamage: {fileID: 8623828478650261122, guid: 38c75cf351802814d835fd8d67bca50f, type: 3}
   bulletPlayer: {fileID: 1659796070885948772, guid: 1afeee5e384f6a846b150ec436c71d6b, type: 3}
   homingMissile: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
   arcaneShield: {fileID: 7824342474178875377, guid: 78ad79ba5df44fc4b95678875156e0ed, type: 3}

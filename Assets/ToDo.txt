@@ -14,6 +14,7 @@ Fix stab animation (animator is ready)
 
 ENEMY
 Charging enemy with contact damage
+Enemy with mixamo animations
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
 
 

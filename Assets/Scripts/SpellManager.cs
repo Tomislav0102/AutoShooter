@@ -9,6 +9,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain bulletEnemy;
    public SpellMain lobCarrySomething;
    public SpellMain heal;
+   public SpellMain contactDamage;
    [Title("Archer")]
    public SpellMain bulletPlayer;
    [Title("Mage")]

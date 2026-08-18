@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: E_Cobra
+  m_Controller: {fileID: 9100000, guid: ed97b26e859232e42b970b348b1b776f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c46873a6f73c78848b439ade03ad8737, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6915cfe6fbedad246a8aac44a62e70fa, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: d70053b28a3ba1f46a02c555e921f435, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 124f32209140c64459e02f7be7ca4c97, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: fa4b161749e359f4aa71d0537cae7ab6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: fea634162f89d8144a56fc1245fd6560, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: ac0ba24b46ebba245a39b5266fc899c8, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 4ee9f83d3f1609b49bd2cb6b4a7d257a, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4b5958f3716c2b04383d3c8bcf1e7c18, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: fe62da8401265354fa363f225c667596, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: fb8650d3477db7c4184ee62c17ca0186, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: e48ff4ba8cc843a4dbfa05fbb6fcf517, type: 3}
