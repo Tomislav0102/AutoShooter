@@ -12,9 +12,10 @@ KNIGHT
 Implement Slash and Blunt skills 
 Fix stab animation (animator is ready)
 
+ARCHER
+Roll mechanics
+
 ENEMY
-Charging enemy with contact damage
-Enemy with mixamo animations
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
 
 
@@ -28,6 +29,7 @@ Knockback - scale for knockback effect is 0-99, should be the same for resistanc
 Blocking can activate from front side (180 arc front)
 Dodging can activate from both sides
 Sneak attack is from back side (180 arc back)
+Edge case with Dash and ContactDamage spells - Consider using some kind of container when casting several spells at once. Now there is violation of DRY principle, knight and cobra are using same code.
 
 TRAPS
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.

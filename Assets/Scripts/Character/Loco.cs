@@ -24,7 +24,7 @@ public class Loco : MonoBehaviour, IIniBrain
     public Animator anim;
     [SerializeField, Range(0, 10)] public int moveSpeed = 1;
     [SerializeField] protected int knockBackResistance;
-    [field: SerializeField] public bool OvrMotion { get; set; } //can control player, override agent destination
+    [field: SerializeField, ReadOnly] public bool OvrMotion { get; set; } //can control player, override agent destination
 
     public bool OvrOrientation //has player joystickLookAt, agent.updateRotation
     {
@@ -35,11 +35,11 @@ public class Loco : MonoBehaviour, IIniBrain
             if (value && isOrientationAlwaysFalse) OvrOrientation = false;
         }
     }
-    bool _ovrOrientation;
+    [ShowInInspector, ReadOnly] bool _ovrOrientation;
     [SerializeField] protected bool isOrientationAlwaysFalse = true;
     Coroutine _pushCoroutine;
     bool _magnetActive;
-    public enum MoveOverrideType { None, KnockBack, Dash, Magnet }
+    enum MoveOverrideType { None, KnockBack, Dash, Magnet }
     MoveOverrideType _currentMoveOverride = MoveOverrideType.None;
     int _avoidancePriorityDefault;
     
@@ -71,15 +71,15 @@ public class Loco : MonoBehaviour, IIniBrain
             anim.SetBool(_attRanged, false);
             return;
         }
-        
+
         switch (attackType)
         {
             case AnimAttackType.Melee:
-            anim.SetBool(_attRanged, false);
+                anim.SetBool(_attRanged, false);
                 anim.SetBool(_attMelee, true);
                 break;
             case AnimAttackType.Ranged:
-            anim.SetBool(_attMelee, false);
+                anim.SetBool(_attMelee, false);
                 anim.SetBool(_attRanged, true);
                 break;
             case AnimAttackType.Ultimate:
@@ -127,66 +127,52 @@ public class Loco : MonoBehaviour, IIniBrain
                     Vector3 dirKnockback;
                     if (knockBack.direction.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
                     else dirKnockback = Utils.MakeV3(knockBack.direction);
-                    PushMe(dirKnockback, MoveOverrideType.KnockBack, knockBack.power);
+                    pushMethod(dirKnockback, MoveOverrideType.KnockBack, knockBack.power);
 
                     break;
                 case PassDataDash dash:
                     Vector3 dashDirection = dash.direction.Equals(Vector2.zero) ? Br.myTransform.forward : Utils.MakeV3(dash.direction);
-                    PushMe(dashDirection, MoveOverrideType.Dash, dash.power);
+                    pushMethod(dashDirection, MoveOverrideType.Dash, dash.power);
                     break;
             }
         }
-    }
-    void PushMe(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
-    {
-        float timer = 0f;
-        switch (moveOverrideType)
+        void pushMethod(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
         {
-            case MoveOverrideType.KnockBack:
-                if (_currentMoveOverride == MoveOverrideType.Dash) return;
-                intensity -= knockBackResistance;
-                if (intensity <= 0) return;
-                timer = 0.2f;
-                break;
-            case MoveOverrideType.Dash:
-                timer = Ga.me.gameData.dashTime;
-                break;
-        }
-        _currentMoveOverride =  moveOverrideType;
-        
-        if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
-        _pushCoroutine = StartCoroutine(pushDelay());
-        return;
-        
-
-        IEnumerator pushDelay()
-        {
-            OvrMotion = true;
-            Br.agent.acceleration = 10;
-            Br.agent.velocity = intensity * dir;
-            _avoidancePriorityDefault = Br.agent.avoidancePriority;
-            if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = 40;
-            while (timer > 0f)
+            float timer = Ga.me.gameData.dashTime;
+            switch (moveOverrideType)
             {
-                timer -= Time.deltaTime;
-                yield return null;
+                case MoveOverrideType.KnockBack:
+                    if (_currentMoveOverride == MoveOverrideType.Dash) return;
+                    intensity -= knockBackResistance;
+                    if (intensity <= 0) return;
+                    break;
             }
-            Br.agent.acceleration = 10000;
-            OvrMotion = false;
-            if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = _avoidancePriorityDefault;
-            _currentMoveOverride = MoveOverrideType.None;
+            _currentMoveOverride =  moveOverrideType;
+            
+            if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
+            _pushCoroutine = StartCoroutine(pushDelay());
+            return;
+            
+
+            IEnumerator pushDelay()
+            {
+                OvrMotion = true;
+                Br.agent.acceleration = 10;
+                Br.agent.velocity = intensity * dir;
+                _avoidancePriorityDefault = Br.agent.avoidancePriority;
+                if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = 40;
+                while (timer > 0f)
+                {
+                    timer -= Time.deltaTime;
+                    yield return null;
+                }
+                Br.agent.acceleration = 10000;
+                OvrMotion = false;
+                if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = _avoidancePriorityDefault;
+                _currentMoveOverride = MoveOverrideType.None;
+            }
         }
     }
-
-    public void AttractMe(Vector3 center, int intensity)
-    {
-        if (intensity <= knockBackResistance) return;
-        Vector2 vDelta = Utils.MakeV2(Br.myTransform.position) - Utils.MakeV2(center);
-        if (vDelta.sqrMagnitude < 0.1f) return;
-        OvrMotion = true;
-        _currentMoveOverride = MoveOverrideType.Magnet;
-    }
-
     #endregion
 
 

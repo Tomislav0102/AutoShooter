@@ -9,6 +9,7 @@ public class SpellManager : MonoBehaviour
    public SpellMain bulletEnemy;
    public SpellMain lobCarrySomething;
    public SpellMain heal;
+   public SpellMain dash;
    public SpellMain contactDamage;
    [Title("Archer")]
    public SpellMain bulletPlayer;
@@ -37,7 +38,6 @@ public class SpellManager : MonoBehaviour
    public SpellMain reflectProjectile;
    public SpellMain shieldThrow;
    public SpellMain auraLowerAttSpeed;
-   public SpellMain dash;
    [Title("Groups")] 
    public SpellGroup groupWalkTrail;
    public SpellGroup groupOrbitalShields;

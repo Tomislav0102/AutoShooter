@@ -35,28 +35,27 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     [SerializeField] Transform myShield;
     [SerializeField] int powerKnockback = 5;
-    [SerializeField] int powerDash = 30;
     public int startActive;
 
     public void AnimEv_AttackCallback(int num = 0)
     {
-        // PassDataContainer container = new PassDataContainer()
-        // {
-        //     canBeBlocked = true,
-        //     data = new PassData[2]
-        //     {
-        //         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MeleeDamage) }, true),
-        //         new PassDataKnockBack(powerKnockback)
-        //     }
-        // };
-        //
-        // SpellMain melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-        // melee.onHitTarget += (Brain br) =>
-        // {
-        //     if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
-        //     else Br.combat.CombatEventRegistered(CombatEvent.Hit, br);
-        // };
-        // melee.InitializeMe(Br, container);
+        PassDataContainer container = new PassDataContainer()
+        {
+            canBeBlocked = true,
+            data = new PassData[2]
+            {
+                new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MeleeDamage) }, true),
+                new PassDataKnockBack(powerKnockback)
+            }
+        };
+        
+        SpellMain melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        melee.onHitTarget += (Brain br) =>
+        {
+            if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
+            else Br.combat.CombatEventRegistered(CombatEvent.Hit, br);
+        };
+        melee.InitializeMe(Br, container);
     }
     
     public void AnimEv_UltimateCallback(int num = 0)
@@ -69,7 +68,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             {
                 data = new PassData[1]
                 {
-                    new PassDataDash(powerDash),
+                    new PassDataDash(Ga.me.gameData.dashPower),
                 }
             };
             SpellMain dash = Instantiate(Ga.me.spells.dash,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);

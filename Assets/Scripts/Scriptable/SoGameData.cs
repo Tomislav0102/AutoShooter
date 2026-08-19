@@ -10,10 +10,10 @@ public class SoGameData : ScriptableObject
     public int level;
     [Title("General")]
     public float rofSpells;
+    public float dashTime = 0.2f;
+    public int dashPower = 50;
     [Title("Navigation")]
     public float agentRotSpeed;
-    [Title("Player class specific")]
-    public float dashTime = 1;
     
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;
@@ -34,7 +34,15 @@ public class SoGameData : ScriptableObject
         public Sprite sprite;
         public TMP_ColorGradient gradient;
     }
-
+    // [Title("Status")]
+    // [SerializeField] StatusGroup[] status;
+    // [System.Serializable] 
+    // public struct StatusGroup
+    // {
+    //     public Status.Effect effect;
+    //     public string name;
+    //     public Sprite sprite;
+    // }
 
     [Title("Colors")]
     public Color colHeal;

@@ -96,7 +96,7 @@ public class MyDuo<K, V>
     }
     #endregion
 
-    #region MAINPULATE DATA
+    #region SET DATA
     public void Add(K key, V value)
     {
         if (!_canHaveDuplicateKeys)
@@ -214,6 +214,16 @@ public class MyDuo<K, V>
         Key = _bufferKey;
         Value = _bufferValue;
     }
+    public void SetValue(int index, V value) => Value[index] = value;
+    public void SetValueByKey(K key, V value)
+    {
+        for (int i = 0; i < Length(); i++)
+        {
+            if (!Key[i].Equals(key)) continue;
+            Value[i] = value;
+            return;
+        }
+    }
     #endregion
 
     #region GET DATA
@@ -270,7 +280,23 @@ public class MyDuo<K, V>
         Debug.LogError($"{_prefixDebug()}no value '{val}' present");
         key = default;
         return false;
-    } 
+    }
+    public bool HasKey(K key)
+    {
+        for (int i = 0; i < Length(); i++)
+        {
+            if (Key[i].Equals(key)) return  true;
+        }
+        return false;
+    }
+    public bool HasValue(V value)
+    {
+        for (int i = 0; i < Length(); i++)
+        {
+            if (Value[i].Equals(value)) return  true;
+        }
+        return false;
+    }
     #endregion
 
     #region HELPERS

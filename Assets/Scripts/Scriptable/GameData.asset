@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoGameData
   level: 1
   rofSpells: 0.5
+  dashTime: 0.4
+  dashPower: 25
   agentRotSpeed: 100
-  dashTime: 0.2
   element:
   - element: 0
     name: Physical
