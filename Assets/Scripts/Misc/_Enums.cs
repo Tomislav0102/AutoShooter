@@ -10,7 +10,7 @@ public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
-
+public enum WeaponType { Slash, Blunt, Pierce }
 public enum AnimAttackType
 {
     Melee,
@@ -29,7 +29,7 @@ public enum Alertness { Relaxed, Alarmed, Fighting }
 public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill }
 public enum Stats
 {
-    //primary
+    //primary (maybe redundant -> like in 'Brotato')
     Strength, 
     Dexterity, 
     Constitution, 
@@ -51,7 +51,6 @@ public enum Stats
     
     //tertiary - adds to spell variables
     Size, 
-    Area,
     Duration,
     KnockBack,
     CritChance,
@@ -60,7 +59,8 @@ public enum Stats
     //quaternary
     Xp,
     Gold,
-    Loot
+    Loot,
+    SightRange //just camera zoom -> like in 'Into The Necrovale'
     //quinary
 }
 

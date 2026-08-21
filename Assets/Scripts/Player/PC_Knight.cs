@@ -110,7 +110,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
     {
-        return;
         string st = otherBrain == null ? "" : $", target is {otherBrain.name}.";
      //  print($"{combatEvent} {st}");
         switch (combatEvent)

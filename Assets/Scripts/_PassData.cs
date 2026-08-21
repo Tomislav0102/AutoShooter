@@ -110,9 +110,9 @@ public class PassDataStats : PassData
     public GenChange change;
     public int value;
     bool ShowHasDuration() => change == GenChange.Add;
-    bool ShowHDuration() => change == GenChange.Add && hasDuration;
+    bool ShowDuration() => change == GenChange.Add && hasDuration;
     [ShowIf(nameof(ShowHasDuration))] public bool hasDuration;
-    [ShowIf(nameof(ShowHDuration))] public float duration;
+    [ShowIf(nameof(ShowDuration))] public float duration;
     
     public PassDataStats(Stats stat, GenChange change, int value, float duration = float.PositiveInfinity)
     {
