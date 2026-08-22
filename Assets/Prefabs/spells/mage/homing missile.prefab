@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 7370879448968541973}
@@ -127,36 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_SimpleTrigger
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: _damageInspector
-      Entry: 6
-      Data: 
-  myFactionTarget: 1
-  areaOfEffect: 0.2
-  warningDelay: 0
-  hitChance: 1
-  lifeTime: 50
-  rateOfFire: 0
-  terminateOnHit: 1
-  useInspectorDamageData: 0
-  injectHealth:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  hitEffect: 0
-  hitEffectOnSpell: 0
-  spellsToAffect: []
   onEnter: 1
   onFakeStay: 0
   onExit: 0
+  effectAtExit: {fileID: 0}
   colliderPart: 0
 --- !u!1001 &7365444540199606032
 PrefabInstance:

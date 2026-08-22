@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class MeleeTransporter : SpellTransporter
 {
     public override SpellMain Spell
@@ -8,7 +9,7 @@ public class MeleeTransporter : SpellTransporter
         set
         {
             base.Spell = value;
-            value.myTransform.position += value.areaOfEffect * 0.5f * value.myTransform.forward;
+            value.myTransform.position += value.range * 0.5f * value.myTransform.forward;
         }
     }
 }

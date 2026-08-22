@@ -5096,6 +5096,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: range
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 2671313010941108603}
@@ -5146,23 +5150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bd4385ad38c7a4da70565b7a955368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_A_Overlap
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  myFactionTarget: 1
-  areaOfEffect: 1
-  warningDelay: 0
-  hitChance: 1
-  extraLifeTimeForParticles: 1
-  lifeTime: 0
-  rateOfFire: 0
-  terminateOnHit: 0
 --- !u!1 &7600140773223684860 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

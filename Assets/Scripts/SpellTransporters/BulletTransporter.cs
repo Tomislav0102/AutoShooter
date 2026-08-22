@@ -15,9 +15,9 @@ public class BulletTransporter : SpellTransporter
         }
     }
     public float speed;
-    public int ricochet;
-    public int pierce;
-    public int bounce;
+    [HideInInspector] public int ricochet;
+    [HideInInspector] public int pierce;
+    [HideInInspector] public int bounce;
 
     public void BounceMethod(Vector3 normal)
     {

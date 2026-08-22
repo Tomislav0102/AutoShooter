@@ -93,6 +93,8 @@ public class SpellMain : MonoBehaviour
     [ShowInInspector, ReadOnly] Phase _phase;
     float _timerPhase;
     public FactionToTarget myFactionTarget = FactionToTarget.Enemy;
+    [InfoBox("Range info: in melee transporter defines 'area of effect'. With enemies, mage and archer defines attack distance.")]
+    public float range = 1f;
     public float areaOfEffect = 1f;
     [Range(0f, 1f)] public float hitChance = 1f;
     public bool extraLifeTimeForParticles;
@@ -125,6 +127,8 @@ public class SpellMain : MonoBehaviour
         myRigid.isKinematic = true;
         if (isInterrupt) gameObject.layer = LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt);
         
+        MeleeTransporter meleeTransporter = transporter as MeleeTransporter;
+        if (meleeTransporter != null) areaOfEffect = range;
         warningRend.transform.localScale = areaOfEffect * Vector3.one;
         mySphereCollider.radius = areaOfEffect * 0.5f;
         myCapsuleCollider.height = areaOfEffect;

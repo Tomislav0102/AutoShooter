@@ -21,7 +21,7 @@ public class PC_Archer : MonoBehaviour
     [SerializeField] bool forward;
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back;
-    [SerializeField][Range(0, 3)] int parallel, followUp;
+    [SerializeField][Range(0, 3)] int followUp;
     const float CONST_FollowUp = 0.1f;
     const float CONST_HorGapBetweenProjectiles = 0.3f;
     Coroutine _rollCoroutine;
@@ -120,17 +120,29 @@ public class PC_Archer : MonoBehaviour
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                 }
             };
-            for (int i = 0; i < parallel + 1; i++)
+            int projectile = Br.character.GetStat(Stats.Projectiles);
+            for (int i = 0; i < projectile; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
                 SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                 sp.visual.SetSpawnHeight(spawnPoint.position.y);
                 sp.myTransform.Rotate(rot);
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
-                float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+                float width = projectile * CONST_HorGapBetweenProjectiles;
                 sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
                 sp.InitializeMe(Br, container);
             }
+            // for (int i = 0; i < parallel + 1; i++)
+            // {
+            //     float xOffset = i * CONST_HorGapBetweenProjectiles;
+            //     SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            //     sp.visual.SetSpawnHeight(spawnPoint.position.y);
+            //     sp.myTransform.Rotate(rot);
+            //     sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
+            //     float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
+            //     sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
+            //     sp.InitializeMe(Br, container);
+            // }
         }
     }
 }

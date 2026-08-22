@@ -32,11 +32,10 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
     {
         public SpellMain spellMain;
         public AnimAttackType animAttackType; 
-        public float range; 
     }
     [SerializeField] WeaponSet[] weapons;
     [Button]
-    void SortWeaponsByRange() =>  System.Array.Sort(weapons, (x, y) => x.range.CompareTo(y.range));
+    void SortWeaponsByRange() =>  System.Array.Sort(weapons, (x, y) => x.spellMain.range.CompareTo(y.spellMain.range));
 
     
     public AnimAttackType? InAttackRange()
@@ -44,7 +43,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
         if (MyTarget == null) return null;
         for (int i = 0; i < weapons.Length; i++)
         {
-            if (Br.combat.distanceToTarget <= weapons[i].range) return weapons[i].animAttackType;
+            if (Br.combat.distanceToTarget <= weapons[i].spellMain.range) return weapons[i].animAttackType;
         }
         return null;
     }
@@ -60,7 +59,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
     {
         foreach (WeaponSet item in weapons)
         {
-            if (item.animAttackType == animAttackType) return item.range;
+            if (item.animAttackType == animAttackType) return item.spellMain.range;
         }
         return 0f;
     }
@@ -100,6 +99,13 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
                     zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
+                if (bulletTransporter != null)
+                {
+                    bulletTransporter.ricochet = Br.character.GetStat(Stats.Ricochet);
+                    bulletTransporter.pierce = Br.character.GetStat(Stats.Piercing);
+                    bulletTransporter.bounce = Br.character.GetStat(Stats.Bounce);
+                }
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
                 bullet.InitializeMe(Br, containerBullet);
                 break;

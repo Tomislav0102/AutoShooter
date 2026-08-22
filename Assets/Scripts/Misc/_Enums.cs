@@ -55,6 +55,10 @@ public enum Stats
     KnockBack,
     CritChance,
     CritMod,
+    Projectiles,
+    Bounce,
+    Piercing,
+    Ricochet,
     
     //quaternary
     Xp,
