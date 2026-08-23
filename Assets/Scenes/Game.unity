@@ -127,6 +127,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1223270606538439065, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: skillPair.<Key>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223270606538439065, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: skillPair.<Value>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223270606538439065, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223270606538439065, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223270606538439065, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c371f7275259ce468a82d3bc6cb80fb, type: 2}
+    - target: {fileID: 1223270606538439065, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3217fb0932ef49a4a86d0f4d74652b10, type: 2}
     - target: {fileID: 4231247348864517342, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -169,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5276120258718466271, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: moveSpeed
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_Name
@@ -177,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8289251900630384108, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: powerDash
@@ -1194,9 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
-  tr: {fileID: 0}
-  dot: 0
-  dir: {x: 0, y: 0}
+  ps: {fileID: 0}
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,54 +2275,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: startActive
-      value: 99
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: numOfObjects
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.<Key>k__BackingField.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: weapons.<Value>k__BackingField.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weapons.<Value>k__BackingField.Array.data[0]'
-      value: 
-      objectReference: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weapons.<Value>k__BackingField.Array.data[1]'
-      value: 
-      objectReference: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weapons.<Value>k__BackingField.Array.data[2]'
-      value: 
-      objectReference: {fileID: 2258241833145700990, guid: 1bbf318075619b54f9a7e2ee00ca7001, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weapons.<Value>k__BackingField.Array.data[3]'
-      value: 
-      objectReference: {fileID: 458334001699311138, guid: 98f26034fcec66f4dada429998e86f87, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weapons.<Value>k__BackingField.Array.data[4]'
-      value: 
-      objectReference: {fileID: 4551912923362254910, guid: a6d32198d40d7f749a19d7716b0d89c9, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weapons.<Value>k__BackingField.Array.data[5]'
-      value: 
-      objectReference: {fileID: 508540452596679946, guid: 11d6aef39fe45a2498b2b92ee3c1a691, type: 3}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weaponRangePair.<Key>k__BackingField.Array.data[1]'
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-      propertyPath: 'weaponRangePair.<Key>k__BackingField.Array.data[3]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}

@@ -14,6 +14,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
+            _playerCombat = GetComponent<PlayerCombat>();
             // switch (startActive)
             // {
             //     case 0:
@@ -31,12 +32,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-
-
     [SerializeField] Transform myShield;
-    [SerializeField] int powerKnockback = 5;
     public int startActive;
-
+    PlayerCombat _playerCombat;
+    
+    
+    
     public void AnimEv_AttackCallback(int num = 0)
     {
         PassDataContainer container = new PassDataContainer()
@@ -45,11 +46,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             data = new PassData[2]
             {
                 new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MeleeDamage) }, true),
-                new PassDataKnockBack(powerKnockback)
+                new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack))
             }
         };
-        
-        SpellMain melee = Instantiate(Ga.me.spells.meleePlayer, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        SpellMain melee = Instantiate(_playerCombat.skillPair.GetValue(0).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
             if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
@@ -84,7 +84,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 data = new PassData[2]
                 {
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 4f }),
-                    new PassDataKnockBack(powerKnockback, knockBackDir2)
+                    new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack), knockBackDir2)
                 }
             };
             SpellMain contactDam = Instantiate(Ga.me.spells.contactDamage, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -116,6 +116,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         {
             case CombatEvent.Strike:
                 if (!Br.health.IsAtFullHealth()) return;
+                if (!_playerCombat.skillPair.GetKey(1)) return;
                 PassDataContainer containerArc = new PassDataContainer()
                 {
                     canBeBlocked = true,
@@ -124,7 +125,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MagicDamage) }),
                     }
                 };
-                SpellMain arc = Instantiate(Ga.me.spells.sweepingArc,Br.myTransform.position,Br.myTransform.rotation, Ga.me.spells.myTransform);
+                SpellMain arc = Instantiate(_playerCombat.skillPair.GetValue(1).spell ,Br.myTransform.position,Br.myTransform.rotation, Ga.me.spells.myTransform);
                 arc.InitializeMe(Br, containerArc);
                 break;
             case CombatEvent.Hit:
@@ -147,7 +148,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             case CombatEvent.GetHit:
                 break;
             case CombatEvent.Block:
-                StartCoroutine(SpellPushDelay());
+                StartCoroutine(spellPushDelay());
                 break;
             case CombatEvent.Kill:
                 // if (otherBrain.character.GetStat(Stats.MagicDamage) >=Br.character.GetStat(Stats.MagicDamage))
@@ -158,9 +159,9 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         }
         return;
         
-        IEnumerator SpellPushDelay()
+        IEnumerator spellPushDelay()
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return Ga.me.wait01;
             PassDataContainer container = new PassDataContainer()
             {
                 myBrain =Br,

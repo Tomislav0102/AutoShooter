@@ -176,7 +176,6 @@ public static class Utils
         return result;
     }
 
-    #region NOT USED
     static readonly Dictionary<float, WaitForSeconds> WaitDictionary = new Dictionary<float, WaitForSeconds>();
     public static WaitForSeconds GetWait(float time)
     {
@@ -185,7 +184,7 @@ public static class Utils
         return WaitDictionary[time];
     }
     
-
+    #region NOT USED
     public static Vector2 GetWorldPositionOfCanvasElement(RectTransform rectElement) //sets gameobject behind the UI element
     {
         RectTransformUtility.ScreenPointToWorldPointInRectangle(rectElement, rectElement.position, null, out Vector3 result);

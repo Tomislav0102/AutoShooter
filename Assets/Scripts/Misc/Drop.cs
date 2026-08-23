@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -50,9 +49,9 @@ public class Drop : MonoBehaviour
       //  MyDrop = startingDrop;
       _myTransform = transform;
         int rdn = System.Enum.GetNames(typeof(DropType)).Length;
-        MyDrop = (DropType)UnityEngine.Random.Range(0, rdn);
+        MyDrop = (DropType)Random.Range(0, rdn);
         JumpStart();
-        yield return new WaitForSeconds(2f);
+        yield return Ga.me.wait20;
         _ready = true;
     }
 
@@ -86,7 +85,7 @@ public class Drop : MonoBehaviour
         parMeshes.gameObject.SetActive(false);
         GetComponent<Collider>().enabled = false;
         myRigid.isKinematic = true;
-        yield return new WaitForSeconds(2f);
+        yield return Ga.me.wait20;
         Destroy(gameObject);
     }
 }

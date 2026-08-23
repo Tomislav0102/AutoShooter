@@ -10,7 +10,10 @@ public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
+
+
 public enum WeaponType { Slash, Blunt, Pierce }
+public enum SpellType { Active, Passive, Ultimate }
 public enum AnimAttackType
 {
     Melee,

@@ -8,20 +8,17 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    public Transform tr;
-    public float dot;
-    public Vector2 dir;
-    
+    public ParticleSystem ps;
     
     [Button]
-    void TestEvent()
+    void PlayEvent()
     {
-       
+     ps.Play();  
     }
     [Button]
-    void ClearEvent()
+    void StopEvent()
     {
-      
+      ps.Stop();
     }
 
     void Update()

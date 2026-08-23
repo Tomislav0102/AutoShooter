@@ -20,8 +20,9 @@ public class SpellMain : MonoBehaviour
     [SerializeField] GameObject effectGo;
     public SpellTransporter transporter;
     public SpellVisual visual;
-    
+
     [Title("Data")]
+    public SpellType spellType;
     public bool isInterrupt;
     [ReadOnly] public bool spellActive;
     [ReadOnly] public PassDataContainer pd;
@@ -191,12 +192,12 @@ public class SpellMain : MonoBehaviour
         if (!spellActive) return;
         _onAfterSpell?.Invoke();
         spellActive = false;
-        float time = extraLifeTimeForParticles ? 3f : 0f;
+        visual.StopDefault();
         StartCoroutine(endDelay());
     
         IEnumerator endDelay()
         {
-            yield return new WaitForSeconds(time);
+            yield return extraLifeTimeForParticles ? Ga.me.wait30 : Ga.me.wait00;
             Destroy(gameObject);
         }
     }

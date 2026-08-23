@@ -75,6 +75,10 @@ public class SpellVisual : MonoBehaviour, IIniSpell
         if (psDefault != null) psDefault.Play();
         StartCoroutine(LightDelay(_lightDefault));
     }
+    public void StopDefault()
+    {
+        if (psDefault != null) psDefault.Stop();
+    }
 
     public void SetSpawnHeight(float height)
     {

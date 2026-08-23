@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: New So Skill
+  m_Name: homing missile - mage
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  skillName: New Skill
+  skillName: 
   requirements: []
   usedByKnight: 0
-  usedByMage: 0
+  usedByMage: 1
   usedByArcher: 0
   hasExtraProjectiles: 0
-  extraProjectileCount: 1
+  extraProjectileCount: 0
   hasExtraSize: 0
-  extraSize: 1
+  extraSize: 0
   hasExtraDuration: 0
-  extraDuration: 1
+  extraDuration: 0
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasSpell: 1
-  spell: {fileID: 0}
+  spell: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
   hasSpellProjectileCount: 0
   spellProjectileCount: 1
   hasCombatEventReq: 0

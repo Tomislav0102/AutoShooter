@@ -25,7 +25,7 @@ public class SoSkill : ScriptableObject
     // [ShowIf(nameof(hasExtraDamagePercentage))] public MyDuo<Element, float> extraDamagePercentage;
 
     [Title("Spell")]
-    [InfoBox("includes all stat increases (more Hp, more Crits etc.)")]
+    [InfoBox("Includes all stat increases (knockback, more Hp, more Crits etc.)")]
     public bool hasSpell;
     [ShowIf(nameof(hasSpell))] public SpellMain spell;
     [ShowIf(nameof(hasSpell))] public bool hasSpellProjectileCount;
@@ -33,12 +33,12 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(ShowSpellProjCount))] public int spellProjectileCount = 1;
 
     [Title("Combat events")]
-    [InfoBox("needs to be more detailed (knights skills)")]
+    [InfoBox("Needs to be more detailed (knights skills)")]
     public bool hasCombatEventReq;
     [ShowIf(nameof(hasCombatEventReq))] public CombatEvent combatEventReq;
 
     [Title("Generic")]
-    [InfoBox("special use cases, should be used sparingly")]
+    [InfoBox("Special use cases, should be used sparingly")]
     public int[] nums;
     public float[] floats;
     public string[] strings;

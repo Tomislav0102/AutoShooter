@@ -5158,6 +5158,26 @@ PrefabInstance:
       propertyPath: animAttackType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillPair.<Key>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillPair.<Value>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f00f37659c9cb148968421391709e79, type: 2}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 37d903e4c8c3e2245aeab283124cc397, type: 2}
     - target: {fileID: 2148451991947694265, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Controller
       value: 
@@ -5425,17 +5445,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 2471835065303500449}
   psCast: {fileID: 351111234578652109}
   startActive: 99
-  weaponRangePair:
-    <Key>k__BackingField: 00000000000000
-    <Value>k__BackingField:
-    - 15
-    - 100
-    - 5
-    - 20
-    - 25
-    - 100
-    - 20
-  numOfObjects: 3
 --- !u!137 &5165482686685167941 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5271545707195277533, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

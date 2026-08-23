@@ -22,7 +22,6 @@ public class PC_Archer : MonoBehaviour
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back;
     [SerializeField][Range(0, 3)] int followUp;
-    const float CONST_FollowUp = 0.1f;
     const float CONST_HorGapBetweenProjectiles = 0.3f;
     Coroutine _rollCoroutine;
     const float CONST_RollTime = 0.3f;
@@ -72,7 +71,7 @@ public class PC_Archer : MonoBehaviour
     {
         for (int i = 0; i < followUp; i++)
         {
-            yield return new WaitForSeconds(CONST_FollowUp);
+            yield return Ga.me.wait01;
             Shoot();
         }
     }
@@ -132,17 +131,6 @@ public class PC_Archer : MonoBehaviour
                 sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
                 sp.InitializeMe(Br, container);
             }
-            // for (int i = 0; i < parallel + 1; i++)
-            // {
-            //     float xOffset = i * CONST_HorGapBetweenProjectiles;
-            //     SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //     sp.visual.SetSpawnHeight(spawnPoint.position.y);
-            //     sp.myTransform.Rotate(rot);
-            //     sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);
-            //     float width = (parallel + 1) * CONST_HorGapBetweenProjectiles;
-            //     sp.myTransform.Translate((width - CONST_HorGapBetweenProjectiles) * 0.5f * Vector3.left, Space.Self);
-            //     sp.InitializeMe(Br, container);
-            // }
         }
     }
 }
