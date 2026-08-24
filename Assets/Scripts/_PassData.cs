@@ -60,20 +60,6 @@ public class PassDataDash : PassData
     }
 }
 [System.Serializable]
-public class PassDataMagnet : PassData
-{
-    [InfoBox("If power is greater than knockback resist, magnet is on. Negative value of power turns it off (no comparison to knockback resist.")]
-    public int power;
-    public Vector3 center;
-
-    public PassDataMagnet(int magnetPower, Vector3 center)
-    {
-        priority = 40;
-        this.power = magnetPower;
-        this.center = center;
-    }
-}
-[System.Serializable]
 public class PassDataDamage : PassData
 {
     public MyDuo<Element, float> pair; //can't serialize dictionary in inspector
@@ -123,17 +109,18 @@ public class PassDataStats : PassData
         hasDuration = !float.IsPositiveInfinity(duration);
     }
 }
-// [System.Serializable]
-// public class PassDataTag: PassData
-// {
-//     public string key;
-//     public Dictionary<string, string> tags = new Dictionary<string, string>();
-//     public const string TagExecutioner = "Executioner";
-//     public const string TagStatusBleed = "Bleeding";
-//     public const string TagStatusPoison = "Poisoned";
-//     public const string TagStatusBurn = "Burning";
-//     public const string TagStatusFreeze = "Freezing";
-//     public const string TagStatusJolt = "Jolted";
-//
-// }
+[System.Serializable]
+public class PassDataEffect: PassData
+{
+    public EffectGroup[] group;
+    
+    
+    [System.Serializable]
+    public struct EffectGroup
+    {
+        public AttackEffect effect;
+        public float duration;
+        public int damagePerTick;
+    }
+}
 

@@ -59,17 +59,17 @@ public class SoGameData : ScriptableObject
     public string layObstacle;
     public string laySpell;
     public string laySpellInterrupt;
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
 }
 

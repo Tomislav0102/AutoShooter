@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: sweeping arc - knight
+  m_Name: shield throw - knight
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   skillName: 
   skillType: 0
@@ -23,11 +23,11 @@ MonoBehaviour:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasSpell: 1
-  spell: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
-  hasExtra: 0
+  spell: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
+  hasExtra: 1
   extraStats:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: 
+    <Key>k__BackingField: 18000000
+    <Value>k__BackingField: 01000000
   hasGeneric: 0
   nums: 
   floats: []

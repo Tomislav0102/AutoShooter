@@ -17,8 +17,6 @@ public class OvrPassData : MonoBehaviour
     [ShowIf(nameof(hasDamage))] public PassDataDamage damage;
     [SerializeField] bool hasKnockback;
     [ShowIf(nameof(hasKnockback))] public PassDataKnockBack knockBack;
-    [SerializeField] bool hasMagnet;
-    [ShowIf(nameof(hasMagnet))] public PassDataMagnet magnet;
     [SerializeField] bool hasManaShield;
     [ShowIf(nameof(hasManaShield))] public PassDataManaShield manaShield;
     [SerializeField] bool hasSpell;

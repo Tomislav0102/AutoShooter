@@ -13,7 +13,17 @@ public enum GenDistance { Closest, Furthest, Middle, Random }
 
 
 public enum WeaponType { Slash, Blunt, Pierce }
-public enum SpellType { Active, Passive, Ultimate }
+public enum AttackEffect
+{
+    Burning,
+    Freezing,
+    Jolted,
+    Poisoned,
+    Bleeding,
+    InstantKill,
+    Impact //stunned enemies take 50% more damage
+}
+public enum SkillType { Active, Passive, Ultimate }
 public enum AnimAttackType
 {
     Melee,

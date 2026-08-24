@@ -147,11 +147,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             void setEngageRange()
             {
                 float engageRange = 0f;
-                for (int i = 0; i < _playerCombat.skillPair.Length(); i++)
+                for (int i = 0; i < value.character.skillPair.Length(); i++)
                 {
-                    SoSkill skill = _playerCombat.skillPair.GetValue(i);
-                    if (!skill.hasSpell || skill.spell.spellType != SpellType.Active ) continue;
-                    if (_playerCombat.skillPair.GetKey(i) && skill.spell.range > engageRange)
+                    SoSkill skill = value.character.skillPair.GetValue(i);
+                    if (!skill.hasSpell || skill.skillType != SkillType.Active ) continue;
+                    if (value.character.skillPair.GetKey(i) && skill.spell.range > engageRange)
                     {
                         engageRange = skill.spell.range;
                     }
@@ -229,32 +229,16 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     public void AnimEv_AttackCallback(int num = 0)
     {
         psCast.Play();
-        for (int i = 0; i < _playerCombat.skillPair.Length(); i++)
+        for (int i = 0; i < Br.character.skillPair.Length(); i++)
         {
-            if (_playerCombat.skillPair.GetKey(i)) skillActive(i);
+            if (Br.character.skillPair.GetKey(i)) skillActive(i);
         }
         void skillActive(int index)
         {
-            SoSkill skill = _playerCombat.skillPair.GetValue(index);
-            switch (index) //lightning strike
+            SoSkill skill = Br.character.skillPair.GetValue(index);
+            switch (index) 
             {
-                case 0:
-                    List<Transform> targetsLightStrike = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, skill.spell.range);
-                    Transform furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
-                    if (furthestTarget == null) return;
-
-                    var containerLightning = new PassDataContainer()
-                                             {
-                                                 data = new PassData[1]
-                                                        {
-                                                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                        }
-                                             };
-                    SpellMain lightning = Instantiate(skill.spell, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    lightning.InitializeMe(Br, containerLightning);
-                    break;
-
-                case 1: //homing missile
+                case 0://homing missile
                     List<Transform> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                     if (targetsHoming.Count == 0) return;
 
@@ -284,6 +268,22 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             yield return Ga.me.wait01;
                         }
                     }
+                    break;
+
+                case 1: //lightning strike
+                    List<Transform> targetsLightStrike = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, skill.spell.range);
+                    Transform furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
+                    if (furthestTarget == null) return;
+
+                    var containerLightning = new PassDataContainer()
+                                             {
+                                                 data = new PassData[1]
+                                                        {
+                                                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                                                        }
+                                             };
+                    SpellMain lightning = Instantiate(skill.spell, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    lightning.InitializeMe(Br, containerLightning);
                     break;
 
                 case 2: //overload

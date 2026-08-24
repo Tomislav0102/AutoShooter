@@ -22,7 +22,6 @@ public class SpellMain : MonoBehaviour
     public SpellVisual visual;
 
     [Title("Data")]
-    public SpellType spellType;
     public bool isInterrupt;
     [ReadOnly] public bool spellActive;
     [ReadOnly] public PassDataContainer pd;
@@ -256,7 +255,6 @@ public class SpellMain : MonoBehaviour
                 
                 case PassDataKnockBack knockBack:
                 case PassDataDash dash:
-                case PassDataMagnet magnet:
                     if (targetHasBrain(out Brain brLoco))
                     {
                         brLoco.loco.LocoInjectData(pd);

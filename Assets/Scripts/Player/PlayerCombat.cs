@@ -35,7 +35,6 @@ public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
     public int engageRange = 10;
     [SerializeField] float ultimateCooldownTime;
     [SerializeField] PlayerLoco playerLoco;
-    public MyDuo<bool, SoSkill> skillPair;
 
 
     void OnEnable()

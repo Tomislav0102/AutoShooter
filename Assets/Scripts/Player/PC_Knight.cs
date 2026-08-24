@@ -14,7 +14,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            _playerCombat = GetComponent<PlayerCombat>();
             // switch (startActive)
             // {
             //     case 0:
@@ -34,7 +33,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     Brain _br;
     [SerializeField] Transform myShield;
     public int startActive;
-    PlayerCombat _playerCombat;
     
     
     
@@ -49,7 +47,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack))
             }
         };
-        SpellMain melee = Instantiate(_playerCombat.skillPair.GetValue(0).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        SpellMain melee = Instantiate(Br.character.skillPair.GetValue(0).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
             if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
@@ -115,8 +113,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         switch (combatEvent)
         {
             case CombatEvent.Strike:
-                if (!Br.health.IsAtFullHealth()) return;
-                if (!_playerCombat.skillPair.GetKey(1)) return;
+                if (!Br.health.IsAtFullHealth() || 
+                    !Br.character.skillPair.GetKey(1)) return;
                 PassDataContainer containerArc = new PassDataContainer()
                 {
                     canBeBlocked = true,
@@ -125,15 +123,19 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MagicDamage) }),
                     }
                 };
-                SpellMain arc = Instantiate(_playerCombat.skillPair.GetValue(1).spell ,Br.myTransform.position,Br.myTransform.rotation, Ga.me.spells.myTransform);
+                SpellMain arc = Instantiate(Br.character.skillPair.GetValue(1).spell ,Br.myTransform.position,Br.myTransform.rotation, Ga.me.spells.myTransform);
                 arc.InitializeMe(Br, containerArc);
                 break;
             case CombatEvent.Hit:
                 break;
             case CombatEvent.Miss:
                 float chance = 0.05f;
-                if (Random.value > chance ||Br.combat.MyTarget == null) return;
+                SoSkill shieldThrowSkill = Br.character.skillPair.GetValue(2);
+                if (Random.value > chance || 
+                    Br.combat.MyTarget == null ||
+                    !Br.character.skillPair.GetKey(2)) return;
                 Vector3 dir = Utils.Direction(myShield.position,Br.combat.MyTarget.position);
+                int ricochet = Br.character.GetStat(Stats.Ricochet);
                 PassDataContainer containerThrow = new PassDataContainer()
                 {
                     canBeBlocked = true,
@@ -142,7 +144,14 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] {Br.character.GetStat(Stats.MagicDamage) }),
                     }
                 };
+                if (shieldThrowSkill.hasExtra && 
+                    shieldThrowSkill.extraStats.TryGetValueByKey(Stats.Ricochet, out int extraStat))
+                {
+                    ricochet += extraStat;
+                }
                 SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
+                BulletTransporter bulletTransporter =  shieldThrow.transporter as BulletTransporter;
+                bulletTransporter.ricochet = ricochet;
                 shieldThrow.InitializeMe(Br, containerThrow);
                 break;
             case CombatEvent.GetHit:

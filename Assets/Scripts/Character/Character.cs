@@ -30,8 +30,9 @@ public class Character : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    [ShowInInspector, ReadOnly] StatSingle[] _myStats;
-    
+    public MyDuo<bool, SoSkill> skillPair;
+    StatSingle[] _myStats;
+
     
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
 
