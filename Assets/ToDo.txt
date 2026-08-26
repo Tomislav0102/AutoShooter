@@ -6,8 +6,8 @@ Implement status mechanics
 DOT - (burn, poison, etc...) Define mechanics.
           
 KNIGHT
-Implement Slash and Blunt skills 
 Fix stab animation (animator is ready)
+Strikes/hits skills should have visual element for feedback to player
 
 ARCHER
 Roll mechanics
@@ -27,6 +27,10 @@ Blocking can activate from front side (180 arc front)
 Dodging can activate from both sides
 Sneak attack is from back side (180 arc back)
 Edge case with Dash and ContactDamage spells - Consider using some kind of container when casting several spells at once. Now there is violation of DRY principle, knight and cobra are using same code.
+Stats and buffs - integers are added, while floats are percentages (e.g. 0.1f is reduction of 90%, 1.2f is increase of 20%)
+
+KNIGHT
+Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime of player has appropriate weapon.
 
 TRAPS
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.

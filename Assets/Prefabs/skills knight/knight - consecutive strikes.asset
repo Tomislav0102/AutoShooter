@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: shield throw - knight
+  m_Name: knight - consecutive strikes
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
+  infoA: Integers are added, floats are multiplied.
+  description: Every strike after first adds 50% base MeleeDamage (e.g 1st+0%, 2nd+50%,
+    3rd+100%, 4th+150%, ...). After reaching maximum number of strikes it resets.
+  levelUpEffect: Increased maximum number of strikes per level of skill.
   skillName: 
   skillType: 0
+  level: 0
   hasStat: 0
   stats:
     <Key>k__BackingField: 
@@ -22,13 +27,13 @@ MonoBehaviour:
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
-  hasSpell: 1
-  spell: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
-  hasExtra: 1
+  hasSpell: 0
+  spell: {fileID: 0}
+  hasExtra: 0
   extraStats:
-    <Key>k__BackingField: 18000000
-    <Value>k__BackingField: 01000000
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
   hasGeneric: 0
-  nums: 
-  floats: []
-  strings: []
+  numGeneric: 0
+  floatGeneric: 0
+  stringGeneric: 

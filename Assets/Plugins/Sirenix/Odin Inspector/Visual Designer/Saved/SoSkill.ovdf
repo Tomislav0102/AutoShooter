@@ -1,0 +1,13 @@
+OVDF v1.1
+SoSkill, Assembly-CSharp
+MetaGuid:5febf8c21f21feb49a7eea4f3ce5f466
+
+# description
+* [UnityEngine.TextAreaAttribute]
+	maxLines = 10
+	minLines = 1
+
+# levelUpEffect
+* [UnityEngine.TextAreaAttribute]
+	maxLines = 10
+	minLines = 1

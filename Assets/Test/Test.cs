@@ -9,6 +9,9 @@ using UnityEngine.AI;
 public class Test : MonoBehaviour
 {
     public ParticleSystem ps;
+    public int num1;
+    public int num2;
+    public int rez;
     
     [Button]
     void PlayEvent()
@@ -23,8 +26,9 @@ public class Test : MonoBehaviour
 
     void Update()
     {
-      //  dot = Vector2.Dot(Utils.MakeV2(tr.forward), Utils.MakeV2(Vector3.forward));
-      //dir = (Utils.MakeV2(transform.position) - Utils.MakeV2(tr.position)).normalized;
+        rez = num1 % num2;
+        //  dot = Vector2.Dot(Utils.MakeV2(tr.forward), Utils.MakeV2(Vector3.forward));
+        //dir = (Utils.MakeV2(transform.position) - Utils.MakeV2(tr.position)).normalized;
     }
 }
 

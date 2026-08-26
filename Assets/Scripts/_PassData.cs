@@ -72,6 +72,12 @@ public class PassDataDamage : PassData
         addSpellVelocity = addVelocity;
         priority = 50;
     }
+    public PassDataDamage(MyDuo<Element, float> pair, bool addVelocity = false)
+    {
+        this.pair = pair;
+        addSpellVelocity = addVelocity;
+        priority = 50;
+    }
 }
 
 

@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 public class Character : MonoBehaviour, IIniBrain
 {
-    // public enum BuffType //only to handle stacking (e.g. Inventory buffs don't stack, while Status do
+    // public enum BuffType //only to handle stacking (e.g. Inventory buffs don't stack, while Status do)
     // {
     //     Inventory, 
     //     Status, //slowed, wet, cold...
@@ -35,6 +35,10 @@ public class Character : MonoBehaviour, IIniBrain
 
     
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
+    public float GetStat(Stats stat, float percentage)
+    {
+        return data.baseStats[stat] * percentage + GetStat(stat) - data.baseStats[stat];
+    }
 
     public void BuffInjectData(PassDataStats pds)
     {
@@ -59,7 +63,6 @@ public class Character : MonoBehaviour, IIniBrain
                 break;
         }
     }
-
     void Update()
     {
         foreach (StatSingle stat in _myStats)

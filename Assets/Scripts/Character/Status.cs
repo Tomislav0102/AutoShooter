@@ -74,6 +74,7 @@ public class Status : MonoBehaviour, IIniBrain
         
     }
 
+
     class Group
     {
         public Effect effect;

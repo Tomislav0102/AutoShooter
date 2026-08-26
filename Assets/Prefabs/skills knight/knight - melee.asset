@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: sweeping arc - knight
+  m_Name: knight - melee
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
+  infoA: Level of skill starts at 0 (in-game its level1).
+  description: Standard melee attack, always available
+  levelUpEffect: None
   skillName: 
   skillType: 0
+  animAttackType: 0
+  level: 0
   hasStat: 0
   stats:
     <Key>k__BackingField: 
@@ -23,12 +28,12 @@ MonoBehaviour:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasSpell: 1
-  spell: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
+  spell: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   hasExtra: 0
   extraStats:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasGeneric: 0
-  nums: 
-  floats: []
-  strings: []
+  numGeneric: 0
+  floatGeneric: 0
+  stringGeneric: 

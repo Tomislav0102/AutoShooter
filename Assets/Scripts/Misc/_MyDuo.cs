@@ -16,8 +16,8 @@ public class MyDuo<K, V>
     string _prefixDebug() => $"MyDou<{Key},{Value}> debug info:\n";
     K[] _bufferKey;
     V[] _bufferValue;
-    bool _canHaveDuplicateKeys;
-    bool _canHaveDuplicateValues;
+    public bool CanHaveDuplicateKeys { get; private set; }
+    public bool CanHaveDuplicateValues { get; private set; }
 
     #region CONSTRUCTORS
     
@@ -25,8 +25,8 @@ public class MyDuo<K, V>
     {
         Key = Array.Empty<K>();
         Value = Array.Empty<V>();
-        _canHaveDuplicateKeys = canHaveDuplicateKeys;
-        _canHaveDuplicateValues = canHaveDuplicateValues;
+        CanHaveDuplicateKeys = canHaveDuplicateKeys;
+        CanHaveDuplicateValues = canHaveDuplicateValues;
     }
     public MyDuo(Dictionary<K, V> fromDictionary, bool canHaveDuplicateKeys = false, bool canHaveDuplicateValues = true)
     {
@@ -39,8 +39,8 @@ public class MyDuo<K, V>
             Value[count] = item.Value;
             count++;
         }
-        _canHaveDuplicateKeys = canHaveDuplicateKeys;
-        _canHaveDuplicateValues = canHaveDuplicateValues;
+        CanHaveDuplicateKeys = canHaveDuplicateKeys;
+        CanHaveDuplicateValues = canHaveDuplicateValues;
     }
 
     public MyDuo(K[] keys, V[] values)
@@ -51,8 +51,8 @@ public class MyDuo<K, V>
 
         for (int i = 0; i < Length(); i++)
         {
-            if (isDuplicateKey(Key[i])) _canHaveDuplicateKeys = true;
-            if (isDuplicateValue(Value[i])) _canHaveDuplicateValues = true;
+            if (isDuplicateKey(Key[i])) CanHaveDuplicateKeys = true;
+            if (isDuplicateValue(Value[i])) CanHaveDuplicateValues = true;
         }
 
         bool isDuplicateKey(K key)
@@ -99,7 +99,7 @@ public class MyDuo<K, V>
     #region SET DATA
     public void Add(K key, V value)
     {
-        if (!_canHaveDuplicateKeys)
+        if (!CanHaveDuplicateKeys)
         {
             for (int i = 0; i < Key.Length; i++)
             {
@@ -110,7 +110,7 @@ public class MyDuo<K, V>
                 }
             }
         }
-        if (!_canHaveDuplicateValues)
+        if (!CanHaveDuplicateValues)
         {
             for (int i = 0; i < Value.Length; i++)
             {
@@ -136,6 +136,53 @@ public class MyDuo<K, V>
             _bufferValue[i] = Value[i];
         }
         
+        Key = _bufferKey;
+        Value = _bufferValue;
+    }
+    public void AddRange(MyDuo<K, V> anotherDuo)
+    {
+        if (anotherDuo == null || anotherDuo.Length() == 0)
+        {
+            Debug.LogWarning("Dou to add is null or empty");
+            return;
+        }
+        if (!CanHaveDuplicateKeys)
+        {
+            for (int i = 0; i < Length(); i++)
+            {
+                for (int j = 0; j < anotherDuo.Length(); j++)
+                {
+                    if (!Key[i].Equals(anotherDuo.Key[j])) continue;
+                    Debug.LogError($"{anotherDuo.Key[j]} already present");
+                    return;
+                }
+            }
+        }
+        if (!CanHaveDuplicateValues)
+        {
+            for (int i = 0; i < Length(); i++)
+            {
+                for (int j = 0; j < anotherDuo.Length(); j++)
+                {
+                    if (!Value[i].Equals(anotherDuo.Value[j])) continue;
+                    Debug.LogError($"{anotherDuo.Value[j]} already present");
+                    return;
+                }
+            }
+        }
+        
+        _bufferKey = new K[Length() + anotherDuo.Length()];
+        _bufferValue = new V[Length() + anotherDuo.Length()];
+        for (int i = 0; i < Length(); i++)
+        {
+            _bufferKey[i] =  Key[i];
+            _bufferValue[i] =  Value[i];
+        }
+        for (int i = Length(); i < _bufferKey.Length; i++)
+        {
+            _bufferKey[i] = anotherDuo.GetKey(i - Length());
+            _bufferValue[i] =  anotherDuo.GetValue(i - Length());
+        }
         Key = _bufferKey;
         Value = _bufferValue;
     }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: melee - knight
+  m_Name: mage ele - lightning strike
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   skillName: 
   requirements: []
-  usedByKnight: 1
-  usedByMage: 0
+  usedByKnight: 0
+  usedByMage: 1
   usedByArcher: 0
   hasExtraProjectiles: 0
   extraProjectileCount: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasSpell: 1
-  spell: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
+  spell: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
   hasSpellProjectileCount: 0
   spellProjectileCount: 1
   hasCombatEventReq: 0

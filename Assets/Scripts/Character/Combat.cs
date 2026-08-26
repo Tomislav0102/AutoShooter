@@ -58,7 +58,7 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
     [HideInInspector] public float distanceToTarget;
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;
-    
+    [HideInInspector] public int counterHit, counterMiss, counterStrike;
 
     
     public void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
@@ -66,8 +66,15 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
         switch (combatEvent)
         {
             case CombatEvent.Hit:
+                CombatEventRegistered(CombatEvent.Strike);
+                counterHit++;
+                break;
             case CombatEvent.Miss:
                 CombatEventRegistered(CombatEvent.Strike);
+                counterMiss++;
+                break;
+            case CombatEvent.Strike:
+                counterStrike++;
                 break;
         }   
         combatRegisterEv.Invoke(combatEvent, otherBrain);

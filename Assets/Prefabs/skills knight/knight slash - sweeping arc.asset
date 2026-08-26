@@ -10,29 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: lightning strike - mage
+  m_Name: knight slash - sweeping arc
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   skillName: 
-  requirements: []
-  usedByKnight: 0
-  usedByMage: 1
-  usedByArcher: 0
-  hasExtraProjectiles: 0
-  extraProjectileCount: 0
-  hasExtraSize: 0
-  extraSize: 0
-  hasExtraDuration: 0
-  extraDuration: 0
+  skillType: 0
+  hasStat: 0
+  stats:
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasSpell: 1
-  spell: {fileID: 4471894182779111283, guid: 3c5b66776ee05454a8841b1637c03af0, type: 3}
-  hasSpellProjectileCount: 0
-  spellProjectileCount: 1
-  hasCombatEventReq: 0
-  combatEventReq: 0
+  spell: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
+  hasExtra: 0
+  extraStats:
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
+  hasGeneric: 0
   nums: 
   floats: []
   strings: []

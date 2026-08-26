@@ -151,6 +151,34 @@ PrefabInstance:
       propertyPath: 'skillPair.<Value>k__BackingField.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 3217fb0932ef49a4a86d0f4d74652b10, type: 2}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 30290}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CombatEventCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Character, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508689808134516916, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4231247348864517342, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -196,12 +224,40 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: _myStats.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: _myStats.Array.data[0].buffs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: skillPair.<Key>k__BackingField.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: skillPair.<Value>k__BackingField.Array.size
-      value: 3
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[2]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[3]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[4]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Key>k__BackingField.Array.data[5]'
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: 'skillPair.<Value>k__BackingField.Array.data[0]'
@@ -215,6 +271,18 @@ PrefabInstance:
       propertyPath: 'skillPair.<Value>k__BackingField.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: eac42b2e8296781448bf62704765a765, type: 2}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c0fc4c2107113ef4d81510612393aaad, type: 2}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b6454aa39dcd0947982e8dfbf941c2b, type: 2}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'skillPair.<Value>k__BackingField.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c26923595ffafa4a964040fa4ece14b, type: 2}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_Name
       value: BP_Knight
@@ -245,6 +313,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
   m_PrefabInstance: {fileID: 30288}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &30290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+  m_PrefabInstance: {fileID: 30288}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a347948231971c044b13eb4c1b3c736b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
 --- !u!1 &1264422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
   ps: {fileID: 0}
+  num1: 1
+  num2: 5
+  rez: 0
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
