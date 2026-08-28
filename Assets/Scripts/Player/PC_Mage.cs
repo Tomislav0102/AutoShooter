@@ -33,7 +33,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     PassDataContainer pd = new PassDataContainer()
                     {
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { 1f })
                         },
@@ -50,21 +50,21 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     float[] swordsDamage = new float[1] { 0.3f * Br.character.GetStat(Stats.MagicDamage) };
                     PassDataContainer pdFire = new PassDataContainer()
                     {
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataDamage(new Element[1] { Element.Fire }, swordsDamage)
                         }
                     };
                     PassDataContainer pdIce= new PassDataContainer()
                     {
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataDamage(new Element[1] { Element.Ice }, swordsDamage)
                         }
                     };
                     PassDataContainer pdElectricity = new PassDataContainer()
                     {
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataDamage(new Element[1] { Element.Electricity }, swordsDamage)
                         }
@@ -107,7 +107,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 case 3:
                     PassDataContainer container = new PassDataContainer()
                     {
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataDamage(new Element[1] { Element.Fire },
                                 new float[1] { value.character.GetStat(Stats.RangedDamage) })
@@ -133,7 +133,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 case 6:
                     PassDataContainer containerManaShield = new PassDataContainer()
                     {
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataManaShield(100)
                         }
@@ -173,16 +173,9 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     
     void ArcaneShieldSpawn()
     {
-        PassDataContainer container = new PassDataContainer()
-        {
-            data = new PassData[1]
-            {
-                new PassDataSpell(System.Array.Empty<SpellMain>(), PassData.HitEffectOnSpell.Nullify)
-            }
-        };
         SpellMain arcaneShield = Instantiate(Ga.me.spells.arcaneShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         arcaneShield.transporter.target = Br.myTransform;
-        arcaneShield.InitializeMe(Br, container);
+        arcaneShield.InitializeMe(Br);
         arcaneShield.onHitTarget += (Brain br) =>
         {
             ArcaneShieldCoroutineControl();
@@ -246,7 +239,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     var containerHoming = new PassDataContainer()
                                           {
                                               canBeBlocked = true,
-                                              data = new PassData[1]
+                                              data = new List<PassData>()
                                                      {
                                                          new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                                                      }
@@ -277,7 +270,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
                     var containerLightning = new PassDataContainer()
                                              {
-                                                 data = new PassData[1]
+                                                 data = new List<PassData>()
                                                         {
                                                             new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                                                         }
@@ -290,7 +283,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     List<Transform> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                     var containerOverload = new PassDataContainer()
                                             {
-                                                data = new PassData[1]
+                                                data = new List<PassData>()
                                                        {
                                                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                                                        }
@@ -334,7 +327,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         var containerExplosion = new PassDataContainer()
                                                  {
                                                      canBeBlocked = true,
-                                                     data = new PassData[1]
+                                                     data = new List<PassData>()
                                                             {
                                                                 new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                                                             }
@@ -349,7 +342,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         if (Br.combat.MyTarget == null) return;
                         var containerArea = new PassDataContainer()
                                             {
-                                                data = new PassData[1]
+                                                data = new List<PassData>()
                                                        {
                                                            new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                                                        }
@@ -386,7 +379,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             dam /= (index * index + 1);
                             var container = new PassDataContainer()
                                             {
-                                                data = new PassData[1]
+                                                data = new List<PassData>()
                                                        {
                                                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { dam }),
                                                        }
@@ -402,7 +395,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     if (targetsMeteor.Count == 0) return;
                     var containerMeteor = new PassDataContainer()
                                           {
-                                              data = new PassData[1]
+                                              data = new List<PassData>()
                                                      {
                                                          new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                                                      }
@@ -423,7 +416,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         // PassDataContainer container = new PassDataContainer()
         // {
         //     canBeBlocked = false,
-        //     data = new PassData[1]
+        //     data = new List<PassData>()
         //     {
         //         new PassDataDamage(new Element[2] { Element.Physical, Element.Fire }, new float[2] { Br.character.GetStat(Stats.MagicDamage), Br.character.GetStat(Stats.MagicDamage) }),
         //     }

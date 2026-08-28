@@ -267,6 +267,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: id
+      value: 626361994
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 5129601345381124616}
@@ -329,33 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c766320bfafaf47860b8d8f5989a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_A_Screen
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: _damageInspector
-      Entry: 6
-      Data: 
-  myFactionTarget: 1
-  areaOfEffect: 1
-  warningDelay: 0
-  hitChance: 1
-  lifeTime: 10
-  rateOfFire: 0.33333334
-  terminateOnHit: 0
-  useInspectorDamageData: 0
-  injectHealth:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    knockBack: 0
-  hitEffect: 0
-  hitEffectOnSpell: 0
-  spellsToAffect: []
 --- !u!4 &5894121699440521818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

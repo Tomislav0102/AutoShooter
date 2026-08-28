@@ -10,15 +10,18 @@ public class PassDataContainer
     public Brain myBrain;
     public bool canBeBlocked;
     public bool canBeDodged;
-    public PassData[] data;
+    public List<PassData> data;
+
+    public PassDataContainer()
+    {
+        data = new List<PassData>();
+    }
 }
 
 [System.Serializable]
 public class PassData
 {
     public enum HitEffectOnSpell { Nullify, Reflect }
-    [ReadOnly] public int priority;
-
 }
 
 
@@ -29,7 +32,6 @@ public class PassDataManaShield : PassData
 
     public PassDataManaShield(int manaShieldPoints)
     {
-        priority = 20;
         this.manaShieldPoints = manaShieldPoints;
     }
 }
@@ -37,12 +39,11 @@ public class PassDataManaShield : PassData
 [System.Serializable]
 public class PassDataKnockBack : PassData
 {
-    [FormerlySerializedAs("knockBackPower")] public int power;
-    [FormerlySerializedAs("knockBackDirection")] public Vector2 direction; //ignored if = Vector2.zero
+    public int power;
+    public Vector2 direction; //ignored if = Vector2.zero
 
     public PassDataKnockBack(int power, Vector2 direction = new Vector2())
     {
-        priority = 30;
         this.power = power;
         this.direction = direction;
     }
@@ -54,11 +55,11 @@ public class PassDataDash : PassData
     
     public PassDataDash(int power, Vector2 direction = new Vector2())
     {
-        priority = 25;
         this.power = power;
         this.direction = direction;
     }
 }
+
 [System.Serializable]
 public class PassDataDamage : PassData
 {
@@ -70,13 +71,11 @@ public class PassDataDamage : PassData
     {
         pair = new MyDuo<Element, float>(keys, values);
         addSpellVelocity = addVelocity;
-        priority = 50;
     }
     public PassDataDamage(MyDuo<Element, float> pair, bool addVelocity = false)
     {
         this.pair = pair;
         addSpellVelocity = addVelocity;
-        priority = 50;
     }
 }
 
@@ -84,49 +83,61 @@ public class PassDataDamage : PassData
 [System.Serializable]
 public class PassDataSpell: PassData
 {
-    public SpellMain[] spellsToAffect;
-    public HitEffectOnSpell effect;
-
-    public PassDataSpell(SpellMain[] spellsToAffect, HitEffectOnSpell effect)
+    public MyDuo<HitEffectOnSpell, SpellMain> pair;
+    public PassDataSpell(HitEffectOnSpell[] keys, SpellMain[] values)
     {
-        priority = 100;
-        this.spellsToAffect = spellsToAffect;
-        this.effect = effect;
+        pair = new MyDuo<HitEffectOnSpell, SpellMain>(keys, values);
     }
+    public PassDataSpell(MyDuo<HitEffectOnSpell, SpellMain> pair)
+    {
+        this.pair = pair;
+    }
+
 }
 
 [System.Serializable]
 public class PassDataStats : PassData 
 {
-    public Stats stat;
-    public GenChange change;
-    public int value;
-    bool ShowHasDuration() => change == GenChange.Add;
-    bool ShowDuration() => change == GenChange.Add && hasDuration;
-    [ShowIf(nameof(ShowHasDuration))] public bool hasDuration;
-    [ShowIf(nameof(ShowDuration))] public float duration;
+    public Group[] group;
     
-    public PassDataStats(Stats stat, GenChange change, int value, float duration = float.PositiveInfinity)
+    [System.Serializable]
+    public class Group
     {
-        priority = 50;
-        this.stat = stat;
-        this.change = change;
-        this.value = value;
-        hasDuration = !float.IsPositiveInfinity(duration);
+        public Stats stat;
+        public GenChange change;
+        public int value;
+        bool ShowHasDuration() => change == GenChange.Add;
+        bool ShowDuration() => change == GenChange.Add && hasDuration;
+        [ShowIf(nameof(ShowHasDuration))] public bool hasDuration;
+        [ShowIf(nameof(ShowDuration))] public float duration;
+        
+        public Group(Stats stat, GenChange change, int value, float duration = float.PositiveInfinity)
+        {
+            this.stat = stat;
+            this.change = change;
+            this.value = value;
+            hasDuration = !float.IsPositiveInfinity(duration);
+        }
     }
 }
 [System.Serializable]
 public class PassDataEffect: PassData
 {
-    public EffectGroup[] group;
-    
+    public Group[] group;
     
     [System.Serializable]
-    public struct EffectGroup
+    public class Group
     {
         public AttackEffect effect;
         public float duration;
         public int damagePerTick;
+
+        public Group(AttackEffect effect, float duration = 0, int damagePerTick = 1)
+        {
+            this.effect = effect;
+            this.duration = duration;
+            this.damagePerTick = damagePerTick;
+        }
     }
 }
 

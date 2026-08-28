@@ -1,0 +1,21 @@
+OVDF v1.1
+MyDuo`2[[System.Boolean, mscorlib],[SoSkill, Assembly-CSharp]], Assembly-CSharp
+
+# $PR8WyL2FjCaswtJjC6zpQr
+Position: $KwNFwH5xbuZw2QZ3cHWtcF:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $UPMBDNsALccP4UhtgkG7go
+Position: $PR8WyL2FjCaswtJjC6zpQr:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 33 %
+
+# $UMFT7B2qsuY4UnPdtESozm
+Position: $PR8WyL2FjCaswtJjC6zpQr:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# <Key>k__BackingField
+Position: $UPMBDNsALccP4UhtgkG7go:0
+
+# <Value>k__BackingField
+Position: $UMFT7B2qsuY4UnPdtESozm:0

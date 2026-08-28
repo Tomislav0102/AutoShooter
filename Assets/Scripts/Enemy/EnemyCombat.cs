@@ -75,7 +75,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new PassData[1]
+                    data = new List<PassData>()
                     {
                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
                        // new PassDataKnockBack(5)
@@ -91,7 +91,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new PassData[1]
+                    data = new List<PassData>()
                     {
                         new PassDataDamage(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                     }
@@ -116,7 +116,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new PassData[1]
+                    data = new List<PassData>()
                     {
                         new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                     }
@@ -130,7 +130,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
             case 3: //dash with damage (used by cobra)
                 PassDataContainer pdDash = new PassDataContainer()
                 {
-                    data = new PassData[1]
+                    data = new List<PassData>()
                     {
                         new PassDataDash(Ga.me.gameData.dashPower),
                     }
@@ -144,7 +144,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (2 * Random.Range(0,2) - 1));
                 PassDataContainer pdContactDamage = new PassDataContainer()
                 {
-                    data = new PassData[2]
+                    data = new List<PassData>()
                     {
                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 5f }),
                         new PassDataKnockBack(30, knockBackDir2)

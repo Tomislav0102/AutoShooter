@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 
 public class Health: MonoBehaviour, IIniBrain
@@ -23,11 +25,6 @@ public class Health: MonoBehaviour, IIniBrain
             for (int i = 0; i < psElements.Length; i++)
             {
                 _dictPsElements.Add((Element)i, psElements[i]);
-            }
-            _dictPsStatus = new Dictionary<Status.Effect, ParticleSystem>();
-            for (int i = 0; i < psStatus.Length; i++)
-            {
-                _dictPsStatus.Add((Status.Effect)i, psStatus[i]);
             }
             _screenCenter = new Vector3(Screen.width, Screen.height, 0) * 0.5f;
             _pointer = Instantiate(Ga.me.offScreenPointerPrefab, Ga.me.parPointers);
@@ -75,12 +72,10 @@ public class Health: MonoBehaviour, IIniBrain
     float _timerShield;
     const int CONST_ShieldWaitTime = 3;
     const int CONST_ShieldRegenAmount = 100;
-    
+    [SerializeField] UnityEvent onDamageReceived;
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
-    [SerializeField] ParticleSystem[] psStatus;
     Dictionary<Element, ParticleSystem> _dictPsElements;
-    Dictionary<Status.Effect, ParticleSystem> _dictPsStatus;
     [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
     public void HealthInjectData(PassDataContainer pd)
@@ -103,8 +98,6 @@ public class Health: MonoBehaviour, IIniBrain
             }
         }
         
-
-        
         foreach (PassData item in pd.data)
         {
             switch (item)
@@ -116,7 +109,7 @@ public class Health: MonoBehaviour, IIniBrain
                         float val = dam.pair.GetValue(i);
                         switch (val)
                         {
-                            case < 0:
+                            case < 0: //heal
                                 psHeal.Play();
                                 break;
                             case > 0:
@@ -157,6 +150,25 @@ public class Health: MonoBehaviour, IIniBrain
 
                 case PassDataManaShield manaShield:
                     SetShield(manaShield.manaShieldPoints);
+                    break;
+                
+                case PassDataEffect effect:
+                    foreach (PassDataEffect.Group effectGroup in effect.group)
+                    {
+                        if (effectGroup == null) continue;
+                        switch (effectGroup.effect)
+                        {
+                            case AttackEffect.InstantKill:
+                                float chance = Random.value * 100;
+                                if (chance <= effectGroup.damagePerTick)
+                                {
+                                    print("Executioner!");
+                                    Death();
+                                    return;
+                                }
+                                break;
+                        }
+                    }
                     break;
             }
 

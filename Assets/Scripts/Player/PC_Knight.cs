@@ -33,23 +33,56 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     Brain _br;
     [SerializeField] Transform myShield;
     public int startActive;
-    float _consecutiveStrikeIncrease = 1f;
+    float _crescendoStrikeIncrease = 1f;
     MyDuo<Element, float> _elementStrikesIncrease = new MyDuo<Element, float>();
     
     public void AnimEv_AttackCallback(int num = 0)
     {
-        MyDuo<Element, float> totalDamage = new MyDuo<Element, float>();
-        totalDamage.Add(Element.Physical, Br.character.GetStat(Stats.MeleeDamage, _consecutiveStrikeIncrease));
+        //damage
+        MyDuo<Element, float> totalDamage = new MyDuo<Element, float>(true);
+        totalDamage.Add(Element.Physical, Br.character.GetStat(Stats.MeleeDamage, _crescendoStrikeIncrease));
         totalDamage.AddRange(_elementStrikesIncrease);
+
+        //attack effects
+        bool addEffect = false;
+        PassDataEffect.Group executioner = null;
+        PassDataEffect.Group bleeding = null;
+        if (Br.character.skillPair.GetKey(6))
+        {
+            addEffect = true;
+            executioner = Br.character.skillPair.GetValue(6).effect.group[0];
+        }
+        if (Br.character.skillPair.GetKey(7))
+        {
+            addEffect = true;
+            bleeding = Br.character.skillPair.GetValue(7).effect.group[0];
+        }
+        
+        //stats
+        bool addArmorBreaker = false;
+        PassDataStats.Group[] armorBreaker = null;
+        if (Br.character.skillPair.GetKey(8))
+        {
+            float chance = 0.05f;
+            if (chance < Random.value)
+            {
+                addArmorBreaker = true;
+                armorBreaker = Br.character.skillPair.GetValue(8).stats;
+            }
+        }
+        
         PassDataContainer container = new PassDataContainer()
         {
             canBeBlocked = true,
-            data = new PassData[2]
+            data = new List<PassData>()
             {
                  new PassDataDamage(totalDamage, true),
-                 new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack))
+                 new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack)),
             }
         };
+        if (addEffect) container.data.Add(new PassDataEffect() { group = new PassDataEffect.Group[2] {executioner, bleeding}});
+        if (addArmorBreaker) container.data.Add(new PassDataStats() { group = armorBreaker });
+        
         SpellMain melee = Instantiate(Br.character.skillPair.GetValue(0).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
@@ -57,7 +90,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             else Br.combat.CombatEventRegistered(CombatEvent.Hit, br);
         };
         melee.InitializeMe(Br, container);
-        _consecutiveStrikeIncrease = 1f;
+        
+        _crescendoStrikeIncrease = 1f;
         _elementStrikesIncrease = new MyDuo<Element, float>();
     }
     
@@ -69,7 +103,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         {
             PassDataContainer pdDash = new PassDataContainer()
             {
-                data = new PassData[1]
+                data = new List<PassData>()
                 {
                     new PassDataDash(Ga.me.gameData.dashPower),
                 }
@@ -84,7 +118,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (2 * Random.Range(0,2) - 1));
             PassDataContainer pdContactDamage = new PassDataContainer()
             {
-                data = new PassData[2]
+                data = new List<PassData>()
                 {
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 4f }),
                     new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack), knockBackDir2)
@@ -102,7 +136,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             heal.transporter.target = Br.myTransform;
             var containerHeal = new PassDataContainer()
             {
-                data = new PassData[1]
+                data = new List<PassData>()
                 {
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { -200f })
                 }
@@ -121,7 +155,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 int strikes = Br.combat.counterStrike;
 
                 sweepingArc();
-                consecutiveStrikes();
+                grandCrescendo();
                 elementalStrikes();
 
                 void sweepingArc()
@@ -131,7 +165,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     PassDataContainer containerArc = new PassDataContainer()
                     {
                         canBeBlocked = true,
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
                             new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                         }
@@ -139,7 +173,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     SpellMain arc = Instantiate(Br.character.skillPair.GetValue(1).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                     arc.InitializeMe(Br, containerArc);
                 }
-                void consecutiveStrikes()
+                void grandCrescendo()
                 {
                     if (!Br.character.skillPair.GetKey(4)) return;
                     int skillLevel = Br.character.skillPair.GetValue(4).level + 2;
@@ -152,7 +186,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         int val = valueToAdd * i - valueToAdd;
                         if (val < 0) val = (skillLevel - 1) * valueToAdd;
                         resultingAddedDamage += val;
-                        _consecutiveStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
+                        _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
                     }
 
                 }
@@ -187,21 +221,39 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             
             case CombatEvent.Hit:
                 explosiveHit();
+                concussiveWave();
                 void explosiveHit()
                 {
                     if (!Br.character.skillPair.GetKey(3)) return;
                     if (Br.combat.counterHit % 3 != 0) return;
-                    SpellMain ex = Instantiate(Br.character.skillPair.GetValue(3).spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     PassDataContainer container = new PassDataContainer()
                     {
                         canBeBlocked = true,
-                        data = new PassData[1]
+                        data = new List<PassData>()
                         {
-                            new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 100 * Br.character.GetStat(Stats.MagicDamage) }),
+                            new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                         }
                     };
+                    SpellMain ex = Instantiate(Br.character.skillPair.GetValue(3).spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     ex.transporter.target = Br.combat.MyTarget;
                     ex.InitializeMe(Br, container);
+                }
+                void concussiveWave()
+                {
+                    if (!Br.character.skillPair.GetKey(9)) return;
+                    SoSkill skill  = Br.character.skillPair.GetValue(9);
+                    if (skill.floatGeneric < Random.value) return;
+                    PassDataContainer container = new PassDataContainer()
+                    {
+                        canBeBlocked = true,
+                        data = new List<PassData>()
+                        {
+                            new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                        }
+                    };
+                    SpellMain concussive = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    concussive.areaOfEffect += skill.extraStats.GetValue(0);
+                    concussive.InitializeMe(Br, container);
                 }
                 break;
             
@@ -217,7 +269,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 PassDataContainer containerThrow = new PassDataContainer()
                 {
                     canBeBlocked = true,
-                    data = new PassData[1]
+                    data = new List<PassData>()
                     {
                         new PassDataDamage(damage),
                     }
@@ -250,7 +302,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             PassDataContainer container = new PassDataContainer()
             {
                 myBrain =Br,
-                data = new PassData[1]
+                data = new List<PassData>()
                 {
                     new PassDataKnockBack(30)
                 }

@@ -39,7 +39,7 @@ public class OvrPassData : MonoBehaviour
         if (hasSpell) data.Add(spellData);
         if (hasStats) data.Add(stats);
         
-        container.data = data.ToArray();
+        container.data = data;
         
         return container;
     }

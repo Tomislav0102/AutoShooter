@@ -143,7 +143,7 @@ public class MyDuo<K, V>
     {
         if (anotherDuo == null || anotherDuo.Length() == 0)
         {
-            Debug.LogWarning("Dou to add is null or empty");
+            Debug.LogWarning("Duo to add is null or empty");
             return;
         }
         if (!CanHaveDuplicateKeys)

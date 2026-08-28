@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: id
+      value: 764751804
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: range
       value: 20
       objectReference: {fileID: 0}
@@ -174,7 +178,6 @@ MonoBehaviour:
   canBeDodged: 0
   hasDamage: 0
   damage:
-    priority: 0
     pair:
       <Key>k__BackingField: 
       <Value>k__BackingField: []
@@ -182,26 +185,18 @@ MonoBehaviour:
     spellsVelocity: {x: 0, y: 0, z: 0}
   hasKnockback: 0
   knockBack:
-    priority: 0
     power: 0
     direction: {x: 0, y: 0}
-  hasMagnet: 1
-  magnet:
-    priority: 0
-    power: 0
-    center: {x: 0, y: 0, z: 0}
   hasManaShield: 0
   manaShield:
-    priority: 0
     manaShieldPoints: 0
   hasSpell: 0
   spellData:
-    priority: 0
-    spellsToAffect: []
-    effect: 0
+    pair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
   hasStats: 0
   stats:
-    priority: 0
     stat: 0
     change: 0
     value: 0

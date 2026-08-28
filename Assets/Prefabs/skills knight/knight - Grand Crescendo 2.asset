@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight - consecutive strikes 3
+  m_Name: knight - Grand Crescendo 2
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Integers are added, floats are multiplied.
   infoB: Level of skill starts at 0 (in-game its level1).
@@ -19,7 +19,7 @@ MonoBehaviour:
   levelUpEffect: Increased maximum number of strikes per level of skill.
   skillName: 
   skillType: 0
-  level: 3
+  level: 2
   hasStat: 0
   stats:
     <Key>k__BackingField: 

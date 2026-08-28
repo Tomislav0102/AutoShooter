@@ -114,7 +114,7 @@ public class PC_Archer : MonoBehaviour
             {
                 myBrain = Br,
                 canBeBlocked = false,
-                data = new PassData[1]
+                data = new List<PassData>()
                 {
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                 }

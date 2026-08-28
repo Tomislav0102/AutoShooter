@@ -12,16 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: knight slash - sweeping arc
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  skillName: 
+  infoA: Level of skill starts at 0 (in-game its level1).
+  description: At Full HP, every swing fires a small piercing crescent wave forward.
+  levelUpEffect: Increases wave width and damage.
   skillType: 0
+  animAttackType: 0
+  level: 0
   hasStat: 0
-  stats:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: 
+  stats: []
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
+  hasAttackEffect: 0
+  effect:
+    group: []
   hasSpell: 1
   spell: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
   hasExtra: 0
@@ -29,6 +34,6 @@ MonoBehaviour:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasGeneric: 0
-  nums: 
-  floats: []
-  strings: []
+  numGeneric: 0
+  floatGeneric: 0
+  stringGeneric: 

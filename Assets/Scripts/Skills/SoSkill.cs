@@ -14,11 +14,13 @@ public class SoSkill : ScriptableObject
 
     [Title("Global")]
     public bool hasStat;
-    [ShowIf(nameof(hasStat))] public MyDuo<Stats, int> stats;
+    [ShowIf(nameof(hasStat))] public PassDataStats.Group[] stats;
     public bool hasExtraDamage;
     [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, int> extraDamage;
     // public bool hasExtraDamagePercentage;
     // [ShowIf(nameof(hasExtraDamagePercentage))] public MyDuo<Element, float> extraDamagePercentage;
+    public bool hasAttackEffect;
+    [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
 
     [Title("Spell")]
     [InfoBox("Does not include stat increases. Extra are stats that affect only this spell (size, duration, knockback...)")]
@@ -37,7 +39,6 @@ public class SoSkill : ScriptableObject
     // [ShowIf(nameof(hasGeneric))] public int[] numArray;
     // [ShowIf(nameof(hasGeneric))] public float[] floatArray;
     // [ShowIf(nameof(hasGeneric))] public string[] stringArray;
-
 }
 
 

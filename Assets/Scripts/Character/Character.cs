@@ -42,26 +42,50 @@ public class Character : MonoBehaviour, IIniBrain
 
     public void BuffInjectData(PassDataStats pds)
     {
-        switch (pds.change)
+        foreach (PassDataStats.Group group in pds.group)
         {
-            case GenChange.Add:
-                int previousValue = _myStats[(int)pds.stat].Value;
-                _myStats[(int)pds.stat].buffs.Add(new Buff(pds.value, pds.hasDuration? pds.duration : float.PositiveInfinity));
-                print ($"{pds.stat} changed from {previousValue} to {_myStats[(int)pds.stat].Value}");
-                break;
-            case GenChange.Remove:
-                bool buffFound = false;
-                foreach (Buff item in _myStats[(int)pds.stat].buffs)
-                {
-                    if (!(item.bonus == pds.value && float.IsPositiveInfinity(item.duration))) continue;
-                    _myStats[(int)pds.stat].buffs.Remove(item);
-                    print ($"Buff on {pds.stat} with value {_myStats[(int)pds.stat].Value} is removed.");
-                    buffFound = true;
+            switch (group.change)
+            {
+                case GenChange.Add:
+                    int previousValue = _myStats[(int)group.stat].Value;
+                    _myStats[(int)group.stat].buffs.Add(new Buff(group.value, group.hasDuration? group.duration : float.PositiveInfinity));
+                    print ($"{group.stat} changed from {previousValue} to {_myStats[(int)group.stat].Value}");
                     break;
-                }
-                if (!buffFound) print("No buff found, nothing is removed");
-                break;
+                case GenChange.Remove:
+                    bool buffFound = false;
+                    foreach (Buff item in _myStats[(int)group.stat].buffs)
+                    {
+                        if (!(item.bonus == group.value && float.IsPositiveInfinity(item.duration))) continue;
+                        _myStats[(int)group.stat].buffs.Remove(item);
+                        print ($"Buff on {group.stat} with value {_myStats[(int)group.stat].Value} is removed.");
+                        buffFound = true;
+                        break;
+                    }
+                    if (!buffFound) print("No buff found, nothing is removed");
+                    break;
+            }
+            
         }
+        // switch (pds.change)
+        // {
+        //     case GenChange.Add:
+        //         int previousValue = _myStats[(int)pds.stat].Value;
+        //         _myStats[(int)pds.stat].buffs.Add(new Buff(pds.value, pds.hasDuration? pds.duration : float.PositiveInfinity));
+        //         print ($"{pds.stat} changed from {previousValue} to {_myStats[(int)pds.stat].Value}");
+        //         break;
+        //     case GenChange.Remove:
+        //         bool buffFound = false;
+        //         foreach (Buff item in _myStats[(int)pds.stat].buffs)
+        //         {
+        //             if (!(item.bonus == pds.value && float.IsPositiveInfinity(item.duration))) continue;
+        //             _myStats[(int)pds.stat].buffs.Remove(item);
+        //             print ($"Buff on {pds.stat} with value {_myStats[(int)pds.stat].Value} is removed.");
+        //             buffFound = true;
+        //             break;
+        //         }
+        //         if (!buffFound) print("No buff found, nothing is removed");
+        //         break;
+        // }
     }
     void Update()
     {

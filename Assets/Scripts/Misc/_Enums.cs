@@ -58,9 +58,12 @@ public enum Stats
     Dodge,
     Health,
     RegenerationRate, //hp increase (divided by 100) per second
-    Toughness,
-    Resolve,
-    Resistances, //opens another enum 'Element'
+    ResistancePhysical,
+    ResistanceFire,
+    ResistanceIce,
+    ResistanceElectricity,
+    ResistancePoison,
+    ResistanceMagic,
     
     //tertiary - adds to spell variables
     Size, 

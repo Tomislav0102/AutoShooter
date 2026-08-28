@@ -25,7 +25,6 @@ public class Loco : MonoBehaviour, IIniBrain
     [SerializeField, Range(0, 10)] public int moveSpeed = 1;
     [SerializeField] protected int knockBackResistance;
     [field: SerializeField, ReadOnly] public bool OvrMotion { get; set; } //can control player, override agent destination
-
     public bool OvrOrientation //has player joystickLookAt, agent.updateRotation
     {
         get => _ovrOrientation;
@@ -37,6 +36,7 @@ public class Loco : MonoBehaviour, IIniBrain
     }
     [ShowInInspector, ReadOnly] bool _ovrOrientation;
     [SerializeField] protected bool isOrientationAlwaysFalse = true;
+    [field:SerializeField, ReadOnly] public bool IsMoving { get; private set; }
     Coroutine _pushCoroutine;
     bool _magnetActive;
     enum MoveOverrideType { None, KnockBack, Dash, Magnet }
@@ -57,12 +57,17 @@ public class Loco : MonoBehaviour, IIniBrain
     public bool IsAttackAnimationPlaying() => anim.GetCurrentAnimatorStateInfo(0 ).IsTag("Attacks");
     public void AE_Attack(int num) => Br.combat.FromAnimEv_Attack(num);
     public void AE_Ultimate(int num) => Br.combat.FromAnimEv_Ultimate(num);
-    public void Direction_Move(float hor, float ver)
+    public void Direction_Move(float hor, float ver) //player
     {
+        IsMoving = !(Mathf.Approximately(hor, 0f) && Mathf.Approximately(ver, 0f));
         anim.SetFloat(_moveHor, hor);
         anim.SetFloat(_moveVer, ver);
     }
-    public void Toggle_Move(bool isMoving) => anim.SetBool(_walk, isMoving);
+    public void Toggle_Move(bool isMoving) //enemy
+    {
+        IsMoving = isMoving;
+        anim.SetBool(_walk, isMoving);
+    }
     public void AttackAnimation(AnimAttackType? attackType)
     {
         if (attackType == null)

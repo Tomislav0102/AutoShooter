@@ -21,6 +21,10 @@ public class SpellMain : MonoBehaviour
     public SpellTransporter transporter;
     public SpellVisual visual;
 
+    [BoxGroup("id", false), ReadOnly] public int id;
+    [BoxGroup("id", false)] [Button]
+    void GenerateId()=> id = Random.Range(0, 999999999);
+    
     [Title("Data")]
     public bool isInterrupt;
     [ReadOnly] public bool spellActive;
@@ -122,6 +126,7 @@ public class SpellMain : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        if (id == 0) print($"{gameObject.name} ID is 0, need to assign ID in inspector!");
         OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
         myRigid.isKinematic = true;
@@ -143,7 +148,7 @@ public class SpellMain : MonoBehaviour
             return;
         }
         pd.myBrain = OwnersBrain;
-        if (pd.data == null) pd.data = System.Array.Empty<PassData>();
+        if (pd.data == null) pd.data = new List<PassData>();
         
         MyPhase = Phase.BeginWarning;
         spellActive = true;
@@ -238,10 +243,11 @@ public class SpellMain : MonoBehaviour
             {
                 case PassDataDamage dam:
                 case PassDataManaShield manaShield:
+                case PassDataEffect effect:
                     if (targetHasBrain(out Brain brHealth))
                     {
                         PassDataDamage d = item as  PassDataDamage;
-                        if (d.addSpellVelocity) d.spellsVelocity = myRigid.linearVelocity;
+                        if (d != null && d.addSpellVelocity) d.spellsVelocity = myRigid.linearVelocity;
                         brHealth.health.HealthInjectData(pd);
                     }
                     break;
@@ -262,34 +268,23 @@ public class SpellMain : MonoBehaviour
                     break;
 
                 case PassDataSpell spellData:
-                    if (targetGeneric.TryGetComponent(out SpellMain targetSpell))
+                    if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
+                        Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
                     {
-                        if (Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+                        for (int i = 0; i < spellData.pair.Length(); i++)
                         {
-                            if (spellData.spellsToAffect.Length == 0) onSpell();
-                            else
-                            {
-                                for (int i = 0; i < spellData.spellsToAffect.Length; i++)
-                                {
-                                    if (targetSpell.GetType() != spellData.spellsToAffect[i].GetType())
-                                        continue;
-                                    onSpell();
-                                }
-                            }
+                            if (targetSpell.id != spellData.pair.GetValue(i).id) continue;
 
-                            void onSpell()
+                            switch (spellData.pair.GetKey(i))
                             {
-                                switch (spellData.effect)
-                                {
-                                    case PassData.HitEffectOnSpell.Nullify:
-                                        targetSpell.MyPhase = Phase.EndStart;
-                                        break;
-                                    case PassData.HitEffectOnSpell.Reflect:
-                                        Vector3 newDirection = Utils.Direction(myTransform.position,
-                                            targetSpell.myTransform.position);
-                                        targetSpell.transporter.ReflectProjectile(OwnersBrain, newDirection);
-                                        break;
-                                }
+                                case PassData.HitEffectOnSpell.Nullify:
+                                    targetSpell.MyPhase = Phase.EndStart;
+                                    break;
+                                case PassData.HitEffectOnSpell.Reflect:
+                                    Vector3 newDirection = Utils.Direction(myTransform.position,
+                                        targetSpell.myTransform.position);
+                                    targetSpell.transporter.ReflectProjectile(OwnersBrain, newDirection);
+                                    break;
                             }
                         }
                         oustedTargetsBrain = targetSpell.OwnersBrain;
