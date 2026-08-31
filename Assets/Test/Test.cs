@@ -8,50 +8,25 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    public ParticleSystem ps;
-    public int num1;
-    public int num2;
-    public int rez;
-    MyChild _myChild;
-    
+
     [Button]
     void PlayEvent()
     {
-     ps.Play();  
+       
     }
     [Button]
     void StopEvent()
     {
-      ps.Stop();
     }
 
 
     void Update()
     {
-        rez = num1 % num2;
         //  dot = Vector2.Dot(Utils.MakeV2(tr.forward), Utils.MakeV2(Vector3.forward));
         //dir = (Utils.MakeV2(transform.position) - Utils.MakeV2(tr.position)).normalized;
     }
 }
 
-public class MyParent
-{
-    public int val;
-
-    public MyParent()
-    {
-        val = 10;
-    }
-}
-public class MyChild : MyParent
-{
-    public string st;
-
-    public MyChild(string st)
-    {
-        this.st = st;
-    }
-}
 
 
 

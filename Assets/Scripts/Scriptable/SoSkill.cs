@@ -1,6 +1,8 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+
+
 [CreateAssetMenu]
 public class SoSkill : ScriptableObject
 {
@@ -8,6 +10,9 @@ public class SoSkill : ScriptableObject
     [SerializeField, TextArea, FoldoutGroup("Info")] string description;
     [SerializeField, TextArea, FoldoutGroup("Info")] string levelUpEffect;
     [Title("General")]
+    public SkillName skillName;
+    public string skillNameText;
+    public string levelUpText;
     [EnumButtons] public SkillType skillType;
     [EnumButtons] public AnimAttackType animAttackType;
     public int level;
@@ -24,10 +29,14 @@ public class SoSkill : ScriptableObject
 
     [Title("Spell")]
     [InfoBox("Does not include stat increases. Extra are stats that affect only this spell (size, duration, knockback...)")]
-    public bool hasSpell;
-    [ShowIf(nameof(hasSpell))] public SpellMain spell;
-    public bool hasExtra;
-    bool ShowHasExtra() => hasSpell && hasExtra;
+    public HasSpell hasSpell;
+    bool ShowSpell() => hasSpell == HasSpell.Spell;
+    bool ShowSpellGroup() => hasSpell == HasSpell.SpellGroup;
+    [ShowIf(nameof(ShowSpell))] public SpellMain spell;
+    [ShowIf(nameof(ShowSpellGroup))] public SpellGroup spellGroup;
+    bool ShowExtra() => hasSpell != HasSpell.None;
+    [ShowIf(nameof(ShowExtra))] public bool hasExtra;
+    bool ShowHasExtra() => ShowExtra() && hasExtra;
     [ShowIf(nameof(ShowHasExtra))] public MyDuo<Stats, int> extraStats;
 
     [Title("Generic")]
@@ -39,6 +48,8 @@ public class SoSkill : ScriptableObject
     // [ShowIf(nameof(hasGeneric))] public int[] numArray;
     // [ShowIf(nameof(hasGeneric))] public float[] floatArray;
     // [ShowIf(nameof(hasGeneric))] public string[] stringArray;
+    
+    public enum HasSpell { None, Spell, SpellGroup }
 }
 
 

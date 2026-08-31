@@ -5,6 +5,10 @@ Implement stats mechanics
 Implement status mechanics
 DOT - (burn, poison, etc...) Define mechanics.
           
+LEVEL-UP
+Need skills to chose after all have been chosen (e.g. extra gold, points, hp...)
+
+
 KNIGHT
 Fix stab animation (animator is ready)
 Strikes/hits skills should have visual element for feedback to player

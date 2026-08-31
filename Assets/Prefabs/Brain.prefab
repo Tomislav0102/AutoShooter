@@ -287,7 +287,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Brain
   <Faction>k__BackingField: 0
   myTransform: {fileID: 7462514812626402230}
-  myRigid: {fileID: 3487588509260044675}
   myCollider: {fileID: 5108658236475643279}
   agent: {fileID: 51156530275059416}
   fakeShadow: {fileID: 8083083952741573449}
@@ -304,7 +303,7 @@ MonoBehaviour:
   status: {fileID: 0}
   loco: {fileID: 0}
   combat: {fileID: 0}
-  debugGeneral: 0
+  debug: 0
 --- !u!54 &3487588509260044675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -386,8 +385,9 @@ GameObject:
   - component: {fileID: 1452470349685697244}
   - component: {fileID: 1081531192646187538}
   - component: {fileID: 8704573881872995164}
+  - component: {fileID: 3666466173174253248}
   m_Layer: 10
-  m_Name: Character, Status
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,6 +421,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
   data: {fileID: 0}
+  skillPair:
+    <Key>k__BackingField: 
+    <Value>k__BackingField: []
 --- !u!114 &8704573881872995164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +436,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b3ceb3e9aa267488efd402fb4f349f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Status
+--- !u!114 &3666466173174253248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754761399459115488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe3184e03eb93c4cba9465e910d3178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillsShared
 --- !u!1 &4042746781076191047
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +572,7 @@ MonoBehaviour:
   knockBackResistance: 0
   <OvrMotion>k__BackingField: 0
   isOrientationAlwaysFalse: 1
+  <IsMoving>k__BackingField: 0
 --- !u!1 &6991791254565888746
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d722a4b68683dbd409dfff62f8b265b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  onDamageReceived:
+    m_PersistentCalls:
+      m_Calls: []
   psElements:
   - {fileID: 383115058285339682}
   - {fileID: 8760345511290848548}
@@ -609,17 +628,6 @@ MonoBehaviour:
   - {fileID: 1316538088453288545}
   - {fileID: 4191619477013776601}
   - {fileID: 6811752376184495340}
-  psStatus:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 5208034093055470584}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   psHeal: {fileID: 846251808505076292}
   psBleed: {fileID: 2890882838969859811}
   psStun: {fileID: 0}
@@ -792,7 +800,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  animAttackEv:
+    m_PersistentCalls:
+      m_Calls: []
+  animAttackUltimateEv:
+    m_PersistentCalls:
+      m_Calls: []
+  combatRegisterEv:
+    m_PersistentCalls:
+      m_Calls: []
   distanceToTarget: 0
+  counterHit: 0
+  counterMiss: 0
+  counterStrike: 0
 --- !u!1001 &97131920832433140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1347,11 +1367,6 @@ PrefabInstance:
 --- !u!4 &2872980193597466317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8358505036490073854, guid: 80cf62c9dc0ce094d831cd52f0596ecf, type: 3}
-  m_PrefabInstance: {fileID: 6062267620400414771}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &5208034093055470584 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2046647582677019595, guid: 80cf62c9dc0ce094d831cd52f0596ecf, type: 3}
   m_PrefabInstance: {fileID: 6062267620400414771}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7206093894054198091

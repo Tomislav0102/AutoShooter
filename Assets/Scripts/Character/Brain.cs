@@ -18,8 +18,9 @@ public class Brain : MonoBehaviour
     Trap _trap;
     [Title("Body")]
     public GenOrder skin;
-    [SerializeField] GameObject characterGo, healthGo, statusGo, locoGo, combatGo;
+    [SerializeField] GameObject characterGo, healthGo, locoGo, combatGo;
     [HideInInspector] public Character character;
+    [HideInInspector] public Skills skills;
     [HideInInspector] public Health health;
     [HideInInspector] public Status status;
     [HideInInspector] public Loco loco;
@@ -39,15 +40,20 @@ public class Brain : MonoBehaviour
             character = c;
             character.Br = this;
         }
+        if (characterGo.TryGetComponent(out Status s))
+        {
+            status = s;
+            status.Br = this;
+        }
+        if (characterGo.TryGetComponent(out Skills sk))
+        {
+            skills = sk;
+            skills.Br = this;
+        }
         if (healthGo.TryGetComponent(out Health h))
         {
             health = h;
             health.Br = this;
-        }
-        if (statusGo.TryGetComponent(out Status s))
-        {
-            status = s;
-            status.Br = this;
         }
         if (locoGo.TryGetComponent(out Loco l))
         {

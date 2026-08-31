@@ -144,7 +144,7 @@ public static class Utils
     {
         //  const float CONST_CamEdgeBottom = 7f;
 
-        float followSpeed = 0.03f;
+        float followSpeed = 0.05f;
         float x = camTr.position.x;
         float z = camTr.position.z;
         

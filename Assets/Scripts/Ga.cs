@@ -39,6 +39,8 @@ public class Ga : MonoBehaviour
     public TeamManager team;
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
+    [SerializeField] Transform parLevelUpCards;
+    [HideInInspector] public LevelUpCard[] levelUpCards;
     [HideInInspector] public WaitForSeconds wait00;
     [HideInInspector] public WaitForSeconds wait01;
     [HideInInspector] public WaitForSeconds wait02;
@@ -46,12 +48,13 @@ public class Ga : MonoBehaviour
     [HideInInspector] public WaitForSeconds wait30;
     [Title("Debug")] 
     public bool debug;
-    
-    
+
+
     void Awake()
     {
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
+        levelUpCards = Utils.AllChildren<LevelUpCard>(parLevelUpCards);
         team = new TeamManager();
         wait00 = Utils.GetWait(0f);
         wait01 = Utils.GetWait(0.1f);
@@ -59,10 +62,9 @@ public class Ga : MonoBehaviour
         wait20 = Utils.GetWait(2f);
         wait30 = Utils.GetWait(3f);
         // SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
-#if (!UNITY_EDITOR)
+        #if (!UNITY_EDITOR)
         SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
-
-#endif
+        #endif
     }
 
     void Start()
@@ -96,5 +98,13 @@ public class Ga : MonoBehaviour
     public void BtnBackToMain()
     {
         SceneManager.LoadScene(gameData.sceneMain);
+    }
+
+    public void InjectSkills(SoSkill[] skills)
+    {
+        for (int i = 0; i < skills.Length; i++)
+        {
+            levelUpCards[i].InjectSkill(skills[i]);
+        }
     }
 }

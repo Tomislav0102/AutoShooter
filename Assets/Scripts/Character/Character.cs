@@ -30,10 +30,8 @@ public class Character : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    public MyDuo<bool, SoSkill> skillPair;
     StatSingle[] _myStats;
 
-    
     public int GetStat(Stats stat) => _myStats[(int)stat].Value;
     public float GetStat(Stats stat, float percentage)
     {

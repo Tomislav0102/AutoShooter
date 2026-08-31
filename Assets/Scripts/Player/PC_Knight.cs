@@ -47,27 +47,27 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         bool addEffect = false;
         PassDataEffect.Group executioner = null;
         PassDataEffect.Group bleeding = null;
-        if (Br.character.skillPair.GetKey(6))
+        if (Br.skills.pair.GetKey(6))
         {
             addEffect = true;
-            executioner = Br.character.skillPair.GetValue(6).effect.group[0];
+            executioner = Br.skills.pair.GetValue(6).effect.group[0];
         }
-        if (Br.character.skillPair.GetKey(7))
+        if (Br.skills.pair.GetKey(7))
         {
             addEffect = true;
-            bleeding = Br.character.skillPair.GetValue(7).effect.group[0];
+            bleeding = Br.skills.pair.GetValue(7).effect.group[0];
         }
         
         //stats
         bool addArmorBreaker = false;
         PassDataStats.Group[] armorBreaker = null;
-        if (Br.character.skillPair.GetKey(8))
+        if (Br.skills.pair.GetKey(8))
         {
             float chance = 0.05f;
             if (chance < Random.value)
             {
                 addArmorBreaker = true;
-                armorBreaker = Br.character.skillPair.GetValue(8).stats;
+                armorBreaker = Br.skills.pair.GetValue(8).stats;
             }
         }
         
@@ -83,7 +83,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         if (addEffect) container.data.Add(new PassDataEffect() { group = new PassDataEffect.Group[2] {executioner, bleeding}});
         if (addArmorBreaker) container.data.Add(new PassDataStats() { group = armorBreaker });
         
-        SpellMain melee = Instantiate(Br.character.skillPair.GetValue(0).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        SpellMain melee = Instantiate(Br.skills.pair.GetValue(0).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
             if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
@@ -161,7 +161,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 void sweepingArc()
                 {
                     if (!Br.health.IsAtFullHealth()) return;
-                    if (!Br.character.skillPair.GetKey(1)) return;
+                    if (!Br.skills.pair.GetKey(1)) return;
                     PassDataContainer containerArc = new PassDataContainer()
                     {
                         canBeBlocked = true,
@@ -170,13 +170,13 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                             new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                         }
                     };
-                    SpellMain arc = Instantiate(Br.character.skillPair.GetValue(1).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                    SpellMain arc = Instantiate(Br.skills.pair.GetValue(1).spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                     arc.InitializeMe(Br, containerArc);
                 }
                 void grandCrescendo()
                 {
-                    if (!Br.character.skillPair.GetKey(4)) return;
-                    int skillLevel = Br.character.skillPair.GetValue(4).level + 2;
+                    if (!Br.skills.pair.GetKey(4)) return;
+                    int skillLevel = Br.skills.pair.GetValue(4).level + 2;
                     int valueToAdd = 50;
                     int resultingAddedDamage = 0;
 
@@ -192,8 +192,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 }
                 void elementalStrikes()
                 {
-                    if (!Br.character.skillPair.GetKey(5)) return;
-                    SoSkill skill =  Br.character.skillPair.GetValue(5);
+                    if (!Br.skills.pair.GetKey(5)) return;
+                    SoSkill skill =  Br.skills.pair.GetValue(5);
                     _elementStrikesIncrease = new MyDuo<Element, float>();
                     switch (skill.level)
                     {
@@ -224,7 +224,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 concussiveWave();
                 void explosiveHit()
                 {
-                    if (!Br.character.skillPair.GetKey(3)) return;
+                    if (!Br.skills.pair.GetKey(3)) return;
                     if (Br.combat.counterHit % 3 != 0) return;
                     PassDataContainer container = new PassDataContainer()
                     {
@@ -234,14 +234,14 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                             new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
                         }
                     };
-                    SpellMain ex = Instantiate(Br.character.skillPair.GetValue(3).spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    SpellMain ex = Instantiate(Br.skills.pair.GetValue(3).spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                     ex.transporter.target = Br.combat.MyTarget;
                     ex.InitializeMe(Br, container);
                 }
                 void concussiveWave()
                 {
-                    if (!Br.character.skillPair.GetKey(9)) return;
-                    SoSkill skill  = Br.character.skillPair.GetValue(9);
+                    if (!Br.skills.pair.GetKey(9)) return;
+                    SoSkill skill  = Br.skills.pair.GetValue(9);
                     if (skill.floatGeneric < Random.value) return;
                     PassDataContainer container = new PassDataContainer()
                     {
@@ -259,8 +259,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             
             case CombatEvent.Miss:
                 float chance = 0.05f;
-                if (Random.value > chance || !Br.character.skillPair.GetKey(2)) return;
-                SoSkill shieldThrowSkill = Br.character.skillPair.GetValue(2);
+                if (Random.value > chance || !Br.skills.pair.GetKey(2)) return;
+                SoSkill shieldThrowSkill = Br.skills.pair.GetValue(2);
                 
                 Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.position);
                 int ricochet = Br.character.GetStat(Stats.Ricochet);

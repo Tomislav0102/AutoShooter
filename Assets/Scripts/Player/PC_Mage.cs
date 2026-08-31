@@ -147,11 +147,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             void setEngageRange()
             {
                 float engageRange = 0f;
-                for (int i = 0; i < value.character.skillPair.Length(); i++)
+                for (int i = 0; i < value.skills.pair.Length(); i++)
                 {
-                    SoSkill skill = value.character.skillPair.GetValue(i);
-                    if (!skill.hasSpell || skill.skillType != SkillType.Active ) continue;
-                    if (value.character.skillPair.GetKey(i) && skill.spell.range > engageRange)
+                    SoSkill skill = value.skills.pair.GetValue(i);
+                    if (skill.hasSpell == SoSkill.HasSpell.Spell || skill.skillType != SkillType.Active ) continue;
+                    if (value.skills.pair.GetKey(i) && skill.spell.range > engageRange)
                     {
                         engageRange = skill.spell.range;
                     }
@@ -222,13 +222,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     public void AnimEv_AttackCallback(int num = 0)
     {
         psCast.Play();
-        for (int i = 0; i < Br.character.skillPair.Length(); i++)
+        for (int i = 0; i < Br.skills.pair.Length(); i++)
         {
-            if (Br.character.skillPair.GetKey(i)) skillActive(i);
+            if (Br.skills.pair.GetKey(i)) skillActive(i);
         }
         void skillActive(int index)
         {
-            SoSkill skill = Br.character.skillPair.GetValue(index);
+            SoSkill skill = Br.skills.pair.GetValue(index);
             switch (index) 
             {
                 case 0://homing missile

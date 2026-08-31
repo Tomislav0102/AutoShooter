@@ -10,29 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: New So Skill
+  m_Name: shared - AegisPlate
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  skillName: New Skill
-  requirements: []
-  usedByKnight: 0
-  usedByMage: 0
-  usedByArcher: 0
-  hasExtraProjectiles: 0
-  extraProjectileCount: 1
-  hasExtraSize: 0
-  extraSize: 1
-  hasExtraDuration: 0
-  extraDuration: 1
+  infoA: Level of skill starts at 0 (in-game its level1).
+  description: 
+  levelUpEffect: 
+  skillName: 1
+  skillNameText: 
+  levelUpText: 
+  skillType: 1
+  animAttackType: 0
+  level: 0
+  hasStat: 0
+  stats: []
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
-  hasSpell: 1
+  hasAttackEffect: 0
+  effect:
+    group: []
+  hasSpell: 0
   spell: {fileID: 0}
-  hasSpellProjectileCount: 0
-  spellProjectileCount: 1
-  hasCombatEventReq: 0
-  combatEventReq: 0
-  nums: 
-  floats: []
-  strings: []
+  spellGroup: {fileID: 0}
+  hasExtra: 0
+  extraStats:
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
+  hasGeneric: 0
+  numGeneric: 0
+  floatGeneric: 0
+  stringGeneric: 
