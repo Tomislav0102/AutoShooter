@@ -16,19 +16,34 @@ MonoBehaviour:
   description: For every miss there is a 5% chance to throws a spectral shield that
     bounces between 3 enemies. Uses ranged damage stat.
   levelUpEffect: Increases damage and bounce count
-  skillName: 
+  skillName: 29
+  skillNameText: 
+  levelUpText: 
   skillType: 0
+  animAttackType: 0
   level: 4
   hasStat: 0
   stats:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: 
+  - stat: 0
+    change: 0
+    value: 0
+    hasDuration: 0
+    duration: 0
+  - stat: 0
+    change: 0
+    value: 0
+    hasDuration: 0
+    duration: 0
   hasExtraDamage: 1
   extraDamage:
     <Key>k__BackingField: 00000000
     <Value>k__BackingField: 96000000
+  hasAttackEffect: 0
+  effect:
+    group: []
   hasSpell: 1
   spell: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
+  spellGroup: {fileID: 0}
   hasExtra: 1
   extraStats:
     <Key>k__BackingField: 18000000

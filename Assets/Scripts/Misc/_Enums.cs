@@ -139,7 +139,7 @@ public enum SkillName
     SpikedRim,
     ShockwaveBlock,
     IronFortress,
-    Kn00,
+    KnightMelee,
     Kn01,
     Kn02,
     Kn03,
@@ -149,7 +149,13 @@ public enum SkillName
     Kn07,
     Kn08,
     Kn09,
-    Kn10
+    Kn10,
+    //mage
+    //archer
+    //enemy (maybe redundant)
+    //replacement
+    ReplacementGold,
+    ReplacementHeal
 }
 
 

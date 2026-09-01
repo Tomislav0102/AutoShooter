@@ -478,11 +478,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: moveSpeed
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8048925875864285019, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_Name
       value: BP_Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: baseSkill
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c371f7275259ce468a82d3bc6cb80fb, type: 2}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: useKnight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -539,8 +547,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Knight
   myShield: {fileID: 6815601301861273165}
-  powerKnockback: 0
-  powerDash: 30
   startActive: 99
 --- !u!4 &3640929346580867816 stripped
 Transform:

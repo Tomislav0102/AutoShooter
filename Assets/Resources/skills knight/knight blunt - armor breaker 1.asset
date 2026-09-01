@@ -16,6 +16,9 @@ MonoBehaviour:
   description: Attacks have a 5% chance to "Armor Crush," reducing enemy defense
     (Physical resistance) permanently. Defense cant go below 0 with this skill
   levelUpEffect: Increases defense reduction amount.
+  skillName: 38
+  skillNameText: 
+  levelUpText: 
   skillType: 0
   animAttackType: 0
   level: 1
@@ -35,6 +38,7 @@ MonoBehaviour:
     group: []
   hasSpell: 0
   spell: {fileID: 0}
+  spellGroup: {fileID: 0}
   hasExtra: 0
   extraStats:
     <Key>k__BackingField: 

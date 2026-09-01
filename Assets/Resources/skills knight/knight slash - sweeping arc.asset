@@ -15,6 +15,9 @@ MonoBehaviour:
   infoA: Level of skill starts at 0 (in-game its level1).
   description: At Full HP, every swing fires a small piercing crescent wave forward.
   levelUpEffect: Increases wave width and damage.
+  skillName: 37
+  skillNameText: 
+  levelUpText: 
   skillType: 0
   animAttackType: 0
   level: 0

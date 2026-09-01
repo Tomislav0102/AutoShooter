@@ -5026,9 +5026,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: replacements.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: sharedSkills.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: 'replacements.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 319006ad2ed0dd441bc95e64c166a36c, type: 2}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: 'replacements.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c5a29ffd1151bd041b81506e111db2c4, type: 2}
     - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: 'sharedSkills.Array.data[0]'
       value: 
@@ -5293,6 +5305,22 @@ PrefabInstance:
       propertyPath: sharedSkills.Array.data[21].skill
       value: 
       objectReference: {fileID: 11400000, guid: 400020b5bc6fe204c8c781436c2440a3, type: 2}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: replacements.Array.data[0].skillName
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: replacements.Array.data[1].skillName
+      value: 63
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: replacements.Array.data[0].canAcquire
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: replacements.Array.data[1].canAcquire
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3696184041424430218, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 12

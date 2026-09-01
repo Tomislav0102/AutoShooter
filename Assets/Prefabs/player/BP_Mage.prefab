@@ -5394,6 +5394,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BP_Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: useMage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: baseSkill
+      value: 
+      objectReference: {fileID: 11400000, guid: 37d903e4c8c3e2245aeab283124cc397, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4076984038216319734, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

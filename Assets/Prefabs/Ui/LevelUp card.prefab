@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f3045d6ed9efe4daeda6eb81835d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpCard
+  myText: {fileID: 5303367049825022917}
 --- !u!114 &5724376473331600105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +134,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5724376473331600105}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5931449170200798345}
+        m_TargetAssemblyTypeName: LevelUpCard, Assembly-CSharp
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4055046574425261594
 GameObject:
   m_ObjectHideFlags: 0

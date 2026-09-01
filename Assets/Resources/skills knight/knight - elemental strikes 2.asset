@@ -26,7 +26,8 @@ MonoBehaviour:
 
     L4 - 1st fire, 2nd ice, 3rd ele, 4th
     posion, 5h fire, 6th ice, 7th ele, 8th poison'
-  skillName: Elemental Strikes
+  skillName: 32
+  skillNameText: 
   levelUpText: Every 7th strike adds electricity damage
   skillType: 0
   animAttackType: 0

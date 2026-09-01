@@ -18,26 +18,37 @@ MonoBehaviour:
     (in
     Effect Group) is HP treshold'
   levelUpEffect: Increase HP threshold
+  skillName: 33
+  skillNameText: 
+  levelUpText: 
   skillType: 0
   animAttackType: 0
   level: 1
   hasStat: 0
   stats:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: 
+  - stat: 0
+    change: 0
+    value: 0
+    hasDuration: 0
+    duration: 0
+  - stat: 0
+    change: 0
+    value: 0
+    hasDuration: 0
+    duration: 0
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
   hasAttackEffect: 1
   effect:
-    priority: 0
     group:
     - effect: 5
       duration: 0
       damagePerTick: 7
   hasSpell: 0
   spell: {fileID: 0}
+  spellGroup: {fileID: 0}
   hasExtra: 0
   extraStats:
     <Key>k__BackingField: 
