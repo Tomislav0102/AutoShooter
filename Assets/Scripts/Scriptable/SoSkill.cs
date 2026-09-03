@@ -14,7 +14,7 @@ public class SoSkill : ScriptableObject
     public string skillNameText;
     public string levelUpText;
     [EnumButtons] public SkillType skillType;
-    [EnumButtons] public AnimAttackType animAttackType;
+  //  [EnumButtons] public AnimAttackType animAttackType; //only for enemy animations
     public int level;
 
     [Title("Global")]
@@ -28,7 +28,7 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
 
     [Title("Spell")]
-    [InfoBox("Does not include stat increases. Extra are stats that affect only this spell (size, duration, knockback...)")]
+    [InfoBox("Does not include stat increases. Extra are stats that affect only this spell (size, duration...)")]
     public HasSpell hasSpell;
     bool ShowSpell() => hasSpell == HasSpell.Spell;
     bool ShowSpellGroup() => hasSpell == HasSpell.SpellGroup;

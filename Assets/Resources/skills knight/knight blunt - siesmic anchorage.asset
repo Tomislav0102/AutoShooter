@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight - shield throw
+  m_Name: knight blunt - siesmic anchorage
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: For every miss there is a 5% chance to throws a spectral shield that
-    bounces between 3 enemies. Uses ranged damage stat.
-  levelUpEffect: Increases damage and bounce count
-  skillName: 29
+  description: 
+  levelUpEffect: 
+  skillName: 39
   skillNameText: 
   levelUpText: 
-  skillType: 0
+  skillType: 1
   animAttackType: 0
   level: 0
   hasStat: 0
@@ -34,20 +33,20 @@ MonoBehaviour:
     value: 0
     hasDuration: 0
     duration: 0
-  hasExtraDamage: 1
+  hasExtraDamage: 0
   extraDamage:
-    <Key>k__BackingField: 00000000
-    <Value>k__BackingField: 14000000
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
   hasAttackEffect: 0
   effect:
     group: []
-  hasSpell: 1
-  spell: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
+  hasSpell: 0
+  spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasExtra: 1
+  hasExtra: 0
   extraStats:
-    <Key>k__BackingField: 18000000
-    <Value>k__BackingField: 03000000
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
   hasGeneric: 0
   numGeneric: 0
   floatGeneric: 0

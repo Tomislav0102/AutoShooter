@@ -10,29 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: mage - homing missile
+  m_Name: mage - bastion pulse
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  skillName: 
-  requirements: []
-  usedByKnight: 0
-  usedByMage: 1
-  usedByArcher: 0
-  hasExtraProjectiles: 0
-  extraProjectileCount: 0
-  hasExtraSize: 0
-  extraSize: 0
-  hasExtraDuration: 0
-  extraDuration: 0
+  infoA: Level of skill starts at 0 (in-game its level1).
+  description: 
+  levelUpEffect: 
+  skillName: 65
+  skillNameText: 
+  levelUpText: 
+  skillType: 1
+  level: 0
+  hasStat: 0
+  stats: []
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
-  hasSpell: 1
-  spell: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
-  hasSpellProjectileCount: 0
-  spellProjectileCount: 1
-  hasCombatEventReq: 0
-  combatEventReq: 0
-  nums: 
-  floats: []
-  strings: []
+  hasAttackEffect: 0
+  effect:
+    group: []
+  hasSpell: 0
+  spell: {fileID: 0}
+  spellGroup: {fileID: 0}
+  hasExtra: 0
+  extraStats:
+    <Key>k__BackingField: 
+    <Value>k__BackingField: 
+  hasGeneric: 0
+  numGeneric: 0
+  floatGeneric: 0
+  stringGeneric: 

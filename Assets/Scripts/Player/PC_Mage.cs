@@ -147,14 +147,10 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             void setEngageRange()
             {
                 float engageRange = 0f;
-                for (int i = 0; i < value.skills.pair.Length(); i++)
+                foreach (SoSkill item in _allSkills)
                 {
-                    SoSkill skill = value.skills.pair.GetValue(i);
-                    if (skill.hasSpell == SoSkill.HasSpell.Spell || skill.skillType != SkillType.Active ) continue;
-                    if (value.skills.pair.GetKey(i) && skill.spell.range > engageRange)
-                    {
-                        engageRange = skill.spell.range;
-                    }
+                    if (item.hasSpell == SoSkill.HasSpell.Spell || item.skillType != SkillType.Active ) continue;
+                    if (item.spell.range > engageRange)  engageRange = item.spell.range;
                 }
                 _playerCombat.engageRange = Mathf.CeilToInt(engageRange);
             }
@@ -169,7 +165,14 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     float _arcaneShieldWaitDuration = 3f;
     PlayerCombat _playerCombat;
     int _numOfObjects;
-
+    SoSkill _myBasic;
+    SoSkill[] _allSkills;
+    
+    public void SkillUpdate()
+    {
+        _allSkills = Br.skills.CurrentSkills();
+    }
+    
     
     void ArcaneShieldSpawn()
     {
@@ -218,32 +221,30 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 break;
         }
     }
-    
+
     public void AnimEv_AttackCallback(int num = 0)
     {
         psCast.Play();
-        for (int i = 0; i < Br.skills.pair.Length(); i++)
+
+        foreach (SoSkill skill in _allSkills)
         {
-            if (Br.skills.pair.GetKey(i)) skillActive(i);
-        }
-        void skillActive(int index)
-        {
-            SoSkill skill = Br.skills.pair.GetValue(index);
-            switch (index) 
+            if (skill.skillType != SkillType.Active) continue;
+
+            switch (skill.skillName)
             {
-                case 0://homing missile
+                case SkillName.MagicMissile:
                     List<Transform> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                     if (targetsHoming.Count == 0) return;
 
                     float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
                     var containerHoming = new PassDataContainer()
-                                          {
-                                              canBeBlocked = true,
-                                              data = new List<PassData>()
-                                                     {
-                                                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                     }
-                                          };
+                    {
+                        canBeBlocked = true,
+                        data = new List<PassData>()
+                        {
+                            new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                        }
+                    };
                     StartCoroutine(rapidStrikesHoming());
 
                     IEnumerator rapidStrikesHoming()
@@ -262,58 +263,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         }
                     }
                     break;
-
-                case 1: //lightning strike
-                    List<Transform> targetsLightStrike = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, skill.spell.range);
-                    Transform furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
-                    if (furthestTarget == null) return;
-
-                    var containerLightning = new PassDataContainer()
-                                             {
-                                                 data = new List<PassData>()
-                                                        {
-                                                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                        }
-                                             };
-                    SpellMain lightning = Instantiate(skill.spell, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    lightning.InitializeMe(Br, containerLightning);
-                    break;
-
-                case 2: //overload
-                    List<Transform> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
-                    var containerOverload = new PassDataContainer()
-                                            {
-                                                data = new List<PassData>()
-                                                       {
-                                                           new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                       }
-                                            };
-                    StartCoroutine(rapidStrikesOverload());
-
-                    IEnumerator rapidStrikesOverload()
-                    {
-                        int counter = 0;
-                        for (int i = 0; i < _numOfObjects; i++)
-                        {
-                            Transform target = targetsOverload[counter];
-                            counter = (1 + counter) % targetsOverload.Count;
-                            Vector3 distance = target.position - Br.myTransform.position;
-                            SpellMain overload = Instantiate(skill.spell, Br.myTransform.position, Quaternion.LookRotation(distance.normalized), Ga.me.spells.myTransform);
-                            overload.areaOfEffect = distance.magnitude;
-                            overload.transporter.target = target;
-                            overload.InitializeMe(Br, containerOverload);
-                            yield return Ga.me.wait01;
-                        }
-                    }
-                    break;
-
-                case 3: //carry fireball
+                case SkillName.Fireball:
                     List<Transform> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
                     Transform middleTarget = targetsFireball.Count == 0 ? null : targetsFireball[0];
                     var carrier = new PassDataContainer()
-                                  {
+                    {
 
-                                  };
+                    };
                     if (middleTarget != null)
                     {
                         Vector3 direction = Utils.Direction(Br.myTransform.position, middleTarget.position);
@@ -325,13 +281,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     {
                         if (Br.combat.MyTarget == null) return;
                         var containerExplosion = new PassDataContainer()
-                                                 {
-                                                     canBeBlocked = true,
-                                                     data = new List<PassData>()
-                                                            {
-                                                                new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                            }
-                                                 };
+                        {
+                            canBeBlocked = true,
+                            data = new List<PassData>()
+                            {
+                                new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                            }
+                        };
                         SpellMain expl = Instantiate(Ga.me.spells.explosionFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                         expl.InitializeMe(Br, containerExplosion, areaFire);
                         Instantiate(Ga.me.psDecalFire, expl.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
@@ -341,18 +297,36 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     {
                         if (Br.combat.MyTarget == null) return;
                         var containerArea = new PassDataContainer()
-                                            {
-                                                data = new List<PassData>()
-                                                       {
-                                                           new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                       }
-                                            };
+                        {
+                            data = new List<PassData>()
+                            {
+                                new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                            }
+                        };
                         SpellMain areFire = Instantiate(Ga.me.spells.areFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                         areFire.InitializeMe(Br, containerArea);
                     }
                     break;
-
-                case 4: //chain lightning
+                case SkillName.MeteorStrike:
+                    List<Transform> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, 1, skill.spell.range);
+                    if (targetsMeteor.Count == 0) return;
+                    var containerMeteor = new PassDataContainer()
+                                          {
+                                              data = new List<PassData>()
+                                                     {
+                                                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                                                     }
+                                          };
+                    SpellMain meteorStrike = Instantiate(skill.spell, targetsMeteor[0].position, Quaternion.identity, Ga.me.spells.myTransform);
+                    meteorStrike.InitializeMe(Br, containerMeteor);
+                    break;
+                case SkillName.FireNova:
+                    break;
+                case SkillName.FrostNova:
+                    break;
+                case SkillName.IceSpear:
+                    break;
+                case SkillName.ChainLightning:
                     List<Transform> targetsChainLightning = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, _numOfObjects, skill.spell.range);
                     Vector3[] targetPositions = new Vector3[targetsChainLightning.Count];
                     for (int i = 0; i < targetsChainLightning.Count; i++)
@@ -378,34 +352,71 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             float dam = Br.character.GetStat(Stats.MagicDamage);
                             dam /= (index * index + 1);
                             var container = new PassDataContainer()
-                                            {
-                                                data = new List<PassData>()
-                                                       {
-                                                           new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { dam }),
-                                                       }
-                                            };
+                            {
+                                data = new List<PassData>()
+                                {
+                                    new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { dam }),
+                                }
+                            };
                             // print($"at {index} damage is {dam}");
                             chainLightning.InitializeMe(Br, container);
                         }
                     }
                     break;
+                case SkillName.Overload:
+                    List<Transform> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
+                    var containerOverload = new PassDataContainer()
+                    {
+                        data = new List<PassData>()
+                        {
+                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                        }
+                    };
+                    StartCoroutine(rapidStrikesOverload());
 
-                case 5:
-                    List<Transform> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, 1, skill.spell.range);
-                    if (targetsMeteor.Count == 0) return;
-                    var containerMeteor = new PassDataContainer()
-                                          {
-                                              data = new List<PassData>()
-                                                     {
-                                                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                                                     }
-                                          };
-                    SpellMain meteorStrike = Instantiate(skill.spell, targetsMeteor[0].position, Quaternion.identity, Ga.me.spells.myTransform);
-                    meteorStrike.InitializeMe(Br, containerMeteor);
+                    IEnumerator rapidStrikesOverload()
+                    {
+                        int counter = 0;
+                        for (int i = 0; i < _numOfObjects; i++)
+                        {
+                            Transform target = targetsOverload[counter];
+                            counter = (1 + counter) % targetsOverload.Count;
+                            Vector3 distance = target.position - Br.myTransform.position;
+                            SpellMain overload = Instantiate(skill.spell, Br.myTransform.position, Quaternion.LookRotation(distance.normalized), Ga.me.spells.myTransform);
+                            overload.areaOfEffect = distance.magnitude;
+                            overload.transporter.target = target;
+                            overload.InitializeMe(Br, containerOverload);
+                            yield return Ga.me.wait01;
+                        }
+                    }
+
                     break;
+                case SkillName.LightningBolt:
+                    List<Transform> targetsLightStrike = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, skill.spell.range);
+                    Transform furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
+                    if (furthestTarget == null) return;
+
+                    var containerLightning = new PassDataContainer()
+                    {
+                        data = new List<PassData>()
+                        {
+                            new PassDataDamage(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                        }
+                    };
+                    SpellMain lightning = Instantiate(skill.spell, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    lightning.InitializeMe(Br, containerLightning);
+                    break;
+                case SkillName.GravityWell:
+                    break;
+                case SkillName.OrbOfPower:
+                    break;
+                case SkillName.ManaSingularity:
+                    break;
+
             }
         }
     }
+
 
 
 

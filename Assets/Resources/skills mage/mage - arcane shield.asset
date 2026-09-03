@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: shared - replacement Gold
+  m_Name: mage - arcane shield
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
   description: 
   levelUpEffect: 
-  skillName: 106
+  skillName: 63
   skillNameText: 
   levelUpText: 
   skillType: 1

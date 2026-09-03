@@ -27,14 +27,27 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             //         aura.InitializeMe(value);
             //         break;
             // }
-
         }
     }
     Brain _br;
     [SerializeField] Transform myShield;
-    public int startActive;
     float _crescendoStrikeIncrease = 1f;
     MyDuo<Element, float> _elementStrikesIncrease = new MyDuo<Element, float>();
+    SoSkill _myBasic;
+    SoSkill[] _allSkills;
+    
+    public void SkillUpdate()
+    {
+        _allSkills = Br.skills.CurrentSkills();
+        foreach (SoSkill item in _allSkills)
+        {
+            if (item.skillName != SkillName.KnightMelee) continue;
+            Br.skills.LevelSpecificSkill(SkillName.KnightMelee, 0);
+            _myBasic = item;
+            break;
+        }
+    }
+
     
     public void AnimEv_AttackCallback(int num = 0)
     {
@@ -83,7 +96,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         if (addEffect) container.data.Add(new PassDataEffect() { group = new PassDataEffect.Group[2] {executioner, bleeding}});
         if (addArmorBreaker) container.data.Add(new PassDataStats() { group = armorBreaker });
         
-        SpellMain melee = Instantiate(Br.skills.baseSkill.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        SpellMain melee = Instantiate(_myBasic.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
             if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
@@ -149,163 +162,178 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     {
         string st = otherBrain == null ? "" : $", target is {otherBrain.name}.";
      //  print($"{combatEvent} {st}");
-        switch (combatEvent)
-        {
-            case CombatEvent.Strike:
-                int strikes = Br.combat.counterStrike;
+     switch (combatEvent)
+     {
+         case CombatEvent.Strike:
+             int strikes = Br.combat.counterStrike;
 
-                sweepingArc();
-                grandCrescendo();
-                elementalStrikes();
+             sweepingArc();
+             grandCrescendo();
+             elementalStrikes();
 
-                void sweepingArc()
-                {
-                    if (!Br.health.IsAtFullHealth()) return;
-                    if (!Br.skills.TryGetFromGroup(SkillName.SweepingArc, out SoSkill skill)) return;
-                    PassDataContainer containerArc = new PassDataContainer()
-                    {
-                        canBeBlocked = true,
-                        data = new List<PassData>()
-                        {
-                            new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                        }
-                    };
-                    SpellMain arc = Instantiate(skill.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                    arc.InitializeMe(Br, containerArc);
-                }
-                void grandCrescendo()
-                {
-                    if (!Br.skills.TryGetFromGroup(SkillName.GrandCrescendo, out SoSkill skill)) return;
-                    int skillLevel = skill.level + 2;
-                    int valueToAdd = 50;
-                    int resultingAddedDamage = 0;
+             void sweepingArc()
+             {
+                 if (!Br.health.IsAtFullHealth()) return;
+                 if (!Br.skills.TryGetFromGroup(SkillName.SweepingArc, out SoSkill sk)) return;
+                 PassDataContainer containerArc = new PassDataContainer()
+                 {
+                     canBeBlocked = true,
+                     data = new List<PassData>()
+                     {
+                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                     }
+                 };
+                 SpellMain arc = Instantiate(sk.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                 arc.InitializeMe(Br, containerArc);
+             }
+             void grandCrescendo()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.GrandCrescendo, out SoSkill sk)) return;
+                 int skillLevel = sk.level + 2;
+                 int valueToAdd = 50;
+                 int resultingAddedDamage = 0;
 
-                    for (int i = 0; i < skillLevel; i++)
-                    {
-                        if (strikes % skillLevel != i) continue;
-                        int val = valueToAdd * i - valueToAdd;
-                        if (val < 0) val = (skillLevel - 1) * valueToAdd;
-                        resultingAddedDamage += val;
-                        _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
-                    }
+                 for (int i = 0; i < skillLevel; i++)
+                 {
+                     if (strikes % skillLevel != i) continue;
+                     int val = valueToAdd * i - valueToAdd;
+                     if (val < 0) val = (skillLevel - 1) * valueToAdd;
+                     resultingAddedDamage += val;
+                     _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
+                 }
 
-                }
-                void elementalStrikes()
-                {
-                    if (!Br.skills.TryGetFromGroup(SkillName.GrandCrescendo, out SoSkill skill)) return;
-                    _elementStrikesIncrease = new MyDuo<Element, float>();
-                    switch (skill.level)
-                    {
-                        case 0:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(0), skill.extraDamage.GetValue(0));
-                            break;
-                        case 1:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(0), skill.extraDamage.GetValue(0));
-                            if (strikes % 4 == 1) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(1), skill.extraDamage.GetValue(1));
-                            break;
-                        case 2:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(0), skill.extraDamage.GetValue(0));
-                            if (strikes % 4 == 1) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(1), skill.extraDamage.GetValue(1));
-                            if (strikes % 4 == 2) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(2), skill.extraDamage.GetValue(2));
-                            break;
-                        case 3:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(0), skill.extraDamage.GetValue(0));
-                            if (strikes % 4 == 1) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(1), skill.extraDamage.GetValue(1));
-                            if (strikes % 4 == 2) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(2), skill.extraDamage.GetValue(2));
-                            if (strikes % 4 == 3) _elementStrikesIncrease.Add(skill.extraDamage.GetKey(3), skill.extraDamage.GetValue(3));
-                            break;
-                    }
-                }
-                break;
-            
-            case CombatEvent.Hit:
-                explosiveHit();
-                concussiveWave();
-                void explosiveHit()
-                {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ExplosiveHit, out SoSkill skill)) return;
-                    if (Br.combat.counterHit % 3 != 0) return;
-                    PassDataContainer container = new PassDataContainer()
-                    {
-                        canBeBlocked = true,
-                        data = new List<PassData>()
-                        {
-                            new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                        }
-                    };
-                    SpellMain ex = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    ex.transporter.target = Br.combat.MyTarget;
-                    ex.InitializeMe(Br, container);
-                }
-                void concussiveWave()
-                {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill skill)) return;
-                    if (skill.floatGeneric < Random.value) return;
-                    PassDataContainer container = new PassDataContainer()
-                    {
-                        canBeBlocked = true,
-                        data = new List<PassData>()
-                        {
-                            new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
-                        }
-                    };
-                    SpellMain concussive = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    concussive.areaOfEffect += skill.extraStats.GetValue(0);
-                    concussive.InitializeMe(Br, container);
-                }
-                break;
-            
-            case CombatEvent.Miss:
-                float chance = 0.05f;
-                if (Random.value > chance || !Br.skills.TryGetFromGroup(SkillName.ShieldThrow, out SoSkill skill)) return;
-                
-                Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.position);
-                int ricochet = Br.character.GetStat(Stats.Ricochet);
-                MyDuo<Element, float> damage = new MyDuo<Element, float>();
-                damage.Add(Element.Physical , Br.character.GetStat(Stats.RangedDamage) + skill.extraDamage.GetValue(0));
-                PassDataContainer containerThrow = new PassDataContainer()
-                {
-                    canBeBlocked = true,
-                    data = new List<PassData>()
-                    {
-                        new PassDataDamage(damage),
-                    }
-                };
-                if (skill.extraStats.TryGetValueByKey(Stats.Ricochet, out int extraStat))  ricochet += extraStat;
-                
-                SpellMain shieldThrow = Instantiate(Ga.me.spells.shieldThrow, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
-                BulletTransporter bulletTransporter =  shieldThrow.transporter as BulletTransporter;
-                bulletTransporter.ricochet = ricochet;
-                shieldThrow.InitializeMe(Br, containerThrow);
-                break;
-            
-            case CombatEvent.GetHit:
-                break;
-            case CombatEvent.Block:
-                StartCoroutine(spellPushDelay());
-                break;
-            case CombatEvent.Kill:
-                // if (otherBrain.character.GetStat(Stats.MagicDamage) >=Br.character.GetStat(Stats.MagicDamage))
-                // {
-                //    Br.character.AddBuff(Stats.MagicDamage, 1);
-                // }
-                break;
-        }
-        return;
-        
-        IEnumerator spellPushDelay()
-        {
-            yield return Ga.me.wait01;
-            PassDataContainer container = new PassDataContainer()
-            {
-                myBrain =Br,
-                data = new List<PassData>()
-                {
-                    new PassDataKnockBack(30)
-                }
-            };
-            SpellMain push = Instantiate(Ga.me.spells.push, myShield.position, Quaternion.identity, Ga.me.spells.myTransform);
-            push.InitializeMe(Br, container);
-        }
+             }
+             void elementalStrikes()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.GrandCrescendo, out SoSkill sk)) return;
+                 _elementStrikesIncrease = new MyDuo<Element, float>();
+                 switch (sk.level)
+                 {
+                     case 0:
+                         if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(0), sk.extraDamage.GetValue(0));
+                         break;
+                     case 1:
+                         if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(0), sk.extraDamage.GetValue(0));
+                         if (strikes % 4 == 1) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(1), sk.extraDamage.GetValue(1));
+                         break;
+                     case 2:
+                         if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(0), sk.extraDamage.GetValue(0));
+                         if (strikes % 4 == 1) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(1), sk.extraDamage.GetValue(1));
+                         if (strikes % 4 == 2) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(2), sk.extraDamage.GetValue(2));
+                         break;
+                     case 3:
+                         if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(0), sk.extraDamage.GetValue(0));
+                         if (strikes % 4 == 1) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(1), sk.extraDamage.GetValue(1));
+                         if (strikes % 4 == 2) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(2), sk.extraDamage.GetValue(2));
+                         if (strikes % 4 == 3) _elementStrikesIncrease.Add(sk.extraDamage.GetKey(3), sk.extraDamage.GetValue(3));
+                         break;
+                 }
+             }
+             break;
+
+         case CombatEvent.Hit:
+             explosiveHit();
+             concussiveWave();
+             void explosiveHit()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.ExplosiveHit, out SoSkill sk)) return;
+                 if (Br.combat.counterHit % 3 != 0) return;
+                 PassDataContainer container = new PassDataContainer()
+                 {
+                     canBeBlocked = true,
+                     data = new List<PassData>()
+                     {
+                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                     }
+                 };
+                 SpellMain ex = Instantiate(sk.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                 ex.transporter.target = Br.combat.MyTarget;
+                 ex.InitializeMe(Br, container);
+             }
+             void concussiveWave()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill sk)) return;
+                 if (sk.floatGeneric < Random.value) return;
+                 PassDataContainer container = new PassDataContainer()
+                 {
+                     canBeBlocked = true,
+                     data = new List<PassData>()
+                     {
+                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                     }
+                 };
+                 SpellMain concussive = Instantiate(sk.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                 concussive.areaOfEffect += sk.extraStats.GetValue(0);
+                 concussive.InitializeMe(Br, container);
+             }
+             break;
+
+         case CombatEvent.Miss:
+             spectralRicochet();
+             void spectralRicochet()
+             {
+                 float chance = 0.05f;
+                 if (Random.value > chance || !Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk)) return;
+
+                 Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.position);
+                 int ricochet = Br.character.GetStat(Stats.Ricochet);
+                 MyDuo<Element, float> damage = new MyDuo<Element, float>();
+                 damage.Add(Element.Physical, Br.character.GetStat(Stats.RangedDamage) + sk.extraDamage.GetValue(0));
+                 PassDataContainer containerThrow = new PassDataContainer()
+                 {
+                     canBeBlocked = true,
+                     data = new List<PassData>()
+                     {
+                         new PassDataDamage(damage),
+                     }
+                 };
+                 if (sk.extraStats.TryGetValueByKey(Stats.Ricochet, out int extraStat)) ricochet += extraStat;
+
+                 SpellMain spell = Instantiate(sk.spell, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
+                 BulletTransporter bulletTransporter = spell.transporter as BulletTransporter;
+                 bulletTransporter.ricochet = ricochet;
+                 spell.InitializeMe(Br, containerThrow);
+             }
+             break;
+
+         case CombatEvent.GetHit:
+             break;
+         case CombatEvent.Block: 
+             ironMirror();
+             void ironMirror()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.IronMirror, out SoSkill sk)) return;
+                 StartCoroutine(delay());
+                 IEnumerator delay()
+                 {
+                     yield return Ga.me.wait01;
+                     PassDataContainer container = new PassDataContainer()
+                     {
+                         myBrain = Br,
+                         data = new List<PassData>()
+                         {
+                             new PassDataKnockBack(sk.numGeneric)
+                         }
+                     };
+                     SpellMain push = Instantiate(sk.spell, myShield.position, Quaternion.identity, Ga.me.spells.myTransform);
+                     push.InitializeMe(Br, container);
+                 }
+             }
+             break;
+         case CombatEvent.Kill:
+             arcaneHarvest();
+             void arcaneHarvest()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.ArcaneHarvest, out SoSkill sk)) return;
+                 if (otherBrain.character.GetStat(Stats.MagicDamage) < Br.character.GetStat(Stats.MagicDamage)) return;
+                 PassDataStats pds = new PassDataStats()
+                 {
+                     group = sk.stats
+                 };
+                 Br.character.BuffInjectData(pds);
+             }
+             break;
+     }
+
     }
 }

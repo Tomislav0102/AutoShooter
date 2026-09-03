@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
 
@@ -17,13 +18,12 @@ public class Skills : MonoBehaviour, IIniBrain
             if (useKnight) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills knight"));
             if (useMage) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills mage"));
             if (useArcher) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills archer"));
-            _allSkills =  tempSkills.ToArray();
             
             int enumLength = System.Enum.GetNames(typeof(SkillName)).Length;
             Dictionary<SkillName, List<SoSkill>> dict = new Dictionary<SkillName, List<SoSkill>>();
             for (int i = 0; i < enumLength; i++)
             {
-                dict.Add((SkillName)i, AllSkillsByName((SkillName)i));
+                dict.Add((SkillName)i, allSkillsByName((SkillName)i));
             } 
             List<Group> tempGroups = new List<Group>();
             foreach (KeyValuePair<SkillName, List<SoSkill>> item in dict)
@@ -31,19 +31,28 @@ public class Skills : MonoBehaviour, IIniBrain
                 if (item.Value.Count == 0) continue;
                 tempGroups.Add(new Group(item.Value.ToArray()));
             }
-            tempGroups.Add(new Group(new SoSkill[1]{baseSkill}, 0));
             _group = tempGroups.ToArray();
+            skillsUpdated.Invoke();
+            return;
+            List<SoSkill> allSkillsByName(SkillName skillName)
+            {
+                List<SoSkill> temp = new List<SoSkill>();
+                foreach (SoSkill s in tempSkills)
+                {
+                    if (s.skillName == skillName) temp.Add(s);
+                }
+                return temp;
+            }
+
         }
     }
     Brain _br;
-    public MyDuo<bool, SoSkill> pair;
 
-    public SoSkill baseSkill;
+   // public SoSkill baseSkill; //need to be removed
     [SerializeField] SoSkill[] replacements;
     [SerializeField] bool useShared, useKnight, useMage, useArcher;
-    SoSkill[] _allSkills;
     [ShowInInspector, ReadOnly] Group[] _group;
-    
+    [SerializeField] UnityEvent skillsUpdated;
 
     [Button]
     public void LevelUp()
@@ -74,6 +83,15 @@ public class Skills : MonoBehaviour, IIniBrain
         }
         Ga.me.InjectSkills(chosenSkills);
     }
+    public void LevelSpecificSkill(SkillName skillName, int level)
+    {
+        foreach (Group g in _group)
+        {
+            if (g.skillName != skillName) continue;
+            g.levelCurrent = level;
+            return;
+        }
+    }
     public void SkillIncrease(SkillName skillName)
     {
         if (skillName == SkillName.ReplacementGold)
@@ -92,6 +110,7 @@ public class Skills : MonoBehaviour, IIniBrain
             g.levelCurrent++;
             break;
         }
+        skillsUpdated.Invoke();
     }
 
 
@@ -99,14 +118,14 @@ public class Skills : MonoBehaviour, IIniBrain
     public class Group
     {
         public SkillName skillName;
-        public bool canAcquire = true; //true by default, some skills have requirements (e.g. after finishing the game once)
-        public int levelCurrent = -1;
+        public bool canAcquire; //true by default, some skills have requirements (e.g. after finishing the game once)
+        public int levelCurrent;
         SoSkill[] _mySkills;
 
-        public Group(SoSkill[] skills, int startLevel = -1)
+        public Group(SoSkill[] skills)
         {
             canAcquire = true;
-            levelCurrent = startLevel;
+            levelCurrent = -1;
             _mySkills = skills;
             skillName = _mySkills[0].skillName;
         }
@@ -139,16 +158,18 @@ public class Skills : MonoBehaviour, IIniBrain
         skill = null;
         return false;
     }
-
-    List<SoSkill> AllSkillsByName(SkillName skillName)
+    public SoSkill[] CurrentSkills()
     {
-        List<SoSkill> tempSkills = new List<SoSkill>();
-        foreach (SoSkill s in _allSkills)
+        List<SoSkill> sk = new List<SoSkill>();
+        foreach (Group item in _group)
         {
-            if (s.skillName == skillName) tempSkills.Add(s);
+            if (!item.canAcquire) continue;
+            if (item.levelCurrent < 0) continue;
+            sk.Add(item.MySkill());
         }
-        return tempSkills;
+        return sk.ToArray();
     }
+
 
 
 
