@@ -19,7 +19,6 @@ MonoBehaviour:
   skillNameText: 
   levelUpText: 
   skillType: 0
-  animAttackType: 0
   level: 1
   hasStat: 0
   stats: []
@@ -34,9 +33,36 @@ MonoBehaviour:
   spell: {fileID: 8368024395976555183, guid: c5b5ee6045ab10641a66e5dd60d118a6, type: 3}
   spellGroup: {fileID: 0}
   hasExtra: 1
-  extraStats:
-    <Key>k__BackingField: 13000000
-    <Value>k__BackingField: 03000000
+  block:
+    canBeBlocked: 0
+    canBeDodged: 0
+    hasDamage: 0
+    damage:
+      pair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+      addSpellVelocity: 0
+      spellsVelocity: {x: 0, y: 0, z: 0}
+    hasKnockback: 0
+    knockBack:
+      power: 0
+      direction: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShield:
+      manaShieldPoints: 0
+    hasSpell: 0
+    spellData:
+      pair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+    hasStats: 1
+    stats:
+      group:
+      - stat: 19
+        change: 0
+        value: 3
+        hasDuration: 0
+        duration: 0
   hasGeneric: 1
   numGeneric: 0
   floatGeneric: 0.11

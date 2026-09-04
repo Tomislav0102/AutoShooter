@@ -1,6 +1,6 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
-
+using System.Collections.Generic;
 
 
 [CreateAssetMenu]
@@ -28,7 +28,7 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
 
     [Title("Spell")]
-    [InfoBox("Does not include stat increases. Extra are stats that affect only this spell (size, duration...)")]
+    [InfoBox("Extra affect only this spell (PassData format)")]
     public HasSpell hasSpell;
     bool ShowSpell() => hasSpell == HasSpell.Spell;
     bool ShowSpellGroup() => hasSpell == HasSpell.SpellGroup;
@@ -37,8 +37,8 @@ public class SoSkill : ScriptableObject
     bool ShowExtra() => hasSpell != HasSpell.None;
     [ShowIf(nameof(ShowExtra))] public bool hasExtra;
     bool ShowHasExtra() => ShowExtra() && hasExtra;
-    [ShowIf(nameof(ShowHasExtra))] public MyDuo<Stats, int> extraStats;
-
+    [ShowIf(nameof(ShowHasExtra))] public PassDataBlock block;
+    
     [Title("Generic")]
     [InfoBox("Special use cases, should be used sparingly")]
     public bool hasGeneric; 
@@ -51,5 +51,4 @@ public class SoSkill : ScriptableObject
     
     public enum HasSpell { None, Spell, SpellGroup }
 }
-
 

@@ -83,6 +83,13 @@ public class PassDataDamage : PassData
 [System.Serializable]
 public class PassDataSpell: PassData
 {
+    static bool b;
+    static PassDataSpell()
+    {
+        b = true;
+    }
+    
+    
     public MyDuo<HitEffectOnSpell, SpellMain> pair;
     public PassDataSpell(HitEffectOnSpell[] keys, SpellMain[] values)
     {

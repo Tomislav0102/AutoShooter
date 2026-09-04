@@ -14629,6 +14629,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: BP_Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: useArcher
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6959694061214563688}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SkillUpdate
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Archer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6946829470440141043, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
@@ -14699,6 +14731,5 @@ MonoBehaviour:
   diagonal: 0
   side: 0
   back: 0
-  parallel: 0
   followUp: 0
   psRoll: {fileID: 4642725526670643804}

@@ -19,7 +19,6 @@ MonoBehaviour:
   skillNameText: 
   levelUpText: 
   skillType: 1
-  animAttackType: 0
   level: 0
   hasStat: 0
   stats:
@@ -40,8 +39,8 @@ MonoBehaviour:
   hasAttackEffect: 0
   effect:
     group: []
-  hasSpell: 1
-  spell: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
+  hasSpell: 0
+  spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
   extraStats:

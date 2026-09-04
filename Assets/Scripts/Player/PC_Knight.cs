@@ -41,8 +41,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         _allSkills = Br.skills.CurrentSkills();
         foreach (SoSkill item in _allSkills)
         {
-            if (item.skillName != SkillName.KnightMelee) continue;
-            Br.skills.LevelSpecificSkill(SkillName.KnightMelee, 0);
+            if (item.skillName != SkillName.KnightBase) continue;
+            Br.skills.LevelSpecificSkill(SkillName.KnightBase, 0);
             _myBasic = item;
             break;
         }
@@ -263,7 +263,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                      }
                  };
                  SpellMain concussive = Instantiate(sk.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                 concussive.areaOfEffect += sk.extraStats.GetValue(0);
+                 concussive.areaOfEffect += sk.block.stats.group[0].value;
                  concussive.InitializeMe(Br, container);
              }
              break;
@@ -287,7 +287,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                          new PassDataDamage(damage),
                      }
                  };
-                 if (sk.extraStats.TryGetValueByKey(Stats.Ricochet, out int extraStat)) ricochet += extraStat;
+                 ricochet += sk.block.stats.group[0].value;
 
                  SpellMain spell = Instantiate(sk.spell, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
                  BulletTransporter bulletTransporter = spell.transporter as BulletTransporter;
@@ -299,24 +299,16 @@ public class PC_Knight : MonoBehaviour, IIniBrain
          case CombatEvent.GetHit:
              break;
          case CombatEvent.Block: 
-             ironMirror();
-             void ironMirror()
+             shockwaveBlock();
+             void shockwaveBlock()
              {
-                 if (!Br.skills.TryGetFromGroup(SkillName.IronMirror, out SoSkill sk)) return;
+                 if (!Br.skills.TryGetFromGroup(SkillName.ShockwaveBlock, out SoSkill sk)) return;
                  StartCoroutine(delay());
                  IEnumerator delay()
                  {
                      yield return Ga.me.wait01;
-                     PassDataContainer container = new PassDataContainer()
-                     {
-                         myBrain = Br,
-                         data = new List<PassData>()
-                         {
-                             new PassDataKnockBack(sk.numGeneric)
-                         }
-                     };
                      SpellMain push = Instantiate(sk.spell, myShield.position, Quaternion.identity, Ga.me.spells.myTransform);
-                     push.InitializeMe(Br, container);
+                     push.InitializeMe(Br, sk.block.GetContainer());
                  }
              }
              break;

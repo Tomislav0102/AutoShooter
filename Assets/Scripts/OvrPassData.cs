@@ -10,6 +10,13 @@ using Sirenix.OdinInspector;
 /// </summary>
 public class OvrPassData : MonoBehaviour
 {
+    public PassDataBlock block;
+}
+
+
+[System.Serializable]
+public class PassDataBlock
+{
     [BoxGroup] public bool canBeBlocked;
     [BoxGroup] public bool canBeDodged;
 
@@ -43,5 +50,6 @@ public class OvrPassData : MonoBehaviour
         
         return container;
     }
+
 }
 

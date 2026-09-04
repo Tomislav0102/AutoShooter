@@ -18,7 +18,6 @@ public class PC_Archer : MonoBehaviour
     Brain _br;
 
     [SerializeField] Transform spawnPoint;
-    [SerializeField] bool forward;
     [SerializeField] bool front;
     [SerializeField] bool diagonal, side, back;
     [SerializeField][Range(0, 3)] int followUp;
@@ -26,7 +25,37 @@ public class PC_Archer : MonoBehaviour
     Coroutine _rollCoroutine;
     const float CONST_RollTime = 0.3f;
     [SerializeField] ParticleSystem psRoll;
+    SoSkill _myBasic;
+    SoSkill[] _allSkills;
     
+    public void SkillUpdate()
+    {
+        _allSkills = Br.skills.CurrentSkills();
+        foreach (SoSkill item in _allSkills)
+        {
+            switch (item.skillName)
+            {
+                case SkillName.ArcherBase:
+                    if (_myBasic != null) continue;
+                    Br.skills.LevelSpecificSkill(SkillName.ArcherBase, 0);
+                    _myBasic = item;
+                    break;
+                case SkillName.FrontArrow:
+                    front = true;
+                    break;
+                case SkillName.DiagonalArrow:
+                    diagonal = true;
+                    break;
+                case SkillName.SideArrow:
+                    side = true;
+                    break;
+                case SkillName.BackArrow:
+                    back = true;
+                    break;
+            }
+        }
+    }
+
     void OnEnable()
     {
         EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
@@ -100,20 +129,17 @@ public class PC_Archer : MonoBehaviour
                 spawnProjectile(90 * (i * 2 - 1));
             }
         }
-        if (forward)
-        {
-            Vector3 fw = Br.myTransform.forward;
-            float angle = Mathf.Atan2(fw.x, fw.z) * Mathf.Rad2Deg;
-            spawnProjectile(angle);
-        }
+        
+        Vector3 fw = Br.myTransform.forward;
+        float angle = Mathf.Atan2(fw.x, fw.z) * Mathf.Rad2Deg;
+        spawnProjectile(angle);
         
         void spawnProjectile(float rotation)
         {
             Vector3 rot = rotation * Vector3.up;
             PassDataContainer container = new PassDataContainer()
             {
-                myBrain = Br,
-                canBeBlocked = false,
+                canBeBlocked = true,
                 data = new List<PassData>()
                 {
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
@@ -123,7 +149,7 @@ public class PC_Archer : MonoBehaviour
             for (int i = 0; i < projectile; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                SpellMain sp = Instantiate(Ga.me.spells.bulletPlayer, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellMain sp = Instantiate(_myBasic.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                 sp.visual.SetSpawnHeight(spawnPoint.position.y);
                 sp.myTransform.Rotate(rot);
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);

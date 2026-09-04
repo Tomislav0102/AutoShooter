@@ -140,7 +140,7 @@ public class SpellMain : MonoBehaviour
         myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         
         OvrPassData ovrPassData = GetComponent<OvrPassData>();
-        if (ovrPassData != null) pd = ovrPassData.GetContainer();
+        if (ovrPassData != null) pd = ovrPassData.block.GetContainer();
         if (pd == null)
         {
             print($"No PassData found, destroying {gameObject.name} spell.");

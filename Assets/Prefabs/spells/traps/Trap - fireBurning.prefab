@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
       propertyPath: m_Name
-      value: Trap Variant
+      value: Trap - fireBurning
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -93,11 +93,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  block:
+    canBeBlocked: 0
+    canBeDodged: 0
+    hasDamage: 1
+    damage:
+      pair:
+        <Key>k__BackingField: 01000000
+        <Value>k__BackingField:
+        - 1
+      addSpellVelocity: 0
+      spellsVelocity: {x: 0, y: 0, z: 0}
+    hasKnockback: 0
+    knockBack:
+      power: 0
+      direction: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShield:
+      manaShieldPoints: 0
+    hasSpell: 0
+    spellData:
+      pair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+    hasStats: 0
+    stats:
+      group: []
   canBeBlocked: 0
   canBeDodged: 0
   hasDamage: 1
   damage:
-    priority: 0
     pair:
       <Key>k__BackingField: 02000000
       <Value>k__BackingField:
@@ -106,28 +131,16 @@ MonoBehaviour:
     spellsVelocity: {x: 0, y: 0, z: 0}
   hasKnockback: 0
   knockBack:
-    priority: 0
-    knockBackPower: 0
-    knockBackDirection: {x: 0, y: 0}
-  hasMagnet: 0
-  magnet:
-    priority: 0
     power: 0
-    center: {x: 0, y: 0, z: 0}
+    direction: {x: 0, y: 0}
   hasManaShield: 0
   manaShield:
-    priority: 0
     manaShieldPoints: 0
   hasSpell: 0
   spellData:
-    priority: 0
-    spellsToAffect: []
-    effect: 0
+    pair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
   hasStats: 0
   stats:
-    priority: 0
-    stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
+    group: []

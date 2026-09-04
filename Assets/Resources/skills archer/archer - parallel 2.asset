@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight - melee
+  m_Name: archer - parallel 2
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: Standard melee attack, always available
-  levelUpEffect: None
-  skillName: 51
+  description: 
+  levelUpEffect: 
+  skillName: 110
   skillNameText: 
   levelUpText: 
-  skillType: 0
-  animAttackType: 0
-  level: 0
-  hasStat: 0
+  skillType: 1
+  level: 2
+  hasStat: 1
   stats:
-  - stat: 0
+  - stat: 24
     change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
-  - stat: 0
-    change: 0
-    value: 0
+    value: 1
     hasDuration: 0
     duration: 0
   hasExtraDamage: 0
@@ -40,8 +34,8 @@ MonoBehaviour:
   hasAttackEffect: 0
   effect:
     group: []
-  hasSpell: 1
-  spell: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
+  hasSpell: 0
+  spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
   extraStats:

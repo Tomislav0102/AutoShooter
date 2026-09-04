@@ -342,6 +342,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  block:
+    canBeBlocked: 0
+    canBeDodged: 0
+    hasDamage: 0
+    damage:
+      pair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+      addSpellVelocity: 0
+      spellsVelocity: {x: 0, y: 0, z: 0}
+    hasKnockback: 0
+    knockBack:
+      power: 0
+      direction: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShield:
+      manaShieldPoints: 0
+    hasSpell: 1
+    spellData:
+      pair:
+        <Key>k__BackingField: 00000000
+        <Value>k__BackingField:
+        - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+    hasStats: 0
+    stats:
+      group: []
   canBeBlocked: 0
   canBeDodged: 0
   hasDamage: 0
@@ -364,10 +390,7 @@ MonoBehaviour:
       <Key>k__BackingField: 00000000
       <Value>k__BackingField:
       - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
+      - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
   hasStats: 0
   stats:
-    stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
+    group: []

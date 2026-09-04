@@ -40,13 +40,38 @@ MonoBehaviour:
   effect:
     group: []
   hasSpell: 1
-  spell: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
+  spell: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
   spellGroup: {fileID: 0}
   hasExtra: 0
   extraStats:
     <Key>k__BackingField: 
     <Value>k__BackingField: 
-  hasGeneric: 1
-  numGeneric: 30
+  block:
+    canBeBlocked: 0
+    canBeDodged: 0
+    hasDamage: 0
+    damage:
+      pair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+      addSpellVelocity: 0
+      spellsVelocity: {x: 0, y: 0, z: 0}
+    hasKnockback: 0
+    knockBack:
+      power: 0
+      direction: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShield:
+      manaShieldPoints: 0
+    hasSpell: 0
+    spellData:
+      pair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+    hasStats: 0
+    stats:
+      group: []
+  hasGeneric: 0
+  numGeneric: 0
   floatGeneric: 0
   stringGeneric: 

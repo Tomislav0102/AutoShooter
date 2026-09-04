@@ -15,11 +15,10 @@ MonoBehaviour:
   infoA: Level of skill starts at 0 (in-game its level1).
   description: 
   levelUpEffect: 
-  skillName: 106
+  skillName: 137
   skillNameText: 
   levelUpText: 
   skillType: 1
-  animAttackType: 0
   level: 0
   hasStat: 0
   stats: []
