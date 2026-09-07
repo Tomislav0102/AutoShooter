@@ -68,6 +68,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
 
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)
@@ -102,9 +103,9 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
                 if (bulletTransporter != null)
                 {
-                    bulletTransporter.ricochet = Br.character.GetStat(Stats.Ricochet);
-                    bulletTransporter.pierce = Br.character.GetStat(Stats.Piercing);
-                    bulletTransporter.bounce = Br.character.GetStat(Stats.Bounce);
+                    bulletTransporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
+                    bulletTransporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
+                    bulletTransporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
                 }
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
                 bullet.InitializeMe(Br, containerBullet);

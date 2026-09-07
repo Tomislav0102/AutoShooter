@@ -67,11 +67,22 @@ public class PassDataDamage : PassData
     public bool addSpellVelocity; //damage is affected by motion of spell/target. used in 'spiked wall' trap.
     [HideInInspector] public Vector3 spellsVelocity; 
 
+    /// <summary>
+    /// to be removed in future and replaced with data from SoSkill
+    /// </summary>
+    /// <param name="keys"></param>
+    /// <param name="values"></param>
+    /// <param name="addVelocity"></param>
     public PassDataDamage(Element[] keys, float[] values, bool addVelocity = false)
     {
         pair = new MyDuo<Element, float>(keys, values);
         addSpellVelocity = addVelocity;
     }
+    /// <summary>
+    /// this will be the only constructor
+    /// </summary>
+    /// <param name="pair"></param>
+    /// <param name="addVelocity"></param>
     public PassDataDamage(MyDuo<Element, float> pair, bool addVelocity = false)
     {
         this.pair = pair;
@@ -83,13 +94,6 @@ public class PassDataDamage : PassData
 [System.Serializable]
 public class PassDataSpell: PassData
 {
-    static bool b;
-    static PassDataSpell()
-    {
-        b = true;
-    }
-    
-    
     public MyDuo<HitEffectOnSpell, SpellMain> pair;
     public PassDataSpell(HitEffectOnSpell[] keys, SpellMain[] values)
     {
@@ -112,16 +116,18 @@ public class PassDataStats : PassData
     {
         public Stats stat;
         public GenChange change;
-        public int value;
+        public BuffType buffType;
+        public float value;
         bool ShowHasDuration() => change == GenChange.Add;
         bool ShowDuration() => change == GenChange.Add && hasDuration;
         [ShowIf(nameof(ShowHasDuration))] public bool hasDuration;
         [ShowIf(nameof(ShowDuration))] public float duration;
         
-        public Group(Stats stat, GenChange change, int value, float duration = float.PositiveInfinity)
+        public Group(Stats stat, GenChange change, BuffType buffType, float value, float duration = float.PositiveInfinity)
         {
             this.stat = stat;
             this.change = change;
+            this.buffType = buffType;
             this.value = value;
             hasDuration = !float.IsPositiveInfinity(duration);
         }

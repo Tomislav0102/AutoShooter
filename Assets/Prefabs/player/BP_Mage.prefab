@@ -5404,7 +5404,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 37d903e4c8c3e2245aeab283124cc397, type: 2}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

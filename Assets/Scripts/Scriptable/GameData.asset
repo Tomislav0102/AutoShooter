@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15be6d62f06acae4c8905ae10176b6e3, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::SoGameData
+  showParticles: 1
   level: 1
   rofSpells: 0.5
   dashTime: 0.4

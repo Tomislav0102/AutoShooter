@@ -14635,7 +14635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -14726,7 +14726,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Archer
   spawnPoint: {fileID: 3734369076805066266}
-  forward: 1
   front: 0
   diagonal: 0
   side: 0

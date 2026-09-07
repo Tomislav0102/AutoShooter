@@ -11,7 +11,7 @@ public enum GenChange { Add, Remove }
 public enum GenDistance { Closest, Furthest, Middle, Random }
 #endregion
 
-
+public enum BuffType { Added, Percentage }
 public enum WeaponType { Slash, Blunt, Pierce }
 public enum AttackEffect
 {

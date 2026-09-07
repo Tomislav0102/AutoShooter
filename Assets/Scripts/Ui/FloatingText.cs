@@ -24,26 +24,29 @@ public class FloatingText : MonoBehaviour
     public void SpawnMe(MyDuo<Element, float> damage, float offsetY = 2f)
     {
         _startColors = new Color[myTexts.Length];
+        int lengthOfDamageOverZero = 0;
         for (int i = 0; i < damage.Length(); i++)
         {
             Element k = damage.GetKey(i);
             float v = damage.GetValue(i);
             int index = (int)k;
             myTexts[index].enabled = true;
-            if (v >= 0)
+            if (v > 0)
             {
                 myTexts[index].text = $" <sprite index={index}>{v} ";
                 _startColors[index] = Ga.me.gameData.GetElement((Element)index).col;
+                lengthOfDamageOverZero++;
             }
-            else // healing
+            else if (v < 0) // healing
             {
                 myTexts[index].text =(-v).ToString("0");
                 _startColors[index] = Ga.me.gameData.colHeal;
+                lengthOfDamageOverZero++;
             }
 
         }
         
-        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * damage.Length(), 0);
+        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * lengthOfDamageOverZero - 1, 0);
         GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
         _startPosition = myTransform.position; 
         _startingOffsetY = offsetY;

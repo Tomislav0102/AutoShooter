@@ -36,13 +36,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     SoSkill _myBasic;
     SoSkill[] _allSkills;
     
-    public void SkillUpdate()
+    public void SkillUpdate(SoSkill[] allSkills)
     {
-        _allSkills = Br.skills.CurrentSkills();
+        _allSkills = allSkills;
         foreach (SoSkill item in _allSkills)
         {
             if (item.skillName != SkillName.KnightBase) continue;
-            Br.skills.LevelSpecificSkill(SkillName.KnightBase, 0);
             _myBasic = item;
             break;
         }
@@ -52,9 +51,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     public void AnimEv_AttackCallback(int num = 0)
     {
         //damage
-        MyDuo<Element, float> totalDamage = new MyDuo<Element, float>(true);
-        totalDamage.Add(Element.Physical, Br.character.GetStat(Stats.MeleeDamage, _crescendoStrikeIncrease));
-        totalDamage.AddRange(_elementStrikesIncrease);
+        MyDuo<Element, float> totalDamage = Br.character.GetDamage(Stats.MeleeDamage);
+        if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage.AddRange(_elementStrikesIncrease);
 
         //attack effects
         bool addEffect = false;
@@ -90,7 +88,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             data = new List<PassData>()
             {
                  new PassDataDamage(totalDamage, true),
-                 new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack)),
+                 new PassDataKnockBack((int)Br.character.GetStat(Stats.KnockBack)),
             }
         };
         if (addEffect) container.data.Add(new PassDataEffect() { group = new PassDataEffect.Group[2] {executioner, bleeding}});
@@ -104,9 +102,18 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         };
         melee.InitializeMe(Br, container);
         
+        PassDataStats pdsRemove = new PassDataStats()
+        {
+            group = new PassDataStats.Group[1]
+            {
+                new PassDataStats.Group(Stats.MeleeDamage, GenChange.Remove, BuffType.Percentage, _crescendoStrikeIncrease)
+            }
+        };
+        Br.character.BuffInjectData(pdsRemove);
         _crescendoStrikeIncrease = 1f;
         _elementStrikesIncrease = new MyDuo<Element, float>();
     }
+    
     
     public void AnimEv_UltimateCallback(int num = 0)
     {
@@ -134,7 +141,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 data = new List<PassData>()
                 {
                     new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 4f }),
-                    new PassDataKnockBack(Br.character.GetStat(Stats.KnockBack), knockBackDir2)
+                    new PassDataKnockBack((int)Br.character.GetStat(Stats.KnockBack), knockBackDir2)
                 }
             };
             SpellMain contactDam = Instantiate(Ga.me.spells.contactDamage, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -200,12 +207,20 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                      if (val < 0) val = (skillLevel - 1) * valueToAdd;
                      resultingAddedDamage += val;
                      _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
+                     PassDataStats pdsAdd = new PassDataStats()
+                     {
+                         group = new PassDataStats.Group[1]
+                         {
+                             new PassDataStats.Group(Stats.MeleeDamage, GenChange.Add, BuffType.Percentage, _crescendoStrikeIncrease)
+                         }
+                     };
+                     Br.character.BuffInjectData(pdsAdd);
                  }
 
              }
              void elementalStrikes()
              {
-                 if (!Br.skills.TryGetFromGroup(SkillName.GrandCrescendo, out SoSkill sk)) return;
+                 if (!Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out SoSkill sk)) return;
                  _elementStrikesIncrease = new MyDuo<Element, float>();
                  switch (sk.level)
                  {
@@ -276,7 +291,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                  if (Random.value > chance || !Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk)) return;
 
                  Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.position);
-                 int ricochet = Br.character.GetStat(Stats.Ricochet);
+                 int ricochet = (int)Br.character.GetStat(Stats.Ricochet);
                  MyDuo<Element, float> damage = new MyDuo<Element, float>();
                  damage.Add(Element.Physical, Br.character.GetStat(Stats.RangedDamage) + sk.extraDamage.GetValue(0));
                  PassDataContainer containerThrow = new PassDataContainer()
@@ -287,7 +302,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                          new PassDataDamage(damage),
                      }
                  };
-                 ricochet += sk.block.stats.group[0].value;
+                 ricochet += (int)sk.block.stats.group[0].value;
 
                  SpellMain spell = Instantiate(sk.spell, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
                  BulletTransporter bulletTransporter = spell.transporter as BulletTransporter;

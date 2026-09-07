@@ -33,7 +33,8 @@ Knockback - scale for knockback effect is 0-99, should be the same for resistanc
 Blocking can activate from front side (180 arc front)
 Dodging can activate from both sides
 Sneak attack is from back side (180 arc back)
-Stats and buffs - integers are added, while floats are percentages (e.g. 0.1f is reduction of 90%, 1.2f is increase of 20%)
+Physical Resistance = Armor
+
 
 KNIGHT
 Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.

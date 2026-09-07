@@ -6,7 +6,8 @@ using UnityEngine.Serialization;
 
 public class SoGameData : ScriptableObject
 {
-    [Title("Dynamic")] 
+    [Title("Dynamic")]
+    public bool showParticles = true;
     public int level;
     [Title("General")]
     public float rofSpells;

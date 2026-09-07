@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
 
 public class Skills : MonoBehaviour, IIniBrain
@@ -32,8 +34,21 @@ public class Skills : MonoBehaviour, IIniBrain
                 tempGroups.Add(new Group(item.Value.ToArray()));
             }
             _group = tempGroups.ToArray();
-            skillsUpdated.Invoke();
+            if (useKnight)
+            {
+                OvrLevelSpecificSkill(SkillName.KnightBase, 0);
+                OvrLevelSpecificSkill(SkillName.GrandCrescendo, 0);
+            }
+            if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile, 0);
+            if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase, 0);
+            StartCoroutine(delaySkillUpdate());
             return;
+
+            IEnumerator delaySkillUpdate()
+            {
+                yield return null;
+                skillsUpdatedEv.Invoke(CurrentSkills());
+            }
             List<SoSkill> allSkillsByName(SkillName skillName)
             {
                 List<SoSkill> temp = new List<SoSkill>();
@@ -48,14 +63,26 @@ public class Skills : MonoBehaviour, IIniBrain
     }
     Brain _br;
 
-   // public SoSkill baseSkill; //need to be removed
     [SerializeField] SoSkill[] replacements;
     [SerializeField] bool useShared, useKnight, useMage, useArcher;
     [ShowInInspector, ReadOnly] Group[] _group;
-    [SerializeField] UnityEvent skillsUpdated;
+    [SerializeField] UnityEvent<SoSkill[]> skillsUpdatedEv;
 
+    #region DEBUG
+    
+    [Title("Debug")]    
+    public SoSkill[] skillsToLevel;
     [Button]
-    public void LevelUp()
+    public void LevelAboveSkills()
+    {
+        for (int i = 0; i < skillsToLevel.Length; i++)
+        {
+            if (skillsToLevel == null) continue;
+            OvrLevelSpecificSkill(skillsToLevel[i].skillName, 0);
+        }
+    }
+    [Button]
+    public void LevelUpNormal()
     {
         HashSet<SoSkill> skills = new HashSet<SoSkill>();
 
@@ -83,7 +110,16 @@ public class Skills : MonoBehaviour, IIniBrain
         }
         Ga.me.InjectSkills(chosenSkills);
     }
-    public void LevelSpecificSkill(SkillName skillName, int level)
+    #endregion
+
+    
+    
+    
+    
+    
+    
+    
+    void OvrLevelSpecificSkill(SkillName skillName, int level)
     {
         foreach (Group g in _group)
         {
@@ -107,10 +143,11 @@ public class Skills : MonoBehaviour, IIniBrain
         foreach (Group g in _group)
         {
             if (g.skillName != skillName) continue;
+            if (!g.CanLevel(out _)) return;
             g.levelCurrent++;
             break;
         }
-        skillsUpdated.Invoke();
+        skillsUpdatedEv.Invoke(CurrentSkills());
     }
 
 
@@ -141,6 +178,7 @@ public class Skills : MonoBehaviour, IIniBrain
                 return true;
             }
             nextLevelSkill = null;
+            print("Can't level " + skillName + ". Maxed out." );
             return false;
         }
     }
@@ -158,7 +196,7 @@ public class Skills : MonoBehaviour, IIniBrain
         skill = null;
         return false;
     }
-    public SoSkill[] CurrentSkills()
+    SoSkill[] CurrentSkills()
     {
         List<SoSkill> sk = new List<SoSkill>();
         foreach (Group item in _group)

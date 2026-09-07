@@ -12,7 +12,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         {
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
-            _numOfObjects = value.character.GetStat(Stats.Projectiles);
+            _numOfObjects = (int)value.character.GetStat(Stats.Projectiles);
             setEngageRange();
             switch (startActive)
             {
@@ -168,10 +168,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     SoSkill _myBasic;
     SoSkill[] _allSkills;
     
-    public void SkillUpdate()
-    {
-        _allSkills = Br.skills.CurrentSkills();
-    }
+    // public void SkillUpdate()
+    // {
+    //     _allSkills = Br.skills.CurrentSkills();
+    // }
+    
     
     
     void ArcaneShieldSpawn()

@@ -10,6 +10,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
         set
         {
             _spell = value;
+            if (!Ga.me.gameData.showParticles) return;
             if (psDefault != null)
             {
                 _lightDefault = psDefault.GetComponent<Light>();
@@ -72,11 +73,13 @@ public class SpellVisual : MonoBehaviour, IIniSpell
 
     public void PlayDefault()
     {
+        if (!Ga.me.gameData.showParticles) return;
         if (psDefault != null) psDefault.Play();
         StartCoroutine(LightDelay(_lightDefault));
     }
     public void StopDefault()
     {
+        if (!Ga.me.gameData.showParticles) return;
         if (psDefault != null) psDefault.Stop();
     }
 

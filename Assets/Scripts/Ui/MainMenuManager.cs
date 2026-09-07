@@ -8,8 +8,8 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] SoGameData gameData;
     [SerializeField] TextMeshProUGUI enemiesCountText;
+    [SerializeField] Toggle psToggle;
     [SerializeField] TMP_Dropdown playerDropdown;
-
 
     void Start()
     {
@@ -44,5 +44,9 @@ public class MainMenuManager : MonoBehaviour
     public void DropDownChosePlayer()
     {
         PlayerPrefs.SetInt(gameData.prefsTestChosenPlayer, playerDropdown.value);
+    }
+    public void ToggleParticles()
+    {
+        gameData.showParticles = psToggle.isOn;
     }
 }

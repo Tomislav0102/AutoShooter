@@ -28,33 +28,31 @@ public class PC_Archer : MonoBehaviour
     SoSkill _myBasic;
     SoSkill[] _allSkills;
     
-    public void SkillUpdate()
-    {
-        _allSkills = Br.skills.CurrentSkills();
-        foreach (SoSkill item in _allSkills)
-        {
-            switch (item.skillName)
-            {
-                case SkillName.ArcherBase:
-                    if (_myBasic != null) continue;
-                    Br.skills.LevelSpecificSkill(SkillName.ArcherBase, 0);
-                    _myBasic = item;
-                    break;
-                case SkillName.FrontArrow:
-                    front = true;
-                    break;
-                case SkillName.DiagonalArrow:
-                    diagonal = true;
-                    break;
-                case SkillName.SideArrow:
-                    side = true;
-                    break;
-                case SkillName.BackArrow:
-                    back = true;
-                    break;
-            }
-        }
-    }
+    // public void SkillUpdate()
+    // {
+    //     _allSkills = Br.skills.CurrentSkills();
+    //     foreach (SoSkill item in _allSkills)
+    //     {
+    //         switch (item.skillName)
+    //         {
+    //             case SkillName.ArcherBase:
+    //                 _myBasic = item;
+    //                 break;
+    //             case SkillName.FrontArrow:
+    //                 front = true;
+    //                 break;
+    //             case SkillName.DiagonalArrow:
+    //                 diagonal = true;
+    //                 break;
+    //             case SkillName.SideArrow:
+    //                 side = true;
+    //                 break;
+    //             case SkillName.BackArrow:
+    //                 back = true;
+    //                 break;
+    //         }
+    //     }
+    // }
 
     void OnEnable()
     {
@@ -142,10 +140,10 @@ public class PC_Archer : MonoBehaviour
                 canBeBlocked = true,
                 data = new List<PassData>()
                 {
-                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    new PassDataDamage(Br.character.GetDamage(Stats.RangedDamage)),
                 }
             };
-            int projectile = Br.character.GetStat(Stats.Projectiles);
+            int projectile = (int)Br.character.GetStat(Stats.Projectiles);
             for (int i = 0; i < projectile; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;

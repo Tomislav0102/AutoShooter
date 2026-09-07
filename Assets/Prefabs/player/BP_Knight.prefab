@@ -497,11 +497,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
-      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8289251900630384108}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8289251900630384108}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
@@ -513,11 +525,27 @@ PrefabInstance:
       value: SkillUpdate
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SkillUpdate
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PC_Knight, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Knight, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: skillsUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: skillsUpdatedEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -575,7 +603,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P_Knight
   myShield: {fileID: 6815601301861273165}
-  startActive: 99
 --- !u!4 &3640929346580867816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3227542870493095737, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
