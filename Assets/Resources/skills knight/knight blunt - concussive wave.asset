@@ -25,14 +25,14 @@ MonoBehaviour:
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
-    <Value>k__BackingField: 
+    <Value>k__BackingField: []
   hasAttackEffect: 0
   effect:
     group: []
   hasSpell: 1
   spell: {fileID: 8368024395976555183, guid: c5b5ee6045ab10641a66e5dd60d118a6, type: 3}
   spellGroup: {fileID: 0}
-  hasExtra: 1
+  hasExtra: 0
   block:
     canBeBlocked: 0
     canBeDodged: 0
@@ -55,14 +55,9 @@ MonoBehaviour:
       pair:
         <Key>k__BackingField: 
         <Value>k__BackingField: []
-    hasStats: 1
+    hasStats: 0
     stats:
-      group:
-      - stat: 19
-        change: 0
-        value: 2
-        hasDuration: 0
-        duration: 0
+      group: []
   hasGeneric: 1
   numGeneric: 0
   floatGeneric: 0.1

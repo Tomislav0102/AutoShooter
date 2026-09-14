@@ -24,29 +24,31 @@ public class FloatingText : MonoBehaviour
     public void SpawnMe(MyDuo<Element, float> damage, float offsetY = 2f)
     {
         _startColors = new Color[myTexts.Length];
-        int lengthOfDamageOverZero = 0;
+        MyDuo<Element, float> effDamage = new MyDuo<Element, float>();
         for (int i = 0; i < damage.Length(); i++)
         {
-            Element k = damage.GetKey(i);
-            float v = damage.GetValue(i);
+            if (damage.GetValue(i) != 0f) effDamage.Add(damage.GetKey(i), damage.GetValue(i));
+        }
+        for (int i = 0; i < effDamage.Length(); i++)
+        {
+            Element k = effDamage.GetKey(i);
+            float v = effDamage.GetValue(i);
             int index = (int)k;
             myTexts[index].enabled = true;
             if (v > 0)
             {
                 myTexts[index].text = $" <sprite index={index}>{v} ";
                 _startColors[index] = Ga.me.gameData.GetElement((Element)index).col;
-                lengthOfDamageOverZero++;
             }
             else if (v < 0) // healing
             {
                 myTexts[index].text =(-v).ToString("0");
                 _startColors[index] = Ga.me.gameData.colHeal;
-                lengthOfDamageOverZero++;
             }
 
         }
         
-        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * lengthOfDamageOverZero - 1, 0);
+        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * effDamage.Length(), 0);
         GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
         _startPosition = myTransform.position; 
         _startingOffsetY = offsetY;

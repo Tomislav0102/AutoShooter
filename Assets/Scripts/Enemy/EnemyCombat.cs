@@ -68,7 +68,6 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
 
     public void AnimEv_AttackCallback(int num = 0)
     {
-        return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)
@@ -129,33 +128,8 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 });
                 break;
             case 3: //dash with damage (used by cobra)
-                PassDataContainer pdDash = new PassDataContainer()
-                {
-                    data = new List<PassData>()
-                    {
-                        new PassDataDash(Ga.me.gameData.dashPower),
-                    }
-                };
-                SpellMain dash = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                dash.transporter.target = Br.myTransform;
-                dash.lifeTime = Ga.me.gameData.dashTime;
-                dash.InitializeMe(Br, pdDash);
-                Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
-                knockBackDir2.Normalize();
-                knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (2 * Random.Range(0,2) - 1));
-                PassDataContainer pdContactDamage = new PassDataContainer()
-                {
-                    data = new List<PassData>()
-                    {
-                        new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 5f }),
-                        new PassDataKnockBack(30, knockBackDir2)
-                    }
-                };
-                SpellMain contactDam = Instantiate(Ga.me.spells.contactDamage, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                contactDam.transporter.target = Br.myTransform;
-                contactDam.lifeTime = Ga.me.gameData.dashTime;
-                contactDam.areaOfEffect = 1.3f * Br.size;
-                contactDam.InitializeMe(Br, pdContactDamage);
+                MyDuo<Element, float> totalDamage = Br.character.GetDamage(Stats.MeleeDamage);
+                SpellGroup.ComboDash(Br,  totalDamage);
                 break;
         }
     }

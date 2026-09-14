@@ -13,6 +13,10 @@ public enum GenDistance { Closest, Furthest, Middle, Random }
 
 public enum BuffType { Added, Percentage }
 public enum WeaponType { Slash, Blunt, Pierce }
+/// <summary>
+/// On weapons/spells
+/// Some (Bleeding, Freezing...) cause 'StatusEffect' enum
+/// </summary>
 public enum AttackEffect
 {
     Burning,
@@ -21,8 +25,37 @@ public enum AttackEffect
     Poisoned,
     Bleeding,
     InstantKill,
-    Impact //stunned enemies take 50% more damage
+    Impact, //stunned enemies take 50% more damage
+    Keen, //extra crit chance
+    Serrated, //2X damage vs unarmored, 0.5X damage vs armored
+    Explosive, //bonus knockback
 }
+/// <summary>
+/// On targets/characters
+/// DOT have intensity, and they stack
+/// Others don't have intensity and only durations stack
+/// </summary>
+public enum StatusEffect
+{
+    Invulnerable,
+    Slowed, //attack and move speed
+    Rooted, //move speed is 0, attack speed unaffected
+    Stunned, //completely passive, enemy does nothing
+    Confused, //attacks random character, changes target often, does not respond to aggro 
+    Blinded, //like confused, but only close target
+    Charmed, //behaves like summon
+    Fumbling, //every attack misses
+    // Dripping_wet, //+elFire, -eIce, -elEle
+    // Dehydrated_dry, //-elFire, +elEle
+    // Freezing_cold,//+elFire, -elForce, +elPoison
+    // Sweltering_hot,//-elFire, +elIce, -elPoison
+    DOT_Bleeding,
+    DOT_Burning,
+    DOT_Freezing,
+    DOT_Jolted,
+    DOT_Poisoned
+}
+
 public enum SkillType { Active, Passive, Ultimate }
 public enum AnimAttackType
 {
@@ -39,7 +72,7 @@ public enum Element { Physical, Fire, Ice, Electricity, Poison, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }
 public enum Alertness { Relaxed, Alarmed, Fighting }
-public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill }
+public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill, Dodge }
 public enum Stats
 {
     //primary (maybe redundant -> like in 'Brotato')

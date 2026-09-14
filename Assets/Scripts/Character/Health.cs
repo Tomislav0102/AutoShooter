@@ -90,7 +90,7 @@ public class Health: MonoBehaviour, IIniBrain
                 ft.SpawnMe("Blocked!", Color.gold);
                 return;
             }
-            Br.combat.CheckDodge(out bool dodged);
+            Br.combat.CheckDodge(out bool dodged, pd.myBrain);
             if (dodged)
             {
                 ft.SpawnMe("Dodged!", Color.moccasin);
@@ -152,8 +152,8 @@ public class Health: MonoBehaviour, IIniBrain
                     SetShield(manaShield.manaShieldPoints);
                     break;
                 
-                case PassDataEffect effect:
-                    foreach (PassDataEffect.Group effectGroup in effect.group)
+                case PassDataAttackEffect effect:
+                    foreach (PassDataAttackEffect.Group effectGroup in effect.group)
                     {
                         if (effectGroup == null) continue;
                         switch (effectGroup.effect)
@@ -261,7 +261,7 @@ public class Health: MonoBehaviour, IIniBrain
         Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
         ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
         ps.Play();
-        EventBus.OnCharDeath?.Invoke(Br);
+        Ga.me.team.Death(Br);
         Destroy(_healthBar.gameObject);
         Destroy(_pointer.gameObject);
         Destroy(Br.gameObject);

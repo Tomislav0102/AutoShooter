@@ -5321,6 +5321,34 @@ PrefabInstance:
       propertyPath: replacements.Array.data[1].canAcquire
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3146949227178194219}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SkillIncreaseCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SharedSkills, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3696184041424430218, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -5382,6 +5410,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
@@ -5406,6 +5438,22 @@ PrefabInstance:
       value: set_MyTarget
       objectReference: {fileID: 0}
     - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3146949227178194219}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CombatEventCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerCombat, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -5414,11 +5462,19 @@ PrefabInstance:
       value: PlayerCombat, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SharedSkills, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: targetEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897372484551954396, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8184641197531375474, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
@@ -5491,6 +5547,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1059554215997535304}
   m_SourcePrefab: {fileID: 100100000, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+--- !u!114 &3146949227178194219 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7550801348221077394, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
+  m_PrefabInstance: {fileID: 4856534562519872185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9461b9b00973c5f4ab2540e7a4db191f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SharedSkills
 --- !u!1 &4148134728218332410 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8859920748719717955, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}

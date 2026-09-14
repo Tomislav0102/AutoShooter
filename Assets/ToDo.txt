@@ -1,13 +1,13 @@
 ------TODO------
 
 GENERAL
-Implement stats mechanics
 Implement status mechanics
 DOT - (burn, poison, etc...) Define mechanics.
 Gold and Xp mechanics
-Edge case with Dash and ContactDamage spells - Consider using some kind of container when casting several spells at once. Now there is violation of DRY principle, knight and cobra are using same code.
-   
+- REWORK NEEDED - MeleeDam, RangedDam and MagicDam are not compatible with Elemental Damages (e.g. MeleeDam with only ice element can't be implemented)
+
 LEVEL-UP
+
 
 KNIGHT
 Fix stab animation (animator is ready)
@@ -27,7 +27,6 @@ Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated b
 ------INFO------
 
 GENERAL
-Every player class should have several Ultimate skills
 Magnet feature - development paused for now
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
 Blocking can activate from front side (180 arc front)

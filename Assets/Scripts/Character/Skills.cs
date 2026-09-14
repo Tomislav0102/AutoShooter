@@ -37,18 +37,12 @@ public class Skills : MonoBehaviour, IIniBrain
             if (useKnight)
             {
                 OvrLevelSpecificSkill(SkillName.KnightBase, 0);
-                OvrLevelSpecificSkill(SkillName.GrandCrescendo, 0);
+                OvrLevelSpecificSkill(SkillName.Riposte, 0);
             }
             if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile, 0);
             if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase, 0);
-            StartCoroutine(delaySkillUpdate());
             return;
 
-            IEnumerator delaySkillUpdate()
-            {
-                yield return null;
-                skillsUpdatedEv.Invoke(CurrentSkills());
-            }
             List<SoSkill> allSkillsByName(SkillName skillName)
             {
                 List<SoSkill> temp = new List<SoSkill>();
@@ -64,10 +58,10 @@ public class Skills : MonoBehaviour, IIniBrain
     Brain _br;
 
     [SerializeField] SoSkill[] replacements;
+    public SoSkill myBasic;
     [SerializeField] bool useShared, useKnight, useMage, useArcher;
     [ShowInInspector, ReadOnly] Group[] _group;
-    [SerializeField] UnityEvent<SoSkill[]> skillsUpdatedEv;
-
+    [SerializeField] UnityEvent<SoSkill> skillIncreaseEv;
     #region DEBUG
     
     [Title("Debug")]    
@@ -113,12 +107,6 @@ public class Skills : MonoBehaviour, IIniBrain
     #endregion
 
     
-    
-    
-    
-    
-    
-    
     void OvrLevelSpecificSkill(SkillName skillName, int level)
     {
         foreach (Group g in _group)
@@ -132,12 +120,12 @@ public class Skills : MonoBehaviour, IIniBrain
     {
         if (skillName == SkillName.ReplacementGold)
         {
-
+            skillIncreaseEv.Invoke(replacements[0]);
             return;
         }
         if (skillName == SkillName.ReplacementHeal)
         {
-
+            skillIncreaseEv.Invoke(replacements[1]);
             return;
         }
         foreach (Group g in _group)
@@ -145,9 +133,9 @@ public class Skills : MonoBehaviour, IIniBrain
             if (g.skillName != skillName) continue;
             if (!g.CanLevel(out _)) return;
             g.levelCurrent++;
+            skillIncreaseEv.Invoke(g.MySkill());
             break;
         }
-        skillsUpdatedEv.Invoke(CurrentSkills());
     }
 
 

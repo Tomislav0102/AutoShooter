@@ -18,7 +18,6 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
     [SerializeField] bool onEnter = true;
     [SerializeField] bool onFakeStay;
     [SerializeField] bool onExit;
-    [ShowIf(nameof(onExit))] public SpellMain effectAtExit; //public so it can be added through code
 
     enum ColliderPart
     {
@@ -72,11 +71,10 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
         if (!Spell.collidersDetected.Contains(other)) return;
         Spell.collidersDetected.Remove(other);
         
-        if (!onExit || effectAtExit == null) return;
-        SpellMain exitSpell = Instantiate(effectAtExit, other.transform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        exitSpell.transporter.target = other.transform;
-        exitSpell.InitializeMe(Spell.OwnersBrain);
+        if (!onExit) return;
+        Spell.HitExit(other);
     }
+
 
     bool CheckColliderType(Vector3 pos)
     {

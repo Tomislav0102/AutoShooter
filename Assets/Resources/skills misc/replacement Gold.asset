@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: mage - magic missile
+  m_Name: replacement Gold
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
   description: 
   levelUpEffect: 
-  skillName: 62
+  skillName: 137
   skillNameText: 
   levelUpText: 
-  skillType: 0
-  animAttackType: 0
+  skillType: 1
   level: 0
   hasStat: 0
   stats: []
@@ -30,8 +29,8 @@ MonoBehaviour:
   hasAttackEffect: 0
   effect:
     group: []
-  hasSpell: 1
-  spell: {fileID: 7890456553648188601, guid: f118ceff0b403f04289002f1e61323f1, type: 3}
+  hasSpell: 0
+  spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
   extraStats:

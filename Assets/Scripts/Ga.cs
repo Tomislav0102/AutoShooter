@@ -49,7 +49,6 @@ public class Ga : MonoBehaviour
     [Title("Debug")] 
     public bool debug;
 
-
     void Awake()
     {
         me = this;
@@ -72,20 +71,6 @@ public class Ga : MonoBehaviour
        // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
     }
 
-    void OnEnable()
-    {
-        EventBus.OnCharDeath += CallEv_OnCharDeath;
-    }
-    void OnDisable()
-    {
-        EventBus.OnCharDeath -= CallEv_OnCharDeath;
-    }
-    
-
-    void CallEv_OnCharDeath(Brain brainDead)
-    {
-        team.CallEv_OnCharDeath(brainDead);
-    }
 
     public void BtnRestart()
     {

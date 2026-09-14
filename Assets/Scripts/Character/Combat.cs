@@ -108,8 +108,9 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
 
     }
 
-    public void CheckDodge(out bool dodged)
+    public void CheckDodge(out bool dodged, Brain otherBrain)
     {
+        CombatEventRegistered(CombatEvent.Dodge, otherBrain);
         dodged = false;
     }
     public void FromAnimEv_Attack(int num = 0)

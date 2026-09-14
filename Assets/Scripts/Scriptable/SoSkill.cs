@@ -1,6 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 
 [CreateAssetMenu]
@@ -19,13 +20,13 @@ public class SoSkill : ScriptableObject
 
     [Title("Global")]
     public bool hasStat;
-    [ShowIf(nameof(hasStat))] public PassDataStats.Group[] stats;
+    [ShowIf(nameof(hasStat))] public PassDataStats stats;
     public bool hasExtraDamage;
-    [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, int> extraDamage;
+    [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;
     // public bool hasExtraDamagePercentage;
     // [ShowIf(nameof(hasExtraDamagePercentage))] public MyDuo<Element, float> extraDamagePercentage;
     public bool hasAttackEffect;
-    [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
+    [FormerlySerializedAs("effect")] [ShowIf(nameof(hasAttackEffect))] public PassDataAttackEffect attackEffect;
 
     [Title("Spell")]
     [InfoBox("Extra affect only this spell (PassData format)")]

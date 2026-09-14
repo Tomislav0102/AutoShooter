@@ -8,14 +8,12 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-
     [Button]
-    void PlayEvent()
+    void AddS()
     {
-       
     }
     [Button]
-    void StopEvent()
+    void Remove()
     {
     }
 
@@ -26,6 +24,7 @@ public class Test : MonoBehaviour
         //dir = (Utils.MakeV2(transform.position) - Utils.MakeV2(tr.position)).normalized;
     }
 }
+
 
 
 

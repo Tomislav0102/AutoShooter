@@ -4,30 +4,6 @@ using UnityEngine;
 
 public class Status : MonoBehaviour, IIniBrain
 {
-    /// <summary>
-    /// DOT have intensity, and they stack
-    /// Others don't have intensity and only durations stack
-    /// </summary>
-    public enum Effect
-    {
-        Invulnerable,
-        Slowed, //attack and move speed
-        Rooted, //move speed is 0, attack speed unaffected
-        Stunned, //completely passive, enemy does nothing
-        Confused, //attacks random character, changes target often, does not respond to aggro 
-        Blinded, //like confused, but only close target
-        Charmed, //behaves like summon
-        Fumbling, //every attack misses
-        // Dripping_wet, //+elFire, -eIce, -elEle
-        // Dehydrated_dry, //-elFire, +elEle
-        // Freezing_cold,//+elFire, -elForce, +elPoison
-        // Sweltering_hot,//-elFire, +elIce, -elPoison
-        DOT_Bleeding,
-        DOT_Burning,
-        DOT_Freezing,
-        DOT_Jolted,
-        DOT_Poisoned
-    }
 
     public Brain Br
     {
@@ -77,13 +53,13 @@ public class Status : MonoBehaviour, IIniBrain
 
     class Group
     {
-        public Effect effect;
+        public StatusEffect statusEffect;
         public float duration;
         public int intensity;
 
-        public Group(Effect effect, float duration = float.PositiveInfinity, int intensity = 0)
+        public Group(StatusEffect statusEffect, float duration = float.PositiveInfinity, int intensity = 0)
         {
-            this.effect = effect;
+            this.statusEffect = statusEffect;
             this.duration = duration;
             this.intensity = intensity;
         }

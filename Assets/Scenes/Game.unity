@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_Name
       value: BP_Knight
@@ -603,6 +607,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1954762118285733204, guid: 73d75e838a167df40828a8f73fe9c394, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1954762118285733204, guid: 73d75e838a167df40828a8f73fe9c394, type: 3}
     - target: {fileID: 2793090103401517446, guid: 73d75e838a167df40828a8f73fe9c394, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -1285,6 +1293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
+  ca:
+    duration: 2
+    damagePerTick: 3
+    effect: 6
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2447,6 +2459,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
     - target: {fileID: 4819009179854940467, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: skillPair.<Key>k__BackingField.Array.size
       value: 2

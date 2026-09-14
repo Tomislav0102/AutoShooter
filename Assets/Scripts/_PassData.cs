@@ -106,6 +106,7 @@ public class PassDataSpell: PassData
 
 }
 
+
 [System.Serializable]
 public class PassDataStats : PassData 
 {
@@ -114,27 +115,27 @@ public class PassDataStats : PassData
     [System.Serializable]
     public class Group
     {
-        public Stats stat;
         public GenChange change;
-        public BuffType buffType;
-        public float value;
-        bool ShowHasDuration() => change == GenChange.Add;
-        bool ShowDuration() => change == GenChange.Add && hasDuration;
-        [ShowIf(nameof(ShowHasDuration))] public bool hasDuration;
-        [ShowIf(nameof(ShowDuration))] public float duration;
+        bool ShowBuffType() => change == GenChange.Add;
+        [ShowIf(nameof(ShowBuffType))] public BuffType buffType;
+        public Buff buff;
         
-        public Group(Stats stat, GenChange change, BuffType buffType, float value, float duration = float.PositiveInfinity)
+        public Group(GenChange change, BuffType buffType, Buff buff) 
         {
-            this.stat = stat;
             this.change = change;
             this.buffType = buffType;
-            this.value = value;
-            hasDuration = !float.IsPositiveInfinity(duration);
+            this.buff = buff;
+        }
+        public Group(GenChange change, Buff buff) //for removal
+        {
+            this.change = change;
+            this.buff = buff;
         }
     }
 }
+
 [System.Serializable]
-public class PassDataEffect: PassData
+public class PassDataAttackEffect: PassData
 {
     public Group[] group;
     
@@ -151,6 +152,37 @@ public class PassDataEffect: PassData
             this.duration = duration;
             this.damagePerTick = damagePerTick;
         }
+    }
+    
+    public class ParentClass
+    {
+        public float duration;
+        public int damagePerTick;
+
+        protected ParentClass(float duration = 0, int damagePerTick = 1)
+        {
+            this.duration = duration;
+            this.damagePerTick = damagePerTick;
+        }
+    }
+    [System.Serializable]
+    public class GroupAttack : ParentClass
+    {
+        public AttackEffect effect;
+        public GroupAttack(AttackEffect effect, float duration = 0, int damagePerTick = 1): base(duration, damagePerTick)
+        {
+            this.effect = effect;
+        }
+    }
+    [System.Serializable]
+    public class GroupStatus : ParentClass
+    {
+        public StatusEffect effect;
+        public GroupStatus(StatusEffect effect, float duration = 0, int damagePerTick = 1): base(duration, damagePerTick)
+        {
+            this.effect = effect;
+        }
+
     }
 }
 

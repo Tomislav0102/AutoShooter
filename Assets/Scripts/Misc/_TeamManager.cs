@@ -18,80 +18,87 @@ public class TeamManager
         _neutral = new HashSet<Brain>();
     }
     
-    public void CallEv_OnCharDeath(Brain brainDead)
+    public void Death(Brain brain)
     {
-       ChangeTeam(brainDead.Faction, brainDead, GenChange.Remove);
+        RemovalFromTeam(brain);
+    }
+    void RemovalFromTeam(Brain brain)
+    {
+        if (_good.Contains(brain))
+        {
+            _good.Remove(brain);
+            EventBus.OnBrainAddRemove(brain, GenChange.Remove);
+        }
+        else if (_bad.Contains(brain))
+        {
+            _bad.Remove(brain);
+            EventBus.OnBrainAddRemove(brain, GenChange.Remove);
+        }
+        else if (_neutral.Contains(brain))
+        {
+            _neutral.Remove(brain);
+            EventBus.OnBrainAddRemove(brain, GenChange.Remove);
+        }
     }
 
+    public void JoinTeam(Faction newFaction, Brain brain)
+    {
+        RemovalFromTeam(brain);
+        switch (newFaction)
+        {
+            case Faction.GoodGuys:
+                _good.Add(brain);
+                EventBus.OnBrainAddRemove(brain, GenChange.Add);
+                break;
+            case Faction.BadGuys:
+                _bad.Add(brain);
+                EventBus.OnBrainAddRemove(brain, GenChange.Add);
+                break;
+            case Faction.Neutral:
+                _neutral.Add(brain);
+                EventBus.OnBrainAddRemove(brain, GenChange.Add);
+                break;
+        }
+    }
 
+    public int TeamMemberCount(Faction faction)
+    {
+        switch (faction)
+        {
+            case Faction.GoodGuys:
+                return _good.Count;
+            case Faction.BadGuys:
+                return _bad.Count;
+            case Faction.Neutral:
+                return _neutral.Count;
+            default:
+                return 0;
+        }
+    }
+    
     public HashSet<Transform> ValidTargets(Faction faction)
     {
         HashSet<Transform> temp =  new HashSet<Transform>();
-        HashSet<Brain> brains =  ValidTargetBrain(faction);
+        HashSet<Brain> brains =  validTargetBrain();
         
         foreach (Brain item in brains)
         {
             temp.Add(item.myTransform);
         }
         return temp;
-    }
-    HashSet<Brain> ValidTargetBrain(Faction faction)
-    {
-        switch (faction)
+        
+        HashSet<Brain> validTargetBrain()
         {
-            case Faction.GoodGuys:
-                return  _bad;
-            case Faction.BadGuys:
-                return  _good;
-            default:
-                return null;
+            switch (faction)
+            {
+                case Faction.GoodGuys:
+                    return  _bad;
+                case Faction.BadGuys:
+                    return  _good;
+                default:
+                    return null;
+            }
         }
     }
 
-    public void ChangeTeam(Faction faction, Brain brain, GenChange change)
-    {
-        if (brain == null) return;
-        
-        HashSet<Brain> temp = new HashSet<Brain>();
-        switch (faction)
-        {
-            case Faction.GoodGuys:
-                temp =  _good;
-                break;
-            case Faction.BadGuys:
-                temp =  _bad;
-                break;
-            case Faction.Neutral:
-                temp =  _neutral;
-                break;
-        }
-       
-        if (_good.Contains(brain)) _good.Remove(brain);
-        if (_bad.Contains(brain)) _bad.Remove(brain);
-        if (_neutral.Contains(brain)) _neutral.Remove(brain);
-        switch (change)
-        {
-            case GenChange.Add:
-                temp.Add(brain);
-                break;
-            case GenChange.Remove:
-                if (faction == Faction.GoodGuys)
-                {
-                    if (brain.myTransform == playerTransform)
-                    {
-                        EventBus.OnPlayerDeath?.Invoke();
-                        if (Ga.me.debug) Debug.Log("Player is dead");
-                    }
-                    else
-                    {
-                        if (Ga.me.debug) Debug.Log("Summon is dead");
-                    }
-                }
-                else
-                {
-                    if (Ga.me.debug) Debug.Log("Enemy is dead");
-                }
-                break;
-        }
-    }
 }

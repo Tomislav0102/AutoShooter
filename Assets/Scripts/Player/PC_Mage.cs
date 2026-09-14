@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PC_Mage : MonoBehaviour, IIniBrain
 {
@@ -13,7 +14,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
             _numOfObjects = (int)value.character.GetStat(Stats.Projectiles);
-            setEngageRange();
             switch (startActive)
             {
                 case 0:
@@ -144,16 +144,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     break;
             }
 
-            void setEngageRange()
-            {
-                float engageRange = 0f;
-                foreach (SoSkill item in _allSkills)
-                {
-                    if (item.hasSpell == SoSkill.HasSpell.Spell || item.skillType != SkillType.Active ) continue;
-                    if (item.spell.range > engageRange)  engageRange = item.spell.range;
-                }
-                _playerCombat.engageRange = Mathf.CeilToInt(engageRange);
-            }
         }
     }
     Brain _br;
@@ -165,15 +155,27 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     float _arcaneShieldWaitDuration = 3f;
     PlayerCombat _playerCombat;
     int _numOfObjects;
-    SoSkill _myBasic;
-    SoSkill[] _allSkills;
+    List<SoSkill> _allSkills = new List<SoSkill>();
+
+    public void SkillIncreaseCallback(SoSkill newSkill)
+    {
+        _allSkills.Add(newSkill);
+        setEngageRange();
+        return;
+        
+        void setEngageRange()
+        {
+            float engageRange = 0f;
+            foreach (SoSkill item in _allSkills)
+            {
+                if (item.hasSpell == SoSkill.HasSpell.Spell || item.skillType != SkillType.Active ) continue;
+                if (item.spell.range > engageRange)  engageRange = item.spell.range;
+            }
+            _playerCombat.engageRange = Mathf.CeilToInt(engageRange);
+        }
+    }    
     
-    // public void SkillUpdate()
-    // {
-    //     _allSkills = Br.skills.CurrentSkills();
-    // }
-    
-    
+
     
     void ArcaneShieldSpawn()
     {

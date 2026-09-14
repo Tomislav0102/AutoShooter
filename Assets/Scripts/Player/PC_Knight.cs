@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
@@ -31,22 +32,102 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     }
     Brain _br;
     [SerializeField] Transform myShield;
+
     float _crescendoStrikeIncrease = 1f;
+    Buff _buffCrescendoStrike, _buffGuardMight, _buffGuardValor;
     MyDuo<Element, float> _elementStrikesIncrease = new MyDuo<Element, float>();
-    SoSkill _myBasic;
-    SoSkill[] _allSkills;
+    SpellMain _passiveLethargicDomain;
     
-    public void SkillUpdate(SoSkill[] allSkills)
+
+    void OnEnable()
     {
-        _allSkills = allSkills;
-        foreach (SoSkill item in _allSkills)
-        {
-            if (item.skillName != SkillName.KnightBase) continue;
-            _myBasic = item;
-            break;
-        }
+        EventBus.OnBrainAddRemove += CallEv_OnBrainAddRemove;
+    }
+    void OnDisable()
+    {
+        EventBus.OnBrainAddRemove -= CallEv_OnBrainAddRemove;
+    }
+    void CallEv_OnBrainAddRemove(Brain brain, GenChange change)
+    {
+        GuardiansMight();
+        GuardiansValor();
     }
 
+    public void SkillIncreaseCallback(SoSkill newSkill)
+    {
+        switch (newSkill.skillName)
+        {
+            case SkillName.GuardiansMight:
+                GuardiansMight();
+                break;
+            case SkillName.GuardiansValor:
+                GuardiansValor();
+                break;
+            case SkillName.LethargicDomain:
+                lethargicDomain();
+                break;
+        }
+        return;
+        
+        void lethargicDomain()
+        {
+            if (!Br.skills.TryGetFromGroup(SkillName.LethargicDomain, out SoSkill skill)) return;
+            if (_passiveLethargicDomain != null) _passiveLethargicDomain.MyPhase = SpellMain.Phase.EndEnd;
+            _passiveLethargicDomain = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            _passiveLethargicDomain.transporter.target = Br.myTransform;
+            _passiveLethargicDomain.areaOfEffect += skill.block.stats.group[0].buff.value;
+            _passiveLethargicDomain.InitializeMe(Br);
+        }
+
+    }
+
+    #region SKILLS
+    void GuardiansMight()
+    {
+        if (!Br.skills.TryGetFromGroup(SkillName.GuardiansMight, out SoSkill skill)) return;
+        PassDataStats pdsRemove = new PassDataStats()
+        {
+            group = new PassDataStats.Group[1]
+            {
+                new PassDataStats.Group(GenChange.Remove, _buffGuardMight)
+            }
+        };
+        Br.character.BuffInjectData(pdsRemove);
+
+        _buffGuardMight = new Buff(Stats.ExtraDamPhysical,  Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
+        PassDataStats pdsAdd= new PassDataStats()
+        {
+            group = new PassDataStats.Group[1]
+            {
+                new PassDataStats.Group(GenChange.Add, BuffType.Percentage, _buffGuardMight)
+            }
+        };
+        Br.character.BuffInjectData(pdsAdd);
+    }
+    void GuardiansValor()
+    {
+        if (!Br.skills.TryGetFromGroup(SkillName.GuardiansValor, out SoSkill skill)) return;
+        PassDataStats pdsRemove = new PassDataStats()
+        {
+            group = new PassDataStats.Group[1]
+            {
+                new PassDataStats.Group(GenChange.Remove, _buffGuardValor)
+            }
+        };
+        Br.character.BuffInjectData(pdsRemove);
+
+        _buffGuardValor = new Buff(Stats.ResistancePhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
+        PassDataStats pdsAdd= new PassDataStats()
+        {
+            group = new PassDataStats.Group[1]
+            {
+                new PassDataStats.Group(GenChange.Add, BuffType.Percentage, _buffGuardValor)
+            }
+        };
+        Br.character.BuffInjectData(pdsAdd);
+
+    }
+    #endregion
     
     public void AnimEv_AttackCallback(int num = 0)
     {
@@ -56,17 +137,17 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
         //attack effects
         bool addEffect = false;
-        PassDataEffect.Group executioner = null;
-        PassDataEffect.Group bleeding = null;
+        PassDataAttackEffect.Group executioner = null;
+        PassDataAttackEffect.Group bleeding = null;
         if (Br.skills.TryGetFromGroup(SkillName.Executioner, out SoSkill skillExe))
         {
             addEffect = true;
-            executioner = skillExe.effect.group[0];
+            executioner = skillExe.attackEffect.group[0];
         }
         if (Br.skills.TryGetFromGroup(SkillName.BleedingStrike, out SoSkill skillBleed))
         {
             addEffect = true;
-            bleeding = skillBleed.effect.group[0];
+            bleeding = skillBleed.attackEffect.group[0];
         }
         
         //stats
@@ -78,7 +159,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             if (chance < Random.value)
             {
                 addArmorBreaker = true;
-                armorBreaker = skillArmorBreak.stats;
+                armorBreaker = skillArmorBreak.stats.group;
             }
         }
         
@@ -91,10 +172,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                  new PassDataKnockBack((int)Br.character.GetStat(Stats.KnockBack)),
             }
         };
-        if (addEffect) container.data.Add(new PassDataEffect() { group = new PassDataEffect.Group[2] {executioner, bleeding}});
+        if (addEffect) container.data.Add(new PassDataAttackEffect() { group = new PassDataAttackEffect.Group[2] {executioner, bleeding}});
         if (addArmorBreaker) container.data.Add(new PassDataStats() { group = armorBreaker });
         
-        SpellMain melee = Instantiate(_myBasic.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+        SpellMain melee = Instantiate(Br.skills.myBasic.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
         melee.onHitTarget += (Brain br) =>
         {
             if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
@@ -106,49 +187,25 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         {
             group = new PassDataStats.Group[1]
             {
-                new PassDataStats.Group(Stats.MeleeDamage, GenChange.Remove, BuffType.Percentage, _crescendoStrikeIncrease)
+                new PassDataStats.Group(GenChange.Remove, _buffCrescendoStrike)
             }
         };
         Br.character.BuffInjectData(pdsRemove);
         _crescendoStrikeIncrease = 1f;
         _elementStrikesIncrease = new MyDuo<Element, float>();
     }
-    
-    
+
+
     public void AnimEv_UltimateCallback(int num = 0)
     {
-       // healSpell();
-       dashSpell();
+        // healSpell();
+        dashSpell();
+        return;
+
         void dashSpell()
         {
-            PassDataContainer pdDash = new PassDataContainer()
-            {
-                data = new List<PassData>()
-                {
-                    new PassDataDash(Ga.me.gameData.dashPower),
-                }
-            };
-            SpellMain dash = Instantiate(Ga.me.spells.dash,Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            dash.transporter.target = Br.myTransform;
-            dash.lifeTime = Ga.me.gameData.dashTime;
-            dash.InitializeMe(Br, pdDash);
-            
-            Vector2 knockBackDir2 = Utils.MakeV2(Br.myTransform.forward);
-            knockBackDir2.Normalize();
-            knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (2 * Random.Range(0,2) - 1));
-            PassDataContainer pdContactDamage = new PassDataContainer()
-            {
-                data = new List<PassData>()
-                {
-                    new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 4f }),
-                    new PassDataKnockBack((int)Br.character.GetStat(Stats.KnockBack), knockBackDir2)
-                }
-            };
-            SpellMain contactDam = Instantiate(Ga.me.spells.contactDamage, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            contactDam.transporter.target = Br.myTransform;
-            contactDam.lifeTime = Ga.me.gameData.dashTime;
-            contactDam.areaOfEffect = 1.3f * Br.size;
-            contactDam.InitializeMe(Br, pdContactDamage);
+            MyDuo<Element, float> totalDamage = Br.character.GetDamage(Stats.MeleeDamage);
+            SpellGroup.ComboDash(Br,  totalDamage);
         }
         void healSpell()
         {
@@ -207,11 +264,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                      if (val < 0) val = (skillLevel - 1) * valueToAdd;
                      resultingAddedDamage += val;
                      _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
+                     _buffCrescendoStrike = new Buff(Stats.MeleeDamage, _crescendoStrikeIncrease);
                      PassDataStats pdsAdd = new PassDataStats()
                      {
                          group = new PassDataStats.Group[1]
                          {
-                             new PassDataStats.Group(Stats.MeleeDamage, GenChange.Add, BuffType.Percentage, _crescendoStrikeIncrease)
+                             new PassDataStats.Group(GenChange.Add, BuffType.Percentage, _buffCrescendoStrike)
                          }
                      };
                      Br.character.BuffInjectData(pdsAdd);
@@ -245,7 +303,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                  }
              }
              break;
-
          case CombatEvent.Hit:
              explosiveHit();
              concussiveWave();
@@ -258,7 +315,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                      canBeBlocked = true,
                      data = new List<PassData>()
                      {
-                         new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                         new PassDataDamage(Br.character.GetDamage(Stats.MagicDamage)),
                      }
                  };
                  SpellMain ex = Instantiate(sk.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -267,31 +324,27 @@ public class PC_Knight : MonoBehaviour, IIniBrain
              }
              void concussiveWave()
              {
-                 if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill sk)) return;
-                 if (sk.floatGeneric < Random.value) return;
+                 if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill sk) || Random.value > sk.floatGeneric) return;
                  PassDataContainer container = new PassDataContainer()
                  {
                      canBeBlocked = true,
                      data = new List<PassData>()
                      {
-                         new PassDataDamage(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) }),
+                         new PassDataDamage(Br.character.GetDamage(Stats.MeleeDamage)),
                      }
                  };
                  SpellMain concussive = Instantiate(sk.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                 concussive.areaOfEffect += sk.block.stats.group[0].value;
+                 concussive.areaOfEffect += sk.block.stats.group[0].buff.value;
                  concussive.InitializeMe(Br, container);
              }
              break;
-
          case CombatEvent.Miss:
              spectralRicochet();
              void spectralRicochet()
              {
-                 float chance = 0.05f;
-                 if (Random.value > chance || !Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk)) return;
-
+                 if (!Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk) || Random.value > sk.floatGeneric) return;
                  Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.position);
-                 int ricochet = (int)Br.character.GetStat(Stats.Ricochet);
+                 int ricochet = Br.character.GetStat(Stats.Ricochet);
                  MyDuo<Element, float> damage = new MyDuo<Element, float>();
                  damage.Add(Element.Physical, Br.character.GetStat(Stats.RangedDamage) + sk.extraDamage.GetValue(0));
                  PassDataContainer containerThrow = new PassDataContainer()
@@ -299,18 +352,18 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                      canBeBlocked = true,
                      data = new List<PassData>()
                      {
-                         new PassDataDamage(damage),
+                         new PassDataDamage(Br.character.GetDamage(Stats.RangedDamage, sk.extraDamage)),
                      }
                  };
-                 ricochet += (int)sk.block.stats.group[0].value;
-
-                 SpellMain spell = Instantiate(sk.spell, myShield.position, Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
+                 ricochet += (int)sk.block.stats.group[0].buff.value;
+                 
+                 SpellMain spell = Instantiate(sk.spell, Utils.MakeV2(myShield.position), Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
                  BulletTransporter bulletTransporter = spell.transporter as BulletTransporter;
                  bulletTransporter.ricochet = ricochet;
+                 spell.visual.SetSpawnHeight(myShield.position.y);
                  spell.InitializeMe(Br, containerThrow);
              }
              break;
-
          case CombatEvent.GetHit:
              break;
          case CombatEvent.Block: 
@@ -333,14 +386,17 @@ public class PC_Knight : MonoBehaviour, IIniBrain
              {
                  if (!Br.skills.TryGetFromGroup(SkillName.ArcaneHarvest, out SoSkill sk)) return;
                  if (otherBrain.character.GetStat(Stats.MagicDamage) < Br.character.GetStat(Stats.MagicDamage)) return;
-                 PassDataStats pds = new PassDataStats()
-                 {
-                     group = sk.stats
-                 };
-                 Br.character.BuffInjectData(pds);
+                 Br.character.BuffInjectData(sk.stats);
              }
              break;
+
+             void spikedRim()
+             {
+                 if (!Br.skills.TryGetFromGroup(SkillName.SpikedRim, out SoSkill sk)) return;
+             }
+
      }
 
     }
 }
+

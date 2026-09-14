@@ -23,20 +23,25 @@ MonoBehaviour:
   level: 0
   hasStat: 0
   stats:
-  - stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
-  - stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
+  - change: 0
+    buffType: 0
+    buff:
+      stat: 0
+      value: 0
+      permanent: 0
+      duration: 0
+  - change: 0
+    buffType: 0
+    buff:
+      stat: 0
+      value: 0
+      permanent: 0
+      duration: 0
   hasExtraDamage: 1
   extraDamage:
     <Key>k__BackingField: 00000000
-    <Value>k__BackingField: 14000000
+    <Value>k__BackingField:
+    - 10
   hasAttackEffect: 0
   effect:
     group: []
@@ -69,12 +74,14 @@ MonoBehaviour:
     hasStats: 1
     stats:
       group:
-      - stat: 24
-        change: 0
-        value: 3
-        hasDuration: 0
-        duration: 0
-  hasGeneric: 0
+      - change: 0
+        buffType: 0
+        buff:
+          stat: 33
+          value: 3
+          permanent: 1
+          duration: 0
+  hasGeneric: 1
   numGeneric: 0
-  floatGeneric: 0
+  floatGeneric: 0.05
   stringGeneric: 

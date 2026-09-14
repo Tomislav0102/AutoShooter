@@ -243,7 +243,7 @@ public class SpellMain : MonoBehaviour
             {
                 case PassDataDamage dam:
                 case PassDataManaShield manaShield:
-                case PassDataEffect effect:
+                case PassDataAttackEffect effect:
                     if (targetHasBrain(out Brain brHealth))
                     {
                         PassDataDamage d = item as  PassDataDamage;
@@ -307,6 +307,31 @@ public class SpellMain : MonoBehaviour
         }
     }
 
+    //used by Auras, Zones etc...
+    public void HitExit(Collider other)
+    {
+        if (!(other.TryGetComponent(out Brain br) &&
+              Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))) return;
+        
+        foreach (PassData item in pd.data)
+        {
+            switch (item)
+            {
+                case PassDataStats stats:
+                    PassDataStats pdRemove = new PassDataStats()
+                    {
+                        group = new PassDataStats.Group[1]
+                        {
+                            new PassDataStats.Group(GenChange.Remove, stats.group[0].buff)
+                        }
+                    };
+                    br.character.BuffInjectData(pdRemove);
+                    break;
+
+            }
+        }
+
+    }
     #region TRIGGERS/COLLSIONS
     
     bool UseTriggers() => spellActive && Random.value < hitChance;

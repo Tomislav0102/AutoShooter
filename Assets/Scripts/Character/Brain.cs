@@ -21,6 +21,7 @@ public class Brain : MonoBehaviour
     [SerializeField] GameObject characterGo, healthGo, locoGo, combatGo;
     [HideInInspector] public Character character;
     [HideInInspector] public Skills skills;
+    [HideInInspector] public SharedSkills sharedSkills;
     [HideInInspector] public Health health;
     [HideInInspector] public Status status;
     [HideInInspector] public Loco loco;
@@ -50,6 +51,11 @@ public class Brain : MonoBehaviour
             skills = sk;
             skills.Br = this;
         }
+        if (characterGo.TryGetComponent(out SharedSkills sharedSk))
+        {
+            sharedSkills = sharedSk;
+            sharedSkills.Br = this;
+        }
         if (healthGo.TryGetComponent(out Health h))
         {
             health = h;
@@ -65,7 +71,7 @@ public class Brain : MonoBehaviour
             combat = co;
             combat.Br = this;
         }
-        Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
+        Ga.me.team.JoinTeam(Faction, this);
         if (myTransform != Ga.me.team.playerTransform) size *= Random.Range(0.9f, 1.1f);
         ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
@@ -97,11 +103,5 @@ public class Brain : MonoBehaviour
     //     f = (1 + f) % 2;
     //     Faction = (Faction)f;
     //     Ga.me.team.ChangeTeam(Faction, this, GenChange.Add);
-    // }
-    //
-    // [Button]
-    // public void PushMe()
-    // {
-    //     agent.velocity += 10 * Vector3.forward;
     // }
 }
