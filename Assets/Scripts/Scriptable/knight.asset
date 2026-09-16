@@ -229,7 +229,7 @@ MonoBehaviour:
       Data: 15
     - Name: $v
       Entry: 3
-      Data: 100
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

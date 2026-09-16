@@ -8,6 +8,11 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
+    public float fl;
+    public float period = 0.2f;
+    public int val;
+    
+    
     [Button]
     void AddS()
     {
@@ -17,13 +22,8 @@ public class Test : MonoBehaviour
     {
     }
 
-
-    void Update()
-    {
-        //  dot = Vector2.Dot(Utils.MakeV2(tr.forward), Utils.MakeV2(Vector3.forward));
-        //dir = (Utils.MakeV2(transform.position) - Utils.MakeV2(tr.position)).normalized;
-    }
 }
+
 
 
 

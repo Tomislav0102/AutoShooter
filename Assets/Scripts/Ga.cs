@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class Ga : MonoBehaviour
 {
     public static Ga me;
@@ -13,6 +14,7 @@ public class Ga : MonoBehaviour
     public CameraRig camRig;
     public Transform parPointers;
     public RectTransform offScreenPointerPrefab;
+    public RectTransform statusPrefab;
     public Drop dropPrefab;
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;

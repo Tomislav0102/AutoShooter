@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 /// </summary>
 public class OvrPassData : MonoBehaviour
 {
+    public TheBlock theBlock;
     public PassDataBlock block;
 }
 
@@ -30,6 +31,8 @@ public class PassDataBlock
     [ShowIf(nameof(hasSpell))] public PassDataSpell spellData;
     [SerializeField] bool hasStats;
     [ShowIf(nameof(hasStats))] public PassDataStats stats;
+    [SerializeField] bool hasAttackEffect;
+    [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
 
     
     public PassDataContainer GetContainer()
@@ -45,6 +48,7 @@ public class PassDataBlock
         if (hasManaShield && manaShield.manaShieldPoints > 0) data.Add(manaShield);
         if (hasSpell) data.Add(spellData);
         if (hasStats) data.Add(stats);
+        if (hasAttackEffect) data.Add(effect);
         
         container.data = data;
         

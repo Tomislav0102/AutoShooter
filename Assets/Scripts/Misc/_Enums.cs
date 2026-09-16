@@ -9,52 +9,12 @@ public enum GenMenuControl { Open, Close, Toggle }
 public enum GenResult { Win, Lose, Draw }
 public enum GenChange { Add, Remove }
 public enum GenDistance { Closest, Furthest, Middle, Random }
+public enum GenTarget { Self, Other }
 #endregion
 
 public enum BuffType { Added, Percentage }
 public enum WeaponType { Slash, Blunt, Pierce }
-/// <summary>
-/// On weapons/spells
-/// Some (Bleeding, Freezing...) cause 'StatusEffect' enum
-/// </summary>
-public enum AttackEffect
-{
-    Burning,
-    Freezing,
-    Jolted,
-    Poisoned,
-    Bleeding,
-    InstantKill,
-    Impact, //stunned enemies take 50% more damage
-    Keen, //extra crit chance
-    Serrated, //2X damage vs unarmored, 0.5X damage vs armored
-    Explosive, //bonus knockback
-}
-/// <summary>
-/// On targets/characters
-/// DOT have intensity, and they stack
-/// Others don't have intensity and only durations stack
-/// </summary>
-public enum StatusEffect
-{
-    Invulnerable,
-    Slowed, //attack and move speed
-    Rooted, //move speed is 0, attack speed unaffected
-    Stunned, //completely passive, enemy does nothing
-    Confused, //attacks random character, changes target often, does not respond to aggro 
-    Blinded, //like confused, but only close target
-    Charmed, //behaves like summon
-    Fumbling, //every attack misses
-    // Dripping_wet, //+elFire, -eIce, -elEle
-    // Dehydrated_dry, //-elFire, +elEle
-    // Freezing_cold,//+elFire, -elForce, +elPoison
-    // Sweltering_hot,//-elFire, +elIce, -elPoison
-    DOT_Bleeding,
-    DOT_Burning,
-    DOT_Freezing,
-    DOT_Jolted,
-    DOT_Poisoned
-}
+
 
 public enum SkillType { Active, Passive, Ultimate }
 public enum AnimAttackType

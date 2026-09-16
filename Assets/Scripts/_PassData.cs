@@ -3,6 +3,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
+#region OLD
 
 [System.Serializable]
 public class PassDataContainer
@@ -135,54 +136,90 @@ public class PassDataStats : PassData
 }
 
 [System.Serializable]
-public class PassDataAttackEffect: PassData
+public class PassDataEffect: PassData
 {
-    public Group[] group;
+    public EffectGroup[] group;
+}
+#endregion
+
+
+[System.Serializable]
+public class TheBlock
+{
+    public enum HitEffectOnSpell { Nullify, Reflect }
+    public Brain myBrain;
+    [BoxGroup] public bool canBeBlocked;
+    [BoxGroup] public bool canBeDodged;
+
+    public bool hasDamage;
+    [ShowIf(nameof(hasDamage))] public MyDuo<Element, float> damagePair;
+    [HideInInspector] public Vector2 spellsVelocity; //ignored if = Vector2.zero
     
-    [System.Serializable]
-    public class Group
-    {
-        public AttackEffect effect;
-        public float duration;
-        public int damagePerTick;
-
-        public Group(AttackEffect effect, float duration = 0, int damagePerTick = 1)
-        {
-            this.effect = effect;
-            this.duration = duration;
-            this.damagePerTick = damagePerTick;
-        }
-    }
+    public bool hasKnockback;
+    [ShowIf(nameof(hasKnockback))] public int knockbackPower;
+    [ShowIf(nameof(hasKnockback))] public Vector2 knockbackDirection; //ignored if = Vector2.zero
     
-    public class ParentClass
-    {
-        public float duration;
-        public int damagePerTick;
+    public bool hasDash;
+    [ShowIf(nameof(hasDash))] public int dashPower;
+    [ShowIf(nameof(hasDash))] public Vector2 dashDirection; 
+    
+    public bool hasManaShield;
+    [ShowIf(nameof(hasManaShield))] public int manaShieldPoints;
+    
+    public bool hasSpell;
+    [ShowIf(nameof(hasSpell))] public MyDuo<HitEffectOnSpell, SpellMain> spellPair;
+    
+    public bool hasStats;
+    [ShowIf(nameof(hasStats))] public StatsGroup[] stats;
+    
+    public bool hasEffect;
+    [ShowIf(nameof(hasEffect))] public EffectGroup[] effects;
+}
 
-        protected ParentClass(float duration = 0, int damagePerTick = 1)
-        {
-            this.duration = duration;
-            this.damagePerTick = damagePerTick;
-        }
-    }
-    [System.Serializable]
-    public class GroupAttack : ParentClass
+[System.Serializable]
+public class StatsGroup
+{
+    public GenChange change;
+    bool ShowBuffType() => change == GenChange.Add;
+    [ShowIf(nameof(ShowBuffType))] public BuffType buffType;
+    public Buff buff;
+        
+    public StatsGroup(GenChange change, BuffType buffType, Buff buff) 
     {
-        public AttackEffect effect;
-        public GroupAttack(AttackEffect effect, float duration = 0, int damagePerTick = 1): base(duration, damagePerTick)
-        {
-            this.effect = effect;
-        }
+        this.change = change;
+        this.buffType = buffType;
+        this.buff = buff;
     }
-    [System.Serializable]
-    public class GroupStatus : ParentClass
+    public StatsGroup(GenChange change, Buff buff) //for removal
     {
-        public StatusEffect effect;
-        public GroupStatus(StatusEffect effect, float duration = 0, int damagePerTick = 1): base(duration, damagePerTick)
-        {
-            this.effect = effect;
-        }
-
+        this.change = change;
+        this.buff = buff;
     }
 }
+
+[System.Serializable]
+public class EffectGroup
+{
+    public Brain brain; //redundant
+    public Status.Effect effect;
+    public float duration;
+    public int intensity;
+
+    public EffectGroup(Brain brain, Status.Effect effect, float duration = float.PositiveInfinity, int intensity = 0)
+    {
+        this.brain = brain;
+        this.effect = effect;
+        this.duration = duration;
+        this.intensity = intensity;
+    }
+        
+    public bool IsDot() => effect == Status.Effect.Bleeding || 
+                           effect == Status.Effect.Burning || 
+                           effect == Status.Effect.Freezing || 
+                           effect == Status.Effect.Jolted ||  
+                           effect == Status.Effect.Poisoned;
+}
+
+
+
 

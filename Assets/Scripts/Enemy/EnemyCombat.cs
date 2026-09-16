@@ -94,6 +94,10 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                     data = new List<PassData>()
                     {
                         new PassDataDamage(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                        new PassDataEffect()
+                        {
+                            group = new EffectGroup[1] { new EffectGroup(Br, Status.Effect.Poisoned, 3, 1) }
+                        }
                     }
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);

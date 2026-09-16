@@ -23,10 +23,8 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(hasStat))] public PassDataStats stats;
     public bool hasExtraDamage;
     [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;
-    // public bool hasExtraDamagePercentage;
-    // [ShowIf(nameof(hasExtraDamagePercentage))] public MyDuo<Element, float> extraDamagePercentage;
     public bool hasAttackEffect;
-    [FormerlySerializedAs("effect")] [ShowIf(nameof(hasAttackEffect))] public PassDataAttackEffect attackEffect;
+    [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
 
     [Title("Spell")]
     [InfoBox("Extra affect only this spell (PassData format)")]

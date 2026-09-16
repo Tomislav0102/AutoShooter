@@ -90,6 +90,9 @@ public class Health: MonoBehaviour, IIniBrain
                 ft.SpawnMe("Blocked!", Color.gold);
                 return;
             }
+        }
+        if (pd.canBeDodged)
+        {
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
             if (dodged)
             {
@@ -103,6 +106,7 @@ public class Health: MonoBehaviour, IIniBrain
             switch (item)
             {
                 case PassDataDamage dam:
+                    print("damage");
                     float totalDamage = 0f;
                     for (int i = 0; i < dam.pair.Length(); i++)
                     {
@@ -149,23 +153,28 @@ public class Health: MonoBehaviour, IIniBrain
                     break;
 
                 case PassDataManaShield manaShield:
+                    print("manashield");
                     SetShield(manaShield.manaShieldPoints);
                     break;
                 
-                case PassDataAttackEffect effect:
-                    foreach (PassDataAttackEffect.Group effectGroup in effect.group)
+                case PassDataEffect effect:
+                    foreach (EffectGroup effectGroup in effect.group)
                     {
                         if (effectGroup == null) continue;
                         switch (effectGroup.effect)
                         {
-                            case AttackEffect.InstantKill:
+                            case Status.Effect.InstantKill:
                                 float chance = Random.value * 100;
-                                if (chance <= effectGroup.damagePerTick)
+                                if (chance <= effectGroup.intensity)
                                 {
                                     print("Executioner!");
                                     Death();
                                     return;
                                 }
+                                break;
+                            case Status.Effect.Poisoned:
+                                print("poisoned");
+                                Br.status.Change(GenChange.Add, effectGroup);
                                 break;
                         }
                     }
@@ -217,10 +226,10 @@ public class Health: MonoBehaviour, IIniBrain
 
     void LateUpdate()
     {
-        UIdisplay();
+        uIDisplay();
         return;
         
-        void UIdisplay()
+        void uIDisplay()
         {
             Vector3 screenPos = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
             _healthBarTransform.position = screenPos;

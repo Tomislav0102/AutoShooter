@@ -131,23 +131,24 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage(Stats.MeleeDamage);
         if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage.AddRange(_elementStrikesIncrease);
 
         //attack effects
         bool addEffect = false;
-        PassDataAttackEffect.Group executioner = null;
-        PassDataAttackEffect.Group bleeding = null;
+        EffectGroup executioner = null;
+        EffectGroup bleeding = null;
         if (Br.skills.TryGetFromGroup(SkillName.Executioner, out SoSkill skillExe))
         {
             addEffect = true;
-            executioner = skillExe.attackEffect.group[0];
+            executioner = skillExe.effect.group[0];
         }
         if (Br.skills.TryGetFromGroup(SkillName.BleedingStrike, out SoSkill skillBleed))
         {
             addEffect = true;
-            bleeding = skillBleed.attackEffect.group[0];
+            bleeding = skillBleed.effect.group[0];
         }
         
         //stats
@@ -172,7 +173,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                  new PassDataKnockBack((int)Br.character.GetStat(Stats.KnockBack)),
             }
         };
-        if (addEffect) container.data.Add(new PassDataAttackEffect() { group = new PassDataAttackEffect.Group[2] {executioner, bleeding}});
+        if (addEffect) container.data.Add(new PassDataEffect() { group = new EffectGroup[2] {executioner, bleeding}});
         if (addArmorBreaker) container.data.Add(new PassDataStats() { group = armorBreaker });
         
         SpellMain melee = Instantiate(Br.skills.myBasic.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);

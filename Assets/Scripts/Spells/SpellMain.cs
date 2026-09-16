@@ -243,7 +243,7 @@ public class SpellMain : MonoBehaviour
             {
                 case PassDataDamage dam:
                 case PassDataManaShield manaShield:
-                case PassDataAttackEffect effect:
+                case PassDataEffect effect:
                     if (targetHasBrain(out Brain brHealth))
                     {
                         PassDataDamage d = item as  PassDataDamage;
