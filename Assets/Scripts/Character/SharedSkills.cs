@@ -47,7 +47,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
     void SimpleStatSkillApply(SkillName skillName)
     {
         if (!Br.skills.TryGetFromGroup(skillName, out SoSkill skill)) return;
-        Br.character.BuffInjectData(skill.stats);
+      //  Br.character.BuffInjectData(skill.stats);
     }
 
     public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
@@ -66,16 +66,16 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         void riposte(bool onlyRemove = false)
         {
             if (!Br.skills.TryGetFromGroup(SkillName.Riposte, out SoSkill skill)) return;
-            PassDataStats pdsRemove = new PassDataStats()
-            {
-                group = new PassDataStats.Group[1]
-                {
-                    new PassDataStats.Group(GenChange.Remove, skill.stats.group[0].buff)
-                }
-            };
-            Br.character.BuffInjectData(pdsRemove);
-            if (onlyRemove) return;
-            Br.character.BuffInjectData(skill.stats);
+            // PassDataStats pdsRemove = new PassDataStats()
+            // {
+            //     group = new PassDataStats.Group[1]
+            //     {
+            //         new PassDataStats.Group(GenChange.Remove, skill.stats.group[0].buff)
+            //     }
+            // };
+            // Br.character.BuffInjectData(pdsRemove);
+            // if (onlyRemove) return;
+            // Br.character.BuffInjectData(skill.stats);
 
         }
     }

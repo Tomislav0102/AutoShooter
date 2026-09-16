@@ -75,11 +75,8 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new List<PassData>()
-                    {
-                        new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) }),
-                       // new PassDataKnockBack(5)
-                    }
+                    hasDamage = true,
+                    damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) })
                 };
                 SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee),
                     Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
@@ -91,14 +88,10 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new List<PassData>()
-                    {
-                        new PassDataDamage(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
-                        new PassDataEffect()
-                        {
-                            group = new EffectGroup[1] { new EffectGroup(Br, Status.Effect.Poisoned, 3, 1) }
-                        }
-                    }
+                    hasDamage = true,
+                    damagePair = new MyDuo<Element, float>(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    hasEffect =  true,
+                    effects = new EffectGroup[1] { new EffectGroup(Br, Status.Effect.Poisoned, 3, 1) }
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
@@ -120,10 +113,8 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 {
                     myBrain = Br,
                     canBeBlocked = true,
-                    data = new List<PassData>()
-                    {
-                        new PassDataDamage(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
-                    }
+                    hasDamage = true,
+                    damagePair = new MyDuo<Element, float>(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
                 };
                 lob.InitializeMe(Br, () =>
                 {

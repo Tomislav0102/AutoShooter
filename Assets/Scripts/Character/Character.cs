@@ -72,40 +72,35 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     }
 
 
-    public void BuffInjectData(PassDataStats pds)
+    public void BuffInjectData(StatsGroup group)
     {
-        int count = buffs.Count;
-        foreach (PassDataStats.Group group in pds.group)
+        Buff buff = group.buff;
+        switch (group.change)
         {
-            Buff buff = group.buff;
-            switch (group.change)
-            {
-                case GenChange.Add:
-                    if (group.buffType == BuffType.Percentage && Mathf.Approximately(buff.value, 1f))
-                    {
-                        if (Br.debug)  print("Buff multiplier is 1X, so its ignored");
-                        return;
-                    }
-                    int previousValue = GetStat(buff.stat);
-                    float finalValue = buff.value;
-                    switch (group.buffType)
-                    {
-                        case BuffType.Added:
-                            statsFinal[buff.stat] += finalValue;
-                            break;
-                        case BuffType.Percentage:
-                            finalValue = data.baseStats[buff.stat] * (buff.value - 1f);
-                            statsFinal[buff.stat] += finalValue;
-                            break;
-                    }
-                    buffs.Add(buff);
-                    if (Br.debug) print($"{buff.stat} changed from {previousValue} to {GetStat(buff.stat)}");
-                    break;
-                case GenChange.Remove:
-                    RemoveBuff(buff);
-                    break;
-            }
-
+            case GenChange.Add:
+                if (group.buffType == BuffType.Percentage && Mathf.Approximately(buff.value, 1f))
+                {
+                    if (Br.debug) print("Buff multiplier is 1X, so its ignored");
+                    return;
+                }
+                int previousValue = GetStat(buff.stat);
+                float finalValue = buff.value;
+                switch (group.buffType)
+                {
+                    case BuffType.Added:
+                        statsFinal[buff.stat] += finalValue;
+                        break;
+                    case BuffType.Percentage:
+                        finalValue = data.baseStats[buff.stat] * (buff.value - 1f);
+                        statsFinal[buff.stat] += finalValue;
+                        break;
+                }
+                buffs.Add(buff);
+                if (Br.debug) print($"{buff.stat} changed from {previousValue} to {GetStat(buff.stat)}");
+                break;
+            case GenChange.Remove:
+                RemoveBuff(buff);
+                break;
         }
     }
 

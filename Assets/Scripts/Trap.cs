@@ -14,7 +14,7 @@ public class Trap : MonoBehaviour, IIniBrain
             value.myCollider.enabled = true;
             value.myCollider.radius = value.size * 0.5f;
             OvrPassData ovr = GetComponent<OvrPassData>();
-            if (ovr != null) _pd = ovr.block.GetContainer(); 
+            if (ovr != null) _pd = ovr.passData; 
             switch (activationType)
             {
                 case ActivationType.Constant:

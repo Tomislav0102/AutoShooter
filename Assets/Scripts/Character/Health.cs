@@ -100,85 +100,80 @@ public class Health: MonoBehaviour, IIniBrain
                 return;
             }
         }
-        
-        foreach (PassData item in pd.data)
+
+        if (pd.hasDamage)
         {
-            switch (item)
+            print("damage");
+            float totalDamage = 0f;
+            for (int i = 0; i < pd.damagePair.Length(); i++)
             {
-                case PassDataDamage dam:
-                    print("damage");
-                    float totalDamage = 0f;
-                    for (int i = 0; i < dam.pair.Length(); i++)
+                float val = pd.damagePair.GetValue(i);
+                switch (val)
+                {
+                    case < 0: //heal
+                        psHeal.Play();
+                        break;
+                    case > 0:
                     {
-                        float val = dam.pair.GetValue(i);
-                        switch (val)
-                        {
-                            case < 0: //heal
-                                psHeal.Play();
-                                break;
-                            case > 0:
-                            {
-                                ParticleSystem ps = _dictPsElements[dam.pair.GetKey(i)];
-                                if (ps != null) ps.Play();
-                                break;
-                            }
-                        }
-                        totalDamage += val;
+                        ParticleSystem ps = _dictPsElements[pd.damagePair.GetKey(i)];
+                        if (ps != null) ps.Play();
+                        break;
                     }
-                    velocityAddition();
+                }
+                totalDamage += val;
+            }
+            velocityAddition();
                     
-                    float shield = ShieldCurrent;
-                    ShieldCurrent -= totalDamage;
-                    if (ShieldCurrent <= 0)
-                    {
-                        HealthCurrent -= (totalDamage - shield);
-                        if (HealthCurrent <= 0)
+            float shield = ShieldCurrent;
+            ShieldCurrent -= totalDamage;
+            if (ShieldCurrent <= 0)
+            {
+                HealthCurrent -= (totalDamage - shield);
+                if (HealthCurrent <= 0)
+                {
+                    if (pd.myBrain != null) pd.myBrain.combat.CombatEventRegistered(CombatEvent.Kill, Br);
+                    Death();
+                    return;
+                }
+            }
+            ft.SpawnMe(pd.damagePair);
+
+            void velocityAddition()
+            {
+                if (pd.spellsVelocity.Equals(Vector3.zero)) return;
+                        
+                Vector2 result = Utils.MakeV2(pd.spellsVelocity) - Utils.MakeV2(Br.agent.velocity);
+                float totalDamageDebug = totalDamage;
+                totalDamage *= result.magnitude;
+                print($"Velocity changed damage from {totalDamageDebug} to {totalDamage}");
+            }
+        }
+        if (pd.hasManaShield)
+        {
+            print("manaShield");
+            SetShield(pd.manaShieldPoints);
+        }
+        if (pd.hasEffect)
+        {
+            foreach (EffectGroup effectGroup in pd.effects)
+            {
+                if (effectGroup == null) continue;
+                switch (effectGroup.effect)
+                {
+                    case Status.Effect.InstantKill:
+                        float chance = Random.value * 100;
+                        if (chance <= effectGroup.intensity)
                         {
-                            if (pd.myBrain != null) pd.myBrain.combat.CombatEventRegistered(CombatEvent.Kill, Br);
+                            print("Executioner!");
                             Death();
                             return;
                         }
-                    }
-                    ft.SpawnMe(dam.pair);
-
-                    void velocityAddition()
-                    {
-                        if (!dam.addSpellVelocity || dam.spellsVelocity.Equals(Vector3.zero)) return;
-                        
-                        Vector2 result = Utils.MakeV2(dam.spellsVelocity) - Utils.MakeV2(Br.agent.velocity);
-                        float totalDamageDebug = totalDamage;
-                        totalDamage *= result.magnitude;
-                        print($"Velocity changed damage from {totalDamageDebug} to {totalDamage}");
-                    }
-                    break;
-
-                case PassDataManaShield manaShield:
-                    print("manashield");
-                    SetShield(manaShield.manaShieldPoints);
-                    break;
-                
-                case PassDataEffect effect:
-                    foreach (EffectGroup effectGroup in effect.group)
-                    {
-                        if (effectGroup == null) continue;
-                        switch (effectGroup.effect)
-                        {
-                            case Status.Effect.InstantKill:
-                                float chance = Random.value * 100;
-                                if (chance <= effectGroup.intensity)
-                                {
-                                    print("Executioner!");
-                                    Death();
-                                    return;
-                                }
-                                break;
-                            case Status.Effect.Poisoned:
-                                print("poisoned");
-                                Br.status.Change(GenChange.Add, effectGroup);
-                                break;
-                        }
-                    }
-                    break;
+                        break;
+                    case Status.Effect.Poisoned:
+                        print("poisoned");
+                        Br.status.Change(GenChange.Add, effectGroup);
+                        break;
+                }
             }
 
         }

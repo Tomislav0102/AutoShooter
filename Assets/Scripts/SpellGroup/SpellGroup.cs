@@ -20,10 +20,9 @@ public class SpellGroup : MonoBehaviour
     {
         PassDataContainer pdDash = new PassDataContainer()
         {
-            data = new List<PassData>()
-            {
-                new PassDataDash(Ga.me.gameData.dashPower),
-            }
+            myBrain =  brain,
+            hasDash =  true,
+            dashPower = Ga.me.gameData.dashPower
         };
         SpellMain dash = Instantiate(Ga.me.spells.dash, brain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         dash.transporter.target = brain.myTransform;
@@ -36,12 +35,12 @@ public class SpellGroup : MonoBehaviour
         int knockBackPower = Mathf.Min(20, brain.character.GetStat(Stats.KnockBack));
         PassDataContainer pdContactDamage = new PassDataContainer()
         {
-            data = new List<PassData>()
-            {
-              //  new PassDataDamage(new Element[1] { Element.Physical }, new float[1] { 4f }),
-                new PassDataDamage(damage),
-                new PassDataKnockBack(knockBackPower, knockBackDir2)
-            }
+            myBrain =  brain,
+            hasDamage = true,
+            damagePair = damage,
+            hasKnockback = true,
+            knockbackPower = knockBackPower,
+            knockbackDirection =  knockBackDir2,
         };
         SpellMain contactDam = Instantiate(Ga.me.spells.contactDamage, brain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         contactDam.transporter.target = brain.myTransform;

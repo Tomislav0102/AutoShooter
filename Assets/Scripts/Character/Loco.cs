@@ -124,23 +124,21 @@ public class Loco : MonoBehaviour, IIniBrain
 
     public void LocoInjectData(PassDataContainer pd)
     {
-        foreach (PassData item in pd.data)
+        if (pd.hasKnockback)
         {
-            switch (item)
-            {
-                case PassDataKnockBack knockBack:
-                    Vector3 dirKnockback;
-                    if (knockBack.direction.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
-                    else dirKnockback = Utils.MakeV3(knockBack.direction);
-                    pushMethod(dirKnockback, MoveOverrideType.KnockBack, knockBack.power);
-
-                    break;
-                case PassDataDash dash:
-                    Vector3 dashDirection = dash.direction.Equals(Vector2.zero) ? Br.myTransform.forward : Utils.MakeV3(dash.direction);
-                    pushMethod(dashDirection, MoveOverrideType.Dash, dash.power);
-                    break;
-            }
+            Vector3 dirKnockback;
+            if (pd.knockbackDirection.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
+            else dirKnockback = Utils.MakeV3(pd.knockbackDirection);
+            pushMethod(dirKnockback, MoveOverrideType.KnockBack, pd.knockbackPower);
         }
+        if (pd.hasDash)
+        {
+            Vector3 dashDirection = pd.dashDirection.Equals(Vector2.zero) ? Br.myTransform.forward : Utils.MakeV3(pd.dashDirection);
+            pushMethod(dashDirection, MoveOverrideType.Dash, pd.dashPower);
+
+        }
+        return;
+        
         void pushMethod(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
         {
             float timer = Ga.me.gameData.dashTime;

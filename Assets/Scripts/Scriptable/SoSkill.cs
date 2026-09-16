@@ -20,11 +20,11 @@ public class SoSkill : ScriptableObject
 
     [Title("Global")]
     public bool hasStat;
-    [ShowIf(nameof(hasStat))] public PassDataStats stats;
+    [ShowIf(nameof(hasStat))] public StatsGroup[] stats;
     public bool hasExtraDamage;
     [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;
-    public bool hasAttackEffect;
-    [ShowIf(nameof(hasAttackEffect))] public PassDataEffect effect;
+    public bool hasEffect;
+    [ShowIf(nameof(hasEffect))] public EffectGroup[] effects;
 
     [Title("Spell")]
     [InfoBox("Extra affect only this spell (PassData format)")]
@@ -36,7 +36,7 @@ public class SoSkill : ScriptableObject
     bool ShowExtra() => hasSpell != HasSpell.None;
     [ShowIf(nameof(ShowExtra))] public bool hasExtra;
     bool ShowHasExtra() => ShowExtra() && hasExtra;
-    [ShowIf(nameof(ShowHasExtra))] public PassDataBlock block;
+    [ShowIf(nameof(ShowHasExtra))] public PassDataContainer passData;
     
     [Title("Generic")]
     [InfoBox("Special use cases, should be used sparingly")]

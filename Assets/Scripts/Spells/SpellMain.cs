@@ -140,7 +140,7 @@ public class SpellMain : MonoBehaviour
         myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
         
         OvrPassData ovrPassData = GetComponent<OvrPassData>();
-        if (ovrPassData != null) pd = ovrPassData.block.GetContainer();
+        if (ovrPassData != null) pd = ovrPassData.passData;
         if (pd == null)
         {
             print($"No PassData found, destroying {gameObject.name} spell.");
@@ -148,7 +148,6 @@ public class SpellMain : MonoBehaviour
             return;
         }
         pd.myBrain = OwnersBrain;
-        if (pd.data == null) pd.data = new List<PassData>();
         
         MyPhase = Phase.BeginWarning;
         spellActive = true;
@@ -237,60 +236,49 @@ public class SpellMain : MonoBehaviour
     public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
         Brain oustedTargetsBrain = null;
-        foreach (PassData item in pd.data)
+        if (pd.hasDamage || pd.hasManaShield || pd.hasEffect)
         {
-            switch (item)
+           // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
+            if (targetHasBrain(out Brain brHealth)) brHealth.health.HealthInjectData(pd);
+        }
+        if (pd.hasStats)
+        {
+            if (targetHasBrain(out Brain brCharacter))
             {
-                case PassDataDamage dam:
-                case PassDataManaShield manaShield:
-                case PassDataEffect effect:
-                    if (targetHasBrain(out Brain brHealth))
-                    {
-                        PassDataDamage d = item as  PassDataDamage;
-                        if (d != null && d.addSpellVelocity) d.spellsVelocity = myRigid.linearVelocity;
-                        brHealth.health.HealthInjectData(pd);
-                    }
-                    break;
-                
-                case PassDataStats stats:
-                    if (targetHasBrain(out Brain brCharacter))
-                    {
-                        brCharacter.character.BuffInjectData(stats);
-                    }
-                    break;
-                
-                case PassDataKnockBack knockBack:
-                case PassDataDash dash:
-                    if (targetHasBrain(out Brain brLoco))
-                    {
-                        brLoco.loco.LocoInjectData(pd);
-                    }
-                    break;
-
-                case PassDataSpell spellData:
-                    if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
-                        Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-                    {
-                        for (int i = 0; i < spellData.pair.Length(); i++)
-                        {
-                            if (targetSpell.id != spellData.pair.GetValue(i).id) continue;
-
-                            switch (spellData.pair.GetKey(i))
-                            {
-                                case PassData.HitEffectOnSpell.Nullify:
-                                    targetSpell.MyPhase = Phase.EndStart;
-                                    break;
-                                case PassData.HitEffectOnSpell.Reflect:
-                                    Vector3 newDirection = Utils.Direction(myTransform.position,
-                                        targetSpell.myTransform.position);
-                                    targetSpell.transporter.ReflectProjectile(OwnersBrain, newDirection);
-                                    break;
-                            }
-                        }
-                        oustedTargetsBrain = targetSpell.OwnersBrain;
-                    }
-                    break;
+                for (int i = 0; i < pd.stats.Length; i++)
+                {
+                    brCharacter.character.BuffInjectData(pd.stats[i]);
+                }
             }
+        }
+        if (pd.hasKnockback || pd.hasDash)
+        {
+            if (targetHasBrain(out Brain brLoco)) brLoco.loco.LocoInjectData(pd);
+        }
+        if (pd.hasSpell)
+        {
+            if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
+                Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+            {
+                for (int i = 0; i < pd.spellPair.Length(); i++)
+                {
+                    if (targetSpell.id != pd.spellPair.GetValue(i).id) continue;
+
+                    switch (pd.spellPair.GetKey(i))
+                    {
+                        case PassDataContainer.HitEffectOnSpell.Nullify:
+                            targetSpell.MyPhase = Phase.EndStart;
+                            break;
+                        case PassDataContainer.HitEffectOnSpell.Reflect:
+                            Vector3 newDirection = Utils.Direction(myTransform.position,
+                                targetSpell.myTransform.position);
+                            targetSpell.transporter.ReflectProjectile(OwnersBrain, newDirection);
+                            break;
+                    }
+                }
+                oustedTargetsBrain = targetSpell.OwnersBrain;
+            }
+
         }
         targetsBrain = oustedTargetsBrain;
         return;
@@ -312,22 +300,14 @@ public class SpellMain : MonoBehaviour
     {
         if (!(other.TryGetComponent(out Brain br) &&
               Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))) return;
-        
-        foreach (PassData item in pd.data)
-        {
-            switch (item)
-            {
-                case PassDataStats stats:
-                    PassDataStats pdRemove = new PassDataStats()
-                    {
-                        group = new PassDataStats.Group[1]
-                        {
-                            new PassDataStats.Group(GenChange.Remove, stats.group[0].buff)
-                        }
-                    };
-                    br.character.BuffInjectData(pdRemove);
-                    break;
 
+        if (pd.hasStats)
+        {
+            PassDataContainer removeContainer = pd;
+            for (int i = 0; i < removeContainer.stats.Length; i++)
+            {
+                removeContainer.stats[i].change = GenChange.Remove;
+                br.character.BuffInjectData(removeContainer.stats[i]);
             }
         }
 

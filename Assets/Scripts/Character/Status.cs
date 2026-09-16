@@ -84,10 +84,8 @@ public class Status : MonoBehaviour, IIniBrain
                 PassDataContainer passDataContainer = new PassDataContainer()
                 {
                     myBrain = g.brain,
-                    data = new List<PassData>()
-                    {
-                        new PassDataDamage(new MyDuo<Element, float>(new Element[1] { element }, new float[1] { g.intensity }))
-                    }
+                    hasDamage = true,
+                    damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { g.intensity })
                 };
                 Br.health.HealthInjectData(passDataContainer);
                 continue;

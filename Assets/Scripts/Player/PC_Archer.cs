@@ -137,11 +137,10 @@ public class PC_Archer : MonoBehaviour
             Vector3 rot = rotation * Vector3.up;
             PassDataContainer container = new PassDataContainer()
             {
+                myBrain = Br,
                 canBeBlocked = true,
-                data = new List<PassData>()
-                {
-                    new PassDataDamage(Br.character.GetDamage(Stats.RangedDamage)),
-                }
+                hasDamage = true,
+                damagePair = Br.character.GetDamage(Stats.RangedDamage)
             };
             int projectile = (int)Br.character.GetStat(Stats.Projectiles);
             for (int i = 0; i < projectile; i++)
