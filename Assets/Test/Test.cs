@@ -12,7 +12,6 @@ public class Test : MonoBehaviour
     public float period = 0.2f;
     public int val;
     
-    
     [Button]
     void AddS()
     {

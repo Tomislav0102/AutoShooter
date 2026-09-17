@@ -21,23 +21,23 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
                     orbitalGroupShields.orbitingAnchor = value.myTransform;
                     SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
-                    PassDataContainer[] pdShields = new PassDataContainer[_numOfObjects];
+                    PassData[] pdShields = new PassData[_numOfObjects];
                     for (int i = 0; i < _numOfObjects; i++)
                     {
                         shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
                         pdShields[i] = null;
                     }
-                    groupShields.InitializeMe(value, new MyDuo<SpellMain, PassDataContainer>(shieldsPrefabs, pdShields));
+                    groupShields.InitializeMe(value, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
                     break;
                 case 1:
                     SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    PassDataContainer pd = new PassDataContainer()
+                    PassData pd = new PassData()
                     {
                         myBrain = value,
                         hasDamage = true,
                         damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, new float[1] { 1f })
                     };
-                    groupWalkTrail.InitializeMe(value, new MyDuo<SpellMain, PassDataContainer>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassDataContainer[1] { pd }));
+                    groupWalkTrail.InitializeMe(value, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pd }));
                     break;
                 case 2:
                     SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
@@ -46,26 +46,26 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     
                     SpellMain[] swords = new SpellMain[_numOfObjects];
                     swords[0] = Ga.me.spells.swordFire;
-                    float[] swordsDamage = new float[1] { 0.3f * Br.character.GetStat(Stats.MagicDamage) };
-                    PassDataContainer pdFire = new PassDataContainer()
+                    float multiplier = 0.3f;
+                    PassData pdFire = new PassData()
                     {
                         myBrain = value,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, swordsDamage)
+                        damagePair = Br.character.GetDamage(Element.Fire, multiplier)
                     };
-                    PassDataContainer pdIce= new PassDataContainer()
+                    PassData pdIce= new PassData()
                     {
                         myBrain = value,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, swordsDamage)
+                        damagePair = Br.character.GetDamage(Element.Ice, multiplier)
                     };
-                    PassDataContainer pdElectricity = new PassDataContainer()
+                    PassData pdElectricity = new PassData()
                     {
                         myBrain = value,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, swordsDamage)
+                        damagePair = Br.character.GetDamage(Element.Electricity, multiplier)
                     };
-                    PassDataContainer[] pds = new PassDataContainer[_numOfObjects];
+                    PassData[] pds = new PassData[_numOfObjects];
                     pds[0] = pdFire;
                     switch (_numOfObjects)
                     {
@@ -97,15 +97,15 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             print("should only be 2, 4, or 6 swords.");
                             return;
                     }
-                    groupSwords.InitializeMe(value, new MyDuo<SpellMain, PassDataContainer>(swords, pds));
+                    groupSwords.InitializeMe(value, new MyDuo<SpellMain, PassData>(swords, pds));
 
                     break;
                 case 3:
-                    PassDataContainer container = new PassDataContainer()
+                    PassData container = new PassData()
                     {
                         myBrain = value,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire },  new float[1] { value.character.GetStat(Stats.RangedDamage) })
+                        damagePair = Br.character.GetDamage(Element.Fire)
                     };
                     float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
                     for (int i = 0; i < _numOfObjects; i++)
@@ -125,7 +125,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     ArcaneShieldSpawn();
                     break;
                 case 6:
-                    PassDataContainer containerManaShield = new PassDataContainer()
+                    PassData containerManaShield = new PassData()
                     {
                         myBrain = value,
                         hasManaShield =  true,
@@ -233,12 +233,12 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     if (targetsHoming.Count == 0) return;
 
                     float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
-                    var containerHoming = new PassDataContainer()
+                    var containerHoming = new PassData()
                     {
                         myBrain = Br,
                         canBeBlocked = true,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) })
+                        damagePair = Br.character.GetDamage(Element.Magic)
                     };
                     StartCoroutine(rapidStrikesHoming());
 
@@ -261,7 +261,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 case SkillName.Fireball:
                     List<Transform> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
                     Transform middleTarget = targetsFireball.Count == 0 ? null : targetsFireball[0];
-                    var carrier = new PassDataContainer()
+                    var carrier = new PassData()
                     {
 
                     };
@@ -275,12 +275,12 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     void explosion()
                     {
                         if (Br.combat.MyTarget == null) return;
-                        var containerExplosion = new PassDataContainer()
+                        var containerExplosion = new PassData()
                         {
                             myBrain = Br,
                             canBeBlocked = true,
                             hasDamage = true,
-                            damagePair = new MyDuo<Element, float>(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) })
+                            damagePair = Br.character.GetDamage()
                         };
                         SpellMain expl = Instantiate(Ga.me.spells.explosionFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                         expl.InitializeMe(Br, containerExplosion, areaFire);
@@ -290,11 +290,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     void areaFire()
                     {
                         if (Br.combat.MyTarget == null) return;
-                        var containerArea = new PassDataContainer()
+                        var containerArea = new PassData()
                         {
                             myBrain = Br,
                             hasDamage = true,
-                            damagePair = new MyDuo<Element, float>(new Element[1] { Element.Magic }, new float[1] { Br.character.GetStat(Stats.MagicDamage) })
+                            damagePair = Br.character.GetDamage(Element.Fire)
                         };
                         SpellMain areFire = Instantiate(Ga.me.spells.areFire, middleTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                         areFire.InitializeMe(Br, containerArea);
@@ -303,11 +303,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 case SkillName.MeteorStrike:
                     List<Transform> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, 1, skill.spell.range);
                     if (targetsMeteor.Count == 0) return;
-                    var containerMeteor = new PassDataContainer()
+                    var containerMeteor = new PassData()
                     {
                         myBrain = Br,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, new float[1] { Br.character.GetStat(Stats.MagicDamage) })
+                        damagePair = Br.character.GetDamage(Element.Fire)
                     };
                     SpellMain meteorStrike = Instantiate(skill.spell, targetsMeteor[0].position, Quaternion.identity, Ga.me.spells.myTransform);
                     meteorStrike.InitializeMe(Br, containerMeteor);
@@ -341,9 +341,9 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             Vector3 direction = to - from;
                             SpellMain chainLightning = Instantiate(skill.spell, from, Quaternion.LookRotation(direction.normalized), Ga.me.spells.myTransform);
                             chainLightning.areaOfEffect = direction.magnitude;
-                            float dam = Br.character.GetStat(Stats.MagicDamage);
+                            float dam = Br.character.GetStat(Stats.DamElectricity);
                             dam /= (index * index + 1);
-                            var container = new PassDataContainer()
+                            var container = new PassData()
                             {
                                 myBrain = Br,
                                 hasDamage = true,
@@ -356,11 +356,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     break;
                 case SkillName.Overload:
                     List<Transform> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
-                    var containerOverload = new PassDataContainer()
+                    var containerOverload = new PassData()
                     {
                         myBrain = Br,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) })
+                        damagePair = Br.character.GetDamage(Element.Electricity)
                     };
                     StartCoroutine(rapidStrikesOverload());
 
@@ -386,11 +386,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     Transform furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
                     if (furthestTarget == null) return;
 
-                    var containerLightning = new PassDataContainer()
+                    var containerLightning = new PassData()
                     {
                         myBrain = Br,
                         hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Electricity }, new float[1] { Br.character.GetStat(Stats.MagicDamage) })
+                        damagePair = Br.character.GetDamage(Element.Electricity)
                     };
                     SpellMain lightning = Instantiate(skill.spell, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
                     lightning.InitializeMe(Br, containerLightning);

@@ -68,15 +68,16 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
 
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)
-                PassDataContainer containerMelee = new PassDataContainer()
+                PassData containerMelee = new PassData()
                 {
                     myBrain = Br,
                     canBeBlocked = true,
                     hasDamage = true,
-                    damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1] { Br.character.GetStat(Stats.MeleeDamage) })
+                    damagePair = Br.character.GetDamage()
                 };
                 SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee),
                     Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
@@ -84,12 +85,12 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 melee.InitializeMe(Br, containerMelee);
                 break;
             case 1: //bullet (used by treant and cannon)
-                PassDataContainer containerBullet = new PassDataContainer()
+                PassData containerBullet = new PassData()
                 {
                     myBrain = Br,
                     canBeBlocked = true,
                     hasDamage = true,
-                    damagePair = new MyDuo<Element, float>(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    damagePair = Br.character.GetDamage(),
                     hasEffect =  true,
                     effects = new EffectGroup[1] { new EffectGroup(Br, Status.Effect.Poisoned, 3, 1) }
                 };
@@ -109,12 +110,12 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
             case 2: //lob (used by scarecrow)
                 SpellMain lob = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
                     spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
-                PassDataContainer containerExplo = new PassDataContainer()
+                PassData containerExplo = new PassData()
                 {
                     myBrain = Br,
                     canBeBlocked = true,
                     hasDamage = true,
-                    damagePair = new MyDuo<Element, float>(new Element[1] { Element.Poison }, new float[1] { Br.character.GetStat(Stats.RangedDamage) }),
+                    damagePair = Br.character.GetDamage()
                 };
                 lob.InitializeMe(Br, () =>
                 {
@@ -123,8 +124,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 });
                 break;
             case 3: //dash with damage (used by cobra)
-                MyDuo<Element, float> totalDamage = Br.character.GetDamage(Stats.MeleeDamage);
-                SpellGroup.ComboDash(Br,  totalDamage);
+                SpellGroup.ComboDash(Br,  Br.character.GetDamage());
                 break;
         }
     }

@@ -1,0 +1,23 @@
+OVDF v1.1
+SpellMain, Assembly-CSharp
+MetaGuid:6d4e4a5d99fa1b44b9bdde2bfe1591ba
+
+# $U4LT6pBTWnvNkD61WTju5D
+Position: "id":0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $37TnvZnwKzAxiL2pUwxdmX
+Position: $U4LT6pBTWnvNkD61WTju5D:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 30 %
+
+# $ME2vthArMs2Bxm8Deo1QF8
+Position: $U4LT6pBTWnvNkD61WTju5D:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 20 %
+
+# GenerateId()
+Position: $ME2vthArMs2Bxm8Deo1QF8:0
+
+# id
+Position: $37TnvZnwKzAxiL2pUwxdmX:0

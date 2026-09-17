@@ -35,36 +35,26 @@ public enum Alertness { Relaxed, Alarmed, Fighting }
 public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill, Dodge }
 public enum Stats
 {
-    //primary (maybe redundant -> like in 'Brotato')
-    Strength, 
-    Dexterity, 
-    Constitution, 
-    Intelligence,
-    
-    //secondary - derived form primaries
-    MeleeDamage, 
-    RangedDamage, 
-    MagicDamage, 
-    ExtraDamPhysical, //this is added to every hit? need to rework damage logic
-    ExtraDamFire,
-    ExtraDamIce,
-    ExtraDamElectricity,
-    ExtraDamPoison,
-    ExtraDamMagic,
+    //primary - derived form primaries
+    DamPhysical, 
+    DamFire,
+    DamIce,
+    DamElectricity,
+    DamPoison,
+    DamMagic,
     MoveSpeed, 
     AttackSpeed,
     Block,
     Dodge,
     Health,
     RegenerationRate, //hp increase (divided by 100) per second
-    ResistancePhysical,
-    ResistanceFire,
-    ResistanceIce,
-    ResistanceElectricity,
-    ResistancePoison,
-    ResistanceMagic,
-    
-    //tertiary - adds to spell variables
+    ResistPhysical,
+    ResistFire,
+    ResistIce,
+    ResistElectricity,
+    ResistPoison,
+    ResistMagic,
+    //secondary - adds to spell variables
     Size, 
     Duration,
     KnockBack,
@@ -74,13 +64,12 @@ public enum Stats
     Bounce,
     Piercing,
     Ricochet,
-    
-    //quaternary
+    //tertiary
     Xp,
     Gold,
     Loot,
     SightRange //just camera zoom -> like in 'Into The Necrovale'
-    //quinary
+    //quaternary
 }
 
 public enum SkillName

@@ -13,7 +13,7 @@ public class OrbitalGroup : SpellGroup
     [SerializeField, Range(0, 359), HideIf(nameof(fullCircle))] int arc = 359;
 
 
-    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassDataContainer> duo)
+    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
     {
         base.InitializeMe(ownersBrain, duo);
         float[] angles = Utils.RadialSpreadAngles(duo.Length());

@@ -36,7 +36,7 @@ public class SoSkill : ScriptableObject
     bool ShowExtra() => hasSpell != HasSpell.None;
     [ShowIf(nameof(ShowExtra))] public bool hasExtra;
     bool ShowHasExtra() => ShowExtra() && hasExtra;
-    [ShowIf(nameof(ShowHasExtra))] public PassDataContainer passData;
+    [ShowIf(nameof(ShowHasExtra))] public PassData passData;
     
     [Title("Generic")]
     [InfoBox("Special use cases, should be used sparingly")]

@@ -6,10 +6,10 @@ public class SpellGroup : MonoBehaviour
 {
     public Transform myTransform;
     protected Brain owner;
-    protected MyDuo<SpellMain, PassDataContainer> prefabsAndData;
+    protected MyDuo<SpellMain, PassData> prefabsAndData;
 
     
-    public virtual void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassDataContainer> duo)
+    public virtual void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
     {
         owner = ownersBrain;
         prefabsAndData = duo;
@@ -18,7 +18,7 @@ public class SpellGroup : MonoBehaviour
     
     public static void ComboDash(Brain brain, MyDuo<Element, float> damage)
     {
-        PassDataContainer pdDash = new PassDataContainer()
+        PassData pdDash = new PassData()
         {
             myBrain =  brain,
             hasDash =  true,
@@ -33,7 +33,7 @@ public class SpellGroup : MonoBehaviour
         knockBackDir2.Normalize();
         knockBackDir2 = Utils.RotateV2(knockBackDir2, 45f * (2 * Random.Range(0, 2) - 1));
         int knockBackPower = Mathf.Min(20, brain.character.GetStat(Stats.KnockBack));
-        PassDataContainer pdContactDamage = new PassDataContainer()
+        PassData pdContactDamage = new PassData()
         {
             myBrain =  brain,
             hasDamage = true,

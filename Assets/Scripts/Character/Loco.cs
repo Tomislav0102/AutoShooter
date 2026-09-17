@@ -122,7 +122,7 @@ public class Loco : MonoBehaviour, IIniBrain
         Br.myTransform.rotation = Quaternion.RotateTowards(Br.myTransform.rotation, rot, Ga.me.gameData.agentRotSpeed * Time.deltaTime);
     }
 
-    public void LocoInjectData(PassDataContainer pd)
+    public void LocoInjectData(PassData pd)
     {
         if (pd.hasKnockback)
         {

@@ -30,7 +30,7 @@ public class Trap : MonoBehaviour, IIniBrain
     }
     Brain _br;
     //overrides OvrPassData on Spell. If both overrides are missing than there is no PassData (which could be ok in some edge cases)
-    [ShowInInspector, ReadOnly] PassDataContainer _pd;
+    [ShowInInspector, ReadOnly] PassData _pd;
     enum ActivationType
     {
         Constant,

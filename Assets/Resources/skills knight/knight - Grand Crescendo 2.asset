@@ -13,41 +13,65 @@ MonoBehaviour:
   m_Name: knight - Grand Crescendo 2
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Integers are added, floats are multiplied.
-  description: Every strike after first adds 50% base MeleeDamage (e.g 1st+0%, 2nd+50%,
-    3rd+100%, 4th+150%). After reaching maximum number of strikes it resets.
+  description: Every strike after first adds 50% base DamPhysical (e.g 1st+0%, 2nd+50%,
+    3rd+100%, 4th+150%, ...). After reaching maximum number of strikes it resets.
   levelUpEffect: Increased maximum number of strikes per level of skill.
   skillName: 30
   skillNameText: 
   levelUpText: 
   skillType: 0
-  animAttackType: 0
   level: 2
   hasStat: 0
   stats:
-  - stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
-  - stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
+  - change: 0
+    buffType: 0
+    buff:
+      stat: 0
+      value: 0
+      permanent: 0
+      duration: 0
+  - change: 0
+    buffType: 0
+    buff:
+      stat: 0
+      value: 0
+      permanent: 0
+      duration: 0
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
-    <Value>k__BackingField: 
-  hasAttackEffect: 0
-  effect:
-    group: []
+    <Value>k__BackingField: []
+  hasEffect: 0
+  effects: []
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
-  extraStats:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: 
+  passData:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    canBeDodged: 0
+    hasDamage: 0
+    damagePair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShieldPoints: 0
+    hasSpell: 0
+    spellPair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    hasStats: 0
+    stats: []
+    hasEffect: 0
+    effects: []
   hasGeneric: 0
   numGeneric: 0
   floatGeneric: 0

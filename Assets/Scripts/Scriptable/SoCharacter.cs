@@ -21,22 +21,19 @@ public class SoCharacter : SerializedScriptableObject
     void SetAllStatsDetailed(int value = 100)
     {
         SetAllStats(value);
-        baseStats[Stats.MeleeDamage] = 1;
-        baseStats[Stats.RangedDamage] = 2;
-        baseStats[Stats.MagicDamage] = 3;
-        baseStats[Stats.ExtraDamPhysical] = 0;
-        baseStats[Stats.ExtraDamFire] = 0;
-        baseStats[Stats.ExtraDamIce] = 0;
-        baseStats[Stats.ExtraDamElectricity] = 0;
-        baseStats[Stats.ExtraDamPoison] = 0;
-        baseStats[Stats.ExtraDamMagic] = 0;
+        baseStats[Stats.DamPhysical] = 1;
+        baseStats[Stats.DamFire] = 2;
+        baseStats[Stats.DamIce] = 3;
+        baseStats[Stats.DamElectricity] = 4;
+        baseStats[Stats.DamPoison] = 5;
+        baseStats[Stats.DamMagic] = 6;
         baseStats[Stats.Block] = 0;
-        baseStats[Stats.ResistancePhysical] = 0;
-        baseStats[Stats.ResistanceFire] = 0;
-        baseStats[Stats.ResistanceIce] = 0;
-        baseStats[Stats.ResistanceElectricity] = 0;
-        baseStats[Stats.ResistancePoison] = 0;
-        baseStats[Stats.ResistanceMagic] = 0;
+        baseStats[Stats.ResistPhysical] = 0;
+        baseStats[Stats.ResistFire] = 0;
+        baseStats[Stats.ResistIce] = 0;
+        baseStats[Stats.ResistElectricity] = 0;
+        baseStats[Stats.ResistPoison] = 0;
+        baseStats[Stats.ResistMagic] = 0;
         baseStats[Stats.Block] = 0;
         baseStats[Stats.KnockBack] = 0;
         baseStats[Stats.Projectiles] = 1;

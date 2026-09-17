@@ -78,7 +78,7 @@ public class Health: MonoBehaviour, IIniBrain
     Dictionary<Element, ParticleSystem> _dictPsElements;
     [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
 
-    public void HealthInjectData(PassDataContainer pd)
+    public void HealthInjectData(PassData pd)
     {
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
 
@@ -103,7 +103,6 @@ public class Health: MonoBehaviour, IIniBrain
 
         if (pd.hasDamage)
         {
-            print("damage");
             float totalDamage = 0f;
             for (int i = 0; i < pd.damagePair.Length(); i++)
             {
@@ -150,7 +149,6 @@ public class Health: MonoBehaviour, IIniBrain
         }
         if (pd.hasManaShield)
         {
-            print("manaShield");
             SetShield(pd.manaShieldPoints);
         }
         if (pd.hasEffect)
@@ -164,13 +162,11 @@ public class Health: MonoBehaviour, IIniBrain
                         float chance = Random.value * 100;
                         if (chance <= effectGroup.intensity)
                         {
-                            print("Executioner!");
                             Death();
                             return;
                         }
                         break;
                     case Status.Effect.Poisoned:
-                        print("poisoned");
                         Br.status.Change(GenChange.Add, effectGroup);
                         break;
                 }

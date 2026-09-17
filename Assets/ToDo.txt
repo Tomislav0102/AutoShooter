@@ -2,9 +2,8 @@
 
 GENERAL
 Implement status mechanics
-DOT - (burn, poison, etc...) Define mechanics.
 Gold and Xp mechanics
-- REWORK NEEDED - MeleeDam, RangedDam and MagicDam are not compatible with Elemental Damages (e.g. MeleeDam with only ice element can't be implemented)
+Buffs on one hit (e.g. next strike does 100% more damage) - now there are two logics that solve it: normal buff and argument in method "GetDamage(Element el)". 
 
 LEVEL-UP
 
@@ -37,6 +36,9 @@ Physical Resistance = Armor
 
 KNIGHT
 Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.
+
+MAGE
+Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword his meteor strike damage increases? 
 
 TRAPS
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.

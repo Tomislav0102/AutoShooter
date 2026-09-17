@@ -14,11 +14,14 @@ public class MyDuo<K, V>
     }
 
     string _prefixDebug() => $"MyDou<{Key},{Value}> debug info:\n";
+    bool _debug = false;
     K[] _bufferKey;
     V[] _bufferValue;
     public bool CanHaveDuplicateKeys { get; private set; }
     public bool CanHaveDuplicateValues { get; private set; }
 
+    
+    
     #region CONSTRUCTORS
     
     public MyDuo(bool canHaveDuplicateKeys = false, bool canHaveDuplicateValues = true)
@@ -54,6 +57,7 @@ public class MyDuo<K, V>
             if (isDuplicateKey(Key[i])) CanHaveDuplicateKeys = true;
             if (isDuplicateValue(Value[i])) CanHaveDuplicateValues = true;
         }
+        return;
 
         bool isDuplicateKey(K key)
         {
@@ -105,7 +109,7 @@ public class MyDuo<K, V>
             {
                 if (Key[i].Equals(key))
                 {
-                    Debug.LogError($"{_prefixDebug()}key '{key}' already present");
+                    if (_debug) Debug.LogError($"{_prefixDebug()}key '{key}' already present");
                     return;
                 }
             }
@@ -116,7 +120,7 @@ public class MyDuo<K, V>
             {
                 if (Value[i].Equals(value))
                 {
-                    Debug.LogError($"{_prefixDebug()}value '{value}' already present");
+                    if (_debug) Debug.LogError($"{_prefixDebug()}value '{value}' already present");
                     return;
                 }
             }
@@ -143,7 +147,7 @@ public class MyDuo<K, V>
     {
         if (anotherDuo == null || anotherDuo.Length() == 0)
         {
-            Debug.LogWarning("Duo to add is null or empty");
+            if (_debug) Debug.LogWarning("Duo to add is null or empty");
             return;
         }
         if (!CanHaveDuplicateKeys)
@@ -153,7 +157,7 @@ public class MyDuo<K, V>
                 for (int j = 0; j < anotherDuo.Length(); j++)
                 {
                     if (!Key[i].Equals(anotherDuo.Key[j])) continue;
-                    Debug.LogError($"{anotherDuo.Key[j]} already present");
+                    if (_debug) Debug.LogError($"{anotherDuo.Key[j]} already present");
                     return;
                 }
             }
@@ -165,7 +169,7 @@ public class MyDuo<K, V>
                 for (int j = 0; j < anotherDuo.Length(); j++)
                 {
                     if (!Value[i].Equals(anotherDuo.Value[j])) continue;
-                    Debug.LogError($"{anotherDuo.Value[j]} already present");
+                    if (_debug) Debug.LogError($"{anotherDuo.Value[j]} already present");
                     return;
                 }
             }
@@ -190,7 +194,7 @@ public class MyDuo<K, V>
     {
         if (Key == null || Key.Length < index)
         {
-            Debug.LogError($"{_prefixDebug()}Can't remove");
+            if (_debug) Debug.LogError($"{_prefixDebug()}Can't remove");
             return;
         }
 
@@ -215,7 +219,7 @@ public class MyDuo<K, V>
     {
         if (Key == null || Key.Length == 0 || !ContainsKey(key))
         {
-            Debug.LogError($"{_prefixDebug()}Can't remove");
+            if (_debug) Debug.LogError($"{_prefixDebug()}Can't remove");
             return;
         }
         
@@ -240,7 +244,7 @@ public class MyDuo<K, V>
     {
         if (Value == null || Value.Length == 0 || !ContainsValue(value)) 
         {
-            Debug.LogError($"{_prefixDebug()}Can't remove");
+            if (_debug) Debug.LogError($"{_prefixDebug()}Can't remove");
             return;
         }
         
@@ -285,7 +289,7 @@ public class MyDuo<K, V>
                 return Value[i];
             }
         }
-        Debug.LogError($"{_prefixDebug()}no key '{key}' present");
+        if (_debug) Debug.LogError($"{_prefixDebug()}no key '{key}' present");
         return default;
     }
     public K GetKeyByValue(V val)
@@ -297,7 +301,7 @@ public class MyDuo<K, V>
                 return Key[i];
             }
         }
-        Debug.LogError($"{_prefixDebug()}no value '{val}' present");
+        if (_debug) Debug.LogError($"{_prefixDebug()}no value '{val}' present");
         return default;
     }
     public bool TryGetValueByKey(K key, out V value)
@@ -310,7 +314,7 @@ public class MyDuo<K, V>
                 return true;
             }
         }
-        Debug.LogError($"{_prefixDebug()}no key '{key}' present");
+        if (_debug) Debug.LogError($"{_prefixDebug()}no key '{key}' present");
         value = default;
         return false;
     }
@@ -324,7 +328,7 @@ public class MyDuo<K, V>
                 return true;
             }
         }
-        Debug.LogError($"{_prefixDebug()}no value '{val}' present");
+        if (_debug) Debug.LogError($"{_prefixDebug()}no value '{val}' present");
         key = default;
         return false;
     }

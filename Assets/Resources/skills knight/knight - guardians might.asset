@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: knight - guardians might
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: Increases Physical Damage damage by 5% for every enemy
+  description: Increases Physical Damage damage by X% for every enemy
   levelUpEffect: Increases Physical Damage % per enemy
   skillName: 47
   skillNameText: 

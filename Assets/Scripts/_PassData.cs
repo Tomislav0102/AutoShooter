@@ -4,12 +4,11 @@ using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
 
-
 [System.Serializable]
-public class PassDataContainer
+public class PassData
 {
     public enum HitEffectOnSpell { Nullify, Reflect }
-    public Brain myBrain;
+    [ReadOnly] public Brain myBrain;
     [BoxGroup] public bool canBeBlocked;
     [BoxGroup] public bool canBeDodged;
 
@@ -63,7 +62,7 @@ public class StatsGroup
 [System.Serializable]
 public class EffectGroup
 {
-    public Brain brain; //redundant
+    public Brain brain; //not redundant, although PassData has myBrain. Sometimes this class is passed alone.
     public Status.Effect effect;
     public float duration;
     public int intensity;
@@ -84,7 +83,7 @@ public class EffectGroup
 }
 
 
-// #region OLD
+ #region OLD
 //
 // [System.Serializable]
 // public class PassDataContainer
@@ -221,6 +220,6 @@ public class EffectGroup
 // {
 //     public EffectGroup[] group;
 // }
-// #endregion
+ #endregion
 
 

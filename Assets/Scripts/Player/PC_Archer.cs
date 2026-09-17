@@ -135,12 +135,12 @@ public class PC_Archer : MonoBehaviour
         void spawnProjectile(float rotation)
         {
             Vector3 rot = rotation * Vector3.up;
-            PassDataContainer container = new PassDataContainer()
+            PassData container = new PassData()
             {
                 myBrain = Br,
                 canBeBlocked = true,
                 hasDamage = true,
-                damagePair = Br.character.GetDamage(Stats.RangedDamage)
+                damagePair = Br.character.GetDamage()
             };
             int projectile = (int)Br.character.GetStat(Stats.Projectiles);
             for (int i = 0; i < projectile; i++)

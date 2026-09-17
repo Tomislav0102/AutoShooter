@@ -37,7 +37,7 @@ public class Skills : MonoBehaviour, IIniBrain
             if (useKnight)
             {
                 OvrLevelSpecificSkill(SkillName.KnightBase, 0);
-                OvrLevelSpecificSkill(SkillName.Riposte, 0);
+                OvrLevelSpecificSkill(SkillName.GrandCrescendo, 1);
             }
             if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile, 0);
             if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase, 0);

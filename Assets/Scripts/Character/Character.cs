@@ -32,44 +32,62 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     public List<Buff> buffs = new List<Buff>();
 
 
+    #region GET STATS
+    
     public int GetStat(Stats stat)
     {
         return (int)statsFinal[stat];
     }
-    MyDuo<Element, float> GetElDamage()
+
+    public MyDuo<Element, float> GetDamage(Element element = Element.Physical, float multiplier = 1f, MyDuo<Element, float> extraDamage = null)
     {
-        MyDuo<Element, float> elDamage = new MyDuo<Element, float>(true);
-        elDamage.Add(Element.Physical, GetStat(Stats.ExtraDamPhysical));
-        elDamage.Add(Element.Fire, GetStat(Stats.ExtraDamFire));
-        elDamage.Add(Element.Ice, GetStat(Stats.ExtraDamIce));
-        elDamage.Add(Element.Electricity, GetStat(Stats.ExtraDamElectricity));
-        elDamage.Add(Element.Poison, GetStat(Stats.ExtraDamPoison));
-        elDamage.Add(Element.Magic, GetStat(Stats.ExtraDamMagic));
-        return elDamage;
-    }
-    public MyDuo<Element, float> GetDamage(Stats statOffensive, MyDuo<Element, float> extraDamage = null)
-    {
-        MyDuo<Element, float> damage = GetElDamage();
-        damage.AddRange(extraDamage);
-        float finalValue;
-        switch (statOffensive)
+        if (extraDamage == null) return new MyDuo<Element, float>(new Element[1] { element }, new float[1] { GetStat(StatByElement(element)) * multiplier });
+        
+        MyDuo<Element, float> damage = new MyDuo<Element, float>();
+        damage.Add(element, (GetStat(StatByElement(element)) + ExtraDamageValue(element, extraDamage)) * multiplier);
+        for (int i = 0; i < extraDamage.Length(); i++)
         {
-            case Stats.MeleeDamage:
-            case Stats.RangedDamage:
-                finalValue = damage.GetValueByKey(Element.Physical) + GetStat(statOffensive);
-                damage.SetValueByKey(Element.Physical, finalValue);
-                break;
-            case Stats.MagicDamage:
-                finalValue = damage.GetValueByKey(Element.Magic) + GetStat(statOffensive);
-                damage.SetValueByKey(Element.Magic, finalValue);
-                break;
-            default:
-                if (Br.debug) print("must use offensive stat");
-                return null;
+            if (extraDamage.GetKey(i) == element) continue;
+            damage.Add(extraDamage.GetKey(i), (GetStat(StatByElement(extraDamage.GetKey(i))) + extraDamage.GetValue(i)) * multiplier);
         }
 
         return damage;
     }
+    public MyDuo<Element, float> GetDamage(Element[] elements, float multiplier = 1f, MyDuo<Element, float> extraDamage = null)
+    {
+        MyDuo<Element, float> damage = new MyDuo<Element, float>();
+        foreach (Element el in elements)
+        {
+            damage.Add(el, (GetStat(StatByElement(el)) + ExtraDamageValue(el, extraDamage)) * multiplier);
+        }
+        
+        return damage;
+    }
+
+    Stats StatByElement(Element element, bool isDamage = true)
+    {
+        switch (element)
+        {
+            case Element.Fire:
+                return isDamage ? Stats.DamFire : Stats.ResistFire;
+            case Element.Ice:
+                return isDamage ? Stats.DamIce : Stats.ResistIce;
+            case Element.Electricity:
+                return isDamage ? Stats.DamElectricity : Stats.ResistElectricity;
+            case Element.Poison:
+                return isDamage ? Stats.DamPoison : Stats.ResistPoison;
+            case Element.Magic:
+                return isDamage ? Stats.DamMagic : Stats.ResistMagic;
+            default:
+                return isDamage ? Stats.DamPhysical : Stats.ResistPhysical;
+        }
+    }
+    float ExtraDamageValue(Element el, MyDuo<Element, float> extraDamage)
+    {
+        if (extraDamage != null && extraDamage.TryGetValueByKey(el, out float val)) return val;
+        return 0f;
+    }
+    #endregion
 
 
     public void BuffInjectData(StatsGroup group)

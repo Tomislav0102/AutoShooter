@@ -2063,7 +2063,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1349523940}
   - component: {fileID: 1349523939}
-  - component: {fileID: 1349523941}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2125,71 +2124,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1349523941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349523938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  theBlock:
-    myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
-    hasDamage: 0
-    damagePair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-    spellsVelocity: {x: 0, y: 0}
-    hasKnockback: 0
-    knockbackPower: 0
-    knockbackDirection: {x: 0, y: 0}
-    hasDash: 0
-    dashPower: 0
-    dashDirection: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-    hasStats: 0
-    stats: []
-    hasEffect: 0
-    effects: []
-  block:
-    canBeBlocked: 0
-    canBeDodged: 0
-    hasDamage: 0
-    damage:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-      addSpellVelocity: 0
-      spellsVelocity: {x: 0, y: 0, z: 0}
-    hasKnockback: 0
-    knockBack:
-      power: 0
-      direction: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShield:
-      manaShieldPoints: 0
-    hasSpell: 0
-    spellData:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-    hasStats: 0
-    stats:
-      group: []
-    hasAttackEffect: 0
-    effect:
-      group: []
 --- !u!1 &1351064334
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class Status : MonoBehaviour, IIniBrain
     }
     Brain _br;
     
-    public List<EffectGroup> _groups;
+    List<EffectGroup> _groups;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
 
@@ -54,13 +54,13 @@ public class Status : MonoBehaviour, IIniBrain
         {
             _tickTimer = 0f;
         }
-        
-        int count = _groups.Count;
-        for (int i = 0; i < count; i++)
+
+        List<EffectGroup> groupToRemove = new List<EffectGroup>();
+        foreach (EffectGroup g in _groups)
         {
-            EffectGroup g =  _groups[i];
             g.duration -= Time.deltaTime;
-            if (g.duration > 0)
+            if (g.duration <= 0f) groupToRemove.Add(g);
+            else
             {
                 if (!g.IsDot() || !Mathf.Approximately(_tickTimer, 0f)) continue;
                 Element element = Element.Physical;
@@ -81,17 +81,20 @@ public class Status : MonoBehaviour, IIniBrain
                         element = Element.Poison;
                         break;
                 }
-                PassDataContainer passDataContainer = new PassDataContainer()
+                PassData passData = new PassData()
                 {
                     myBrain = g.brain,
                     hasDamage = true,
                     damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { g.intensity })
                 };
-                Br.health.HealthInjectData(passDataContainer);
-                continue;
+                Br.health.HealthInjectData(passData);
             }
-            Change(GenChange.Remove, g);
         }
+        for (int i = 0; i < groupToRemove.Count; i++)
+        {
+            Change(GenChange.Remove, groupToRemove[i]);
+        }
+
     }
     void LateUpdate()
     {

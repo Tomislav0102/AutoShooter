@@ -8,7 +8,7 @@ public class WalkTrailGroup : SpellGroup
     HashSet<Collider> _spawns;
     float _radius;
 
-    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassDataContainer> duo)
+    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
     {
         base.InitializeMe(ownersBrain, duo);
         _radius = prefabsAndData.GetKey(0).areaOfEffect * 0.5f;

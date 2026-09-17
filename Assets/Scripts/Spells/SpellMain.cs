@@ -28,7 +28,7 @@ public class SpellMain : MonoBehaviour
     [Title("Data")]
     public bool isInterrupt;
     [ReadOnly] public bool spellActive;
-    [ReadOnly] public PassDataContainer pd;
+    [ReadOnly] public PassData pd;
     public Brain OwnersBrain
     {
         get => _ownersBrain;
@@ -162,7 +162,7 @@ public class SpellMain : MonoBehaviour
     /// <summary>
     /// Damage is from code, no after spell
     /// </summary>
-    public void InitializeMe(Brain brain, PassDataContainer passData)
+    public void InitializeMe(Brain brain, PassData passData)
     {
         pd = passData;
         InitializeMe(brain); 
@@ -178,7 +178,7 @@ public class SpellMain : MonoBehaviour
     /// <summary>
     /// Damage is from code, with after spell
     /// </summary>
-    public void InitializeMe(Brain brain, PassDataContainer passData, System.Action onAfterSpell)
+    public void InitializeMe(Brain brain, PassData passData, System.Action onAfterSpell)
     {
         pd = passData;
         _onAfterSpell = onAfterSpell;
@@ -266,10 +266,10 @@ public class SpellMain : MonoBehaviour
 
                     switch (pd.spellPair.GetKey(i))
                     {
-                        case PassDataContainer.HitEffectOnSpell.Nullify:
+                        case PassData.HitEffectOnSpell.Nullify:
                             targetSpell.MyPhase = Phase.EndStart;
                             break;
-                        case PassDataContainer.HitEffectOnSpell.Reflect:
+                        case PassData.HitEffectOnSpell.Reflect:
                             Vector3 newDirection = Utils.Direction(myTransform.position,
                                 targetSpell.myTransform.position);
                             targetSpell.transporter.ReflectProjectile(OwnersBrain, newDirection);
@@ -303,7 +303,7 @@ public class SpellMain : MonoBehaviour
 
         if (pd.hasStats)
         {
-            PassDataContainer removeContainer = pd;
+            PassData removeContainer = pd;
             for (int i = 0; i < removeContainer.stats.Length; i++)
             {
                 removeContainer.stats[i].change = GenChange.Remove;
