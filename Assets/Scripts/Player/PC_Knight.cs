@@ -15,19 +15,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            // switch (startActive)
-            // {
-            //     case 0:
-            //         SpellMain reflect = Instantiate(Ga.me.spells.reflectProjectile, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         reflect.transporter.target = value.myTransform;
-            //         reflect.InitializeMe(value);
-            //         break;
-            //     case 1:
-            //         SpellMain aura = Instantiate(Ga.me.spells.auraLowerAttSpeed, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform); 
-            //         aura.transporter.target = value.myTransform;
-            //         aura.InitializeMe(value);
-            //         break;
-            // }
         }
     }
     Brain _br;
@@ -66,6 +53,9 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             case SkillName.LethargicDomain:
                 lethargicDomain();
                 break;
+            case SkillName.IronMirror:
+                ironMirror();
+                break;
         }
         return;
 
@@ -78,7 +68,15 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             _passiveLethargicDomain.areaOfEffect += skill.passData.stats[0].buff.value;
             _passiveLethargicDomain.InitializeMe(Br);
         }
-
+        void ironMirror()
+        {
+            if (!Br.skills.TryGetFromGroup(SkillName.IronMirror, out SoSkill skill)) return;
+            SpellMain spell = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            spell.transporter.target = Br.myTransform;
+            spell.areaOfEffect = 2f + Br.size;
+            spell.hitChance = skill.floatGeneric;
+            spell.InitializeMe(Br);
+        }
     }
 
     #region SKILLS
@@ -127,7 +125,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         StatsGroup armorBreaker = null;
         if (Br.skills.TryGetFromGroup(SkillName.ArmorBreaker, out SoSkill skillArmorBreak))
         {
-            float chance = 0.05f;
+            float chance = skillArmorBreak.floatGeneric;
             if (chance < Random.value)
             {
                 addArmorBreaker = true;
@@ -210,9 +208,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         myBrain = Br,
                         canBeBlocked = true,
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Magic),
+                        damagePair = Br.character.GetDamage(Element.Magic, 1f, sk.passData.damagePair),
                     };
                     SpellMain arc = Instantiate(sk.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                    arc.areaOfEffect += sk.passData.stats[0].buff.value;
                     arc.InitializeMe(Br, containerArc);
                 }
                 void grandCrescendo()

@@ -12,8 +12,8 @@ public class SoSkill : ScriptableObject
     [SerializeField, TextArea, FoldoutGroup("Info")] string levelUpEffect;
     [Title("General")]
     public SkillName skillName;
-    public string skillNameText;
-    public string levelUpText;
+    // public string skillNameText;
+    // public string levelUpText;
     [EnumButtons] public SkillType skillType;
   //  [EnumButtons] public AnimAttackType animAttackType; //only for enemy animations
     public int level;
@@ -43,7 +43,7 @@ public class SoSkill : ScriptableObject
     public bool hasGeneric; 
     [ShowIf(nameof(hasGeneric))] public int numGeneric;
     [ShowIf(nameof(hasGeneric))] public float floatGeneric;
-    [ShowIf(nameof(hasGeneric))] public string stringGeneric;
+   // [ShowIf(nameof(hasGeneric))] public string stringGeneric;
     // [ShowIf(nameof(hasGeneric))] public int[] numArray;
     // [ShowIf(nameof(hasGeneric))] public float[] floatArray;
     // [ShowIf(nameof(hasGeneric))] public string[] stringArray;

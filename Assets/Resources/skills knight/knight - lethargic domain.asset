@@ -70,10 +70,10 @@ MonoBehaviour:
     hasStats: 1
     stats:
     - change: 0
-      buffType: 1
+      buffType: 0
       buff:
-        stat: 7
-        value: 0.5
+        stat: 18
+        value: 2
         permanent: 1
         duration: 0
     hasEffect: 0

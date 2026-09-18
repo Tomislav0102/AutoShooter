@@ -47,6 +47,11 @@ public class Status : MonoBehaviour, IIniBrain
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
 
+
+    void OnDestroy()
+    {
+      if (_status != null)  Destroy(_status.gameObject);
+    }
     void Update()
     {
         _tickTimer += Time.deltaTime;
@@ -103,7 +108,6 @@ public class Status : MonoBehaviour, IIniBrain
     }
     public void Change(GenChange addRemove, EffectGroup effectGroup)
     {
-        print(addRemove);
         switch (addRemove)
         {
             case GenChange.Add:

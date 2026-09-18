@@ -159,9 +159,9 @@ public class Health: MonoBehaviour, IIniBrain
                 switch (effectGroup.effect)
                 {
                     case Status.Effect.InstantKill:
-                        float chance = Random.value * 100;
-                        if (chance <= effectGroup.intensity)
+                        if (HealthCurrent <= effectGroup.intensity * _healthMax * 0.01f)
                         {
+                            print("Executioner");
                             Death();
                             return;
                         }
@@ -191,6 +191,7 @@ public class Health: MonoBehaviour, IIniBrain
         _shieldMax = value;
         ShieldCurrent = _shieldMax;
     }
+
     void Update()
     {
         if (!IsAtFullHealth())

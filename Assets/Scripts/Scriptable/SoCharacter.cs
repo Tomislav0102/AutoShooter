@@ -21,20 +21,21 @@ public class SoCharacter : SerializedScriptableObject
     void SetAllStatsDetailed(int value = 100)
     {
         SetAllStats(value);
-        baseStats[Stats.DamPhysical] = 1;
+        baseStats[Stats.DamPhysical] = 10;
         baseStats[Stats.DamFire] = 2;
         baseStats[Stats.DamIce] = 3;
         baseStats[Stats.DamElectricity] = 4;
         baseStats[Stats.DamPoison] = 5;
         baseStats[Stats.DamMagic] = 6;
+        // baseStats[Stats.ResistPhysical] = 0;
+        // baseStats[Stats.ResistFire] = 0;
+        // baseStats[Stats.ResistIce] = 0;
+        // baseStats[Stats.ResistElectricity] = 0;
+        // baseStats[Stats.ResistPoison] = 0;
+        // baseStats[Stats.ResistMagic] = 0;
         baseStats[Stats.Block] = 0;
-        baseStats[Stats.ResistPhysical] = 0;
-        baseStats[Stats.ResistFire] = 0;
-        baseStats[Stats.ResistIce] = 0;
-        baseStats[Stats.ResistElectricity] = 0;
-        baseStats[Stats.ResistPoison] = 0;
-        baseStats[Stats.ResistMagic] = 0;
-        baseStats[Stats.Block] = 0;
+        baseStats[Stats.Dodge] = 0;
+        baseStats[Stats.Health] = 1000;
         baseStats[Stats.KnockBack] = 0;
         baseStats[Stats.Projectiles] = 1;
         baseStats[Stats.Bounce] = 0;

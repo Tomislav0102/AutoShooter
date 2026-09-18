@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0.22172403, a: 0.4}
+      maxColor: {r: 0.39030796, g: 0.399589, b: 0.46226418, a: 0.4}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10100,7 +10100,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0.31034467, a: 0.603}
+      maxColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 0.603}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14865,7 +14865,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071071, y: -0, z: -0, w: 0.70710653}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8000001, z: 0.8000001}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5806514127492139568}
@@ -15060,7 +15060,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0.31034467, a: 0.428}
+      maxColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0.428}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19842,7 +19842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Name
-      value: reflect projectiles
+      value: iron mirror
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
@@ -19878,12 +19878,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 8745390515396982302}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: lifeTime
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: isInterrupt
       value: 1
@@ -19892,6 +19896,38 @@ PrefabInstance:
       propertyPath: transporter
       value: 
       objectReference: {fileID: 4665519266688235161}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: terminateOnHit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8745390515396982302}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTriggerEnterCallBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EffectTrigger, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer
       value: 20
@@ -19941,57 +19977,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  block:
+  passData:
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     canBeDodged: 0
     hasDamage: 0
-    damage:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-      addSpellVelocity: 0
-      spellsVelocity: {x: 0, y: 0, z: 0}
-    hasKnockback: 0
-    knockBack:
-      power: 0
-      direction: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShield:
-      manaShieldPoints: 0
-    hasSpell: 1
-    spellData:
-      pair:
-        <Key>k__BackingField: 01000000
-        <Value>k__BackingField:
-        - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-    hasStats: 0
-    stats:
-      group: []
-  canBeBlocked: 0
-  canBeDodged: 0
-  hasDamage: 0
-  damage:
-    pair:
+    damagePair:
       <Key>k__BackingField: 
       <Value>k__BackingField: []
-    addSpellVelocity: 0
-    spellsVelocity: {x: 0, y: 0, z: 0}
-  hasKnockback: 0
-  knockBack:
-    power: 0
-    direction: {x: 0, y: 0}
-  hasManaShield: 0
-  manaShield:
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
     manaShieldPoints: 0
-  hasSpell: 1
-  spellData:
-    pair:
+    hasSpell: 1
+    spellPair:
       <Key>k__BackingField: 01000000
       <Value>k__BackingField:
       - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-  hasStats: 0
-  stats:
-    group: []
+    hasStats: 0
+    stats: []
+    hasEffect: 0
+    effects: []
 --- !u!1 &1185049575741134598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -20037,5 +20048,4 @@ MonoBehaviour:
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  effectAtExit: {fileID: 0}
   colliderPart: 0

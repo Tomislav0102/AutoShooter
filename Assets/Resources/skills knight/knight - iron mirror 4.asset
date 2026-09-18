@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight - iron mirror
+  m_Name: knight - iron mirror 4
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
   description: Chance to deflect projectiles
@@ -19,7 +19,7 @@ MonoBehaviour:
   skillNameText: 
   levelUpText: 
   skillType: 1
-  level: 0
+  level: 4
   hasStat: 0
   stats:
   - change: 0
@@ -73,5 +73,5 @@ MonoBehaviour:
     effects: []
   hasGeneric: 1
   numGeneric: 0
-  floatGeneric: 0.5
+  floatGeneric: 0.9
   stringGeneric: 

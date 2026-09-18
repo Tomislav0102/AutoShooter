@@ -36,11 +36,11 @@ public class Skills : MonoBehaviour, IIniBrain
             _group = tempGroups.ToArray();
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.KnightBase, 0);
-                OvrLevelSpecificSkill(SkillName.GrandCrescendo, 1);
+                OvrLevelSpecificSkill(SkillName.KnightBase);
+                OvrLevelSpecificSkill(SkillName.AdvanceGuard);
             }
-            if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile, 0);
-            if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase, 0);
+            if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile);
+            if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase);
             return;
 
             List<SoSkill> allSkillsByName(SkillName skillName)
@@ -107,13 +107,20 @@ public class Skills : MonoBehaviour, IIniBrain
     #endregion
 
     
-    void OvrLevelSpecificSkill(SkillName skillName, int level)
+    void OvrLevelSpecificSkill(SkillName skillName, int level = 0)
     {
         foreach (Group g in _group)
         {
             if (g.skillName != skillName) continue;
             g.levelCurrent = level;
+            StartCoroutine(delay(g)); //debug
             return;
+        }
+        return;
+        IEnumerator delay(Group g)
+        {
+            yield return null;
+            skillIncreaseEv.Invoke(g.MySkill());
         }
     }
     public void SkillIncrease(SkillName skillName)
