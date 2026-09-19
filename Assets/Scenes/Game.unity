@@ -1293,9 +1293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
-  fl: 0.1
-  period: 0.2
-  val: 0
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,6 +2099,7 @@ MonoBehaviour:
   spells: {fileID: 2141633715}
   barContainer: {fileID: 2133104178}
   healthBarPrefab: {fileID: 8675515734490837863, guid: 8a41ee742ce4aef4aa7b6a3d23a2c12a, type: 3}
+  numDisplayPrefab: {fileID: 349606715640007032, guid: 2bda6428b97c40b44801bd7ef0729c5b, type: 3}
   floatingContainer: {fileID: 1089916676}
   floatingTextPrefab: {fileID: 5886353900442050348, guid: f9d91326456e2f64fa43f969e0cedfaa, type: 3}
   joystick: {fileID: 7896879426726389519}
@@ -3380,9 +3378,7 @@ MonoBehaviour:
   meleePlayer: {fileID: 3722032327834985656, guid: 7e27226224442a646b036e1711728ff1, type: 3}
   push: {fileID: 3877507550480247814, guid: 5e76a5840e03b0444bd4e3bd35bc6918, type: 3}
   sweepingArc: {fileID: 7317362604980683298, guid: f9b570548cbe5634d9cb430d1996d62e, type: 3}
-  reflectProjectile: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
   shieldThrow: {fileID: 9135447752809258219, guid: f29e5249fec7c5e49bf97b4f574c5983, type: 3}
-  auraLowerAttSpeed: {fileID: 3118285111912860546, guid: 1ccb81ed7ee94c24bab8e49f6a08c37f, type: 3}
   groupWalkTrail: {fileID: 4097750650632919805, guid: 8ff03a2ecf095c243921ab413535e7d5, type: 3}
   groupOrbitalShields: {fileID: 2030511890280774223, guid: 207058c7be783c84781d27fe3ed51235, type: 3}
   groupOrbitalSwords: {fileID: 4935544611848341360, guid: d085c40fd9667b14e8983759559f6b26, type: 3}

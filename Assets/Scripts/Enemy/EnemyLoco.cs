@@ -147,6 +147,7 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
 
         void stationary()
         {
+           // if (!Br.loco.OvrOrientation) return; //maybe will cause bugs
             if (_stationaryIsTurning) Br.myTransform.Rotate(_stationaryRotAxis, _timerStationary * 0.2f);
 
             _timerStationary += Time.deltaTime;

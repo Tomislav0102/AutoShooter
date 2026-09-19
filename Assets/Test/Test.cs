@@ -8,13 +8,10 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    public float fl;
-    public float period = 0.2f;
-    public int val;
-    
     [Button]
     void AddS()
     {
+       
     }
     [Button]
     void Remove()
@@ -22,8 +19,6 @@ public class Test : MonoBehaviour
     }
 
 }
-
-
 
 
 

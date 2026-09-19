@@ -35,7 +35,7 @@ public class Status : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            _groups = new List<EffectGroup>();
+            _duoEffects = new MyDuo<BuffEffects, float>();
             _status = Instantiate(Ga.me.statusPrefab, Ga.me.parPointers);
             _statusImageGos = Utils.AllChildrenGameObjects(_status);
             _tickTimer = float.PositiveInfinity;
@@ -43,7 +43,15 @@ public class Status : MonoBehaviour, IIniBrain
     }
     Brain _br;
     
-    List<EffectGroup> _groups;
+    public MyDuo<BuffEffects, float> _duoEffects;
+    public bool HasEffect(Effect effect)
+    {
+        for (int i = 0; i < _duoEffects.Length(); i++)
+        {
+            if (_duoEffects.GetKey(i).effect ==  effect) return true;
+        }
+        return false;
+    }
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
 
@@ -54,22 +62,28 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void Update()
     {
+        if (_duoEffects.Length() == 0) return;
+        
         _tickTimer += Time.deltaTime;
         if (_tickTimer >= CONST_TickMaxTime)
         {
             _tickTimer = 0f;
         }
 
-        List<EffectGroup> groupToRemove = new List<EffectGroup>();
-        foreach (EffectGroup g in _groups)
+        List<BuffEffects> buffsToRemove = new List<BuffEffects>();
+        for (int i = 0; i < _duoEffects.Length(); i++)
         {
-            g.duration -= Time.deltaTime;
-            if (g.duration <= 0f) groupToRemove.Add(g);
+            BuffEffects buff = _duoEffects.GetKey(i);
+            float duration = _duoEffects.GetValue(i);
+            
+            duration -= Time.deltaTime;
+            _duoEffects.SetValue(i, duration);
+            if (duration <= 0f) buffsToRemove.Add(buff);
             else
             {
-                if (!g.IsDot() || !Mathf.Approximately(_tickTimer, 0f)) continue;
+                if (!buff.IsDot() || !Mathf.Approximately(_tickTimer, 0f)) continue;
                 Element element = Element.Physical;
-                switch (g.effect)
+                switch (buff.effect)
                 {
                     case Effect.Bleeding:
                         break;
@@ -88,39 +102,54 @@ public class Status : MonoBehaviour, IIniBrain
                 }
                 PassData passData = new PassData()
                 {
-                    myBrain = g.brain,
                     hasDamage = true,
-                    damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { g.intensity })
+                    damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.data.value })
                 };
                 Br.health.HealthInjectData(passData);
             }
         }
-        for (int i = 0; i < groupToRemove.Count; i++)
+        bool doRefresh = false;
+        for (int i = 0; i < buffsToRemove.Count; i++)
         {
-            Change(GenChange.Remove, groupToRemove[i]);
+            if (_duoEffects.HasKey(buffsToRemove[i]))
+            {
+                doRefresh = true;
+                _duoEffects.Remove(buffsToRemove[i]);
+                break;
+            }
         }
+        if (doRefresh) Refresh();
 
     }
     void LateUpdate()
     {
-        if (_groups.Count == 0) return;
+        if (_duoEffects.Length() == 0) return;
        _status.position = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position);
     }
-    public void Change(GenChange addRemove, EffectGroup effectGroup)
+    
+    public void ChangeEffect(GenChange change, BuffEffects buffEffects)
     {
-        switch (addRemove)
+        switch (change)
         {
             case GenChange.Add:
-                _groups.Add(effectGroup);
+                _duoEffects.Add(buffEffects, buffEffects.data.Duration);
+                if (buffEffects.IsDot()) return;
+
+                for (int i = 0; i < _duoEffects.Length() - 1; i++)
+                {
+                    if (_duoEffects.GetKey(i).effect != buffEffects.effect) continue;
+                    float duration = _duoEffects.GetValue(i) +  buffEffects.data.Duration;
+                    _duoEffects.SetValue(i, duration);
+                    break;
+                }
                 break;
             case GenChange.Remove:
-                if (_groups.Contains(effectGroup)) _groups.Remove(effectGroup);
+                if (_duoEffects.HasKey(buffEffects)) _duoEffects.Remove(buffEffects);
                 break;
         }
+        
         Refresh();
     }
-
-
     void Refresh()
     {
         uIRefresh();
@@ -129,11 +158,10 @@ public class Status : MonoBehaviour, IIniBrain
         void uIRefresh()
         {
             Utils.ActivateOneArrayElement(_statusImageGos);
-            for (int i = 0; i < _groups.Count; i++)
+            for (int i = 0; i < _duoEffects.Length(); i++)
             {
-                _statusImageGos[(int)_groups[i].effect].SetActive(true);
+                _statusImageGos[(int)_duoEffects.GetKey(i).effect].SetActive(true);
             }
-            
         }
     }
 

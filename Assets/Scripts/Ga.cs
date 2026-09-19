@@ -36,6 +36,7 @@ public class Ga : MonoBehaviour
     public SpellManager spells;
     public Transform barContainer;
     public RectTransform healthBarPrefab;
+    public RectTransform numDisplayPrefab;
     public Transform floatingContainer;
     public FloatingText floatingTextPrefab;
     public TeamManager team;
@@ -72,7 +73,6 @@ public class Ga : MonoBehaviour
     {
        // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
     }
-
 
     public void BtnRestart()
     {

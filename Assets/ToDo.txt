@@ -20,7 +20,7 @@ Arcane shield - need fix with PassData
 
 ENEMY
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
-
+Cannon is rotating while idle, fix 'OvrOrientation' (related to 'isOrientationAlwaysFalse' bool)
 
 
 ------INFO------

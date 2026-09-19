@@ -23,13 +23,13 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         {
             _br = value;
             if (data == null) data = Ga.me.defCharacter;
-            buffs = new List<Buff>();
+            buffs = new List<BuffStats>();
             ResetFinalStats();
         }
     }
     Brain _br;
     public Dictionary<Stats, float> statsFinal = new Dictionary<Stats, float>();
-    public List<Buff> buffs = new List<Buff>();
+    public List<BuffStats> buffs = new List<BuffStats>();
 
 
     #region GET STATS
@@ -92,54 +92,54 @@ public class Character : SerializedMonoBehaviour, IIniBrain
 
     public void BuffInjectData(StatsGroup group)
     {
-        Buff buff = group.buff;
+        BuffStats buffStats = group.buffStats;
         switch (group.change)
         {
             case GenChange.Add:
-                if (group.buffType == BuffType.Percentage && Mathf.Approximately(buff.value, 1f))
+                if (group.buffType == BuffType.Percentage && Mathf.Approximately(buffStats.data.value, 1f))
                 {
                     if (Br.debug) print("Buff multiplier is 1X, so its ignored");
                     return;
                 }
-                int previousValue = GetStat(buff.stat);
-                float finalValue = buff.value;
+                int previousValue = GetStat(buffStats.stat);
+                float finalValue = buffStats.data.value;
                 switch (group.buffType)
                 {
                     case BuffType.Added:
-                        statsFinal[buff.stat] += finalValue;
+                        statsFinal[buffStats.stat] += finalValue;
                         break;
                     case BuffType.Percentage:
-                        finalValue = data.baseStats[buff.stat] * (buff.value - 1f);
-                        statsFinal[buff.stat] += finalValue;
+                        finalValue = data.baseStats[buffStats.stat] * (buffStats.data.value - 1f);
+                        statsFinal[buffStats.stat] += finalValue;
                         break;
                 }
-                buffs.Add(buff);
-                if (Br.debug) print($"{buff.stat} changed from {previousValue} to {GetStat(buff.stat)}");
+                buffs.Add(buffStats);
+                if (Br.debug) print($"{buffStats.stat} changed from {previousValue} to {GetStat(buffStats.stat)}");
                 break;
             case GenChange.Remove:
-                RemoveBuff(buff);
+                RemoveBuff(buffStats);
                 break;
         }
     }
 
     void Update()
     {
-        foreach (Buff item in buffs)
+        foreach (BuffStats item in buffs)
         {
-            if (item.permanent || float.IsPositiveInfinity(item.duration)) continue;
-            if (item.duration > 0)
+            if (item.data.permanent || float.IsPositiveInfinity(item.data.Duration)) continue;
+            if (item.data.Duration > 0)
             {
-                item.duration -= Time.deltaTime;
+               // item.Duration -= Time.deltaTime;
                 continue;
             }
             RemoveBuff(item);
         }
     }
-    void RemoveBuff(Buff buffToRemove)
+    void RemoveBuff(BuffStats buffStatsToRemove)
     {
-        if (buffToRemove == null || !buffs.Contains(buffToRemove)) return;
-        statsFinal[buffToRemove.stat] -= buffToRemove.value;
-        buffs.Remove(buffToRemove);
+        if (buffStatsToRemove == null || !buffs.Contains(buffStatsToRemove)) return;
+        statsFinal[buffStatsToRemove.stat] -= buffStatsToRemove.data.value;
+        buffs.Remove(buffStatsToRemove);
         //to mitigate problem of float precision (baseStats are integers, while finalStats are floats)
         if (buffs.Count == 0) ResetFinalStats(); 
     }
@@ -153,23 +153,6 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     }
     
 
-}
-[System.Serializable]
-public class Buff
-{
-    public Stats stat;
-    public float value;
-    public bool permanent;
-    [HideIf(nameof(permanent))] public float duration;
-
-    public Buff() { }
-    public Buff(Stats stat, float val, float dur = float.PositiveInfinity)
-    {
-        this.stat = stat;
-        value = val;
-        duration = dur;
-        permanent = float.IsPositiveInfinity(duration);
-    }
 }
 
 

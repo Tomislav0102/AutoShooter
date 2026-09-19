@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class SharedSkills : MonoBehaviour, IIniBrain
@@ -12,7 +13,10 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    bool _canHaveLastStand = true;
+    #region SKILL LAST STAND
+    public bool _lastStandCooldownTimerDone = true;
+    public bool _lastStandHealthAboveTreshold = true;
+    #endregion
     
 
     public void SkillIncreaseCallback(SoSkill newSkill)
@@ -75,6 +79,35 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             if (onlyRemove) return;
             
             Br.character.BuffInjectData(skill.stats[0]);
+        }
+    }
+
+    public void HealthMonitor(float currentHealthPercentage)
+    {
+        lastStand();
+        return;
+        
+        void lastStand()
+        {
+            if (currentHealthPercentage > 0.9f)
+            {
+                _lastStandHealthAboveTreshold = true;
+                return;
+            }
+            if (!Br.skills.TryGetFromGroup(SkillName.LastStand, out SoSkill skill)) return;
+            if (!_lastStandCooldownTimerDone) return;
+            if (!_lastStandHealthAboveTreshold) return;
+            _lastStandCooldownTimerDone = false;
+            _lastStandHealthAboveTreshold = false;
+            Br.status.ChangeEffect(GenChange.Add, skill.buffEffect[0]);
+            StartCoroutine(delay(skill.floatGeneric));
+            return;
+
+            IEnumerator delay(float time)
+            {
+                yield return new WaitForSeconds(time);
+                _lastStandCooldownTimerDone = true;
+            }
         }
     }
 }

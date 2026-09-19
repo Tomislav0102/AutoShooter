@@ -21,7 +21,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     [SerializeField] Transform myShield;
 
     float _crescendoStrikeIncrease = 1f;
-    Buff _buffCrescendoStrike, _buffGuardMight, _buffGuardValor;
+    BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
     MyDuo<Element, float> _elementStrikesIncrease;
     SpellMain _passiveLethargicDomain;
 
@@ -65,7 +65,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             if (_passiveLethargicDomain != null) _passiveLethargicDomain.MyPhase = SpellMain.Phase.EndEnd;
             _passiveLethargicDomain = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             _passiveLethargicDomain.transporter.target = Br.myTransform;
-            _passiveLethargicDomain.areaOfEffect += skill.passData.stats[0].buff.value;
+            _passiveLethargicDomain.areaOfEffect += skill.passData.stats[0].buffStats.data.value;
             _passiveLethargicDomain.InitializeMe(Br);
         }
         void ironMirror()
@@ -83,18 +83,18 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     void GuardiansMight()
     {
         if (!Br.skills.TryGetFromGroup(SkillName.GuardiansMight, out SoSkill skill)) return;
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffGuardMight));
+        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardMight));
 
-        _buffGuardMight = new Buff(Stats.DamPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffGuardMight));
+        _buffStatsGuardMight = new BuffStats(Stats.DamPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
+        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardMight));
     }
     void GuardiansValor()
     {
         if (!Br.skills.TryGetFromGroup(SkillName.GuardiansValor, out SoSkill skill)) return;
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffGuardValor));
+        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardValor));
 
-        _buffGuardValor = new Buff(Stats.ResistPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffGuardValor));
+        _buffStatsGuardValor = new BuffStats(Stats.ResistPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
+        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardValor));
 
     }
     #endregion
@@ -107,17 +107,17 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
         //attack effects
         bool addEffect = false;
-        EffectGroup executioner = null;
-        EffectGroup bleeding = null;
+        BuffEffects executioner = null;
+        BuffEffects bleeding = null;
         if (Br.skills.TryGetFromGroup(SkillName.Executioner, out SoSkill skillExe))
         {
             addEffect = true;
-            executioner = skillExe.effects[0];
+            executioner = skillExe.buffEffect[0];
         }
         if (Br.skills.TryGetFromGroup(SkillName.BleedingStrike, out SoSkill skillBleed))
         {
             addEffect = true;
-            bleeding = skillBleed.effects[0];
+            bleeding = skillBleed.buffEffect[0];
         }
 
         //stats
@@ -142,7 +142,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             hasKnockback = true,
             knockbackPower = Br.character.GetStat(Stats.KnockBack),
             hasEffect = addEffect,
-            effects = new EffectGroup[2] { executioner, bleeding },
+            effects = new BuffEffects[2] { executioner, bleeding },
             hasStats = addArmorBreaker,
             stats = new StatsGroup[1]{ armorBreaker }
         };
@@ -155,7 +155,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         };
         melee.InitializeMe(Br, passData);
 
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffCrescendoStrike));
+        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffStatsCrescendoStrike));
         _crescendoStrikeIncrease = 1f;
         _elementStrikesIncrease = null;
     }
@@ -211,7 +211,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         damagePair = Br.character.GetDamage(Element.Magic, 1f, sk.passData.damagePair),
                     };
                     SpellMain arc = Instantiate(sk.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                    arc.areaOfEffect += sk.passData.stats[0].buff.value;
+                    arc.areaOfEffect += sk.passData.stats[0].buffStats.data.value;
                     arc.InitializeMe(Br, containerArc);
                 }
                 void grandCrescendo()
@@ -228,8 +228,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         if (val < 0) val = (effSkillLevel - 1) * valueToAdd;
                         resultingAddedDamage += val;
                         _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
-                        _buffCrescendoStrike = new Buff(Stats.DamPhysical, _crescendoStrikeIncrease);
-                        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffCrescendoStrike));
+                        _buffStatsCrescendoStrike = new BuffStats(Stats.DamPhysical, _crescendoStrikeIncrease);
+                        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsCrescendoStrike));
                     }
 
                 }
@@ -307,7 +307,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         hasDamage = true,
                         damagePair = Br.character.GetDamage(Element.Physical, sk.extraDamage.GetValue(0))
                     };
-                    ricochet += (int)sk.passData.stats[0].buff.value;
+                    ricochet += (int)sk.passData.stats[0].buffStats.data.value;
 
                     SpellMain spell = Instantiate(sk.spell, Utils.MakeV2(myShield.position), Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
                     BulletTransporter bulletTransporter = spell.transporter as BulletTransporter;

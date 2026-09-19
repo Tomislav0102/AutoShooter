@@ -37,7 +37,6 @@ public class Skills : MonoBehaviour, IIniBrain
             if (useKnight)
             {
                 OvrLevelSpecificSkill(SkillName.KnightBase);
-                OvrLevelSpecificSkill(SkillName.AdvanceGuard);
             }
             if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile);
             if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase);

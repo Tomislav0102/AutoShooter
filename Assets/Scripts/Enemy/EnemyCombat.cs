@@ -90,8 +90,8 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                     canBeBlocked = true,
                     hasDamage = true,
                     damagePair = Br.character.GetDamage(),
-                    // hasEffect =  true,
-                    // effects = new EffectGroup[1] { new EffectGroup(Br, Status.Effect.Poisoned, 3, 1) }
+                    hasEffect =  true,
+                    effects = new BuffEffects[1] { new BuffEffects(Status.Effect.Poisoned, 1, 3) }
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 

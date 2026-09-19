@@ -4,9 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
-
+using TMPro;
 
 public class Health: MonoBehaviour, IIniBrain
 {
@@ -16,10 +14,13 @@ public class Health: MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
-            _healthMax = value.character.GetStat(Stats.Health);
-            _healthBarTransform = _healthBar.transform;
-            _shieldBar = _healthBarTransform.GetChild(0).GetComponent<Image>();
+            // _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
+             _healthMax = value.character.GetStat(Stats.Health);
+            // _healthBarTransform = _healthBar.transform;
+           // _shieldBar = _healthBarTransform.GetChild(0).GetComponent<Image>();
+            _numDisplay = Instantiate(Ga.me.numDisplayPrefab, Ga.me.barContainer).GetComponent<TextMeshProUGUI>();
+            _numDisplay.text = $"{value.character.GetStat(Stats.Health)}/{value.character.GetStat(Stats.Health)}";
+            _numDisplayTransform = _numDisplay.transform;
             HealthCurrent = _healthMax;
             _dictPsElements = new Dictionary<Element, ParticleSystem>();
             for (int i = 0; i < psElements.Length; i++)
@@ -29,7 +30,6 @@ public class Health: MonoBehaviour, IIniBrain
             _screenCenter = new Vector3(Screen.width, Screen.height, 0) * 0.5f;
             _pointer = Instantiate(Ga.me.offScreenPointerPrefab, Ga.me.parPointers);
             _pointerImage = _pointer.GetComponent<Image>();
-            
         }
     }
     Brain _br;
@@ -37,8 +37,11 @@ public class Health: MonoBehaviour, IIniBrain
     Vector3 _screenCenter; 
     RectTransform _pointer;
     Image _pointerImage;
-    Image _healthBar, _shieldBar;
-    Transform _healthBarTransform;
+  //  Image _healthBar;
+    Image _shieldBar;
+   // Transform _healthBarTransform;
+    TextMeshProUGUI _numDisplay;
+    Transform _numDisplayTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
     float _timerRegenerate;
     float HealthCurrent
@@ -48,12 +51,16 @@ public class Health: MonoBehaviour, IIniBrain
         {
             _healthCurrent = value;
             if (_healthCurrent > _healthMax)  _healthCurrent = _healthMax;
-            _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
-            _healthBar.fillAmount = _healthCurrent / _healthMax;
+            // _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
+            // _healthBar.fillAmount = _healthCurrent / _healthMax;
+            onHealthChange?.Invoke(_healthCurrent / _healthMax);
+            _numDisplay.text = $"{_healthCurrent}/{_healthMax}";
+
         }
     }
     [ShowInInspector, ReadOnly] float _healthCurrent;
     [ShowInInspector, ReadOnly] float _healthMax;
+    [SerializeField] UnityEvent<float> onHealthChange;
     public bool IsAtFullHealth() => HealthCurrent >= _healthMax;
     float ShieldCurrent
     {
@@ -72,7 +79,6 @@ public class Health: MonoBehaviour, IIniBrain
     float _timerShield;
     const int CONST_ShieldWaitTime = 3;
     const int CONST_ShieldRegenAmount = 100;
-    [SerializeField] UnityEvent onDamageReceived;
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
     Dictionary<Element, ParticleSystem> _dictPsElements;
@@ -81,7 +87,6 @@ public class Health: MonoBehaviour, IIniBrain
     public void HealthInjectData(PassData pd)
     {
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
-
         if (pd.canBeBlocked)
         {
             Br.combat.CheckBlock(out bool blocked, pd.myBrain);
@@ -103,6 +108,11 @@ public class Health: MonoBehaviour, IIniBrain
 
         if (pd.hasDamage)
         {
+            if (Br.status.HasEffect(Status.Effect.Invulnerable))
+            {
+                ft.SpawnMe("Invulnerable!", Color.brown);
+                return;
+            }
             float totalDamage = 0f;
             for (int i = 0; i < pd.damagePair.Length(); i++)
             {
@@ -153,13 +163,13 @@ public class Health: MonoBehaviour, IIniBrain
         }
         if (pd.hasEffect)
         {
-            foreach (EffectGroup effectGroup in pd.effects)
+            foreach (BuffEffects effectGroup in pd.effects)
             {
                 if (effectGroup == null) continue;
                 switch (effectGroup.effect)
                 {
                     case Status.Effect.InstantKill:
-                        if (HealthCurrent <= effectGroup.intensity * _healthMax * 0.01f)
+                        if (HealthCurrent <= effectGroup.data.value * _healthMax * 0.01f)
                         {
                             print("Executioner");
                             Death();
@@ -167,7 +177,7 @@ public class Health: MonoBehaviour, IIniBrain
                         }
                         break;
                     case Status.Effect.Poisoned:
-                        Br.status.Change(GenChange.Add, effectGroup);
+                        Br.status.ChangeEffect(GenChange.Add, effectGroup);
                         break;
                 }
             }
@@ -224,7 +234,8 @@ public class Health: MonoBehaviour, IIniBrain
         void uIDisplay()
         {
             Vector3 screenPos = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
-            _healthBarTransform.position = screenPos;
+           // _healthBarTransform.position = screenPos;
+            _numDisplayTransform.position = screenPos;
             bool isBehind = Vector3.Dot(Ga.me.camRig.camTransform.forward, Br.myTransform.position - Ga.me.camRig.camTransform.position) < 0;
             if (isBehind)  screenPos = _screenCenter - (screenPos - _screenCenter).normalized * Screen.width;
             int offset = 50;
@@ -263,7 +274,7 @@ public class Health: MonoBehaviour, IIniBrain
         ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
         ps.Play();
         Ga.me.team.Death(Br);
-        Destroy(_healthBar.gameObject);
+       // Destroy(_healthBar.gameObject);
         Destroy(_pointer.gameObject);
         Destroy(Br.gameObject);
     }

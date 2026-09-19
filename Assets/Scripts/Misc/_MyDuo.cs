@@ -6,8 +6,8 @@ using Sirenix.OdinInspector;
 [System.Serializable]
 public class MyDuo<K, V>
 {
-    [BoxGroup("Main")][field: SerializeField] K[] Key { get; set; } 
-    [BoxGroup("Main")][field: SerializeField] V[] Value { get; set; }
+    [field: SerializeField] K[] Key { get; set; } 
+    [field: SerializeField] V[] Value { get; set; }
     public int Length()
     {
         return Key == null ? 0 : Key.Length;
@@ -24,14 +24,14 @@ public class MyDuo<K, V>
     
     #region CONSTRUCTORS
     
-    public MyDuo(bool canHaveDuplicateKeys = false, bool canHaveDuplicateValues = true)
+    public MyDuo(bool canHaveDuplicateKeys = true, bool canHaveDuplicateValues = true)
     {
         Key = Array.Empty<K>();
         Value = Array.Empty<V>();
         CanHaveDuplicateKeys = canHaveDuplicateKeys;
         CanHaveDuplicateValues = canHaveDuplicateValues;
     }
-    public MyDuo(Dictionary<K, V> fromDictionary, bool canHaveDuplicateKeys = false, bool canHaveDuplicateValues = true)
+    public MyDuo(Dictionary<K, V> fromDictionary, bool canHaveDuplicateKeys = true, bool canHaveDuplicateValues = true)
     {
         int count = 0;
         Key = new K[fromDictionary.Count];

@@ -13,53 +13,61 @@ MonoBehaviour:
   m_Name: shared - LastStand
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: 
-  levelUpEffect: 
+  description: Gain invulnerability for 3 seconds when HP drops below 25%
+  levelUpEffect: Reduces cooldown
   skillName: 2
-  skillNameText: 
-  levelUpText: 
   skillType: 1
   level: 0
   hasStat: 0
   stats:
-    group: []
+  - change: 0
+    buffType: 0
+    buffStats:
+      stat: 0
+      data:
+        value: 0
+        permanent: 0
+        <Duration>k__BackingField: 0
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
-  hasAttackEffect: 0
-  attackEffect:
-    group: []
+  hasEffect: 1
+  buffEffect:
+  - effect: 0
+    data:
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 3
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
-  block:
+  passData:
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     canBeDodged: 0
     hasDamage: 0
-    damage:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-      addSpellVelocity: 0
-      spellsVelocity: {x: 0, y: 0, z: 0}
+    damagePair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0}
     hasKnockback: 0
-    knockBack:
-      power: 0
-      direction: {x: 0, y: 0}
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
     hasManaShield: 0
-    manaShield:
-      manaShieldPoints: 0
+    manaShieldPoints: 0
     hasSpell: 0
-    spellData:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
+    spellPair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
     hasStats: 0
-    stats:
-      group: []
-  hasGeneric: 0
+    stats: []
+    hasEffect: 0
+    effects: []
+  hasGeneric: 1
   numGeneric: 0
-  floatGeneric: 0
-  stringGeneric: 
+  floatGeneric: 20
