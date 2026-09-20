@@ -16,32 +16,32 @@ MonoBehaviour:
   description: Chance to deflect projectiles
   levelUpEffect: Increase chance to reflect
   skillName: 45
-  skillNameText: 
-  levelUpText: 
   skillType: 1
   level: 0
   hasStat: 0
   stats:
   - change: 0
     buffType: 0
-    buff:
+    buffStats:
       stat: 0
-      value: 0
-      permanent: 0
-      duration: 0
+      data:
+        value: 0
+        permanent: 0
+        <Duration>k__BackingField: 0
   - change: 0
     buffType: 0
-    buff:
+    buffStats:
       stat: 0
-      value: 0
-      permanent: 0
-      duration: 0
+      data:
+        value: 0
+        permanent: 0
+        <Duration>k__BackingField: 0
   hasExtraDamage: 0
   extraDamage:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
-  effects: []
+  buffEffect: []
   hasSpell: 1
   spell: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
   spellGroup: {fileID: 0}
@@ -73,5 +73,4 @@ MonoBehaviour:
     effects: []
   hasGeneric: 1
   numGeneric: 0
-  floatGeneric: 0.5
-  stringGeneric: 
+  floatGeneric: 1

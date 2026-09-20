@@ -1709,6 +1709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_Cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 748526691518759404, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3005999819023033884, guid: ba6fd1db2611c3a408d5472f3d51b9a9, type: 3}
       propertyPath: serializationData.Prefab
       value: 

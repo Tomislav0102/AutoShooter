@@ -235,63 +235,24 @@ public class SpellMain : MonoBehaviour
 
     public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
-        Brain oustedTargetsBrain = null;
+        if (!(targetGeneric.TryGetComponent(out targetsBrain) &&
+            Utils.CanTargetFaction(OwnersBrain.Faction, targetsBrain.Faction, myFactionTarget))) return;
+
         if (pd.hasDamage || pd.hasManaShield || pd.hasEffect)
         {
            // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-            if (targetHasBrain(out Brain brHealth)) brHealth.health.HealthInjectData(pd);
+           targetsBrain.health.HealthInjectData(pd);
         }
         if (pd.hasStats)
         {
-            if (targetHasBrain(out Brain brCharacter))
+            for (int i = 0; i < pd.stats.Length; i++)
             {
-                for (int i = 0; i < pd.stats.Length; i++)
-                {
-                    brCharacter.character.BuffInjectData(pd.stats[i]);
-                }
+                targetsBrain.character.BuffInjectData(pd.stats[i]);
             }
         }
         if (pd.hasKnockback || pd.hasDash)
         {
-            if (targetHasBrain(out Brain brLoco)) brLoco.loco.LocoInjectData(pd);
-        }
-        if (pd.hasSpell)
-        {
-            if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
-                Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-            {
-                for (int i = 0; i < pd.spellPair.Length(); i++)
-                {
-                    if (targetSpell.id != pd.spellPair.GetValue(i).id) continue;
-
-                    switch (pd.spellPair.GetKey(i))
-                    {
-                        case PassData.HitEffectOnSpell.Nullify:
-                            targetSpell.MyPhase = Phase.EndStart;
-                            break;
-                        case PassData.HitEffectOnSpell.Reflect:
-                            Vector3 newDirection = Utils.Direction(myTransform.position,
-                                targetSpell.myTransform.position);
-                            targetSpell.transporter.ReflectProjectile(OwnersBrain, newDirection);
-                            break;
-                    }
-                }
-                oustedTargetsBrain = targetSpell.OwnersBrain;
-            }
-
-        }
-        targetsBrain = oustedTargetsBrain;
-        return;
-        
-        bool targetHasBrain(out Brain br)
-        {
-            if (targetGeneric.TryGetComponent(out br) &&
-                Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))
-            {
-                oustedTargetsBrain = br;
-                return true;
-            }
-            return false;
+            targetsBrain.loco.LocoInjectData(pd);
         }
     }
 
@@ -330,3 +291,62 @@ public class SpellMain : MonoBehaviour
     #endregion
 
 }
+
+    // public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
+    // {
+    //     Brain oustedTargetsBrain = null;
+    //     if (pd.hasDamage || pd.hasManaShield || pd.hasEffect)
+    //     {
+    //        // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
+    //         if (targetHasBrain(out Brain brHealth)) brHealth.health.HealthInjectData(pd);
+    //     }
+    //     if (pd.hasStats)
+    //     {
+    //         if (targetHasBrain(out Brain brCharacter))
+    //         {
+    //             for (int i = 0; i < pd.stats.Length; i++)
+    //             {
+    //                 brCharacter.character.BuffInjectData(pd.stats[i]);
+    //             }
+    //         }
+    //     }
+    //     if (pd.hasKnockback || pd.hasDash)
+    //     {
+    //         if (targetHasBrain(out Brain brLoco)) brLoco.loco.LocoInjectData(pd);
+    //     }
+    //     if (pd.hasSpell)
+    //     {
+    //         if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
+    //             Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
+    //         {
+    //             for (int i = 0; i < pd.spellPair.Length(); i++)
+    //             {
+    //                 if (targetSpell.id != pd.spellPair.GetValue(i).id) continue;
+    //                 switch (pd.spellPair.GetKey(i))
+    //                 {
+    //                     case PassData.HitEffectOnSpell.Nullify:
+    //                         targetSpell.MyPhase = Phase.EndStart;
+    //                         break;
+    //                     case PassData.HitEffectOnSpell.Reflect:
+    //                         targetSpell.transporter.ReflectSpell(OwnersBrain);
+    //                         break;
+    //                 }
+    //             }
+    //             oustedTargetsBrain = targetSpell.OwnersBrain;
+    //         }
+    //     
+    //     }
+    //     targetsBrain = oustedTargetsBrain;
+    //     return;
+    //     
+    //     bool targetHasBrain(out Brain br)
+    //     {
+    //         if (targetGeneric.TryGetComponent(out br) &&
+    //             Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))
+    //         {
+    //             oustedTargetsBrain = br;
+    //             return true;
+    //         }
+    //         return false;
+    //     }
+    // }

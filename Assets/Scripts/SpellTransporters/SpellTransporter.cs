@@ -16,12 +16,18 @@ public class SpellTransporter : MonoBehaviour, IIniSpell
         Spell.myRigid.linearVelocity = sp * Spell.myTransform.forward;
     }
 
-    public void ReflectProjectile(Brain newBrain, Vector3 newDirection)
+    public void ReflectSpell(Brain newBrain)
     {
         Spell.OwnersBrain = newBrain;
-        Spell.myTransform.rotation = Quaternion.LookRotation(newDirection);
+        Spell.myTransform.rotation *= Quaternion.Euler(0f, 180f, 0f);
         float speed  = Spell.myRigid.linearVelocity.magnitude;
         SetSpeed(speed);
+        //if (GetComponent<MeleeTransporter>() == true)
+        // {
+        //     Brain previousBrain = Spell.OwnersBrain;
+        //     Spell.OwnersBrain = newBrain;
+        //     Spell.HitGeneric(previousBrain, out _);
+        // }
     }
 
 }

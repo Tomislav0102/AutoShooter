@@ -11,7 +11,6 @@ public class Test : MonoBehaviour
     [Button]
     void AddS()
     {
-       
     }
     [Button]
     void Remove()
@@ -19,8 +18,6 @@ public class Test : MonoBehaviour
     }
 
 }
-
-
 
 
 public class AngledShot

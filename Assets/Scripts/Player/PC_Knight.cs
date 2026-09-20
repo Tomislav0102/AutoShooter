@@ -101,6 +101,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage();
         if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _elementStrikesIncrease);

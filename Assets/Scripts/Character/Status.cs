@@ -35,23 +35,14 @@ public class Status : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            _duoEffects = new MyDuo<BuffEffects, float>();
+            _duoBuffs = new MyDuo<BuffEffects, float>();
             _status = Instantiate(Ga.me.statusPrefab, Ga.me.parPointers);
             _statusImageGos = Utils.AllChildrenGameObjects(_status);
             _tickTimer = float.PositiveInfinity;
         }
     }
     Brain _br;
-    
-    public MyDuo<BuffEffects, float> _duoEffects;
-    public bool HasEffect(Effect effect)
-    {
-        for (int i = 0; i < _duoEffects.Length(); i++)
-        {
-            if (_duoEffects.GetKey(i).effect ==  effect) return true;
-        }
-        return false;
-    }
+    MyDuo<BuffEffects, float> _duoBuffs;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
 
@@ -62,7 +53,7 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void Update()
     {
-        if (_duoEffects.Length() == 0) return;
+        if (_duoBuffs.Length() == 0) return;
         
         _tickTimer += Time.deltaTime;
         if (_tickTimer >= CONST_TickMaxTime)
@@ -71,13 +62,13 @@ public class Status : MonoBehaviour, IIniBrain
         }
 
         List<BuffEffects> buffsToRemove = new List<BuffEffects>();
-        for (int i = 0; i < _duoEffects.Length(); i++)
+        for (int i = 0; i < _duoBuffs.Length(); i++)
         {
-            BuffEffects buff = _duoEffects.GetKey(i);
-            float duration = _duoEffects.GetValue(i);
+            BuffEffects buff = _duoBuffs.GetKey(i);
+            float duration = _duoBuffs.GetValue(i);
             
             duration -= Time.deltaTime;
-            _duoEffects.SetValue(i, duration);
+            _duoBuffs.SetValue(i, duration);
             if (duration <= 0f) buffsToRemove.Add(buff);
             else
             {
@@ -111,10 +102,10 @@ public class Status : MonoBehaviour, IIniBrain
         bool doRefresh = false;
         for (int i = 0; i < buffsToRemove.Count; i++)
         {
-            if (_duoEffects.HasKey(buffsToRemove[i]))
+            if (_duoBuffs.HasKey(buffsToRemove[i]))
             {
                 doRefresh = true;
-                _duoEffects.Remove(buffsToRemove[i]);
+                _duoBuffs.Remove(buffsToRemove[i]);
                 break;
             }
         }
@@ -123,7 +114,7 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void LateUpdate()
     {
-        if (_duoEffects.Length() == 0) return;
+        if (_duoBuffs.Length() == 0) return;
        _status.position = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position);
     }
     
@@ -132,19 +123,19 @@ public class Status : MonoBehaviour, IIniBrain
         switch (change)
         {
             case GenChange.Add:
-                _duoEffects.Add(buffEffects, buffEffects.data.Duration);
+                _duoBuffs.Add(buffEffects, buffEffects.data.Duration);
                 if (buffEffects.IsDot()) return;
 
-                for (int i = 0; i < _duoEffects.Length() - 1; i++)
+                for (int i = 0; i < _duoBuffs.Length() - 1; i++)
                 {
-                    if (_duoEffects.GetKey(i).effect != buffEffects.effect) continue;
-                    float duration = _duoEffects.GetValue(i) +  buffEffects.data.Duration;
-                    _duoEffects.SetValue(i, duration);
+                    if (_duoBuffs.GetKey(i).effect != buffEffects.effect) continue;
+                    float duration = _duoBuffs.GetValue(i) +  buffEffects.data.Duration;
+                    _duoBuffs.SetValue(i, duration);
                     break;
                 }
                 break;
             case GenChange.Remove:
-                if (_duoEffects.HasKey(buffEffects)) _duoEffects.Remove(buffEffects);
+                if (_duoBuffs.HasKey(buffEffects)) _duoBuffs.Remove(buffEffects);
                 break;
         }
         
@@ -158,11 +149,20 @@ public class Status : MonoBehaviour, IIniBrain
         void uIRefresh()
         {
             Utils.ActivateOneArrayElement(_statusImageGos);
-            for (int i = 0; i < _duoEffects.Length(); i++)
+            for (int i = 0; i < _duoBuffs.Length(); i++)
             {
-                _statusImageGos[(int)_duoEffects.GetKey(i).effect].SetActive(true);
+                _statusImageGos[(int)_duoBuffs.GetKey(i).effect].SetActive(true);
             }
         }
+    }
+
+    public bool HasEffect(Effect effect)
+    {
+        for (int i = 0; i < _duoBuffs.Length(); i++)
+        {
+            if (_duoBuffs.GetKey(i).effect ==  effect) return true;
+        }
+        return false;
     }
 
 }

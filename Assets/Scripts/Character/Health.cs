@@ -82,7 +82,20 @@ public class Health: MonoBehaviour, IIniBrain
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
     Dictionary<Element, ParticleSystem> _dictPsElements;
-    [SerializeField] ParticleSystem psHeal, psBleed, psStun, psRoot, psConfuse, psBlind, psCharm;
+    [SerializeField] ParticleSystem psHeal;
+    [Title("Spell defences")]
+    [Range(0f, 1f)] public float reflectMeleeChance;
+    [Range(0f, 1f)] public float reflectRangedChance;
+    [SerializeField] SpellMain[] immuneSpells;
+    public bool IsImmuneToSpell(SpellMain spell)
+    {
+        for (int i = 0; i < immuneSpells.Length; i++)
+        {
+            if (spell.id == immuneSpells[i].id) return true;
+        }
+        return false;
+    }
+
 
     public void HealthInjectData(PassData pd)
     {
@@ -161,7 +174,7 @@ public class Health: MonoBehaviour, IIniBrain
         {
             SetShield(pd.manaShieldPoints);
         }
-        if (pd.hasEffect)
+        if (pd.hasEffect) //consider moving this to 'Status' component
         {
             foreach (BuffEffects effectGroup in pd.effects)
             {

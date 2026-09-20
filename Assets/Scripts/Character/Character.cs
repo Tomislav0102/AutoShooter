@@ -23,20 +23,19 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         {
             _br = value;
             if (data == null) data = Ga.me.defCharacter;
-            buffs = new List<BuffStats>();
+            _duoBuffs = new MyDuo<BuffStats, float>();
             ResetFinalStats();
         }
     }
     Brain _br;
-    public Dictionary<Stats, float> statsFinal = new Dictionary<Stats, float>();
-    public List<BuffStats> buffs = new List<BuffStats>();
-
+    Dictionary<Stats, float> _statsFinal = new Dictionary<Stats, float>();
+    MyDuo<BuffStats, float> _duoBuffs;
 
     #region GET STATS
     
     public int GetStat(Stats stat)
     {
-        return (int)statsFinal[stat];
+        return (int)_statsFinal[stat];
     }
 
     public MyDuo<Element, float> GetDamage(Element element = Element.Physical, float multiplier = 1f, MyDuo<Element, float> extraDamage = null)
@@ -106,14 +105,14 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                 switch (group.buffType)
                 {
                     case BuffType.Added:
-                        statsFinal[buffStats.stat] += finalValue;
+                        _statsFinal[buffStats.stat] += finalValue;
                         break;
                     case BuffType.Percentage:
                         finalValue = data.baseStats[buffStats.stat] * (buffStats.data.value - 1f);
-                        statsFinal[buffStats.stat] += finalValue;
+                        _statsFinal[buffStats.stat] += finalValue;
                         break;
                 }
-                buffs.Add(buffStats);
+                _duoBuffs.Add(buffStats, buffStats.data.Duration);
                 if (Br.debug) print($"{buffStats.stat} changed from {previousValue} to {GetStat(buffStats.stat)}");
                 break;
             case GenChange.Remove:
@@ -124,31 +123,34 @@ public class Character : SerializedMonoBehaviour, IIniBrain
 
     void Update()
     {
-        foreach (BuffStats item in buffs)
+        for (int i = 0; i < _duoBuffs.Length(); i++)
         {
-            if (item.data.permanent || float.IsPositiveInfinity(item.data.Duration)) continue;
-            if (item.data.Duration > 0)
+            BuffStats buff = _duoBuffs.GetKey(i);
+            if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
+            float duration = _duoBuffs.GetValue(i);
+            if (duration > 0)
             {
-               // item.Duration -= Time.deltaTime;
+                duration -= Time.deltaTime;
+                _duoBuffs.SetValue(i, duration);
                 continue;
             }
-            RemoveBuff(item);
+            RemoveBuff(buff);
         }
     }
-    void RemoveBuff(BuffStats buffStatsToRemove)
+    void RemoveBuff(BuffStats buffToRemove)
     {
-        if (buffStatsToRemove == null || !buffs.Contains(buffStatsToRemove)) return;
-        statsFinal[buffStatsToRemove.stat] -= buffStatsToRemove.data.value;
-        buffs.Remove(buffStatsToRemove);
+        if (buffToRemove == null || !_duoBuffs.HasKey(buffToRemove)) return;
+        _statsFinal[buffToRemove.stat] -= buffToRemove.data.value;
+        _duoBuffs.Remove(buffToRemove);
         //to mitigate problem of float precision (baseStats are integers, while finalStats are floats)
-        if (buffs.Count == 0) ResetFinalStats(); 
+        if (_duoBuffs.Length() == 0) ResetFinalStats(); 
     }
     void ResetFinalStats()
     {
-        statsFinal = new Dictionary<Stats, float>();
+        _statsFinal = new Dictionary<Stats, float>();
         foreach (KeyValuePair<Stats, int> item in data.baseStats)
         {
-            statsFinal.Add(item.Key, item.Value);
+            _statsFinal.Add(item.Key, item.Value);
         }
     }
     
