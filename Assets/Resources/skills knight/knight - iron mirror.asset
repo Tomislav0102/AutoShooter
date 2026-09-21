@@ -18,23 +18,15 @@ MonoBehaviour:
   skillName: 45
   skillType: 1
   level: 0
-  hasStat: 0
+  hasStat: 1
   stats:
   - change: 0
     buffType: 0
     buffStats:
-      stat: 0
+      stat: 33
       data:
-        value: 0
-        permanent: 0
-        <Duration>k__BackingField: 0
-  - change: 0
-    buffType: 0
-    buffStats:
-      stat: 0
-      data:
-        value: 0
-        permanent: 0
+        value: 60
+        permanent: 1
         <Duration>k__BackingField: 0
   hasExtraDamage: 0
   extraDamage:
@@ -71,6 +63,6 @@ MonoBehaviour:
     stats: []
     hasEffect: 0
     effects: []
-  hasGeneric: 1
+  hasGeneric: 0
   numGeneric: 0
-  floatGeneric: 1
+  floatGeneric: 0

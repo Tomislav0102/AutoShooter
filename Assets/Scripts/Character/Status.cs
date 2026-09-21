@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Sirenix.OdinInspector;
 
 public class Status : MonoBehaviour, IIniBrain
 {
@@ -42,7 +41,7 @@ public class Status : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    MyDuo<BuffEffects, float> _duoBuffs;
+    [ReadOnly, ShowInInspector] MyDuo<BuffEffects, float> _duoBuffs;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
 

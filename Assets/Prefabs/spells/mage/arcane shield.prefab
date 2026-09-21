@@ -9757,6 +9757,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: reflexCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
       objectReference: {fileID: 5229543076894612583}
@@ -9827,5 +9831,4 @@ MonoBehaviour:
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  effectAtExit: {fileID: 0}
   colliderPart: 0

@@ -15,7 +15,6 @@ public class OvrPassData : MonoBehaviour
 [System.Serializable]
 public class PassData
 {
-    public enum HitEffectOnSpell { Nullify, Reflect }
     [ReadOnly] public Brain myBrain;
     [BoxGroup] public bool canBeBlocked;
     [BoxGroup] public bool canBeDodged;
@@ -35,10 +34,12 @@ public class PassData
     
     public bool hasManaShield;
     [ShowIf(nameof(hasManaShield))] public int manaShieldPoints;
-    
+
+    #region ToBeRemoved
     public bool hasSpell;
-    [ShowIf(nameof(hasSpell))] public MyDuo<HitEffectOnSpell, SpellMain> spellPair;
-    
+    [ShowIf(nameof(hasSpell))] public MyDuo<SpellMain.HitEffectOnSpell, SpellMain> spellPair;
+    #endregion 
+
     public bool hasStats;
     [ShowIf(nameof(hasStats))] public StatsGroup[] stats;
     

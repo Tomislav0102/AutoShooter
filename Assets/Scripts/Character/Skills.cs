@@ -36,8 +36,7 @@ public class Skills : MonoBehaviour, IIniBrain
             _group = tempGroups.ToArray();
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.KnightBase);
-                OvrLevelSpecificSkill(SkillName.IronMirror);
+                OvrLevelSpecificSkill(SkillName.KnightBase); 
             }
             if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile);
             if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase);

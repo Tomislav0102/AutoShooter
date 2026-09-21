@@ -84,27 +84,27 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 melee.InitializeMe(Br, containerMelee);
                 break;
             case 1: //bullet (used by treant and cannon)
-                // PassData containerBullet = new PassData()
-                // {
-                //     myBrain = Br,
-                //     canBeBlocked = true,
-                //     hasDamage = true,
-                //     damagePair = Br.character.GetDamage(),
-                //     hasEffect =  true,
-                //     effects = new BuffEffects[1] { new BuffEffects(Status.Effect.Poisoned, 1, 3) }
-                // };
-                // Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
-                // SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
-                //     zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                // BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
-                // if (bulletTransporter != null)
-                // {
-                //     bulletTransporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
-                //     bulletTransporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
-                //     bulletTransporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
-                // }
-                // bullet.visual.SetSpawnHeight(spawnPoint.position.y);
-                // bullet.InitializeMe(Br, containerBullet);
+                PassData containerBullet = new PassData()
+                {
+                    myBrain = Br,
+                    canBeBlocked = true,
+                    hasDamage = true,
+                    damagePair = Br.character.GetDamage(),
+                    hasEffect =  true,
+                    effects = new BuffEffects[1] { new BuffEffects(Status.Effect.Poisoned, 1, 3) }
+                };
+                Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
+                SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
+                    zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
+                if (bulletTransporter != null)
+                {
+                    bulletTransporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
+                    bulletTransporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
+                    bulletTransporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
+                }
+                bullet.visual.SetSpawnHeight(spawnPoint.position.y);
+                bullet.InitializeMe(Br, containerBullet);
                 break;
             case 2: //lob (used by scarecrow)
                 SpellMain lob = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 

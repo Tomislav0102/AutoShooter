@@ -7943,6 +7943,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5625939613202218999, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: weapons.Array.data[1].spellMain
+      value: 
+      objectReference: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
     - target: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: serializationData.Prefab
       value: 

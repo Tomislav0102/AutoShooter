@@ -28,8 +28,8 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    Dictionary<Stats, float> _statsFinal = new Dictionary<Stats, float>();
-    MyDuo<BuffStats, float> _duoBuffs;
+    [ReadOnly, ShowInInspector] Dictionary<Stats, float> _statsFinal = new Dictionary<Stats, float>();
+    [ReadOnly, ShowInInspector] MyDuo<BuffStats, float> _duoBuffs;
 
     #region GET STATS
     

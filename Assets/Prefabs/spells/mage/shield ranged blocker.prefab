@@ -208,16 +208,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: spell
-      value: 
-      objectReference: {fileID: 4782607804132217251}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: isInterrupt
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: reflexCount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
@@ -238,7 +238,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4782607804132217251}
+      objectReference: {fileID: 284344405927083855}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EffectTrigger, Assembly-CSharp
+      value: EffectInterrupt, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -275,7 +275,7 @@ PrefabInstance:
       addedObject: {fileID: 5926120933324004308}
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4782607804132217251}
+      addedObject: {fileID: 284344405927083855}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7422204331370452910}
@@ -290,7 +290,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 5430779227207044350}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4782607804132217251
+--- !u!114 &284344405927083855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,14 +299,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143546371296788499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f7825fa320fbd1489567e64d2fa92ee, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_SimpleTrigger
-  onEnter: 1
-  onFakeStay: 0
-  onExit: 0
-  effectAtExit: {fileID: 0}
-  colliderPart: 0
+  m_EditorClassIdentifier: Assembly-CSharp::EffectInterrupt
+  effect: 0
+  spellsToInterrupt: 02000000
 --- !u!1 &5719503837971982199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -342,55 +339,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  block:
+  passData:
+    myBrain: {fileID: 0}
     canBeBlocked: 0
     canBeDodged: 0
     hasDamage: 0
-    damage:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-      addSpellVelocity: 0
-      spellsVelocity: {x: 0, y: 0, z: 0}
-    hasKnockback: 0
-    knockBack:
-      power: 0
-      direction: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShield:
-      manaShieldPoints: 0
-    hasSpell: 1
-    spellData:
-      pair:
-        <Key>k__BackingField: 00000000
-        <Value>k__BackingField:
-        - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-    hasStats: 0
-    stats:
-      group: []
-  canBeBlocked: 0
-  canBeDodged: 0
-  hasDamage: 0
-  damage:
-    pair:
+    damagePair:
       <Key>k__BackingField: 
       <Value>k__BackingField: []
-    addSpellVelocity: 0
-    spellsVelocity: {x: 0, y: 0, z: 0}
-  hasKnockback: 0
-  knockBack:
-    power: 0
-    direction: {x: 0, y: 0}
-  hasManaShield: 0
-  manaShield:
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
     manaShieldPoints: 0
-  hasSpell: 1
-  spellData:
-    pair:
-      <Key>k__BackingField: 00000000
-      <Value>k__BackingField:
-      - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-      - {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
-  hasStats: 0
-  stats:
-    group: []
+    hasSpell: 0
+    spellPair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    hasStats: 0
+    stats: []
+    hasEffect: 0
+    effects: []

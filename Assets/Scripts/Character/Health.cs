@@ -58,8 +58,8 @@ public class Health: MonoBehaviour, IIniBrain
 
         }
     }
-    [ShowInInspector, ReadOnly] float _healthCurrent;
-    [ShowInInspector, ReadOnly] float _healthMax;
+    float _healthCurrent;
+    float _healthMax;
     [SerializeField] UnityEvent<float> onHealthChange;
     public bool IsAtFullHealth() => HealthCurrent >= _healthMax;
     float ShieldCurrent
@@ -84,14 +84,17 @@ public class Health: MonoBehaviour, IIniBrain
     Dictionary<Element, ParticleSystem> _dictPsElements;
     [SerializeField] ParticleSystem psHeal;
     [Title("Spell defences")]
-    [Range(0f, 1f)] public float reflectMeleeChance;
-    [Range(0f, 1f)] public float reflectRangedChance;
     [SerializeField] SpellMain[] immuneSpells;
-    public bool IsImmuneToSpell(SpellMain spell)
+    public bool IsImmuneToSpell(int spellId)
     {
         for (int i = 0; i < immuneSpells.Length; i++)
         {
-            if (spell.id == immuneSpells[i].id) return true;
+            if (spellId == immuneSpells[i].id)
+            {
+                FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
+                ft.SpawnMe("Immune", Color.deepPink);
+                return true;
+            }
         }
         return false;
     }

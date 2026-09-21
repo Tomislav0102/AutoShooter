@@ -24,8 +24,8 @@ public class SoSkill : ScriptableObject
     public bool hasExtraDamage;
     [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;
     public bool hasEffect;
-    [FormerlySerializedAs("effects")] [ShowIf(nameof(hasEffect))] public BuffEffects[] buffEffect;
-
+    [ShowIf(nameof(hasEffect))] public BuffEffects[] buffEffect;
+    
     [Title("Spell")]
     [InfoBox("Extra affect only this spell (PassData format)")]
     public HasSpell hasSpell;

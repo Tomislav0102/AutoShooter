@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class Ga : MonoBehaviour
 {
     public static Ga me;

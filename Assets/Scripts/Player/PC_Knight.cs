@@ -68,14 +68,14 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             _passiveLethargicDomain.areaOfEffect += skill.passData.stats[0].buffStats.data.value;
             _passiveLethargicDomain.InitializeMe(Br);
         }
-        void ironMirror()
+        void ironMirror()//spell has no effect (only visual), all logic is in skill
         {
             if (!Br.skills.TryGetFromGroup(SkillName.IronMirror, out SoSkill skill)) return;
             SpellMain spell = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             spell.transporter.target = Br.myTransform;
             spell.areaOfEffect = 2f + Br.size;
-            spell.hitChance = skill.floatGeneric;
             spell.InitializeMe(Br);
+            Br.character.BuffInjectData(skill.stats[0]);
         }
     }
 

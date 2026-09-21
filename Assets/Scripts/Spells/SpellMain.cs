@@ -9,6 +9,24 @@ using Random = UnityEngine.Random;
 
 public class SpellMain : MonoBehaviour
 {
+    #region ENUMS
+    public enum Phase
+    {
+        BeginWarning,
+        SpellRuns,
+        EndStart,
+        EndEnd,
+    }
+    public enum ReflexBehaviour
+    {
+        General,
+        Melee,
+        Projectile,
+        NoReflection
+    }
+    public enum HitEffectOnSpell { Nullify, Reflect }
+
+    #endregion
     [BoxGroup] public bool debug;
     [Title("References")]
     public Transform myTransform;
@@ -61,13 +79,6 @@ public class SpellMain : MonoBehaviour
     }
     [ReadOnly, ShowInInspector] Brain _ownersBrain;
     [SerializeField] float warningDelay;
-    public enum Phase
-    {
-        BeginWarning,
-        SpellRuns,
-        EndStart,
-        EndEnd,
-    }
     public Phase MyPhase
     {
         get => _phase;
@@ -108,6 +119,8 @@ public class SpellMain : MonoBehaviour
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     public HashSet<Collider> collidersDetected = new HashSet<Collider>();
+    public ReflexBehaviour reflexBehaviour;
+    int _reflexCount = 2;
 
     [Title("Events")]
     [SerializeField] UnityEvent<Collider> onTrigEnter;
@@ -132,8 +145,7 @@ public class SpellMain : MonoBehaviour
         myRigid.isKinematic = true;
         if (isInterrupt) gameObject.layer = LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt);
         
-        MeleeTransporter meleeTransporter = transporter as MeleeTransporter;
-        if (meleeTransporter != null) areaOfEffect = range;
+        if (transporter.GetComponent<MeleeTransporter>() != null)  areaOfEffect = range;
         warningRend.transform.localScale = areaOfEffect * Vector3.one;
         mySphereCollider.radius = areaOfEffect * 0.5f;
         myCapsuleCollider.height = areaOfEffect;
@@ -236,12 +248,15 @@ public class SpellMain : MonoBehaviour
     public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
         if (!(targetGeneric.TryGetComponent(out targetsBrain) &&
-            Utils.CanTargetFaction(OwnersBrain.Faction, targetsBrain.Faction, myFactionTarget))) return;
+              Utils.CanTargetFaction(OwnersBrain.Faction, targetsBrain.Faction, myFactionTarget))) return;
+
+        if (hasReflected(targetsBrain)) return;
+        if (targetsBrain.health.IsImmuneToSpell(id)) return;
 
         if (pd.hasDamage || pd.hasManaShield || pd.hasEffect)
         {
-           // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-           targetsBrain.health.HealthInjectData(pd);
+            // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
+            targetsBrain.health.HealthInjectData(pd);
         }
         if (pd.hasStats)
         {
@@ -254,6 +269,43 @@ public class SpellMain : MonoBehaviour
         {
             targetsBrain.loco.LocoInjectData(pd);
         }
+        return;
+
+        bool hasReflected(Brain brain)
+        {
+            if (_reflexCount < 0) return false;
+
+            switch (reflexBehaviour)
+            {
+                case ReflexBehaviour.General:
+                    if (Random.value < brain.character.GetStat(Stats.ReflexSpells) * 0.01f)
+                    {
+                        _reflexCount--;
+                        //need logic for this behaviour. Probably new spell instantiated (copy of reflected one) 
+                        return true;
+                    }
+                    break;
+                case ReflexBehaviour.Melee:
+                    if (Random.value < brain.character.GetStat(Stats.ReflectMelee) * 0.01f)
+                    {
+                        _reflexCount--;
+                        OwnersBrain = brain;
+                        HitGeneric(OwnersBrain, out _);
+                        return true;
+                    }
+                    break;
+                case ReflexBehaviour.Projectile: //transporter should be 'Homing' or 'Bullet'
+                    if (Random.value < brain.character.GetStat(Stats.ReflectProjectiles) * 0.01f)
+                    {
+                        _reflexCount--;
+                        transporter.ReflectProjectile(brain);
+                        return true;
+                    }
+                    break;
+            }
+            return false;
+        }
+
     }
 
     //used by Auras, Zones etc...

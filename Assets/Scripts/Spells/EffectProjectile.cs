@@ -29,6 +29,8 @@ public class EffectProjectile : MonoBehaviour, IIniSpell
     public void OnTriggerEnterCallBack(Collider other)
     {
         Spell.HitGeneric(other, out Brain targetBrain);
+        if (Spell.OwnersBrain == targetBrain) return; //reflected spell
+        
         if (targetBrain != null)
         {
             Spell.onHitTarget?.Invoke(targetBrain);
@@ -53,12 +55,12 @@ public class EffectProjectile : MonoBehaviour, IIniSpell
                     Vector3 dir = myTargets[Random.Range(0, myTargets.Count)].position - Spell.myTransform.position;
                     _myBulletTransporter.RicochetMethod(dir);
                 }
-                else SetPierce();
+                else setPierce();
             }
-            else SetPierce();
+            else setPierce();
 
 
-            void SetPierce()
+            void setPierce()
             {
                 if (_myBulletTransporter.pierce > 0) _myBulletTransporter.pierce--;
                 else Spell.MyPhase = SpellMain.Phase.EndStart;

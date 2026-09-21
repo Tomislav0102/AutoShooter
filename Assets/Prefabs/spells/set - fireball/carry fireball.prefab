@@ -144,9 +144,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6840618285202408881}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: lifeTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
       objectReference: {fileID: 599669546541979689}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: reflexBehaviour
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -213,7 +221,6 @@ MonoBehaviour:
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  effectAtExit: {fileID: 0}
   colliderPart: 0
 --- !u!4 &1218270606949558742 stripped
 Transform:

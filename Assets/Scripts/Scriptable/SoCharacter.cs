@@ -42,5 +42,8 @@ public class SoCharacter : SerializedScriptableObject
         baseStats[Stats.Bounce] = 0;
         baseStats[Stats.Piercing] = 0;
         baseStats[Stats.Ricochet] = 0;
+        baseStats[Stats.ReflexSpells] = 0;
+        baseStats[Stats.ReflectMelee] = 0;
+        baseStats[Stats.ReflectProjectiles] = 0;
     }
 }

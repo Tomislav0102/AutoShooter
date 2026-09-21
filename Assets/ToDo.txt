@@ -9,10 +9,8 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
                       Other spells that might need those skills (MagicMissile, Overload, ChainLightning...) need some workaround.
                       Maybe those skills need separate component.
 
+
 SPELLS
-- Rework needed for Reflect and Nullify -
-Variables are in 'Health' component. 'SpellMain' checks that first in 'HitGeneric' method before applying damage, effects, knockback, etc...
-'Passdata' should remove 'hasSpell' variables.
 Edge case - spells that have Reflect/Nullify but are not on characters (e.g 'shield ranged blocker').
             Maybe special 'EffectInterrupt' component (like 'EffectOverlap'). Basically 'EffectTrigger' but only for this use case.
 
@@ -41,7 +39,8 @@ Blocking can activate from front side (180 arc front)
 Dodging can activate from both sides
 Sneak attack is from back side (180 arc back)
 Physical Resistance = Armor
-
+Nullify spell - only some monsters have it (e.g. Golem). Its array of 'SpellMain' in 'Health' component.
+                Skill 'Arcane Shield' can work in 'Health' component.
 
 KNIGHT
 Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.

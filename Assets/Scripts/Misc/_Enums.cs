@@ -68,8 +68,11 @@ public enum Stats
     Xp,
     Gold,
     Loot,
-    SightRange //just camera zoom -> like in 'Into The Necrovale'
+    SightRange, //just camera zoom -> like in 'Into The Necrovale'
     //quaternary
+    ReflexSpells, //all spells except melee and projectiles. If spell can't be reflected that is managed by variable 'reflexCount' in 'SpellMain'
+    ReflectMelee, //melee weapons
+    ReflectProjectiles, //ranged weapons (not spells), like bows, crossbows, etc...
 }
 
 public enum SkillName

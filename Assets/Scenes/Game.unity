@@ -171,6 +171,22 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+    - target: {fileID: 7439981964806257716, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: reflectMeleeChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439981964806257716, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: reflectRangedChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439981964806257716, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: immuneSpells.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439981964806257716, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+      propertyPath: 'immuneSpells.Array.data[0]'
+      value: 
+      objectReference: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_Name
       value: BP_Knight
