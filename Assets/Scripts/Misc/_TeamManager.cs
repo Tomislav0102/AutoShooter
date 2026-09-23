@@ -24,21 +24,23 @@ public class TeamManager
     }
     void RemovalFromTeam(Brain brain)
     {
+        bool canRemove = false;
         if (_good.Contains(brain))
         {
             _good.Remove(brain);
-            EventBus.OnBrainAddRemove(brain, GenChange.Remove);
+            canRemove = true;
         }
         else if (_bad.Contains(brain))
         {
             _bad.Remove(brain);
-            EventBus.OnBrainAddRemove(brain, GenChange.Remove);
+            canRemove = true;
         }
         else if (_neutral.Contains(brain))
         {
             _neutral.Remove(brain);
-            EventBus.OnBrainAddRemove(brain, GenChange.Remove);
+            canRemove = true;
         }
+        if (canRemove) Ga.OnBrainAddRemove?.Invoke(brain, GenChange.Remove);
     }
 
     public void JoinTeam(Faction newFaction, Brain brain)
@@ -48,17 +50,15 @@ public class TeamManager
         {
             case Faction.GoodGuys:
                 _good.Add(brain);
-                EventBus.OnBrainAddRemove(brain, GenChange.Add);
                 break;
             case Faction.BadGuys:
                 _bad.Add(brain);
-                EventBus.OnBrainAddRemove(brain, GenChange.Add);
                 break;
             case Faction.Neutral:
                 _neutral.Add(brain);
-                EventBus.OnBrainAddRemove(brain, GenChange.Add);
                 break;
         }
+        Ga.OnBrainAddRemove?.Invoke(brain, GenChange.Add);
     }
 
     public int TeamMemberCount(Faction faction)

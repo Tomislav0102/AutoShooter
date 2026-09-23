@@ -11,8 +11,6 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
 
 
 SPELLS
-Edge case - spells that have Reflect/Nullify but are not on characters (e.g 'shield ranged blocker').
-            Maybe special 'EffectInterrupt' component (like 'EffectOverlap'). Basically 'EffectTrigger' but only for this use case.
 
 
 KNIGHT
@@ -23,7 +21,6 @@ ARCHER
 Roll mechanics
 
 MAGE
-Arcane shield - need fix with PassData
 
 ENEMY
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
@@ -49,12 +46,14 @@ MAGE
 Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword his meteor strike damage increases? 
 
 TRAPS
-Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps.
+Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps. Or if it has knockback than trap shold be one-hit.
 
 OPTIMIZATION
 NavMeshAgent for player is set to low quality and high priority, maybe that will cause bugs.
 Consider using flow field instead of NavMesh.
 Coroutine - cache 'WaitForSeconds' in Dictionary
+Checking null objects - Unity's Custom Equality Operator ( if(gameObject == null) ) is 10x slower but safer because it checks if object has been destroyed (Destroy(gameObejct)).
+                        Pure C# Reference Check ( if(gameObject is null) ) is very fast but not safe. Used only if objects will not be destroyed.
 
 ENEMY
 Ultimate Attack Type - not working, maybe its redundant (melee and ranged cover everything)

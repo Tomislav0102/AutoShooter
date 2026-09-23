@@ -5151,6 +5151,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: myBasic
+      value: 
+      objectReference: {fileID: 11400000, guid: 37d903e4c8c3e2245aeab283124cc397, type: 2}
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: engageRange
       value: 0
       objectReference: {fileID: 0}
@@ -5240,7 +5244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -5283,6 +5287,10 @@ PrefabInstance:
       value: AnimEv_AttackCallback
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 5886414157575731664}
@@ -5308,6 +5316,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PC_Mage, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
@@ -5496,7 +5508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P_Mage
   spawnPoint: {fileID: 2471835065303500449}
   psCast: {fileID: 351111234578652109}
-  startActive: 99
+  _allSkills: []
 --- !u!137 &5165482686685167941 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5271545707195277533, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

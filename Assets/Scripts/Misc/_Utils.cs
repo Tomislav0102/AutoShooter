@@ -59,6 +59,7 @@ public static class Utils
     }
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
+    public static Vector3 LevelV3(Vector3 v3, float height = 0f) => new Vector3(v3.x, height, v3.z);
 
     public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(MakeV2(v1), MakeV2(v2));
     public static Vector3 Direction(Vector3 fromPos, Vector3 toPos) => MakeV3(MakeV2(toPos) - (MakeV2(fromPos))).normalized;
@@ -88,6 +89,8 @@ public static class Utils
             float distance = Vector2.Distance(from2D, MakeV2(item.position));
             if (distance <= maxRange) dic.Add(item, distance);
         }
+        if (dic.Count == 0) return result;
+        
         List<KeyValuePair<Transform, float>> sorted = dic.ToList();
         sorted.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
         List<Transform> tempResults = new List<Transform>();

@@ -288,6 +288,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1059554215997535304, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: myBasic
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c371f7275259ce468a82d3bc6cb80fb, type: 2}
     - target: {fileID: 2467328168210507388, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: healthMax
       value: 1000
@@ -350,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -393,6 +397,10 @@ PrefabInstance:
       value: AnimEv_AttackCallback
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8289251900630384108}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 8289251900630384108}
@@ -426,6 +434,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Knight, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PC_Knight, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

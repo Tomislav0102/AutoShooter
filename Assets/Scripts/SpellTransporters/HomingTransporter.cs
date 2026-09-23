@@ -25,6 +25,7 @@ public class HomingTransporter : SpellTransporter
         Spell.myTransform.rotation = Quaternion.Slerp(Spell.myTransform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
     }
     
+    
     void FixedUpdate()
     {
         SetSpeed(speed);

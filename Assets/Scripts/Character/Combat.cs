@@ -13,7 +13,7 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
     [SerializeField] UnityEvent<Transform> targetEv;
     [SerializeField] UnityEvent<int> animAttackEv;
     [SerializeField] UnityEvent<int> animAttackUltimateEv;
-    [SerializeField] UnityEvent<CombatEvent, Brain> combatRegisterEv;
+    [SerializeField] UnityEvent<CombatEvent, Brain, SpellMain.Specialty> combatRegisterEv;
     public Brain Br
     {
         get => _br;
@@ -61,7 +61,7 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
     [HideInInspector] public int counterHit, counterMiss, counterStrike;
 
     
-    public void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null)
+    public void CombatEventRegistered(CombatEvent combatEvent, Brain otherBrain = null, SpellMain.Specialty specialty = SpellMain.Specialty.General)
     {
         switch (combatEvent)
         {
@@ -77,12 +77,12 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
                 counterStrike++;
                 break;
         }   
-        combatRegisterEv.Invoke(combatEvent, otherBrain);
+        combatRegisterEv.Invoke(combatEvent, otherBrain, specialty);
     }
 
     public void CheckBlock(out bool blocked, Brain otherBrain)
     {
-        blocked = _timerBlockReady >= 0f && Random.value * 100 < Br.character.GetStat(Stats.Block) && !isFlanked();
+        blocked = _timerBlockReady >= 0f && Random.value * 100 < Br.character.GetStat(Stats.Block) && !IsFlanked(Br.myTransform, otherBrain.myTransform);
         if (!blocked) return;
         StartCoroutine(resetBlockTimer());
         CombatEventRegistered(CombatEvent.Block, otherBrain);
@@ -100,11 +100,6 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
             _timerBlockReady = 0;
         }
 
-        bool isFlanked() //true -> target can be sneak attacked, false -> target can block
-        {
-            Vector2 attackDirection = (Utils.MakeV2(otherBrain.myTransform.position) - Utils.MakeV2(Br.myTransform.position)).normalized;
-            return Vector2.Dot(Utils.MakeV2(Br.myTransform.forward), attackDirection) <= 0;
-        }
 
     }
 
@@ -121,6 +116,13 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
     public void FromAnimEv_Ultimate(int num = 0)
     {
         animAttackUltimateEv.Invoke(num);
+    }
+
+    
+    public static bool IsFlanked(Transform myTransform, Transform attackersTransform) //true -> target can be sneak attacked, false -> target can block
+    {
+        Vector2 attackDirection = (Utils.MakeV2(attackersTransform.position) - Utils.MakeV2(myTransform.position)).normalized;
+        return Vector2.Dot(Utils.MakeV2(myTransform.forward), attackDirection) <= 0;
     }
 
 }

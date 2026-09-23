@@ -117,12 +117,12 @@ public class Status : MonoBehaviour, IIniBrain
        _status.position = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position);
     }
     
-    public void ChangeEffect(GenChange change, BuffEffects buffEffects)
+    public void StatusInjectData(GenChange change, BuffEffects buffEffects)
     {
         switch (change)
         {
             case GenChange.Add:
-                _duoBuffs.Add(buffEffects, buffEffects.data.Duration);
+                _duoBuffs.Add(buffEffects, buffEffects.data.permanent ? float.PositiveInfinity : buffEffects.data.Duration);
                 if (buffEffects.IsDot()) return;
 
                 for (int i = 0; i < _duoBuffs.Length() - 1; i++)
@@ -132,6 +132,20 @@ public class Status : MonoBehaviour, IIniBrain
                     _duoBuffs.SetValue(i, duration);
                     break;
                 }
+
+                switch (buffEffects.effect)
+                {
+                    case Effect.InstantKill:
+                        if (Br.health.HealthCurrent <= buffEffects.data.value * Br.character.GetStat(Stats.Health) * 0.01f)
+                        {
+                            print("Executioner");
+                            Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffects.brain);
+                            Br.health.Death(buffEffects.brain);
+                            return;
+                        }
+                        break;
+                }
+                
                 break;
             case GenChange.Remove:
                 if (_duoBuffs.HasKey(buffEffects)) _duoBuffs.Remove(buffEffects);

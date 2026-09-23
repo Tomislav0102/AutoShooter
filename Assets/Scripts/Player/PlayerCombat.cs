@@ -39,11 +39,11 @@ public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
 
     void OnEnable()
     {
-        EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
+        Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
     void OnDisable()
     {
-        EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
+        Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
     void CallEv_OnUltimateActivated()
     {

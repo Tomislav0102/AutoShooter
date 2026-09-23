@@ -40,8 +40,9 @@ public class BuffStats
 }
 
 [System.Serializable]
-public class BuffEffects 
+public class BuffEffects
 {
+    [ReadOnly] public Brain brain;
     public Status.Effect effect;
     public BuffData data;
 

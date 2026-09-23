@@ -15,18 +15,21 @@ public class Skills : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
+            if (!useShared && !useKnight && !useMage && !useArcher) return; //enemy
+
             List<SoSkill> tempSkills = new List<SoSkill>();
             if (useShared) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills shared"));
             if (useKnight) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills knight"));
             if (useMage) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills mage"));
             if (useArcher) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills archer"));
-            
+            tempSkills.Add(myBasic);
+
             int enumLength = System.Enum.GetNames(typeof(SkillName)).Length;
             Dictionary<SkillName, List<SoSkill>> dict = new Dictionary<SkillName, List<SoSkill>>();
             for (int i = 0; i < enumLength; i++)
             {
                 dict.Add((SkillName)i, allSkillsByName((SkillName)i));
-            } 
+            }
             List<Group> tempGroups = new List<Group>();
             foreach (KeyValuePair<SkillName, List<SoSkill>> item in dict)
             {
@@ -34,12 +37,22 @@ public class Skills : MonoBehaviour, IIniBrain
                 tempGroups.Add(new Group(item.Value.ToArray()));
             }
             _group = tempGroups.ToArray();
+            OvrLevelSpecificSkill(myBasic.skillName);
+
+            //debugs
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.KnightBase); 
+                OvrLevelSpecificSkill(SkillName.AdvanceGuard);
             }
-            if (useMage) OvrLevelSpecificSkill(SkillName.MagicMissile);
-            if (useArcher) OvrLevelSpecificSkill(SkillName.ArcherBase);
+            if (useMage)
+            {
+                OvrLevelSpecificSkill(SkillName.ArcaneShield);
+
+            }
+            if (useArcher)
+            {
+
+            }
             return;
 
             List<SoSkill> allSkillsByName(SkillName skillName)
@@ -58,11 +71,13 @@ public class Skills : MonoBehaviour, IIniBrain
 
     [SerializeField] SoSkill[] replacements;
     public SoSkill myBasic;
+
     [SerializeField] bool useShared, useKnight, useMage, useArcher;
     [ShowInInspector, ReadOnly] Group[] _group;
     [SerializeField] UnityEvent<SoSkill> skillIncreaseEv;
-    #region DEBUG
     
+    
+    #region DEBUG
     [Title("Debug")]    
     public SoSkill[] skillsToLevel;
     [Button]
@@ -138,6 +153,7 @@ public class Skills : MonoBehaviour, IIniBrain
         {
             if (g.skillName != skillName) continue;
             if (!g.CanLevel(out _)) return;
+            print(1);
             g.levelCurrent++;
             skillIncreaseEv.Invoke(g.MySkill());
             break;

@@ -89,7 +89,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     #endregion
 
 
-    public void BuffInjectData(StatsGroup group)
+    public void CharacterInjectData(StatsGroup group)
     {
         BuffStats buffStats = group.buffStats;
         switch (group.change)

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
@@ -15,30 +14,32 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
+            _playerCombat = GetComponent<PlayerCombat>();
         }
     }
     Brain _br;
     [SerializeField] Transform myShield;
-
+    PlayerCombat _playerCombat;
     float _crescendoStrikeIncrease = 1f;
     BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
     MyDuo<Element, float> _elementStrikesIncrease;
     SpellMain _passiveLethargicDomain;
-
+    bool _canAdvanceGuard;
 
     void OnEnable()
     {
-        EventBus.OnBrainAddRemove += CallEv_OnBrainAddRemove;
+        Ga.OnBrainAddRemove += CallEv_OnBrainAddRemove;
     }
     void OnDisable()
     {
-        EventBus.OnBrainAddRemove -= CallEv_OnBrainAddRemove;
+        Ga.OnBrainAddRemove -= CallEv_OnBrainAddRemove;
     }
     void CallEv_OnBrainAddRemove(Brain brain, GenChange change)
     {
         GuardiansMight();
         GuardiansValor();
     }
+
 
     public void SkillIncreaseCallback(SoSkill newSkill)
     {
@@ -68,14 +69,14 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             _passiveLethargicDomain.areaOfEffect += skill.passData.stats[0].buffStats.data.value;
             _passiveLethargicDomain.InitializeMe(Br);
         }
-        void ironMirror()//spell has no effect (only visual), all logic is in skill
+        void ironMirror() //spell has no effect (only visual), all logic is in skill
         {
             if (!Br.skills.TryGetFromGroup(SkillName.IronMirror, out SoSkill skill)) return;
             SpellMain spell = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
             spell.transporter.target = Br.myTransform;
             spell.areaOfEffect = 2f + Br.size;
             spell.InitializeMe(Br);
-            Br.character.BuffInjectData(skill.stats[0]);
+            Br.character.CharacterInjectData(skill.stats[0]);
         }
     }
 
@@ -83,25 +84,23 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     void GuardiansMight()
     {
         if (!Br.skills.TryGetFromGroup(SkillName.GuardiansMight, out SoSkill skill)) return;
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardMight));
+        Br.character.CharacterInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardMight));
 
         _buffStatsGuardMight = new BuffStats(Stats.DamPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardMight));
+        Br.character.CharacterInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardMight));
     }
     void GuardiansValor()
     {
         if (!Br.skills.TryGetFromGroup(SkillName.GuardiansValor, out SoSkill skill)) return;
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardValor));
+        Br.character.CharacterInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardValor));
 
         _buffStatsGuardValor = new BuffStats(Stats.ResistPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardValor));
-
+        Br.character.CharacterInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardValor));
     }
     #endregion
 
     public void AnimEv_AttackCallback(int num = 0)
     {
-        return;
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage();
         if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _elementStrikesIncrease);
@@ -114,11 +113,13 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         {
             addEffect = true;
             executioner = skillExe.buffEffect[0];
+            executioner.brain = Br;
         }
         if (Br.skills.TryGetFromGroup(SkillName.BleedingStrike, out SoSkill skillBleed))
         {
             addEffect = true;
             bleeding = skillBleed.buffEffect[0];
+            bleeding.brain = Br;
         }
 
         //stats
@@ -145,7 +146,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             hasEffect = addEffect,
             effects = new BuffEffects[2] { executioner, bleeding },
             hasStats = addArmorBreaker,
-            stats = new StatsGroup[1]{ armorBreaker }
+            stats = new StatsGroup[1] { armorBreaker }
         };
 
         SpellMain melee = Instantiate(Br.skills.myBasic.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
@@ -156,7 +157,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         };
         melee.InitializeMe(Br, passData);
 
-        Br.character.BuffInjectData(new StatsGroup(GenChange.Remove, _buffStatsCrescendoStrike));
+        Br.character.CharacterInjectData(new StatsGroup(GenChange.Remove, _buffStatsCrescendoStrike));
         _crescendoStrikeIncrease = 1f;
         _elementStrikesIncrease = null;
     }
@@ -187,7 +188,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         }
     }
 
-    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
+    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null, SpellMain.Specialty specialty = SpellMain.Specialty.General)
     {
         string st = otherBrain == null ? "" : $", target is {otherBrain.name}.";
         //  print($"{combatEvent} {st}");
@@ -195,7 +196,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         {
             case CombatEvent.Strike:
                 int strikes = Br.combat.counterStrike;
-
                 sweepingArc();
                 grandCrescendo();
                 elementalStrikes();
@@ -230,7 +230,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         resultingAddedDamage += val;
                         _crescendoStrikeIncrease = 1f + resultingAddedDamage * 0.01f;
                         _buffStatsCrescendoStrike = new BuffStats(Stats.DamPhysical, _crescendoStrikeIncrease);
-                        Br.character.BuffInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsCrescendoStrike));
+                        Br.character.CharacterInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsCrescendoStrike));
                     }
 
                 }
@@ -317,7 +317,38 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     spell.InitializeMe(Br, containerThrow);
                 }
                 break;
+            case CombatEvent.BeginGetHit:
+                if (otherBrain is not null) advanceGuardBegin();
+                void advanceGuardBegin()
+                {
+                    if (!Br.skills.TryGetFromGroup(SkillName.AdvanceGuard, out SoSkill skill)) return;
+                    if (!Br.loco.IsMoving) return;
+                    if (!Combat.IsFlanked(Br.myTransform, otherBrain.myTransform)) return;
+                    _canAdvanceGuard = true;
+                    Br.character.CharacterInjectData(skill.stats[0]);
+                }
+                break;
             case CombatEvent.GetHit:
+                spikedRim();
+                void spikedRim()
+                {
+                    if (!(otherBrain is not null && specialty == SpellMain.Specialty.Melee)) return;
+                    if (!Br.skills.TryGetFromGroup(SkillName.SpikedRim, out SoSkill skill)) return;
+                    float damageValue = Br.character.GetStat(Stats.ResistPhysical) * skill.floatGeneric;
+                    if (Mathf.Approximately(damageValue, 0f)) return;
+                    PassData passData = new PassData()
+                    {
+                        myBrain = Br,
+                        hasDamage = true,
+                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1] { damageValue })
+                    };
+                    otherBrain.health.HealthInjectData(passData);
+                }
+                void advanceGuardHit()
+                {
+                    if (!_canAdvanceGuard) return;
+                    _canAdvanceGuard = false;
+                }
                 break;
             case CombatEvent.Block:
                 shockwaveBlock();
@@ -339,7 +370,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 {
                     if (!Br.skills.TryGetFromGroup(SkillName.ArcaneHarvest, out SoSkill sk)) return;
                     if (otherBrain.character.GetStat(Stats.DamMagic) < Br.character.GetStat(Stats.DamMagic)) return;
-                    Br.character.BuffInjectData(sk.stats[0]);
+                    Br.character.CharacterInjectData(sk.stats[0]);
                 }
                 break;
         }

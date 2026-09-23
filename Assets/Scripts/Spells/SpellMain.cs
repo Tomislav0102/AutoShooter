@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
@@ -17,7 +18,7 @@ public class SpellMain : MonoBehaviour
         EndStart,
         EndEnd,
     }
-    public enum ReflexBehaviour
+    public enum Specialty
     {
         General,
         Melee,
@@ -119,8 +120,8 @@ public class SpellMain : MonoBehaviour
     [Tooltip("if false it will play for 'lifetime' seconds. Does nothing if 'lifetime' == 0.")]
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     public HashSet<Collider> collidersDetected = new HashSet<Collider>();
-    public ReflexBehaviour reflexBehaviour;
-    int _reflexCount = 2;
+    public Specialty specialty;
+    [HideInInspector] public int reflexCount = 2;
 
     [Title("Events")]
     [SerializeField] UnityEvent<Collider> onTrigEnter;
@@ -262,7 +263,7 @@ public class SpellMain : MonoBehaviour
         {
             for (int i = 0; i < pd.stats.Length; i++)
             {
-                targetsBrain.character.BuffInjectData(pd.stats[i]);
+                targetsBrain.character.CharacterInjectData(pd.stats[i]);
             }
         }
         if (pd.hasKnockback || pd.hasDash)
@@ -273,31 +274,31 @@ public class SpellMain : MonoBehaviour
 
         bool hasReflected(Brain brain)
         {
-            if (_reflexCount < 0) return false;
+            if (reflexCount < 0) return false;
 
-            switch (reflexBehaviour)
+            switch (specialty)
             {
-                case ReflexBehaviour.General:
+                case Specialty.General:
                     if (Random.value < brain.character.GetStat(Stats.ReflexSpells) * 0.01f)
                     {
-                        _reflexCount--;
+                        reflexCount--;
                         //need logic for this behaviour. Probably new spell instantiated (copy of reflected one) 
                         return true;
                     }
                     break;
-                case ReflexBehaviour.Melee:
+                case Specialty.Melee:
                     if (Random.value < brain.character.GetStat(Stats.ReflectMelee) * 0.01f)
                     {
-                        _reflexCount--;
+                        reflexCount--;
                         OwnersBrain = brain;
                         HitGeneric(OwnersBrain, out _);
                         return true;
                     }
                     break;
-                case ReflexBehaviour.Projectile: //transporter should be 'Homing' or 'Bullet'
+                case Specialty.Projectile: //transporter should be 'Homing' or 'Bullet'
                     if (Random.value < brain.character.GetStat(Stats.ReflectProjectiles) * 0.01f)
                     {
-                        _reflexCount--;
+                        reflexCount--;
                         transporter.ReflectProjectile(brain);
                         return true;
                     }
@@ -320,7 +321,7 @@ public class SpellMain : MonoBehaviour
             for (int i = 0; i < removeContainer.stats.Length; i++)
             {
                 removeContainer.stats[i].change = GenChange.Remove;
-                br.character.BuffInjectData(removeContainer.stats[i]);
+                br.character.CharacterInjectData(removeContainer.stats[i]);
             }
         }
 

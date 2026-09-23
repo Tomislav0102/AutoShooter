@@ -13,6 +13,7 @@ public class PC_Archer : MonoBehaviour
         set
         {
             _br = value;
+            _playerCombat = GetComponent<PlayerCombat>();
         }
     }
     Brain _br;
@@ -25,8 +26,8 @@ public class PC_Archer : MonoBehaviour
     Coroutine _rollCoroutine;
     const float CONST_RollTime = 0.3f;
     [SerializeField] ParticleSystem psRoll;
-    SoSkill _myBasic;
     SoSkill[] _allSkills;
+    PlayerCombat _playerCombat;
     
     // public void SkillUpdate()
     // {
@@ -56,11 +57,11 @@ public class PC_Archer : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
+        Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
     void OnDisable()
     {
-        EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
+        Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
     
     //archers Ultimate is not triggered by animation event
@@ -83,10 +84,6 @@ public class PC_Archer : MonoBehaviour
         //     psRoll.Stop();
         // }
 
-    }
-    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
-    {
-        
     }
     public void AnimEv_AttackCallback(int num = 0)
     {
@@ -146,7 +143,7 @@ public class PC_Archer : MonoBehaviour
             for (int i = 0; i < projectile; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                SpellMain sp = Instantiate(_myBasic.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellMain sp = Instantiate(Br.skills.myBasic.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
                 sp.visual.SetSpawnHeight(spawnPoint.position.y);
                 sp.myTransform.Rotate(rot);
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);

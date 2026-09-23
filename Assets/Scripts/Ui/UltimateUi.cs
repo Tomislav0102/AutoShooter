@@ -22,22 +22,24 @@ public class UltimateUi : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.OnUltimateActivated += CallEv_OnUltimateActivated;
+        Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
     void OnDisable()
     {
-        EventBus.OnUltimateActivated -= CallEv_OnUltimateActivated;
+        Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }
 
     public void BtnClicked()
     {
-        EventBus.OnUltimateActivated?.Invoke();
+        Ga.OnUltimateActivated?.Invoke();
     }
 
     void CallEv_OnUltimateActivated()
     {
-        StartCoroutine(CoolDown());
-        IEnumerator CoolDown()
+        StartCoroutine(coolDown());
+        return;
+        
+        IEnumerator coolDown()
         {
             btnUltimate.enabled = false;
             ultimateBackground.fillAmount = 0f;

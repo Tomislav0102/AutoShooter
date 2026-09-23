@@ -14,8 +14,8 @@ public class SharedSkills : MonoBehaviour, IIniBrain
     }
     Brain _br;
     #region SKILL LAST STAND
-    public bool _lastStandCooldownTimerDone = true;
-    public bool _lastStandHealthAboveTreshold = true;
+    bool _lastStandCooldownTimerDone = true;
+    bool _lastStandHealthAboveTreshold = true;
     #endregion
     
 
@@ -53,7 +53,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         if (!Br.skills.TryGetFromGroup(skillName, out SoSkill skill)) return;
         foreach (StatsGroup stat in skill.stats)
         {
-            Br.character.BuffInjectData(stat);
+            Br.character.CharacterInjectData(stat);
         }
     }
 
@@ -75,10 +75,10 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             if (!Br.skills.TryGetFromGroup(SkillName.Riposte, out SoSkill skill)) return;
             StatsGroup rem = skill.stats[0];
             rem.change = GenChange.Remove;
-            Br.character.BuffInjectData(rem);
+            Br.character.CharacterInjectData(rem);
             if (onlyRemove) return;
             
-            Br.character.BuffInjectData(skill.stats[0]);
+            Br.character.CharacterInjectData(skill.stats[0]);
         }
     }
 
@@ -99,7 +99,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             if (!_lastStandHealthAboveTreshold) return;
             _lastStandCooldownTimerDone = false;
             _lastStandHealthAboveTreshold = false;
-            Br.status.ChangeEffect(GenChange.Add, skill.buffEffect[0]);
+            Br.status.StatusInjectData(GenChange.Add, skill.buffEffect[0]);
             StartCoroutine(delay(skill.floatGeneric));
             return;
 

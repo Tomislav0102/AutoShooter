@@ -32,7 +32,18 @@ public enum Element { Physical, Fire, Ice, Electricity, Poison, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
 public enum FactionToTarget { Ally, Enemy, All }
 public enum Alertness { Relaxed, Alarmed, Fighting }
-public enum CombatEvent { Strike, Hit, Miss, GetHit, Block, Kill, Dodge }
+public enum CombatEvent
+{
+    Strike, 
+    Hit, //brain
+    Miss, 
+    BeginGetHit, //brain, spell
+    GetHit, //brain, spell
+    EndGetHit, //brain, spell
+    Block, //brain, spell
+    Kill, //brain
+    Dodge //brain, spell
+}
 public enum Stats
 {
     //primary - derived form primaries
@@ -142,7 +153,7 @@ public enum SkillName
     Kn09,
     Kn10,
     //mage
-    MagicMissile,
+    MageBase,
     ArcaneShield,
     ManaShield,
     BastionPulse,

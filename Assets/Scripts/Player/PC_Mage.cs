@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -14,146 +15,154 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
             _numOfObjects = (int)value.character.GetStat(Stats.Projectiles);
-            switch (startActive)
-            {
-                case 0:
-                    SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
-                    orbitalGroupShields.orbitingAnchor = value.myTransform;
-                    SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
-                    PassData[] pdShields = new PassData[_numOfObjects];
-                    for (int i = 0; i < _numOfObjects; i++)
-                    {
-                        shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
-                        pdShields[i] = null;
-                    }
-                    groupShields.InitializeMe(value, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
-                    break;
-                case 1:
-                    SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    PassData pd = new PassData()
-                    {
-                        myBrain = value,
-                        hasDamage = true,
-                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, new float[1] { 1f })
-                    };
-                    groupWalkTrail.InitializeMe(value, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pd }));
-                    break;
-                case 2:
-                    SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
-                    orbitalGroupSwords.orbitingAnchor = value.myTransform;
-                    
-                    SpellMain[] swords = new SpellMain[_numOfObjects];
-                    swords[0] = Ga.me.spells.swordFire;
-                    float multiplier = 0.3f;
-                    PassData pdFire = new PassData()
-                    {
-                        myBrain = value,
-                        hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Fire, multiplier)
-                    };
-                    PassData pdIce= new PassData()
-                    {
-                        myBrain = value,
-                        hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Ice, multiplier)
-                    };
-                    PassData pdElectricity = new PassData()
-                    {
-                        myBrain = value,
-                        hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Electricity, multiplier)
-                    };
-                    PassData[] pds = new PassData[_numOfObjects];
-                    pds[0] = pdFire;
-                    switch (_numOfObjects)
-                    {
-                        case 2:
-                            swords[1] = Ga.me.spells.swordFire;
-                            pds[1] = pdFire;    
-                            break;
-                        case 4:
-                            swords[1] = Ga.me.spells.swordIce;
-                            swords[2] = Ga.me.spells.swordFire;
-                            swords[3] = Ga.me.spells.swordIce;
-                            pds[1] = pdIce;    
-                            pds[2] = pdFire;    
-                            pds[3] = pdIce;    
-                            break;
-                        case 6:
-                            swords[1] = Ga.me.spells.swordIce;
-                            swords[2] = Ga.me.spells.swordElectricity;
-                            swords[3] = Ga.me.spells.swordFire;
-                            swords[4] = Ga.me.spells.swordIce;
-                            swords[5] = Ga.me.spells.swordElectricity;
-                            pds[1] = pdIce;    
-                            pds[2] = pdElectricity;    
-                            pds[3] = pdFire;    
-                            pds[4] = pdIce;    
-                            pds[5] = pdElectricity;    
-                            break;
-                        default:
-                            print("should only be 2, 4, or 6 swords.");
-                            return;
-                    }
-                    groupSwords.InitializeMe(value, new MyDuo<SpellMain, PassData>(swords, pds));
-
-                    break;
-                case 3:
-                    PassData container = new PassData()
-                    {
-                        myBrain = value,
-                        hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Fire)
-                    };
-                    float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
-                    for (int i = 0; i < _numOfObjects; i++)
-                    {
-                        SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, value.myTransform.position,
-                            Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
-                        flamethrower.transporter.target = value.myTransform;
-                        flamethrower.InitializeMe(value, container);
-                    }
-                    break;
-                case 4:
-                    SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    pushPulse.transporter.target = value.myTransform;
-                    pushPulse.InitializeMe(value);
-                    break;
-                case 5:
-                    ArcaneShieldSpawn();
-                    break;
-                case 6:
-                    PassData containerManaShield = new PassData()
-                    {
-                        myBrain = value,
-                        hasManaShield =  true,
-                        manaShieldPoints = 100
-                    };
-                    SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    manaShield.transporter.target = value.myTransform;
-                    manaShield.InitializeMe(value, containerManaShield);
-                    break;
-            }
-
+            // switch (startActive)
+            // {
+            //     case 0:
+            //         SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            //         OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
+            //         orbitalGroupShields.orbitingAnchor = value.myTransform;
+            //         SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
+            //         PassData[] pdShields = new PassData[_numOfObjects];
+            //         for (int i = 0; i < _numOfObjects; i++)
+            //         {
+            //             shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
+            //             pdShields[i] = null;
+            //         }
+            //         groupShields.InitializeMe(value, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
+            //         break;
+            //     case 1:
+            //         SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            //         PassData pd = new PassData()
+            //         {
+            //             myBrain = value,
+            //             hasDamage = true,
+            //             damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, new float[1] { 1f })
+            //         };
+            //         groupWalkTrail.InitializeMe(value, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pd }));
+            //         break;
+            //     case 2:
+            //         SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            //         OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+            //         orbitalGroupSwords.orbitingAnchor = value.myTransform;
+            //         
+            //         SpellMain[] swords = new SpellMain[_numOfObjects];
+            //         swords[0] = Ga.me.spells.swordFire;
+            //         float multiplier = 0.3f;
+            //         PassData pdFire = new PassData()
+            //         {
+            //             myBrain = value,
+            //             hasDamage = true,
+            //             damagePair = Br.character.GetDamage(Element.Fire, multiplier)
+            //         };
+            //         PassData pdIce= new PassData()
+            //         {
+            //             myBrain = value,
+            //             hasDamage = true,
+            //             damagePair = Br.character.GetDamage(Element.Ice, multiplier)
+            //         };
+            //         PassData pdElectricity = new PassData()
+            //         {
+            //             myBrain = value,
+            //             hasDamage = true,
+            //             damagePair = Br.character.GetDamage(Element.Electricity, multiplier)
+            //         };
+            //         PassData[] pds = new PassData[_numOfObjects];
+            //         pds[0] = pdFire;
+            //         switch (_numOfObjects)
+            //         {
+            //             case 2:
+            //                 swords[1] = Ga.me.spells.swordFire;
+            //                 pds[1] = pdFire;    
+            //                 break;
+            //             case 4:
+            //                 swords[1] = Ga.me.spells.swordIce;
+            //                 swords[2] = Ga.me.spells.swordFire;
+            //                 swords[3] = Ga.me.spells.swordIce;
+            //                 pds[1] = pdIce;    
+            //                 pds[2] = pdFire;    
+            //                 pds[3] = pdIce;    
+            //                 break;
+            //             case 6:
+            //                 swords[1] = Ga.me.spells.swordIce;
+            //                 swords[2] = Ga.me.spells.swordElectricity;
+            //                 swords[3] = Ga.me.spells.swordFire;
+            //                 swords[4] = Ga.me.spells.swordIce;
+            //                 swords[5] = Ga.me.spells.swordElectricity;
+            //                 pds[1] = pdIce;    
+            //                 pds[2] = pdElectricity;    
+            //                 pds[3] = pdFire;    
+            //                 pds[4] = pdIce;    
+            //                 pds[5] = pdElectricity;    
+            //                 break;
+            //             default:
+            //                 print("should only be 2, 4, or 6 swords.");
+            //                 return;
+            //         }
+            //         groupSwords.InitializeMe(value, new MyDuo<SpellMain, PassData>(swords, pds));
+            //
+            //         break;
+            //     case 3:
+            //         PassData container = new PassData()
+            //         {
+            //             myBrain = value,
+            //             hasDamage = true,
+            //             damagePair = Br.character.GetDamage(Element.Fire)
+            //         };
+            //         float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
+            //         for (int i = 0; i < _numOfObjects; i++)
+            //         {
+            //             SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, value.myTransform.position,
+            //                 Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
+            //             flamethrower.transporter.target = value.myTransform;
+            //             flamethrower.InitializeMe(value, container);
+            //         }
+            //         break;
+            //     case 4:
+            //         SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            //         pushPulse.transporter.target = value.myTransform;
+            //         pushPulse.InitializeMe(value);
+            //         break;
+            //     case 6:
+            //         PassData containerManaShield = new PassData()
+            //         {
+            //             myBrain = value,
+            //             hasManaShield =  true,
+            //             manaShieldPoints = 100
+            //         };
+            //         SpellMain manaShield = Instantiate(Ga.me.spells.manaShield, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            //         manaShield.transporter.target = value.myTransform;
+            //         manaShield.InitializeMe(value, containerManaShield);
+            //         break;
+            // }
         }
     }
     Brain _br;
     
     [SerializeField] Transform spawnPoint;
     [SerializeField] ParticleSystem psCast;
-    public int startActive;
-    Coroutine _arcaneShieldCoroutine;
-    float _arcaneShieldWaitDuration = 3f;
+    SoSkill _skillArcaneShield;
+    SpellMain _spellArcaneShield;
+    bool _canArcaneShield;
     PlayerCombat _playerCombat;
     int _numOfObjects;
-    List<SoSkill> _allSkills = new List<SoSkill>();
-
+    public List<SoSkill> _allSkills = new List<SoSkill>();
+    
     public void SkillIncreaseCallback(SoSkill newSkill)
     {
         _allSkills.Add(newSkill);
         setEngageRange();
+        switch (newSkill.skillName)
+        {
+            case SkillName.ArcaneShield:
+                if (_spellArcaneShield != null) _spellArcaneShield.MyPhase = SpellMain.Phase.EndEnd;
+                _skillArcaneShield = newSkill;
+                _spellArcaneShield = Instantiate(_skillArcaneShield.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                _spellArcaneShield.transporter.target = Br.myTransform;
+                _spellArcaneShield.InitializeMe(Br);
+                _canArcaneShield = true;
+                Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.buffEffect[0]);
+                break;
+        }
         return;
         
         void setEngageRange()
@@ -161,41 +170,14 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             float engageRange = 0f;
             foreach (SoSkill item in _allSkills)
             {
-                if (item.hasSpell == SoSkill.HasSpell.Spell || item.skillType != SkillType.Active ) continue;
+                if (item.skillType != SkillType.Active || item.hasSpell != SoSkill.HasSpell.Spell) continue;
                 if (item.spell.range > engageRange)  engageRange = item.spell.range;
             }
             _playerCombat.engageRange = Mathf.CeilToInt(engageRange);
         }
-    }    
-    
-
-    
-    void ArcaneShieldSpawn()
-    {
-        SpellMain arcaneShield = Instantiate(Ga.me.spells.arcaneShield, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        arcaneShield.transporter.target = Br.myTransform;
-        arcaneShield.InitializeMe(Br);
-        arcaneShield.onHitTarget += (Brain br) =>
-        {
-            ArcaneShieldCoroutineControl();
-        };
     }
 
-    void ArcaneShieldCoroutineControl()
-    {
-        if (_arcaneShieldCoroutine != null) StopCoroutine(_arcaneShieldCoroutine);
-        _arcaneShieldCoroutine = StartCoroutine(arcaneShieldWait(_arcaneShieldWaitDuration));
-        return;
-        
-        IEnumerator arcaneShieldWait(float waitTime)
-        {
-            yield return  new WaitForSeconds(waitTime);
-            ArcaneShieldSpawn();
-        }
-
-    }
-
-    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null)
+    public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null, SpellMain.Specialty specialty = SpellMain.Specialty.General)
     {
         switch (combatEvent)
         {
@@ -205,12 +187,30 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.Miss:
                 break;
+            case CombatEvent.BeginGetHit:
+                break;
             case CombatEvent.GetHit:
-                if (startActive == 5) //arcane shield
+                arcaneShield();
+                void arcaneShield()
                 {
-                    ArcaneShieldCoroutineControl();
+                    if (!_canArcaneShield) return;
+                    if (_skillArcaneShield == null) return;
+                    Br.status.StatusInjectData(GenChange.Remove, _skillArcaneShield.buffEffect[0]);
+                    _spellArcaneShield.visual.StopDefault();
+                    _canArcaneShield = false;
+                    StartCoroutine(arcaneShieldWait());
+                    return;
+        
+                    IEnumerator arcaneShieldWait()
+                    {
+                        yield return  new WaitForSeconds(_skillArcaneShield.floatGeneric);
+                        Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.buffEffect[0]);
+                        _spellArcaneShield.visual.PlayDefault();
+                        _canArcaneShield = true;
+                    }
                 }
                 break;
+            
             case CombatEvent.Block:
                 break;
             case CombatEvent.Kill:
@@ -228,7 +228,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
             switch (skill.skillName)
             {
-                case SkillName.MagicMissile:
+                case SkillName.MageBase:
                     List<Transform> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                     if (targetsHoming.Count == 0) return;
 
@@ -247,7 +247,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         int counter = 0;
                         for (int i = 0; i < _numOfObjects; i++)
                         {
-                            SpellMain homing = Instantiate(skill.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                            SpellMain homing = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation, Ga.me.spells.myTransform);
                             homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
                             homing.visual.SetSpawnHeight(spawnPoint.position.y);
                             Transform target = targetsHoming[counter];

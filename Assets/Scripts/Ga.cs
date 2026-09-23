@@ -9,6 +9,11 @@ using UnityEngine.SceneManagement;
 public class Ga : MonoBehaviour
 {
     public static Ga me;
+    
+    public static System.Action OnLevelLoaded;
+    public static System.Action<Brain, GenChange> OnBrainAddRemove;
+    public static System.Action OnUltimateActivated;
+
     [SerializeField] GameObject[] players;
     public CameraRig camRig;
     public Transform parPointers;
@@ -26,7 +31,7 @@ public class Ga : MonoBehaviour
         set
         {
             _levelMan = value;
-            EventBus.OnLevelLoaded?.Invoke();
+            OnLevelLoaded?.Invoke();
         }
     }
     LevelManager _levelMan;

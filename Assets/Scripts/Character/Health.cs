@@ -15,13 +15,13 @@ public class Health: MonoBehaviour, IIniBrain
         {
             _br = value;
             // _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
-             _healthMax = value.character.GetStat(Stats.Health);
+             float healthMax = value.character.GetStat(Stats.Health);
             // _healthBarTransform = _healthBar.transform;
            // _shieldBar = _healthBarTransform.GetChild(0).GetComponent<Image>();
             _numDisplay = Instantiate(Ga.me.numDisplayPrefab, Ga.me.barContainer).GetComponent<TextMeshProUGUI>();
             _numDisplay.text = $"{value.character.GetStat(Stats.Health)}/{value.character.GetStat(Stats.Health)}";
             _numDisplayTransform = _numDisplay.transform;
-            HealthCurrent = _healthMax;
+            HealthCurrent = healthMax;
             _dictPsElements = new Dictionary<Element, ParticleSystem>();
             for (int i = 0; i < psElements.Length; i++)
             {
@@ -43,25 +43,25 @@ public class Health: MonoBehaviour, IIniBrain
     TextMeshProUGUI _numDisplay;
     Transform _numDisplayTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
-    float _timerRegenerate;
-    float HealthCurrent
+    float _timerBars;
+    public float HealthCurrent
     {
         get => _healthCurrent;
-        set
+        private set
         {
             _healthCurrent = value;
-            if (_healthCurrent > _healthMax)  _healthCurrent = _healthMax;
+            float healthMax = Br.character.GetStat(Stats.Health);
+            if (_healthCurrent > healthMax)  _healthCurrent = healthMax;
             // _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
             // _healthBar.fillAmount = _healthCurrent / _healthMax;
-            onHealthChange?.Invoke(_healthCurrent / _healthMax);
-            _numDisplay.text = $"{_healthCurrent}/{_healthMax}";
+            onHealthChange?.Invoke(_healthCurrent / healthMax);
+            _numDisplay.text = $"{_healthCurrent}/{healthMax}";
 
         }
     }
     float _healthCurrent;
-    float _healthMax;
     [SerializeField] UnityEvent<float> onHealthChange;
-    public bool IsAtFullHealth() => HealthCurrent >= _healthMax;
+    public bool IsAtFullHealth() => HealthCurrent >= Br.character.GetStat(Stats.Health);
     float ShieldCurrent
     {
         get => _shieldCurrent;
@@ -76,8 +76,6 @@ public class Health: MonoBehaviour, IIniBrain
     [ShowInInspector, ReadOnly] float _shieldCurrent;
     [ShowInInspector, ReadOnly] float _shieldMax;
     bool IsAtFullShield() => Mathf.Approximately(ShieldCurrent, _shieldMax);
-    float _timerShield;
-    const int CONST_ShieldWaitTime = 3;
     const int CONST_ShieldRegenAmount = 100;
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
@@ -102,16 +100,15 @@ public class Health: MonoBehaviour, IIniBrain
 
     public void HealthInjectData(PassData pd)
     {
-        FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
-        if (pd.canBeBlocked)
+        if (pd.hasManaShield)
         {
-            Br.combat.CheckBlock(out bool blocked, pd.myBrain);
-            if (blocked)
-            {
-                ft.SpawnMe("Blocked!", Color.gold);
-                return;
-            }
+            _shieldMax = pd.manaShieldPoints;
+            ShieldCurrent = _shieldMax;
+            return;
         }
+
+        Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain);
+        FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
         if (pd.canBeDodged)
         {
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
@@ -121,125 +118,101 @@ public class Health: MonoBehaviour, IIniBrain
                 return;
             }
         }
-
-        if (pd.hasDamage)
+        bool blocked = false;
+        if (pd.canBeBlocked)
         {
-            if (Br.status.HasEffect(Status.Effect.Invulnerable))
+            Br.combat.CheckBlock(out blocked, pd.myBrain);
+            if (blocked)
             {
-                ft.SpawnMe("Invulnerable!", Color.brown);
-                return;
+                Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
+                ft.SpawnMe("Blocked!", Color.gold);
             }
-            float totalDamage = 0f;
-            for (int i = 0; i < pd.damagePair.Length(); i++)
+        }
+        if (!blocked && pd.hasDamage)
+        {
+            damageCalculation();
+            Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
+            void damageCalculation()
             {
-                float val = pd.damagePair.GetValue(i);
-                switch (val)
+                if (Br.status.HasEffect(Status.Effect.Invulnerable))
                 {
-                    case < 0: //heal
-                        psHeal.Play();
-                        break;
-                    case > 0:
-                    {
-                        ParticleSystem ps = _dictPsElements[pd.damagePair.GetKey(i)];
-                        if (ps != null) ps.Play();
-                        break;
-                    }
-                }
-                totalDamage += val;
-            }
-            velocityAddition();
-                    
-            float shield = ShieldCurrent;
-            ShieldCurrent -= totalDamage;
-            if (ShieldCurrent <= 0)
-            {
-                HealthCurrent -= (totalDamage - shield);
-                if (HealthCurrent <= 0)
-                {
-                    if (pd.myBrain != null) pd.myBrain.combat.CombatEventRegistered(CombatEvent.Kill, Br);
-                    Death();
+                    ft.SpawnMe("Invulnerable!", Color.brown);
                     return;
                 }
-            }
-            ft.SpawnMe(pd.damagePair);
 
-            void velocityAddition()
-            {
-                if (pd.spellsVelocity.Equals(Vector3.zero)) return;
-                        
-                Vector2 result = Utils.MakeV2(pd.spellsVelocity) - Utils.MakeV2(Br.agent.velocity);
-                float totalDamageDebug = totalDamage;
-                totalDamage *= result.magnitude;
-                print($"Velocity changed damage from {totalDamageDebug} to {totalDamage}");
-            }
-        }
-        if (pd.hasManaShield)
-        {
-            SetShield(pd.manaShieldPoints);
-        }
-        if (pd.hasEffect) //consider moving this to 'Status' component
-        {
-            foreach (BuffEffects effectGroup in pd.effects)
-            {
-                if (effectGroup == null) continue;
-                switch (effectGroup.effect)
+                float totalDamage = 0f;
+                for (int i = 0; i < pd.damagePair.Length(); i++)
                 {
-                    case Status.Effect.InstantKill:
-                        if (HealthCurrent <= effectGroup.data.value * _healthMax * 0.01f)
+                    float val = pd.damagePair.GetValue(i);
+                    switch (val)
+                    {
+                        case < 0: //heal
+                            psHeal.Play();
+                            break;
+                        case > 0:
                         {
-                            print("Executioner");
-                            Death();
-                            return;
+                            ParticleSystem ps = _dictPsElements[pd.damagePair.GetKey(i)];
+                            if (ps != null) ps.Play();
+                            break;
                         }
-                        break;
-                    case Status.Effect.Poisoned:
-                        Br.status.ChangeEffect(GenChange.Add, effectGroup);
-                        break;
+                    }
+                    totalDamage += val;
+                }
+                velocityAddition();
+
+                float shield = ShieldCurrent;
+                ShieldCurrent -= totalDamage;
+                if (ShieldCurrent <= 0)
+                {
+                    HealthCurrent -= (totalDamage - shield);
+                    if (HealthCurrent <= 0)
+                    {
+                        Death(pd.myBrain);
+                        return;
+                    }
+                }
+                ft.SpawnMe(pd.damagePair);
+                return;
+
+                void velocityAddition()
+                {
+                    if (pd.spellsVelocity.Equals(Vector3.zero)) return;
+
+                    Vector2 result = Utils.MakeV2(pd.spellsVelocity) - Utils.MakeV2(Br.agent.velocity);
+                    float totalDamageDebug = totalDamage;
+                    totalDamage *= result.magnitude;
+                    print($"Velocity changed damage from {totalDamageDebug} to {totalDamage}");
                 }
             }
-
         }
 
-        _timerRegenerate = _timerShield = 0f;
-        Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
-        Br.loco.Hit();
-        if (pd.myBrain == null) return;
-        if (Br.myTransform == Ga.me.team.playerTransform) return;
-        if (Br.combat.MyTarget == null)
+        enemyAggro();
+        Br.combat.CombatEventRegistered(CombatEvent.EndGetHit, pd.myBrain);
+        return;
+
+        void enemyAggro()
         {
+            if (pd.myBrain == null) return;
+            if (Br.myTransform == Ga.me.team.playerTransform) return;
+            if (Br.combat.MyTarget != null) return;
             print("UnderAttack");
             Br.combat.MyTarget = pd.myBrain.myTransform;
         }
     }
 
-    void SetShield(float value)
-    {
-        _shieldMax = value;
-        ShieldCurrent = _shieldMax;
-    }
 
     void Update()
     {
+        _timerBars += Time.deltaTime;
+        if (_timerBars < 1f) return;
+        
+        _timerBars = 0f;
         if (!IsAtFullHealth())
         {
-            _timerRegenerate += Time.deltaTime;
-            if (_timerRegenerate >= 1f)
-            {
-                _timerRegenerate = 0f;
-                HealthCurrent += Br.character.GetStat(Stats.RegenerationRate) * 0.01f;
-            }
+            HealthCurrent += Br.character.GetStat(Stats.RegenerationRate) * 0.01f;
+            return;
         }
-        else _timerRegenerate = 0f;
-
-        if (!IsAtFullShield())
-        {
-            _timerShield += Time.deltaTime;
-            if (_timerShield >= CONST_ShieldWaitTime)
-            {
-                ShieldCurrent += CONST_ShieldRegenAmount * Time.deltaTime;
-            }
-        }
-        else _timerShield = 0f;
+        if (!IsAtFullShield()) ShieldCurrent += CONST_ShieldRegenAmount * Time.deltaTime;
     }
 
     void LateUpdate()
@@ -284,8 +257,9 @@ public class Health: MonoBehaviour, IIniBrain
 
 
 
-    void Death()
+    public void Death(Brain brainThatKilledMe)
     {
+        if (brainThatKilledMe != null) brainThatKilledMe.combat.CombatEventRegistered(CombatEvent.Kill, Br);
         Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
         ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
         ps.Play();
