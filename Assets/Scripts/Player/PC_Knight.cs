@@ -20,6 +20,9 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     Brain _br;
     [SerializeField] Transform myShield;
     PlayerCombat _playerCombat;
+    float _stunAttacksDurationExtra; //applied on every stun effect 
+    SoSkill _skillSeismicAnchorage;
+    float _timerSeismicAnchorage;
     float _crescendoStrikeIncrease = 1f;
     BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
     MyDuo<Element, float> _elementStrikesIncrease;
@@ -40,6 +43,32 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         GuardiansValor();
     }
 
+    void Update()
+    {
+        seismicAnchorage();
+        return;
+        
+        void seismicAnchorage()
+        {
+            if (_skillSeismicAnchorage is null) return;
+            _timerSeismicAnchorage += Time.deltaTime;
+            if (Br.loco.IsMoving) _timerSeismicAnchorage = 0f;
+            if (_timerSeismicAnchorage < _skillSeismicAnchorage.valueGeneric) return;
+            _timerSeismicAnchorage = 0f;
+            SpellMain sa = Instantiate(_skillSeismicAnchorage.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+            PassData passData = new PassData()
+            {
+                myBrain = Br,
+                hasEffect = true,
+                effects = new BuffEffects[1]
+                {
+                    new BuffEffects(Status.Effect.Stunned, 1f, Ga.me.gameData.stunDurationBase + _stunAttacksDurationExtra) //value is increased by bonus from blunt weapon, default is 1
+                }
+            };
+            sa.InitializeMe(Br, passData);
+        }
+    }
+
 
     public void SkillIncreaseCallback(SoSkill newSkill)
     {
@@ -57,6 +86,16 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             case SkillName.IronMirror:
                 ironMirror();
                 break;
+            case SkillName.HeavyImpact:
+                Ga.me.gameData.enStunDamageModifier = newSkill.valueGeneric;
+                break;
+            case SkillName.SkullCracker:
+                _stunAttacksDurationExtra = newSkill.valueGeneric;
+                break;
+            case SkillName.SeismicAnchorage:
+                _skillSeismicAnchorage = newSkill;
+                break;
+                
         }
         return;
 
@@ -86,7 +125,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         if (!Br.skills.TryGetFromGroup(SkillName.GuardiansMight, out SoSkill skill)) return;
         Br.character.CharacterInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardMight));
 
-        _buffStatsGuardMight = new BuffStats(Stats.DamPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
+        _buffStatsGuardMight = new BuffStats(Stats.DamPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.valueGeneric + 1f);
         Br.character.CharacterInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardMight));
     }
     void GuardiansValor()
@@ -94,13 +133,14 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         if (!Br.skills.TryGetFromGroup(SkillName.GuardiansValor, out SoSkill skill)) return;
         Br.character.CharacterInjectData(new StatsGroup(GenChange.Remove, _buffStatsGuardValor));
 
-        _buffStatsGuardValor = new BuffStats(Stats.ResistPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.floatGeneric + 1f);
+        _buffStatsGuardValor = new BuffStats(Stats.ResistPhysical, Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.valueGeneric + 1f);
         Br.character.CharacterInjectData(new StatsGroup(GenChange.Add, BuffType.Percentage, _buffStatsGuardValor));
     }
     #endregion
 
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage();
         if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _elementStrikesIncrease);
@@ -127,7 +167,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         StatsGroup armorBreaker = null;
         if (Br.skills.TryGetFromGroup(SkillName.ArmorBreaker, out SoSkill skillArmorBreak))
         {
-            float chance = skillArmorBreak.floatGeneric;
+            float chance = skillArmorBreak.valueGeneric;
             if (chance < Random.value)
             {
                 addArmorBreaker = true;
@@ -161,7 +201,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         _crescendoStrikeIncrease = 1f;
         _elementStrikesIncrease = null;
     }
-
 
     public void AnimEv_UltimateCallback(int num = 0)
     {
@@ -281,7 +320,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 }
                 void concussiveWave()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill sk) || Random.value > sk.floatGeneric) return;
+                    if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill sk) || Random.value > sk.valueGeneric) return;
                     PassData container = new PassData()
                     {
                         myBrain = Br,
@@ -298,7 +337,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 spectralRicochet();
                 void spectralRicochet()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk) || Random.value > sk.floatGeneric) return;
+                    if (!Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk) || Random.value > sk.valueGeneric) return;
                     Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.position);
                     int ricochet = Br.character.GetStat(Stats.Ricochet);
                     PassData containerThrow = new PassData()
@@ -318,23 +357,16 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 }
                 break;
             case CombatEvent.BeginGetHit:
-                if (otherBrain is not null) advanceGuardBegin();
-                void advanceGuardBegin()
-                {
-                    if (!Br.skills.TryGetFromGroup(SkillName.AdvanceGuard, out SoSkill skill)) return;
-                    if (!Br.loco.IsMoving) return;
-                    if (!Combat.IsFlanked(Br.myTransform, otherBrain.myTransform)) return;
-                    _canAdvanceGuard = true;
-                    Br.character.CharacterInjectData(skill.stats[0]);
-                }
+                advanceGuard(true);
                 break;
             case CombatEvent.GetHit:
                 spikedRim();
+                advanceGuard(false);
                 void spikedRim()
                 {
                     if (!(otherBrain is not null && specialty == SpellMain.Specialty.Melee)) return;
                     if (!Br.skills.TryGetFromGroup(SkillName.SpikedRim, out SoSkill skill)) return;
-                    float damageValue = Br.character.GetStat(Stats.ResistPhysical) * skill.floatGeneric;
+                    float damageValue = Br.character.GetStat(Stats.ResistPhysical) * skill.valueGeneric;
                     if (Mathf.Approximately(damageValue, 0f)) return;
                     PassData passData = new PassData()
                     {
@@ -342,13 +374,11 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         hasDamage = true,
                         damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1] { damageValue })
                     };
-                    otherBrain.health.HealthInjectData(passData);
+                    otherBrain.health.HealthInjectDataDamage(passData, out _);
                 }
-                void advanceGuardHit()
-                {
-                    if (!_canAdvanceGuard) return;
-                    _canAdvanceGuard = false;
-                }
+                break;
+            case CombatEvent.EndGetHit:
+                advanceGuard(false);
                 break;
             case CombatEvent.Block:
                 shockwaveBlock();
@@ -373,6 +403,26 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     Br.character.CharacterInjectData(sk.stats[0]);
                 }
                 break;
+            
+            
+                void advanceGuard(bool beginPhase)
+                {
+                    if (otherBrain is null) return;
+                    if (!Br.skills.TryGetFromGroup(SkillName.AdvanceGuard, out SoSkill skill)) return;
+                    if (beginPhase)
+                    {
+                        if (!Br.loco.IsMoving) return;
+                        if (Combat.IsFlanked(Br.myTransform, otherBrain.myTransform)) return;
+                        _canAdvanceGuard = true;
+                        Br.character.CharacterInjectData(skill.stats[0]);
+                        return;
+                    }
+                    if (!_canAdvanceGuard) return;
+                    _canAdvanceGuard = false;
+                    StatsGroup removeBuff = new StatsGroup(GenChange.Remove, skill.stats[0].buffStats);
+                    Br.character.CharacterInjectData(removeBuff);
+                }
+
         }
 
     }

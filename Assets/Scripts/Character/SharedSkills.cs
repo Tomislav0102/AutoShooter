@@ -100,7 +100,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             _lastStandCooldownTimerDone = false;
             _lastStandHealthAboveTreshold = false;
             Br.status.StatusInjectData(GenChange.Add, skill.buffEffect[0]);
-            StartCoroutine(delay(skill.floatGeneric));
+            StartCoroutine(delay(skill.valueGeneric));
             return;
 
             IEnumerator delay(float time)

@@ -97,16 +97,14 @@ public class Health: MonoBehaviour, IIniBrain
         return false;
     }
 
-
-    public void HealthInjectData(PassData pd)
+    public void HealthInjectDataManaShield(int val)
     {
-        if (pd.hasManaShield)
-        {
-            _shieldMax = pd.manaShieldPoints;
-            ShieldCurrent = _shieldMax;
-            return;
-        }
-
+        _shieldMax = val;
+        ShieldCurrent = _shieldMax;
+    }
+    public void HealthInjectDataDamage(PassData pd, out bool hitDidDamage)
+    {
+        hitDidDamage = false;
         Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain);
         FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
         if (pd.canBeDodged)
@@ -130,20 +128,23 @@ public class Health: MonoBehaviour, IIniBrain
         }
         if (!blocked && pd.hasDamage)
         {
-            damageCalculation();
+            damageCalculation(out hitDidDamage);
             Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
-            void damageCalculation()
+            void damageCalculation(out bool hit)
             {
                 if (Br.status.HasEffect(Status.Effect.Invulnerable))
                 {
                     ft.SpawnMe("Invulnerable!", Color.brown);
+                    hit = false;
                     return;
                 }
+                hit = true;
 
                 float totalDamage = 0f;
-                for (int i = 0; i < pd.damagePair.Length(); i++)
+                MyDuo<Element, float> damageFinal = damageModified(pd.damagePair);
+                for (int i = 0; i < damageFinal.Length(); i++)
                 {
-                    float val = pd.damagePair.GetValue(i);
+                    float val = damageFinal.GetValue(i);
                     switch (val)
                     {
                         case < 0: //heal
@@ -151,7 +152,7 @@ public class Health: MonoBehaviour, IIniBrain
                             break;
                         case > 0:
                         {
-                            ParticleSystem ps = _dictPsElements[pd.damagePair.GetKey(i)];
+                            ParticleSystem ps = _dictPsElements[damageFinal.GetKey(i)];
                             if (ps != null) ps.Play();
                             break;
                         }
@@ -171,9 +172,24 @@ public class Health: MonoBehaviour, IIniBrain
                         return;
                     }
                 }
-                ft.SpawnMe(pd.damagePair);
+                ft.SpawnMe(damageFinal);
                 return;
 
+                MyDuo<Element, float> damageModified(MyDuo<Element, float> damageRaw)
+                {
+                    float enStunMod = (Br.Faction == Faction.BadGuys && Br.status.HasEffect(Status.Effect.Stunned)) ? Ga.me.gameData.enStunDamageModifier : 1f;
+                    MyDuo<Element, float> finalPair = new MyDuo<Element, float>();
+                    for (int i = 0; i < damageRaw.Length(); i++)
+                    {
+                        Element el = damageRaw.GetKey(i);
+                        float val = damageRaw.GetValue(i) * 
+                                    (1 - 0.01f * Br.character.GetStat(Character.StatByElement(el, false)) *
+                                        enStunMod);
+                        if (val < 0f) val = 0f;
+                        finalPair.Add(el, val);
+                    }
+                    return finalPair;
+                }
                 void velocityAddition()
                 {
                     if (pd.spellsVelocity.Equals(Vector3.zero)) return;

@@ -42,7 +42,7 @@ public class Skills : MonoBehaviour, IIniBrain
             //debugs
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.AdvanceGuard);
+                OvrLevelSpecificSkill(SkillName.SeismicAnchorage);
             }
             if (useMage)
             {

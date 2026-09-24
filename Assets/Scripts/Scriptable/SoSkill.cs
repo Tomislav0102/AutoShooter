@@ -39,14 +39,10 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(ShowHasExtra))] public PassData passData;
     
     [Title("Generic")]
-    [InfoBox("Special use cases, should be used sparingly")]
+    [InfoBox("Special use cases. Array is used when more that one value is needed.")]
     public bool hasGeneric; 
-    [ShowIf(nameof(hasGeneric))] public int numGeneric;
-    [ShowIf(nameof(hasGeneric))] public float floatGeneric;
-   // [ShowIf(nameof(hasGeneric))] public string stringGeneric;
-    // [ShowIf(nameof(hasGeneric))] public int[] numArray;
-    // [ShowIf(nameof(hasGeneric))] public float[] floatArray;
-    // [ShowIf(nameof(hasGeneric))] public string[] stringArray;
+    [FormerlySerializedAs("floatGeneric")] [ShowIf(nameof(hasGeneric))] public float valueGeneric;
+    [ShowIf(nameof(hasGeneric))] public float[] valueGenericArray;
     
     public enum HasSpell { None, Spell, SpellGroup }
 }

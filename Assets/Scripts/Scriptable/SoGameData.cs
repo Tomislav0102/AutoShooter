@@ -8,11 +8,12 @@ public class SoGameData : ScriptableObject
 {
     [Title("Dynamic")]
     public bool showParticles = true;
-    public int level;
+    public float enStunDamageModifier = 1f; //modified by Heavy Impact skill 
     [Title("General")]
     public float rofSpells;
     public float dashTime = 0.2f;
     public int dashPower = 50;
+    public int stunDurationBase = 3;
     [Title("Navigation")]
     public float agentRotSpeed;
     

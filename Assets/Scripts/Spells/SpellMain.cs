@@ -250,14 +250,26 @@ public class SpellMain : MonoBehaviour
     {
         if (!(targetGeneric.TryGetComponent(out targetsBrain) &&
               Utils.CanTargetFaction(OwnersBrain.Faction, targetsBrain.Faction, myFactionTarget))) return;
-
         if (hasReflected(targetsBrain)) return;
         if (targetsBrain.health.IsImmuneToSpell(id)) return;
 
-        if (pd.hasDamage || pd.hasManaShield || pd.hasEffect)
+        if (pd.hasManaShield)  targetsBrain.health.HealthInjectDataManaShield(pd.manaShieldPoints);
+        if (pd.hasDash) targetsBrain.loco.LocoInjectDataDash(pd.dashPower, pd.dashDirection);
+        
+        bool didDamage = !pd.hasDamage;
+        if (pd.hasDamage)
         {
             // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-            targetsBrain.health.HealthInjectData(pd);
+            targetsBrain.health.HealthInjectDataDamage(pd, out didDamage);
+        }
+        if (!didDamage) return;
+        
+        if (pd.hasEffect)
+        {
+            for (int i = 0; i < pd.effects.Length; i++)
+            {
+                targetsBrain.status.StatusInjectData(GenChange.Add, pd.effects[i]);
+            }
         }
         if (pd.hasStats)
         {
@@ -266,10 +278,7 @@ public class SpellMain : MonoBehaviour
                 targetsBrain.character.CharacterInjectData(pd.stats[i]);
             }
         }
-        if (pd.hasKnockback || pd.hasDash)
-        {
-            targetsBrain.loco.LocoInjectData(pd);
-        }
+        if (pd.hasKnockback)  targetsBrain.loco.LocoInjectDataKnockback(pd.myBrain.myTransform.position, pd.knockbackPower, pd.knockbackDirection);
         return;
 
         bool hasReflected(Brain brain)

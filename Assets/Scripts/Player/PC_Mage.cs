@@ -203,7 +203,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         
                     IEnumerator arcaneShieldWait()
                     {
-                        yield return  new WaitForSeconds(_skillArcaneShield.floatGeneric);
+                        yield return  new WaitForSeconds(_skillArcaneShield.valueGeneric);
                         Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.buffEffect[0]);
                         _spellArcaneShield.visual.PlayDefault();
                         _canArcaneShield = true;

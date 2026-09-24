@@ -8,9 +8,11 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
+    
     [Button]
     void AddS()
     {
+       
     }
     [Button]
     void Remove()

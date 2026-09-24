@@ -122,60 +122,57 @@ public class Loco : MonoBehaviour, IIniBrain
         Br.myTransform.rotation = Quaternion.RotateTowards(Br.myTransform.rotation, rot, Ga.me.gameData.agentRotSpeed * Time.deltaTime);
     }
 
-    public void LocoInjectData(PassData pd)
+    public void LocoInjectDataDash(int power, Vector2 direction)
     {
-        if (pd.hasKnockback)
-        {
-            Vector3 dirKnockback;
-            if (pd.knockbackDirection.Equals(Vector2.zero)) dirKnockback = Utils.Direction(pd.myBrain.myTransform.position, Br.myTransform.position);
-            else dirKnockback = Utils.MakeV3(pd.knockbackDirection);
-            pushMethod(dirKnockback, MoveOverrideType.KnockBack, pd.knockbackPower);
-        }
-        if (pd.hasDash)
-        {
-            Vector3 dashDirection = pd.dashDirection.Equals(Vector2.zero) ? Br.myTransform.forward : Utils.MakeV3(pd.dashDirection);
-            pushMethod(dashDirection, MoveOverrideType.Dash, pd.dashPower);
+        Vector3 dashDirection = direction.Equals(Vector2.zero) ? Br.myTransform.forward : Utils.MakeV3(direction);
+        PushMethod(dashDirection, MoveOverrideType.Dash, power);
+    }
 
+    public void LocoInjectDataKnockback(Vector3 center, int power, Vector2 direction)
+    {
+        Vector3 dirKnockback;
+        if (direction.Equals(Vector2.zero)) dirKnockback = Utils.Direction(center, Br.myTransform.position);
+        else dirKnockback = Utils.MakeV3(direction);
+       PushMethod(dirKnockback, MoveOverrideType.KnockBack, power);
+    }
+    
+    void PushMethod(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
+    {
+        float timer = Ga.me.gameData.dashTime;
+        switch (moveOverrideType)
+        {
+            case MoveOverrideType.KnockBack:
+                if (_currentMoveOverride == MoveOverrideType.Dash) return;
+                intensity -= knockBackResistance;
+                if (intensity <= 0) return;
+                break;
         }
+        _currentMoveOverride =  moveOverrideType;
+            
+        if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
+        _pushCoroutine = StartCoroutine(pushDelay());
         return;
-        
-        void pushMethod(Vector3 dir, MoveOverrideType moveOverrideType = MoveOverrideType.KnockBack, int intensity = 1)
-        {
-            float timer = Ga.me.gameData.dashTime;
-            switch (moveOverrideType)
-            {
-                case MoveOverrideType.KnockBack:
-                    if (_currentMoveOverride == MoveOverrideType.Dash) return;
-                    intensity -= knockBackResistance;
-                    if (intensity <= 0) return;
-                    break;
-            }
-            _currentMoveOverride =  moveOverrideType;
-            
-            if (_pushCoroutine != null) StopCoroutine(_pushCoroutine);
-            _pushCoroutine = StartCoroutine(pushDelay());
-            return;
             
 
-            IEnumerator pushDelay()
+        IEnumerator pushDelay()
+        {
+            OvrMotion = true;
+            Br.agent.acceleration = 10;
+            Br.agent.velocity = intensity * dir;
+            _avoidancePriorityDefault = Br.agent.avoidancePriority;
+            if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = 40;
+            while (timer > 0f)
             {
-                OvrMotion = true;
-                Br.agent.acceleration = 10;
-                Br.agent.velocity = intensity * dir;
-                _avoidancePriorityDefault = Br.agent.avoidancePriority;
-                if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = 40;
-                while (timer > 0f)
-                {
-                    timer -= Time.deltaTime;
-                    yield return null;
-                }
-                Br.agent.acceleration = 10000;
-                OvrMotion = false;
-                if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = _avoidancePriorityDefault;
-                _currentMoveOverride = MoveOverrideType.None;
+                timer -= Time.deltaTime;
+                yield return null;
             }
+            Br.agent.acceleration = 10000;
+            OvrMotion = false;
+            if (_currentMoveOverride == MoveOverrideType.Dash) Br.agent.avoidancePriority = _avoidancePriorityDefault;
+            _currentMoveOverride = MoveOverrideType.None;
         }
     }
+
     #endregion
 
 

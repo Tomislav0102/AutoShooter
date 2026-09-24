@@ -59,7 +59,7 @@ public enum Stats
     Dodge,
     Health,
     RegenerationRate, //hp increase (divided by 100) per second
-    ResistPhysical,
+    ResistPhysical, //armor
     ResistFire,
     ResistIce,
     ResistElectricity,
@@ -84,6 +84,7 @@ public enum Stats
     ReflexSpells, //all spells except melee and projectiles. If spell can't be reflected that is managed by variable 'reflexCount' in 'SpellMain'
     ReflectMelee, //melee weapons
     ReflectProjectiles, //ranged weapons (not spells), like bows, crossbows, etc...
+    ResistEffects, //resist stun, blind, fumble, charm... (enum Status.Effect)
 }
 
 public enum SkillName

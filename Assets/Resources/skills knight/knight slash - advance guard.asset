@@ -64,5 +64,5 @@ MonoBehaviour:
     hasEffect: 0
     effects: []
   hasGeneric: 0
-  numGeneric: 0
-  floatGeneric: 0
+  valueGeneric: 0
+  valueGenericArray: []

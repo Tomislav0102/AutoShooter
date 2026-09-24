@@ -63,7 +63,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         return damage;
     }
 
-    Stats StatByElement(Element element, bool isDamage = true)
+    public static Stats StatByElement(Element element, bool isDamage = true)
     {
         switch (element)
         {

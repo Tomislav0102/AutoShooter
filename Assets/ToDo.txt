@@ -14,6 +14,7 @@ SPELLS
 
 
 KNIGHT
+Seismic Anchorage skill - needs animation
 Fix stab animation (animator is ready)
 Strikes/hits skills should have visual element for feedback to player
 
@@ -32,16 +33,18 @@ Cannon is rotating while idle, fix 'OvrOrientation' (related to 'isOrientationAl
 GENERAL
 Magnet feature - development paused for now
 Knockback - scale for knockback effect is 0-99, should be the same for resistance
-Blocking can activate from front side (180 arc front)
-Dodging can activate from both sides
-Sneak attack is from back side (180 arc back)
+Orientation and special attacks - Blocking can activate from front side (180 arc front)
+                                  Dodging can activate from both sides
+                                  Sneak attack is from back side (180 arc back)
 Physical Resistance = Armor
 Nullify spell - only some monsters have it (e.g. Golem). Its array of 'SpellMain' in 'Health' component.
-                Skill 'Arcane Shield' can work in 'Health' component.
+Dynamic values in GameData - (e.g. 'level', 'enStunDamageModifier') can be in ScriptableObject but need to be reset after run (they will be reset automatically when Application.Quit())
 
 KNIGHT
 Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.
-
+Blunt weapons - Higher damage, lower speed and some stun chance (compared to slashing)
+                Every weapon should have stun chance. Blunt skills don't give it (except one), they just enhance it
+                
 MAGE
 Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword his meteor strike damage increases? 
 

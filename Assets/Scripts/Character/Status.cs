@@ -95,7 +95,7 @@ public class Status : MonoBehaviour, IIniBrain
                     hasDamage = true,
                     damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.data.value })
                 };
-                Br.health.HealthInjectData(passData);
+                Br.health.HealthInjectDataDamage(passData, out _);
             }
         }
         bool doRefresh = false;

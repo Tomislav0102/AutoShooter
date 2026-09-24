@@ -71,6 +71,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
     
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)
@@ -94,7 +95,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                     hasDamage = true,
                     damagePair = Br.character.GetDamage(),
                     // hasEffect =  true,
-                    // effects = new BuffEffects[1] { new BuffEffects(Status.Effect.Poisoned, 1, 3) }
+                    // effects = new BuffEffects[1] { new BuffEffects(Status.Effect.Poisoned, 1, 20) }
                 };
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 

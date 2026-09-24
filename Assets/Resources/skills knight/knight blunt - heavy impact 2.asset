@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight blunt - heavy impact
+  m_Name: knight blunt - heavy impact 2
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
   description: Stunned enemies take X% more damage from all sources
   levelUpEffect: Increases the damage bonus percentage
   skillName: 40
   skillType: 1
-  level: 0
+  level: 2
   hasStat: 0
   stats:
   - change: 0
@@ -72,5 +72,5 @@ MonoBehaviour:
     hasEffect: 0
     effects: []
   hasGeneric: 1
-  valueGeneric: 1.5
+  valueGeneric: 2.5
   valueGenericArray: []
