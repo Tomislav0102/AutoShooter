@@ -147,7 +147,16 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     int _numOfObjects;
     public List<SoSkill> _allSkills = new List<SoSkill>();
     
-    public void SkillIncreaseCallback(SoSkill newSkill)
+    void OnEnable()
+    {
+        Skills.OnSkillIncrease += SkillIncreaseCallback;
+    }
+    void OnDisable()
+    {
+        Skills.OnSkillIncrease -= SkillIncreaseCallback;
+    }
+
+    void SkillIncreaseCallback(SoSkill newSkill)
     {
         _allSkills.Add(newSkill);
         setEngageRange();

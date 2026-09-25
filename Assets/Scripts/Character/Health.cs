@@ -18,7 +18,7 @@ public class Health: MonoBehaviour, IIniBrain
              float healthMax = value.character.GetStat(Stats.Health);
             // _healthBarTransform = _healthBar.transform;
            // _shieldBar = _healthBarTransform.GetChild(0).GetComponent<Image>();
-            _numDisplay = Instantiate(Ga.me.numDisplayPrefab, Ga.me.barContainer).GetComponent<TextMeshProUGUI>();
+            _numDisplay = Instantiate(Ga.me.uiManager.numDisplayPrefab, Ga.me.uiManager.barContainer).GetComponent<TextMeshProUGUI>();
             _numDisplay.text = $"{value.character.GetStat(Stats.Health)}/{value.character.GetStat(Stats.Health)}";
             _numDisplayTransform = _numDisplay.transform;
             HealthCurrent = healthMax;
@@ -28,7 +28,7 @@ public class Health: MonoBehaviour, IIniBrain
                 _dictPsElements.Add((Element)i, psElements[i]);
             }
             _screenCenter = new Vector3(Screen.width, Screen.height, 0) * 0.5f;
-            _pointer = Instantiate(Ga.me.offScreenPointerPrefab, Ga.me.parPointers);
+            _pointer = Instantiate(Ga.me.uiManager.offScreenPointerPrefab, Ga.me.uiManager.pointersContainer);
             _pointerImage = _pointer.GetComponent<Image>();
         }
     }
@@ -60,6 +60,7 @@ public class Health: MonoBehaviour, IIniBrain
         }
     }
     float _healthCurrent;
+    [ReadOnly] public int life;
     [SerializeField] UnityEvent<float> onHealthChange;
     public bool IsAtFullHealth() => HealthCurrent >= Br.character.GetStat(Stats.Health);
     float ShieldCurrent
@@ -89,7 +90,7 @@ public class Health: MonoBehaviour, IIniBrain
         {
             if (spellId == immuneSpells[i].id)
             {
-                FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
+                FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
                 ft.SpawnMe("Immune", Color.deepPink);
                 return true;
             }
@@ -106,7 +107,7 @@ public class Health: MonoBehaviour, IIniBrain
     {
         hitDidDamage = false;
         Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain);
-        FloatingText ft = Instantiate(Ga.me.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.floatingContainer);
+        FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
         if (pd.canBeDodged)
         {
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
@@ -276,13 +277,20 @@ public class Health: MonoBehaviour, IIniBrain
     public void Death(Brain brainThatKilledMe)
     {
         if (brainThatKilledMe != null) brainThatKilledMe.combat.CombatEventRegistered(CombatEvent.Kill, Br);
-        Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
-        ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
-        ps.Play();
-        Ga.me.team.Death(Br);
-       // Destroy(_healthBar.gameObject);
-        Destroy(_pointer.gameObject);
-        Destroy(Br.gameObject);
+
+        if (life <= 0)
+        {
+            Quaternion rot  = Quaternion.LookRotation(Br.myTransform.forward) * Quaternion.Euler(new Vector3(-90f, 0f, 0f));
+            ParticleSystem ps = Instantiate(Ga.me.psDeath, Br.myTransform.position, rot,Ga.me.transform);
+            ps.Play();
+            Ga.me.team.Death(Br);
+           // Destroy(_healthBar.gameObject);
+            Destroy(_pointer.gameObject);
+            Destroy(Br.gameObject);
+            return;
+        }
+        life--;
+        print($"Extra life saved you, {life} lives remaining");
     }
 
 }

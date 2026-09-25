@@ -17,9 +17,17 @@ public class SharedSkills : MonoBehaviour, IIniBrain
     bool _lastStandCooldownTimerDone = true;
     bool _lastStandHealthAboveTreshold = true;
     #endregion
-    
 
-    public void SkillIncreaseCallback(SoSkill newSkill)
+
+    void OnEnable()
+    {
+        Skills.OnSkillIncrease += SkillIncreaseCallback;
+    }
+    void OnDisable()
+    {
+        Skills.OnSkillIncrease -= SkillIncreaseCallback;
+    }
+    void SkillIncreaseCallback(SoSkill newSkill)
     {
         switch (newSkill.skillName)
         {
@@ -43,6 +51,14 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                 break;
             case SkillName.Enlarge:
                 SimpleStatSkillApply(SkillName.Enlarge);
+                break;
+            case SkillName.ExtraLife:
+                Br.health.life++;
+                break;
+            case SkillName.ExtraSkillChoice:
+                BuffStats buffStats = new BuffStats(Stats.ExtraSkillChoice, 1);
+                StatsGroup sg = new StatsGroup(GenChange.Add, BuffType.Added, buffStats);
+                Br.character.CharacterInjectData(sg);
                 break;
         }
     }

@@ -5323,7 +5323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3666466173174253248, guid: d2eccf2d74919f8498fd7926972a7f16, type: 3}
       propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5633,7 +5633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   animAttackType: 0
   engageRange: 10
-  ultimateCooldownTime: 2
   playerLoco: {fileID: 18118311837547947}
 --- !u!114 &4887120585361979903 stripped
 MonoBehaviour:

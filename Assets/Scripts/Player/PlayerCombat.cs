@@ -11,7 +11,6 @@ public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
         set
         {
             _br = value;
-            Ga.me.ultimateUi.InitializeMe(ultimateCooldownTime);
         }
     }
     Brain _br;
@@ -33,7 +32,6 @@ public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
 
     public AnimAttackType animAttackType;
     public int engageRange = 10;
-    [SerializeField] float ultimateCooldownTime;
     [SerializeField] PlayerLoco playerLoco;
 
 

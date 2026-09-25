@@ -12,7 +12,8 @@ public enum GenDistance { Closest, Furthest, Middle, Random }
 public enum GenTarget { Self, Other }
 #endregion
 
-public enum BuffType { Added, Percentage }
+public enum PanelType { Game, Main, Skills, Character, Inventory, LevelUp, Map, Encyclopedia, Options }
+public enum BuffType { Added, Percentage, Set }
 public enum WeaponType { Slash, Blunt, Pierce }
 
 
@@ -84,6 +85,7 @@ public enum Stats
     ReflexSpells, //all spells except melee and projectiles. If spell can't be reflected that is managed by variable 'reflexCount' in 'SpellMain'
     ReflectMelee, //melee weapons
     ReflectProjectiles, //ranged weapons (not spells), like bows, crossbows, etc...
+    ExtraSkillChoice, //default is 3, this number adds to it 
     ResistEffects, //resist stun, blind, fumble, charm... (enum Status.Effect)
 }
 
@@ -108,7 +110,7 @@ public enum SkillName
     Dwarf,
     FreshStart,
     Riposte,
-    Sh00,
+    ExtraSkillChoice,
     Sh01,
     Sh02,
     Sh03,

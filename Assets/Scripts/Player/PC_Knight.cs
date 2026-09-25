@@ -32,10 +32,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     void OnEnable()
     {
         Ga.OnBrainAddRemove += CallEv_OnBrainAddRemove;
+        Skills.OnSkillIncrease += SkillIncreaseCallback;
     }
     void OnDisable()
     {
         Ga.OnBrainAddRemove -= CallEv_OnBrainAddRemove;
+        Skills.OnSkillIncrease -= SkillIncreaseCallback;
     }
     void CallEv_OnBrainAddRemove(Brain brain, GenChange change)
     {
@@ -70,7 +72,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     }
 
 
-    public void SkillIncreaseCallback(SoSkill newSkill)
+    void SkillIncreaseCallback(SoSkill newSkill)
     {
         switch (newSkill.skillName)
         {
@@ -95,6 +97,13 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             case SkillName.SeismicAnchorage:
                 _skillSeismicAnchorage = newSkill;
                 break;
+            
+            case SkillName.IronFortress: //ultimate 1
+            case SkillName.ConcussiveSurge: //ultimate 2
+                Br.skills.myUltimate = newSkill;
+                Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
+                break;
+
                 
         }
         return;
@@ -204,15 +213,17 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     public void AnimEv_UltimateCallback(int num = 0)
     {
-        // healSpell();
-        dashSpell();
-        return;
-
-        void dashSpell()
+        if (Br.skills.myUltimate is null) return;
+        switch (Br.skills.myUltimate.skillName)
         {
-            MyDuo<Element, float> totalDamage = Br.character.GetDamage();
-            SpellGroup.ComboDash(Br, totalDamage);
+            case SkillName.IronFortress: 
+                break;
+            case SkillName.ConcussiveSurge:
+                MyDuo<Element, float> totalDamage = Br.character.GetDamage();
+                SpellGroup.ComboDash(Br, totalDamage);
+                break;
         }
+
         void healSpell()
         {
             SpellMain heal = Instantiate(Ga.me.spells.heal, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);

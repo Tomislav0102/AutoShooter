@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
 
 public class Skills : MonoBehaviour, IIniBrain
 {
-
+    public static System.Action<SoSkill> OnSkillIncrease;
     public Brain Br
     {
         get => _br;
@@ -70,11 +69,10 @@ public class Skills : MonoBehaviour, IIniBrain
     Brain _br;
 
     [SerializeField] SoSkill[] replacements;
-    public SoSkill myBasic;
+    public SoSkill myBasic, myUltimate;
 
     [SerializeField] bool useShared, useKnight, useMage, useArcher;
     [ShowInInspector, ReadOnly] Group[] _group;
-    [SerializeField] UnityEvent<SoSkill> skillIncreaseEv;
     
     
     #region DEBUG
@@ -90,13 +88,16 @@ public class Skills : MonoBehaviour, IIniBrain
         }
     }
     [Button]
-    public void LevelUpNormal()
+    public void SelectSkillsToLevel()
     {
         HashSet<SoSkill> skills = new HashSet<SoSkill>();
 
         foreach (Group g in _group)
         {
             if (!g.canAcquire) continue;
+            if (myUltimate is not null &&
+                g.MySkill().skillType == SkillType.Ultimate && 
+                g.skillName != myUltimate.skillName) continue;
             if (g.CanLevel(out SoSkill nextLevelSkill)) skills.Add(nextLevelSkill);
         }
 
@@ -106,8 +107,8 @@ public class Skills : MonoBehaviour, IIniBrain
             tempSkills.Add(s);
         }
         tempSkills = Utils.RandomListByType(tempSkills);
-        SoSkill[] chosenSkills = new SoSkill[3];
-        for (int i = 0; i < 3; i++)
+        SoSkill[] chosenSkills = new SoSkill[3 + Br.character.GetStat(Stats.ExtraSkillChoice)];
+        for (int i = 0; i < chosenSkills.Length; i++)
         {
             if (tempSkills.Count > i)
             {
@@ -116,7 +117,7 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             chosenSkills[i] = replacements[Random.Range(0, replacements.Length)];
         }
-        Ga.me.InjectSkills(chosenSkills);
+        Ga.me.uiManager.InjectSkills(chosenSkills);
     }
     #endregion
 
@@ -134,28 +135,27 @@ public class Skills : MonoBehaviour, IIniBrain
         IEnumerator delay(Group g)
         {
             yield return null;
-            skillIncreaseEv.Invoke(g.MySkill());
+            OnSkillIncrease?.Invoke(g.MySkill());
         }
     }
     public void SkillIncrease(SkillName skillName)
     {
         if (skillName == SkillName.ReplacementGold)
         {
-            skillIncreaseEv.Invoke(replacements[0]);
+            OnSkillIncrease?.Invoke(replacements[0]);
             return;
         }
         if (skillName == SkillName.ReplacementHeal)
         {
-            skillIncreaseEv.Invoke(replacements[1]);
+            OnSkillIncrease?.Invoke(replacements[1]);
             return;
         }
         foreach (Group g in _group)
         {
             if (g.skillName != skillName) continue;
             if (!g.CanLevel(out _)) return;
-            print(1);
             g.levelCurrent++;
-            skillIncreaseEv.Invoke(g.MySkill());
+            OnSkillIncrease?.Invoke(g.MySkill());
             break;
         }
     }
@@ -195,11 +195,12 @@ public class Skills : MonoBehaviour, IIniBrain
 
     public bool TryGetFromGroup(SkillName skillName, out SoSkill skill)
     {
+        skill = null;
         foreach (Group item in _group)
         {
             if (item.skillName != skillName) continue;
-            if (!item.canAcquire) continue;
-            if (item.levelCurrent < 0) continue;
+            if (!item.canAcquire) return false;
+            if (item.levelCurrent < 0) return false;
             skill = item.MySkill();
             return true;
         }

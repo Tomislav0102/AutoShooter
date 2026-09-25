@@ -8,10 +8,15 @@ Buffs on one hit (e.g. next strike does 100% more damage) - now there are two lo
 Ricochet and Pierce - they only affect spells that have 'EffectProjectile' component. 
                       Other spells that might need those skills (MagicMissile, Overload, ChainLightning...) need some workaround.
                       Maybe those skills need separate component.
+enum BuffType.Set - define mechanics for this (could be complicated when buff needs to be removed)
 
+SKILLS
+Finish Ultimate skill level-up
 
-SPELLS
-
+UI
+Background panel - opens when any UI el is open and is before last in hierarchy.
+                   UI element that is open is the last in hierarchy.
+                   Need UiManager monobehaviour?
 
 KNIGHT
 Seismic Anchorage skill - needs animation

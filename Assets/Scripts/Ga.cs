@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Ga : MonoBehaviour
@@ -16,9 +17,6 @@ public class Ga : MonoBehaviour
 
     [SerializeField] GameObject[] players;
     public CameraRig camRig;
-    public Transform parPointers;
-    public RectTransform offScreenPointerPrefab;
-    public RectTransform statusPrefab;
     public Drop dropPrefab;
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
@@ -38,16 +36,9 @@ public class Ga : MonoBehaviour
     public SoGameData gameData;
     public SoCharacter defCharacter;
     public SpellManager spells;
-    public Transform barContainer;
-    public RectTransform healthBarPrefab;
-    public RectTransform numDisplayPrefab;
-    public Transform floatingContainer;
-    public FloatingText floatingTextPrefab;
     public TeamManager team;
-    public TomoJoystick.Joystick joystick;
-    public UltimateUi ultimateUi;
-    [SerializeField] Transform parLevelUpCards;
-    [HideInInspector] public LevelUpCard[] levelUpCards;
+    public UiManager uiManager;
+
     [HideInInspector] public WaitForSeconds wait00;
     [HideInInspector] public WaitForSeconds wait01;
     [HideInInspector] public WaitForSeconds wait02;
@@ -60,7 +51,6 @@ public class Ga : MonoBehaviour
     {
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
-        levelUpCards = Utils.AllChildren<LevelUpCard>(parLevelUpCards);
         team = new TeamManager();
         wait00 = Utils.GetWait(0f);
         wait01 = Utils.GetWait(0.1f);
@@ -91,11 +81,4 @@ public class Ga : MonoBehaviour
         SceneManager.LoadScene(gameData.sceneMain);
     }
 
-    public void InjectSkills(SoSkill[] skills)
-    {
-        for (int i = 0; i < skills.Length; i++)
-        {
-            levelUpCards[i].InjectSkill(skills[i]);
-        }
-    }
 }

@@ -35,7 +35,7 @@ public class Status : MonoBehaviour, IIniBrain
         {
             _br = value;
             _duoBuffs = new MyDuo<BuffEffects, float>();
-            _status = Instantiate(Ga.me.statusPrefab, Ga.me.parPointers);
+            _status = Instantiate(Ga.me.uiManager.statusPrefab, Ga.me.uiManager.pointersContainer);
             _statusImageGos = Utils.AllChildrenGameObjects(_status);
             _tickTimer = float.PositiveInfinity;
         }

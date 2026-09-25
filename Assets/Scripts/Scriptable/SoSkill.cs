@@ -12,6 +12,7 @@ public class SoSkill : ScriptableObject
     [SerializeField, TextArea, FoldoutGroup("Info")] string levelUpEffect;
     [Title("General")]
     public SkillName skillName;
+    public Sprite icon;
     // public string skillNameText;
     // public string levelUpText;
     [EnumButtons] public SkillType skillType;
@@ -22,6 +23,7 @@ public class SoSkill : ScriptableObject
     public bool hasStat;
     [ShowIf(nameof(hasStat))] public StatsGroup[] stats;
     public bool hasExtraDamage;
+    [ShowIf(nameof(hasExtraDamage))] public BuffType damageType;
     [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;
     public bool hasEffect;
     [ShowIf(nameof(hasEffect))] public BuffEffects[] buffEffect;

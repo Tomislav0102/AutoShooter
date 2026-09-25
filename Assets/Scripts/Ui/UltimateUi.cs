@@ -9,15 +9,20 @@ public class UltimateUi : MonoBehaviour
     [SerializeField] Button btnUltimate;
     float _cooldownTime;
     float _timer;
+    bool _initialized;
 
-    public void InitializeMe(float cooldownTime)
+    public void SetMeUp(float cooldownTime)
     {
-        ultimateBackground.enabled = true;
-        ultimateBackground.fillAmount = 1f;
-        btnUltimate.enabled = true;
-        btnUltimate.GetComponent<Image>().enabled = true;
+        if (!_initialized)
+        {
+            ultimateBackground.enabled = true;
+            ultimateBackground.fillAmount = 1f;
+            btnUltimate.enabled = true;
+            btnUltimate.GetComponent<Image>().enabled = true;
+            _timer = 0f;
+        }
+        _initialized = true;
         _cooldownTime = cooldownTime;
-        _timer = 0f;
     }
 
     void OnEnable()

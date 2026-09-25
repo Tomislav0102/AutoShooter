@@ -60,7 +60,7 @@ public class PlayerLoco : MonoBehaviour, IIniBrain
     void Update()
     {
         float camAngle = Ga.me.camRig.myTransform.eulerAngles.y;
-        effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.joystick.value;
+        effJoystickValue = Quaternion.Euler(0, 0, -camAngle) * Ga.me.uiManager.joystick.value;
         Vector3 myForward;
         if (Br.loco.OvrOrientation && Br.combat.MyTarget != null) myForward = Utils.Direction(Br.myTransform.position, Br.combat.MyTarget.position);
         else myForward = Utils.MakeV3(effJoystickValue);

@@ -21,6 +21,9 @@ public class LevelUpCard : MonoBehaviour
 
     public void ButtonClick()
     {
+        if (_mySkill is null) return;
         _playerSkill.SkillIncrease(_mySkill.skillName);
+        Ga.me.uiManager.OpenPanel(PanelType.Game);
     }
+
 }
