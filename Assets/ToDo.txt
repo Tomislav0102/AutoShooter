@@ -8,15 +8,11 @@ Buffs on one hit (e.g. next strike does 100% more damage) - now there are two lo
 Ricochet and Pierce - they only affect spells that have 'EffectProjectile' component. 
                       Other spells that might need those skills (MagicMissile, Overload, ChainLightning...) need some workaround.
                       Maybe those skills need separate component.
-enum BuffType.Set - define mechanics for this (could be complicated when buff needs to be removed)
+New BuffStats - fix all skills
+Reflect spells - reflect more than 100% of damage. Now its exactly 100%.
 
 SKILLS
-Finish Ultimate skill level-up
 
-UI
-Background panel - opens when any UI el is open and is before last in hierarchy.
-                   UI element that is open is the last in hierarchy.
-                   Need UiManager monobehaviour?
 
 KNIGHT
 Seismic Anchorage skill - needs animation
@@ -65,4 +61,4 @@ Checking null objects - Unity's Custom Equality Operator ( if(gameObject == null
 
 ENEMY
 Ultimate Attack Type - not working, maybe its redundant (melee and ranged cover everything)
-When enemy dies before his spell has effect (ranged, lobs), spell is fucked up because ownersBrain = null. This will be fixed automatically with pooling.
+When enemy dies before his spell has effect (ranged, lobs), spell is f***** up because ownersBrain == null. This will be fixed automatically with pooling.

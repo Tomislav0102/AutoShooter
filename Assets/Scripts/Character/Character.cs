@@ -15,27 +15,30 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     //     Skill, //e.g. Ultimate increases attack speed for 10 sec
     //     Spell //buffs from cast spells
     // }
-    [SerializeField] SoCharacter data;
+    [SerializeField] SoCharacter statsBase;
     public Brain Br
     {
         get => _br;
         set
         {
             _br = value;
-            if (data == null) data = Ga.me.defCharacter;
-            _duoBuffs = new MyDuo<BuffStats, float>();
+            if (statsBase == null) statsBase = Ga.me.defCharacter;
+            _buffTimers = new MyDuo<BuffStats, float>();
             ResetFinalStats();
         }
     }
     Brain _br;
-    [ReadOnly, ShowInInspector] Dictionary<Stats, float> _statsFinal = new Dictionary<Stats, float>();
-    [ReadOnly, ShowInInspector] MyDuo<BuffStats, float> _duoBuffs;
-
-    #region GET STATS
+    MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
+    MyDuo<Stats, float> _ovrStatsFinal = new MyDuo<Stats, float>(); //for BuffType.Set
+    MyDuo<BuffStats, float> _buffTimers = new MyDuo<BuffStats, float>();
     
+    
+    #region GET STATS
+
     public int GetStat(Stats stat)
     {
-        return (int)_statsFinal[stat];
+        if (_ovrStatsFinal.HasKey(stat)) return (int)_ovrStatsFinal.GetValueByKey(stat);
+        return (int)_statsFinal.GetValueByKey(stat);
     }
 
     public MyDuo<Element, float> GetDamage(Element element = Element.Physical, float multiplier = 1f, MyDuo<Element, float> extraDamage = null)
@@ -88,32 +91,38 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     }
     #endregion
 
-
-    public void CharacterInjectData(StatsGroup group)
+    
+    public void CharacterInjectData(GenChange change, BuffStats buffStats)
     {
-        BuffStats buffStats = group.buffStats;
-        switch (group.change)
+        switch (change)
         {
             case GenChange.Add:
-                if (group.buffType == BuffType.Percentage && Mathf.Approximately(buffStats.data.value, 1f))
+                if (buffStats.buffType == BuffType.Percentage && Mathf.Approximately(buffStats.data.value, 1f))
                 {
                     if (Br.debug) print("Buff multiplier is 1X, so its ignored");
                     return;
                 }
-                int previousValue = GetStat(buffStats.stat);
+                Stats stat = buffStats.stat;
+                int previousValueDebug = GetStat(stat);
                 float finalValue = buffStats.data.value;
-                switch (group.buffType)
+                switch (buffStats.buffType)
                 {
                     case BuffType.Added:
-                        _statsFinal[buffStats.stat] += finalValue;
+                        float valAdded = _statsFinal.GetValueByKey(stat) + finalValue;
+                        _statsFinal.SetValueByKey(stat, valAdded);
                         break;
                     case BuffType.Percentage:
-                        finalValue = data.baseStats[buffStats.stat] * (buffStats.data.value - 1f);
-                        _statsFinal[buffStats.stat] += finalValue;
+                        finalValue = statsBase.baseStats[stat] * (buffStats.data.value - 1f);
+                        float valPercentage = _statsFinal.GetValueByKey(stat) + finalValue;
+                        _statsFinal.SetValueByKey(stat, valPercentage);
+                        break;
+                    case BuffType.Set:
+                        if (_ovrStatsFinal.HasKey(stat)) _ovrStatsFinal.SetValueByKey(stat, finalValue);
+                        else _ovrStatsFinal.Add(stat, finalValue);
                         break;
                 }
-                _duoBuffs.Add(buffStats, buffStats.data.Duration);
-                if (Br.debug) print($"{buffStats.stat} changed from {previousValue} to {GetStat(buffStats.stat)}");
+                _buffTimers.Add(buffStats, buffStats.data.Duration);
+                if (Br.debug) print($"{stat} changed from {previousValueDebug} to {GetStat(stat)}");
                 break;
             case GenChange.Remove:
                 RemoveBuff(buffStats);
@@ -123,15 +132,15 @@ public class Character : SerializedMonoBehaviour, IIniBrain
 
     void Update()
     {
-        for (int i = 0; i < _duoBuffs.Length(); i++)
+        for (int i = 0; i < _buffTimers.Length(); i++)
         {
-            BuffStats buff = _duoBuffs.GetKey(i);
+            BuffStats buff = _buffTimers.GetKey(i);
             if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
-            float duration = _duoBuffs.GetValue(i);
+            float duration = _buffTimers.GetValue(i);
             if (duration > 0)
             {
                 duration -= Time.deltaTime;
-                _duoBuffs.SetValue(i, duration);
+                _buffTimers.SetValue(i, duration);
                 continue;
             }
             RemoveBuff(buff);
@@ -139,21 +148,36 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     }
     void RemoveBuff(BuffStats buffToRemove)
     {
-        if (buffToRemove == null || !_duoBuffs.HasKey(buffToRemove)) return;
-        _statsFinal[buffToRemove.stat] -= buffToRemove.data.value;
-        _duoBuffs.Remove(buffToRemove);
+        if (buffToRemove is null || !_buffTimers.HasKey(buffToRemove)) return;
+        switch (buffToRemove.buffType)
+        {
+            case BuffType.Added:
+                float valAdded = _statsFinal.GetValueByKey(buffToRemove.stat) - buffToRemove.data.value;
+                _statsFinal.SetValueByKey(buffToRemove.stat, valAdded);
+                break;
+            case BuffType.Percentage:
+                float valPercentage = _statsFinal.GetValueByKey(buffToRemove.stat) - statsBase.baseStats[buffToRemove.stat] * (buffToRemove.data.value - 1f);
+                _statsFinal.SetValueByKey(buffToRemove.stat, valPercentage);
+                break;
+            case BuffType.Set:
+                if (!_ovrStatsFinal.HasKey(buffToRemove.stat)) return;  
+                _ovrStatsFinal.Remove(buffToRemove.stat);
+                break;
+        }
+
+        _buffTimers.Remove(buffToRemove);
         //to mitigate problem of float precision (baseStats are integers, while finalStats are floats)
-        if (_duoBuffs.Length() == 0) ResetFinalStats(); 
+        if (_buffTimers.Length() == 0) ResetFinalStats(); 
+
     }
     void ResetFinalStats()
     {
-        _statsFinal = new Dictionary<Stats, float>();
-        foreach (KeyValuePair<Stats, int> item in data.baseStats)
+        _statsFinal = new MyDuo<Stats, float>();
+        foreach (KeyValuePair<Stats, int> item in statsBase.baseStats)
         {
             _statsFinal.Add(item.Key, item.Value);
         }
     }
-    
 
 }
 

@@ -12,7 +12,7 @@ public class SkillCardUi : MonoBehaviour
             _mySkill = value;
             if (_mySkill is not null)
             {
-                infoText.text = value.skillName.ToString();
+                infoText.text = value.skillName.ToString() + "\n" + "Level: " + (value.level + 1);
             }
         }
     }

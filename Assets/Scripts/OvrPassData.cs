@@ -41,7 +41,7 @@ public class PassData
     #endregion 
 
     public bool hasStats;
-    [ShowIf(nameof(hasStats))] public StatsGroup[] stats;
+    [ShowIf(nameof(hasStats))] public BuffStats[] stats;
     
     public bool hasEffect;
     [ShowIf(nameof(hasEffect))] public BuffEffects[] effects;

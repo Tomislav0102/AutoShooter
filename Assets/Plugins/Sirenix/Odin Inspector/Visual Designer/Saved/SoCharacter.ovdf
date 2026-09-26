@@ -1,0 +1,17 @@
+OVDF v1.1
+SoCharacter, Assembly-CSharp
+MetaGuid:b25fb09b759c75149a09ee1f5a74432d
+
+# $MRFJFKeehLKxtempE4M645
+Position: $root
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	GroupName = "Base Stats"
+	Alignment = Centered
+
+# SetAllStatsDetailed(int)
+Position: $root:2
+
+# baseStats
+Position: $MRFJFKeehLKxtempE4M645:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
++ [Sirenix.OdinInspector.HideLabelAttribute]

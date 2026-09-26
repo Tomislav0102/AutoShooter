@@ -21,7 +21,7 @@ public class SoSkill : ScriptableObject
 
     [Title("Global")]
     public bool hasStat;
-    [ShowIf(nameof(hasStat))] public StatsGroup[] stats;
+    [ShowIf(nameof(hasStat))] public BuffStats[] stats;
     public bool hasExtraDamage;
     [ShowIf(nameof(hasExtraDamage))] public BuffType damageType;
     [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;

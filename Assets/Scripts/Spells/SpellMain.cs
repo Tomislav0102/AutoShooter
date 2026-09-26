@@ -275,7 +275,7 @@ public class SpellMain : MonoBehaviour
         {
             for (int i = 0; i < pd.stats.Length; i++)
             {
-                targetsBrain.character.CharacterInjectData(pd.stats[i]);
+                targetsBrain.character.CharacterInjectData(GenChange.Add, pd.stats[i]);
             }
         }
         if (pd.hasKnockback)  targetsBrain.loco.LocoInjectDataKnockback(pd.myBrain.myTransform.position, pd.knockbackPower, pd.knockbackDirection);
@@ -329,8 +329,7 @@ public class SpellMain : MonoBehaviour
             PassData removeContainer = pd;
             for (int i = 0; i < removeContainer.stats.Length; i++)
             {
-                removeContainer.stats[i].change = GenChange.Remove;
-                br.character.CharacterInjectData(removeContainer.stats[i]);
+                br.character.CharacterInjectData(GenChange.Remove, removeContainer.stats[i]);
             }
         }
 

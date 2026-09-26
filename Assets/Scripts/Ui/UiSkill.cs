@@ -20,7 +20,7 @@ public class UiSkill : MonoBehaviour
 
     void AddSkill(SoSkill skill)
     {
-        if (skill.skillName == SkillName.ReplacementGold || skill.skillName == SkillName.ReplacementHeal) return;
+        if (skill.skillType == SkillType.Replacement) return;
         
         foreach (SkillCardUi card in _cards)
         {

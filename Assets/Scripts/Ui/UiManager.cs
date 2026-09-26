@@ -9,6 +9,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] Image backgroundPanel;
     [SerializeField] UiPanel[] allPanels;
     MyDuo<PanelType, UiPanel> _pairPanels;
+    public Transform PanelByType(PanelType panel) => _pairPanels.GetValueByKey(panel).transform;
     public Transform barContainer;
     public Transform pointersContainer;
     public Transform floatingContainer;
@@ -21,8 +22,8 @@ public class UiManager : MonoBehaviour
     
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
-    [HideInInspector] public LevelUpCard[] levelUpCards;
 
+    
     [Title("Debug")]
     
     void Awake()
@@ -32,11 +33,10 @@ public class UiManager : MonoBehaviour
         {
             _pairPanels.Add(allPanels[i].myPanel, allPanels[i]);
         }
-        levelUpCards = Utils.AllChildren<LevelUpCard>(_pairPanels.GetValueByKey(PanelType.LevelUp).transform.GetChild(0));
     }
     void Start()
     {
-        OpenPanel(PanelType.Skills);
+        OpenPanel(PanelType.Game);
     }
 
     public void OpenPanel(PanelType panel)
@@ -54,12 +54,5 @@ public class UiManager : MonoBehaviour
     }
 
     
-    public void InjectSkills(SoSkill[] skills)
-    {
-        for (int i = 0; i < levelUpCards.Length; i++)
-        {
-            levelUpCards[i].InjectSkill(skills[i]);
-        }
-    }
 
 }

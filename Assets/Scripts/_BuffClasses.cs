@@ -5,34 +5,35 @@ using UnityEngine.Serialization;
 
 
 
-[System.Serializable]
-public class StatsGroup
-{
-    public GenChange change;
-    bool ShowBuffType() => change == GenChange.Add;
-    [ShowIf(nameof(ShowBuffType))] public BuffType buffType;
-    [FormerlySerializedAs("buff")] public BuffStats buffStats;
-        
-    public StatsGroup(GenChange change, BuffType buffType, BuffStats buffStats) 
-    {
-        this.change = change;
-        this.buffType = buffType;
-        this.buffStats = buffStats;
-    }
-    public StatsGroup(GenChange change, BuffStats buffStats) //for removal
-    {
-        this.change = change;
-        this.buffStats = buffStats;
-    }
-}
+// [System.Serializable]
+// public class StatsGroup
+// {
+//     public GenChange change;
+//     bool ShowBuffType() => change == GenChange.Add;
+//     [ShowIf(nameof(ShowBuffType))] public BuffType buffType;
+//     [FormerlySerializedAs("buff")] public BuffStats buffStats;
+//         
+//     public StatsGroup(GenChange change, BuffType buffType, BuffStats buffStats) 
+//     {
+//         this.change = change;
+//         this.buffType = buffType;
+//         this.buffStats = buffStats;
+//     }
+//     public StatsGroup(GenChange change, BuffStats buffStats) //for removal
+//     {
+//         this.change = change;
+//         this.buffStats = buffStats;
+//     }
+// }
 
 [System.Serializable]
 public class BuffStats
 {
     public Stats stat;
+    public BuffType buffType;
     public BuffData data;
 
-    public BuffStats(Stats stat, float val, float dur = float.PositiveInfinity)
+    public BuffStats(Stats stat, BuffType buffType, float val, float dur = float.PositiveInfinity)
     {
         this.stat = stat;
         data = new BuffData(val, dur);

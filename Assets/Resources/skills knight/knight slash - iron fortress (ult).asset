@@ -13,41 +13,63 @@ MonoBehaviour:
   m_Name: knight slash - iron fortress (ult)
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: 
-  levelUpEffect: 
+  description: Become immobile but completely invulnerable for 4s, during which you
+    reflect 1000% of all melee and projectile damage back to source
+  levelUpEffect: Increases duration
   skillName: 50
-  skillNameText: 
-  levelUpText: 
+  icon: {fileID: 0}
   skillType: 2
-  animAttackType: 0
   level: 0
-  hasStat: 0
+  hasStat: 1
   stats:
-  - stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
-  - stat: 0
-    change: 0
-    value: 0
-    hasDuration: 0
-    duration: 0
+  - stat: 6
+    buffType: 2
+    data:
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 4
   hasExtraDamage: 0
+  damageType: 0
   extraDamage:
     <Key>k__BackingField: 
-    <Value>k__BackingField: 
-  hasAttackEffect: 0
-  effect:
-    group: []
+    <Value>k__BackingField: []
+  hasEffect: 1
+  buffEffect:
+  - brain: {fileID: 0}
+    effect: 0
+    data:
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 4
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
-  extraStats:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: 
+  passData:
+    myBrain: {fileID: 0}
+    canBeBlocked: 0
+    canBeDodged: 0
+    hasDamage: 0
+    damagePair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShieldPoints: 0
+    hasSpell: 0
+    spellPair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    hasStats: 0
+    stats: []
+    hasEffect: 0
+    effects: []
   hasGeneric: 0
-  numGeneric: 0
-  floatGeneric: 0
-  stringGeneric: 
+  valueGeneric: 0
+  valueGenericArray: []

@@ -17,7 +17,7 @@ public enum BuffType { Added, Percentage, Set }
 public enum WeaponType { Slash, Blunt, Pierce }
 
 
-public enum SkillType { Active, Passive, Ultimate }
+public enum SkillType { Active, Passive, Ultimate, Replacement }
 public enum AnimAttackType
 {
     Melee,

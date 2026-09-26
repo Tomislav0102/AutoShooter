@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LevelUpCard : MonoBehaviour
+public class LevelUpCardUi : MonoBehaviour
 {
     SoSkill _mySkill;
     [SerializeField] TextMeshProUGUI myText;

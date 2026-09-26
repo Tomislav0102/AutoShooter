@@ -1,0 +1,24 @@
+OVDF v1.1
+MyDuo`2[[Stats, Assembly-CSharp],[System.Single, mscorlib]], Assembly-CSharp
+
+# $JZ7DdMuLid9utdB75RgGeA
+Position: $root
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# $SjzMMHz15P4S2GJcjjYSqf
+Position: $JZ7DdMuLid9utdB75RgGeA:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $LeDsNyfsStseskxQQmAEDZ
+Position: $SjzMMHz15P4S2GJcjjYSqf:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $JtVtzECdkkmRuXH49NmXqr
+Position: $SjzMMHz15P4S2GJcjjYSqf:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# <Value>k__BackingField
+Position: $JtVtzECdkkmRuXH49NmXqr:0
+
+# <Key>k__BackingField
+Position: $LeDsNyfsStseskxQQmAEDZ:0

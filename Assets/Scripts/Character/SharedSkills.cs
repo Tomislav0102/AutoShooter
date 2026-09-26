@@ -56,9 +56,8 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                 Br.health.life++;
                 break;
             case SkillName.ExtraSkillChoice:
-                BuffStats buffStats = new BuffStats(Stats.ExtraSkillChoice, 1);
-                StatsGroup sg = new StatsGroup(GenChange.Add, BuffType.Added, buffStats);
-                Br.character.CharacterInjectData(sg);
+                BuffStats buffStats = new BuffStats(Stats.ExtraSkillChoice, BuffType.Added,1);
+                Br.character.CharacterInjectData(GenChange.Add, buffStats);
                 break;
         }
     }
@@ -67,9 +66,9 @@ public class SharedSkills : MonoBehaviour, IIniBrain
     void SimpleStatSkillApply(SkillName skillName)
     {
         if (!Br.skills.TryGetFromGroup(skillName, out SoSkill skill)) return;
-        foreach (StatsGroup stat in skill.stats)
+        foreach (BuffStats stat in skill.stats)
         {
-            Br.character.CharacterInjectData(stat);
+            Br.character.CharacterInjectData(GenChange.Add, stat);
         }
     }
 
@@ -89,12 +88,10 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         void riposte(bool onlyRemove = false)
         {
             if (!Br.skills.TryGetFromGroup(SkillName.Riposte, out SoSkill skill)) return;
-            StatsGroup rem = skill.stats[0];
-            rem.change = GenChange.Remove;
-            Br.character.CharacterInjectData(rem);
+            Br.character.CharacterInjectData(GenChange.Remove, skill.stats[0]);
             if (onlyRemove) return;
             
-            Br.character.CharacterInjectData(skill.stats[0]);
+            Br.character.CharacterInjectData(GenChange.Add, skill.stats[0]);
         }
     }
 

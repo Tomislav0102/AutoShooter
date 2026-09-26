@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 
 public class Skills : MonoBehaviour, IIniBrain
@@ -41,7 +43,8 @@ public class Skills : MonoBehaviour, IIniBrain
             //debugs
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.SeismicAnchorage);
+                OvrLevelSpecificSkill(SkillName.IronFortress);
+                
             }
             if (useMage)
             {
@@ -72,8 +75,8 @@ public class Skills : MonoBehaviour, IIniBrain
     public SoSkill myBasic, myUltimate;
 
     [SerializeField] bool useShared, useKnight, useMage, useArcher;
-    [ShowInInspector, ReadOnly] Group[] _group;
-    
+    Group[] _group;
+    UiLevelUp _uiLevelUp;
     
     #region DEBUG
     [Title("Debug")]    
@@ -88,7 +91,7 @@ public class Skills : MonoBehaviour, IIniBrain
         }
     }
     [Button]
-    public void SelectSkillsToLevel()
+    public void SelectNewPossibleSkills()
     {
         HashSet<SoSkill> skills = new HashSet<SoSkill>();
 
@@ -107,21 +110,25 @@ public class Skills : MonoBehaviour, IIniBrain
             tempSkills.Add(s);
         }
         tempSkills = Utils.RandomListByType(tempSkills);
-        SoSkill[] chosenSkills = new SoSkill[3 + Br.character.GetStat(Stats.ExtraSkillChoice)];
-        for (int i = 0; i < chosenSkills.Length; i++)
+        SoSkill[] final = new SoSkill[3 + Br.character.GetStat(Stats.ExtraSkillChoice)];
+        for (int i = 0; i < final.Length; i++)
         {
             if (tempSkills.Count > i)
             {
-                chosenSkills[i] = tempSkills[i];
+                final[i] = tempSkills[i];
                 continue;
             }
-            chosenSkills[i] = replacements[Random.Range(0, replacements.Length)];
+            final[i] = replacements[Random.Range(0, replacements.Length)];
         }
-        Ga.me.uiManager.InjectSkills(chosenSkills);
+        _uiLevelUp.InjectSkills(final);
     }
     #endregion
 
-    
+    void Start()
+    {
+        _uiLevelUp = Ga.me.uiManager.PanelByType(PanelType.LevelUp).GetComponent<UiLevelUp>();
+    }
+
     void OvrLevelSpecificSkill(SkillName skillName, int level = 0)
     {
         foreach (Group g in _group)
@@ -178,7 +185,7 @@ public class Skills : MonoBehaviour, IIniBrain
         }
         public SoSkill MySkill()
         {
-            return levelCurrent < 0 ? null : _mySkills[levelCurrent];
+            return levelCurrent < 0 ? _mySkills[0] : _mySkills[levelCurrent];
         }
         public bool CanLevel(out SoSkill nextLevelSkill) 
         {
@@ -188,7 +195,7 @@ public class Skills : MonoBehaviour, IIniBrain
                 return true;
             }
             nextLevelSkill = null;
-            print("Can't level " + skillName + ". Maxed out." );
+           // print("Can't level " + skillName + ". Maxed out." );
             return false;
         }
     }

@@ -8,11 +8,13 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
+    public Character playerCharacter;
+    public BuffStats buffStats;
     
     [Button]
     void AddS()
     {
-       
+       playerCharacter.CharacterInjectData(GenChange.Add, buffStats);
     }
     [Button]
     void Remove()

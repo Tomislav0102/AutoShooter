@@ -477,6 +477,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3809e90010df9af4a8445f2671ae4b6f, type: 2}
     - target: {fileID: 5505578628073212075, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: statsBase
+      value: 
+      objectReference: {fileID: 11400000, guid: 3809e90010df9af4a8445f2671ae4b6f, type: 2}
+    - target: {fileID: 5505578628073212075, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 5505578628073212075, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

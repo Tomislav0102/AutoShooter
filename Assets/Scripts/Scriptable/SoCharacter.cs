@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SoCharacter : SerializedScriptableObject
 {
-    public Dictionary<Stats, int> baseStats = new Dictionary<Stats, int>();
    
-    [Button]
     void SetAllStats(int value = 100)
     {
         baseStats = new Dictionary<Stats, int>();
@@ -45,5 +43,9 @@ public class SoCharacter : SerializedScriptableObject
         baseStats[Stats.ReflexSpells] = 0;
         baseStats[Stats.ReflectMelee] = 0;
         baseStats[Stats.ReflectProjectiles] = 0;
+        baseStats[Stats.ExtraSkillChoice] = 0;
     }
+    
+    public Dictionary<Stats, int> baseStats = new Dictionary<Stats, int>();
+
 }
