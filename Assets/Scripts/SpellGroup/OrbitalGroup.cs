@@ -17,12 +17,14 @@ public class OrbitalGroup : SpellGroup
     {
         base.InitializeMe(ownersBrain, duo);
         float[] angles = Utils.RadialSpreadAngles(duo.Length());
+        spellsRunning = new SpellMain[duo.Length()];
         for (int i = 0; i < duo.Length(); i++)
         {
             SpellMain spell = Instantiate(duo.GetKey(i), myTransform.position, Quaternion.identity, myTransform);
             spell.myTransform.localRotation = Quaternion.AngleAxis(angles[i], Vector3.up);
             spell.myTransform.position += distanceFromAnchor * spell.myTransform.forward;
             spell.InitializeMe(ownersBrain, duo.GetValue(i));
+            spellsRunning[i] = spell;
         }
     }
     void Update()
@@ -30,7 +32,7 @@ public class OrbitalGroup : SpellGroup
         if (!followPosition && !followRotation) return;
         
         if (followPosition) myTransform.position = orbitingAnchor.position;
-        if (followRotation) myTransform.rotation = orbitingAnchor.rotation;
-        else myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
+        // if (followRotation) myTransform.rotation = orbitingAnchor.rotation;
+        // else myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
     }
 }

@@ -22,9 +22,9 @@ MonoBehaviour:
   hasStat: 1
   stats:
   - stat: 33
-    buffType: 2
+    buffType: 0
     data:
-      value: 100
+      value: 20
       permanent: 1
       <Duration>k__BackingField: 0
   hasExtraDamage: 0
@@ -55,10 +55,6 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0

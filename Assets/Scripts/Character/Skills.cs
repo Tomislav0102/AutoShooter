@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class Skills : MonoBehaviour, IIniBrain
 {
-    public static System.Action<SoSkill> OnSkillIncrease;
+    [HideInInspector] public System.Action<SoSkill> onSkillIncrease;
     public Brain Br
     {
         get => _br;
@@ -43,12 +43,13 @@ public class Skills : MonoBehaviour, IIniBrain
             //debugs
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.IronFortress);
+                OvrLevelSpecificSkill(SkillName.RotatingSwords);
                 
             }
             if (useMage)
             {
-                OvrLevelSpecificSkill(SkillName.ArcaneShield);
+              //  OvrLevelSpecificSkill(SkillName.ArcaneShield);
+                OvrLevelSpecificSkill(SkillName.ManaShield);
 
             }
             if (useArcher)
@@ -142,19 +143,19 @@ public class Skills : MonoBehaviour, IIniBrain
         IEnumerator delay(Group g)
         {
             yield return null;
-            OnSkillIncrease?.Invoke(g.MySkill());
+            onSkillIncrease?.Invoke(g.MySkill());
         }
     }
     public void SkillIncrease(SkillName skillName)
     {
         if (skillName == SkillName.ReplacementGold)
         {
-            OnSkillIncrease?.Invoke(replacements[0]);
+            onSkillIncrease?.Invoke(replacements[0]);
             return;
         }
         if (skillName == SkillName.ReplacementHeal)
         {
-            OnSkillIncrease?.Invoke(replacements[1]);
+            onSkillIncrease?.Invoke(replacements[1]);
             return;
         }
         foreach (Group g in _group)
@@ -162,7 +163,7 @@ public class Skills : MonoBehaviour, IIniBrain
             if (g.skillName != skillName) continue;
             if (!g.CanLevel(out _)) return;
             g.levelCurrent++;
-            OnSkillIncrease?.Invoke(g.MySkill());
+            onSkillIncrease?.Invoke(g.MySkill());
             break;
         }
     }

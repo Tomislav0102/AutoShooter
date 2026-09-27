@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 903449953478716204, guid: e8e0711e1e4d19d4c96ab99d9cd6b577, type: 3}
     - target: {fileID: 8055148816313383336, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: useShared
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_Name
@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2675,10 +2675,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Test
   playerCharacter: {fileID: 925052066}
   buffStats:
-    stat: 0
-    buffType: 2
+    stat: 1
+    buffType: 0
     data:
-      value: 5
+      value: 12
       permanent: 0
       <Duration>k__BackingField: 2
 --- !u!1 &889464210
@@ -5685,7 +5685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9152218506064696801, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: serializationData.Prefab

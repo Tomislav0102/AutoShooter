@@ -15,6 +15,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         {
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
+            value.skills.onSkillIncrease += SkillIncreaseCallback;
         }
     }
     Brain _br;
@@ -32,12 +33,11 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     void OnEnable()
     {
         Ga.OnBrainAddRemove += CallEv_OnBrainAddRemove;
-        Skills.OnSkillIncrease += SkillIncreaseCallback;
     }
     void OnDisable()
     {
         Ga.OnBrainAddRemove -= CallEv_OnBrainAddRemove;
-        Skills.OnSkillIncrease -= SkillIncreaseCallback;
+        Br.skills.onSkillIncrease -= SkillIncreaseCallback;
     }
     void CallEv_OnBrainAddRemove(Brain brain, GenChange change)
     {
@@ -217,6 +217,22 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         switch (Br.skills.myUltimate.skillName)
         {
             case SkillName.IronFortress: 
+                ironFortress();
+                void ironFortress()
+                {
+                    SpellMain spell = Instantiate(Br.skills.myUltimate.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    spell.lifeTime = Br.skills.myUltimate.stats[0].data.Duration;
+                    spell.transporter.target = Br.myTransform;
+                    spell.InitializeMe(Br);
+                    for (int i = 0; i < Br.skills.myUltimate.stats.Length; i++)
+                    {
+                        Br.character.CharacterInjectData(GenChange.Add, Br.skills.myUltimate.stats[i]);
+                    }
+                    for (int i = 0; i < Br.skills.myUltimate.buffEffect.Length; i++)
+                    {
+                        Br.status.StatusInjectData(GenChange.Add, Br.skills.myUltimate.buffEffect[i]);
+                    }
+                }
                 break;
             case SkillName.ConcussiveSurge:
                 MyDuo<Element, float> totalDamage = Br.character.GetDamage();

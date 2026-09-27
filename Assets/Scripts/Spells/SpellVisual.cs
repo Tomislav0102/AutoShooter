@@ -83,10 +83,22 @@ public class SpellVisual : MonoBehaviour, IIniSpell
         if (psDefault != null) psDefault.Stop();
     }
 
-    public void SetSpawnHeight(float height)
+    public void SetSpawnHeight(float height, float targetHeight = -1)
     {
-       if (myMesh != null) myMesh.localPosition = new Vector3(0, height, 0);
-       else transform.localPosition = new Vector3(0, height, 0);
+        Transform targetTr = myMesh == null ? transform : myMesh;
+        targetTr.localPosition = new Vector3(0, height, 0);
+        if (targetHeight >= 0) StartCoroutine(goToTargetHeight());
+
+        IEnumerator goToTargetHeight()
+        {
+            float currentHeight = targetTr.localPosition.y;
+            while (Mathf.Abs(currentHeight - targetHeight) > 0.1f)
+            {
+                currentHeight = Mathf.Lerp(currentHeight, targetHeight, Time.deltaTime);
+                targetTr.localPosition = new Vector3(0, currentHeight, 0);
+                yield return null;
+            }
+        }
     }
 
     IEnumerator LightDelay(Light myLight)

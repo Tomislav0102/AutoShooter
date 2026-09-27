@@ -354,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8289251900630384108}
+      objectReference: {fileID: 3882544292615420154}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
@@ -442,7 +442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PC_Knight, Assembly-CSharp
+      value: SharedSkills, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

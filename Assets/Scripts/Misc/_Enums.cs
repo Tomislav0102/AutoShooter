@@ -73,9 +73,9 @@ public enum Stats
     CritChance,
     CritMod,
     Projectiles,
-    Bounce,
     Piercing,
     Ricochet,
+    Bounce,
     //tertiary
     Xp,
     Gold,

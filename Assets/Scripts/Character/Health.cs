@@ -38,7 +38,7 @@ public class Health: MonoBehaviour, IIniBrain
     RectTransform _pointer;
     Image _pointerImage;
   //  Image _healthBar;
-    Image _shieldBar;
+  //  Image _shieldBar;
    // Transform _healthBarTransform;
     TextMeshProUGUI _numDisplay;
     Transform _numDisplayTransform;
@@ -55,8 +55,10 @@ public class Health: MonoBehaviour, IIniBrain
             // _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
             // _healthBar.fillAmount = _healthCurrent / _healthMax;
             onHealthChange?.Invoke(_healthCurrent / healthMax);
-            _numDisplay.text = $"{_healthCurrent}/{healthMax}";
-
+            
+            string healthDisplay = $"<color=green>{(int)_healthCurrent}/{(int)healthMax}";
+            if (ShieldCurrent > 0)  _numDisplay.text = $"<color=blue>{(int)ShieldCurrent}/{(int)_shieldMax}\n{healthDisplay}";
+            else _numDisplay.text = healthDisplay;
         }
     }
     float _healthCurrent;
@@ -71,7 +73,7 @@ public class Health: MonoBehaviour, IIniBrain
             if (Mathf.Approximately(_shieldMax, 0f)) return;
             _shieldCurrent = value;
             _shieldCurrent = Mathf.Clamp(_shieldCurrent, 0, _shieldMax);
-            _shieldBar.fillAmount = _shieldCurrent / _shieldMax;
+          //  _shieldBar.fillAmount = _shieldCurrent / _shieldMax;
         }
     }
     [ShowInInspector, ReadOnly] float _shieldCurrent;
@@ -102,6 +104,7 @@ public class Health: MonoBehaviour, IIniBrain
     {
         _shieldMax = val;
         ShieldCurrent = _shieldMax;
+        HealthCurrent = HealthCurrent; //only to update UI
     }
     public void HealthInjectDataDamage(PassData pd, out bool hitDidDamage)
     {

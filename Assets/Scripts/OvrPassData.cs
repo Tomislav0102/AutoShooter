@@ -35,16 +35,21 @@ public class PassData
     public bool hasManaShield;
     [ShowIf(nameof(hasManaShield))] public int manaShieldPoints;
 
-    #region ToBeRemoved
-    public bool hasSpell;
-    [ShowIf(nameof(hasSpell))] public MyDuo<SpellMain.HitEffectOnSpell, SpellMain> spellPair;
-    #endregion 
-
     public bool hasStats;
     [ShowIf(nameof(hasStats))] public BuffStats[] stats;
     
     public bool hasEffect;
     [ShowIf(nameof(hasEffect))] public BuffEffects[] effects;
+
+    public void DamageIncreasedByReflex(int reflexValue)
+    {
+        if (!(hasDamage && reflexValue > 100)) return;
+        for (int i = 0; i < damagePair.Length(); i++)
+        {
+            float val = damagePair.GetValue(i) * reflexValue * 0.01f;
+            damagePair.SetValue(i, val);
+        }
+    }
 }
 
 

@@ -5244,7 +5244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -5293,7 +5293,7 @@ PrefabInstance:
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 5886414157575731664}
+      objectReference: {fileID: 2678239216650261683}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackUltimateEv.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -5324,7 +5324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PC_Mage, Assembly-CSharp
+      value: SharedSkills, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -5489,6 +5489,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3227542870493095737, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
   m_PrefabInstance: {fileID: 1046860167944135064}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2678239216650261683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3146949227178194219, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+  m_PrefabInstance: {fileID: 1046860167944135064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9461b9b00973c5f4ab2540e7a4db191f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SharedSkills
 --- !u!1 &3969381321737416034 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4148134728218332410, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

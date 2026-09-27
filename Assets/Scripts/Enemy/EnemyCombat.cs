@@ -71,7 +71,6 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
     
     public void AnimEv_AttackCallback(int num = 0)
     {
-        return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)

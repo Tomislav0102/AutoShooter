@@ -11,11 +11,11 @@ public class UiSkill : MonoBehaviour
 
     void OnEnable()
     {
-        Skills.OnSkillIncrease += AddSkill;
+       Ga.me.team.playerTransform.GetComponent<Brain>().skills.onSkillIncrease += AddSkill;
     }
     void OnDisable()
     {
-        Skills.OnSkillIncrease -= AddSkill;
+        Ga.me.team.playerTransform.GetComponent<Brain>().skills.onSkillIncrease -= AddSkill;
     }
 
     void AddSkill(SoSkill skill)

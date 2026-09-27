@@ -7,7 +7,7 @@ public class SpellGroup : MonoBehaviour
     public Transform myTransform;
     protected Brain owner;
     protected MyDuo<SpellMain, PassData> prefabsAndData;
-
+    [HideInInspector] public SpellMain[] spellsRunning;
     
     public virtual void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
     {

@@ -429,7 +429,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  data: {fileID: 0}
+  statsBase: {fileID: 0}
 --- !u!114 &8704573881872995164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,13 +456,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillsShared
   replacements: []
   myBasic: {fileID: 0}
+  myUltimate: {fileID: 0}
   useShared: 0
   useKnight: 0
   useMage: 0
   useArcher: 0
-  skillIncreaseEv:
-    m_PersistentCalls:
-      m_Calls: []
   skillsToLevel: []
 --- !u!114 &7550801348221077394
 MonoBehaviour:
@@ -476,8 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9461b9b00973c5f4ab2540e7a4db191f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SharedSkills
-  _lastStandCooldownTimerDone: 1
-  _lastStandHealthAboveTreshold: 1
 --- !u!1 &4042746781076191047
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d722a4b68683dbd409dfff62f8b265b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  life: 0
   onHealthChange:
     m_PersistentCalls:
       m_Calls: []
@@ -659,6 +656,7 @@ MonoBehaviour:
   - {fileID: 4191619477013776601}
   - {fileID: 6811752376184495340}
   psHeal: {fileID: 846251808505076292}
+  immuneSpells: []
 --- !u!1 &7776910641071059818
 GameObject:
   m_ObjectHideFlags: 0

@@ -285,6 +285,7 @@ public class SpellMain : MonoBehaviour
         {
             if (reflexCount < 0) return false;
 
+            int reflexStat;
             switch (specialty)
             {
                 case Specialty.General:
@@ -296,18 +297,22 @@ public class SpellMain : MonoBehaviour
                     }
                     break;
                 case Specialty.Melee:
-                    if (Random.value < brain.character.GetStat(Stats.ReflectMelee) * 0.01f)
+                    reflexStat = brain.character.GetStat(Stats.ReflectMelee);
+                    if (Random.value < reflexStat * 0.01f)
                     {
                         reflexCount--;
                         OwnersBrain = brain;
+                        pd.DamageIncreasedByReflex(reflexStat);
                         HitGeneric(OwnersBrain, out _);
                         return true;
                     }
                     break;
                 case Specialty.Projectile: //transporter should be 'Homing' or 'Bullet'
-                    if (Random.value < brain.character.GetStat(Stats.ReflectProjectiles) * 0.01f)
+                    reflexStat = brain.character.GetStat(Stats.ReflectProjectiles);
+                    if (Random.value < reflexStat * 0.01f)
                     {
                         reflexCount--;
+                        pd.DamageIncreasedByReflex(reflexStat);
                         transporter.ReflectProjectile(brain);
                         return true;
                     }
@@ -351,6 +356,7 @@ public class SpellMain : MonoBehaviour
     }
     #endregion
 
+    
 }
 
     // public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component

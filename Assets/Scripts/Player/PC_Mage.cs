@@ -15,6 +15,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
             _numOfObjects = (int)value.character.GetStat(Stats.Projectiles);
+            value.skills.onSkillIncrease += SkillIncreaseCallback;
             // switch (startActive)
             // {
             //     case 0:
@@ -143,17 +144,14 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     SoSkill _skillArcaneShield;
     SpellMain _spellArcaneShield;
     bool _canArcaneShield;
+    Coroutine  _coroutineArcaneShield;
     PlayerCombat _playerCombat;
     int _numOfObjects;
     public List<SoSkill> _allSkills = new List<SoSkill>();
     
-    void OnEnable()
-    {
-        Skills.OnSkillIncrease += SkillIncreaseCallback;
-    }
     void OnDisable()
     {
-        Skills.OnSkillIncrease -= SkillIncreaseCallback;
+        Br.skills.onSkillIncrease -= SkillIncreaseCallback;
     }
 
     void SkillIncreaseCallback(SoSkill newSkill)
@@ -170,6 +168,9 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellArcaneShield.InitializeMe(Br);
                 _canArcaneShield = true;
                 Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.buffEffect[0]);
+                break;
+            case SkillName.ManaShield:
+                Br.health.HealthInjectDataManaShield(newSkill.passData.manaShieldPoints);
                 break;
         }
         return;
@@ -202,12 +203,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 arcaneShield();
                 void arcaneShield()
                 {
-                    if (!_canArcaneShield) return;
                     if (_skillArcaneShield == null) return;
+                    if (_coroutineArcaneShield != null) StopCoroutine(_coroutineArcaneShield);
+                    _coroutineArcaneShield = StartCoroutine(arcaneShieldWait());
+                    if (!_canArcaneShield) return;
                     Br.status.StatusInjectData(GenChange.Remove, _skillArcaneShield.buffEffect[0]);
                     _spellArcaneShield.visual.StopDefault();
                     _canArcaneShield = false;
-                    StartCoroutine(arcaneShieldWait());
                     return;
         
                     IEnumerator arcaneShieldWait()
@@ -258,7 +260,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         {
                             SpellMain homing = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation, Ga.me.spells.myTransform);
                             homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
-                            homing.visual.SetSpawnHeight(spawnPoint.position.y);
+                            homing.visual.SetSpawnHeight(spawnPoint.position.y, 1f);
                             Transform target = targetsHoming[counter];
                             counter = (1 + counter) % targetsHoming.Count;
                             homing.transporter.target = target;

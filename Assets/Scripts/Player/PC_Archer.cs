@@ -55,16 +55,16 @@ public class PC_Archer : MonoBehaviour
     //     }
     // }
 
-    void OnEnable()
-    {
-        Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
-        Skills.OnSkillIncrease += SkillIncreaseCallback;
-    }
-    void OnDisable()
-    {
-        Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
-        Skills.OnSkillIncrease -= SkillIncreaseCallback;
-    }
+    // void OnEnable()
+    // {
+    //     Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
+    //     Br.skills.OnSkillIncrease += SkillIncreaseCallback;
+    // }
+    // void OnDisable()
+    // {
+    //     Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
+    //     Br.skills.OnSkillIncrease -= SkillIncreaseCallback;
+    // }
     
     void SkillIncreaseCallback(SoSkill newSkill) { }
     //archers Ultimate is not triggered by animation event

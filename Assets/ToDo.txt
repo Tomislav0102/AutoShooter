@@ -9,7 +9,6 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
                       Other spells that might need those skills (MagicMissile, Overload, ChainLightning...) need some workaround.
                       Maybe those skills need separate component.
 New BuffStats - fix all skills
-Reflect spells - reflect more than 100% of damage. Now its exactly 100%.
 
 SKILLS
 
@@ -40,6 +39,8 @@ Orientation and special attacks - Blocking can activate from front side (180 arc
 Physical Resistance = Armor
 Nullify spell - only some monsters have it (e.g. Golem). Its array of 'SpellMain' in 'Health' component.
 Dynamic values in GameData - (e.g. 'level', 'enStunDamageModifier') can be in ScriptableObject but need to be reset after run (they will be reset automatically when Application.Quit())
+Reflect spells - value determines chance to trigger. Damage is 100% if below 100, else reflected damage is skill value.
+
 
 KNIGHT
 Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.

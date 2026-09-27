@@ -15,6 +15,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     //     Skill, //e.g. Ultimate increases attack speed for 10 sec
     //     Spell //buffs from cast spells
     // }
+    [HideInInspector] public System.Action<Stats> onStatChange;
     [SerializeField] SoCharacter statsBase;
     public Brain Br
     {
@@ -91,6 +92,23 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     }
     #endregion
 
+    void Update()
+    {
+        for (int i = 0; i < _buffTimers.Length(); i++)
+        {
+            BuffStats buff = _buffTimers.GetKey(i);
+            if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
+            float duration = _buffTimers.GetValue(i);
+            if (duration > 0)
+            {
+                duration -= Time.deltaTime;
+                _buffTimers.SetValue(i, duration);
+                continue;
+            }
+            RemoveBuff(buff);
+        }
+    }
+
     
     public void CharacterInjectData(GenChange change, BuffStats buffStats)
     {
@@ -121,6 +139,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                         else _ovrStatsFinal.Add(stat, finalValue);
                         break;
                 }
+                onStatChange?.Invoke(buffStats.stat);
                 _buffTimers.Add(buffStats, buffStats.data.Duration);
                 if (Br.debug) print($"{stat} changed from {previousValueDebug} to {GetStat(stat)}");
                 break;
@@ -130,22 +149,6 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         }
     }
 
-    void Update()
-    {
-        for (int i = 0; i < _buffTimers.Length(); i++)
-        {
-            BuffStats buff = _buffTimers.GetKey(i);
-            if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
-            float duration = _buffTimers.GetValue(i);
-            if (duration > 0)
-            {
-                duration -= Time.deltaTime;
-                _buffTimers.SetValue(i, duration);
-                continue;
-            }
-            RemoveBuff(buff);
-        }
-    }
     void RemoveBuff(BuffStats buffToRemove)
     {
         if (buffToRemove is null || !_buffTimers.HasKey(buffToRemove)) return;
@@ -164,7 +167,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                 _ovrStatsFinal.Remove(buffToRemove.stat);
                 break;
         }
-
+        onStatChange?.Invoke(buffToRemove.stat);
         _buffTimers.Remove(buffToRemove);
         //to mitigate problem of float precision (baseStats are integers, while finalStats are floats)
         if (_buffTimers.Length() == 0) ResetFinalStats(); 

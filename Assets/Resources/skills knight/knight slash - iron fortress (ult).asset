@@ -22,10 +22,16 @@ MonoBehaviour:
   level: 0
   hasStat: 1
   stats:
-  - stat: 6
+  - stat: 32
     buffType: 2
     data:
-      value: 0
+      value: 1000
+      permanent: 0
+      <Duration>k__BackingField: 4
+  - stat: 33
+    buffType: 2
+    data:
+      value: 1000
       permanent: 0
       <Duration>k__BackingField: 4
   hasExtraDamage: 0
@@ -41,8 +47,14 @@ MonoBehaviour:
       value: 0
       permanent: 0
       <Duration>k__BackingField: 4
-  hasSpell: 0
-  spell: {fileID: 0}
+  - brain: {fileID: 0}
+    effect: 1
+    data:
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 4
+  hasSpell: 1
+  spell: {fileID: 8848297006958576280, guid: 5b11a895674529b4b90aef818f308265, type: 3}
   spellGroup: {fileID: 0}
   hasExtra: 0
   passData:
@@ -62,14 +74,10 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0
     effects: []
-  hasGeneric: 0
-  valueGeneric: 0
+  hasGeneric: 1
+  valueGeneric: 10
   valueGenericArray: []

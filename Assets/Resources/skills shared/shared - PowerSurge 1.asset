@@ -10,32 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight - iron mirror 2
+  m_Name: shared - PowerSurge 1
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: Chance to reflect projectiles
-  levelUpEffect: Increase chance to reflect
-  skillName: 45
+  description: Increases Physical Damage by 15%
+  levelUpEffect: 
+  skillName: 3
   icon: {fileID: 0}
   skillType: 1
-  level: 2
-  hasStat: 1
-  stats:
-  - stat: 33
-    buffType: 0
-    data:
-      value: 20
-      permanent: 1
-      <Duration>k__BackingField: 0
-  hasExtraDamage: 0
-  damageType: 0
+  level: 1
+  hasStat: 0
+  stats: []
+  hasExtraDamage: 1
+  damageType: 1
   extraDamage:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: []
+    <Key>k__BackingField: 00000000
+    <Value>k__BackingField:
+    - 1.15
   hasEffect: 0
   buffEffect: []
-  hasSpell: 1
-  spell: {fileID: 5053213761565273540, guid: 62daefb14eb7af745bb38bfc29416854, type: 3}
+  hasSpell: 0
+  spell: {fileID: 0}
   spellGroup: {fileID: 0}
   hasExtra: 0
   passData:

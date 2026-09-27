@@ -14507,7 +14507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -14538,6 +14538,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: animAttackEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -14550,11 +14554,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6959694061214563688}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 9001357530229870804}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CombatEventCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: CombatEventCallback
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
@@ -14570,6 +14586,10 @@ PrefabInstance:
       value: PC_Archer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SharedSkills, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: brainEv.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -14579,6 +14599,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385856013189954917, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: combatRegisterEv.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5419413698751178251, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
@@ -14740,3 +14764,14 @@ MonoBehaviour:
   back: 0
   followUp: 0
   psRoll: {fileID: 4642725526670643804}
+--- !u!114 &9001357530229870804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3146949227178194219, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+  m_PrefabInstance: {fileID: 6289007901281805823}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9461b9b00973c5f4ab2540e7a4db191f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SharedSkills
