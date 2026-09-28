@@ -278,7 +278,10 @@ public class SpellMain : MonoBehaviour
                 targetsBrain.character.CharacterInjectData(GenChange.Add, pd.stats[i]);
             }
         }
-        if (pd.hasKnockback)  targetsBrain.loco.LocoInjectDataKnockback(pd.myBrain.myTransform.position, pd.knockbackPower, pd.knockbackDirection);
+        if (pd.hasKnockback)
+        {
+            targetsBrain.loco.LocoInjectDataKnockback(pd.myBrain.myTransform.position, pd.knockbackPower, pd.knockbackDirection);
+        }
         return;
 
         bool hasReflected(Brain brain)

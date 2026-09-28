@@ -48,8 +48,7 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             if (useMage)
             {
-              //  OvrLevelSpecificSkill(SkillName.ArcaneShield);
-                OvrLevelSpecificSkill(SkillName.ManaShield);
+                OvrLevelSpecificSkill(SkillName.DragonsBreath);
 
             }
             if (useArcher)

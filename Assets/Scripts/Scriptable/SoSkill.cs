@@ -20,6 +20,7 @@ public class SoSkill : ScriptableObject
     public int level;
 
     [Title("Global")]
+    [InfoBox("Affect user of skill")]
     public bool hasStat;
     [ShowIf(nameof(hasStat))] public BuffStats[] stats;
     public bool hasExtraDamage;
@@ -29,17 +30,19 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(hasEffect))] public BuffEffects[] buffEffect;
     
     [Title("Spell")]
-    [InfoBox("Extra affect only this spell (PassData format)")]
+    [InfoBox("Extra affect target of spell (PassData format)")]
     public HasSpell hasSpell;
     bool ShowSpell() => hasSpell == HasSpell.Spell;
     bool ShowSpellGroup() => hasSpell == HasSpell.SpellGroup;
     [ShowIf(nameof(ShowSpell))] public SpellMain spell;
     [ShowIf(nameof(ShowSpellGroup))] public SpellGroup spellGroup;
-    bool ShowExtra() => hasSpell != HasSpell.None;
-    [ShowIf(nameof(ShowExtra))] public bool hasExtra;
-    bool ShowHasExtra() => ShowExtra() && hasExtra;
-    [ShowIf(nameof(ShowHasExtra))] public PassData passData;
-    
+    bool ShowPd() => hasSpell != HasSpell.None;
+    [ShowIf(nameof(ShowPd))] public bool hasPassData;
+    bool ShowHasPd() => ShowPd() && hasPassData;
+    [ShowIf(nameof(ShowHasPd))] public PassData passData;
+    [ShowIf(nameof(ShowPd))] public bool hasAfterSpells;
+    bool ShowHasAfters() => hasAfterSpells == true && ShowPd();
+    [ShowIf(nameof(ShowHasAfters))] public SpellMain[] afterSpells;
     [Title("Generic")]
     [InfoBox("Special use cases. Array is used when more that one value is needed.")]
     public bool hasGeneric; 

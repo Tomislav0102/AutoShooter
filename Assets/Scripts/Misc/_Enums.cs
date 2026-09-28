@@ -162,7 +162,7 @@ public enum SkillName
     BastionPulse,
     Decoy,
     Fireball,
-    FlameThrower,
+    DragonsBreath,
     MeteorStrike,
     FireNova,
     BlazeTrail,

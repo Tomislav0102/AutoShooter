@@ -5458,6 +5458,70 @@ PrefabInstance:
       propertyPath: skillIncreaseEv.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5886414157575731664}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: HealthMonitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShieldMonitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PC_Mage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onHealthChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722774275812782565, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: onShieldActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4076984038216319734, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,13 +16,11 @@ public class Health: MonoBehaviour, IIniBrain
         {
             _br = value;
             // _healthBar = Instantiate(Ga.me.healthBarPrefab, Ga.me.barContainer).GetComponent<Image>();
-             float healthMax = value.character.GetStat(Stats.Health);
             // _healthBarTransform = _healthBar.transform;
            // _shieldBar = _healthBarTransform.GetChild(0).GetComponent<Image>();
             _numDisplay = Instantiate(Ga.me.uiManager.numDisplayPrefab, Ga.me.uiManager.barContainer).GetComponent<TextMeshProUGUI>();
-            _numDisplay.text = $"{value.character.GetStat(Stats.Health)}/{value.character.GetStat(Stats.Health)}";
             _numDisplayTransform = _numDisplay.transform;
-            HealthCurrent = healthMax;
+            HealthCurrent = value.character.GetStat(Stats.Health);
             _dictPsElements = new Dictionary<Element, ParticleSystem>();
             for (int i = 0; i < psElements.Length; i++)
             {
@@ -43,7 +42,10 @@ public class Health: MonoBehaviour, IIniBrain
     TextMeshProUGUI _numDisplay;
     Transform _numDisplayTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
-    float _timerBars;
+    
+    #region HP
+    
+    float _timerRegen;
     public float HealthCurrent
     {
         get => _healthCurrent;
@@ -55,31 +57,37 @@ public class Health: MonoBehaviour, IIniBrain
             // _healthBar.color = Color.Lerp(Color.red, Color.green, value / _healthMax);
             // _healthBar.fillAmount = _healthCurrent / _healthMax;
             onHealthChange?.Invoke(_healthCurrent / healthMax);
-            
-            string healthDisplay = $"<color=green>{(int)_healthCurrent}/{(int)healthMax}";
-            if (ShieldCurrent > 0)  _numDisplay.text = $"<color=blue>{(int)ShieldCurrent}/{(int)_shieldMax}\n{healthDisplay}";
-            else _numDisplay.text = healthDisplay;
+            UiUpdate();
         }
     }
     float _healthCurrent;
     [ReadOnly] public int life;
     [SerializeField] UnityEvent<float> onHealthChange;
     public bool IsAtFullHealth() => HealthCurrent >= Br.character.GetStat(Stats.Health);
+    #endregion
+
+    #region SHIELD
+    
     float ShieldCurrent
     {
         get => _shieldCurrent;
         set
         {
-            if (Mathf.Approximately(_shieldMax, 0f)) return;
+            if (_shieldMax <= 0f) return;
             _shieldCurrent = value;
             _shieldCurrent = Mathf.Clamp(_shieldCurrent, 0, _shieldMax);
-          //  _shieldBar.fillAmount = _shieldCurrent / _shieldMax;
+            UiUpdate();
         }
     }
     [ShowInInspector, ReadOnly] float _shieldCurrent;
     [ShowInInspector, ReadOnly] float _shieldMax;
-    bool IsAtFullShield() => Mathf.Approximately(ShieldCurrent, _shieldMax);
-    const int CONST_ShieldRegenAmount = 100;
+    const int CONST_ShieldRegenAmount = 10;
+    bool _canRegenerateShield = true;
+    Coroutine _coroutineShieldRegen;
+    [SerializeField] UnityEvent<bool> onShieldActivate;
+    bool _shiftShieldActive;
+    #endregion
+
     [Title("Particles")]
     [SerializeField] ParticleSystem[] psElements;
     Dictionary<Element, ParticleSystem> _dictPsElements;
@@ -100,6 +108,72 @@ public class Health: MonoBehaviour, IIniBrain
         return false;
     }
 
+    void Update()
+    {
+        if (_canRegenerateShield) ShieldCurrent += CONST_ShieldRegenAmount * Time.deltaTime;
+        if (ShieldCurrent > 0f)
+        {
+            if (!_shiftShieldActive) onShieldActivate?.Invoke(true);
+            _shiftShieldActive = true;
+        }
+        else
+        {
+            if (_shiftShieldActive) onShieldActivate?.Invoke(false);
+            _shiftShieldActive = false;
+        }
+        
+        _timerRegen += Time.deltaTime;
+        if (_timerRegen < 1f) return;
+        _timerRegen = 0f;
+        if (!IsAtFullHealth())  HealthCurrent += Br.character.GetStat(Stats.RegenerationRate) * 0.01f;
+    }
+
+    void LateUpdate()
+    {
+        uIDisplay();
+        return;
+        
+        void uIDisplay()
+        {
+            Vector3 screenPos = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
+           // _healthBarTransform.position = screenPos;
+            _numDisplayTransform.position = screenPos;
+            bool isBehind = Vector3.Dot(Ga.me.camRig.camTransform.forward, Br.myTransform.position - Ga.me.camRig.camTransform.position) < 0;
+            if (isBehind)  screenPos = _screenCenter - (screenPos - _screenCenter).normalized * Screen.width;
+            int offset = 50;
+            bool isOffScreen = screenPos.x > Screen.width + offset || screenPos.x + offset < 0 ||
+                               screenPos.y > Screen.height + offset || screenPos.y + offset < 0 ||
+                               isBehind;
+    
+            if (isOffScreen)
+            {
+                _pointerImage.enabled = true;
+    
+                screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
+                screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
+    
+                RectTransform canvasRect = _pointer.parent as RectTransform;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, null, out Vector2 localPos);
+                _pointer.anchoredPosition = localPos;
+    
+                Vector3 angleDir = screenPos - _screenCenter;
+                if (isBehind) angleDir = _screenCenter - screenPos;
+                float angle = Mathf.Atan2(angleDir.y, angleDir.x) * Mathf.Rad2Deg;
+                _pointer.localRotation = Quaternion.Euler(0, 0, angle - 90f);
+            }
+            else
+            {
+                _pointerImage.enabled = false;
+            }
+        }
+    }
+
+    void UiUpdate()
+    {
+        string healthDisplay = $"<color=green>{(int)_healthCurrent}/{Br.character.GetStat(Stats.Health)}</color>";
+        if (ShieldCurrent > 0)  _numDisplay.text = $"<color=blue>{(int)ShieldCurrent}/{(int)_shieldMax}\n{healthDisplay}";
+        else _numDisplay.text = healthDisplay;
+    }
     public void HealthInjectDataManaShield(int val)
     {
         _shieldMax = val;
@@ -158,6 +232,15 @@ public class Health: MonoBehaviour, IIniBrain
                         {
                             ParticleSystem ps = _dictPsElements[damageFinal.GetKey(i)];
                             if (ps != null) ps.Play();
+                            if (_coroutineShieldRegen != null) StopCoroutine(_coroutineShieldRegen);
+                            _coroutineShieldRegen = StartCoroutine(shieldRegen());
+                            
+                            IEnumerator shieldRegen()
+                            {
+                                _canRegenerateShield = false;
+                                yield return Ga.me.wait100;
+                                _canRegenerateShield = true;
+                            }
                             break;
                         }
                     }
@@ -221,59 +304,6 @@ public class Health: MonoBehaviour, IIniBrain
     }
 
 
-    void Update()
-    {
-        _timerBars += Time.deltaTime;
-        if (_timerBars < 1f) return;
-        
-        _timerBars = 0f;
-        if (!IsAtFullHealth())
-        {
-            HealthCurrent += Br.character.GetStat(Stats.RegenerationRate) * 0.01f;
-            return;
-        }
-        if (!IsAtFullShield()) ShieldCurrent += CONST_ShieldRegenAmount * Time.deltaTime;
-    }
-
-    void LateUpdate()
-    {
-        uIDisplay();
-        return;
-        
-        void uIDisplay()
-        {
-            Vector3 screenPos = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position + _offset);
-           // _healthBarTransform.position = screenPos;
-            _numDisplayTransform.position = screenPos;
-            bool isBehind = Vector3.Dot(Ga.me.camRig.camTransform.forward, Br.myTransform.position - Ga.me.camRig.camTransform.position) < 0;
-            if (isBehind)  screenPos = _screenCenter - (screenPos - _screenCenter).normalized * Screen.width;
-            int offset = 50;
-            bool isOffScreen = screenPos.x > Screen.width + offset || screenPos.x + offset < 0 ||
-                               screenPos.y > Screen.height + offset || screenPos.y + offset < 0 ||
-                               isBehind;
-    
-            if (isOffScreen)
-            {
-                _pointerImage.enabled = true;
-    
-                screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
-                screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
-    
-                RectTransform canvasRect = _pointer.parent as RectTransform;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, null, out Vector2 localPos);
-                _pointer.anchoredPosition = localPos;
-    
-                Vector3 angleDir = screenPos - _screenCenter;
-                if (isBehind) angleDir = _screenCenter - screenPos;
-                float angle = Mathf.Atan2(angleDir.y, angleDir.x) * Mathf.Rad2Deg;
-                _pointer.localRotation = Quaternion.Euler(0, 0, angle - 90f);
-            }
-            else
-            {
-                _pointerImage.enabled = false;
-            }
-        }
-    }
 
 
 

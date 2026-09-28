@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,7 +15,19 @@ public class Test : MonoBehaviour
     [Button]
     void AddS()
     {
-       playerCharacter.CharacterInjectData(GenChange.Add, buffStats);
+        StartCoroutine(enumerator());
+        IEnumerator enumerator()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if (i == 3)
+                {
+                    yield return new WaitForSeconds(2);
+                }
+                print(i);
+                yield return null;
+            }
+        }
     }
     [Button]
     void Remove()

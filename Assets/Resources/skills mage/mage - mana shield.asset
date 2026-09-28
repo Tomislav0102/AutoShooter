@@ -48,7 +48,7 @@ MonoBehaviour:
     dashPower: 0
     dashDirection: {x: 0, y: 0}
     hasManaShield: 1
-    manaShieldPoints: 15
+    manaShieldPoints: 100
     hasStats: 0
     stats: []
     hasEffect: 0

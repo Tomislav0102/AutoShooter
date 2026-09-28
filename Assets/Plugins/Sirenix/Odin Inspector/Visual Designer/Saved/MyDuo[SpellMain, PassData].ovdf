@@ -1,0 +1,25 @@
+OVDF v1.1
+MyDuo`2[[SpellMain, Assembly-CSharp],[PassData, Assembly-CSharp]], Assembly-CSharp
+
+# $Ef2wxJcPF1F76BWm2zMw1C
+Position: $root
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# $SFg82BhzqZSAxGZFxPV99z
+Position: $Ef2wxJcPF1F76BWm2zMw1C:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $XKdtymQZmujBbriJvxtoFL
+Position: $SFg82BhzqZSAxGZFxPV99z:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 33 %
+
+# $FA8Pt7LEGJ5Cj4vSC3R2sU
+Position: $SFg82BhzqZSAxGZFxPV99z:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# <Key>k__BackingField
+Position: $XKdtymQZmujBbriJvxtoFL:0
+
+# <Value>k__BackingField
+Position: $FA8Pt7LEGJ5Cj4vSC3R2sU:0

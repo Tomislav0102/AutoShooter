@@ -42,8 +42,10 @@ public class Ga : MonoBehaviour
     [HideInInspector] public WaitForSeconds wait00;
     [HideInInspector] public WaitForSeconds wait01;
     [HideInInspector] public WaitForSeconds wait02;
+    [HideInInspector] public WaitForSeconds wait15;
     [HideInInspector] public WaitForSeconds wait20;
     [HideInInspector] public WaitForSeconds wait30;
+    [HideInInspector] public WaitForSeconds wait100;
     [Title("Debug")] 
     public bool debug;
 
@@ -55,8 +57,10 @@ public class Ga : MonoBehaviour
         wait00 = Utils.GetWait(0f);
         wait01 = Utils.GetWait(0.1f);
         wait02 = Utils.GetWait(0.2f);
+        wait15 = Utils.GetWait(1.5f);
         wait20 = Utils.GetWait(2f);
         wait30 = Utils.GetWait(3f);
+        wait100 = Utils.GetWait(10f);
         // SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
         #if (!UNITY_EDITOR)
         SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
