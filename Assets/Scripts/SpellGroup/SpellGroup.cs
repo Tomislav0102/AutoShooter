@@ -20,7 +20,6 @@ public class SpellGroup : MonoBehaviour
     {
         PassData pdDash = new PassData()
         {
-            myBrain =  brain,
             hasDash =  true,
             dashPower = Ga.me.gameData.dashPower
         };
@@ -35,7 +34,6 @@ public class SpellGroup : MonoBehaviour
         int knockBackPower = Mathf.Min(20, brain.character.GetStat(Stats.KnockBack));
         PassData pdContactDamage = new PassData()
         {
-            myBrain =  brain,
             hasDamage = true,
             damagePair = damage,
             hasKnockback = true,

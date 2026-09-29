@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class PC_Mage : MonoBehaviour, IIniBrain
 {
@@ -81,6 +82,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
     PlayerCombat _playerCombat;
     int _numOfObjects;
+    bool _isCasting; //debug. all attacks must finish before new animation event triggers a cast coroutine
     
     void OnDisable()
     {
@@ -100,7 +102,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellArcaneShield.transporter.target = Br.myTransform;
                 _spellArcaneShield.InitializeMe(Br);
                 _canArcaneShield = true;
-                Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.buffEffect[0]);
+                Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.effects[0]);
                 break;
             case SkillName.ManaShield:
                 if (_spellManaShield is not null) _spellManaShield.MyPhase = SpellMain.Phase.EndEnd;
@@ -124,10 +126,10 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellDragonsBreath.areaOfEffect += newSkill.stats[0].data.value;
                 PassData pd = new PassData()
                 {
-                    myBrain = Br,
-                    canBeDodged = true,
                     hasDamage = true,
-                    damagePair = Br.character.GetDamage(Element.Fire, 0.1f, newSkill.passData.damagePair)
+                    damagePair = Br.character.GetDamage(Element.Fire, 0.1f, newSkill.passData.damagePair),
+                    hasKnockback = true,
+                    knockbackPower = newSkill.passData.knockbackPower,
                 };
                 _spellDragonsBreath.InitializeMe(Br, pd);
                 break;
@@ -165,7 +167,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     if (_coroutineArcaneShield != null) StopCoroutine(_coroutineArcaneShield);
                     _coroutineArcaneShield = StartCoroutine(arcaneShieldWait());
                     if (!_canArcaneShield) return;
-                    Br.status.StatusInjectData(GenChange.Remove, _skillArcaneShield.buffEffect[0]);
+                    Br.status.StatusInjectData(GenChange.Remove, _skillArcaneShield.effects[0]);
                     _spellArcaneShield.visual.StopDefault();
                     _canArcaneShield = false;
                     return;
@@ -173,7 +175,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     IEnumerator arcaneShieldWait()
                     {
                         yield return  new WaitForSeconds(_skillArcaneShield.valueGeneric);
-                        Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.buffEffect[0]);
+                        Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.effects[0]);
                         _spellArcaneShield.visual.PlayDefault();
                         _canArcaneShield = true;
                     }
@@ -189,11 +191,17 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
     public void AnimEv_AttackCallback(int num = 0)
     {
+        if (_isCasting)
+        {
+            Debug.LogError("Still casting! Coroutine is taking too long or attack (animation) speed is too fast, fix needed!");
+            return;
+        }
         psCast.Play();
         StartCoroutine(castSequence());
 
         IEnumerator castSequence()
         {
+            _isCasting = true;
             foreach (SoSkill skill in _activeSkills)
             {
                 switch (skill.skillName)
@@ -227,27 +235,18 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     case SkillName.Fireball:
                         List<Transform> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
                         Transform middleTarget = targetsFireball.Count == 0 ? null : targetsFireball[0];
-                        PassData carrier = new PassData()
-                        {
-                            myBrain = Br,
-                            canBeBlocked = true,
-                            canBeDodged = true
-                        };
                         if (middleTarget is not null)
                         {
                             Vector3 targetPosition = middleTarget.position;
                             Vector3 direction = Utils.Direction(Br.myTransform.position, targetPosition);
                             SpellMain carryFireball = Instantiate(skill.spell, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
-                            carryFireball.InitializeMe(Br, carrier, () => explosion(targetPosition));
+                            carryFireball.InitializeMe(Br, () => explosion(targetPosition));
                         }
 
                         void explosion(Vector3 pos)
                         {
                             PassData containerExplosion = new PassData()
                             {
-                                myBrain = Br,
-                                canBeBlocked = true,
-                                canBeDodged = true,
                                 hasDamage = true,
                                 damagePair = Br.character.GetDamage()
                             };
@@ -261,7 +260,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         {
                             PassData containerArea = new PassData()
                             {
-                                myBrain = Br,
                                 hasDamage = true,
                                 damagePair = Br.character.GetDamage(Element.Fire)
                             };
@@ -271,19 +269,43 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         }
                         break;
                     case SkillName.MeteorStrike:
-                        List<Transform> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, 1, skill.spell.range);
+                        int count = Br.character.GetStat(Stats.Projectiles) + skill.level;
+                        List<Transform> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, count, skill.spell.range);
                         if (targetsMeteor.Count > 0)
                         {
-                            PassData containerMeteor = new PassData()
+                            int targetCounter = 0;
+                            for (int i = 0; i < count; i++)
                             {
-                                myBrain = Br,
-                                canBeDodged = true,
-                                hasDamage = true,
-                                damagePair = Br.character.GetDamage(Element.Fire)
-                            };
-                            SpellMain meteorStrike = Instantiate(skill.spell, targetsMeteor[0].position, Quaternion.identity, Ga.me.spells.myTransform);
-                            meteorStrike.InitializeMe(Br, containerMeteor);
+                                PassData containerMeteor = new PassData()
+                                {
+                                    hasDamage = true,
+                                    damagePair = Br.character.GetDamage(Element.Physical, 1f, skill.passData.damagePair),
+                                    hasKnockback = true,
+                                    knockbackPower = skill.passData.knockbackPower,
+                                    knockbackDirection = Random.insideUnitSphere.normalized
+                                };
+                                SpellMain meteorStrike = Instantiate(skill.spell, targetsMeteor[targetCounter].position, Quaternion.identity, Ga.me.spells.myTransform);
+                                targetCounter = (1 + targetCounter) % targetsMeteor.Count;
+                                meteorStrike.InitializeMe(Br, containerMeteor);
+                                yield return Ga.me.wait01;
+                            }
                         }
+                        break;
+                    case SkillName.FireNova:
+                        BuffEffects burn = skill.passData.effects[0];
+                        burn.myBrain = Br;
+                        PassData pdFireNova = new PassData()
+                        {
+                            hasKnockback = true,
+                            knockbackPower = skill.passData.knockbackPower,
+                            hasDamage = true,
+                            damagePair = Br.character.GetDamage(Element.Physical, 1f, skill.passData.damagePair),
+                            hasEffect = true,
+                            effects = new BuffEffects[1] {burn}
+                        };
+                        SpellMain spellFireNova = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                        spellFireNova.areaOfEffect += skill.passData.stats[0].data.value;
+                        spellFireNova.InitializeMe(Br, pdFireNova);
                         break;
                     case SkillName.ChainLightning:
                         List<Transform> targetsChainLightning = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, _numOfObjects, skill.spell.range);
@@ -308,8 +330,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             dam /= (index * index + 1);
                             PassData container = new PassData()
                             {
-                                myBrain = Br,
-                                canBeDodged = true,
                                 hasDamage = true,
                                 damagePair = new MyDuo<Element, float>(new Element[1] { Element.Electricity }, new float[1] { dam })
                             };
@@ -321,8 +341,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         List<Transform> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                         PassData containerOverload = new PassData()
                         {
-                            myBrain = Br,
-                            canBeDodged = true,
                             hasDamage = true,
                             damagePair = Br.character.GetDamage(Element.Electricity)
                         };
@@ -346,8 +364,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         {
                             PassData containerLightning = new PassData()
                             {
-                                myBrain = Br,
-                                canBeDodged = true,
                                 hasDamage = true,
                                 damagePair = Br.character.GetDamage(Element.Electricity)
                             };
@@ -359,6 +375,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             }
 
             yield return null;
+            _isCasting = false;
         }
 
     }

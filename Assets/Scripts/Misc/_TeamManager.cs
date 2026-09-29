@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TeamManager
 {
-    public Transform playerTransform;
+    public Brain playersBrain;
     HashSet<Brain> _good;
     HashSet<Brain> _bad;
     HashSet<Brain> _neutral;

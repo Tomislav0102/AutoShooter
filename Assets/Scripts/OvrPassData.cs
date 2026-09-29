@@ -16,8 +16,6 @@ public class OvrPassData : MonoBehaviour
 public class PassData
 {
     [ReadOnly] public Brain myBrain;
-    [BoxGroup] public bool canBeBlocked;
-    [BoxGroup] public bool canBeDodged;
 
     public bool hasDamage;
     [ShowIf(nameof(hasDamage))] public MyDuo<Element, float> damagePair;

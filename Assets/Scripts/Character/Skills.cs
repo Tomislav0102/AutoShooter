@@ -43,12 +43,12 @@ public class Skills : MonoBehaviour, IIniBrain
             //debugs
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.RotatingSwords);
+                OvrLevelSpecificSkill(SkillName.AdvanceGuard);
                 
             }
             if (useMage)
             {
-                OvrLevelSpecificSkill(SkillName.DragonsBreath);
+                OvrLevelSpecificSkill(SkillName.FireNova);
 
             }
             if (useArcher)

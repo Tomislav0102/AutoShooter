@@ -15,7 +15,7 @@ public class PlayerLoco : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            Ga.me.team.playerTransform = value.myTransform;
+            Ga.me.team.playersBrain = value;
             value.agent.updateRotation = false;
         }
     }

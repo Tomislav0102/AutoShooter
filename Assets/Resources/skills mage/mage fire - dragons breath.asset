@@ -40,16 +40,14 @@ MonoBehaviour:
   hasPassData: 1
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 1
     hasDamage: 1
     damagePair:
       <Key>k__BackingField: 01000000
       <Value>k__BackingField:
       - 10
     spellsVelocity: {x: 0, y: 0}
-    hasKnockback: 0
-    knockbackPower: 0
+    hasKnockback: 1
+    knockbackPower: 5
     knockbackDirection: {x: 0, y: 0}
     hasDash: 0
     dashPower: 0

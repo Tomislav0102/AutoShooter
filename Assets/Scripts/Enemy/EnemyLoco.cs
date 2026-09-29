@@ -39,7 +39,7 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
     int _counterWaypoints;
     Transform FollowTarget() //placeholder
     {
-        if (_followTarget == null)  _followTarget = Ga.me.team.playerTransform;
+        if (_followTarget == null)  _followTarget = Ga.me.team.playersBrain.myTransform;
         return _followTarget;
     }
     Transform _followTarget;

@@ -95,7 +95,7 @@ public class Status : MonoBehaviour, IIniBrain
                     hasDamage = true,
                     damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.data.value })
                 };
-                Br.health.HealthInjectDataDamage(passData, out _);
+                Br.health.HealthInjectDataDamage(passData, false, false, out _);
             }
         }
         bool doRefresh = false;
@@ -139,8 +139,8 @@ public class Status : MonoBehaviour, IIniBrain
                         if (Br.health.HealthCurrent <= buffEffects.data.value * Br.character.GetStat(Stats.Health) * 0.01f)
                         {
                             print("Executioner");
-                            Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffects.brain);
-                            Br.health.Death(buffEffects.brain);
+                            Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffects.myBrain);
+                            Br.health.Death(buffEffects.myBrain);
                             return;
                         }
                         break;

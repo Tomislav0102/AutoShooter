@@ -17,21 +17,20 @@ MonoBehaviour:
     (Physical resistance) permanently. '
   levelUpEffect: Increases defense reduction amount.
   skillName: 38
-  skillNameText: 
-  levelUpText: 
+  icon: {fileID: 0}
   skillType: 0
   level: 1
   hasStat: 1
   stats:
-  - change: 0
+  - stat: 12
     buffType: 0
-    buff:
-      stat: 12
-      value: -7.5
+    data:
+      value: -40
       permanent: 1
-      duration: 0
-  hasExtraDamage: 0
-  extraDamage:
+      <Duration>k__BackingField: 0
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
@@ -39,11 +38,9 @@ MonoBehaviour:
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 0
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -57,15 +54,12 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 1
-  numGeneric: 0
-  floatGeneric: 0.075
-  stringGeneric: 
+  valueGeneric: 0.35
+  valueGenericArray: []

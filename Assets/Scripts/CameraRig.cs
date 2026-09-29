@@ -18,8 +18,8 @@ public class CameraRig : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Ga.me.team.playerTransform == null) return;
-        Utils.CameraFollowAsymptotic(Ga.me.team.playerTransform.position, myTransform);
+        if (Ga.me.team.playersBrain == null) return;
+        Utils.CameraFollowAsymptotic(Ga.me.team.playersBrain.myTransform.position, myTransform);
         int dir = (int)rotatingTo - 1;
         myTransform.Rotate(dir * yawSpeed * Time.deltaTime * Vector3.up);
     }

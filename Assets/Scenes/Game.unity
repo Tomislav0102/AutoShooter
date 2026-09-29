@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4192,6 +4192,7 @@ MonoBehaviour:
   psSpawn: {fileID: 2788874313513453382, guid: 78099a60062f31146864b7b960e4159d, type: 3}
   psDeath: {fileID: 8697752538054112860, guid: 267648712d9e6a848a981135599c95a1, type: 3}
   psDecalFire: {fileID: 198129106043806410, guid: bf3a185be0fd721488ec9d552d8f715b, type: 3}
+  psArmorBreak: {fileID: 6671098274783876101, guid: 41dc97bb98c40ae42a51c67ba49a8ea9, type: 3}
   gameData: {fileID: 11400000, guid: 3a1b339435bd6ca41b2fab0474e7ccdf, type: 2}
   defCharacter: {fileID: 11400000, guid: c30f3f51f23c36347a1615bf0efa05a0, type: 2}
   spells: {fileID: 2141633715}
@@ -5685,7 +5686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9152218506064696801, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: serializationData.Prefab

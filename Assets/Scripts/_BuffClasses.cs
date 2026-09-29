@@ -3,29 +3,6 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
-
-
-// [System.Serializable]
-// public class StatsGroup
-// {
-//     public GenChange change;
-//     bool ShowBuffType() => change == GenChange.Add;
-//     [ShowIf(nameof(ShowBuffType))] public BuffType buffType;
-//     [FormerlySerializedAs("buff")] public BuffStats buffStats;
-//         
-//     public StatsGroup(GenChange change, BuffType buffType, BuffStats buffStats) 
-//     {
-//         this.change = change;
-//         this.buffType = buffType;
-//         this.buffStats = buffStats;
-//     }
-//     public StatsGroup(GenChange change, BuffStats buffStats) //for removal
-//     {
-//         this.change = change;
-//         this.buffStats = buffStats;
-//     }
-// }
-
 [System.Serializable]
 public class BuffStats
 {
@@ -43,12 +20,14 @@ public class BuffStats
 [System.Serializable]
 public class BuffEffects
 {
-    [ReadOnly] public Brain brain;
+    [ReadOnly] public Brain myBrain;
     public Status.Effect effect;
     public BuffData data;
 
-    public BuffEffects(Status.Effect effect, float val, float dur = float.PositiveInfinity) 
+    public BuffEffects() { }
+    public BuffEffects(Brain brain, Status.Effect effect, float val, float dur = float.PositiveInfinity) 
     {
+        myBrain = brain;
         this.effect = effect;
         data = new BuffData(val, dur);
     }

@@ -71,19 +71,16 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                     multiplier = 1f;
                     PassData pdFire = new PassData()
                     {
-                        myBrain = Br,
                         hasDamage = true,
                         damagePair = Br.character.GetDamage(Element.Fire, multiplier)
                     };
                     PassData pdIce = new PassData()
                     {
-                        myBrain = Br,
                         hasDamage = true,
                         damagePair = Br.character.GetDamage(Element.Ice, multiplier)
                     };
                     PassData pdElectricity = new PassData()
                     {
-                        myBrain = Br,
                         hasDamage = true,
                         damagePair = Br.character.GetDamage(Element.Electricity, multiplier)
                     };
@@ -219,7 +216,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             if (!_lastStandHealthAboveTreshold) return;
             _lastStandCooldownTimerDone = false;
             _lastStandHealthAboveTreshold = false;
-            Br.status.StatusInjectData(GenChange.Add, skill.buffEffect[0]);
+            Br.status.StatusInjectData(GenChange.Add, skill.effects[0]);
             StartCoroutine(delay(skill.valueGeneric));
             return;
 

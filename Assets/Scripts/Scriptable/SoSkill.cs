@@ -19,18 +19,18 @@ public class SoSkill : ScriptableObject
   //  [EnumButtons] public AnimAttackType animAttackType; //only for enemy animations
     public int level;
 
-    [Title("Global")]
-    [InfoBox("Affect user of skill")]
+    [Title("Character")]
+    [InfoBox("Affect user/owner of skill. Buffs/debuffs on user, not the spell below.")]
     public bool hasStat;
     [ShowIf(nameof(hasStat))] public BuffStats[] stats;
-    public bool hasExtraDamage;
-    [ShowIf(nameof(hasExtraDamage))] public BuffType damageType;
-    [ShowIf(nameof(hasExtraDamage))] public MyDuo<Element, float> extraDamage;
+    [FormerlySerializedAs("hasExtraDamage")] public bool hasDamage;
+    [ShowIf(nameof(hasDamage))] public BuffType damageType;
+    [FormerlySerializedAs("extraDamage")] [ShowIf(nameof(hasDamage))] public MyDuo<Element, float> damagePair;
     public bool hasEffect;
-    [ShowIf(nameof(hasEffect))] public BuffEffects[] buffEffect;
+    [FormerlySerializedAs("buffEffect")] [ShowIf(nameof(hasEffect))] public BuffEffects[] effects;
     
     [Title("Spell")]
-    [InfoBox("Extra affect target of spell (PassData format)")]
+    [InfoBox("Any change to spell variables are in 'passData' variable (e.g. damage, knockback, size, numOfProjectiles).")]
     public HasSpell hasSpell;
     bool ShowSpell() => hasSpell == HasSpell.Spell;
     bool ShowSpellGroup() => hasSpell == HasSpell.SpellGroup;
@@ -50,5 +50,6 @@ public class SoSkill : ScriptableObject
     [ShowIf(nameof(hasGeneric))] public float[] valueGenericArray;
     
     public enum HasSpell { None, Spell, SpellGroup }
+    
 }
 

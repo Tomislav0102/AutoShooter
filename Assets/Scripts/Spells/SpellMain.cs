@@ -46,6 +46,8 @@ public class SpellMain : MonoBehaviour
     
     [Title("Data")]
     public bool isInterrupt;
+    [SerializeField] bool canBeBlocked;
+    [SerializeField] bool canBeDodged;
     [ReadOnly] public bool spellActive;
     [ReadOnly] public PassData pd;
     public Brain OwnersBrain
@@ -113,7 +115,7 @@ public class SpellMain : MonoBehaviour
     public float range = 1f;
     public float areaOfEffect = 1f;
     [Range(0f, 1f)] public float hitChance = 1f;
-    public bool extraLifeTimeForParticles;
+    public bool extraLifeTimeForParticles = true;
     [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
     public float lifeTime;
     bool LifeTimeIs0() => lifeTime == 0f;
@@ -246,6 +248,7 @@ public class SpellMain : MonoBehaviour
         _timerPhase += Time.deltaTime;
     }
 
+    
     public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
     {
         if (!(targetGeneric.TryGetComponent(out targetsBrain) &&
@@ -260,7 +263,7 @@ public class SpellMain : MonoBehaviour
         if (pd.hasDamage)
         {
             // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-            targetsBrain.health.HealthInjectDataDamage(pd, out didDamage);
+            targetsBrain.health.HealthInjectDataDamage(pd, canBeBlocked, canBeDodged, out didDamage);
         }
         if (!didDamage) return;
         

@@ -16,32 +16,24 @@ MonoBehaviour:
   description: Increases Frontal Physical Resistance by X% while moving
   levelUpEffect: Increases Physical Resistance% per level
   skillName: 36
+  icon: {fileID: 0}
   skillType: 1
   level: 0
-  hasStat: 1
-  stats:
-  - change: 0
-    buffType: 1
-    buffStats:
-      stat: 12
-      data:
-        value: 1.2
-        permanent: 1
-        <Duration>k__BackingField: 0
-  hasExtraDamage: 0
-  extraDamage:
+  hasStat: 0
+  stats: []
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
-  buffEffect: []
-  hasSpell: 0
-  spell: {fileID: 0}
+  effects: []
+  hasSpell: 1
+  spell: {fileID: 9183525283026648246, guid: 3abc57b1ea45ba740abf468eb2c09fe6, type: 3}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 0
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -55,14 +47,12 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0
     effects: []
-  hasGeneric: 0
-  valueGeneric: 0
+  hasAfterSpells: 0
+  afterSpells: []
+  hasGeneric: 1
+  valueGeneric: 1.5
   valueGenericArray: []

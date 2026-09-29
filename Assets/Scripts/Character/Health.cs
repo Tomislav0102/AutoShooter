@@ -180,12 +180,12 @@ public class Health: MonoBehaviour, IIniBrain
         ShieldCurrent = _shieldMax;
         HealthCurrent = HealthCurrent; //only to update UI
     }
-    public void HealthInjectDataDamage(PassData pd, out bool hitDidDamage)
+    public void HealthInjectDataDamage(PassData pd, bool canBeBlocked, bool canBeDodged, out bool hitDidDamage)
     {
         hitDidDamage = false;
         Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain);
         FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
-        if (pd.canBeDodged)
+        if (canBeDodged)
         {
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
             if (dodged)
@@ -195,7 +195,7 @@ public class Health: MonoBehaviour, IIniBrain
             }
         }
         bool blocked = false;
-        if (pd.canBeBlocked)
+        if (canBeBlocked)
         {
             Br.combat.CheckBlock(out blocked, pd.myBrain);
             if (blocked)
@@ -296,7 +296,7 @@ public class Health: MonoBehaviour, IIniBrain
         void enemyAggro()
         {
             if (pd.myBrain == null) return;
-            if (Br.myTransform == Ga.me.team.playerTransform) return;
+            if (Br == Ga.me.team.playersBrain) return;
             if (Br.combat.MyTarget != null) return;
             print("UnderAttack");
             Br.combat.MyTarget = pd.myBrain.myTransform;

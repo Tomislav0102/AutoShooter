@@ -16,49 +16,43 @@ MonoBehaviour:
   description: Every hit has a chance to release a small AOE shockwave.
   levelUpEffect: Increases shockwave radius and proc chance.
   skillName: 41
-  skillNameText: 
-  levelUpText: 
+  icon: {fileID: 0}
   skillType: 0
   level: 1
   hasStat: 0
   stats: []
-  hasExtraDamage: 0
-  extraDamage:
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
-  hasAttackEffect: 0
-  effect:
-    group: []
+  hasEffect: 0
+  effects: []
   hasSpell: 1
   spell: {fileID: 8368024395976555183, guid: c5b5ee6045ab10641a66e5dd60d118a6, type: 3}
   spellGroup: {fileID: 0}
-  hasExtra: 0
-  block:
-    canBeBlocked: 0
-    canBeDodged: 0
+  hasPassData: 0
+  passData:
+    myBrain: {fileID: 0}
     hasDamage: 0
-    damage:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-      addSpellVelocity: 0
-      spellsVelocity: {x: 0, y: 0, z: 0}
+    damagePair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0}
     hasKnockback: 0
-    knockBack:
-      power: 0
-      direction: {x: 0, y: 0}
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
     hasManaShield: 0
-    manaShield:
-      manaShieldPoints: 0
-    hasSpell: 0
-    spellData:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
+    manaShieldPoints: 0
     hasStats: 0
-    stats:
-      group: []
+    stats: []
+    hasEffect: 0
+    effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 1
-  numGeneric: 0
-  floatGeneric: 0.11
-  stringGeneric: 
+  valueGeneric: 0.15
+  valueGenericArray: []

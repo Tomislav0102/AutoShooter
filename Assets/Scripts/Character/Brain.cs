@@ -72,7 +72,7 @@ public class Brain : MonoBehaviour
             combat.Br = this;
         }
         Ga.me.team.JoinTeam(Faction, this);
-        if (myTransform != Ga.me.team.playerTransform) size *= Random.Range(0.9f, 1.1f);
+        if (this != Ga.me.team.playersBrain) size *= Random.Range(0.9f, 1.1f);
         ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
         ps.transform.localScale = size * Vector3.one;

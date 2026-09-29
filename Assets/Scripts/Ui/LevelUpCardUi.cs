@@ -7,12 +7,7 @@ public class LevelUpCardUi : MonoBehaviour
 {
     SoSkill _mySkill;
     [SerializeField] TextMeshProUGUI myText;
-    Skills _playerSkill;
 
-    void Start()
-    {
-        _playerSkill = Ga.me.team.playerTransform.GetComponent<Brain>().skills;
-    }
     public void InjectSkill(SoSkill skill)
     {
         _mySkill = skill;
@@ -22,7 +17,7 @@ public class LevelUpCardUi : MonoBehaviour
     public void ButtonClick()
     {
         if (_mySkill is null) return;
-        _playerSkill.SkillIncrease(_mySkill.skillName);
+        Ga.me.team.playersBrain.skills.SkillIncrease(_mySkill.skillName);
         Ga.me.uiManager.OpenPanel(PanelType.Game);
     }
 

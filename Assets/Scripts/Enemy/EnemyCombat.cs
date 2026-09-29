@@ -77,8 +77,6 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
             case 0: //melee (used by treant, wolf and cobra)
                 PassData containerMelee = new PassData()
                 {
-                    myBrain = Br,
-                    canBeBlocked = true,
                     hasDamage = true,
                     damagePair = Br.character.GetDamage()
                 };
@@ -90,8 +88,6 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
             case 1: //bullet (used by treant and cannon)
                 PassData containerBullet = new PassData()
                 {
-                    myBrain = Br,
-                    canBeBlocked = true,
                     hasDamage = true,
                     damagePair = Br.character.GetDamage(),
                     // hasEffect =  true,
@@ -115,8 +111,6 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                     spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
                 PassData containerExplo = new PassData()
                 {
-                    myBrain = Br,
-                    canBeBlocked = true,
                     hasDamage = true,
                     damagePair = Br.character.GetDamage()
                 };

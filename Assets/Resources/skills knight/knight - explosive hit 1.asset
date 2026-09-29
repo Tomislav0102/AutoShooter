@@ -13,32 +13,29 @@ MonoBehaviour:
   m_Name: knight - explosive hit 1
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Integers are added, floats are multiplied.
-  description: Every 3rd hit on enemy creates an explosion (0.5 physical + 0.5 fire
-    damage per level of spell)
+  description: Every 3rd hit on enemy creates an explosion
   levelUpEffect: Increased explosion damage and radius/range
   skillName: 31
-  skillNameText: 
-  levelUpText: 
+  icon: {fileID: 0}
   skillType: 0
   level: 1
   hasStat: 0
   stats:
-  - change: 0
+  - stat: 0
     buffType: 0
-    buff:
-      stat: 0
+    data:
       value: 0
       permanent: 0
-      duration: 0
-  - change: 0
+      <Duration>k__BackingField: 0
+  - stat: 0
     buffType: 0
-    buff:
-      stat: 0
+    data:
       value: 0
       permanent: 0
-      duration: 0
-  hasExtraDamage: 0
-  extraDamage:
+      <Duration>k__BackingField: 0
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
@@ -46,15 +43,15 @@ MonoBehaviour:
   hasSpell: 1
   spell: {fileID: 8836565589368749305, guid: c2ecc27d05750e647bb0d73de7514502, type: 3}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 1
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
-    hasDamage: 0
+    hasDamage: 1
     damagePair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
+      <Key>k__BackingField: 0000000001000000
+      <Value>k__BackingField:
+      - 10
+      - 10
     spellsVelocity: {x: 0, y: 0}
     hasKnockback: 0
     knockbackPower: 0
@@ -64,15 +61,12 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 0
-  numGeneric: 0
-  floatGeneric: 0
-  stringGeneric: 
+  valueGeneric: 0
+  valueGenericArray: []

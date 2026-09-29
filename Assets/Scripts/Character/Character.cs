@@ -139,6 +139,17 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                         else _ovrStatsFinal.Add(stat, finalValue);
                         break;
                 }
+                if (buffStats.data.value < 0) //debuffs
+                {
+                    switch (stat)
+                    {
+                        case Stats.ResistPhysical:
+                            Instantiate(Ga.me.psArmorBreak, Br.myTransform.position + 1.5f * Vector3.up, Quaternion.identity, Ga.me.spells.myTransform);
+                            FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
+                            ft.SpawnMe("Armor broken", Color.darkOrchid);
+                            break;
+                    }
+                }
                 onStatChange?.Invoke(buffStats.stat);
                 _buffTimers.Add(buffStats, buffStats.data.Duration);
                 if (Br.debug) print($"{stat} changed from {previousValueDebug} to {GetStat(stat)}");

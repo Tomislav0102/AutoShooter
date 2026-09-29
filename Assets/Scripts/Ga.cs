@@ -22,7 +22,7 @@ public class Ga : MonoBehaviour
     [HideInInspector] public Transform[] waypoints;
 
     [BoxGroup("Particles prefabs")] 
-    public ParticleSystem psGenericImpact, psSpawn, psDeath, psDecalFire;
+    public ParticleSystem psGenericImpact, psSpawn, psDeath, psDecalFire, psArmorBreak;
     public LevelManager LevelMan
     {
         get => _levelMan;

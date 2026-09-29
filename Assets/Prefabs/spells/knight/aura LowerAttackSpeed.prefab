@@ -81,6 +81,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8546906953881219396}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: canBeBlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: terminateOnHit
       value: 0
       objectReference: {fileID: 0}
@@ -206,8 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -221,20 +223,14 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 1
     stats:
-    - change: 0
+    - stat: 0
       buffType: 1
-      buffStats:
-        stat: 7
-        data:
-          value: 0
-          permanent: 0
-          <Duration>k__BackingField: 0
+      data:
+        value: 0
+        permanent: 0
+        <Duration>k__BackingField: 0
     hasEffect: 0
     effects: []
 --- !u!1 &9013080140464599360 stripped
