@@ -175,11 +175,11 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                 break;
             case BuffType.Set:
                 if (!_ovrStatsFinal.HasKey(buffToRemove.stat)) return;  
-                _ovrStatsFinal.Remove(buffToRemove.stat);
+                _ovrStatsFinal.RemoveByKey(buffToRemove.stat);
                 break;
         }
         onStatChange?.Invoke(buffToRemove.stat);
-        _buffTimers.Remove(buffToRemove);
+        _buffTimers.RemoveByKey(buffToRemove);
         //to mitigate problem of float precision (baseStats are integers, while finalStats are floats)
         if (_buffTimers.Length() == 0) ResetFinalStats(); 
 

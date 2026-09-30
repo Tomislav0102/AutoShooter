@@ -33,7 +33,7 @@ public class SoSkill : ScriptableObject
     [InfoBox("Any change to spell variables are in 'passData' variable (e.g. damage, knockback, size, numOfProjectiles).")]
     public HasSpell hasSpell;
     bool ShowSpell() => hasSpell == HasSpell.Spell;
-    bool ShowSpellGroup() => hasSpell == HasSpell.SpellGroup;
+    bool ShowSpellGroup() => hasSpell == HasSpell.Group;
     [ShowIf(nameof(ShowSpell))] public SpellMain spell;
     [ShowIf(nameof(ShowSpellGroup))] public SpellGroup spellGroup;
     bool ShowPd() => hasSpell != HasSpell.None;
@@ -49,7 +49,7 @@ public class SoSkill : ScriptableObject
     [FormerlySerializedAs("floatGeneric")] [ShowIf(nameof(hasGeneric))] public float valueGeneric;
     [ShowIf(nameof(hasGeneric))] public float[] valueGenericArray;
     
-    public enum HasSpell { None, Spell, SpellGroup }
+    public enum HasSpell { None, Spell, Group }
     
 }
 

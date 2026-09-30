@@ -10,23 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight slash - advance guard
+  m_Name: mage fire - blaze trail
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: Increases Frontal Physical Resistance by X% while moving
-  levelUpEffect: Increases Physical Resistance% per level
-  skillName: 36
+  description: Leaves a trail of fire on the ground while the player moves
+  levelUpEffect: Increases fire duration
+  skillName: 71
   icon: {fileID: 0}
   skillType: 1
   level: 0
-  hasStat: 1
-  stats:
-  - stat: 12
-    buffType: 0
-    data:
-      value: 20
-      permanent: 1
-      <Duration>k__BackingField: 0
+  hasStat: 0
+  stats: []
   hasDamage: 0
   damageType: 0
   damagePair:
@@ -34,9 +28,9 @@ MonoBehaviour:
     <Value>k__BackingField: []
   hasEffect: 0
   effects: []
-  hasSpell: 1
-  spell: {fileID: 9183525283026648246, guid: 3abc57b1ea45ba740abf468eb2c09fe6, type: 3}
-  spellGroup: {fileID: 0}
+  hasSpell: 2
+  spell: {fileID: 0}
+  spellGroup: {fileID: 4097750650632919805, guid: 8ff03a2ecf095c243921ab413535e7d5, type: 3}
   hasPassData: 0
   passData:
     myBrain: {fileID: 0}
@@ -59,6 +53,6 @@ MonoBehaviour:
     effects: []
   hasAfterSpells: 0
   afterSpells: []
-  hasGeneric: 0
-  valueGeneric: 0
+  hasGeneric: 1
+  valueGeneric: 1
   valueGenericArray: []

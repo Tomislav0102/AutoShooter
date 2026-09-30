@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2485173647641314794}
   - component: {fileID: 4097750650632919805}
   m_Layer: 20
-  m_Name: Group walktrail
+  m_Name: Group blazeTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

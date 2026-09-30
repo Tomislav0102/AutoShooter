@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2640,7 +2640,7 @@ GameObject:
   m_Layer: 5
   m_Name: TEST
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2673,14 +2673,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e83de6ae850c841b587297acc54f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test
-  playerCharacter: {fileID: 925052066}
-  buffStats:
-    stat: 1
-    buffType: 0
+  br: {fileID: 1740644867}
+  buffEffects:
+    myBrain: {fileID: 0}
+    effect: 1
     data:
-      value: 12
+      value: 1
       permanent: 0
-      <Duration>k__BackingField: 2
+      <Duration>k__BackingField: 3
+  buffEffects1:
+    myBrain: {fileID: 0}
+    effect: 8
+    data:
+      value: 1
+      permanent: 0
+      <Duration>k__BackingField: 5
+  myDuo:
+    <Key>k__BackingField:
+    - first
+    <Value>k__BackingField: 01000000
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2813,17 +2824,6 @@ MonoBehaviour:
   focusOffset: 5
   yawSpeed: 100
   rotatingTo: 1
---- !u!114 &925052066 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5920573552903570810, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
-  m_PrefabInstance: {fileID: 30288}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a347948231971c044b13eb4c1b3c736b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
 --- !u!1 &928917474
 GameObject:
   m_ObjectHideFlags: 0
@@ -5686,7 +5686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9152218506064696801, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: serializationData.Prefab
@@ -5702,6 +5702,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
   m_PrefabInstance: {fileID: 1740644862}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1740644867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5022236844178524051, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+  m_PrefabInstance: {fileID: 1740644862}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740644863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60262cafc22dfa439fbb2697b9ab969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Brain
 --- !u!1 &1822696754
 GameObject:
   m_ObjectHideFlags: 0

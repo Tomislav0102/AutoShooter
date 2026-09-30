@@ -9,29 +9,21 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    public Character playerCharacter;
-    public BuffStats buffStats;
+    public Brain br;
+    public BuffEffects buffEffects;
+    public BuffEffects buffEffects1;
+  //  public BuffStats buffStats;
+  public MyDuo<string, int> myDuo = new MyDuo<string, int>();
     
     [Button]
     void AddS()
     {
-        StartCoroutine(enumerator());
-        IEnumerator enumerator()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                if (i == 3)
-                {
-                    yield return new WaitForSeconds(2);
-                }
-                print(i);
-                yield return null;
-            }
-        }
+       br.status.StatusInjectData(GenChange.Add, buffEffects);
     }
     [Button]
     void Remove()
     {
+       br.status.StatusInjectData(GenChange.Add, buffEffects1);
     }
 
 }

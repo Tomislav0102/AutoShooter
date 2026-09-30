@@ -215,7 +215,7 @@ public class MyDuo<K, V>
         Key = _bufferKey;
         Value = _bufferValue;
     }
-    public void Remove(K key)
+    public void RemoveByKey(K key)
     {
         if (Key == null || Key.Length == 0 || !ContainsKey(key))
         {
@@ -226,10 +226,12 @@ public class MyDuo<K, V>
         int counter = 0;
         _bufferKey = new K[Key.Length - 1];
         _bufferValue = new V[Value.Length - 1];
+        bool hasRemoved = false;
         for (int i = 0; i < Key.Length; i++)
         {
-            if (Key[i].Equals(key))
+            if (!hasRemoved && Key[i].Equals(key))
             {
+                hasRemoved = true;
                 continue;
             }
             _bufferKey[counter] = Key[i];
@@ -240,7 +242,7 @@ public class MyDuo<K, V>
         Key = _bufferKey;
         Value = _bufferValue;
     }
-    public void Remove(V value, bool removeFirst = true)
+    public void RemoveByValue(V value)
     {
         if (Value == null || Value.Length == 0 || !ContainsValue(value)) 
         {
@@ -251,10 +253,12 @@ public class MyDuo<K, V>
         int counter = 0;
         _bufferKey = new K[Key.Length - 1];
         _bufferValue = new V[Value.Length - 1];
+        bool hasRemoved = false;
         for (int i = 0; i < Value.Length; i++)
         {
-            if (Value[i].Equals(value))
+            if (!hasRemoved && Value[i].Equals(value))
             {
+                hasRemoved = true;
                 continue;
             }
             _bufferKey[counter] = Key[i];

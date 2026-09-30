@@ -32,37 +32,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             //         }
             //         groupShields.InitializeMe(value, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
             //         break;
-            //     case 1:
-            //         SpellGroup groupWalkTrail = Instantiate(Ga.me.spells.groupWalkTrail, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         PassData pd = new PassData()
-            //         {
-            //             myBrain = value,
-            //             hasDamage = true,
-            //             damagePair = new MyDuo<Element, float>(new Element[1] { Element.Fire }, new float[1] { 1f })
-            //         };
-            //         groupWalkTrail.InitializeMe(value, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pd }));
-            //         break;
-            //     case 3:
-            //         PassData container = new PassData()
-            //         {
-            //             myBrain = value,
-            //             hasDamage = true,
-            //             damagePair = Br.character.GetDamage(Element.Fire)
-            //         };
-            //         float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
-            //         for (int i = 0; i < _numOfObjects; i++)
-            //         {
-            //             SpellMain flamethrower = Instantiate(Ga.me.spells.flameThrower, value.myTransform.position,
-            //                 Quaternion.AngleAxis(anglesY[i], Vector3.up), Ga.me.spells.myTransform);
-            //             flamethrower.transporter.target = value.myTransform;
-            //             flamethrower.InitializeMe(value, container);
-            //         }
-            //         break;
-            //     case 4:
-            //         SpellMain pushPulse = Instantiate(Ga.me.spells.pushPulsating, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         pushPulse.transporter.target = value.myTransform;
-            //         pushPulse.InitializeMe(value);
-            //         break;
         }
     }
     Brain _br;
@@ -132,6 +101,23 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     knockbackPower = newSkill.passData.knockbackPower,
                 };
                 _spellDragonsBreath.InitializeMe(Br, pd);
+                break;
+            case SkillName.BlazeTrail:
+                SpellGroup groupWalkTrail = Instantiate(newSkill.spellGroup, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                PassData pdWalkTrail = new PassData()
+                {
+                    myBrain = Br,
+                    hasDamage = true,
+                    damagePair = Br.character.GetDamage(Element.Fire)
+                };
+                groupWalkTrail.groupPassData = new SpellGroup.GroupPassData()
+                {
+                    setAreaOfEffect = true,
+                    areaOfEffect = 1 + Br.character.GetStat(Stats.Size) * 0.1f,
+                    setLifeTime = true,
+                    lifeTime = newSkill.valueGeneric + Br.character.GetStat(Stats.Duration) * 0.1f,
+                };
+                groupWalkTrail.InitializeMe(Br, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pdWalkTrail }));
                 break;
         }
         return;
@@ -297,7 +283,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         PassData pdFireNova = new PassData()
                         {
                             hasKnockback = true,
-                            knockbackPower = skill.passData.knockbackPower,
+                            knockbackPower = skill.passData.knockbackPower + Br.character.GetStat(Stats.KnockBack),
                             hasDamage = true,
                             damagePair = Br.character.GetDamage(Element.Physical, 1f, skill.passData.damagePair),
                             hasEffect = true,

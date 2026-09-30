@@ -8,6 +8,7 @@ public class SpellGroup : MonoBehaviour
     protected Brain owner;
     protected MyDuo<SpellMain, PassData> prefabsAndData;
     [HideInInspector] public SpellMain[] spellsRunning;
+    public GroupPassData groupPassData;
     
     public virtual void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
     {
@@ -48,4 +49,11 @@ public class SpellGroup : MonoBehaviour
 
     }
 
+    public class GroupPassData
+    {
+        public bool setAreaOfEffect;
+        public float areaOfEffect;
+        public bool setLifeTime;
+        public float lifeTime;
+    }
 }

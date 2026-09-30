@@ -19,7 +19,7 @@ public class SoCharacter : SerializedScriptableObject
     void SetAllStatsDetailed(int value = 100)
     {
         SetAllStats(value);
-        baseStats[Stats.DamPhysical] = 10;
+        baseStats[Stats.DamPhysical] = 1;
         baseStats[Stats.DamFire] = 2;
         baseStats[Stats.DamIce] = 3;
         baseStats[Stats.DamElectricity] = 4;
@@ -34,12 +34,15 @@ public class SoCharacter : SerializedScriptableObject
         baseStats[Stats.Block] = 0;
         baseStats[Stats.Dodge] = 0;
         baseStats[Stats.Health] = 1000;
+        baseStats[Stats.RegenerationRate] = 0;
         baseStats[Stats.KnockBack] = 0;
         baseStats[Stats.Projectiles] = 1;
         baseStats[Stats.Bounce] = 0;
         baseStats[Stats.Bounce] = 0;
         baseStats[Stats.Piercing] = 0;
         baseStats[Stats.Ricochet] = 0;
+        baseStats[Stats.Size] = 0;
+        baseStats[Stats.Duration] = 0;
         baseStats[Stats.ReflexSpells] = 0;
         baseStats[Stats.ReflectMelee] = 0;
         baseStats[Stats.ReflectProjectiles] = 0;

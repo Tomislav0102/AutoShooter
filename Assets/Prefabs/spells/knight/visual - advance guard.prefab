@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7621798556551961410}
     m_Modifications:
+    - target: {fileID: 3777470742561441280, guid: d5093e133d92e45459d9b4898e082966, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3777470742561441280, guid: d5093e133d92e45459d9b4898e082966, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3955321834513369282, guid: d5093e133d92e45459d9b4898e082966, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -51,6 +59,10 @@ PrefabInstance:
     - target: {fileID: 4585699231794910321, guid: d5093e133d92e45459d9b4898e082966, type: 3}
       propertyPath: m_Name
       value: m_HalfCylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915558276083764224, guid: d5093e133d92e45459d9b4898e082966, type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -128,6 +140,10 @@ PrefabInstance:
       value: 426812181
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: -1
       objectReference: {fileID: 0}
@@ -150,6 +166,10 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: extraLifeTimeForParticles
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7123683373555198328, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: m_Name
+      value: Visual - test
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

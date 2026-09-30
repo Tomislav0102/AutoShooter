@@ -30,6 +30,8 @@ public class WalkTrailGroup : SpellGroup
         }
 
         SpellMain spell = Instantiate(prefabsAndData.GetKey(0), owner.myTransform.position, Quaternion.identity, myTransform);
+        if (groupPassData.setAreaOfEffect) spell.areaOfEffect = groupPassData.areaOfEffect;
+        if (groupPassData.setLifeTime) spell.lifeTime = groupPassData.lifeTime;
         spell.InitializeMe(owner, prefabsAndData.GetValue(0), () =>
         {
             if (_spawns.Contains(spell.mySphereCollider)) _spawns.Remove(spell.mySphereCollider);

@@ -28,6 +28,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
     MyDuo<Element, float> _elementStrikesIncrease;
     SpellMain _passiveLethargicDomain;
+    SpellMain _spellAdvanceGuard;
     bool _canAdvanceGuard;
 
     void OnEnable()
@@ -97,9 +98,9 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 _skillSeismicAnchorage = newSkill;
                 break;
             case SkillName.AdvanceGuard:
-                SpellMain spellAdvanceGuard = Instantiate(newSkill.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                spellAdvanceGuard.transporter.target = Br.myTransform;
-                spellAdvanceGuard.InitializeMe(Br);
+                _spellAdvanceGuard = Instantiate(newSkill.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                _spellAdvanceGuard.transporter.target = Br.myTransform;
+                _spellAdvanceGuard.InitializeMe(Br);
                 break;
             
             case SkillName.IronFortress: //ultimate 1
@@ -153,6 +154,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     public void AnimEv_AttackCallback(int num = 0)
     {
+        return;
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage();
         if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _elementStrikesIncrease);
@@ -436,6 +438,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         if (!Br.loco.IsMoving) return;
                         if (Combat.IsFlanked(Br.myTransform, otherBrain.myTransform)) return;
                         _canAdvanceGuard = true;
+                        _spellAdvanceGuard.visual.PlayDefault();
                         Br.character.CharacterInjectData(GenChange.Add, skill.stats[0]);
                         return;
                     }

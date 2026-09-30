@@ -25,7 +25,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
             value.onHitTarget += (Brain br) =>
             {
                 if (psHit != null) psHit.Play();
-                StartCoroutine(LightDelay(_lightDefault));
+                if (_lightDefault != null) StartCoroutine(LightDelay(_lightDefault));
             };
 
             switch (sizeModifier)
@@ -68,14 +68,13 @@ public class SpellVisual : MonoBehaviour, IIniSpell
     [SerializeField] Transform myMesh;
     [Tooltip("if != null, SizeModifierType should be Other_None")] [SerializeField] SpriteRenderer myTiledSpriteRenderer;
 
-    
 
 
     public void PlayDefault()
     {
         if (!Ga.me.gameData.showParticles) return;
         if (psDefault != null) psDefault.Play();
-        StartCoroutine(LightDelay(_lightDefault));
+        if (_lightDefault != null) StartCoroutine(LightDelay(_lightDefault));
     }
     public void StopDefault()
     {
@@ -103,8 +102,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
 
     IEnumerator LightDelay(Light myLight)
     {
-        if (myLight == null) yield break;
-        
+      //  if (myLight == null) yield break;
         myLight.enabled = true;
         float time = 0.4f;
         float intensity = myLight.intensity;

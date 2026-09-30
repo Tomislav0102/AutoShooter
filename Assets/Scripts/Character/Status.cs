@@ -92,6 +92,7 @@ public class Status : MonoBehaviour, IIniBrain
                 }
                 PassData passData = new PassData()
                 {
+                    myBrain = buff.myBrain,
                     hasDamage = true,
                     damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.data.value })
                 };
@@ -104,7 +105,7 @@ public class Status : MonoBehaviour, IIniBrain
             if (_duoBuffs.HasKey(buffsToRemove[i]))
             {
                 doRefresh = true;
-                _duoBuffs.Remove(buffsToRemove[i]);
+                _duoBuffs.RemoveByKey(buffsToRemove[i]);
                 break;
             }
         }
@@ -123,7 +124,11 @@ public class Status : MonoBehaviour, IIniBrain
         {
             case GenChange.Add:
                 _duoBuffs.Add(buffEffects, buffEffects.data.permanent ? float.PositiveInfinity : buffEffects.data.Duration);
-                if (buffEffects.IsDot()) return;
+                if (buffEffects.IsDot())
+                {
+                    Refresh();
+                    return;
+                }
 
                 for (int i = 0; i < _duoBuffs.Length() - 1; i++)
                 {
@@ -148,7 +153,7 @@ public class Status : MonoBehaviour, IIniBrain
                 
                 break;
             case GenChange.Remove:
-                if (_duoBuffs.HasKey(buffEffects)) _duoBuffs.Remove(buffEffects);
+                if (_duoBuffs.HasKey(buffEffects)) _duoBuffs.RemoveByKey(buffEffects);
                 break;
         }
         
@@ -156,6 +161,8 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void Refresh()
     {
+        //code for non-dot effects (blind, rooted...)
+        
         uIRefresh();
         return;
         
