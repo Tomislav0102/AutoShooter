@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -25,7 +26,8 @@ public class Status : MonoBehaviour, IIniBrain
         Serrated, //2X damage vs unarmored, 0.5X damage vs armored
         Explosive, //bonus knockback
     }
-
+    public static System.Action<Brain, Effect, bool> OnEffectChange;
+    
     RectTransform _status;
     GameObject[] _statusImageGos;
     public Brain Br
@@ -38,13 +40,49 @@ public class Status : MonoBehaviour, IIniBrain
             _status = Instantiate(Ga.me.uiManager.statusPrefab, Ga.me.uiManager.pointersContainer);
             _statusImageGos = Utils.AllChildrenGameObjects(_status);
             _tickTimer = float.PositiveInfinity;
+            _effectPrevious = new MyDuo<Effect, bool>();
+            _effectActive = new MyDuo<Effect, bool>();
+            _effectsLength = System.Enum.GetNames(typeof(Effect)).Length;
+            for (int i = 0; i < _effectsLength; i++)
+            {
+                _effectPrevious.Add((Effect)i, false);
+                _effectActive.Add((Effect)i, false);
+            }
         }
     }
     Brain _br;
-    [ReadOnly, ShowInInspector] MyDuo<BuffEffects, float> _duoBuffs;
+    MyDuo<BuffEffects, float> _duoBuffs;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
-
+    int _effectsLength;
+    MyDuo<Effect, bool> _effectPrevious;
+    MyDuo<Effect, bool> _effectActive;
+    
+    void OnEnable()
+    {
+        Ga.OnBrainAddRemove += CallEvOnBrainAddRemove;
+    }
+    void OnDisable()
+    {
+        Ga.OnBrainAddRemove -= CallEvOnBrainAddRemove;
+    }
+    void CallEvOnBrainAddRemove(Brain brain, GenChange change)
+    {
+        if (brain != Br) return;
+        switch (change)
+        {
+            case GenChange.Remove:
+                for (int i = 0; i < _effectsLength; i++)
+                {
+                    if (HasEffect((Effect)i))
+                    {
+                        print("removed");
+                        OnEffectChange.Invoke(Br, (Effect)i, false);
+                    }
+                }
+                break;
+        }
+    }
 
     void OnDestroy()
     {
@@ -96,7 +134,7 @@ public class Status : MonoBehaviour, IIniBrain
                     hasDamage = true,
                     damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.data.value })
                 };
-                Br.health.HealthInjectDataDamage(passData, false, false, out _);
+                Br.health.HealthInjectDataDamage(passData, false, false);
             }
         }
         bool doRefresh = false;
@@ -153,7 +191,10 @@ public class Status : MonoBehaviour, IIniBrain
                 
                 break;
             case GenChange.Remove:
-                if (_duoBuffs.HasKey(buffEffects)) _duoBuffs.RemoveByKey(buffEffects);
+                if (_duoBuffs.HasKey(buffEffects))
+                {
+                    _duoBuffs.RemoveByKey(buffEffects);
+                }
                 break;
         }
         
@@ -161,11 +202,27 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void Refresh()
     {
-        //code for non-dot effects (blind, rooted...)
-        
+        setEvent();
         uIRefresh();
         return;
-        
+        void setEvent()
+        {
+            for (int i = 0; i < _effectsLength; i++)
+            {
+                _effectPrevious.SetValue(i, _effectActive.GetValue(i));
+                _effectActive.SetValue(i, false);
+            }
+            for (int i = 0; i < _duoBuffs.Length(); i++)
+            {
+                _effectActive.SetValueByKey(_duoBuffs.GetKey(i).effect, true);
+            }
+            for (int i = 0; i < _effectsLength; i++)
+            {
+                if (_effectPrevious.GetValue(i) == _effectActive.GetValue(i)) continue;
+                OnEffectChange.Invoke(Br, _effectActive.GetKey(i), _effectActive.GetValue(i));
+            }
+
+        }
         void uIRefresh()
         {
             Utils.ActivateOneArrayElement(_statusImageGos);

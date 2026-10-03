@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::SoGameData
   showParticles: 1
-  level: 1
+  showFloatingInfo: 1
   rofSpells: 0.5
   dashTime: 0.4
   dashPower: 25
+  stunDurationBase: 3
   agentRotSpeed: 100
   element:
   - element: 0

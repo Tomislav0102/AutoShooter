@@ -33,19 +33,18 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     void OnEnable()
     {
-        Ga.OnBrainAddRemove += CallEv_OnBrainAddRemove;
+        Ga.OnBrainAddRemove += CallEvOnBrainAddRemove;
     }
     void OnDisable()
     {
-        Ga.OnBrainAddRemove -= CallEv_OnBrainAddRemove;
+        Ga.OnBrainAddRemove -= CallEvOnBrainAddRemove;
         Br.skills.onSkillIncrease -= SkillIncreaseCallback;
     }
-    void CallEv_OnBrainAddRemove(Brain brain, GenChange change)
+    void CallEvOnBrainAddRemove(Brain brain, GenChange change)
     {
         GuardiansMight();
         GuardiansValor();
     }
-
     void Update()
     {
         seismicAnchorage();
@@ -89,10 +88,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 ironMirror();
                 break;
             case SkillName.HeavyImpact:
-                Ga.me.gameData.enStunDamageModifier = newSkill.valueGeneric;
+                Ga.me.runData.enStunDamage.ChangeBuff(GenChange.Add, BuffType.Percentage, (int)newSkill.valueGeneric);
                 break;
             case SkillName.SkullCracker:
-                _stunAttacksDurationExtra = newSkill.valueGeneric;
+                _stunAttacksDurationExtra += newSkill.valueGeneric;
                 break;
             case SkillName.SeismicAnchorage:
                 _skillSeismicAnchorage = newSkill;
@@ -154,7 +153,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     public void AnimEv_AttackCallback(int num = 0)
     {
-        return;
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage();
         if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _elementStrikesIncrease);
@@ -393,7 +391,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                         hasDamage = true,
                         damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1] { damageValue })
                     };
-                    otherBrain.health.HealthInjectDataDamage(passData, false, false,out _);
+                    otherBrain.health.HealthInjectDataDamage(passData, false, false);
                 }
                 break;
             case CombatEvent.EndGetHit:

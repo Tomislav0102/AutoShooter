@@ -14687,6 +14687,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8056578381715877148}
+    - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1370884643945704422}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3986871597284255350}
@@ -14738,4 +14741,17 @@ MonoBehaviour:
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  colliderPart: 1
+--- !u!114 &1370884643945704422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313564495933923204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b802fe704221e48afb8c8e1226acbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArcCalculator
+  angle: 180
+  isInverse: 0

@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: 71
   icon: {fileID: 0}
   skillType: 1
-  level: 0
+  level: 1
   hasStat: 0
   stats: []
   hasDamage: 0

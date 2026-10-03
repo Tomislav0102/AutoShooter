@@ -13,6 +13,7 @@ public class BuffStats
     public BuffStats(Stats stat, BuffType buffType, float val, float dur = float.PositiveInfinity)
     {
         this.stat = stat;
+        this.buffType = buffType;
         data = new BuffData(val, dur);
     }
 }

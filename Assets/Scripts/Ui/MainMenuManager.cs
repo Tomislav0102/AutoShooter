@@ -8,7 +8,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] SoGameData gameData;
     [SerializeField] TextMeshProUGUI enemiesCountText;
-    [SerializeField] Toggle psToggle;
+    [SerializeField] Toggle psToggle, floatToggle;
     [SerializeField] TMP_Dropdown playerDropdown;
 
     void Start()
@@ -24,6 +24,8 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt(gameData.prefsTestChosenPlayer, 0);
         }
         playerDropdown.value = PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer);
+        psToggle.isOn = gameData.showParticles;
+        floatToggle.isOn = gameData.showFloatingInfo;
     }
 
     public void BtnPlay()
@@ -48,5 +50,9 @@ public class MainMenuManager : MonoBehaviour
     public void ToggleParticles()
     {
         gameData.showParticles = psToggle.isOn;
+    }
+    public void ToggleFloatUI()
+    {
+        gameData.showFloatingInfo = floatToggle.isOn;
     }
 }

@@ -9,11 +9,11 @@ public class UiSkill : MonoBehaviour
     List<SkillCardUi> _cards = new List<SkillCardUi>();
 
 
-    void OnEnable()
+    void Start()
     {
        Ga.me.team.playersBrain.skills.onSkillIncrease += AddSkill;
     }
-    void OnDisable()
+    void OnDestroy()
     {
         Ga.me.team.playersBrain.skills.onSkillIncrease -= AddSkill;
     }

@@ -371,6 +371,7 @@ MonoBehaviour:
   - {fileID: 10686152777318630}
   - {fileID: 4384584864484009737}
   - {fileID: 2165717016610979754}
+  myHorizontalLayoutGroup: {fileID: 4280001203751305751}
 --- !u!114 &4280001203751305751
 MonoBehaviour:
   m_ObjectHideFlags: 0

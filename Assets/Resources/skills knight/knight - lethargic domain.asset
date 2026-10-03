@@ -16,28 +16,26 @@ MonoBehaviour:
   description: Aura - enemy attack speed reduced by 50%
   levelUpEffect: Increase aura radius
   skillName: 44
-  skillNameText: 
-  levelUpText: 
+  icon: {fileID: 0}
   skillType: 1
   level: 0
   hasStat: 0
   stats:
-  - change: 0
+  - stat: 0
     buffType: 0
-    buff:
-      stat: 0
+    data:
       value: 0
       permanent: 0
-      duration: 0
-  - change: 0
+      <Duration>k__BackingField: 0
+  - stat: 0
     buffType: 0
-    buff:
-      stat: 0
+    data:
       value: 0
       permanent: 0
-      duration: 0
-  hasExtraDamage: 0
-  extraDamage:
+      <Duration>k__BackingField: 0
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
@@ -45,11 +43,9 @@ MonoBehaviour:
   hasSpell: 1
   spell: {fileID: 3118285111912860546, guid: 1ccb81ed7ee94c24bab8e49f6a08c37f, type: 3}
   spellGroup: {fileID: 0}
-  hasExtra: 1
+  hasPassData: 1
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -63,22 +59,18 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 1
     stats:
-    - change: 0
+    - stat: 18
       buffType: 0
-      buff:
-        stat: 18
+      data:
         value: 2
         permanent: 1
-        duration: 0
+        <Duration>k__BackingField: 0
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 0
-  numGeneric: 0
-  floatGeneric: 0
-  stringGeneric: 
+  valueGeneric: 0
+  valueGenericArray: []

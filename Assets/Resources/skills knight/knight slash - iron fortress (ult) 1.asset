@@ -34,20 +34,20 @@ MonoBehaviour:
       value: 1000
       permanent: 0
       <Duration>k__BackingField: 5
-  hasExtraDamage: 0
+  hasDamage: 0
   damageType: 0
-  extraDamage:
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 1
-  buffEffect:
-  - brain: {fileID: 0}
+  effects:
+  - myBrain: {fileID: 0}
     effect: 0
     data:
       value: 0
       permanent: 0
       <Duration>k__BackingField: 5
-  - brain: {fileID: 0}
+  - myBrain: {fileID: 0}
     effect: 1
     data:
       value: 0
@@ -56,11 +56,9 @@ MonoBehaviour:
   hasSpell: 1
   spell: {fileID: 8848297006958576280, guid: 5b11a895674529b4b90aef818f308265, type: 3}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 0
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -78,6 +76,8 @@ MonoBehaviour:
     stats: []
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 1
-  valueGeneric: 10
+  valueGeneric: 30
   valueGenericArray: []

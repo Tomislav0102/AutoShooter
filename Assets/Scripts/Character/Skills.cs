@@ -48,8 +48,7 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             if (useMage)
             {
-                OvrLevelSpecificSkill(SkillName.BlazeTrail);
-
+                OvrLevelSpecificSkill(SkillName.ShardWave);
             }
             if (useArcher)
             {

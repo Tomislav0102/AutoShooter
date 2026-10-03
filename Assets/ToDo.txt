@@ -10,6 +10,7 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
                       Maybe those skills need separate component.
 New BuffStats - fix all skills
 
+
 SKILLS
 
 
@@ -40,7 +41,9 @@ Physical Resistance = Armor
 Nullify spell - only some monsters have it (e.g. Golem). Its array of 'SpellMain' in 'Health' component.
 Dynamic values in GameData - (e.g. 'level', 'enStunDamageModifier') can be in ScriptableObject but need to be reset after run (they will be reset automatically when Application.Quit())
 Reflect spells - value determines chance to trigger. Damage is 100% if below 100, else reflected damage is skill value.
-
+Percentages rule - value is half -> -50, value is 30% less -> -30, value is 20% more -> 20, value is double -> 100
+                 - assigned as ints, calculated as floats ( int * 0.01f)
+                 - reducing values (below 1f) are negative 
 
 KNIGHT
 Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.
@@ -48,7 +51,7 @@ Blunt weapons - Higher damage, lower speed and some stun chance (compared to sla
                 Every weapon should have stun chance. Blunt skills don't give it (except one), they just enhance it
                 
 MAGE
-Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword his meteor strike damage increases? 
+Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword and his meteor strike damage increases? 
 
 TRAPS
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps. Or if it has knockback than trap shold be one-hit.
@@ -59,6 +62,10 @@ Consider using flow field instead of NavMesh.
 Coroutine - cache 'WaitForSeconds' in Dictionary
 Checking null objects - Unity's Custom Equality Operator ( if(gameObject == null) ) is 10x slower but safer because it checks if object has been destroyed (Destroy(gameObejct)).
                         Pure C# Reference Check ( if(gameObject is null) ) is very fast but not safe. Used only if objects will not be destroyed.
+
+STATS, STATUS
+Status.Effect.Invulnerable - only affects damage (target can be knocked back etc...). Hard to make programing logic any other way. 
+Values can be < 0. Can cause bugs, maybe some fix will be needed. At least in UI display.
 
 ENEMY
 Ultimate Attack Type - not working, maybe its redundant (melee and ranged cover everything)

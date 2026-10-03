@@ -428,7 +428,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: onStatChange
+      Entry: 6
+      Data: 
   statsBase: {fileID: 0}
 --- !u!114 &8704573881872995164
 MonoBehaviour:
@@ -442,6 +445,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b3ceb3e9aa267488efd402fb4f349f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Status
+  onEffectChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1081531192646187538}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: CallEvStatusEffects
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3666466173174253248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,6 +663,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   life: 0
   onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldActivate:
     m_PersistentCalls:
       m_Calls: []
   psElements:

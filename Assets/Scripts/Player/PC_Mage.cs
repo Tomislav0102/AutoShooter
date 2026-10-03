@@ -47,16 +47,47 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     SpellMain _spellManaShield;
     SpellMain _spellBastionPulse;
     SpellMain _spellDragonsBreath;
+    int _pyromaniaBonus;
+    BuffStats _buffPyromania;
     #endregion
 
     PlayerCombat _playerCombat;
     int _numOfObjects;
     bool _isCasting; //debug. all attacks must finish before new animation event triggers a cast coroutine
     
+    
+    void OnEnable()
+    {
+        Status.OnEffectChange += CallEvStatusEffects;
+    }
     void OnDisable()
     {
         Br.skills.onSkillIncrease -= SkillIncreaseCallback;
+        Status.OnEffectChange -= CallEvStatusEffects;
     }
+    void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
+    {
+        if (brain == Br || brain.Faction != Faction.BadGuys) return;
+        if (_pyromaniaBonus == 0)
+        {
+            if (_buffPyromania == null) return;
+            Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
+            _buffPyromania = null;
+            return;
+        }
+        switch (effect)
+        {
+            case Status.Effect.Burning:
+                if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
+                if (on)
+                {
+                    _buffPyromania = new BuffStats(Stats.DamPhysical, BuffType.Percentage, _pyromaniaBonus * Ga.me.runData.enUnderEffect.GetValueByKey(Status.Effect.Burning));
+                    Br.character.CharacterInjectData(GenChange.Add, _buffPyromania);
+                }
+                break;
+        }
+    }
+
 
     void SkillIncreaseCallback(SoSkill newSkill)
     {
@@ -119,6 +150,18 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 };
                 groupWalkTrail.InitializeMe(Br, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pdWalkTrail }));
                 break;
+            case SkillName.Meltdown:
+                Ga.me.runData.enBurnArmorReduction.ChangeBuff(GenChange.Add, BuffType.Percentage, (int)newSkill.valueGeneric);
+                break;
+            case SkillName.Pyromania:
+                if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
+                _pyromaniaBonus = 2 * (newSkill.level + 1);
+                break;
+            case SkillName.Armageddon: //ultimate fire
+                Br.skills.myUltimate = newSkill;
+                Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
+                break;
+
         }
         return;
         
@@ -357,6 +400,17 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             lightning.InitializeMe(Br, containerLightning);
                         }
                         break;
+                    case SkillName.ShardWave:
+                        PassData containerShardWave = new PassData()
+                        {
+                            hasDamage = true,
+                            damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Ice }, 1f, skill.passData.damagePair),
+                            hasEffect = true,
+                            effects = skill.effects
+                        };
+                        SpellMain spellShardWave = Instantiate(skill.spell,  Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                        spellShardWave.InitializeMe(Br, containerShardWave);
+                        break;
                 }
             }
 
@@ -376,19 +430,28 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
     public void AnimEv_UltimateCallback(int num = 0)
     {
-        // SpellMain armageddon = Instantiate(Ga.me.spells.armageddon,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        // armageddon.transporter.target = Br.myTransform;
-        // PassDataContainer container = new PassDataContainer()
-        // {
-        //     canBeBlocked = false,
-        //     data = new List<PassData>()
-        //     {
-        //         new PassDataDamage(new Element[2] { Element.Physical, Element.Fire }, new float[2] { Br.character.GetStat(Stats.MagicDamage), Br.character.GetStat(Stats.MagicDamage) }),
-        //     }
-        // };
-        //
-        // armageddon.InitializeMe(Br, container);
-
+        if (Br.skills.myUltimate is null) return;
+        switch (Br.skills.myUltimate.skillName)
+        {
+            case SkillName.Armageddon:
+                SpellMain armageddon = Instantiate(Br.skills.myUltimate.spell,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                armageddon.transporter.target = Br.myTransform;
+                PassData container = new PassData()
+                {
+                    hasDamage = true,
+                    damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Fire }),
+                    hasKnockback = true,
+                    knockbackPower = Br.character.GetStat(Stats.KnockBack),
+                    hasEffect =  true,
+                    effects = new BuffEffects[1]
+                    {
+                        new BuffEffects(Br, Status.Effect.Burning, 1, 5)
+                    }
+                };
+                
+                armageddon.InitializeMe(Br, container);
+                break;
+        }
     }
 
 }

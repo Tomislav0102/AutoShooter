@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -34,6 +32,7 @@ public class Ga : MonoBehaviour
     }
     LevelManager _levelMan;
     public SoGameData gameData;
+    public RunData runData;
     public SoCharacter defCharacter;
     public SpellManager spells;
     public TeamManager team;
@@ -54,6 +53,7 @@ public class Ga : MonoBehaviour
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new TeamManager();
+        runData = new RunData(new ValueCalc(1), new ValueCalc(100));
         wait00 = Utils.GetWait(0f);
         wait01 = Utils.GetWait(0.1f);
         wait02 = Utils.GetWait(0.2f);
@@ -61,16 +61,14 @@ public class Ga : MonoBehaviour
         wait20 = Utils.GetWait(2f);
         wait30 = Utils.GetWait(3f);
         wait100 = Utils.GetWait(10f);
-        // SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
-        #if (!UNITY_EDITOR)
+        #if (UNITY_EDITOR)
+        #else
         SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
+       // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
         #endif
     }
 
-    void Start()
-    {
-       // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
-    }
+
 
     public void BtnRestart()
     {
@@ -84,5 +82,6 @@ public class Ga : MonoBehaviour
     {
         SceneManager.LoadScene(gameData.sceneMain);
     }
-
 }
+
+

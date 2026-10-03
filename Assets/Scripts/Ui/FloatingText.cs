@@ -13,6 +13,7 @@ public class FloatingText : MonoBehaviour
     
     [SerializeField] RectTransform myTransform;
     [SerializeField] TextMeshProUGUI[] myTexts;
+    [SerializeField] HorizontalLayoutGroup myHorizontalLayoutGroup;
     Color[] _startColors;
     bool _initialized;
     float _lifeTime = 3f;
@@ -48,8 +49,8 @@ public class FloatingText : MonoBehaviour
 
         }
         
-        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle * effDamage.Length(), 0);
-        GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
+        myTransform.sizeDelta = new Vector2(_widthSingle * effDamage.Length(), 0);
+        myHorizontalLayoutGroup.childControlWidth = true;
         _startPosition = myTransform.position; 
         _startingOffsetY = offsetY;
         
@@ -61,8 +62,8 @@ public class FloatingText : MonoBehaviour
         myTexts[0].enabled = true;
         myTexts[0].text = st;
         _startColors[0] = col;
-        GetComponent<RectTransform>().sizeDelta = new Vector2(_widthSingle, 0);
-        GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
+        myTransform.sizeDelta = new Vector2(_widthSingle, 0);
+        myHorizontalLayoutGroup.childControlWidth = true;
         _startPosition = myTransform.position; 
         _startingOffsetY = offsetY;
         

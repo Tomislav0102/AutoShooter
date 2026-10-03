@@ -100,8 +100,7 @@ public class Health: MonoBehaviour, IIniBrain
         {
             if (spellId == immuneSpells[i].id)
             {
-                FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
-                ft.SpawnMe("Immune", Color.deepPink);
+                Ga.me.uiManager.FloatText(Br.myTransform.position, "Immune", Color.deepPink);
                 return true;
             }
         }
@@ -180,17 +179,15 @@ public class Health: MonoBehaviour, IIniBrain
         ShieldCurrent = _shieldMax;
         HealthCurrent = HealthCurrent; //only to update UI
     }
-    public void HealthInjectDataDamage(PassData pd, bool canBeBlocked, bool canBeDodged, out bool hitDidDamage)
+    public void HealthInjectDataDamage(PassData pd, bool canBeBlocked, bool canBeDodged)
     {
-        hitDidDamage = false;
         Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain);
-        FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
         if (canBeDodged)
         {
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
             if (dodged)
             {
-                ft.SpawnMe("Dodged!", Color.moccasin);
+                Ga.me.uiManager.FloatText(Br.myTransform.position, "Dodged!", Color.moccasin);
                 return;
             }
         }
@@ -201,23 +198,15 @@ public class Health: MonoBehaviour, IIniBrain
             if (blocked)
             {
                 Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
-                ft.SpawnMe("Blocked!", Color.gold);
+                Ga.me.uiManager.FloatText(Br.myTransform.position, "Blocked!", Color.gold);
             }
         }
         if (!blocked && pd.hasDamage)
         {
-            damageCalculation(out hitDidDamage);
+            damageCalculation();
             Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
-            void damageCalculation(out bool hit)
+            void damageCalculation()
             {
-                if (Br.status.HasEffect(Status.Effect.Invulnerable))
-                {
-                    ft.SpawnMe("Invulnerable!", Color.brown);
-                    hit = false;
-                    return;
-                }
-                hit = true;
-
                 float totalDamage = 0f;
                 MyDuo<Element, float> damageFinal = damageModified(pd.damagePair);
                 for (int i = 0; i < damageFinal.Length(); i++)
@@ -226,12 +215,12 @@ public class Health: MonoBehaviour, IIniBrain
                     switch (val)
                     {
                         case < 0: //heal
-                            psHeal.Play();
+                            if (Ga.me.gameData.showParticles) psHeal.Play();
                             break;
                         case > 0:
                         {
                             ParticleSystem ps = _dictPsElements[damageFinal.GetKey(i)];
-                            if (ps != null) ps.Play();
+                            if (Ga.me.gameData.showParticles && ps != null) ps.Play();
                             if (_coroutineShieldRegen != null) StopCoroutine(_coroutineShieldRegen);
                             _coroutineShieldRegen = StartCoroutine(shieldRegen());
                             
@@ -259,20 +248,19 @@ public class Health: MonoBehaviour, IIniBrain
                         return;
                     }
                 }
-                ft.SpawnMe(damageFinal);
+                Ga.me.uiManager.FloatText(Br.myTransform.position, damageFinal);
                 return;
 
                 MyDuo<Element, float> damageModified(MyDuo<Element, float> damageRaw)
                 {
-                    float enStunMod = (Br.Faction == Faction.BadGuys && Br.status.HasEffect(Status.Effect.Stunned)) ? Ga.me.gameData.enStunDamageModifier : 1f;
+                    float enStunMod = (Br.Faction == Faction.BadGuys && Br.status.HasEffect(Status.Effect.Stunned)) ? Ga.me.runData.enStunDamage.Result : 1f;
                     MyDuo<Element, float> finalPair = new MyDuo<Element, float>();
                     for (int i = 0; i < damageRaw.Length(); i++)
                     {
                         Element el = damageRaw.GetKey(i);
-                        float val = damageRaw.GetValue(i) * 
-                                    (1 - 0.01f * Br.character.GetStat(Character.StatByElement(el, false)) *
-                                        enStunMod);
-                        if (val < 0f) val = 0f;
+                        float resistance = 1 - 0.01f * Br.character.GetStat(Character.StatByElement(el, false));
+                        resistance = Mathf.Clamp(resistance, 0f, 1f);
+                        float val = damageRaw.GetValue(i) * resistance * enStunMod;
                         finalPair.Add(el, val);
                     }
                     return finalPair;
@@ -319,6 +307,7 @@ public class Health: MonoBehaviour, IIniBrain
             Ga.me.team.Death(Br);
            // Destroy(_healthBar.gameObject);
             Destroy(_pointer.gameObject);
+            Destroy(_numDisplay.gameObject);
             Destroy(Br.gameObject);
             return;
         }

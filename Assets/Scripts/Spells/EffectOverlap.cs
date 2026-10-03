@@ -13,10 +13,12 @@ public class EffectOverlap : MonoBehaviour, IIniSpell
             _spell= value;
             value.mySphereCollider.enabled = false;
             value.myCapsuleCollider.enabled = false;
+            if (value.colliderType == ColliderType.Sphere) _arcCalculator = GetComponent<ArcCalculator>();
 
         }
     }
     SpellMain _spell;
+    ArcCalculator _arcCalculator;
 
     public void Hit()
     {
@@ -47,12 +49,11 @@ public class EffectOverlap : MonoBehaviour, IIniSpell
         }
         foreach (Collider item in colliders)
         {
+            if (_arcCalculator != null && !_arcCalculator.TargetInsideArc(item.transform.position)) continue;
             Spell.HitGeneric(item, out Brain targetBrain);
-            if (targetBrain != null)
-            {
-                Spell.onHitTarget?.Invoke(targetBrain);
-                eventCall = true;
-            }
+            if (targetBrain == null) continue;
+            Spell.onHitTarget?.Invoke(targetBrain);
+            eventCall = true;
         }
         if (!eventCall) Spell.onHitTarget?.Invoke(null);
     }

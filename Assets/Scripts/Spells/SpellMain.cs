@@ -258,15 +258,7 @@ public class SpellMain : MonoBehaviour
 
         if (pd.hasManaShield)  targetsBrain.health.HealthInjectDataManaShield(pd.manaShieldPoints);
         if (pd.hasDash) targetsBrain.loco.LocoInjectDataDash(pd.dashPower, pd.dashDirection);
-        
-        bool didDamage = !pd.hasDamage;
-        if (pd.hasDamage)
-        {
-            // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-            targetsBrain.health.HealthInjectDataDamage(pd, canBeBlocked, canBeDodged, out didDamage);
-        }
-        if (!didDamage) return;
-        
+
         if (pd.hasEffect)
         {
             for (int i = 0; i < pd.effects.Length; i++)
@@ -285,6 +277,18 @@ public class SpellMain : MonoBehaviour
         {
             targetsBrain.loco.LocoInjectDataKnockback(pd.myBrain.myTransform.position, pd.knockbackPower, pd.knockbackDirection);
         }
+        if (pd.hasDamage)
+        {
+            if (targetsBrain.status.HasEffect(Status.Effect.Invulnerable))
+            {
+                Ga.me.uiManager.FloatText(targetsBrain.myTransform.position, "Invulnerable!", Color.brown);
+                return;
+            }
+
+            // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
+            targetsBrain.health.HealthInjectDataDamage(pd, canBeBlocked, canBeDodged);
+        }
+
         return;
 
         bool hasReflected(Brain brain)
@@ -365,61 +369,4 @@ public class SpellMain : MonoBehaviour
     
 }
 
-    // public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
-    // {
-    //     Brain oustedTargetsBrain = null;
-    //     if (pd.hasDamage || pd.hasManaShield || pd.hasEffect)
-    //     {
-    //        // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-    //         if (targetHasBrain(out Brain brHealth)) brHealth.health.HealthInjectData(pd);
-    //     }
-    //     if (pd.hasStats)
-    //     {
-    //         if (targetHasBrain(out Brain brCharacter))
-    //         {
-    //             for (int i = 0; i < pd.stats.Length; i++)
-    //             {
-    //                 brCharacter.character.BuffInjectData(pd.stats[i]);
-    //             }
-    //         }
-    //     }
-    //     if (pd.hasKnockback || pd.hasDash)
-    //     {
-    //         if (targetHasBrain(out Brain brLoco)) brLoco.loco.LocoInjectData(pd);
-    //     }
-    //     if (pd.hasSpell)
-    //     {
-    //         if (targetGeneric.TryGetComponent(out SpellMain targetSpell) &&
-    //             Utils.CanTargetFaction(OwnersBrain.Faction, targetSpell.OwnersBrain.Faction, myFactionTarget))
-    //         {
-    //             for (int i = 0; i < pd.spellPair.Length(); i++)
-    //             {
-    //                 if (targetSpell.id != pd.spellPair.GetValue(i).id) continue;
-    //                 switch (pd.spellPair.GetKey(i))
-    //                 {
-    //                     case PassData.HitEffectOnSpell.Nullify:
-    //                         targetSpell.MyPhase = Phase.EndStart;
-    //                         break;
-    //                     case PassData.HitEffectOnSpell.Reflect:
-    //                         targetSpell.transporter.ReflectSpell(OwnersBrain);
-    //                         break;
-    //                 }
-    //             }
-    //             oustedTargetsBrain = targetSpell.OwnersBrain;
-    //         }
-    //     
-    //     }
-    //     targetsBrain = oustedTargetsBrain;
-    //     return;
-    //     
-    //     bool targetHasBrain(out Brain br)
-    //     {
-    //         if (targetGeneric.TryGetComponent(out br) &&
-    //             Utils.CanTargetFaction(OwnersBrain.Faction, br.Faction, myFactionTarget))
-    //         {
-    //             oustedTargetsBrain = br;
-    //             return true;
-    //         }
-    //         return false;
-    //     }
-    // }
+

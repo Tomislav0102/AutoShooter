@@ -25,11 +25,11 @@ public class UltimateUi : MonoBehaviour
         _cooldownTime = cooldownTime;
     }
 
-    void OnEnable()
+    void Start()
     {
         Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
-    void OnDisable()
+    void OnDestroy()
     {
         Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
     }

@@ -26,14 +26,60 @@ public class Character : SerializedMonoBehaviour, IIniBrain
             if (statsBase == null) statsBase = Ga.me.defCharacter;
             _buffTimers = new MyDuo<BuffStats, float>();
             ResetFinalStats();
+
         }
     }
     Brain _br;
-    MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
+    public MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
     MyDuo<Stats, float> _ovrStatsFinal = new MyDuo<Stats, float>(); //for BuffType.Set
     MyDuo<BuffStats, float> _buffTimers = new MyDuo<BuffStats, float>();
+    BuffStats _buffBurnArmorReduction;
     
-    
+    void OnEnable()
+    {
+        Status.OnEffectChange += CallEvStatusEffects;
+    }
+    void OnDisable()
+    {
+        Status.OnEffectChange -= CallEvStatusEffects;
+    }
+    void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
+    {
+        // print($"{effect} is {on}");
+        if (brain != Br) return;
+        switch (effect)
+        {
+            case Status.Effect.Burning:
+                if (Mathf.Approximately(1f, Ga.me.runData.enBurnArmorReduction.Result)) return;
+                if (on)
+                {
+                    _buffBurnArmorReduction = new BuffStats(Stats.ResistPhysical, BuffType.Percentage, Ga.me.runData.enBurnArmorReduction.Result - 100);
+                    CharacterInjectData(GenChange.Add, _buffBurnArmorReduction);
+                    return;
+                }
+                CharacterInjectData(GenChange.Remove, _buffBurnArmorReduction);
+                break;
+        }
+    }
+
+    void Update()
+    {
+        for (int i = 0; i < _buffTimers.Length(); i++)
+        {
+            BuffStats buff = _buffTimers.GetKey(i);
+            if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
+            float duration = _buffTimers.GetValue(i);
+            if (duration > 0)
+            {
+                duration -= Time.deltaTime;
+                _buffTimers.SetValue(i, duration);
+                continue;
+            }
+            RemoveBuff(buff);
+        }
+    }
+
+
     #region GET STATS
 
     public int GetStat(Stats stat)
@@ -92,23 +138,6 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     }
     #endregion
 
-    void Update()
-    {
-        for (int i = 0; i < _buffTimers.Length(); i++)
-        {
-            BuffStats buff = _buffTimers.GetKey(i);
-            if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
-            float duration = _buffTimers.GetValue(i);
-            if (duration > 0)
-            {
-                duration -= Time.deltaTime;
-                _buffTimers.SetValue(i, duration);
-                continue;
-            }
-            RemoveBuff(buff);
-        }
-    }
-
     
     public void CharacterInjectData(GenChange change, BuffStats buffStats)
     {
@@ -130,7 +159,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                         _statsFinal.SetValueByKey(stat, valAdded);
                         break;
                     case BuffType.Percentage:
-                        finalValue = statsBase.baseStats[stat] * (buffStats.data.value - 1f);
+                        finalValue = statsBase.baseStats[stat] * (buffStats.data.value * 0.01f);
                         float valPercentage = _statsFinal.GetValueByKey(stat) + finalValue;
                         _statsFinal.SetValueByKey(stat, valPercentage);
                         break;
@@ -145,8 +174,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                     {
                         case Stats.ResistPhysical:
                             Instantiate(Ga.me.psArmorBreak, Br.myTransform.position + 1.5f * Vector3.up, Quaternion.identity, Ga.me.spells.myTransform);
-                            FloatingText ft = Instantiate(Ga.me.uiManager.floatingTextPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.uiManager.floatingContainer);
-                            ft.SpawnMe("Armor broken", Color.darkOrchid);
+                            Ga.me.uiManager.FloatText(Br.myTransform.position, "Armor broken", Color.darkOrchid);
                             break;
                     }
                 }
@@ -170,7 +198,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                 _statsFinal.SetValueByKey(buffToRemove.stat, valAdded);
                 break;
             case BuffType.Percentage:
-                float valPercentage = _statsFinal.GetValueByKey(buffToRemove.stat) - statsBase.baseStats[buffToRemove.stat] * (buffToRemove.data.value - 1f);
+                float valPercentage = _statsFinal.GetValueByKey(buffToRemove.stat) - statsBase.baseStats[buffToRemove.stat] * (buffToRemove.data.value * 0.01f);
                 _statsFinal.SetValueByKey(buffToRemove.stat, valPercentage);
                 break;
             case BuffType.Set:
@@ -192,6 +220,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
             _statsFinal.Add(item.Key, item.Value);
         }
     }
+    
 
 }
 

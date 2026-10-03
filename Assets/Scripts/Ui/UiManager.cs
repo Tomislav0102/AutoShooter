@@ -12,19 +12,22 @@ public class UiManager : MonoBehaviour
     public Transform PanelByType(PanelType panel) => _pairPanels.GetValueByKey(panel).transform;
     public Transform barContainer;
     public Transform pointersContainer;
-    public Transform floatingContainer;
+    [SerializeField] Transform floatingContainer;
     
     public RectTransform offScreenPointerPrefab;
     public RectTransform statusPrefab;
     public RectTransform healthBarPrefab;
     public RectTransform numDisplayPrefab;
-    public FloatingText floatingTextPrefab;
+    [SerializeField] FloatingText floatingTextPrefab;
     
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
 
     
     [Title("Debug")]
+    [SerializeField] Toggle psToggle;
+    [SerializeField] Toggle floatToggle;
+
     
     void Awake()
     {
@@ -37,6 +40,9 @@ public class UiManager : MonoBehaviour
     void Start()
     {
         OpenPanel(PanelType.Game);
+        psToggle.isOn = Ga.me.gameData.showParticles;
+        floatToggle.isOn = Ga.me.gameData.showFloatingInfo;
+
     }
 
     public void OpenPanel(PanelType panel)
@@ -53,6 +59,26 @@ public class UiManager : MonoBehaviour
         _pairPanels.GetValueByKey(panel).transform.SetAsLastSibling();
     }
 
-    
+    public void FloatText(Vector3 spawnPoint, MyDuo<Element, float> damage, float offsetY = 2f)
+    {
+        if (!Ga.me.gameData.showFloatingInfo) return;
+        FloatingText ft = Instantiate(floatingTextPrefab, spawnPoint, Quaternion.identity, floatingContainer);
+        ft.SpawnMe(damage, offsetY);
+    }
+    public void FloatText(Vector3 spawnPoint, string st, Color col, float offsetY = 2f)
+    {
+        if (!Ga.me.gameData.showFloatingInfo) return;
+        FloatingText ft = Instantiate(floatingTextPrefab, spawnPoint, Quaternion.identity, floatingContainer);
+        ft.SpawnMe(st, col, offsetY);
+    }
+
+    public void ToggleParticles()
+    {
+        Ga.me.gameData.showParticles = psToggle.isOn;
+    }
+    public void ToggleFloatUI()
+    {
+        Ga.me.gameData.showFloatingInfo = floatToggle.isOn;
+    }
 
 }

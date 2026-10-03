@@ -16,40 +16,36 @@ MonoBehaviour:
   description: Increases Stun duration on all blunt-force attacks by Xs
   levelUpEffect: Increases stun duration
   skillName: 42
+  icon: {fileID: 0}
   skillType: 1
   level: 1
   hasStat: 0
   stats:
-  - change: 0
+  - stat: 0
     buffType: 0
-    buffStats:
-      stat: 0
-      data:
-        value: 0
-        permanent: 0
-        <Duration>k__BackingField: 0
-  - change: 0
+    data:
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 0
+  - stat: 0
     buffType: 0
-    buffStats:
-      stat: 0
-      data:
-        value: 0
-        permanent: 0
-        <Duration>k__BackingField: 0
-  hasExtraDamage: 0
-  extraDamage:
+    data:
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 0
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
-  buffEffect: []
+  effects: []
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 0
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -63,14 +59,12 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 1
-  valueGeneric: 1
+  valueGeneric: 0.5
   valueGenericArray: []

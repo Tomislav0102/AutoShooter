@@ -16,28 +16,26 @@ MonoBehaviour:
   description: Increases Physical Resistance by X% for every enemy
   levelUpEffect: Increases Physical Resistance % per enemy
   skillName: 46
-  skillNameText: 
-  levelUpText: 
+  icon: {fileID: 0}
   skillType: 1
   level: 0
   hasStat: 0
   stats:
-  - change: 0
+  - stat: 0
     buffType: 0
-    buff:
-      stat: 0
+    data:
       value: 0
       permanent: 0
-      duration: 0
-  - change: 0
+      <Duration>k__BackingField: 0
+  - stat: 0
     buffType: 0
-    buff:
-      stat: 0
+    data:
       value: 0
       permanent: 0
-      duration: 0
-  hasExtraDamage: 0
-  extraDamage:
+      <Duration>k__BackingField: 0
+  hasDamage: 0
+  damageType: 0
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
   hasEffect: 0
@@ -45,11 +43,9 @@ MonoBehaviour:
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 0
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -63,15 +59,12 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 1
-  numGeneric: 0
-  floatGeneric: 0.05
-  stringGeneric: 
+  valueGeneric: 0.05
+  valueGenericArray: []

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: knight slash - advance guard
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: Increases Frontal Physical Resistance by X% while moving
-  levelUpEffect: Increases Physical Resistance% per level
+  description: Increases Frontal Physical Resistance by X while moving
+  levelUpEffect: Increases Physical Resistance bonus per level
   skillName: 36
   icon: {fileID: 0}
   skillType: 1
