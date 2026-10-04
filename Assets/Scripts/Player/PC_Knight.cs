@@ -199,11 +199,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         };
 
         SpellMain melee = Instantiate(Br.skills.myBasic.spell, Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
-        melee.onHitTarget += (Brain br) =>
-        {
-            if (br == null) Br.combat.CombatEventRegistered(CombatEvent.Miss);
-            else Br.combat.CombatEventRegistered(CombatEvent.Hit, br);
-        };
         melee.InitializeMe(Br, passData);
 
         Br.character.CharacterInjectData(GenChange.Remove, _buffStatsCrescendoStrike);

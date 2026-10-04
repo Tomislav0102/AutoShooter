@@ -89,6 +89,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: triggersOnHitEvent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: extraLifeTimeForParticles
       value: 1
       objectReference: {fileID: 0}
@@ -208,7 +212,6 @@ MonoBehaviour:
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  colliderPart: 0
 --- !u!114 &1277134433891739460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +331,10 @@ PrefabInstance:
     - target: {fileID: 198551827739251032, guid: a01c30947af547f4db02509b46573b2c, type: 3}
       propertyPath: ShapeModule.type
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 198551827739251032, guid: a01c30947af547f4db02509b46573b2c, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198594330864758024, guid: a01c30947af547f4db02509b46573b2c, type: 3}
       propertyPath: playOnAwake

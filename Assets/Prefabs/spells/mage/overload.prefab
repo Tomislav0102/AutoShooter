@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: transporter
       value: 
       objectReference: {fileID: 103359177934359031}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: triggersOnHitEvent
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

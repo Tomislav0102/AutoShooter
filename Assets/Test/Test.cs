@@ -26,12 +26,11 @@ public class Test : MonoBehaviour
     {
     }
 
-    void Update()
-    {
-      //  inArc = Utils.TargetInsideArc(transform, angle, target.position, inverse);
-        direction = (Utils.MakeV2(target.position) - Utils.MakeV2(transform.position)).normalized;
-        ag = Vector2.SignedAngle(Utils.MakeV2(transform.forward), direction);
-    }
+    // void Update()
+    // {
+    //     direction = (Utils.MakeV2(target.position) - Utils.MakeV2(transform.position)).normalized;
+    //     ag = Vector2.SignedAngle(Utils.MakeV2(transform.forward), direction);
+    // }
 }
 
 

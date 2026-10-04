@@ -49,6 +49,9 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     SpellMain _spellDragonsBreath;
     int _pyromaniaBonus;
     BuffStats _buffPyromania;
+    SoSkill _skillChillingTouch;
+    HashSet<Brain> _chilledBrains;
+    BuffStats[] _buffsChillingTouch;
     #endregion
 
     PlayerCombat _playerCombat;
@@ -157,6 +160,21 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
                 _pyromaniaBonus = 2 * (newSkill.level + 1);
                 break;
+            case SkillName.ChillingTouch:
+                _skillChillingTouch = newSkill;
+                if (newSkill.level > 0)
+                {
+                    foreach (Brain item in _chilledBrains)
+                    {
+                        for (int i = 0; i < _buffsChillingTouch.Length; i++)
+                        {
+                            item.character.CharacterInjectData(GenChange.Remove, _buffsChillingTouch[i]);   
+                        }
+                    }
+                }
+                _buffsChillingTouch = newSkill.passData.stats;
+                _chilledBrains = new HashSet<Brain>(); 
+                break;
             case SkillName.Armageddon: //ultimate fire
                 Br.skills.myUltimate = newSkill;
                 Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
@@ -183,6 +201,21 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             case CombatEvent.Strike:
                 break;
             case CombatEvent.Hit:
+                chillTouch();
+                void chillTouch()
+                {
+                    if (_skillChillingTouch is null) return;
+                    if (otherBrain is null) return;
+                    if (_chilledBrains.Contains(otherBrain)) return;
+                    _chilledBrains.Add(otherBrain);
+                    for (int i = 0; i < _buffsChillingTouch.Length; i++)
+                    {
+                        otherBrain.character.CharacterInjectData(GenChange.Add, _buffsChillingTouch[i]);
+                    }
+                    SpellMain spell = Instantiate(_skillChillingTouch.spell, otherBrain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    spell.transporter.target = otherBrain.myTransform;
+                    spell.InitializeMe(Br);
+                }
                 break;
             case CombatEvent.Miss:
                 break;
@@ -240,10 +273,8 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     //     if (targetsHoming.Count > 0)
                     //     {
                     //         float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
-                    //         var containerHoming = new PassData()
+                    //         PassData containerHoming = new PassData()
                     //         {
-                    //             myBrain = Br,
-                    //             canBeBlocked = true,
                     //             hasDamage = true,
                     //             damagePair = Br.character.GetDamage(Element.Magic)
                     //         };
@@ -401,15 +432,32 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         }
                         break;
                     case SkillName.ShardWave:
+                        BuffEffects effectShard = skill.passData.effects[0];
+                        effectShard.myBrain = Br;
                         PassData containerShardWave = new PassData()
                         {
                             hasDamage = true,
                             damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Ice }, 1f, skill.passData.damagePair),
                             hasEffect = true,
-                            effects = skill.effects
+                            effects = new BuffEffects[1] { effectShard }
                         };
                         SpellMain spellShardWave = Instantiate(skill.spell,  Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
                         spellShardWave.InitializeMe(Br, containerShardWave);
+                        break;
+                    case SkillName.IceSpear:
+                        if (Br.combat.MyTarget is null) yield break;
+                        PassData pdIceSpear = new PassData()
+                        {
+                            hasDamage = true,
+                            damagePair = Br.character.GetDamage(new Element[2] { Element.Physical , Element.Ice }, 1f, skill.passData.damagePair),
+                        };
+                        SpellMain spellIceSpear = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Quaternion.identity, Ga.me.spells.myTransform);
+                        Vector3 directionIceSpear = Utils.Direction(spawnPoint.position, Br.combat.MyTarget.position);
+                        spellIceSpear.myTransform.rotation = Quaternion.LookRotation(directionIceSpear);
+                        spellIceSpear.visual.SetSpawnHeight(spawnPoint.position.y, 1.5f);
+                        BulletTransporter transporter =  spellIceSpear.transporter as  BulletTransporter;
+                        transporter.pierce = Br.character.GetStat(Stats.Piercing) + (int)skill.passData.stats[0].data.value;
+                        spellIceSpear.InitializeMe(Br, pdIceSpear);
                         break;
                 }
             }

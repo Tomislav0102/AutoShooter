@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BulletTransporter : SpellTransporter
@@ -15,9 +16,9 @@ public class BulletTransporter : SpellTransporter
         }
     }
     public float speed;
-    [HideInInspector] public int ricochet;
-    [HideInInspector] public int pierce;
-    [HideInInspector] public int bounce;
+    [ReadOnly] public int ricochet;
+    [ReadOnly] public int pierce;
+    [ReadOnly] public int bounce;
 
     public void BounceMethod(Vector3 normal)
     {

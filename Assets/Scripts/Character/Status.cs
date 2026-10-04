@@ -36,7 +36,7 @@ public class Status : MonoBehaviour, IIniBrain
         set
         {
             _br = value;
-            _duoBuffs = new MyDuo<BuffEffects, float>();
+            _buffTimers = new MyDuo<BuffEffects, float>();
             _status = Instantiate(Ga.me.uiManager.statusPrefab, Ga.me.uiManager.pointersContainer);
             _statusImageGos = Utils.AllChildrenGameObjects(_status);
             _tickTimer = float.PositiveInfinity;
@@ -51,7 +51,7 @@ public class Status : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    MyDuo<BuffEffects, float> _duoBuffs;
+    MyDuo<BuffEffects, float> _buffTimers;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
     int _effectsLength;
@@ -90,7 +90,7 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void Update()
     {
-        if (_duoBuffs.Length() == 0) return;
+        if (_buffTimers.Length() == 0) return;
         
         _tickTimer += Time.deltaTime;
         if (_tickTimer >= CONST_TickMaxTime)
@@ -99,13 +99,13 @@ public class Status : MonoBehaviour, IIniBrain
         }
 
         List<BuffEffects> buffsToRemove = new List<BuffEffects>();
-        for (int i = 0; i < _duoBuffs.Length(); i++)
+        for (int i = 0; i < _buffTimers.Length(); i++)
         {
-            BuffEffects buff = _duoBuffs.GetKey(i);
-            float duration = _duoBuffs.GetValue(i);
+            BuffEffects buff = _buffTimers.GetKey(i);
+            float duration = _buffTimers.GetValue(i);
             
             duration -= Time.deltaTime;
-            _duoBuffs.SetValue(i, duration);
+            _buffTimers.SetValue(i, duration);
             if (duration <= 0f) buffsToRemove.Add(buff);
             else
             {
@@ -140,10 +140,10 @@ public class Status : MonoBehaviour, IIniBrain
         bool doRefresh = false;
         for (int i = 0; i < buffsToRemove.Count; i++)
         {
-            if (_duoBuffs.HasKey(buffsToRemove[i]))
+            if (_buffTimers.HasKey(buffsToRemove[i]))
             {
                 doRefresh = true;
-                _duoBuffs.RemoveByKey(buffsToRemove[i]);
+                _buffTimers.RemoveByKey(buffsToRemove[i]);
                 break;
             }
         }
@@ -152,7 +152,7 @@ public class Status : MonoBehaviour, IIniBrain
     }
     void LateUpdate()
     {
-        if (_duoBuffs.Length() == 0) return;
+        if (_buffTimers.Length() == 0) return;
        _status.position = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position);
     }
     
@@ -161,18 +161,18 @@ public class Status : MonoBehaviour, IIniBrain
         switch (change)
         {
             case GenChange.Add:
-                _duoBuffs.Add(buffEffects, buffEffects.data.permanent ? float.PositiveInfinity : buffEffects.data.Duration);
+                _buffTimers.Add(buffEffects, buffEffects.data.permanent ? float.PositiveInfinity : buffEffects.data.Duration);
                 if (buffEffects.IsDot())
                 {
                     Refresh();
                     return;
                 }
 
-                for (int i = 0; i < _duoBuffs.Length() - 1; i++)
+                for (int i = 0; i < _buffTimers.Length() - 1; i++)
                 {
-                    if (_duoBuffs.GetKey(i).effect != buffEffects.effect) continue;
-                    float duration = _duoBuffs.GetValue(i) +  buffEffects.data.Duration;
-                    _duoBuffs.SetValue(i, duration);
+                    if (_buffTimers.GetKey(i).effect != buffEffects.effect) continue;
+                    float duration = _buffTimers.GetValue(i) +  buffEffects.data.Duration;
+                    _buffTimers.SetValue(i, duration);
                     break;
                 }
 
@@ -191,9 +191,9 @@ public class Status : MonoBehaviour, IIniBrain
                 
                 break;
             case GenChange.Remove:
-                if (_duoBuffs.HasKey(buffEffects))
+                if (_buffTimers.HasKey(buffEffects))
                 {
-                    _duoBuffs.RemoveByKey(buffEffects);
+                    _buffTimers.RemoveByKey(buffEffects);
                 }
                 break;
         }
@@ -212,9 +212,9 @@ public class Status : MonoBehaviour, IIniBrain
                 _effectPrevious.SetValue(i, _effectActive.GetValue(i));
                 _effectActive.SetValue(i, false);
             }
-            for (int i = 0; i < _duoBuffs.Length(); i++)
+            for (int i = 0; i < _buffTimers.Length(); i++)
             {
-                _effectActive.SetValueByKey(_duoBuffs.GetKey(i).effect, true);
+                _effectActive.SetValueByKey(_buffTimers.GetKey(i).effect, true);
             }
             for (int i = 0; i < _effectsLength; i++)
             {
@@ -226,18 +226,18 @@ public class Status : MonoBehaviour, IIniBrain
         void uIRefresh()
         {
             Utils.ActivateOneArrayElement(_statusImageGos);
-            for (int i = 0; i < _duoBuffs.Length(); i++)
+            for (int i = 0; i < _buffTimers.Length(); i++)
             {
-                _statusImageGos[(int)_duoBuffs.GetKey(i).effect].SetActive(true);
+                _statusImageGos[(int)_buffTimers.GetKey(i).effect].SetActive(true);
             }
         }
     }
 
     public bool HasEffect(Effect effect)
     {
-        for (int i = 0; i < _duoBuffs.Length(); i++)
+        for (int i = 0; i < _buffTimers.Length(); i++)
         {
-            if (_duoBuffs.GetKey(i).effect ==  effect) return true;
+            if (_buffTimers.GetKey(i).effect ==  effect) return true;
         }
         return false;
     }

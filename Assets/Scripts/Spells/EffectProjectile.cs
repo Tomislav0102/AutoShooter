@@ -55,17 +55,21 @@ public class EffectProjectile : MonoBehaviour, IIniSpell
                     Vector3 dir = myTargets[Random.Range(0, myTargets.Count)].position - Spell.myTransform.position;
                     _myBulletTransporter.RicochetMethod(dir);
                 }
-                else setPierce();
+                else finishSpell();
             }
-            else setPierce();
+            else finishSpell();
+            return;
 
-
-            void setPierce()
+            void finishSpell()
             {
-                if (_myBulletTransporter.pierce > 0) _myBulletTransporter.pierce--;
-                else Spell.MyPhase = SpellMain.Phase.EndStart;
+                if (_myBulletTransporter.pierce > 0)
+                {
+                    _myBulletTransporter.pierce--;
+                    return;
+                }
+                Spell.MyPhase = SpellMain.Phase.EndStart;
             }
-
+        
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;

@@ -48,6 +48,7 @@ public class SpellMain : MonoBehaviour
     public bool isInterrupt;
     [SerializeField] bool canBeBlocked;
     [SerializeField] bool canBeDodged;
+    [SerializeField] bool triggersOnHitEvent;
     [ReadOnly] public bool spellActive;
     [ReadOnly] public PassData pd;
     public Brain OwnersBrain
@@ -145,6 +146,11 @@ public class SpellMain : MonoBehaviour
         if (id == 0) print($"{gameObject.name} ID is 0, need to assign ID in inspector!");
         OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
+        if (triggersOnHitEvent) onHitTarget += (Brain brainTargeted) =>
+        {
+            if (brainTargeted == null) OwnersBrain.combat.CombatEventRegistered(CombatEvent.Miss);
+            else OwnersBrain.combat.CombatEventRegistered(CombatEvent.Hit, brainTargeted);
+        };
         myRigid.isKinematic = true;
         if (isInterrupt) gameObject.layer = LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt);
         
@@ -203,7 +209,7 @@ public class SpellMain : MonoBehaviour
 
     #region EVENTS, CALLBACKS
     public System.Action onEnd;
-    public System.Action<Brain> onHitTarget;
+    public System.Action<Brain> onHitTarget { get; set; }
     System.Action _onAfterSpell;
     void CallEv_OnEnd()
     {
@@ -215,7 +221,7 @@ public class SpellMain : MonoBehaviour
     
         IEnumerator endDelay()
         {
-            yield return extraLifeTimeForParticles ? Ga.me.wait30 : Ga.me.wait00;
+            yield return extraLifeTimeForParticles ? Ga.me.wait100 : Ga.me.wait00;
             Destroy(gameObject);
         }
     }
