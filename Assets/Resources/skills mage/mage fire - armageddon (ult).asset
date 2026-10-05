@@ -15,7 +15,7 @@ MonoBehaviour:
   infoA: Level of skill starts at 0 (in-game its level1).
   description: Calls down a storm of meteors on whole screen
   levelUpEffect: Decreases cooldown time
-  skillName: 74
+  skillName: 75
   icon: {fileID: 0}
   skillType: 2
   level: 0

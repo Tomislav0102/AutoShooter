@@ -14,6 +14,7 @@ public class PC_Archer : MonoBehaviour
         {
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
+            Br.skills.onSkillIncrease += SkillIncreaseCallback;
         }
     }
     Brain _br;
@@ -28,6 +29,8 @@ public class PC_Archer : MonoBehaviour
     [SerializeField] ParticleSystem psRoll;
     SoSkill[] _allSkills;
     PlayerCombat _playerCombat;
+    [Title("debug")]
+    public bool canShoot;
     
     // public void SkillUpdate()
     // {
@@ -55,18 +58,19 @@ public class PC_Archer : MonoBehaviour
     //     }
     // }
 
-    // void OnEnable()
-    // {
-    //     Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
-    //     Br.skills.OnSkillIncrease += SkillIncreaseCallback;
-    // }
-    // void OnDisable()
-    // {
-    //     Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
-    //     Br.skills.OnSkillIncrease -= SkillIncreaseCallback;
-    // }
+    void OnEnable()
+    {
+        Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
+    }
+    void OnDisable()
+    {
+        Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
+        Br.skills.onSkillIncrease -= SkillIncreaseCallback;
+    }
     
     void SkillIncreaseCallback(SoSkill newSkill) { }
+    
+    
     //archers Ultimate is not triggered by animation event
     void CallEv_OnUltimateActivated()
     {
@@ -90,6 +94,8 @@ public class PC_Archer : MonoBehaviour
     }
     public void AnimEv_AttackCallback(int num = 0)
     {
+        if (!canShoot) return;
+        canShoot = false;
         Shoot();
         if (followUp > 0) StartCoroutine(ShootFollowUp());
     }

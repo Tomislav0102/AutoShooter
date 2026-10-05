@@ -48,8 +48,9 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             if (useMage)
             {
-                OvrLevelSpecificSkill(SkillName.ChillingTouch);
-                OvrLevelSpecificSkill(SkillName.IceSpear, 1);
+                 OvrLevelSpecificSkill(SkillName.ChillingTouch);
+               //  OvrLevelSpecificSkill(SkillName.IceSpear);
+               //  OvrLevelSpecificSkill(SkillName.OrbitalBulwark);
             }
             if (useArcher)
             {

@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Attacks reduce enemy movement and attack speed by 15%. Effect is permanent
     but can happen only once on a single enemy
   levelUpEffect: Increases slow percentage
-  skillName: 76
+  skillName: 77
   icon: {fileID: 0}
   skillType: 1
   level: 0

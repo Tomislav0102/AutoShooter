@@ -5,23 +5,39 @@ using UnityEngine.Serialization;
 
 public class SpellTransporter : MonoBehaviour, IIniSpell
 {
-    public virtual SpellMain Spell { get; set; }
-
-    [ReadOnly] public Transform target;
-
-
-    protected void SetSpeed(float speed)
+    public virtual SpellMain Spell
     {
-        float sp = Spell.spellActive ? speed : 0f;
-        Spell.myRigid.linearVelocity = sp * Spell.myTransform.forward;
+        get => _spell;
+        set
+        {
+            _spell = value;
+        }
     }
+    SpellMain _spell;
+    [ReadOnly] public Transform target;
+    [BoxGroup, ReadOnly] public int ricochet;
+    [BoxGroup, ReadOnly] public int bounce;
+    [BoxGroup, ReadOnly] public int pierce;
 
-    public void ReflectProjectile(Brain newBrain)
+    public virtual bool CanRicochet(Collider other)
     {
-        Spell.OwnersBrain = newBrain;
-        Spell.myTransform.rotation *= Quaternion.Euler(0f, 180f, 0f);
-        float speed  = Spell.myRigid.linearVelocity.magnitude;
-        SetSpeed(speed);
+        Ga.me.uiManager.FloatText(Spell.myTransform.position, "Ricochet!", Color.cornflowerBlue, 3f);
+        return true;
+    }
+    public virtual bool CanBounce(Vector3 normal)
+    {
+        Ga.me.uiManager.FloatText(Spell.myTransform.position, "Bounce!", Color.aquamarine, 3f);
+        return true;
+    }
+    public virtual bool CanPierce()
+    {
+        Ga.me.uiManager.FloatText(Spell.myTransform.position, "Pierce!", Color.coral, 3f);
+        return true;
+    }
+    public virtual void ReflectProjectile(Brain newBrain)
+    {
+        Ga.me.uiManager.FloatText(Spell.myTransform.position, "Reflected!", Color.dimGray, 3f);
+        
     }
 
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   infoA: Level of skill starts at 0 (in-game its level1).
   description: Leaves a trail of fire on the ground while the player moves
   levelUpEffect: Increases fire duration
-  skillName: 71
+  skillName: 72
   icon: {fileID: 0}
   skillType: 1
   level: 0

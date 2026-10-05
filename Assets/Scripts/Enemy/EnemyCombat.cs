@@ -96,13 +96,13 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
                 SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
                     zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
-                if (bulletTransporter != null)
-                {
-                    bulletTransporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
-                    bulletTransporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
-                    bulletTransporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
-                }
+                // BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
+                // if (bulletTransporter != null)
+                // {
+                //     bulletTransporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
+                //     bulletTransporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
+                //     bulletTransporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
+                // }
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
                 bullet.InitializeMe(Br, containerBullet);
                 break;

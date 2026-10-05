@@ -19732,14 +19732,6 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: spell
-      value: 
-      objectReference: {fileID: 4640312022218336032}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: effect
-      value: 
-      objectReference: {fileID: 4640312022218336032}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: myMesh
       value: 
       objectReference: {fileID: 1890891732849216728}
@@ -19758,7 +19750,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 4317874410692078724}
+      objectReference: {fileID: 8527033812709053581}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: areaOfEffect
       value: 0.2
@@ -19810,11 +19802,11 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onCollEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4640312022218336032}
+      objectReference: {fileID: 7777072390447579753}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4640312022218336032}
+      objectReference: {fileID: 7777072390447579753}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onCollEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -19836,10 +19828,6 @@ PrefabInstance:
       value: OnTriggerEnterCallBack
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: onInitialization.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4640312022218336032}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onInitialization.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -19849,11 +19837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onCollEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellEffectProjectile, Assembly-CSharp
+      value: EffectTrigger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpellEffectProjectile, Assembly-CSharp
+      value: EffectTrigger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onInitialization.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -19887,10 +19875,10 @@ PrefabInstance:
       addedObject: {fileID: 4612130815277741316}
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4640312022218336032}
+      addedObject: {fileID: 7777072390447579753}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4317874410692078724}
+      addedObject: {fileID: 8527033812709053581}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!4 &1890891732849216728 stripped
 Transform:
@@ -19902,7 +19890,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 6834998692939971175}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4640312022218336032
+--- !u!114 &7777072390447579753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19911,9 +19899,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1898965070475966090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563be317f6a7aed42ada410479198d99, type: 3}
+  m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Bullet
+  m_EditorClassIdentifier: Assembly-CSharp::EffectTrigger
+  detectObstacles: 1
+  onEnter: 1
+  onFakeStay: 0
+  onExit: 0
   solidCollider: {fileID: 4612130815277741316}
 --- !u!1 &5194372066175661020 stripped
 GameObject:
@@ -19946,7 +19938,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 6834998692939971175}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4317874410692078724
+--- !u!114 &8527033812709053581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19955,11 +19947,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6546837040175026670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e66ab82fb504443915bb11e1e1d2da, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileTransporter
   target: {fileID: 0}
+  projectileType: 0
   speed: 5
-  ricochet: 0
-  pierce: 0
-  bounce: 0

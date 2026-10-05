@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Every enemy currently burning on screen increases your all Elemental
     Damage (including Physical Damage) by 2%
   levelUpEffect: Increases damage percentage per burning enemy
-  skillName: 73
+  skillName: 74
   icon: {fileID: 0}
   skillType: 1
   level: 0

@@ -154,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 599669546541979689}
+      objectReference: {fileID: 8329238496317854813}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: reflexBehaviour
       value: 2
@@ -203,7 +203,7 @@ PrefabInstance:
       addedObject: {fileID: 6840618285202408881}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 599669546541979689}
+      addedObject: {fileID: 8329238496317854813}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &1193343954656711556 stripped
 GameObject:
@@ -222,10 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_SimpleTrigger
+  detectObstacles: 1
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  colliderPart: 0
+  solidCollider: {fileID: 0}
 --- !u!4 &1218270606949558742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -236,7 +237,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 6057110273851285353}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &599669546541979689
+--- !u!114 &8329238496317854813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,11 +246,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5768811176183264480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e66ab82fb504443915bb11e1e1d2da, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileTransporter
   target: {fileID: 0}
+  projectileType: 0
   speed: 3
-  ricochet: 0
-  pierce: 0
-  bounce: 0

@@ -17,21 +17,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             _playerCombat = GetComponent<PlayerCombat>();
             _numOfObjects = (int)value.character.GetStat(Stats.Projectiles);
             value.skills.onSkillIncrease += SkillIncreaseCallback;
-            // switch (startActive)
-            // {
-            //     case 0:
-            //         SpellGroup groupShields = Instantiate(Ga.me.spells.groupOrbitalShields, value.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-            //         OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
-            //         orbitalGroupShields.orbitingAnchor = value.myTransform;
-            //         SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
-            //         PassData[] pdShields = new PassData[_numOfObjects];
-            //         for (int i = 0; i < _numOfObjects; i++)
-            //         {
-            //             shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
-            //             pdShields[i] = null;
-            //         }
-            //         groupShields.InitializeMe(value, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
-            //         break;
         }
     }
     Brain _br;
@@ -175,6 +160,19 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _buffsChillingTouch = newSkill.passData.stats;
                 _chilledBrains = new HashSet<Brain>(); 
                 break;
+            case SkillName.OrbitalBulwark:
+                SpellGroup groupShields = Instantiate(newSkill.spellGroup, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
+                orbitalGroupShields.orbitingAnchor = Br.myTransform;
+                SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
+                PassData[] pdShields = new PassData[_numOfObjects];
+                for (int i = 0; i < _numOfObjects; i++)
+                {
+                    shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
+                    pdShields[i] = null;
+                }
+                groupShields.InitializeMe(Br, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
+                break;
             case SkillName.Armageddon: //ultimate fire
                 Br.skills.myUltimate = newSkill;
                 Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
@@ -268,30 +266,30 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             {
                 switch (skill.skillName)
                 {
-                    // case SkillName.MageBase:
-                    //     List<Transform> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
-                    //     if (targetsHoming.Count > 0)
-                    //     {
-                    //         float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
-                    //         PassData containerHoming = new PassData()
-                    //         {
-                    //             hasDamage = true,
-                    //             damagePair = Br.character.GetDamage(Element.Magic)
-                    //         };
-                    //         int counter = 0;
-                    //         for (int i = 0; i < _numOfObjects; i++)
-                    //         {
-                    //             SpellMain homing = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation, Ga.me.spells.myTransform);
-                    //             homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
-                    //             homing.visual.SetSpawnHeight(spawnPoint.position.y, 1f);
-                    //             Transform target = targetsHoming[counter];
-                    //             counter = (1 + counter) % targetsHoming.Count;
-                    //             homing.transporter.target = target;
-                    //             homing.InitializeMe(Br, containerHoming);
-                    //             yield return Ga.me.wait01;
-                    //         }
-                    //     }
-                    //     break;
+                    case SkillName.MageBase:
+                        List<Transform> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
+                        if (targetsHoming.Count > 0)
+                        {
+                            float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
+                            PassData containerHoming = new PassData()
+                            {
+                                hasDamage = true,
+                                damagePair = Br.character.GetDamage(Element.Magic)
+                            };
+                            int counter = 0;
+                            for (int i = 0; i < _numOfObjects; i++)
+                            {
+                                SpellMain homing = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation, Ga.me.spells.myTransform);
+                                homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
+                                homing.visual.SetSpawnHeight(spawnPoint.position.y, 1f);
+                                Transform target = targetsHoming[counter];
+                                counter = (1 + counter) % targetsHoming.Count;
+                                homing.transporter.target = target;
+                                homing.InitializeMe(Br, containerHoming);
+                                yield return Ga.me.wait01;
+                            }
+                        }
+                        break;
                     case SkillName.Fireball:
                         List<Transform> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
                         Transform middleTarget = targetsFireball.Count == 0 ? null : targetsFireball[0];
@@ -455,8 +453,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         Vector3 directionIceSpear = Utils.Direction(spawnPoint.position, Br.combat.MyTarget.position);
                         spellIceSpear.myTransform.rotation = Quaternion.LookRotation(directionIceSpear);
                         spellIceSpear.visual.SetSpawnHeight(spawnPoint.position.y, 1.5f);
-                        BulletTransporter transporter =  spellIceSpear.transporter as  BulletTransporter;
-                        transporter.pierce = Br.character.GetStat(Stats.Piercing) + (int)skill.passData.stats[0].data.value;
+                        spellIceSpear.transporter.pierce = Br.character.GetStat(Stats.Piercing) + (int)skill.passData.stats[0].data.value;
                         spellIceSpear.InitializeMe(Br, pdIceSpear);
                         break;
                 }
@@ -468,6 +465,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
     }
 
+    
     public void ShieldMonitor(bool shieldOn)
     {
         if (_spellManaShield is null) return;

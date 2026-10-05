@@ -15680,7 +15680,7 @@ PrefabInstance:
       objectReference: {fileID: 8030913400019200557}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: weapons.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: weapons.Array.data[0].range

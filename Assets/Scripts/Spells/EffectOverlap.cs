@@ -24,22 +24,25 @@ public class EffectOverlap : MonoBehaviour, IIniSpell
     {
         Collider[] colliders = System.Array.Empty<Collider>();
         bool eventCall = false;
-        // int layerMask = Utils.MyLayers(new string[] { Ga.me.gameData.layActors, Ga.me.gameData.laySpell });
         int layerMask = Utils.MyLayer(Spell.isInterrupt ? Ga.me.gameData.laySpell : Ga.me.gameData.layActors);
+        
         switch (Spell.colliderType)
         {
             case ColliderType.Sphere:
                 colliders = Physics.OverlapSphere(Spell.myTransform.position,
                     Spell.areaOfEffect * 0.5f, layerMask);
 
-                //optimized version
-                Collider[] collsNonAlloc = new Collider[10];
-                int numNonAlloc = Physics.OverlapSphereNonAlloc(Spell.myTransform.position, Spell.areaOfEffect * 0.5f, collsNonAlloc, layerMask);
-                for (int i = 0; i < numNonAlloc; i++)
+                void optimizedOverlap()
                 {
-                    if (false) print(collsNonAlloc[i].name);
+                    Collider[] collsNonAlloc = new Collider[10];
+                    int numNonAlloc = Physics.OverlapSphereNonAlloc(Spell.myTransform.position, Spell.areaOfEffect * 0.5f, collsNonAlloc, layerMask);
+                    for (int i = 0; i < numNonAlloc; i++)
+                    {
+                        if (false) print(collsNonAlloc[i].name);
+                    }
                 }
                 break;
+            
             case ColliderType.Capsule:
                 Vector3 startPos = Spell.myTransform.position + 0.5f * Spell.myTransform.forward;
                 Vector3 endPos = startPos + Mathf.Max(0, Spell.areaOfEffect - 1) * Spell.myTransform.forward;
@@ -47,6 +50,7 @@ public class EffectOverlap : MonoBehaviour, IIniSpell
                     0.5f, layerMask);
                 break;
         }
+        
         foreach (Collider item in colliders)
         {
             if (_arcCalculator != null && !_arcCalculator.TargetInsideArc(item.transform.position)) continue;

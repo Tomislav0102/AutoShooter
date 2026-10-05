@@ -363,8 +363,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     ricochet += (int)sk.passData.stats[0].data.value;
 
                     SpellMain spell = Instantiate(sk.spell, Utils.MakeV2(myShield.position), Quaternion.LookRotation(dir), Ga.me.spells.myTransform);
-                    BulletTransporter bulletTransporter = spell.transporter as BulletTransporter;
-                    bulletTransporter.ricochet = ricochet;
+                    spell.transporter.ricochet = ricochet;
                     spell.visual.SetSpawnHeight(myShield.position.y);
                     spell.InitializeMe(Br, containerThrow);
                 }

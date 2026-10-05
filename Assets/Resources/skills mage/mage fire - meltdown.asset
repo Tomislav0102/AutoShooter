@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Enemies affected by "Burn" have their Armor reduced by 25% per level
     of skill
   levelUpEffect: Increases Armor reduction percentage
-  skillName: 72
+  skillName: 73
   icon: {fileID: 0}
   skillType: 1
   level: 0

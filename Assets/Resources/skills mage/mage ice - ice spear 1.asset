@@ -15,7 +15,7 @@ MonoBehaviour:
   infoA: Level of skill starts at 0 (in-game its level1).
   description: Fires a high-velocity projectile that pierces through 2 enemies
   levelUpEffect: Increases pierce count
-  skillName: 77
+  skillName: 78
   icon: {fileID: 0}
   skillType: 0
   level: 1

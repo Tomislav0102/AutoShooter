@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: mage fire - meltdown 1
+  m_Name: mage - orbital bulwark
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   infoA: Level of skill starts at 0 (in-game its level1).
-  description: Enemies affected by "Burn" have their Armor reduced by 25% per level
-    of skill
-  levelUpEffect: Increases Armor reduction percentage
-  skillName: 73
+  description: Summon rotating shields around you that absorb incoming projectiles.
+    Each blocked projectile consumes one shield ring. Shields respawn after 10 sec
+  levelUpEffect: Increase number of shields
+  skillName: 67
   icon: {fileID: 0}
   skillType: 1
-  level: 1
+  level: 0
   hasStat: 0
   stats: []
   hasDamage: 0
@@ -29,9 +29,9 @@ MonoBehaviour:
     <Value>k__BackingField: []
   hasEffect: 0
   effects: []
-  hasSpell: 0
+  hasSpell: 2
   spell: {fileID: 0}
-  spellGroup: {fileID: 0}
+  spellGroup: {fileID: 2030511890280774223, guid: 207058c7be783c84781d27fe3ed51235, type: 3}
   hasPassData: 0
   passData:
     myBrain: {fileID: 0}
@@ -54,6 +54,6 @@ MonoBehaviour:
     effects: []
   hasAfterSpells: 0
   afterSpells: []
-  hasGeneric: 1
-  valueGeneric: -25
+  hasGeneric: 0
+  valueGeneric: 0
   valueGenericArray: []

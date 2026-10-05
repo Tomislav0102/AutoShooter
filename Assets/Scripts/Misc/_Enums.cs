@@ -161,6 +161,7 @@ public enum SkillName
     ManaShield,
     BastionPulse,
     Decoy,
+    OrbitalBulwark,
     Fireball,
     DragonsBreath,
     MeteorStrike,

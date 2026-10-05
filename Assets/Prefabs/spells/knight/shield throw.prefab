@@ -154,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: transporter
       value: 
-      objectReference: {fileID: 2713767556977668211}
+      objectReference: {fileID: 8912875514215524152}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: canBeBlocked
       value: 1
@@ -215,14 +215,14 @@ PrefabInstance:
       addedObject: {fileID: 2360112833303177939}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2713767556977668211}
+      addedObject: {fileID: 8912875514215524152}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &2924272393099126313 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 3212430751149919648}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2713767556977668211
+--- !u!114 &8912875514215524152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,14 +231,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2924272393099126313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e66ab82fb504443915bb11e1e1d2da, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileTransporter
   target: {fileID: 0}
+  projectileType: 0
   speed: 10
-  ricochet: 2
-  pierce: 0
-  bounce: 0
 --- !u!1 &7499734787620274509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}

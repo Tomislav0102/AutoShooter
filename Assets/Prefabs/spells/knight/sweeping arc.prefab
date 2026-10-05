@@ -14638,10 +14638,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: transporter
-      value: 
-      objectReference: {fileID: 3986871597284255350}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: reflexBehaviour
       value: 2
       objectReference: {fileID: 0}
@@ -14696,14 +14692,14 @@ PrefabInstance:
       addedObject: {fileID: 1370884643945704422}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3986871597284255350}
+      addedObject: {fileID: 5921081550599299578}
   m_SourcePrefab: {fileID: 100100000, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
 --- !u!1 &3737642370815523040 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 4025944761106617193}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3986871597284255350
+--- !u!114 &5921081550599299578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14712,14 +14708,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3737642370815523040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ad2c9027d4620a4ebc898ea88f5695a, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e66ab82fb504443915bb11e1e1d2da, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletTransporter
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileTransporter
   target: {fileID: 0}
+  projectileType: 0
   speed: 5
-  ricochet: 0
-  pierce: 1215752191
-  bounce: 0
 --- !u!4 &8302386412261189078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -14742,9 +14736,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_GeneralTrigger
+  detectObstacles: 1
   onEnter: 1
   onFakeStay: 0
   onExit: 0
+  solidCollider: {fileID: 0}
 --- !u!114 &1370884643945704422
 MonoBehaviour:
   m_ObjectHideFlags: 0

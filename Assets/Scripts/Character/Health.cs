@@ -248,7 +248,7 @@ public class Health: MonoBehaviour, IIniBrain
                         return;
                     }
                 }
-                Ga.me.uiManager.FloatText(Br.myTransform.position, damageFinal);
+              //  Ga.me.uiManager.FloatText(Br.myTransform.position, damageFinal);
                 return;
 
                 MyDuo<Element, float> damageModified(MyDuo<Element, float> damageRaw)

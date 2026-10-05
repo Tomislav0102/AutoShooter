@@ -124,7 +124,7 @@ public class SpellMain : MonoBehaviour
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     public HashSet<Collider> collidersDetected = new HashSet<Collider>();
     public Specialty specialty;
-    [HideInInspector] public int reflexCount = 2;
+    public int reflexCount = 2;
 
     [Title("Events")]
     [SerializeField] UnityEvent<Collider> onTrigEnter;
@@ -323,7 +323,7 @@ public class SpellMain : MonoBehaviour
                         return true;
                     }
                     break;
-                case Specialty.Projectile: //transporter should be 'Homing' or 'Bullet'
+                case Specialty.Projectile: 
                     reflexStat = brain.character.GetStat(Stats.ReflectProjectiles);
                     if (Random.value < reflexStat * 0.01f)
                     {

@@ -14662,6 +14662,10 @@ PrefabInstance:
       value: BP_Archer
       objectReference: {fileID: 0}
     - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: myBasic
+      value: 
+      objectReference: {fileID: 11400000, guid: 3426ea4f62e43334ebddbffe853f570a, type: 2}
+    - target: {fileID: 8179671598222996601, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: useArcher
       value: 1
       objectReference: {fileID: 0}

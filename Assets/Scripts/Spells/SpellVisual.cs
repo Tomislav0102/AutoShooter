@@ -39,12 +39,12 @@ public class SpellVisual : MonoBehaviour, IIniSpell
                 case SizeModifierType.TransformScale:
                     transform.localScale = value.areaOfEffect * Vector3.one;
                     break;
-                case SizeModifierType.Velocity_Over_Lifetime:
-                    ParticleSystem.MainModule myMain = psDefault.main;
-                    myMain.duration = value.lifeTime;
-                    myMain.startLifetime = value.lifeTime;
-                    ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
-                    velocityOverLifetime.y = (value.transporter as BulletTransporter).speed;
+                case SizeModifierType.Velocity_Over_Lifetime: 
+                    // ParticleSystem.MainModule myMain = psDefault.main;
+                    // myMain.duration = value.lifeTime;
+                    // myMain.startLifetime = value.lifeTime;
+                    // ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
+                    // velocityOverLifetime.y = (value.transporter as BulletTransporter).speed;
                     break;
                 case SizeModifierType.Other_None:
                     return;

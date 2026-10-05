@@ -22,7 +22,7 @@ public class EffectScreen : MonoBehaviour, IIniSpell
         List<Transform> targets = Utils.AllOnScreen(Ga.me.team.ValidTargets(Spell.OwnersBrain.Faction));
         foreach (Transform item in targets)
         {
-            Spell.HitGeneric<Transform>(item, out Brain br);
+            Spell.HitGeneric<Transform>(item, out _);
         }
     }
 }

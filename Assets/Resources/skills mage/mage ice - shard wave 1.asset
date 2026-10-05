@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Freezing wave that damages (Phys + Ice Dam) and Roots enemies for
     2s
   levelUpEffect: Increase damage
-  skillName: 75
+  skillName: 76
   icon: {fileID: 0}
   skillType: 0
   level: 1

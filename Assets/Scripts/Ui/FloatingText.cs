@@ -61,6 +61,7 @@ public class FloatingText : MonoBehaviour
         _startColors = new Color[myTexts.Length];
         myTexts[0].enabled = true;
         myTexts[0].text = st;
+        myTexts[0].fontStyle = FontStyles.Bold;
         _startColors[0] = col;
         myTransform.sizeDelta = new Vector2(_widthSingle, 0);
         myHorizontalLayoutGroup.childControlWidth = true;
