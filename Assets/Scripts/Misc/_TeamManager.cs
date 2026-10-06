@@ -76,28 +76,40 @@ public class TeamManager
         }
     }
     
-    public HashSet<Transform> ValidTargets(Faction faction)
+    // public HashSet<Transform> ValidTargets(Faction faction)
+    // {
+    //     HashSet<Transform> temp =  new HashSet<Transform>();
+    //     HashSet<Brain> brains =  validTargetBrain();
+    //     
+    //     foreach (Brain item in brains)
+    //     {
+    //         temp.Add(item.myTransform);
+    //     }
+    //     return temp;
+    //     
+    //     HashSet<Brain> validTargetBrain()
+    //     {
+    //         switch (faction)
+    //         {
+    //             case Faction.GoodGuys:
+    //                 return  _bad;
+    //             case Faction.BadGuys:
+    //                 return  _good;
+    //             default:
+    //                 return null;
+    //         }
+    //     }
+    // }
+    public HashSet<Brain> ValidTargets(Faction faction)
     {
-        HashSet<Transform> temp =  new HashSet<Transform>();
-        HashSet<Brain> brains =  validTargetBrain();
-        
-        foreach (Brain item in brains)
+        switch (faction)
         {
-            temp.Add(item.myTransform);
-        }
-        return temp;
-        
-        HashSet<Brain> validTargetBrain()
-        {
-            switch (faction)
-            {
-                case Faction.GoodGuys:
-                    return  _bad;
-                case Faction.BadGuys:
-                    return  _good;
-                default:
-                    return null;
-            }
+            case Faction.GoodGuys:
+                return _bad;
+            case Faction.BadGuys:
+                return _good;
+            default:
+                return null;
         }
     }
 

@@ -20,9 +20,12 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    
     [SerializeField] Transform spawnPoint;
     [SerializeField] ParticleSystem psCast;
+    PlayerCombat _playerCombat;
+    int _numOfObjects;
+    bool _isCasting; //debug. all attacks must finish before new animation event triggers a cast coroutine
+
     #region SKILLS
     List<SoSkill> _activeSkills = new List<SoSkill>();
     SoSkill _skillArcaneShield;
@@ -37,11 +40,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     SoSkill _skillChillingTouch;
     HashSet<Brain> _chilledBrains;
     BuffStats[] _buffsChillingTouch;
+    SoSkill _skillGlacialShield;
+    SpellMain _spellGlacialShield;
+    bool _canGlacialShield;
     #endregion
 
-    PlayerCombat _playerCombat;
-    int _numOfObjects;
-    bool _isCasting; //debug. all attacks must finish before new animation event triggers a cast coroutine
     
     
     void OnEnable()
@@ -65,11 +68,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         }
         switch (effect)
         {
-            case Status.Effect.Burning:
+            case Status.Effect.Burning_dot:
                 if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
                 if (on)
                 {
-                    _buffPyromania = new BuffStats(Stats.DamPhysical, BuffType.Percentage, _pyromaniaBonus * Ga.me.runData.enUnderEffect.GetValueByKey(Status.Effect.Burning));
+                    _buffPyromania = new BuffStats(Stats.DamPhysical, BuffType.Percentage, _pyromaniaBonus * Ga.me.runData.enUnderEffect.GetValueByKey(Status.Effect.Burning_dot));
                     Br.character.CharacterInjectData(GenChange.Add, _buffPyromania);
                 }
                 break;
@@ -86,32 +89,32 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             case SkillName.ArcaneShield:
                 if (_spellArcaneShield is not null) _spellArcaneShield.MyPhase = SpellMain.Phase.EndEnd;
                 _skillArcaneShield = newSkill;
-                _spellArcaneShield = Instantiate(_skillArcaneShield.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                _spellArcaneShield = SpellMain.Sp(_skillArcaneShield.spell, Br);
                 _spellArcaneShield.transporter.target = Br.myTransform;
                 _spellArcaneShield.InitializeMe(Br);
                 _canArcaneShield = true;
-                Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.effects[0]);
+                Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.passData.effects[0]);
                 break;
             case SkillName.ManaShield:
                 if (_spellManaShield is not null) _spellManaShield.MyPhase = SpellMain.Phase.EndEnd;
                 Br.health.HealthInjectDataManaShield(newSkill.passData.manaShieldPoints);
-                _spellManaShield = Instantiate(newSkill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                _spellManaShield = SpellMain.Sp(newSkill.spell, Br);
                 _spellManaShield.transporter.target = Br.myTransform;
                 _spellManaShield.InitializeMe(Br);
                 break;
             case SkillName.BastionPulse:
                 if (_spellBastionPulse is not  null) _spellBastionPulse.MyPhase = SpellMain.Phase.EndEnd;
-                _spellBastionPulse = Instantiate(newSkill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                _spellBastionPulse = SpellMain.Sp(newSkill.spell, Br);
                 _spellBastionPulse.transporter.target = Br.myTransform;
                 _spellBastionPulse.pd = newSkill.passData;
-                _spellBastionPulse.areaOfEffect += newSkill.stats[0].data.value;
+                _spellBastionPulse.areaOfEffect += newSkill.passData.stats[0].data.value;
                 _spellBastionPulse.InitializeMe(Br);
                 break;
             case SkillName.DragonsBreath:
                 if (_spellDragonsBreath is not null) _spellDragonsBreath.MyPhase = SpellMain.Phase.EndEnd;
-                _spellDragonsBreath = Instantiate(newSkill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                _spellDragonsBreath = SpellMain.Sp(newSkill.spell, Br);
                 _spellDragonsBreath.transporter.target = Br.myTransform;
-                _spellDragonsBreath.areaOfEffect += newSkill.stats[0].data.value;
+                _spellDragonsBreath.areaOfEffect += newSkill.passData.stats[0].data.value;
                 PassData pd = new PassData()
                 {
                     hasDamage = true,
@@ -122,7 +125,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellDragonsBreath.InitializeMe(Br, pd);
                 break;
             case SkillName.BlazeTrail:
-                SpellGroup groupWalkTrail = Instantiate(newSkill.spellGroup, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellGroup groupWalkTrail = SpellGroup.Gr(newSkill.spellGroup, Br);
                 PassData pdWalkTrail = new PassData()
                 {
                     myBrain = Br,
@@ -161,7 +164,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _chilledBrains = new HashSet<Brain>(); 
                 break;
             case SkillName.OrbitalBulwark:
-                SpellGroup groupShields = Instantiate(newSkill.spellGroup, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellGroup groupShields = SpellGroup.Gr(newSkill.spellGroup, Br);
                 OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
                 orbitalGroupShields.orbitingAnchor = Br.myTransform;
                 SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
@@ -172,6 +175,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     pdShields[i] = null;
                 }
                 groupShields.InitializeMe(Br, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
+                break;
+            case SkillName.GlacialShield:
+                _skillGlacialShield = newSkill;
+                _spellGlacialShield = SpellMain.Sp(_skillGlacialShield.spell, Br);
+                _spellGlacialShield.transporter.target = Br.myTransform;
+                _spellGlacialShield.InitializeMe(Br);
+                _canGlacialShield = true;
                 break;
             case SkillName.Armageddon: //ultimate fire
                 Br.skills.myUltimate = newSkill;
@@ -200,6 +210,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.Hit:
                 chillTouch();
+                glacialShield();
                 void chillTouch()
                 {
                     if (_skillChillingTouch is null) return;
@@ -210,9 +221,26 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     {
                         otherBrain.character.CharacterInjectData(GenChange.Add, _buffsChillingTouch[i]);
                     }
-                    SpellMain spell = Instantiate(_skillChillingTouch.spell, otherBrain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    SpellMain spell = SpellMain.Sp(_skillChillingTouch.spell, otherBrain);
                     spell.transporter.target = otherBrain.myTransform;
                     spell.InitializeMe(Br);
+                }
+                void glacialShield()
+                {
+                    if (_skillGlacialShield is null) return;
+                    if (otherBrain is null) return;
+                  //  if (specialty !=  SpellMain.Specialty.Melee) return;
+                    if (!_canGlacialShield)  return;
+                    otherBrain.status.StatusInjectData(GenChange.Add, _skillGlacialShield.passData.effects[0]);
+                    _spellGlacialShield.visual.StopDefault();
+                    _canGlacialShield = false;
+                    IEnumerator glacialShieldWait()
+                    {
+                        yield return new WaitForSeconds(_skillGlacialShield.valueGeneric);
+                        _canGlacialShield = true;
+                        _spellGlacialShield.visual.PlayDefault();
+                    }
+                    
                 }
                 break;
             case CombatEvent.Miss:
@@ -227,7 +255,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     if (_coroutineArcaneShield != null) StopCoroutine(_coroutineArcaneShield);
                     _coroutineArcaneShield = StartCoroutine(arcaneShieldWait());
                     if (!_canArcaneShield) return;
-                    Br.status.StatusInjectData(GenChange.Remove, _skillArcaneShield.effects[0]);
+                    Br.status.StatusInjectData(GenChange.Remove, _skillArcaneShield.passData.effects[0]);
                     _spellArcaneShield.visual.StopDefault();
                     _canArcaneShield = false;
                     return;
@@ -235,7 +263,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     IEnumerator arcaneShieldWait()
                     {
                         yield return  new WaitForSeconds(_skillArcaneShield.valueGeneric);
-                        Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.effects[0]);
+                        Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.passData.effects[0]);
                         _spellArcaneShield.visual.PlayDefault();
                         _canArcaneShield = true;
                     }
@@ -267,7 +295,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 switch (skill.skillName)
                 {
                     case SkillName.MageBase:
-                        List<Transform> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
+                        List<Brain> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                         if (targetsHoming.Count > 0)
                         {
                             float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
@@ -279,10 +307,10 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             int counter = 0;
                             for (int i = 0; i < _numOfObjects; i++)
                             {
-                                SpellMain homing = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation, Ga.me.spells.myTransform);
+                                SpellMain homing = SpellMain.Sp(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation);
                                 homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
                                 homing.visual.SetSpawnHeight(spawnPoint.position.y, 1f);
-                                Transform target = targetsHoming[counter];
+                                Transform target = targetsHoming[counter].myTransform;
                                 counter = (1 + counter) % targetsHoming.Count;
                                 homing.transporter.target = target;
                                 homing.InitializeMe(Br, containerHoming);
@@ -291,13 +319,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         }
                         break;
                     case SkillName.Fireball:
-                        List<Transform> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
-                        Transform middleTarget = targetsFireball.Count == 0 ? null : targetsFireball[0];
+                        List<Brain> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
+                        Brain middleTarget = targetsFireball.Count == 0 ? null : targetsFireball[0];
                         if (middleTarget is not null)
                         {
-                            Vector3 targetPosition = middleTarget.position;
+                            Vector3 targetPosition = middleTarget.myTransform.position;
                             Vector3 direction = Utils.Direction(Br.myTransform.position, targetPosition);
-                            SpellMain carryFireball = Instantiate(skill.spell, Br.myTransform.position, Quaternion.LookRotation(direction), Ga.me.spells.myTransform);
+                            SpellMain carryFireball = SpellMain.Sp(skill.spell, Br.myTransform.position, Quaternion.LookRotation(direction));
                             carryFireball.InitializeMe(Br, () => explosion(targetPosition));
                         }
 
@@ -308,8 +336,8 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                                 hasDamage = true,
                                 damagePair = Br.character.GetDamage()
                             };
-                            SpellMain spell = Instantiate(skill.afterSpells[0], pos, Quaternion.identity, Ga.me.spells.myTransform);
-                            spell.areaOfEffect += skill.stats[0].data.value;
+                            SpellMain spell = SpellMain.Sp(skill.afterSpells[0], pos);
+                            spell.areaOfEffect += skill.passData.stats[0].data.value;
                             spell.InitializeMe(Br, containerExplosion, () => areaFire(pos));
                             Instantiate(Ga.me.psDecalFire, spell.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
                         }
@@ -321,14 +349,14 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                                 hasDamage = true,
                                 damagePair = Br.character.GetDamage(Element.Fire)
                             };
-                            SpellMain spell = Instantiate(skill.afterSpells[1], pos, Quaternion.identity, Ga.me.spells.myTransform);
-                            spell.areaOfEffect += skill.stats[0].data.value;
+                            SpellMain spell = SpellMain.Sp(skill.afterSpells[1], pos);
+                            spell.areaOfEffect += skill.passData.stats[0].data.value;
                             spell.InitializeMe(Br, containerArea);
                         }
                         break;
                     case SkillName.MeteorStrike:
                         int count = Br.character.GetStat(Stats.Projectiles) + skill.level;
-                        List<Transform> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, count, skill.spell.range);
+                        List<Brain> targetsMeteor = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, count, skill.spell.range);
                         if (targetsMeteor.Count > 0)
                         {
                             int targetCounter = 0;
@@ -342,7 +370,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                                     knockbackPower = skill.passData.knockbackPower,
                                     knockbackDirection = Random.insideUnitSphere.normalized
                                 };
-                                SpellMain meteorStrike = Instantiate(skill.spell, targetsMeteor[targetCounter].position, Quaternion.identity, Ga.me.spells.myTransform);
+                                SpellMain meteorStrike = SpellMain.Sp(skill.spell, targetsMeteor[targetCounter]);
                                 targetCounter = (1 + targetCounter) % targetsMeteor.Count;
                                 meteorStrike.InitializeMe(Br, containerMeteor);
                                 yield return Ga.me.wait01;
@@ -361,16 +389,16 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             hasEffect = true,
                             effects = new BuffEffects[1] {burn}
                         };
-                        SpellMain spellFireNova = Instantiate(skill.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                        SpellMain spellFireNova = SpellMain.Sp(skill.spell, Br);
                         spellFireNova.areaOfEffect += skill.passData.stats[0].data.value;
                         spellFireNova.InitializeMe(Br, pdFireNova);
                         break;
                     case SkillName.ChainLightning:
-                        List<Transform> targetsChainLightning = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, _numOfObjects, skill.spell.range);
+                        List<Brain> targetsChainLightning = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Random, _numOfObjects, skill.spell.range);
                         Vector3[] targetPositions = new Vector3[targetsChainLightning.Count];
                         for (int i = 0; i < targetsChainLightning.Count; i++)
                         {
-                            targetPositions[i] = targetsChainLightning[i].position;
+                            targetPositions[i] = targetsChainLightning[i].myTransform.position;
                         }
                         for (int i = 0; i < targetsChainLightning.Count; i++)
                         {
@@ -382,7 +410,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         void chainLightningMethod(Vector3 from, Vector3 to, int index) //index -> every consecutive strike does half damage
                         {
                             Vector3 direction = to - from;
-                            SpellMain chainLightning = Instantiate(skill.spell, from, Quaternion.LookRotation(direction.normalized), Ga.me.spells.myTransform);
+                            SpellMain chainLightning = SpellMain.Sp(skill.spell, from, Quaternion.LookRotation(direction.normalized));
                             chainLightning.areaOfEffect = direction.magnitude;
                             float dam = Br.character.GetStat(Stats.DamElectricity);
                             dam /= (index * index + 1);
@@ -396,7 +424,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         }
                         break;
                     case SkillName.Overload:
-                        List<Transform> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
+                        List<Brain> targetsOverload = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
                         PassData containerOverload = new PassData()
                         {
                             hasDamage = true,
@@ -405,19 +433,19 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         int counterOverload = 0;
                         for (int i = 0; i < _numOfObjects; i++)
                         {
-                            Transform target = targetsOverload[counterOverload];
+                            Brain target = targetsOverload[counterOverload];
                             counterOverload = (1 + counterOverload) % targetsOverload.Count;
-                            Vector3 distance = target.position - Br.myTransform.position;
-                            SpellMain overload = Instantiate(skill.spell, Br.myTransform.position, Quaternion.LookRotation(distance.normalized), Ga.me.spells.myTransform);
+                            Vector3 distance = target.myTransform.position - Br.myTransform.position;
+                            SpellMain overload = SpellMain.Sp(skill.spell, Br.myTransform.position, Quaternion.LookRotation(distance.normalized));
                             overload.areaOfEffect = distance.magnitude;
-                            overload.transporter.target = target;
+                            overload.transporter.target = target.myTransform;
                             overload.InitializeMe(Br, containerOverload);
                             yield return Ga.me.wait01;
                         }
                         break;
                     case SkillName.LightningBolt:
-                        List<Transform> targetsLightStrike = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, skill.spell.range);
-                        Transform furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
+                        List<Brain> targetsLightStrike = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Furthest, 1, skill.spell.range);
+                        Brain furthestTarget = targetsLightStrike.Count == 0 ? null : targetsLightStrike[0];
                         if (furthestTarget is not null)
                         {
                             PassData containerLightning = new PassData()
@@ -425,7 +453,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                                 hasDamage = true,
                                 damagePair = Br.character.GetDamage(Element.Electricity)
                             };
-                            SpellMain lightning = Instantiate(skill.spell, furthestTarget.position, Quaternion.identity, Ga.me.spells.myTransform);
+                            SpellMain lightning = SpellMain.Sp(skill.spell, furthestTarget);
                             lightning.InitializeMe(Br, containerLightning);
                         }
                         break;
@@ -439,7 +467,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             hasEffect = true,
                             effects = new BuffEffects[1] { effectShard }
                         };
-                        SpellMain spellShardWave = Instantiate(skill.spell,  Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                        SpellMain spellShardWave = SpellMain.Sp(skill.spell, Br, true);
                         spellShardWave.InitializeMe(Br, containerShardWave);
                         break;
                     case SkillName.IceSpear:
@@ -449,8 +477,8 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             hasDamage = true,
                             damagePair = Br.character.GetDamage(new Element[2] { Element.Physical , Element.Ice }, 1f, skill.passData.damagePair),
                         };
-                        SpellMain spellIceSpear = Instantiate(skill.spell, Utils.LevelV3(spawnPoint.position), Quaternion.identity, Ga.me.spells.myTransform);
-                        Vector3 directionIceSpear = Utils.Direction(spawnPoint.position, Br.combat.MyTarget.position);
+                        SpellMain spellIceSpear = SpellMain.Sp(skill.spell, Utils.LevelV3(spawnPoint.position));
+                        Vector3 directionIceSpear = Utils.Direction(spawnPoint.position, Br.combat.MyTarget.myTransform.position);
                         spellIceSpear.myTransform.rotation = Quaternion.LookRotation(directionIceSpear);
                         spellIceSpear.visual.SetSpawnHeight(spawnPoint.position.y, 1.5f);
                         spellIceSpear.transporter.pierce = Br.character.GetStat(Stats.Piercing) + (int)skill.passData.stats[0].data.value;
@@ -480,7 +508,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         switch (Br.skills.myUltimate.skillName)
         {
             case SkillName.Armageddon:
-                SpellMain armageddon = Instantiate(Br.skills.myUltimate.spell,  Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellMain armageddon = SpellMain.Sp(Br.skills.myUltimate.spell, Br);
                 armageddon.transporter.target = Br.myTransform;
                 PassData container = new PassData()
                 {
@@ -491,7 +519,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     hasEffect =  true,
                     effects = new BuffEffects[1]
                     {
-                        new BuffEffects(Br, Status.Effect.Burning, 1, 5)
+                        new BuffEffects(Br, Status.Effect.Burning_dot, 1, 5)
                     }
                 };
                 

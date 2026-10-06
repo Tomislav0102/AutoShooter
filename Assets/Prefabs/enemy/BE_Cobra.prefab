@@ -12044,6 +12044,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_Cobra
       objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myRenderer
+      value: 
+      objectReference: {fileID: 4336023702057889884}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6481424c8b8b6cd48b59c5b9f138b8b2, type: 2}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c572223f1f9be4c419928ba5f830d164, type: 2}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: spawnPoint
       value: 
@@ -12060,6 +12076,10 @@ PrefabInstance:
       propertyPath: weapons.Array.data[0].spellMain
       value: 
       objectReference: {fileID: 9115134852882197441, guid: 69d537de5011afe4791094a27419ffb8, type: 3}
+    - target: {fileID: 4358495847529664678, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4358495847529664678, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
     - target: {fileID: 6119846179976286466, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

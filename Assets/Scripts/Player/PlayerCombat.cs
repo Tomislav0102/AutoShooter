@@ -14,7 +14,7 @@ public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
         }
     }
     Brain _br;
-    public Transform MyTarget
+    public Brain MyTarget
     {
         get => _myTarget;
         set
@@ -28,7 +28,7 @@ public class PlayerCombat : MonoBehaviour, IIniBrain, ITargetTracker
             playerLoco.Alert = Br.combat.distanceToTarget > engageRange ? Alertness.Alarmed : Alertness.Fighting;
         }
     }
-    Transform _myTarget;
+    Brain _myTarget;
 
     public AnimAttackType animAttackType;
     public int engageRange = 10;

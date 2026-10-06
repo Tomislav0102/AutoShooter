@@ -18,8 +18,9 @@ public class Ga : MonoBehaviour
     public Drop dropPrefab;
     [SerializeField] Transform parWaypoints;
     [HideInInspector] public Transform[] waypoints;
+    public Material matFrozen;
 
-    [BoxGroup("Particles prefabs")] 
+    [FoldoutGroup("Particles prefabs")] 
     public ParticleSystem psGenericImpact, psSpawn, psDeath, psDecalFire, psArmorBreak;
     public LevelManager LevelMan
     {

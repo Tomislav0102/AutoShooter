@@ -8,17 +8,19 @@ public class Status : MonoBehaviour, IIniBrain
     public enum Effect
     {
         Invulnerable,
+        Invisible, //cant be detected or targeted by the enemy except by accident (standing in trajectory of projectile or AOE)
         Rooted, //move speed is 0, attack speed unaffected
-        Stunned, //completely passive, enemy does nothing
+        Stunned, //completely passive, enemy does nothing (maybe special animation)
+        Frozen, //same as stunned but animation is paused (maybe same visual)
         Confused, //attacks random character, changes target often, does not respond to aggro 
         Blinded, //like confused, but only close target, movement is roam or idle
         Charmed, //behaves like summon
         Fumbling, //every attack misses
-        Burning,
-        Freezing,
-        Jolted,
-        Poisoned,
-        Bleeding,
+        Burning_dot,
+        Chilled_dot,
+        Jolted_dot,
+        Poisoned_dot,
+        Bleeding_dot,
         //on weapons (mostly)
         InstantKill,
         Impact, //stunned enemies take 50% more damage
@@ -51,6 +53,7 @@ public class Status : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
+    bool _removedBuff; //so Refresh() does not call every frame
     MyDuo<BuffEffects, float> _buffTimers;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
@@ -113,18 +116,18 @@ public class Status : MonoBehaviour, IIniBrain
                 Element element = Element.Physical;
                 switch (buff.effect)
                 {
-                    case Effect.Bleeding:
+                    case Effect.Bleeding_dot:
                         break;
-                    case Effect.Burning:
+                    case Effect.Burning_dot:
                         element = Element.Fire;
                         break;
-                    case Effect.Freezing:
+                    case Effect.Chilled_dot:
                         element = Element.Ice;
                         break;
-                    case Effect.Jolted:
+                    case Effect.Jolted_dot:
                         element = Element.Electricity;
                         break;
-                    case Effect.Poisoned:
+                    case Effect.Poisoned_dot:
                         element = Element.Poison;
                         break;
                 }
@@ -137,17 +140,11 @@ public class Status : MonoBehaviour, IIniBrain
                 Br.health.HealthInjectDataDamage(passData, false, false);
             }
         }
-        bool doRefresh = false;
         for (int i = 0; i < buffsToRemove.Count; i++)
         {
-            if (_buffTimers.HasKey(buffsToRemove[i]))
-            {
-                doRefresh = true;
-                _buffTimers.RemoveByKey(buffsToRemove[i]);
-                break;
-            }
+            StatusInjectData(GenChange.Remove, buffsToRemove[i]);
         }
-        if (doRefresh) Refresh();
+        if (_removedBuff) Refresh();
 
     }
     void LateUpdate()
@@ -187,13 +184,23 @@ public class Status : MonoBehaviour, IIniBrain
                             return;
                         }
                         break;
+                    case Effect.Frozen:
+                        Br.loco.SetMaterial(Ga.me.matFrozen);
+                        break;
                 }
                 
                 break;
             case GenChange.Remove:
                 if (_buffTimers.HasKey(buffEffects))
                 {
+                    switch (buffEffects.effect)
+                    {
+                        case Effect.Frozen:
+                            Br.loco.SetMaterial();
+                            break;
+                    }
                     _buffTimers.RemoveByKey(buffEffects);
+                    _removedBuff = true;
                 }
                 break;
         }
@@ -204,6 +211,7 @@ public class Status : MonoBehaviour, IIniBrain
     {
         setEvent();
         uIRefresh();
+        _removedBuff = false;
         return;
         void setEvent()
         {

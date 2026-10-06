@@ -50,7 +50,6 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
 
         if (other.TryGetComponent(out Brain targetBrain))
         {
-            print(1);
             Spell.HitGeneric(targetBrain, out _);
             Spell.onHitTarget?.Invoke(targetBrain);
             if (Spell.OwnersBrain == targetBrain)
@@ -58,16 +57,13 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
                 Spell.collidersDetected.Clear();
                 return;
             }
-            print(2);
             if (Spell.transporter.CanRicochet(other) || Spell.transporter.CanPierce()) return;
-            print(3);
             Spell.MyPhase = SpellMain.Phase.EndStart;
         }
         else if (detectObstacles) 
         {
             Spell.MyPhase = SpellMain.Phase.EndStart;
         }
-            print(4);
        
     }
 

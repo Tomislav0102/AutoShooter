@@ -25,11 +25,11 @@ public class RunData
     {
         switch (effect)
         {
-            case Status.Effect.Burning:
-                int prevValue = enUnderEffect.GetValueByKey(Status.Effect.Burning);
+            case Status.Effect.Burning_dot:
+                int prevValue = enUnderEffect.GetValueByKey(Status.Effect.Burning_dot);
                 if (on) prevValue++;
                 else prevValue--;
-                enUnderEffect.SetValueByKey(Status.Effect.Burning, prevValue);
+                enUnderEffect.SetValueByKey(Status.Effect.Burning_dot, prevValue);
                 break;
         }
     }

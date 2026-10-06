@@ -150,7 +150,7 @@ public class PC_Archer : MonoBehaviour
             for (int i = 0; i < projectile; i++)
             {
                 float xOffset = i * CONST_HorGapBetweenProjectiles;
-                SpellMain sp = Instantiate(Br.skills.myBasic.spell, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                SpellMain sp = SpellMain.Sp(Br.skills.myBasic.spell, Br);
                 sp.visual.SetSpawnHeight(spawnPoint.position.y);
                 sp.myTransform.Rotate(rot);
                 sp.myTransform.Translate(xOffset * Vector3.right, Space.Self);

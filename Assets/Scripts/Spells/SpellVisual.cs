@@ -75,11 +75,13 @@ public class SpellVisual : MonoBehaviour, IIniSpell
         if (!Ga.me.gameData.showParticles) return;
         if (psDefault != null) psDefault.Play();
         if (_lightDefault != null) StartCoroutine(LightDelay(_lightDefault));
+        if (myMesh != null) myMesh.gameObject.SetActive(true);
     }
     public void StopDefault()
     {
         if (!Ga.me.gameData.showParticles) return;
         if (psDefault != null) psDefault.Stop();
+        if (myMesh != null) myMesh.gameObject.SetActive(false);
     }
 
     public void SetSpawnHeight(float height, float targetHeight = -1)

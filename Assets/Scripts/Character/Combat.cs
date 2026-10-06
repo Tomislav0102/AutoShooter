@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
 {
     [SerializeField] UnityEvent<Brain> brainEv;
-    [SerializeField] UnityEvent<Transform> targetEv;
+    [SerializeField] UnityEvent<Brain> targetEv;
     [SerializeField] UnityEvent<int> animAttackEv;
     [SerializeField] UnityEvent<int> animAttackUltimateEv;
     [SerializeField] UnityEvent<CombatEvent, Brain, SpellMain.Specialty> combatRegisterEv;
@@ -28,33 +28,33 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
                 yield return new WaitForSeconds(delay);
                 while (true)
                 {
-                    List<Transform> foundTargets = Utils.ChooseGroupTransforms(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction));
+                    List<Brain> foundTargets = Utils.ChooseGroupTransforms(value.myTransform.position, Ga.me.team.ValidTargets(value.Faction));
                     MyTarget = foundTargets.Count == 0 ? null : foundTargets[0];
-                    yield return new WaitForSeconds(0.15f);
+                    yield return Ga.me.wait02;
                 }
             }
         }
     }
     Brain _br;
 
-    public Transform MyTarget
+    public Brain MyTarget
     {
         get => _myTarget;
         set
         {
             _myTarget = value;
-            if (value != null)
+            if (_myTarget != null)
             {
-                distanceToTarget = Utils.Distance(Br.myTransform.position, value.position);
+                distanceToTarget = Utils.Distance(Br.myTransform.position, _myTarget.myTransform.position);
             }
             else
             {
                 Br.loco.AttackAnimation(null);
             }
-            targetEv.Invoke(value);
+            targetEv.Invoke(_myTarget);
         }
     }
-    [ShowInInspector, ReadOnly] Transform _myTarget;
+    [ShowInInspector, ReadOnly] Brain _myTarget;
     [HideInInspector] public float distanceToTarget;
     float _timerBlockReady;
     const int CONST_BlockTimer = 2;

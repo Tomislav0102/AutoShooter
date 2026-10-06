@@ -19,10 +19,10 @@ public class EffectScreen : MonoBehaviour, IIniSpell
     
     public void Hit()
     {
-        List<Transform> targets = Utils.AllOnScreen(Ga.me.team.ValidTargets(Spell.OwnersBrain.Faction));
-        foreach (Transform item in targets)
+        List<Brain> targets = Utils.AllOnScreen(Ga.me.team.ValidTargets(Spell.OwnersBrain.Faction));
+        foreach (Brain item in targets)
         {
-            Spell.HitGeneric<Transform>(item, out _);
+            Spell.HitGeneric<Brain>(item, out _);
         }
     }
 }

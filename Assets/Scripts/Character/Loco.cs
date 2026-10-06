@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Loco : MonoBehaviour, IIniBrain
 {
@@ -17,10 +18,14 @@ public class Loco : MonoBehaviour, IIniBrain
             OvrMotion = false;
             OvrOrientation = false;
             _avoidancePriorityDefault = value.agent.avoidancePriority;
+            myRenderer =  GetComponentInChildren<Renderer>();
+            SetMaterial();
             brainEv.Invoke(value);
         }
     }
     Brain _br;
+    [SerializeField] Renderer myRenderer;
+    [SerializeField] Material[] myMaterials;
     public Animator anim;
     [SerializeField, Range(0, 10)] public int moveSpeed = 1;
     [SerializeField] protected int knockBackResistance;
@@ -172,7 +177,15 @@ public class Loco : MonoBehaviour, IIniBrain
             _currentMoveOverride = MoveOverrideType.None;
         }
     }
-
+    public void SetMaterial(Material mat = null)
+    {
+        if (mat == null)
+        {
+            myRenderer.material = myMaterials[(int)Br.Faction];
+            return;
+        }
+        myRenderer.material = mat;
+    }
     #endregion
 
 

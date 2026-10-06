@@ -5395,9 +5395,25 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: myRenderer
+      value: 
+      objectReference: {fileID: 5165482686685167941}
+    - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: isOrientationAlwaysFalse
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e6dd4bd9955b3c341858a19d1fb366d0, type: 2}
+    - target: {fileID: 6301995735441378574, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e6dd4bd9955b3c341858a19d1fb366d0, type: 2}
     - target: {fileID: 6946829470440141043, guid: 2d9f21ac9e822054caa226ede5008abe, type: 3}
       propertyPath: m_IsActive
       value: 0

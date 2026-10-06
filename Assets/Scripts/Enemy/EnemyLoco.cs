@@ -16,8 +16,6 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
             behCurrent = behIdlingDefault;
             value.agent.enabled = true;
             value.agent.angularSpeed = Ga.me.gameData.agentRotSpeed;
-            Renderer myRenderer =  GetComponentInChildren<Renderer>();
-            myRenderer.material = myMaterials[(int)value.Faction];
 
         }
     }
@@ -27,7 +25,6 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
     public Behavior behIdlingDefault;
     public Behavior behFightingDefault;
     [ReadOnly] public Behavior behCurrent;
-    [SerializeField] Material[] myMaterials;
     [SerializeField] EnemyCombat eCombat;
     #region MOVEMENT SPECIFIC VARIABLES
     float _timerGeneral;
@@ -115,7 +112,7 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
                     Br.loco.OvrOrientation = true;
                     if (animAttackType == null)
                     {
-                        Br.agent.destination = Br.combat.MyTarget.position;
+                        Br.agent.destination = Br.combat.MyTarget.myTransform.position;
                     }
                     else if (Br.agent.hasPath) Br.agent.ResetPath();
                 }
@@ -127,7 +124,7 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
                 {
                     if (Br.loco.OvrMotion) return;
                     if (animAttackType == null) return;
-                    Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.position;
+                    Vector3 direction = Br.myTransform.position - Br.combat.MyTarget.myTransform.position;
                     direction.y = 0f;
                     direction.Normalize();
                     Vector3 targetPosition = Br.myTransform.position + 2f * direction;
@@ -142,7 +139,7 @@ public class EnemyLoco : MonoBehaviour, IIniBrain
         bool canMove = behCurrent != Behavior.Stationary && animAttackType == null && !Br.loco.IsAttackAnimationPlaying();
         Br.loco.Toggle_Move(canMove);
         if (!Br.loco.OvrMotion) Br.agent.speed = canMove ? Br.loco.moveSpeed : 0;
-        if (Br.loco.OvrOrientation) Br.loco.Orientation(Br.combat.MyTarget);
+        if (Br.loco.OvrOrientation) Br.loco.Orientation(Br.combat.MyTarget.myTransform);
         Br.agent.updateRotation = !Br.loco.OvrOrientation;
 
         void stationary()

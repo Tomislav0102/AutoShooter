@@ -53,6 +53,12 @@ Blunt weapons - Higher damage, lower speed and some stun chance (compared to sla
 MAGE
 Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword and his meteor strike damage increases? 
 
+ARCHER
+Invisibility - only class that has it
+
+ROGUE
+Poison Damage - only class that has it
+
 TRAPS
 Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps. Or if it has knockback than trap shold be one-hit.
 

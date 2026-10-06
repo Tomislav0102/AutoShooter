@@ -60,7 +60,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                 rotatingSwords();
                 void rotatingSwords()
                 {
-                    SpellGroup groupSwords = Instantiate(Ga.me.spells.groupOrbitalSwords, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
+                    SpellGroup groupSwords = SpellGroup.Gr(Ga.me.spells.groupOrbitalSwords, Br);
                     OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
                     orbitalGroupSwords.orbitingAnchor = Br.myTransform;
 
@@ -165,7 +165,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
     void SimpleStatSkillApply(SkillName skillName)
     {
         if (!Br.skills.TryGetFromGroup(skillName, out SoSkill skill)) return;
-        foreach (BuffStats stat in skill.stats)
+        foreach (BuffStats stat in skill.passData.stats)
         {
             Br.character.CharacterInjectData(GenChange.Add, stat);
         }
@@ -187,14 +187,14 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         void riposte(bool onlyRemove = false)
         {
             if (!Br.skills.TryGetFromGroup(SkillName.Riposte, out SoSkill skill)) return;
-            for (int i = 0; i < skill.stats.Length; i++)
+            for (int i = 0; i < skill.passData.stats.Length; i++)
             {
-                Br.character.CharacterInjectData(GenChange.Remove, skill.stats[i]);
+                Br.character.CharacterInjectData(GenChange.Remove, skill.passData.stats[i]);
             }
             if (onlyRemove) return;
-            for (int i = 0; i < skill.stats.Length; i++)
+            for (int i = 0; i < skill.passData.stats.Length; i++)
             {
-                Br.character.CharacterInjectData(GenChange.Add, skill.stats[i]);
+                Br.character.CharacterInjectData(GenChange.Add, skill.passData.stats[i]);
             }
         }
     }
@@ -216,7 +216,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             if (!_lastStandHealthAboveTreshold) return;
             _lastStandCooldownTimerDone = false;
             _lastStandHealthAboveTreshold = false;
-            Br.status.StatusInjectData(GenChange.Add, skill.effects[0]);
+            Br.status.StatusInjectData(GenChange.Add, skill.passData.effects[0]);
             StartCoroutine(delay(skill.valueGeneric));
             return;
 

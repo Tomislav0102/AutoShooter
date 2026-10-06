@@ -33,11 +33,11 @@ public class BuffEffects
         data = new BuffData(val, dur);
     }
         
-    public bool IsDot() => effect == Status.Effect.Bleeding || 
-                           effect == Status.Effect.Burning || 
-                           effect == Status.Effect.Freezing || 
-                           effect == Status.Effect.Jolted ||  
-                           effect == Status.Effect.Poisoned;
+    public bool IsDot() => effect == Status.Effect.Bleeding_dot || 
+                           effect == Status.Effect.Burning_dot || 
+                           effect == Status.Effect.Chilled_dot || 
+                           effect == Status.Effect.Jolted_dot ||  
+                           effect == Status.Effect.Poisoned_dot;
 }
 
 [System.Serializable]

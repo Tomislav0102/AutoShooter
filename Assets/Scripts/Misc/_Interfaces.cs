@@ -8,7 +8,7 @@ public interface IIniBrain
 }
 public interface ITargetTracker
 {
-    Transform MyTarget { get; set; }
+   // Brain MyTarget { get; set; }
 }
 public interface IIniSpell
 {

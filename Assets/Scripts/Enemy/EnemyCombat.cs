@@ -16,7 +16,7 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
         }
     }
     Brain _br;
-    public Transform MyTarget
+    public Brain MyTarget
     {
         get => _myTarget;
         set
@@ -25,8 +25,9 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
             enemyLoco.behCurrent = value == null ? enemyLoco.behIdlingDefault: enemyLoco.behFightingDefault;
         }
     }
-    Transform _myTarget;
+    Brain _myTarget;
 
+    
     [System.Serializable]
     class WeaponSet
     {
@@ -71,53 +72,45 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
     
     public void AnimEv_AttackCallback(int num = 0)
     {
-        return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)
-                PassData containerMelee = new PassData()
+                PassData pdMelee = new PassData()
                 {
                     hasDamage = true,
                     damagePair = Br.character.GetDamage()
                 };
-                SpellMain melee = Instantiate(GetSpellByAttackType(AnimAttackType.Melee),
-                    Br.myTransform.position, Br.myTransform.rotation, Ga.me.spells.myTransform);
+                SpellMain melee = SpellMain.Sp(GetSpellByAttackType(AnimAttackType.Melee), Br, true);
                 melee.areaOfEffect = 1.1f * GetRangeByAttackType(AnimAttackType.Melee);
-                melee.InitializeMe(Br, containerMelee);
+                melee.InitializeMe(Br, pdMelee);
                 break;
             case 1: //bullet (used by treant and cannon)
-                PassData containerBullet = new PassData()
+                PassData pdBullet = new PassData()
                 {
                     hasDamage = true,
                     damagePair = Br.character.GetDamage(),
                     // hasEffect =  true,
                     // effects = new BuffEffects[1] { new BuffEffects(Status.Effect.Poisoned, 1, 20) }
                 };
-                Vector3 zeroSpawnPoint = new Vector3(spawnPoint.position.x, 0f, spawnPoint.position.z);
-                SpellMain bullet = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
-                    zeroSpawnPoint, Br.myTransform.rotation, Ga.me.spells.myTransform);
-                // BulletTransporter bulletTransporter = bullet.transporter as BulletTransporter;
-                // if (bulletTransporter != null)
-                // {
-                //     bulletTransporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
-                //     bulletTransporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
-                //     bulletTransporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
-                // }
+                SpellMain bullet = SpellMain.Sp(GetSpellByAttackType(AnimAttackType.Ranged), Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation);
+                bullet.transporter.ricochet = (int)Br.character.GetStat(Stats.Ricochet);
+                bullet.transporter.pierce = (int)Br.character.GetStat(Stats.Piercing);
+                bullet.transporter.bounce = (int)Br.character.GetStat(Stats.Bounce);
                 bullet.visual.SetSpawnHeight(spawnPoint.position.y);
-                bullet.InitializeMe(Br, containerBullet);
+                bullet.InitializeMe(Br, pdBullet);
                 break;
             case 2: //lob (used by scarecrow)
-                SpellMain lob = Instantiate(GetSpellByAttackType(AnimAttackType.Ranged), 
-                    spawnPoint.position, Quaternion.identity, Ga.me.spells.myTransform);
-                PassData containerExplo = new PassData()
+                SpellMain lob = SpellMain.Sp(GetSpellByAttackType(AnimAttackType.Ranged), spawnPoint.position);
+                PassData pdExplosion = new PassData()
                 {
                     hasDamage = true,
                     damagePair = Br.character.GetDamage()
                 };
                 lob.InitializeMe(Br, () =>
                 {
-                    SpellMain explosion = Instantiate(Ga.me.spells.explosionFire, lob.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-                    explosion.InitializeMe(Br, containerExplo);
+                    SpellMain explosion = SpellMain.Sp(Ga.me.spells.explosionFire, Utils.LevelV3(lob.myTransform.position));
+                    explosion.visual.SetSpawnHeight(lob.myTransform.position.y);
+                    explosion.InitializeMe(Br, pdExplosion);
                 });
                 break;
             case 3: //dash with damage (used by cobra)

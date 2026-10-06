@@ -59,17 +59,17 @@ public static class Utils
     }
     public static Vector2 MakeV2(Vector3 v3) => new Vector2(v3.x, v3.z);
     public static Vector3 MakeV3(Vector2 v2, float height = 0f) => new Vector3(v2.x, height, v2.y);
-    public static Vector3 LevelV3(Vector3 v3, float height = 0f) => new Vector3(v3.x, height, v3.z);
+    public static Vector3 LevelV3(Vector3 v3, float height = 0f) => new Vector3(v3.x, height, v3.z); //it's different from MakeV2!!!!!!!
 
     public static float Distance(Vector3 v1, Vector3 v2) => Vector2.Distance(MakeV2(v1), MakeV2(v2));
     public static Vector3 Direction(Vector3 fromPos, Vector3 toPos) => MakeV3(MakeV2(toPos) - (MakeV2(fromPos))).normalized;
 
-    public static List<Transform> AllOnScreen(HashSet<Transform> allTargets)
+    public static List<Brain> AllOnScreen(HashSet<Brain> allTargets)
     {
-        List<Transform> result = new List<Transform>();
-        foreach (Transform item in allTargets)
+        List<Brain> result = new List<Brain>();
+        foreach (Brain item in allTargets)
         {
-            Bounds bounds = new Bounds(item.position, 0.5f * Vector3.one);
+            Bounds bounds = new Bounds(item.myTransform.position, 0.5f * Vector3.one);
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Ga.me.camRig.cam);
             if (GeometryUtility.TestPlanesAABB(planes, bounds)) result.Add(item);
         }
@@ -77,24 +77,30 @@ public static class Utils
         return  result;
     }
 
-    public static List<Transform> ChooseGroupTransforms(Vector3 fromPosition, HashSet<Transform> allTargets, GenDistance distanceType = GenDistance.Closest, int count = 1, float maxRange = float.MaxValue)
+    public static List<Brain> ChooseGroupTransforms(Vector3 fromPosition, 
+                                                    HashSet<Brain> allTargets, 
+                                                    GenDistance distanceType = GenDistance.Closest, 
+                                                    int count = 1, 
+                                                    float maxRange = float.MaxValue,
+                                                    bool seeInvisible = false)
     {
-        List<Transform> result =  new List<Transform>();
+        List<Brain> result =  new List<Brain>();
         if (allTargets.Count == 0 || count <= 0) return result;
         
         Vector2 from2D = MakeV2(fromPosition);
-        Dictionary<Transform, float> dic = new Dictionary<Transform, float>();
-        foreach (Transform item in allTargets)
+        Dictionary<Brain, float> dic = new Dictionary<Brain, float>();
+        foreach (Brain item in allTargets)
         {
-            float distance = Vector2.Distance(from2D, MakeV2(item.position));
+            if (!seeInvisible && item.status.HasEffect(Status.Effect.Invisible)) continue;
+            float distance = Vector2.Distance(from2D, MakeV2(item.myTransform.position));
             if (distance <= maxRange) dic.Add(item, distance);
         }
         if (dic.Count == 0) return result;
         
-        List<KeyValuePair<Transform, float>> sorted = dic.ToList();
+        List<KeyValuePair<Brain, float>> sorted = dic.ToList();
         sorted.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-        List<Transform> tempResults = new List<Transform>();
-        foreach (KeyValuePair<Transform, float> item in sorted)
+        List<Brain> tempResults = new List<Brain>();
+        foreach (KeyValuePair<Brain, float> item in sorted)
         {
             tempResults.Add(item.Key);
         }
@@ -117,7 +123,7 @@ public static class Utils
                 break;
 
             case GenDistance.Random:
-                List<Transform> rdn = Utils.RandomListByType(tempResults);
+                List<Brain> rdn = Utils.RandomListByType(tempResults);
                 for (int i = 0; i < effCount; i++)
                 {
                     result.Add(rdn[i]);

@@ -49,7 +49,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         if (brain != Br) return;
         switch (effect)
         {
-            case Status.Effect.Burning:
+            case Status.Effect.Burning_dot:
                 if (Mathf.Approximately(1f, Ga.me.runData.enBurnArmorReduction.Result)) return;
                 if (on)
                 {

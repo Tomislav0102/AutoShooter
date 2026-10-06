@@ -124,7 +124,7 @@ public class SpellMain : MonoBehaviour
     [SerializeField, HideIf(nameof(LifeTimeIs0))] bool terminateOnHit = true;
     public HashSet<Collider> collidersDetected = new HashSet<Collider>();
     public Specialty specialty;
-    public int reflexCount = 2;
+    [HideInInspector] public int reflexCount = 2;
 
     [Title("Events")]
     [SerializeField] UnityEvent<Collider> onTrigEnter;
@@ -372,7 +372,18 @@ public class SpellMain : MonoBehaviour
     }
     #endregion
 
-    
+    public static SpellMain Sp(SpellMain spell, Brain brain, bool brainsRotation = false)
+    {
+        return Instantiate(spell, brain.myTransform.position, brainsRotation ? brain.myTransform.rotation : Quaternion.identity, Ga.me.spells.myTransform);
+    }
+    public static SpellMain Sp(SpellMain spell, Vector3 pos)
+    {
+        return Instantiate(spell, pos, Quaternion.identity, Ga.me.spells.myTransform);
+    }
+    public static SpellMain Sp(SpellMain spell, Vector3 pos, Quaternion rot)
+    {
+        return Instantiate(spell, pos, rot, Ga.me.spells.myTransform);
+    }
 }
 
 

@@ -48,6 +48,10 @@ public class SpellGroup : MonoBehaviour
         contactDam.InitializeMe(brain, pdContactDamage);
 
     }
+    public static SpellGroup Gr(SpellGroup group, Brain brain, bool brainsRotation = false)
+    {
+        return Instantiate(group, brain.myTransform.position, brainsRotation ? brain.myTransform.rotation : Quaternion.identity, Ga.me.spells.myTransform);
+    }
 
     public class GroupPassData
     {

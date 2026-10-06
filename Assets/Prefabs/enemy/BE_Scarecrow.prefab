@@ -12188,6 +12188,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BE_Scarecrow
       objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myRenderer
+      value: 
+      objectReference: {fileID: 1036074922445086590}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: myMaterials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 561b6072daadb1f41b20da08c1d9d8f9, type: 2}
+    - target: {fileID: 2841469880737109251, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
+      propertyPath: 'myMaterials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a3a96c03daeb2b4c8ed3bc607387216, type: 2}
     - target: {fileID: 3079515422155241503, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: spawnPoint
       value: 
@@ -12208,10 +12224,6 @@ PrefabInstance:
       propertyPath: weapons.Array.data[0].attackType
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-      propertyPath: loco
-      value: 
-      objectReference: {fileID: 8364016265973567967}
     - target: {fileID: 4264454188705988102, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
       propertyPath: myRenderer
       value: 
@@ -12372,14 +12384,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1516671513616686990, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
   m_PrefabInstance: {fileID: 1308271061366694030}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8364016265973567967 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7364825630562513233, guid: 57fa9f5d06ede6548a1d7b06743dc131, type: 3}
-  m_PrefabInstance: {fileID: 1308271061366694030}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d01bd1c7105323046974584f805332a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::E_Loco

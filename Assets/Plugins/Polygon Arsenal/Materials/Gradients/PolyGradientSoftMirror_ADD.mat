@@ -60,10 +60,10 @@ Material:
     - _ColorMode: 0
     - _Cull: 0
     - _Cutoff: 0.5
-    - _DistortionBlend: 0.5
+    - _DistortionBlend: 0.52
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0
+    - _DistortionStrengthScaled: 0.1
     - _DstBlend: 1
     - _DstBlendAlpha: 1
     - _EmissionEnabled: 0

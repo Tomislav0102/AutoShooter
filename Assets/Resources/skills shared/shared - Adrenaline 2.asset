@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: shared - Adrenaline 2
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  infoA: Level of skill starts at 0 (in-game its level1).
   description: Increases Attack Speed by 10%
   levelUpEffect: 
   skillName: 4
   icon: {fileID: 0}
   skillType: 1
   level: 2
-  hasStat: 1
+  hasStatx: 1
   stats:
   - stat: 7
     buffType: 1
@@ -27,21 +26,19 @@ MonoBehaviour:
       value: 1.1
       permanent: 1
       <Duration>k__BackingField: 0
-  hasExtraDamage: 0
+  hasDamagex: 0
   damageType: 0
-  extraDamage:
+  damagePair:
     <Key>k__BackingField: 
     <Value>k__BackingField: []
-  hasEffect: 0
-  buffEffect: []
+  hasEffectx: 0
+  effects: []
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 1
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -55,10 +52,18 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasStats: 0
-    stats: []
+    hasStats: 1
+    stats:
+    - stat: 7
+      buffType: 1
+      data:
+        value: 1.1
+        permanent: 1
+        <Duration>k__BackingField: 0
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 0
   valueGeneric: 0
   valueGenericArray: []
