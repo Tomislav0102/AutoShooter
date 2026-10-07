@@ -2,11 +2,10 @@
 
 GENERAL
 Implement status mechanics
-Implement secondary effect on DOT effects (Freezing -> slow movement, etc...)
 Gold and Xp mechanics
 Buffs on one hit (e.g. next strike does 100% more damage) - now there are two logics that solve it: normal buff and argument in method "GetDamage(Element el)". 
 Ricochet and Pierce - they only affect spells that have 'EffectProjectile' component. 
-                      Other spells that might need those skills (MagicMissile, Overload, ChainLightning...) need some workaround.
+                      Other spells that might need those skills (Overload, ChainLightning...) need some workaround.
                       Maybe those skills need separate component.
 New BuffStats - fix all skills
 
@@ -28,51 +27,3 @@ ENEMY
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
 Cannon is rotating while idle, fix 'OvrOrientation' (related to 'isOrientationAlwaysFalse' bool)
 
-
-------INFO------
-
-GENERAL
-Magnet feature - development paused for now
-Knockback - scale for knockback effect is 0-99, should be the same for resistance
-Orientation and special attacks - Blocking can activate from front side (180 arc front)
-                                  Dodging can activate from both sides
-                                  Sneak attack is from back side (180 arc back)
-Physical Resistance = Armor
-Nullify spell - only some monsters have it (e.g. Golem). Its array of 'SpellMain' in 'Health' component.
-Dynamic values in GameData - (e.g. 'level', 'enStunDamageModifier') can be in ScriptableObject but need to be reset after run (they will be reset automatically when Application.Quit())
-Reflect spells - value determines chance to trigger. Damage is 100% if below 100, else reflected damage is skill value.
-Percentages rule - value is half -> -50, value is 30% less -> -30, value is 20% more -> 20, value is double -> 100
-                 - assigned as ints, calculated as floats ( int * 0.01f)
-                 - reducing values (below 1f) are negative 
-
-KNIGHT
-Slash and blunt skill are not visible in SoSkill. They can only be chosen during playtime while player has appropriate weapon.
-Blunt weapons - Higher damage, lower speed and some stun chance (compared to slashing)
-                Every weapon should have stun chance. Blunt skills don't give it (except one), they just enhance it
-                
-MAGE
-Physical damage - some spells use it (explosions), so Mage should level it like any other element. Ordinary weapons increase PhysDam (that is their normal damage), Mage should not be allowed to equip them (or maybe that's ok...). E.g. if Mage equips a normal sword and his meteor strike damage increases? 
-
-ARCHER
-Invisibility - only class that has it
-
-ROGUE
-Poison Damage - only class that has it
-
-TRAPS
-Knockback is problematic because it pushes enemy away, so he's constantly triggering it. Better to remove knockback from traps. Or if it has knockback than trap shold be one-hit.
-
-OPTIMIZATION
-NavMeshAgent for player is set to low quality and high priority, maybe that will cause bugs.
-Consider using flow field instead of NavMesh.
-Coroutine - cache 'WaitForSeconds' in Dictionary
-Checking null objects - Unity's Custom Equality Operator ( if(gameObject == null) ) is 10x slower but safer because it checks if object has been destroyed (Destroy(gameObejct)).
-                        Pure C# Reference Check ( if(gameObject is null) ) is very fast but not safe. Used only if objects will not be destroyed.
-
-STATS, STATUS
-Status.Effect.Invulnerable - only affects damage (target can be knocked back etc...). Hard to make programing logic any other way. 
-Values can be < 0. Can cause bugs, maybe some fix will be needed. At least in UI display.
-
-ENEMY
-Ultimate Attack Type - not working, maybe its redundant (melee and ranged cover everything)
-When enemy dies before his spell has effect (ranged, lobs), spell is f***** up because ownersBrain == null. This will be fixed automatically with pooling.

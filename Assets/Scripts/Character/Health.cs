@@ -179,9 +179,9 @@ public class Health: MonoBehaviour, IIniBrain
         ShieldCurrent = _shieldMax;
         HealthCurrent = HealthCurrent; //only to update UI
     }
-    public void HealthInjectDataDamage(PassData pd, bool canBeBlocked, bool canBeDodged)
+    public void HealthInjectDataDamage(PassData pd, bool canBeBlocked, bool canBeDodged, SpellMain.Specialty specialty = SpellMain.Specialty.General)
     {
-        Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain);
+        Br.combat.CombatEventRegistered(CombatEvent.BeginGetHit, pd.myBrain, specialty);
         if (canBeDodged)
         {
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
@@ -197,14 +197,14 @@ public class Health: MonoBehaviour, IIniBrain
             Br.combat.CheckBlock(out blocked, pd.myBrain);
             if (blocked)
             {
-                Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
+                Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain, specialty);
                 Ga.me.uiManager.FloatText(Br.myTransform.position, "Blocked!", Color.gold);
             }
         }
         if (!blocked && pd.hasDamage)
         {
             damageCalculation();
-            Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain);
+            Br.combat.CombatEventRegistered(CombatEvent.GetHit, pd.myBrain, specialty);
             void damageCalculation()
             {
                 float totalDamage = 0f;
@@ -248,22 +248,20 @@ public class Health: MonoBehaviour, IIniBrain
                         return;
                     }
                 }
-              //  Ga.me.uiManager.FloatText(Br.myTransform.position, damageFinal);
+                Ga.me.uiManager.FloatText(Br.myTransform.position, damageFinal);
                 return;
 
                 MyDuo<Element, float> damageModified(MyDuo<Element, float> damageRaw)
                 {
-                    float enStunMod = (Br.Faction == Faction.BadGuys && Br.status.HasEffect(Status.Effect.Stunned)) ? Ga.me.runData.enStunDamage.Result : 1f;
                     MyDuo<Element, float> finalPair = new MyDuo<Element, float>();
                     for (int i = 0; i < damageRaw.Length(); i++)
                     {
                         Element el = damageRaw.GetKey(i);
                         float resistance = 1 - 0.01f * Br.character.GetStat(Character.StatByElement(el, false));
-                        resistance = Mathf.Clamp(resistance, 0f, 1f);
-                        float val = damageRaw.GetValue(i) * resistance * enStunMod;
+                        float val = damageRaw.GetValue(i) * resistance;
                         finalPair.Add(el, val);
                     }
-                    return finalPair;
+                    return finalPair; //can be negative, turns to heal
                 }
                 void velocityAddition()
                 {
@@ -278,7 +276,7 @@ public class Health: MonoBehaviour, IIniBrain
         }
 
         enemyAggro();
-        Br.combat.CombatEventRegistered(CombatEvent.EndGetHit, pd.myBrain);
+        Br.combat.CombatEventRegistered(CombatEvent.EndGetHit, pd.myBrain, specialty);
         return;
 
         void enemyAggro()

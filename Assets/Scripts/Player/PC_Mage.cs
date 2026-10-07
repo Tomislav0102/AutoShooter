@@ -142,7 +142,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 groupWalkTrail.InitializeMe(Br, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pdWalkTrail }));
                 break;
             case SkillName.Meltdown:
-                Ga.me.runData.enBurnArmorReduction.ChangeBuff(GenChange.Add, BuffType.Percentage, (int)newSkill.valueGeneric);
+                Ga.me.runData.AddAllVulnerabilities(Status.Effect.Burning_dot, (int)newSkill.valueGeneric);
                 break;
             case SkillName.Pyromania:
                 if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
@@ -183,6 +183,9 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellGlacialShield.InitializeMe(Br);
                 _canGlacialShield = true;
                 break;
+            case SkillName.Shatter:
+                Ga.me.runData.AddAllVulnerabilities(Status.Effect.Frozen, (int)newSkill.valueGeneric);
+                break;
             case SkillName.Armageddon: //ultimate fire
                 Br.skills.myUltimate = newSkill;
                 Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
@@ -210,7 +213,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.Hit:
                 chillTouch();
-                glacialShield();
                 void chillTouch()
                 {
                     if (_skillChillingTouch is null) return;
@@ -225,23 +227,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     spell.transporter.target = otherBrain.myTransform;
                     spell.InitializeMe(Br);
                 }
-                void glacialShield()
-                {
-                    if (_skillGlacialShield is null) return;
-                    if (otherBrain is null) return;
-                  //  if (specialty !=  SpellMain.Specialty.Melee) return;
-                    if (!_canGlacialShield)  return;
-                    otherBrain.status.StatusInjectData(GenChange.Add, _skillGlacialShield.passData.effects[0]);
-                    _spellGlacialShield.visual.StopDefault();
-                    _canGlacialShield = false;
-                    IEnumerator glacialShieldWait()
-                    {
-                        yield return new WaitForSeconds(_skillGlacialShield.valueGeneric);
-                        _canGlacialShield = true;
-                        _spellGlacialShield.visual.PlayDefault();
-                    }
-                    
-                }
                 break;
             case CombatEvent.Miss:
                 break;
@@ -249,6 +234,8 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.GetHit:
                 arcaneShield();
+                glacialShield();
+
                 void arcaneShield()
                 {
                     if (_skillArcaneShield == null) return;
@@ -266,6 +253,24 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         Br.status.StatusInjectData(GenChange.Add, _skillArcaneShield.passData.effects[0]);
                         _spellArcaneShield.visual.PlayDefault();
                         _canArcaneShield = true;
+                    }
+                }
+                void glacialShield()
+                {
+                    if (_skillGlacialShield is null) return;
+                    if (otherBrain is null) return; 
+                    if (specialty !=  SpellMain.Specialty.Melee) return;
+                    if (!_canGlacialShield)  return;
+                    _canGlacialShield = false;
+                    otherBrain.status.StatusInjectData(GenChange.Add, _skillGlacialShield.passData.effects[0]);
+                    _spellGlacialShield.visual.StopDefault();
+                    StartCoroutine(glacialShieldWait());
+                    
+                    IEnumerator glacialShieldWait()
+                    {
+                        yield return new WaitForSeconds(_skillGlacialShield.valueGeneric);
+                        _canGlacialShield = true;
+                        _spellGlacialShield.visual.PlayDefault();
                     }
                 }
                 break;

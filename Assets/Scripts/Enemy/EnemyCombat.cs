@@ -66,12 +66,13 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
     }
     [SerializeField] Transform spawnPoint;
     [SerializeField] EnemyLoco enemyLoco;
-
+    [Title("debug")]
     
     
     
     public void AnimEv_AttackCallback(int num = 0)
     {
+        if (!Br.canAttack) return;
         switch (num)
         {
             case 0: //melee (used by treant, wolf and cobra)

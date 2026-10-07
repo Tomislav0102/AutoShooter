@@ -83,6 +83,8 @@ public class Brain : MonoBehaviour
 
     [Title("Debug")] 
     public bool debug;
+    public bool canAttack = true;
+
     [Button]
     void ChangeSize(float newSize)
     {

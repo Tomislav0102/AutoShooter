@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
-  m_Name: knight blunt - heavy impact
+  m_Name: mage ice - shatter 1
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  description: Blunt* - Stunned enemies have 50% Vulnerability per skill level
-  levelUpEffect: Increases Vulnerability percentage
-  skillName: 40
+  description: '"Frozen" or "Rooted" enemies have X% Vulnerability'
+  levelUpEffect: Increases shatter damage multiplier
+  skillName: 80
   icon: {fileID: 0}
   skillType: 1
-  level: 0
+  level: 1
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
@@ -44,5 +44,5 @@ MonoBehaviour:
   hasAfterSpells: 0
   afterSpells: []
   hasGeneric: 1
-  valueGeneric: -50
+  valueGeneric: -10
   valueGenericArray: []

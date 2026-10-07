@@ -66,11 +66,11 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
         switch (combatEvent)
         {
             case CombatEvent.Hit:
-                CombatEventRegistered(CombatEvent.Strike);
+                CombatEventRegistered(CombatEvent.Strike, otherBrain, specialty);
                 counterHit++;
                 break;
             case CombatEvent.Miss:
-                CombatEventRegistered(CombatEvent.Strike);
+                CombatEventRegistered(CombatEvent.Strike, otherBrain, specialty);
                 counterMiss++;
                 break;
             case CombatEvent.Strike:

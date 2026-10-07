@@ -52,6 +52,7 @@ public class Skills : MonoBehaviour, IIniBrain
                //  OvrLevelSpecificSkill(SkillName.IceSpear);
                //  OvrLevelSpecificSkill(SkillName.OrbitalBulwark);
                  OvrLevelSpecificSkill(SkillName.GlacialShield);
+                 OvrLevelSpecificSkill(SkillName.Shatter);
             }
             if (useArcher)
             {
@@ -89,7 +90,7 @@ public class Skills : MonoBehaviour, IIniBrain
         for (int i = 0; i < skillsToLevel.Length; i++)
         {
             if (skillsToLevel == null) continue;
-            OvrLevelSpecificSkill(skillsToLevel[i].skillName, 0);
+            OvrLevelSpecificSkill(skillsToLevel[i].skillName, skillsToLevel[i].level);
         }
     }
     [Button]

@@ -9,28 +9,27 @@ using UnityEngine.AI;
 
 public class Test : MonoBehaviour
 {
-    public Transform target;
-    public float angle;
-    public bool inverse;
-    public bool inArc;
-    [Title("--")]
-    public Vector2 direction;
-    public float ag;
-    
+    public Brain brain;
+    public BuffEffects[] buffEffects;
     [Button]
     void AddS()
     {
+        for (int i = 0; i < buffEffects.Length; i++)
+        {
+            brain.status.StatusInjectData(GenChange.Add, buffEffects[i]);
+
+        }
     }
     [Button]
     void Remove()
     {
+        for (int i = 0; i < buffEffects.Length; i++)
+        {
+            brain.status.StatusInjectData(GenChange.Remove, buffEffects[i]);
+
+        }
     }
 
-    // void Update()
-    // {
-    //     direction = (Utils.MakeV2(target.position) - Utils.MakeV2(transform.position)).normalized;
-    //     ag = Vector2.SignedAngle(Utils.MakeV2(transform.forward), direction);
-    // }
 }
 
 

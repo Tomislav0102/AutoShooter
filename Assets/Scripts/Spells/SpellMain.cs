@@ -292,7 +292,7 @@ public class SpellMain : MonoBehaviour
             }
 
             // if (pd.hasDamage && pd.spellsVelocity.Equals(Vector2.zero)) d.spellsVelocity = myRigid.linearVelocity;
-            targetsBrain.health.HealthInjectDataDamage(pd, canBeBlocked, canBeDodged);
+            targetsBrain.health.HealthInjectDataDamage(pd, canBeBlocked, canBeDodged, specialty);
         }
 
         return;

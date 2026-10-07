@@ -88,7 +88,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 ironMirror();
                 break;
             case SkillName.HeavyImpact:
-                Ga.me.runData.enStunDamage.ChangeBuff(GenChange.Add, BuffType.Percentage, (int)newSkill.valueGeneric);
+                Ga.me.runData.AddAllVulnerabilities(Status.Effect.Stunned, (int)newSkill.valueGeneric);
                 break;
             case SkillName.SkullCracker:
                 _stunAttacksDurationExtra += newSkill.valueGeneric;

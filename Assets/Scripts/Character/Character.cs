@@ -33,35 +33,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     public MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
     MyDuo<Stats, float> _ovrStatsFinal = new MyDuo<Stats, float>(); //for BuffType.Set
     MyDuo<BuffStats, float> _buffTimers = new MyDuo<BuffStats, float>();
-    BuffStats _buffBurnArmorReduction;
     
-    void OnEnable()
-    {
-        Status.OnEffectChange += CallEvStatusEffects;
-    }
-    void OnDisable()
-    {
-        Status.OnEffectChange -= CallEvStatusEffects;
-    }
-    void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
-    {
-        // print($"{effect} is {on}");
-        if (brain != Br) return;
-        switch (effect)
-        {
-            case Status.Effect.Burning_dot:
-                if (Mathf.Approximately(1f, Ga.me.runData.enBurnArmorReduction.Result)) return;
-                if (on)
-                {
-                    _buffBurnArmorReduction = new BuffStats(Stats.ResistPhysical, BuffType.Percentage, Ga.me.runData.enBurnArmorReduction.Result - 100);
-                    CharacterInjectData(GenChange.Add, _buffBurnArmorReduction);
-                    return;
-                }
-                CharacterInjectData(GenChange.Remove, _buffBurnArmorReduction);
-                break;
-        }
-    }
-
     void Update()
     {
         for (int i = 0; i < _buffTimers.Length(); i++)

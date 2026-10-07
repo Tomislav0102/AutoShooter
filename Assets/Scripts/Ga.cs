@@ -55,7 +55,7 @@ public class Ga : MonoBehaviour
         me = this;
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new TeamManager();
-        runData = new RunData(new ValueCalc(1), new ValueCalc(100));
+        runData = new RunData();
         wait00 = Utils.GetWait(0f);
         wait01 = Utils.GetWait(0.1f);
         wait02 = Utils.GetWait(0.2f);

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 public class RunData
 {
     public MyDuo<Status.Effect, int> enUnderEffect;
-    //Knight skill -> stunned enemies take extra damage
-    public ValueCalc enStunDamage;
-    //Mage skill -> burning enemies have armor reduced by this amount
-    public ValueCalc enBurnArmorReduction;
-    
-    public RunData(ValueCalc enStunDamage, ValueCalc enBurnArmorReduction)
+    //int[] is value for Stats[] but only Resists
+    public MyDuo<Status.Effect, int[]> enEffectVulnerabilities; 
+    public RunData()
     {
         enUnderEffect = new MyDuo<Status.Effect, int>();
         Status.OnEffectChange += CallEvStatusEffects;
@@ -17,8 +14,12 @@ public class RunData
         {
             enUnderEffect.Add((Status.Effect)i, 0);
         }
-        this.enStunDamage = enStunDamage;
-        this.enBurnArmorReduction = enBurnArmorReduction;
+        
+        int[] elements = new int[System.Enum.GetNames(typeof(Element)).Length];
+        enEffectVulnerabilities = new MyDuo<Status.Effect, int[]>();
+        enEffectVulnerabilities.Add(Status.Effect.Frozen, elements);
+        enEffectVulnerabilities.Add(Status.Effect.Stunned, elements);
+        enEffectVulnerabilities.Add(Status.Effect.Burning_dot, elements);
     }
 
     void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
@@ -31,6 +32,17 @@ public class RunData
                 else prevValue--;
                 enUnderEffect.SetValueByKey(Status.Effect.Burning_dot, prevValue);
                 break;
+        }
+    }
+
+    public void AddAllVulnerabilities(Status.Effect effect, int valueToAdd)
+    {
+        int length = System.Enum.GetNames(typeof(Element)).Length;
+        int[] previousValues = Ga.me.runData.enEffectVulnerabilities.GetValueByKey(effect);
+        for (int i = 0; i < length; i++)
+        {
+            previousValues[i] += valueToAdd;
+            Ga.me.runData.enEffectVulnerabilities.SetValueByKey(effect, previousValues);
         }
     }
 
