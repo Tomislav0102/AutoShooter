@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class RunData
 {
+    public Dictionary<string, int> dic;
     public MyDuo<Status.Effect, int> enUnderEffect;
     //int[] is value for Stats[] but only Resists
-    public MyDuo<Status.Effect, int[]> enEffectVulnerabilities; 
+    public MyDuo<Status.Effect, int[]> enEffectVulnerabilities;
+    int _elementsLength;
     public RunData()
     {
         enUnderEffect = new MyDuo<Status.Effect, int>();
@@ -14,12 +17,11 @@ public class RunData
         {
             enUnderEffect.Add((Status.Effect)i, 0);
         }
-        
-        int[] elements = new int[System.Enum.GetNames(typeof(Element)).Length];
+        _elementsLength =  System.Enum.GetNames(typeof(Element)).Length;
         enEffectVulnerabilities = new MyDuo<Status.Effect, int[]>();
-        enEffectVulnerabilities.Add(Status.Effect.Frozen, elements);
-        enEffectVulnerabilities.Add(Status.Effect.Stunned, elements);
-        enEffectVulnerabilities.Add(Status.Effect.Burning_dot, elements);
+        enEffectVulnerabilities.Add(Status.Effect.Frozen, new int[_elementsLength]);
+        enEffectVulnerabilities.Add(Status.Effect.Stunned, new int[_elementsLength]);
+        enEffectVulnerabilities.Add(Status.Effect.Burning_dot, new int[_elementsLength]);
     }
 
     void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
@@ -37,12 +39,21 @@ public class RunData
 
     public void AddAllVulnerabilities(Status.Effect effect, int valueToAdd)
     {
-        int length = System.Enum.GetNames(typeof(Element)).Length;
         int[] previousValues = Ga.me.runData.enEffectVulnerabilities.GetValueByKey(effect);
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < _elementsLength; i++)
         {
             previousValues[i] += valueToAdd;
             Ga.me.runData.enEffectVulnerabilities.SetValueByKey(effect, previousValues);
+        }
+    }
+    public void PrintVulnerabilities()
+    {
+        for (int i = 0; i < enEffectVulnerabilities.Length(); i++)
+        {
+            for (int j = 0; j < enEffectVulnerabilities.GetValue(i).Length; j++)
+            {
+                Debug.Log($"effect: {enEffectVulnerabilities.GetKey(i)} at element {(Element)j}({enEffectVulnerabilities.GetValue(i)[j]})");
+            }
         }
     }
 

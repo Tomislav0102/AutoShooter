@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
 [System.Serializable]
-public class MyDuo<K, V>
+public class MyDuo<K, V> 
 {
     [field: SerializeField] K[] Key { get; set; } 
     [field: SerializeField] V[] Value { get; set; }

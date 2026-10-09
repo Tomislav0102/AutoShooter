@@ -30,7 +30,6 @@ public class PC_Archer : MonoBehaviour
     SoSkill[] _allSkills;
     PlayerCombat _playerCombat;
     [Title("debug")]
-    public bool canShoot;
     
     // public void SkillUpdate()
     // {
@@ -67,8 +66,10 @@ public class PC_Archer : MonoBehaviour
         Ga.OnUltimateActivated -= CallEv_OnUltimateActivated;
         Br.skills.onSkillIncrease -= SkillIncreaseCallback;
     }
-    
-    void SkillIncreaseCallback(SoSkill newSkill) { }
+
+    void SkillIncreaseCallback(SoSkill newSkill)
+    {
+    }
     
     
     //archers Ultimate is not triggered by animation event
@@ -94,8 +95,6 @@ public class PC_Archer : MonoBehaviour
     }
     public void AnimEv_AttackCallback(int num = 0)
     {
-        if (!canShoot) return;
-        canShoot = false;
         Shoot();
         if (followUp > 0) StartCoroutine(ShootFollowUp());
     }
@@ -144,7 +143,7 @@ public class PC_Archer : MonoBehaviour
             PassData container = new PassData()
             {
                 hasDamage = true,
-                damagePair = Br.character.GetDamage()
+                damagePair = Br.character.GetDamage(new Element[2] { Element.Physical , Element.Electricity})
             };
             int projectile = (int)Br.character.GetStat(Stats.Projectiles);
             for (int i = 0; i < projectile; i++)

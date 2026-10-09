@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
+  m_Name: knight - statue 1
+  m_EditorClassIdentifier: Assembly-CSharp::SoSkill
+  description: Statue. Acquiring this skill increases max num of statues.
+  levelUpEffect: Increases max num of statues. Adds extra stat.
+  skillName: 53
+  icon: {fileID: 0}
+  skillType: 1
+  level: 1
+  hasSpell: 1
+  spell: {fileID: 103881483359147930, guid: a965668b9ed73074ea95e27007d25213, type: 3}
+  spellGroup: {fileID: 0}
+  hasPassData: 1
+  passData:
+    myBrain: {fileID: 0}
+    hasDamage: 0
+    damagePair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShieldPoints: 0
+    hasStats: 1
+    stats:
+    - stat: 5
+      buffType: 0
+      data:
+        value: 20
+        permanent: 1
+        <Duration>k__BackingField: 0
+    - stat: 7
+      buffType: 0
+      data:
+        value: 50
+        permanent: 1
+        <Duration>k__BackingField: 0
+    hasEffect: 0
+    effects:
+    - myBrain: {fileID: 0}
+      effect: 0
+      data:
+        value: 0
+        permanent: 0
+        <Duration>k__BackingField: 0
+  hasAfterSpells: 0
+  afterSpells: []
+  hasGeneric: 1
+  valueGeneric: 0.55
+  valueGenericArray: []

@@ -86,7 +86,7 @@ public enum Stats
     ReflectMelee, //melee weapons
     ReflectProjectiles, //ranged weapons (not spells), like bows, crossbows, etc...
     ExtraSkillChoice, //default is 3, this number adds to it 
-    ResistEffects, //resist stun, blind, fumble, charm... (enum Status.Effect)
+    BodySize
 }
 
 public enum SkillName
@@ -146,7 +146,7 @@ public enum SkillName
     IronFortress,
     KnightBase,
     ConcussiveSurge,
-    Kn02,
+    Statue,
     Kn03,
     Kn04,
     Kn05,

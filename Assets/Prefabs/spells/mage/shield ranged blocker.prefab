@@ -378,9 +378,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2776825070880968960}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5926120933324004308}
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 284344405927083855}
@@ -430,39 +427,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
   target: {fileID: 0}
---- !u!1 &6742687065928992069 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-  m_PrefabInstance: {fileID: 5430779227207044350}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5926120933324004308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6742687065928992069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  passData:
-    myBrain: {fileID: 0}
-    hasDamage: 0
-    damagePair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-    spellsVelocity: {x: 0, y: 0}
-    hasKnockback: 0
-    knockbackPower: 0
-    knockbackDirection: {x: 0, y: 0}
-    hasDash: 0
-    dashPower: 0
-    dashDirection: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShieldPoints: 0
-    hasStats: 0
-    stats: []
-    hasEffect: 0
-    effects: []
+  ricochet: 0
+  bounce: 0
+  pierce: 0

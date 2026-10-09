@@ -7,11 +7,14 @@ public class WalkTrailGroup : SpellGroup
     const float CONST_SpawnRate = 0.1f;
     HashSet<Collider> _spawns;
     float _radius;
+    [SerializeField] SpellMain spellPrefab;
 
-    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
+    public override void InitializeMe(Brain ownersBrain, PassData pd)
     {
-        base.InitializeMe(ownersBrain, duo);
-        _radius = prefabsAndData.GetKey(0).areaOfEffect * 0.5f;
+        base.InitializeMe(ownersBrain, pd);
+        prefabsAndData = new MyDuo<SpellMain, PassData>();
+        prefabsAndData.Add(spellPrefab, pd);
+        _radius = groupPassData.setAreaOfEffect ? groupPassData.areaOfEffect : spellPrefab.areaOfEffect;
         _spawns = new HashSet<Collider>();
     }
 
@@ -21,8 +24,7 @@ public class WalkTrailGroup : SpellGroup
         if (_timer < CONST_SpawnRate) return;
 
         _timer = 0;
-        Collider[] colliders = Physics.OverlapSphere(owner.myTransform.position,
-            _radius * 2,
+        Collider[] colliders = Physics.OverlapSphere(owner.myTransform.position, _radius,
             Utils.MyLayer(Ga.me.gameData.laySpell));
         for (int i = 0; i < colliders.Length; i++)
         {

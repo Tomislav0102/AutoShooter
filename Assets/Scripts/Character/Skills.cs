@@ -43,7 +43,7 @@ public class Skills : MonoBehaviour, IIniBrain
             //debugs
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.AdvanceGuard);
+                OvrLevelSpecificSkill(SkillName.Statue);
                 
             }
             if (useMage)
@@ -51,8 +51,9 @@ public class Skills : MonoBehaviour, IIniBrain
                //  OvrLevelSpecificSkill(SkillName.ChillingTouch);
                //  OvrLevelSpecificSkill(SkillName.IceSpear);
                //  OvrLevelSpecificSkill(SkillName.OrbitalBulwark);
-                 OvrLevelSpecificSkill(SkillName.GlacialShield);
-                 OvrLevelSpecificSkill(SkillName.Shatter);
+                 // OvrLevelSpecificSkill(SkillName.GlacialShield);
+                 // OvrLevelSpecificSkill(SkillName.Shatter);
+                  OvrLevelSpecificSkill(SkillName.AbsoluteZero);
             }
             if (useArcher)
             {

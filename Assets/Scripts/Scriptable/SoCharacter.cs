@@ -50,5 +50,4 @@ public class SoCharacter : SerializedScriptableObject
     }
     
     public Dictionary<Stats, int> baseStats = new Dictionary<Stats, int>();
-
 }

@@ -50,6 +50,10 @@ public class Status : MonoBehaviour, IIniBrain
                 _effectPrevious.Add((Effect)i, false);
                 _effectActive.Add((Effect)i, false);
             }
+            _elementLength = System.Enum.GetNames(typeof(Element)).Length;
+            _buffStatsBurn = new BuffStats[_elementLength];
+            _buffStatsFrozen = new BuffStats[_elementLength];
+            _buffStatsStun = new BuffStats[_elementLength];
         }
     }
     Brain _br;
@@ -58,9 +62,14 @@ public class Status : MonoBehaviour, IIniBrain
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
     int _effectsLength;
+    int _elementLength;
     MyDuo<Effect, bool> _effectPrevious;
     MyDuo<Effect, bool> _effectActive;
-    
+    BuffStats[] _buffStatsBurn;
+    BuffStats[] _buffStatsFrozen;
+    BuffStats[] _buffStatsStun;
+    [SerializeField] Status.Effect[] immuneToEffects;
+
     void OnEnable()
     {
         Ga.OnBrainAddRemove += CallEvOnBrainAddRemove;
@@ -153,34 +162,36 @@ public class Status : MonoBehaviour, IIniBrain
        _status.position = Ga.me.camRig.cam.WorldToScreenPoint(Br.myTransform.position);
     }
     
-    public void StatusInjectData(GenChange change, BuffEffects buffEffects)
+    public void StatusInjectData(GenChange change, BuffEffects buffEffect)
     {
+        for (int i = 0; i < immuneToEffects.Length; i++)
+        {
+            if (immuneToEffects[i] != buffEffect.effect) continue;
+            print($"immune to {buffEffect.effect}");
+            return;
+        }
         switch (change)
         {
             case GenChange.Add:
-                _buffTimers.Add(buffEffects, buffEffects.data.permanent ? float.PositiveInfinity : buffEffects.data.Duration);
-                if (buffEffects.IsDot())
+                if (buffEffect.IsDot() && _buffTimers.HasKey(buffEffect)) return;
+                
+                _buffTimers.Add(buffEffect, buffEffect.data.permanent ? float.PositiveInfinity : buffEffect.data.Duration);
+                for (int i = 0; i < _buffTimers.Length() - 1; i++)
                 {
+                    if (_buffTimers.GetKey(i).effect != buffEffect.effect) continue;
+                    float duration = _buffTimers.GetValue(i) +  buffEffect.data.Duration;
+                    _buffTimers.SetValue(i, duration);
                     Refresh();
                     return;
                 }
-
-                for (int i = 0; i < _buffTimers.Length() - 1; i++)
-                {
-                    if (_buffTimers.GetKey(i).effect != buffEffects.effect) continue;
-                    float duration = _buffTimers.GetValue(i) +  buffEffects.data.Duration;
-                    _buffTimers.SetValue(i, duration);
-                    break;
-                }
-
-                switch (buffEffects.effect)
+                switch (buffEffect.effect)
                 {
                     case Effect.InstantKill:
-                        if (Br.health.HealthCurrent <= buffEffects.data.value * Br.character.GetStat(Stats.Health) * 0.01f)
+                        if (Br.health.HealthCurrent <= buffEffect.data.value * Br.character.GetStat(Stats.Health) * 0.01f)
                         {
                             print("Executioner");
-                            Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffects.myBrain);
-                            Br.health.Death(buffEffects.myBrain);
+                            Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffect.myBrain);
+                            Br.health.Death(buffEffect.myBrain);
                             return;
                         }
                         break;
@@ -188,24 +199,63 @@ public class Status : MonoBehaviour, IIniBrain
                         Br.loco.SetMaterial(Ga.me.matFrozen);
                         break;
                 }
-                
                 break;
+            
             case GenChange.Remove:
-                if (_buffTimers.HasKey(buffEffects))
+                if (_buffTimers.HasKey(buffEffect))
                 {
-                    switch (buffEffects.effect)
+                    switch (buffEffect.effect)
                     {
                         case Effect.Frozen:
-                            Br.loco.SetMaterial();
+                            Br.loco.SetMaterial(); 
                             break;
                     }
-                    _buffTimers.RemoveByKey(buffEffects);
+                    _buffTimers.RemoveByKey(buffEffect);
                     _removedBuff = true;
                 }
                 break;
         }
-        
         Refresh();
+        statusChangesStats();
+
+        void statusChangesStats()
+        {
+            BuffStats[] bs = null;
+            switch (buffEffect.effect)
+            {
+                case Effect.Stunned:
+                    bs = _buffStatsStun;
+                    break;
+                case Effect.Frozen:
+                    bs =  _buffStatsFrozen;
+                    break;
+                case Effect.Burning_dot:
+                    bs =  _buffStatsBurn;
+                    break;
+            }
+            if (bs is null) return;
+            switch (change)
+            {
+                case GenChange.Add:
+                    for (int i = 0; i < _elementLength; i++)
+                    {
+                        int val = Ga.me.runData.enEffectVulnerabilities.GetValueByKey(buffEffect.effect)[i];
+                        if (buffEffect.effect == Effect.Stunned) print(val);
+                        if (val == 0) continue;
+                        bs[i] = new BuffStats(Character.StatByElement((Element)i, false), BuffType.Added, val);
+                        Br.character.CharacterInjectData(GenChange.Add, bs[i]);
+                    }
+                    break;
+                case GenChange.Remove:
+                    for (int i = 0; i < _elementLength; i++)
+                    {
+                        if (bs[i] is null) continue;
+                        Br.character.CharacterInjectData(GenChange.Remove, bs[i]);
+                        bs[i] = null;
+                    }
+                    break;
+            }
+        }
     }
     void Refresh()
     {

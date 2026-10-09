@@ -109,7 +109,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 3
-      Data: 10
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -479,3 +479,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  immuneToEffects: 

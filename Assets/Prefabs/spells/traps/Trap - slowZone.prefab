@@ -66,10 +66,61 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
       propertyPath: m_Name
-      value: Trap Variant
+      value: Trap - slowZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6932268655754819229}
   m_SourcePrefab: {fileID: 100100000, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+--- !u!1 &3924450928264527081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3802355297117830138, guid: d75cb5f00777a764abfa004b212fcbca, type: 3}
+  m_PrefabInstance: {fileID: 194462567050037011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6932268655754819229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924450928264527081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
+  passData:
+    myBrain: {fileID: 0}
+    hasDamage: 0
+    damagePair:
+      <Key>k__BackingField: 
+      <Value>k__BackingField: []
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShieldPoints: 0
+    hasStats: 1
+    stats:
+    - stat: 6
+      buffType: 1
+      data:
+        value: -50
+        permanent: 1
+        <Duration>k__BackingField: 0
+    - stat: 7
+      buffType: 1
+      data:
+        value: -50
+        permanent: 1
+        <Duration>k__BackingField: 0
+    hasEffect: 0
+    effects: []

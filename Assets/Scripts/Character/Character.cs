@@ -16,7 +16,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     //     Spell //buffs from cast spells
     // }
     [HideInInspector] public System.Action<Stats> onStatChange;
-    [SerializeField] SoCharacter statsBase;
+    public SoCharacter statsBase;
     public Brain Br
     {
         get => _br;
@@ -121,6 +121,11 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                     if (Br.debug) print("Buff multiplier is 1X, so its ignored");
                     return;
                 }
+                if (buffStats.buffType == BuffType.Added && Mathf.Approximately(buffStats.data.value, 0f))
+                {
+                    if (Br.debug) print("Buff addition is 0, so its ignored");
+                    return;
+                }
                 Stats stat = buffStats.stat;
                 int previousValueDebug = GetStat(stat);
                 float finalValue = buffStats.data.value;
@@ -139,16 +144,6 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                         if (_ovrStatsFinal.HasKey(stat)) _ovrStatsFinal.SetValueByKey(stat, finalValue);
                         else _ovrStatsFinal.Add(stat, finalValue);
                         break;
-                }
-                if (buffStats.data.value < 0) //debuffs
-                {
-                    switch (stat)
-                    {
-                        case Stats.ResistPhysical:
-                            Instantiate(Ga.me.psArmorBreak, Br.myTransform.position + 1.5f * Vector3.up, Quaternion.identity, Ga.me.spells.myTransform);
-                            Ga.me.uiManager.FloatText(Br.myTransform.position, "Armor broken", Color.darkOrchid);
-                            break;
-                    }
                 }
                 onStatChange?.Invoke(buffStats.stat);
                 _buffTimers.Add(buffStats, buffStats.data.Duration);

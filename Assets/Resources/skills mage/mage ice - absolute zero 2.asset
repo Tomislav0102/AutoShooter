@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
+  m_Name: mage ice - absolute zero 2
+  m_EditorClassIdentifier: Assembly-CSharp::SoSkill
+  description: Moving slows down enemies behind you by 20% in a frost trail
+  levelUpEffect: Increases slow percentage and trail width
+  skillName: 81
+  icon: {fileID: 0}
+  skillType: 1
+  level: 2
+  hasSpell: 2
+  spell: {fileID: 0}
+  spellGroup: {fileID: 4097750650632919805, guid: 8b967ff85ff5eb842ad2cf2cf59c388c, type: 3}
+  hasPassData: 1
+  passData:
+    myBrain: {fileID: 0}
+    hasDamage: 1
+    damagePair:
+      <Key>k__BackingField: 02000000
+      <Value>k__BackingField:
+      - 15
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
+    manaShieldPoints: 0
+    hasStats: 1
+    stats:
+    - stat: 6
+      buffType: 1
+      data:
+        value: -40
+        permanent: 0
+        <Duration>k__BackingField: 5
+    - stat: 18
+      buffType: 0
+      data:
+        value: 1
+        permanent: 1
+        <Duration>k__BackingField: 0
+    hasEffect: 0
+    effects: []
+  hasAfterSpells: 0
+  afterSpells: []
+  hasGeneric: 0
+  valueGeneric: 0
+  valueGenericArray: []

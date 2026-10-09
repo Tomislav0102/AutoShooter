@@ -48,7 +48,6 @@ public class Ga : MonoBehaviour
     [HideInInspector] public WaitForSeconds wait100;
     [Title("Debug")] 
     public bool debug;
-
     
     void Awake()
     {
@@ -69,7 +68,6 @@ public class Ga : MonoBehaviour
        // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
         #endif
     }
-
 
 
     public void BtnRestart()

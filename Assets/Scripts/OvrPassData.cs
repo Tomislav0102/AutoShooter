@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 
 /// <summary>
-/// used in 'Reflect projectiles' and many traps
+/// used in traps and maybe spells
 /// </summary>
 public class OvrPassData : MonoBehaviour
 {

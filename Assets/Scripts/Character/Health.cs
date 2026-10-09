@@ -42,6 +42,7 @@ public class Health: MonoBehaviour, IIniBrain
     TextMeshProUGUI _numDisplay;
     Transform _numDisplayTransform;
     Vector3 _offset = new Vector3(0, 2, 0);
+    const float CONST_MinDamageToRegister = 0.1f;
     
     #region HP
     
@@ -187,7 +188,7 @@ public class Health: MonoBehaviour, IIniBrain
             Br.combat.CheckDodge(out bool dodged, pd.myBrain);
             if (dodged)
             {
-                Ga.me.uiManager.FloatText(Br.myTransform.position, "Dodged!", Color.moccasin);
+                Ga.me.uiManager.FloatText(Br.myTransform.position, "Dodged!", Color.gold);
                 return;
             }
         }
@@ -257,9 +258,11 @@ public class Health: MonoBehaviour, IIniBrain
                     for (int i = 0; i < damageRaw.Length(); i++)
                     {
                         Element el = damageRaw.GetKey(i);
-                        float resistance = 1 - 0.01f * Br.character.GetStat(Character.StatByElement(el, false));
-                        float val = damageRaw.GetValue(i) * resistance;
-                        finalPair.Add(el, val);
+                        int resistance = 100 - Br.character.GetStat(Character.StatByElement(el, false));
+                        if (resistance > 100) Ga.me.uiManager.FloatText(Br.myTransform.position, $"Vulnerable to {el}", Color.floralWhite, 2.5f);
+                        float val = damageRaw.GetValue(i) * resistance * 0.01f;
+                        if (Mathf.Abs(val) > CONST_MinDamageToRegister) finalPair.Add(el, val);
+                        else Ga.me.uiManager.FloatText(Br.myTransform.position, "Damage resisted!", Color.gold, 2.5f);
                     }
                     return finalPair; //can be negative, turns to heal
                 }

@@ -15,6 +15,10 @@ public class SpellGroup : MonoBehaviour
         owner = ownersBrain;
         prefabsAndData = duo;
     }
+    public virtual void InitializeMe(Brain ownersBrain, PassData pd)
+    {
+        owner = ownersBrain;
+    }
     
     
     public static void ComboDash(Brain brain, MyDuo<Element, float> damage)

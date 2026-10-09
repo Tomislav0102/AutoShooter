@@ -93,54 +93,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  block:
-    canBeBlocked: 0
-    canBeDodged: 0
+  passData:
+    myBrain: {fileID: 0}
     hasDamage: 1
-    damage:
-      pair:
-        <Key>k__BackingField: 01000000
-        <Value>k__BackingField:
-        - 1
-      addSpellVelocity: 0
-      spellsVelocity: {x: 0, y: 0, z: 0}
-    hasKnockback: 0
-    knockBack:
-      power: 0
-      direction: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShield:
-      manaShieldPoints: 0
-    hasSpell: 0
-    spellData:
-      pair:
-        <Key>k__BackingField: 
-        <Value>k__BackingField: []
-    hasStats: 0
-    stats:
-      group: []
-  canBeBlocked: 0
-  canBeDodged: 0
-  hasDamage: 1
-  damage:
-    pair:
-      <Key>k__BackingField: 02000000
+    damagePair:
+      <Key>k__BackingField: 01000000
       <Value>k__BackingField:
-      - 1
-    addSpellVelocity: 0
-    spellsVelocity: {x: 0, y: 0, z: 0}
-  hasKnockback: 0
-  knockBack:
-    power: 0
-    direction: {x: 0, y: 0}
-  hasManaShield: 0
-  manaShield:
+      - 5
+    spellsVelocity: {x: 0, y: 0}
+    hasKnockback: 0
+    knockbackPower: 0
+    knockbackDirection: {x: 0, y: 0}
+    hasDash: 0
+    dashPower: 0
+    dashDirection: {x: 0, y: 0}
+    hasManaShield: 0
     manaShieldPoints: 0
-  hasSpell: 0
-  spellData:
-    pair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-  hasStats: 0
-  stats:
-    group: []
+    hasStats: 0
+    stats: []
+    hasEffect: 1
+    effects:
+    - myBrain: {fileID: 0}
+      effect: 9
+      data:
+        value: 1
+        permanent: 0
+        <Duration>k__BackingField: 5

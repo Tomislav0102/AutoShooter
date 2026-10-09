@@ -7,11 +7,9 @@ Buffs on one hit (e.g. next strike does 100% more damage) - now there are two lo
 Ricochet and Pierce - they only affect spells that have 'EffectProjectile' component. 
                       Other spells that might need those skills (Overload, ChainLightning...) need some workaround.
                       Maybe those skills need separate component.
-New BuffStats - fix all skills
 
 
 SKILLS
-
 
 KNIGHT
 Seismic Anchorage skill - needs animation
@@ -27,3 +25,5 @@ ENEMY
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
 Cannon is rotating while idle, fix 'OvrOrientation' (related to 'isOrientationAlwaysFalse' bool)
 
+OPTIMIZATION
+PS - flamethrower has too many particles

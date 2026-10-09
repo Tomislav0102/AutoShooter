@@ -27,9 +27,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     float _crescendoStrikeIncrease = 1f;
     BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
     MyDuo<Element, float> _elementStrikesIncrease;
-    SpellMain _passiveLethargicDomain;
+    SpellMain _spellLethargicDomain;
     SpellMain _spellAdvanceGuard;
     bool _canAdvanceGuard;
+    SoSkill _skillStatue;
 
     void OnEnable()
     {
@@ -101,6 +102,9 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 _spellAdvanceGuard.transporter.target = Br.myTransform;
                 _spellAdvanceGuard.InitializeMe(Br);
                 break;
+            case SkillName.Statue:
+                _skillStatue = newSkill;
+                break;
             
             case SkillName.IronFortress: //ultimate 1
             case SkillName.ConcussiveSurge: //ultimate 2
@@ -115,11 +119,16 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         void lethargicDomain()
         {
             if (!Br.skills.TryGetFromGroup(SkillName.LethargicDomain, out SoSkill skill)) return;
-            if (_passiveLethargicDomain != null) _passiveLethargicDomain.MyPhase = SpellMain.Phase.EndEnd;
-            _passiveLethargicDomain = SpellMain.Sp(skill.spell, Br);
-            _passiveLethargicDomain.transporter.target = Br.myTransform;
-            _passiveLethargicDomain.areaOfEffect += skill.passData.stats[0].data.value;
-            _passiveLethargicDomain.InitializeMe(Br);
+            if (_spellLethargicDomain is not null) _spellLethargicDomain.MyPhase = SpellMain.Phase.EndEnd;
+            _spellLethargicDomain = SpellMain.Sp(skill.spell, Br);
+            _spellLethargicDomain.transporter.target = Br.myTransform;
+            _spellLethargicDomain.areaOfEffect += skill.passData.stats[0].data.value;
+            PassData pd = new PassData()
+            {
+                hasStats = true,
+                stats = new BuffStats[1] { skill.passData.stats[1] }
+            };
+            _spellLethargicDomain.InitializeMe(Br, pd);
         }
         void ironMirror() //spell has no effect (only visual), all logic is in skill
         {
@@ -358,7 +367,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     PassData containerThrow = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Physical, 1f, sk.passData.damagePair)
+                        damagePair = Br.character.GetDamage(Element.Magic, 1f, sk.passData.damagePair)
                     };
                     ricochet += (int)sk.passData.stats[0].data.value;
 
@@ -370,6 +379,21 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.BeginGetHit:
                 advanceGuard(true);
+                statue();
+                void statue()
+                {
+                    if (_skillStatue is null) return;
+                    if (Random.value > _skillStatue.valueGeneric) return;
+                    if (Br.loco.IsMoving) return;
+                    SpellMain spell = SpellMain.Sp(_skillStatue.spell, Br.myTransform.position);
+                    BuffStats buffStats = _skillStatue.passData.stats[Random.Range(0,  _skillStatue.passData.stats.Length)];
+                    PassData pd = new PassData()
+                    {
+                        hasStats = true,
+                        stats = new BuffStats[1] { buffStats }
+                    };
+                    spell.InitializeMe(Br, pd);
+                }
                 break;
             case CombatEvent.GetHit:
                 spikedRim();

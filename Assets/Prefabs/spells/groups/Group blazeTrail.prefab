@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8532053b27e5f8a408184d7f159dd847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkTrailGroup
-  spellInstantiated: {fileID: 7537306512381167856, guid: 614a1a6bae2dc724aabdc10c63ac937d, type: 3}
   myTransform: {fileID: 2485173647641314794}
+  spellsRunning: []
+  spellPrefab: {fileID: 7537306512381167856, guid: 614a1a6bae2dc724aabdc10c63ac937d, type: 3}

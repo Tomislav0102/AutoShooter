@@ -110,6 +110,7 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
     }
     public void FromAnimEv_Attack(int num = 0)
     {
+        if (!Br.canAttack) return;
         animAttackEv.Invoke(num);
     }
 

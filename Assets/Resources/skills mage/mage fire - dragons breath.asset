@@ -18,21 +18,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   skillType: 1
   level: 0
-  hasStatx: 1
-  stats:
-  - stat: 18
-    buffType: 0
-    data:
-      value: 1
-      permanent: 1
-      <Duration>k__BackingField: 0
-  hasDamagex: 0
-  damageType: 0
-  damagePair:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: []
-  hasEffectx: 0
-  effects: []
   hasSpell: 1
   spell: {fileID: 3141391959439269076, guid: bac1a0309435c574ba2aee3363cf40c5, type: 3}
   spellGroup: {fileID: 0}
@@ -61,8 +46,14 @@ MonoBehaviour:
         value: 3
         permanent: 1
         <Duration>k__BackingField: 0
-    hasEffect: 0
-    effects: []
+    hasEffect: 1
+    effects:
+    - myBrain: {fileID: 0}
+      effect: 9
+      data:
+        value: 1
+        permanent: 0
+        <Duration>k__BackingField: 5
   hasAfterSpells: 0
   afterSpells: []
   hasGeneric: 0

@@ -121,6 +121,8 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     damagePair = Br.character.GetDamage(Element.Fire, 0.1f, newSkill.passData.damagePair),
                     hasKnockback = true,
                     knockbackPower = newSkill.passData.knockbackPower,
+                    hasEffect = true,
+                    effects = newSkill.passData.effects,
                 };
                 _spellDragonsBreath.InitializeMe(Br, pd);
                 break;
@@ -185,6 +187,8 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 break;
             case SkillName.Shatter:
                 Ga.me.runData.AddAllVulnerabilities(Status.Effect.Frozen, (int)newSkill.valueGeneric);
+                break;
+            case SkillName.AbsoluteZero:
                 break;
             case SkillName.Armageddon: //ultimate fire
                 Br.skills.myUltimate = newSkill;

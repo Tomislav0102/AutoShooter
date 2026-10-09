@@ -155,9 +155,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6961899243920863905}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6714644399012751655}
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5710710455170707006}
@@ -182,57 +179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_GeneralTrigger
+  detectObstacles: 1
   onEnter: 1
   onFakeStay: 0
   onExit: 1
-  colliderPart: 0
+  solidCollider: {fileID: 0}
 --- !u!4 &4463666707826142326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 8724921783028259529}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8059737870553387890 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-  m_PrefabInstance: {fileID: 8724921783028259529}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6714644399012751655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8059737870553387890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551a5b5455000be4aa002748d124aa5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
-  passData:
-    myBrain: {fileID: 0}
-    hasDamage: 0
-    damagePair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
-    spellsVelocity: {x: 0, y: 0}
-    hasKnockback: 0
-    knockbackPower: 0
-    knockbackDirection: {x: 0, y: 0}
-    hasDash: 0
-    dashPower: 0
-    dashDirection: {x: 0, y: 0}
-    hasManaShield: 0
-    manaShieldPoints: 0
-    hasStats: 1
-    stats:
-    - stat: 7
-      buffType: 1
-      data:
-        value: 0.5
-        permanent: 1
-        <Duration>k__BackingField: 0
-    hasEffect: 0
-    effects: []
 --- !u!1 &9013080140464599360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -251,6 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
   followPosition: 1
   followRotation: 1
 --- !u!1001 &9138242517926343654

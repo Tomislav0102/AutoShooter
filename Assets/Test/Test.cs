@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,25 +10,44 @@ public class Test : MonoBehaviour
 {
     public Brain brain;
     public BuffEffects[] buffEffects;
+    public ParticleSystem[] ps;
+    public Color col;
     [Button]
     void AddS()
     {
+    }
+    void SetBuff(GenChange genChange)
+    {
         for (int i = 0; i < buffEffects.Length; i++)
         {
-            brain.status.StatusInjectData(GenChange.Add, buffEffects[i]);
-
+            brain.status.StatusInjectData(genChange, buffEffects[i]);
         }
     }
     [Button]
     void Remove()
     {
-        for (int i = 0; i < buffEffects.Length; i++)
-        {
-            brain.status.StatusInjectData(GenChange.Remove, buffEffects[i]);
-
-        }
     }
 
+    // void Start()
+    // {
+    //     for (int i = 0; i < 10; i++)
+    //     {
+    //         Vector2 v2 = new Vector2(0, 1);
+    //         v2 = Utils.RotateV2(v2, Random.Range(0, 360f));
+    //         print(v2.magnitude);
+    //         
+    //     }
+    // }
+
+    // void Update()
+    // {
+    //     for (int i = 0; i < ps.Length; i++)
+    //     {
+    //         ParticleSystem.MainModule main = ps[i].main;
+    //         main.startColor = col;
+    //         
+    //     }
+    // }
 }
 
 
