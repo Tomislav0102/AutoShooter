@@ -18,7 +18,7 @@ public static class Utils
                 return myFaction == target;
             case FactionToTarget.Enemy:
                 return myFaction != target;
-            case FactionToTarget.All:
+            case FactionToTarget.Neutral:
                 return true;
         }
         return false;

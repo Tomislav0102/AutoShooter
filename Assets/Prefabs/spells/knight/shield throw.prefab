@@ -136,10 +136,6 @@ PrefabInstance:
       value: 693603877
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: spell
-      value: 
-      objectReference: {fileID: 2360112833303177939}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: 5
       objectReference: {fileID: 0}
@@ -180,10 +176,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
-      propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2360112833303177939}
-    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: onTrigEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -212,7 +204,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2360112833303177939}
+      addedObject: {fileID: 7610704114192159229}
     - targetCorrespondingSourceObject: {fileID: 288725710350232457, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8912875514215524152}
@@ -235,6 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
   projectileType: 0
   speed: 10
 --- !u!1 &7499734787620274509 stripped
@@ -242,7 +237,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4936140572586544365, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
   m_PrefabInstance: {fileID: 3212430751149919648}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2360112833303177939
+--- !u!114 &7610704114192159229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,9 +246,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7499734787620274509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563be317f6a7aed42ada410479198d99, type: 3}
+  m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Bullet
+  m_EditorClassIdentifier: Assembly-CSharp::EffectTrigger
+  detectObstacles: 1
+  onEnter: 1
+  onFakeStay: 0
+  onExit: 0
   solidCollider: {fileID: 0}
 --- !u!4 &7526605303271684895 stripped
 Transform:

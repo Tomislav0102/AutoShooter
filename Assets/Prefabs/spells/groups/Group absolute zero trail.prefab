@@ -45,5 +45,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkTrailGroup
   myTransform: {fileID: 2485173647641314794}
+  mainPrefabPair:
+    <Key>k__BackingField:
+    - {fileID: 7537306512381167856, guid: 60984349deafd9a44b89e867685d8d7d, type: 3}
+    <Value>k__BackingField:
+    - myBrain: {fileID: 0}
+      hasDamage: 0
+      damagePair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+      spellsVelocity: {x: 0, y: 0}
+      hasKnockback: 0
+      knockbackPower: 0
+      knockbackDirection: {x: 0, y: 0}
+      hasDash: 0
+      dashPower: 0
+      dashDirection: {x: 0, y: 0}
+      hasManaShield: 0
+      manaShieldPoints: 0
+      hasStats: 0
+      stats: []
+      hasEffect: 0
+      effects: []
   spellsRunning: []
-  spellPrefab: {fileID: 7537306512381167856, guid: 60984349deafd9a44b89e867685d8d7d, type: 3}

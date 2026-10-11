@@ -36,6 +36,7 @@ public class SpellStatue : MonoBehaviour, IIniSpell
     Trio _myTrio;
 
     
+    
     Color GetColor(Stats stat)
     {
         foreach (Trio trio in data)

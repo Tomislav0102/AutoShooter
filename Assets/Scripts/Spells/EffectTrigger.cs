@@ -42,22 +42,33 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
 
     public void OnTriggerEnterCallBack(Collider other)
     {
+       // print($"1 {other.gameObject.name}");
         if (_arcCalculator != null && !_arcCalculator.TargetInsideArc(other.transform.position)) return;
+      //  print($"2 {other.gameObject.name}");
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
+     //   print($"3 {other.gameObject.name}");
         if (Spell.collidersDetected.Contains(other)) return;
+    //    print($"4 {other.gameObject.name}");
         Spell.collidersDetected.Add(other);
         if (!onEnter || onFakeStay) return;
+     //  print($"5 {other.gameObject.name}");
 
         if (other.TryGetComponent(out Brain targetBrain))
         {
             Spell.HitGeneric(targetBrain, out _);
             Spell.onHitTarget?.Invoke(targetBrain);
-            if (Spell.OwnersBrain == targetBrain)
+
+            switch (Spell.specialty)
             {
-                Spell.collidersDetected.Clear();
-                return;
+                case SpellMain.Specialty.Projectile:
+                    if (Spell.OwnersBrain == targetBrain) //needed for reflection?
+                    {
+                        Spell.collidersDetected.Clear();
+                        return;
+                    }
+                    if (Spell.transporter.CanRicochet(other) || Spell.transporter.CanPierce()) return;
+                    break;
             }
-            if (Spell.transporter.CanRicochet(other) || Spell.transporter.CanPierce()) return;
             Spell.MyPhase = SpellMain.Phase.EndStart;
         }
         else if (detectObstacles) 
@@ -70,9 +81,13 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
 
     public void OnTriggerExitCallBack(Collider other)
     {
+       // print(1);
         if (_arcCalculator != null && !_arcCalculator.TargetInsideArc(other.transform.position)) return;
+     //   print(2);
         if (other.gameObject.layer == LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt)) return;
+      //  print(3);
         if (!Spell.collidersDetected.Contains(other)) return;
+      // print(4);
         Spell.collidersDetected.Remove(other);
         
         if (!onExit) return;

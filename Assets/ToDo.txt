@@ -1,6 +1,7 @@
 ------TODO------
 
 GENERAL
+Implement stat changes on spells/skills (example at Mage subOnStatChange() method)
 Implement status mechanics
 Gold and Xp mechanics
 Buffs on one hit (e.g. next strike does 100% more damage) - now there are two logics that solve it: normal buff and argument in method "GetDamage(Element el)". 

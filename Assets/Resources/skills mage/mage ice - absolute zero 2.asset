@@ -56,6 +56,6 @@ MonoBehaviour:
     effects: []
   hasAfterSpells: 0
   afterSpells: []
-  hasGeneric: 0
-  valueGeneric: 0
+  hasGeneric: 1
+  valueGeneric: 5
   valueGenericArray: []

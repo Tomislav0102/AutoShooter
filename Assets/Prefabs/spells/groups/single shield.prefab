@@ -102,11 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198342057214220678, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.06
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 198342057214220678, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.03
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 198342057214220678, guid: 293eb36a3d90b754881b27bea2223b4e, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
@@ -257,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Name
-      value: shield ranged blocker
+      value: single shield
       objectReference: {fileID: 0}
     - target: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_Layer

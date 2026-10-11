@@ -39,22 +39,22 @@ MonoBehaviour:
     manaShieldPoints: 0
     hasStats: 1
     stats:
-    - stat: 5
+    - stat: 11
       buffType: 0
       data:
-        value: 20
+        value: 200
         permanent: 1
         <Duration>k__BackingField: 0
-    - stat: 7
+    - stat: 12
       buffType: 0
       data:
         value: 50
         permanent: 1
         <Duration>k__BackingField: 0
-    - stat: 11
+    - stat: 23
       buffType: 0
       data:
-        value: 100
+        value: 3
         permanent: 1
         <Duration>k__BackingField: 0
     hasEffect: 0
@@ -68,5 +68,5 @@ MonoBehaviour:
   hasAfterSpells: 0
   afterSpells: []
   hasGeneric: 1
-  valueGeneric: 0.6
+  valueGeneric: 0.2
   valueGenericArray: []

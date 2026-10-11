@@ -44,11 +44,14 @@ public class SpellMain : MonoBehaviour
     [BoxGroup("id", false)] [Button]
     void GenerateId()=> id = Random.Range(0, 999999999);
     
-    [Title("Data")]
+    [Title("Settings")]
     public bool isInterrupt;
     [SerializeField] bool canBeBlocked;
     [SerializeField] bool canBeDodged;
     [SerializeField] bool triggersOnHitEvent;
+    [SerializeField] bool ignoreCollisionsWithOwner = true;
+    [SerializeField] bool removeBuffsAfterEnd;
+    HashSet<Brain> _targetsBuff = new HashSet<Brain>();
     [ReadOnly] public bool spellActive;
     [ReadOnly] public PassData pd;
     public Brain OwnersBrain
@@ -70,11 +73,11 @@ public class SpellMain : MonoBehaviour
             switch (colliderType)
             {
                 case ColliderType.Sphere:
-                    Physics.IgnoreCollision(mySphereCollider, OwnersBrain.myCollider);
+                    if (ignoreCollisionsWithOwner) Physics.IgnoreCollision(mySphereCollider, OwnersBrain.myCollider);
                     mySphereCollider.enabled = true;
                     break;
                 case ColliderType.Capsule:
-                    Physics.IgnoreCollision(myCapsuleCollider, OwnersBrain.myCollider);
+                    if (ignoreCollisionsWithOwner) Physics.IgnoreCollision(myCapsuleCollider, OwnersBrain.myCollider);
                     myCapsuleCollider.enabled = true;
                     break;
             }
@@ -100,8 +103,7 @@ public class SpellMain : MonoBehaviour
                     visual.PlayDefault();
                     break;
                 case Phase.EndStart:
-                    if (terminateOnHit) MyPhase = Phase.EndEnd;
-                    else MyPhase = Phase.SpellRuns;
+                    MyPhase = terminateOnHit ? Phase.EndEnd : Phase.SpellRuns;
                     break;
                 case Phase.EndEnd:
                     onEnd?.Invoke();
@@ -209,7 +211,7 @@ public class SpellMain : MonoBehaviour
 
     #region EVENTS, CALLBACKS
     public System.Action onEnd;
-    public System.Action<Brain> onHitTarget { get; set; }
+    public System.Action<Brain> onHitTarget;
     System.Action _onAfterSpell;
     void CallEv_OnEnd()
     {
@@ -222,6 +224,24 @@ public class SpellMain : MonoBehaviour
         IEnumerator endDelay()
         {
             yield return extraLifeTimeForParticles ? Ga.me.wait100 : Ga.me.wait00;
+            foreach (Brain item in _targetsBuff)
+            {
+                if (pd.hasStats)
+                {
+                    for (int i = 0; i < pd.stats.Length; i++)
+                    {
+                        item.character.CharacterInjectData(GenChange.Remove, pd.stats[i]);
+                    }
+                }
+                if (pd.hasEffect)
+                {
+                    for (int i = 0; i < pd.effects.Length; i++)
+                    {
+                        item.status.StatusInjectData(GenChange.Remove, pd.effects[i]);
+                    }
+                    
+                }
+            }
             Destroy(gameObject);
         }
     }
@@ -270,6 +290,7 @@ public class SpellMain : MonoBehaviour
             for (int i = 0; i < pd.effects.Length; i++)
             {
                 targetsBrain.status.StatusInjectData(GenChange.Add, pd.effects[i]);
+                if (removeBuffsAfterEnd) _targetsBuff.Add(targetsBrain);
             }
         }
         if (pd.hasStats)
@@ -277,6 +298,7 @@ public class SpellMain : MonoBehaviour
             for (int i = 0; i < pd.stats.Length; i++)
             {
                 targetsBrain.character.CharacterInjectData(GenChange.Add, pd.stats[i]);
+                if (removeBuffsAfterEnd) _targetsBuff.Add(targetsBrain);
             }
         }
         if (pd.hasKnockback)
@@ -383,6 +405,16 @@ public class SpellMain : MonoBehaviour
     public static SpellMain Sp(SpellMain spell, Vector3 pos, Quaternion rot)
     {
         return Instantiate(spell, pos, rot, Ga.me.spells.myTransform);
+    }
+    [Title("debug")]
+    [Button]
+    void TheButton()
+    {
+        if (collidersDetected.Count == 0) print("no colls");
+        foreach (Collider item in collidersDetected)
+        {
+            print(item.GetComponent<Transform>().parent);
+        }
     }
 }
 

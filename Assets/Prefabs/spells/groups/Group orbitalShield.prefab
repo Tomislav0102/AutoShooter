@@ -45,6 +45,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrbitalGroup
   myTransform: {fileID: 3274738013035527048}
+  mainPrefabPair:
+    <Key>k__BackingField:
+    - {fileID: 1805232084315020725, guid: 2f22d8484b5757a4a80a8f8220621e77, type: 3}
+    <Value>k__BackingField:
+    - myBrain: {fileID: 0}
+      hasDamage: 0
+      damagePair:
+        <Key>k__BackingField: 
+        <Value>k__BackingField: []
+      spellsVelocity: {x: 0, y: 0}
+      hasKnockback: 0
+      knockbackPower: 0
+      knockbackDirection: {x: 0, y: 0}
+      hasDash: 0
+      dashPower: 0
+      dashDirection: {x: 0, y: 0}
+      hasManaShield: 0
+      manaShieldPoints: 0
+      hasStats: 0
+      stats: []
+      hasEffect: 0
+      effects: []
+  spellsRunning: []
   orbitingAnchor: {fileID: 0}
   distanceFromAnchor: 2
   followPosition: 1

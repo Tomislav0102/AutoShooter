@@ -1,21 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
 public class SpellGroup : MonoBehaviour
 {
     public Transform myTransform;
     protected Brain owner;
-    protected MyDuo<SpellMain, PassData> prefabsAndData;
+    public MyDuo<SpellMain, PassData> mainPrefabPair;
     [HideInInspector] public SpellMain[] spellsRunning;
     public GroupPassData groupPassData;
     
-    public virtual void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
-    {
-        owner = ownersBrain;
-        prefabsAndData = duo;
-    }
-    public virtual void InitializeMe(Brain ownersBrain, PassData pd)
+    public virtual void InitializeMe(Brain ownersBrain)
     {
         owner = ownersBrain;
     }

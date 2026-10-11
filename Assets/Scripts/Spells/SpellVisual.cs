@@ -36,6 +36,13 @@ public class SpellVisual : MonoBehaviour, IIniSpell
                     var shape = psDefault.shape;
                     shape.radius = value.areaOfEffect * 0.5f;
                     break;
+                case SizeModifierType.Shape_Group:
+                    for (int i = 0; i < psExtra.Length; i++)
+                    {
+                        ParticleSystem.ShapeModule psShape = psExtra[i].shape;
+                        psShape.radius = value.areaOfEffect * 0.5f - 0.1f * i;
+                    }
+                    break;
                 case SizeModifierType.TransformScale:
                     transform.localScale = value.areaOfEffect * Vector3.one;
                     break;
@@ -54,6 +61,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
     SpellMain _spell;
 
     [SerializeField] ParticleSystem psDefault;
+    [SerializeField] ParticleSystem[] psExtra;
     Light _lightDefault;
     [SerializeField] ParticleSystem psHit;
     Light _lightHit;
@@ -61,6 +69,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
     {
         TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
         Emission_Shape, 
+        Shape_Group,
         Velocity_Over_Lifetime, //not used
         Other_None
     }

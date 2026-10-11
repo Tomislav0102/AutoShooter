@@ -31,7 +31,7 @@ public enum ColliderType { Sphere, Capsule, None }//Capsule always has radius of
 public enum DropType { Gold, Xp, Heal, ItemSpell }
 public enum Element { Physical, Fire, Ice, Electricity, Poison, Magic }
 public enum Faction { GoodGuys, BadGuys, Neutral }
-public enum FactionToTarget { Ally, Enemy, All }
+public enum FactionToTarget { Ally, Enemy, Neutral }
 public enum Alertness { Relaxed, Alarmed, Fighting }
 public enum CombatEvent
 {
@@ -147,7 +147,7 @@ public enum SkillName
     KnightBase,
     ConcussiveSurge,
     Statue,
-    Kn03,
+    FuneralTornado,
     Kn04,
     Kn05,
     Kn06,

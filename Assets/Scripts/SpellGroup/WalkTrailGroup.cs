@@ -4,17 +4,18 @@ using UnityEngine;
 public class WalkTrailGroup : SpellGroup
 {
     float _timer;
-    const float CONST_SpawnRate = 0.1f;
+    const float CONST_SpawnRate = 0.05f;
     HashSet<Collider> _spawns;
     float _radius;
-    [SerializeField] SpellMain spellPrefab;
 
-    public override void InitializeMe(Brain ownersBrain, PassData pd)
+    public override void InitializeMe(Brain ownersBrain)
     {
-        base.InitializeMe(ownersBrain, pd);
-        prefabsAndData = new MyDuo<SpellMain, PassData>();
-        prefabsAndData.Add(spellPrefab, pd);
-        _radius = groupPassData.setAreaOfEffect ? groupPassData.areaOfEffect : spellPrefab.areaOfEffect;
+        base.InitializeMe(ownersBrain);
+        for (int i = 0; i < mainPrefabPair.Length(); i++)
+        {
+            mainPrefabPair.GetValue(i).myBrain = ownersBrain;
+        }
+        _radius = groupPassData.setAreaOfEffect ? groupPassData.areaOfEffect : mainPrefabPair.GetKey(0).areaOfEffect;
         _spawns = new HashSet<Collider>();
     }
 
@@ -31,10 +32,10 @@ public class WalkTrailGroup : SpellGroup
             if (_spawns.Contains(colliders[i])) return;
         }
 
-        SpellMain spell = Instantiate(prefabsAndData.GetKey(0), owner.myTransform.position, Quaternion.identity, myTransform);
+        SpellMain spell = Instantiate(mainPrefabPair.GetKey(0), owner.myTransform.position, Quaternion.identity, myTransform);
         if (groupPassData.setAreaOfEffect) spell.areaOfEffect = groupPassData.areaOfEffect;
         if (groupPassData.setLifeTime) spell.lifeTime = groupPassData.lifeTime;
-        spell.InitializeMe(owner, prefabsAndData.GetValue(0), () =>
+        spell.InitializeMe(owner, mainPrefabPair.GetValue(0), () =>
         {
             if (_spawns.Contains(spell.mySphereCollider)) _spawns.Remove(spell.mySphereCollider);
         });

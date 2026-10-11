@@ -22,7 +22,6 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     [SerializeField] Transform myShield;
     PlayerCombat _playerCombat;
     float _stunAttacksDurationExtra; //applied on every stun effect 
-    SoSkill _skillSeismicAnchorage;
     float _timerSeismicAnchorage;
     float _crescendoStrikeIncrease = 1f;
     BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
@@ -30,7 +29,10 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     SpellMain _spellLethargicDomain;
     SpellMain _spellAdvanceGuard;
     bool _canAdvanceGuard;
-    SoSkill _skillStatue;
+    Queue<SpellMain> _queueStatues;
+    int _numMaxStatues;
+    float _cooldownFuneralTornado;
+    const int CONST_CooldownFuneralTornado = 4;
 
     void OnEnable()
     {
@@ -53,12 +55,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         
         void seismicAnchorage()
         {
-            if (_skillSeismicAnchorage is null) return;
+            if (!Br.skills.TryGetFromGroup(SkillName.SeismicAnchorage, out SoSkill skill)) return;
             _timerSeismicAnchorage += Time.deltaTime;
             if (Br.loco.IsMoving) _timerSeismicAnchorage = 0f;
-            if (_timerSeismicAnchorage < _skillSeismicAnchorage.valueGeneric) return;
+            if (_timerSeismicAnchorage < skill.valueGeneric) return;
             _timerSeismicAnchorage = 0f;
-            SpellMain sa = SpellMain.Sp(_skillSeismicAnchorage.spell, Br);
+            SpellMain sa = SpellMain.Sp(skill.spell, Br);
             PassData passData = new PassData()
             {
                 hasEffect = true,
@@ -94,18 +96,15 @@ public class PC_Knight : MonoBehaviour, IIniBrain
             case SkillName.SkullCracker:
                 _stunAttacksDurationExtra += newSkill.valueGeneric;
                 break;
-            case SkillName.SeismicAnchorage:
-                _skillSeismicAnchorage = newSkill;
-                break;
             case SkillName.AdvanceGuard:
                 _spellAdvanceGuard = SpellMain.Sp(newSkill.spell, Br, true);
                 _spellAdvanceGuard.transporter.target = Br.myTransform;
                 _spellAdvanceGuard.InitializeMe(Br);
                 break;
             case SkillName.Statue:
-                _skillStatue = newSkill;
+                if (newSkill.level == 0) _queueStatues = new Queue<SpellMain>();
+                _numMaxStatues++;
                 break;
-            
             case SkillName.IronFortress: //ultimate 1
             case SkillName.ConcussiveSurge: //ultimate 2
                 Br.skills.myUltimate = newSkill;
@@ -382,17 +381,22 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 statue();
                 void statue()
                 {
-                    if (_skillStatue is null) return;
-                    if (Random.value > _skillStatue.valueGeneric) return;
+                    if (!Br.skills.TryGetFromGroup(SkillName.Statue, out SoSkill skill)) return;
+                    if (Random.value > skill.valueGeneric) return;
                     if (Br.loco.IsMoving) return;
-                    SpellMain spell = SpellMain.Sp(_skillStatue.spell, Br.myTransform.position);
-                    BuffStats buffStats = _skillStatue.passData.stats[Random.Range(0,  _skillStatue.passData.stats.Length)];
+                    SpellMain spell = SpellMain.Sp(skill.spell, Br.myTransform.position);
+                    BuffStats buffStats = skill.passData.stats[Random.Range(0, skill.passData.stats.Length)];
                     PassData pd = new PassData()
                     {
                         hasStats = true,
                         stats = new BuffStats[1] { buffStats }
                     };
                     spell.InitializeMe(Br, pd);
+                    _queueStatues.Enqueue(spell);
+                    if (_queueStatues.Count <= _numMaxStatues) return;
+                    SpellMain previous = _queueStatues.Peek();
+                    _queueStatues.Dequeue();
+                    previous.MyPhase = SpellMain.Phase.EndEnd;
                 }
                 break;
             case CombatEvent.GetHit:
@@ -437,11 +441,13 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.Kill:
                 arcaneHarvest();
+                funeralTornado();
                 void arcaneHarvest()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ArcaneHarvest, out SoSkill sk)) return;
+                    if (!Br.skills.TryGetFromGroup(SkillName.ArcaneHarvest, out SoSkill skill)) return;
+                    if (otherBrain != null) return;
                     if (otherBrain.character.GetStat(Stats.DamMagic) < Br.character.GetStat(Stats.DamMagic)) return;
-                    Br.character.CharacterInjectData(GenChange.Add, sk.passData.stats[0]);
+                    Br.character.CharacterInjectData(GenChange.Add, skill.passData.stats[0]);
                 }
                 break;
             
@@ -467,5 +473,33 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         }
 
     }
+    
+    [Button]
+    void funeralTornado()
+    {
+        if (!Br.skills.TryGetFromGroup(SkillName.FuneralTornado, out SoSkill skill)) return;
+        SpellMain spell = SpellMain.Sp(skill.spell, Br.myTransform.position);
+        spell.transporter.target = Br.myTransform;
+        float damageValue = Br.character.GetDamage(Element.Physical).GetValue(0) * ( 1 + skill.passData.stats[0].data.value * 0.01f);
+        PassData pd = new PassData()
+        {
+            hasDamage = true,
+            damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1]{damageValue})
+        };
+        spell.lifeTime = skill.valueGeneric;
+        spell.areaOfEffect += skill.level * 2;
+        spell.InitializeMe(Br, pd);
+        return;
+        IEnumerator cooldown()
+        {
+            _cooldownFuneralTornado = CONST_CooldownFuneralTornado;
+            while (_cooldownFuneralTornado > 0)
+            {
+                _cooldownFuneralTornado -= Time.deltaTime;
+                yield return null;
+            }
+        }
+    }
+
 }
 

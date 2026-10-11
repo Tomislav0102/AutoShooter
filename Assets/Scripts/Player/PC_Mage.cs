@@ -15,8 +15,22 @@ public class PC_Mage : MonoBehaviour, IIniBrain
         {
             _br = value;
             _playerCombat = GetComponent<PlayerCombat>();
-            _numOfObjects = (int)value.character.GetStat(Stats.Projectiles);
             value.skills.onSkillIncrease += SkillIncreaseCallback;
+            _numOfObjects = value.character.GetStat(Stats.Projectiles);
+            subOnStatChange();
+
+            void subOnStatChange()
+            {
+                value.character.onStatChange += ((Stats sta) =>
+                {
+                    switch (sta)
+                    {
+                        case Stats.Projectiles:
+                            _numOfObjects = value.character.GetStat(Stats.Projectiles);
+                            break;
+                    }
+                });
+            }
         }
     }
     Brain _br;
@@ -127,21 +141,21 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellDragonsBreath.InitializeMe(Br, pd);
                 break;
             case SkillName.BlazeTrail:
-                SpellGroup groupWalkTrail = SpellGroup.Gr(newSkill.spellGroup, Br);
-                PassData pdWalkTrail = new PassData()
+                SpellGroup groupBlazeTrail = SpellGroup.Gr(newSkill.spellGroup, Br);
+                PassData pdBlazeTrail = new PassData()
                 {
-                    myBrain = Br,
                     hasDamage = true,
                     damagePair = Br.character.GetDamage(Element.Fire)
                 };
-                groupWalkTrail.groupPassData = new SpellGroup.GroupPassData()
+                groupBlazeTrail.groupPassData = new SpellGroup.GroupPassData()
                 {
                     setAreaOfEffect = true,
                     areaOfEffect = 1 + Br.character.GetStat(Stats.Size) * 0.1f,
                     setLifeTime = true,
                     lifeTime = newSkill.valueGeneric + Br.character.GetStat(Stats.Duration) * 0.1f,
                 };
-                groupWalkTrail.InitializeMe(Br, new MyDuo<SpellMain, PassData>(new SpellMain[1] { Ga.me.spells.walkTrailSingle }, new PassData[1] { pdWalkTrail }));
+                groupBlazeTrail.mainPrefabPair.SetValue(0, pdBlazeTrail);
+                groupBlazeTrail.InitializeMe(Br);
                 break;
             case SkillName.Meltdown:
                 Ga.me.runData.AddAllVulnerabilities(Status.Effect.Burning_dot, (int)newSkill.valueGeneric);
@@ -169,14 +183,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 SpellGroup groupShields = SpellGroup.Gr(newSkill.spellGroup, Br);
                 OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
                 orbitalGroupShields.orbitingAnchor = Br.myTransform;
-                SpellMain[] shieldsPrefabs = new SpellMain[_numOfObjects];
-                PassData[] pdShields = new PassData[_numOfObjects];
-                for (int i = 0; i < _numOfObjects; i++)
-                {
-                    shieldsPrefabs[i] = Ga.me.spells.shieldFromProjectiles;
-                    pdShields[i] = null;
-                }
-                groupShields.InitializeMe(Br, new MyDuo<SpellMain, PassData>(shieldsPrefabs, pdShields));
+                groupShields.InitializeMe(Br);
                 break;
             case SkillName.GlacialShield:
                 _skillGlacialShield = newSkill;
@@ -189,6 +196,23 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 Ga.me.runData.AddAllVulnerabilities(Status.Effect.Frozen, (int)newSkill.valueGeneric);
                 break;
             case SkillName.AbsoluteZero:
+                SpellGroup groupAbsoluteZero = SpellGroup.Gr(newSkill.spellGroup, Br);
+                PassData pdAbsoluteZero = new PassData()
+                {
+                    hasDamage = true,
+                    damagePair = Br.character.GetDamage(Element.Ice, 0.1f, newSkill.passData.damagePair),
+                    hasStats = true,
+                    stats = new BuffStats[1] {newSkill.passData.stats[0]}
+                };
+                groupAbsoluteZero.groupPassData = new SpellGroup.GroupPassData()
+                {
+                    setAreaOfEffect = true,
+                    areaOfEffect = 1 + 0.1f * (Br.character.GetStat(Stats.Size) + newSkill.passData.stats[1].data.value),
+                    setLifeTime = true,
+                    lifeTime = newSkill.valueGeneric + Br.character.GetStat(Stats.Duration) * 0.1f,
+                };
+                groupAbsoluteZero.mainPrefabPair.SetValue(0, pdAbsoluteZero);
+                groupAbsoluteZero.InitializeMe(Br);
                 break;
             case SkillName.Armageddon: //ultimate fire
                 Br.skills.myUltimate = newSkill;

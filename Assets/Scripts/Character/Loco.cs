@@ -21,13 +21,23 @@ public class Loco : MonoBehaviour, IIniBrain
             myRenderer =  GetComponentInChildren<Renderer>();
             SetMaterial();
             brainEv.Invoke(value);
+            moveSpeed = Br.character.GetStat(Stats.MoveSpeed) * 0.1f;
+            value.character.onStatChange += (Stats s) =>
+            {
+                switch (s)
+                {
+                    case Stats.MoveSpeed:
+                        moveSpeed = Br.character.GetStat(s) * 0.1f;
+                        break;
+                }
+            };
         }
     }
     Brain _br;
     [SerializeField] Renderer myRenderer;
     [SerializeField] Material[] myMaterials;
     public Animator anim;
-    [SerializeField, Range(0, 10)] public int moveSpeed = 1;
+    [ReadOnly] public float moveSpeed = 1;
     [SerializeField] protected int knockBackResistance;
     [field: SerializeField, ReadOnly] public bool OvrMotion { get; set; } //can control player, override agent destination
     public bool OvrOrientation //has player joystickLookAt, agent.updateRotation

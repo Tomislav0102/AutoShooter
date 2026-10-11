@@ -44,16 +44,19 @@ public class Skills : MonoBehaviour, IIniBrain
             if (useKnight)
             {
                 OvrLevelSpecificSkill(SkillName.Statue);
+                OvrLevelSpecificSkill(SkillName.IronMirror);
+                OvrLevelSpecificSkill(SkillName.FuneralTornado);
                 
             }
             if (useMage)
             {
                //  OvrLevelSpecificSkill(SkillName.ChillingTouch);
                //  OvrLevelSpecificSkill(SkillName.IceSpear);
-               //  OvrLevelSpecificSkill(SkillName.OrbitalBulwark);
+                 OvrLevelSpecificSkill(SkillName.OrbitalBulwark);
                  // OvrLevelSpecificSkill(SkillName.GlacialShield);
                  // OvrLevelSpecificSkill(SkillName.Shatter);
                   OvrLevelSpecificSkill(SkillName.AbsoluteZero);
+                //  OvrLevelSpecificSkill(SkillName.BlazeTrail);
             }
             if (useArcher)
             {
@@ -204,6 +207,7 @@ public class Skills : MonoBehaviour, IIniBrain
         }
     }
 
+    //not optimized
     public bool TryGetFromGroup(SkillName skillName, out SoSkill skill)
     {
         skill = null;

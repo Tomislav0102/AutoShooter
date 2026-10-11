@@ -155,7 +155,8 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                             print("should only be 2, 4, or 6 swords.");
                             return;
                     }
-                    groupSwords.InitializeMe(Br, new MyDuo<SpellMain, PassData>(swords, pds));
+                    groupSwords.mainPrefabPair = new MyDuo<SpellMain, PassData>(swords, pds);
+                    groupSwords.InitializeMe(Br);
                 }
                 break;
         }

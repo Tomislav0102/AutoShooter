@@ -13,17 +13,18 @@ public class OrbitalGroup : SpellGroup
     [SerializeField, Range(0, 359), HideIf(nameof(fullCircle))] int arc = 359;
 
 
-    public override void InitializeMe(Brain ownersBrain, MyDuo<SpellMain, PassData> duo)
+    public override void InitializeMe(Brain ownersBrain)
     {
-        base.InitializeMe(ownersBrain, duo);
-        float[] angles = Utils.RadialSpreadAngles(duo.Length());
-        spellsRunning = new SpellMain[duo.Length()];
-        for (int i = 0; i < duo.Length(); i++)
+        base.InitializeMe(ownersBrain);
+        float[] angles = Utils.RadialSpreadAngles(mainPrefabPair.Length());
+        spellsRunning = new SpellMain[mainPrefabPair.Length()];
+        for (int i = 0; i < mainPrefabPair.Length(); i++)
         {
-            SpellMain spell = Instantiate(duo.GetKey(i), myTransform.position, Quaternion.identity, myTransform);
+            mainPrefabPair.GetValue(i).myBrain = ownersBrain;
+            SpellMain spell = Instantiate(mainPrefabPair.GetKey(i), myTransform.position, Quaternion.identity, myTransform);
             spell.myTransform.localRotation = Quaternion.AngleAxis(angles[i], Vector3.up);
             spell.myTransform.position += distanceFromAnchor * spell.myTransform.forward;
-            spell.InitializeMe(ownersBrain, duo.GetValue(i));
+            spell.InitializeMe(ownersBrain, mainPrefabPair.GetValue(i));
             spellsRunning[i] = spell;
         }
     }

@@ -3857,6 +3857,7 @@ Transform:
   - {fileID: 583271033}
   - {fileID: 1078250184}
   - {fileID: 1636736212}
+  - {fileID: 1188259821}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &905241318
@@ -4341,13 +4342,17 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+    - target: {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_Name
       value: BE_Treant (5)
       objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4414,13 +4419,17 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+    - target: {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_Name
       value: BE_Treant (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4499,7 +4508,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 889430188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1194360187 stripped
 Transform:
@@ -5953,13 +5962,17 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+    - target: {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_Name
       value: BE_Treant (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6105,13 +6118,17 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+    - target: {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_Name
       value: BE_Treant (3)
       objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6743,13 +6760,17 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+    - target: {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_Name
       value: BE_Treant (4)
       objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7582,7 +7603,7 @@ PrefabInstance:
       objectReference: {fileID: 6400604979493885774, guid: b48b3af879801384cb31fe04055cce79, type: 3}
     - target: {fileID: 6881951911863269870, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: canAttack
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8865262984797761726, guid: b48b3af879801384cb31fe04055cce79, type: 3}
       propertyPath: m_Name
@@ -8870,7 +8891,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 440457999}
   - {fileID: 851573352}
-  - {fileID: 1188259821}
   - {fileID: 1269000370}
   - {fileID: 889430188}
   - {fileID: 1179504841}
