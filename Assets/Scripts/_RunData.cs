@@ -29,11 +29,17 @@ public class RunData
         switch (effect)
         {
             case Status.Effect.Burning_dot:
-                int prevValue = enUnderEffect.GetValueByKey(Status.Effect.Burning_dot);
-                if (on) prevValue++;
-                else prevValue--;
-                enUnderEffect.SetValueByKey(Status.Effect.Burning_dot, prevValue);
+            case  Status.Effect.Frozen:
+                change();
                 break;
+                void change()
+                {
+                    int prevValue = enUnderEffect.GetValueByKey(effect);
+                    if (on) prevValue++;
+                    else prevValue--;
+                    enUnderEffect.SetValueByKey(effect, prevValue);
+                    
+                }
         }
     }
 

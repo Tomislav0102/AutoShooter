@@ -28,6 +28,7 @@ public class Status : MonoBehaviour, IIniBrain
         Serrated, //2X damage vs unarmored, 0.5X damage vs armored
         Explosive, //bonus knockback
     }
+    //I think it has to be static
     public static System.Action<Brain, Effect, bool> OnEffectChange;
     
     RectTransform _status;

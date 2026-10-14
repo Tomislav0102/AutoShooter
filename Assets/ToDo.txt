@@ -1,6 +1,8 @@
 ------TODO------
 
 GENERAL
+Implement stat affecting other stats 
+            - e.g. BodySize should change, DamPhys, ResistPhys, Dodge, MoveSpeed, AttackSpeed, CriticalHit, Size, Knockback...
 Implement stat changes on spells/skills (example at Mage subOnStatChange() method)
 Implement status mechanics
 Gold and Xp mechanics
@@ -11,6 +13,7 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
 
 
 SKILLS
+shared - Last Stand does not work?
 
 KNIGHT
 Seismic Anchorage skill - needs animation

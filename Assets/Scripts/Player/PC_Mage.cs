@@ -21,12 +21,12 @@ public class PC_Mage : MonoBehaviour, IIniBrain
 
             void subOnStatChange()
             {
-                value.character.onStatChange += ((Stats sta) =>
+                value.character.onStatChange += ((Stats sta, float val) =>
                 {
                     switch (sta)
                     {
                         case Stats.Projectiles:
-                            _numOfObjects = value.character.GetStat(Stats.Projectiles);
+                            _numOfObjects = (int)val;
                             break;
                     }
                 });
@@ -41,6 +41,10 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     bool _isCasting; //debug. all attacks must finish before new animation event triggers a cast coroutine
 
     #region SKILLS
+    SoSkill _skillPyromania;
+    BuffStats[] _buffsPyromania = Array.Empty<BuffStats>();
+    SoSkill _skillPermafrostSkin;
+    BuffStats _buffPermafrostSkin;
     List<SoSkill> _activeSkills = new List<SoSkill>();
     SoSkill _skillArcaneShield;
     SpellMain _spellArcaneShield;
@@ -49,8 +53,6 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     SpellMain _spellManaShield;
     SpellMain _spellBastionPulse;
     SpellMain _spellDragonsBreath;
-    int _pyromaniaBonus;
-    BuffStats _buffPyromania;
     SoSkill _skillChillingTouch;
     HashSet<Brain> _chilledBrains;
     BuffStats[] _buffsChillingTouch;
@@ -72,22 +74,26 @@ public class PC_Mage : MonoBehaviour, IIniBrain
     }
     void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
     {
-        if (brain == Br || brain.Faction != Faction.BadGuys) return;
-        if (_pyromaniaBonus == 0)
-        {
-            if (_buffPyromania == null) return;
-            Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
-            _buffPyromania = null;
-            return;
-        }
+        if (brain.Faction != Faction.BadGuys) return;
         switch (effect)
         {
             case Status.Effect.Burning_dot:
-                if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
+                if (_skillPyromania is null) return;
+                for (int i = 0; i < _buffsPyromania.Length; i++)
+                {
+                    Br.character.CharacterInjectData(GenChange.Remove, _buffsPyromania[i]);
+                    if (!on) break;
+                    _buffsPyromania[i] = new BuffStats(Character.StatByElement((Element)i), BuffType.Percentage, _skillPyromania.valueGeneric * Ga.me.runData.enUnderEffect.GetValueByKey(effect));
+                    Br.character.CharacterInjectData(GenChange.Add, _buffsPyromania[i]);
+                }
+                break;
+            case Status.Effect.Frozen:
+                if (_skillPermafrostSkin is null) return;
+                Br.character.CharacterInjectData(GenChange.Remove, _buffPermafrostSkin);
                 if (on)
                 {
-                    _buffPyromania = new BuffStats(Stats.DamPhysical, BuffType.Percentage, _pyromaniaBonus * Ga.me.runData.enUnderEffect.GetValueByKey(Status.Effect.Burning_dot));
-                    Br.character.CharacterInjectData(GenChange.Add, _buffPyromania);
+                    _buffPermafrostSkin = new BuffStats(Stats.ResistPhysical, BuffType.Added, _skillPermafrostSkin.passData.stats[0].data.value * Ga.me.runData.enUnderEffect.GetValueByKey(effect));
+                    Br.character.CharacterInjectData(GenChange.Add, _buffPermafrostSkin);
                 }
                 break;
         }
@@ -161,8 +167,12 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 Ga.me.runData.AddAllVulnerabilities(Status.Effect.Burning_dot, (int)newSkill.valueGeneric);
                 break;
             case SkillName.Pyromania:
-                if (_buffPyromania != null) Br.character.CharacterInjectData(GenChange.Remove, _buffPyromania);
-                _pyromaniaBonus = 2 * (newSkill.level + 1);
+                for (int i = 0; i < _buffsPyromania.Length; i++)
+                {
+                    Br.character.CharacterInjectData(GenChange.Remove, _buffsPyromania[i]);
+                }
+                _buffsPyromania = new BuffStats[System.Enum.GetNames(typeof(Element)).Length];
+                _skillPyromania = newSkill;
                 break;
             case SkillName.ChillingTouch:
                 _skillChillingTouch = newSkill;
@@ -183,6 +193,13 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 SpellGroup groupShields = SpellGroup.Gr(newSkill.spellGroup, Br);
                 OrbitalGroup orbitalGroupShields = groupShields as OrbitalGroup;
                 orbitalGroupShields.orbitingAnchor = Br.myTransform;
+                int length = Br.character.GetStat(Stats.Projectiles) + newSkill.level + 1;
+                SpellMain spellShield = groupShields.mainPrefabPair.GetKey(0);
+                groupShields.mainPrefabPair = new MyDuo<SpellMain, PassData>();
+                for (int i = 0; i < length; i++)
+                {
+                    groupShields.mainPrefabPair.Add(spellShield, new PassData());
+                }
                 groupShields.InitializeMe(Br);
                 break;
             case SkillName.GlacialShield:
@@ -214,7 +231,11 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 groupAbsoluteZero.mainPrefabPair.SetValue(0, pdAbsoluteZero);
                 groupAbsoluteZero.InitializeMe(Br);
                 break;
-            case SkillName.Armageddon: //ultimate fire
+            case SkillName.PermafrostSkin:
+                _skillPermafrostSkin = newSkill;
+                break;
+            case SkillName.Armageddon: //ultimate
+            case SkillName.Blizzard:
                 Br.skills.myUltimate = newSkill;
                 Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
                 break;
@@ -543,7 +564,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
             case SkillName.Armageddon:
                 SpellMain armageddon = SpellMain.Sp(Br.skills.myUltimate.spell, Br);
                 armageddon.transporter.target = Br.myTransform;
-                PassData container = new PassData()
+                PassData pdArmageddon = new PassData()
                 {
                     hasDamage = true,
                     damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Fire }),
@@ -556,7 +577,23 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                     }
                 };
                 
-                armageddon.InitializeMe(Br, container);
+                armageddon.InitializeMe(Br, pdArmageddon);
+                break;
+            case SkillName.Blizzard:
+                SpellMain blizzard = SpellMain.Sp(Br.skills.myUltimate.spell, Br);
+                blizzard.transporter.target = Br.myTransform;
+                PassData pdBlizzard = new PassData()
+                {
+                    hasDamage = true,
+                    damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Ice }),
+                    hasEffect =  true,
+                    effects = new BuffEffects[1]
+                    {
+                        new BuffEffects(Br, Status.Effect.Frozen, 1, 5)
+                    }
+                };
+                
+                blizzard.InitializeMe(Br, pdBlizzard);
                 break;
         }
     }

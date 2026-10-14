@@ -205,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -217,6 +217,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8214041943969997450, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
   m_PrefabInstance: {fileID: 30288}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &30293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6158677829121321946, guid: 3441c8974d87d7f4ab3a92c5c79a763c, type: 3}
+  m_PrefabInstance: {fileID: 30288}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60262cafc22dfa439fbb2697b9ab969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Brain
 --- !u!1 &1264422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,6 +1891,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6440566566876086895, guid: f8a5f4307ede5604c8b88da8e1822e0a, type: 3}
   m_PrefabInstance: {fileID: 624035926}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &686186270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686186272}
+  - component: {fileID: 686186271}
+  m_Layer: 0
+  m_Name: Pool Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &686186271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686186270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092a1f45546d5a0478c621af91010b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoolManager
+  parFloating: {fileID: 1089916676}
+  prefabFloatingText: {fileID: 5886353900442050348, guid: f9d91326456e2f64fa43f969e0cedfaa, type: 3}
+--- !u!4 &686186272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686186270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698561604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,7 +2388,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  brain: {fileID: 1740644864}
+  brain: {fileID: 30293}
   buffStat:
     stat: 23
     buffType: 0
@@ -2353,7 +2410,7 @@ MonoBehaviour:
       permanent: 1
       <Duration>k__BackingField: 0
   soSkill: {fileID: 0}
-  b: 0
+  segment: 99
   iterations: 1000000
 --- !u!1 &889464210
 GameObject:
@@ -3645,6 +3702,7 @@ MonoBehaviour:
   defCharacter: {fileID: 11400000, guid: c30f3f51f23c36347a1615bf0efa05a0, type: 2}
   spells: {fileID: 2141633715}
   uiManager: {fileID: 1335742374}
+  pool: {fileID: 686186271}
   debug: 0
 --- !u!4 &1349523940
 Transform:
@@ -4981,7 +5039,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 1f00f37659c9cb148968421391709e79, type: 2}
     - target: {fileID: 5022236844178524051, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: canAttack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: startActive
@@ -4993,7 +5051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9152218506064696801, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: serializationData.Prefab
@@ -5017,17 +5075,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
   m_PrefabInstance: {fileID: 1740644862}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1740644864 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5022236844178524051, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
-  m_PrefabInstance: {fileID: 1740644862}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740644863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e60262cafc22dfa439fbb2697b9ab969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Brain
 --- !u!1 &1839881853
 GameObject:
   m_ObjectHideFlags: 0
@@ -7490,6 +7537,7 @@ SceneRoots:
   - {fileID: 1349523940}
   - {fileID: 1335742375}
   - {fileID: 2141633716}
+  - {fileID: 686186272}
   - {fileID: 895749635}
   - {fileID: 1873764376}
   - {fileID: 747208673}

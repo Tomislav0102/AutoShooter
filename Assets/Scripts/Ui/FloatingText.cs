@@ -4,27 +4,50 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class FloatingText : MonoBehaviour
+public class FloatingText : MonoBehaviour, IPoolObject
 {
+    public PoolManager.Phase PoolPhase
+    {
+        get => _poolPhase; 
+        set
+        {
+            _poolPhase = value;
+            switch (_poolPhase)
+            {
+                case PoolManager.Phase.UnInitialized:
+                    break;
+                case PoolManager.Phase.Initialized:
+                    break;
+                case PoolManager.Phase.Running:
+                    break;
+                case PoolManager.Phase.Ended:
+                    for (int i = 0; i < myTexts.Length; i++)
+                    {
+                        myTexts[i].text = string.Empty;
+                    }
+                    _timer = 0f;
+                    break;
+            }
+        }
+    }
+    [ReadOnly, ShowInInspector] PoolManager.Phase _poolPhase;
     Color _endColor = Color.clear;
     
     [SerializeField] RectTransform myTransform;
     [SerializeField] TextMeshProUGUI[] myTexts;
     [SerializeField] HorizontalLayoutGroup myHorizontalLayoutGroup;
     Color[] _startColors;
-    bool _initialized;
-    float _lifeTime = 3f;
+    const float CONST_LifeTime = 3f;
     float _timer;
     Vector3 _startPosition;
     float _startingOffsetY;
-    int _widthSingle = 100;
+    const int CONST_WidthSingle = 100;
     
-    public void SpawnMe(MyDuo<Element, float> damage, float offsetY = 2f)
+    public void StartMe(Vector3 spawnPoint, MyDuo<Element, float> damage, float offsetY = 2f)
     {
-        _startColors = new Color[myTexts.Length];
+        Shared(spawnPoint, offsetY);
         MyDuo<Element, float> effDamage = new MyDuo<Element, float>();
         for (int i = 0; i < damage.Length(); i++)
         {
@@ -35,7 +58,6 @@ public class FloatingText : MonoBehaviour
             Element k = effDamage.GetKey(i);
             float v = effDamage.GetValue(i);
             int index = (int)k;
-            myTexts[index].enabled = true;
             if (v > 0)
             {
                 myTexts[index].text = $" <sprite index={index}>{v} ";
@@ -49,48 +71,52 @@ public class FloatingText : MonoBehaviour
 
         }
         
-        myTransform.sizeDelta = new Vector2(_widthSingle * effDamage.Length(), 0);
-        myHorizontalLayoutGroup.childControlWidth = true;
-        _startPosition = myTransform.position; 
-        _startingOffsetY = offsetY;
-        
-        _initialized = true;
+        myTransform.sizeDelta = new Vector2(CONST_WidthSingle * effDamage.Length(), 0);
     }    
-    public void SpawnMe(string st, Color col, float offsetY = 2f)
+    public void StartMe(Vector3 spawnPoint, string st, Color col, float offsetY = 2f)
     {
-        _startColors = new Color[myTexts.Length];
-        myTexts[0].enabled = true;
+        Shared(spawnPoint, offsetY);
         myTexts[0].text = st;
         myTexts[0].fontStyle = FontStyles.Bold;
         _startColors[0] = col;
-        myTransform.sizeDelta = new Vector2(_widthSingle, 0);
-        myHorizontalLayoutGroup.childControlWidth = true;
-        _startPosition = myTransform.position; 
-        _startingOffsetY = offsetY;
+        myTransform.sizeDelta = new Vector2(CONST_WidthSingle, 0);
         
-        _initialized = true;
-
+    }
+    void Shared(Vector3 spawnPoint, float offsetY)
+    {
+        _startColors = new Color[myTexts.Length];
+        myHorizontalLayoutGroup.childControlWidth = true;
+        _startPosition = myTransform.position = spawnPoint; 
+        _startingOffsetY = offsetY;
+        PoolPhase = PoolManager.Phase.Running;
     }
     
     void LateUpdate()
     {
-        if (!_initialized) return;
-        
-        _timer += Time.deltaTime;
-        float moveY = _startingOffsetY + _timer * 5f;
-        Vector3 targetPos = new Vector3(_startPosition.x, moveY, _startPosition.z);
-        myTransform.position = Ga.me.camRig.cam.WorldToScreenPoint(targetPos);
-        for (int i = 0; i < myTexts.Length; i++)
+        switch (PoolPhase)
         {
-            myTexts[i].color = Color.Lerp(_startColors[i], _endColor, _timer / _lifeTime);
+            case PoolManager.Phase.UnInitialized:
+                break;
+            case PoolManager.Phase.Initialized:
+                break;
+            case PoolManager.Phase.Running:
+                _timer += Time.deltaTime;
+                float moveY = _startingOffsetY + _timer * 5f;
+                Vector3 targetPos = new Vector3(_startPosition.x, moveY, _startPosition.z);
+                myTransform.position = Ga.me.camRig.cam.WorldToScreenPoint(targetPos);
+                for (int i = 0; i < myTexts.Length; i++)
+                {
+                    TextMeshProUGUI tmp = myTexts[i];
+                    float val = _timer / CONST_LifeTime;
+                    tmp.color = Color.Lerp(_startColors[i], _endColor, val);
+                }
+                if (_timer >= CONST_LifeTime) PoolPhase = PoolManager.Phase.Ended;
+                break;
+            case PoolManager.Phase.Ended:
+                break;
         }
-        if (_timer >= _lifeTime) EndMe();
+
+        
     }
 
-    void EndMe()
-    {
-        _initialized = false;
-        
-        Destroy(gameObject);
-    }
 }

@@ -25,6 +25,5 @@ public class EffectTarget : MonoBehaviour, IIniSpell
     public void Hit()
     {
         Spell.HitGeneric(_anchorBrain, out _);
-        Spell.onHitTarget?.Invoke(_anchorBrain);
     }
 }

@@ -23,7 +23,7 @@ public class EffectOverlap : MonoBehaviour, IIniSpell
     public void Hit()
     {
         Collider[] colliders = System.Array.Empty<Collider>();
-        bool eventCall = false;
+        bool eventCall = true;
         int layerMask = Utils.MyLayer(Spell.isInterrupt ? Ga.me.gameData.laySpell : Ga.me.gameData.layActors);
         
         switch (Spell.colliderType)
@@ -51,15 +51,13 @@ public class EffectOverlap : MonoBehaviour, IIniSpell
                 break;
         }
         
+        
         foreach (Collider item in colliders)
         {
             if (_arcCalculator != null && !_arcCalculator.TargetInsideArc(item.transform.position)) continue;
-            Spell.HitGeneric(item, out Brain targetBrain);
-            if (targetBrain == null) continue;
-            Spell.onHitTarget?.Invoke(targetBrain);
-            eventCall = true;
+            Spell.HitGeneric(item, out _, eventCall);
+            eventCall = false;
         }
-        if (!eventCall) Spell.onHitTarget?.Invoke(null);
     }
 
 }

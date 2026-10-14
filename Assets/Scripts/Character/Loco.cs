@@ -22,12 +22,12 @@ public class Loco : MonoBehaviour, IIniBrain
             SetMaterial();
             brainEv.Invoke(value);
             moveSpeed = Br.character.GetStat(Stats.MoveSpeed) * 0.1f;
-            value.character.onStatChange += (Stats s) =>
+            value.character.onStatChange += (Stats s, float val) =>
             {
                 switch (s)
                 {
                     case Stats.MoveSpeed:
-                        moveSpeed = Br.character.GetStat(s) * 0.1f;
+                        moveSpeed = val * 0.1f;
                         break;
                 }
             };

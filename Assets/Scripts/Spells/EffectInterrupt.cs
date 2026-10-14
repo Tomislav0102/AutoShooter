@@ -20,36 +20,36 @@ public class EffectInterrupt : MonoBehaviour, IIniSpell
     public void OnTriggerEnterCallBack(Collider other)
     {
         if (Spell.collidersDetected.Contains(other)) return;
-        if (!other.TryGetComponent(out SpellMain spell)) return;
-        if (spell.OwnersBrain == Spell.OwnersBrain) return; //dont interrupt your own spells
+        if (!other.TryGetComponent(out SpellMain targetSpell)) return;
+        if (targetSpell.OwnersBrain == Spell.OwnersBrain) return; //dont interrupt your own spells
         Spell.collidersDetected.Add(other);
         bool spellFound = false;
         for (int i = 0; i < spellsToInterrupt.Length; i++)
         {
-            if (spell.specialty != spellsToInterrupt[i]) continue;
+            if (targetSpell.specialty != spellsToInterrupt[i]) continue;
             spellFound = true;
             break;
         }
         if (!spellFound) return;
-
+        Spell.onHitTarget?.Invoke(targetSpell.OwnersBrain);
         switch (effect)
         {
             case SpellMain.HitEffectOnSpell.Nullify:
-                spell.MyPhase = SpellMain.Phase.EndEnd;
+                targetSpell.MyPhase = SpellMain.Phase.EndEnd;
                 break;
             case SpellMain.HitEffectOnSpell.Reflect:
-                switch (spell.specialty)
+                switch (targetSpell.specialty)
                 {
                     case SpellMain.Specialty.General:
                         break;
                     case SpellMain.Specialty.Melee: //will this ever be used?
-                        spell.reflexCount--;
-                        spell.OwnersBrain = Spell.OwnersBrain;
-                        spell.HitGeneric(Spell.OwnersBrain, out _);
+                        targetSpell.reflexCount--;
+                        targetSpell.OwnersBrain = Spell.OwnersBrain;
+                        targetSpell.HitGeneric(Spell.OwnersBrain, out _);
                         break;
                     case SpellMain.Specialty.Projectile:
-                        spell.reflexCount--;
-                        spell.transporter.ReflectProjectile(Spell.OwnersBrain);
+                        targetSpell.reflexCount--;
+                        targetSpell.transporter.ReflectProjectile(Spell.OwnersBrain);
                         break;
                 }
                 break;

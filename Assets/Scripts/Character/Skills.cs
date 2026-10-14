@@ -41,22 +41,17 @@ public class Skills : MonoBehaviour, IIniBrain
             OvrLevelSpecificSkill(myBasic.skillName);
 
             //debugs
+          //  OvrLevelSpecificSkill(SkillName.RotatingSwords);
             if (useKnight)
             {
                 OvrLevelSpecificSkill(SkillName.Statue);
-                OvrLevelSpecificSkill(SkillName.IronMirror);
                 OvrLevelSpecificSkill(SkillName.FuneralTornado);
                 
             }
             if (useMage)
             {
-               //  OvrLevelSpecificSkill(SkillName.ChillingTouch);
-               //  OvrLevelSpecificSkill(SkillName.IceSpear);
-                 OvrLevelSpecificSkill(SkillName.OrbitalBulwark);
-                 // OvrLevelSpecificSkill(SkillName.GlacialShield);
-                 // OvrLevelSpecificSkill(SkillName.Shatter);
-                  OvrLevelSpecificSkill(SkillName.AbsoluteZero);
-                //  OvrLevelSpecificSkill(SkillName.BlazeTrail);
+                 OvrLevelSpecificSkill(SkillName.Blizzard);
+                 OvrLevelSpecificSkill(SkillName.PermafrostSkin);
             }
             if (useArcher)
             {
@@ -174,7 +169,6 @@ public class Skills : MonoBehaviour, IIniBrain
         }
     }
 
-
     [System.Serializable]
     public class Group
     {
@@ -208,7 +202,7 @@ public class Skills : MonoBehaviour, IIniBrain
     }
 
     //not optimized
-    public bool TryGetFromGroup(SkillName skillName, out SoSkill skill)
+    bool TryGetFromGroup(SkillName skillName, out SoSkill skill)
     {
         skill = null;
         foreach (Group item in _group)

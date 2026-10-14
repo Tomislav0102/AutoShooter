@@ -14,6 +14,10 @@ public interface IIniSpell
 {
     SpellMain Spell { get; set; }
 }
+public interface IPoolObject
+{
+    PoolManager.Phase PoolPhase { get; set; }
+}
 
 
 

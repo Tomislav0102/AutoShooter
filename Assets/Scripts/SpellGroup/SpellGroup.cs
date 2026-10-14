@@ -44,7 +44,7 @@ public class SpellGroup : MonoBehaviour
         SpellMain contactDam = Instantiate(Ga.me.spells.contactDamage, brain.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
         contactDam.transporter.target = brain.myTransform;
         contactDam.lifeTime = Ga.me.gameData.dashTime;
-        contactDam.areaOfEffect = 1.3f * brain.size;
+        contactDam.areaOfEffect = 1.3f * brain.character.GetStat(Stats.BodySize) * 0.01f;
         contactDam.InitializeMe(brain, pdContactDamage);
 
     }

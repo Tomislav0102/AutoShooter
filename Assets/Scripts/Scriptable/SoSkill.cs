@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
 
-
 [CreateAssetMenu]
 public class SoSkill : ScriptableObject
 {

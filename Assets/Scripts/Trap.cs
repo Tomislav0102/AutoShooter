@@ -12,7 +12,7 @@ public class Trap : MonoBehaviour, IIniBrain
         {
             _br = value;
             value.myCollider.enabled = true;
-            value.myCollider.radius = value.size * 0.5f;
+            value.myCollider.radius = value.character.GetStat(Stats.BodySize) * 0.01f * 0.5f;
             OvrPassData ovr = GetComponent<OvrPassData>();
             if (ovr != null) _pd = ovr.passData; 
             switch (activationType)
@@ -45,7 +45,7 @@ public class Trap : MonoBehaviour, IIniBrain
     void InstantiateSpell()
     {
         SpellMain spellInstantiated = Instantiate(spellPrefab, Br.myTransform.position, Quaternion.identity, Ga.me.spells.myTransform);
-        if (sizeOfTrapDefinesSizeOfSpell) spellInstantiated.areaOfEffect = Br.size;
+        if (sizeOfTrapDefinesSizeOfSpell) spellInstantiated.areaOfEffect = Br.character.GetStat(Stats.BodySize) * 0.01f;
         if (_pd == null) spellInstantiated.InitializeMe(Br);
         else spellInstantiated.InitializeMe(Br, _pd);
     }

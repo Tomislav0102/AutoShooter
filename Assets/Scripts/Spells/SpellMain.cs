@@ -51,6 +51,8 @@ public class SpellMain : MonoBehaviour
     [SerializeField] bool triggersOnHitEvent;
     [SerializeField] bool ignoreCollisionsWithOwner = true;
     [SerializeField] bool removeBuffsAfterEnd;
+    public bool extraLifeTimeForParticles = true;
+
     HashSet<Brain> _targetsBuff = new HashSet<Brain>();
     [ReadOnly] public bool spellActive;
     [ReadOnly] public PassData pd;
@@ -118,7 +120,6 @@ public class SpellMain : MonoBehaviour
     public float range = 1f;
     public float areaOfEffect = 1f;
     [Range(0f, 1f)] public float hitChance = 1f;
-    public bool extraLifeTimeForParticles = true;
     [InfoBox("Lifetime info: -0 Endless | 0 Instant | +0 Specific")]
     public float lifeTime;
     bool LifeTimeIs0() => lifeTime == 0f;
@@ -275,10 +276,11 @@ public class SpellMain : MonoBehaviour
     }
 
     
-    public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain) where T : Component
+    public void HitGeneric<T>(T targetGeneric, out Brain targetsBrain, bool callOnHitEvent = true) where T : Component
     {
         if (!(targetGeneric.TryGetComponent(out targetsBrain) &&
               Utils.CanTargetFaction(OwnersBrain.Faction, targetsBrain.Faction, myFactionTarget))) return;
+        if (callOnHitEvent) onHitTarget?.Invoke(targetsBrain);
         if (hasReflected(targetsBrain)) return;
         if (targetsBrain.health.IsImmuneToSpell(id)) return;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SharedSkills : MonoBehaviour, IIniBrain
@@ -14,10 +15,11 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         }
     }
     Brain _br;
-    #region SKILL LAST STAND
+    SpellGroup _groupRotSwords;
+    SoSkill _skillRiposte;
+    SoSkill _skillLastStand;
     bool _lastStandCooldownTimerDone = true;
     bool _lastStandHealthAboveTreshold = true;
-    #endregion
 
 
     void OnDisable()
@@ -29,25 +31,12 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         switch (newSkill.skillName)
         {
             case SkillName.VitalityBoost:
-                SimpleStatSkillApply(SkillName.VitalityBoost);
-                break;
             case SkillName.Adrenaline:
-                SimpleStatSkillApply(SkillName.Adrenaline);
-                break;
             case SkillName.EagleEye:
-                SimpleStatSkillApply(SkillName.EagleEye);
-                break;
             case SkillName.HeavyHitter:
-                SimpleStatSkillApply(SkillName.HeavyHitter);
-                break;
             case SkillName.Haste:
-                SimpleStatSkillApply(SkillName.Haste);
-                break;
             case SkillName.Scholar:
-                SimpleStatSkillApply(SkillName.Scholar);
-                break;
-            case SkillName.Enlarge:
-                SimpleStatSkillApply(SkillName.Enlarge);
+                SimpleStatSkillApply(newSkill);
                 break;
             case SkillName.ExtraLife:
                 Br.health.life++;
@@ -60,29 +49,28 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                 rotatingSwords();
                 void rotatingSwords()
                 {
-                    SpellGroup groupSwords = SpellGroup.Gr(Ga.me.spells.groupOrbitalSwords, Br);
-                    OrbitalGroup orbitalGroupSwords = groupSwords as OrbitalGroup;
+                    if (_groupRotSwords != null) Destroy(_groupRotSwords);
+                    _groupRotSwords = SpellGroup.Gr(Ga.me.spells.groupOrbitalSwords, Br);
+                    OrbitalGroup orbitalGroupSwords = _groupRotSwords as OrbitalGroup;
                     orbitalGroupSwords.orbitingAnchor = Br.myTransform;
 
                     int numOfObjects = 2 * (newSkill.level + 1);
                     SpellMain[] swords = new SpellMain[numOfObjects];
                     swords[0] = Ga.me.spells.swordFire;
-                    float multiplier = 1f / 3f;
-                    multiplier = 1f;
                     PassData pdFire = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Fire, multiplier)
+                        damagePair = Br.character.GetDamage(Element.Fire)
                     };
                     PassData pdIce = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Ice, multiplier)
+                        damagePair = Br.character.GetDamage(Element.Ice)
                     };
                     PassData pdElectricity = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Electricity, multiplier)
+                        damagePair = Br.character.GetDamage(Element.Electricity)
                     };
                     PassData[] pds = new PassData[numOfObjects];
                     pds[0] = pdFire;
@@ -91,12 +79,12 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                         case 2:
                             swords[1] = Ga.me.spells.swordFire;
                             pds[1] = pdFire;
-                            Br.character.onStatChange += (Stats st) =>
+                            Br.character.onStatChange += (Stats st, float val) =>
                             {
                                 if (st == Stats.DamFire)
                                 {
-                                    groupSwords.spellsRunning[0].pd.damagePair = Br.character.GetDamage(Element.Fire, multiplier);
-                                    groupSwords.spellsRunning[1].pd.damagePair = Br.character.GetDamage(Element.Fire, multiplier);
+                                    _groupRotSwords.spellsRunning[0].pd.damagePair = Br.character.GetDamage(Element.Fire);
+                                    _groupRotSwords.spellsRunning[1].pd.damagePair = Br.character.GetDamage(Element.Fire);
                                 }
                             };
                             break;
@@ -107,17 +95,17 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                             pds[1] = pdIce;
                             pds[2] = pdFire;
                             pds[3] = pdIce;
-                            Br.character.onStatChange += (Stats st) =>
+                            Br.character.onStatChange += (Stats st, float val) =>
                             {
                                 if (st == Stats.DamFire)
                                 {
-                                    groupSwords.spellsRunning[0].pd.damagePair = Br.character.GetDamage(Element.Fire, multiplier);
-                                    groupSwords.spellsRunning[2].pd.damagePair = Br.character.GetDamage(Element.Fire, multiplier);
+                                    _groupRotSwords.spellsRunning[0].pd.damagePair = Br.character.GetDamage(Element.Fire);
+                                    _groupRotSwords.spellsRunning[2].pd.damagePair = Br.character.GetDamage(Element.Fire);
                                 }
                                 if (st == Stats.DamIce)
                                 {
-                                    groupSwords.spellsRunning[1].pd.damagePair = Br.character.GetDamage(Element.Ice, multiplier);
-                                    groupSwords.spellsRunning[3].pd.damagePair = Br.character.GetDamage(Element.Ice, multiplier);
+                                    _groupRotSwords.spellsRunning[1].pd.damagePair = Br.character.GetDamage(Element.Ice);
+                                    _groupRotSwords.spellsRunning[3].pd.damagePair = Br.character.GetDamage(Element.Ice);
                                 }
                             };
                             break;
@@ -132,40 +120,45 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                             pds[3] = pdFire;
                             pds[4] = pdIce;
                             pds[5] = pdElectricity;
-                            Br.character.onStatChange += (Stats st) =>
+                            Br.character.onStatChange += (Stats st, float val) =>
                             {
                                 if (st == Stats.DamFire)
                                 {
-                                    groupSwords.spellsRunning[0].pd.damagePair = Br.character.GetDamage(Element.Fire, multiplier);
-                                    groupSwords.spellsRunning[3].pd.damagePair = Br.character.GetDamage(Element.Fire, multiplier);
+                                    _groupRotSwords.spellsRunning[0].pd.damagePair = Br.character.GetDamage(Element.Fire);
+                                    _groupRotSwords.spellsRunning[3].pd.damagePair = Br.character.GetDamage(Element.Fire);
                                 }
                                 if (st == Stats.DamIce)
                                 {
-                                    groupSwords.spellsRunning[1].pd.damagePair = Br.character.GetDamage(Element.Ice, multiplier);
-                                    groupSwords.spellsRunning[4].pd.damagePair = Br.character.GetDamage(Element.Ice, multiplier);
+                                    _groupRotSwords.spellsRunning[1].pd.damagePair = Br.character.GetDamage(Element.Ice);
+                                    _groupRotSwords.spellsRunning[4].pd.damagePair = Br.character.GetDamage(Element.Ice);
                                 }
                                 if (st == Stats.DamElectricity)
                                 {
-                                    groupSwords.spellsRunning[2].pd.damagePair = Br.character.GetDamage(Element.Electricity, multiplier);
-                                    groupSwords.spellsRunning[5].pd.damagePair = Br.character.GetDamage(Element.Electricity, multiplier);
+                                    _groupRotSwords.spellsRunning[2].pd.damagePair = Br.character.GetDamage(Element.Electricity);
+                                    _groupRotSwords.spellsRunning[5].pd.damagePair = Br.character.GetDamage(Element.Electricity);
                                 }
                             };
                             break;
                         default:
-                            print("should only be 2, 4, or 6 swords.");
                             return;
                     }
-                    groupSwords.mainPrefabPair = new MyDuo<SpellMain, PassData>(swords, pds);
-                    groupSwords.InitializeMe(Br);
+                    _groupRotSwords.mainPrefabPair = new MyDuo<SpellMain, PassData>(swords, pds);
+                    _groupRotSwords.InitializeMe(Br);
                 }
+                break;
+            case SkillName.Riposte:
+                _skillRiposte = newSkill;
+                break;
+            case SkillName.LastStand:
+                _skillLastStand = newSkill;
                 break;
         }
     }
 
 
-    void SimpleStatSkillApply(SkillName skillName)
+    void SimpleStatSkillApply(SoSkill skill)
     {
-        if (!Br.skills.TryGetFromGroup(skillName, out SoSkill skill)) return;
+        if (skill is null) return;
         foreach (BuffStats stat in skill.passData.stats)
         {
             Br.character.CharacterInjectData(GenChange.Add, stat);
@@ -187,15 +180,15 @@ public class SharedSkills : MonoBehaviour, IIniBrain
 
         void riposte(bool onlyRemove = false)
         {
-            if (!Br.skills.TryGetFromGroup(SkillName.Riposte, out SoSkill skill)) return;
-            for (int i = 0; i < skill.passData.stats.Length; i++)
+            if (_skillRiposte is null) return;
+            for (int i = 0; i < _skillRiposte.passData.stats.Length; i++)
             {
-                Br.character.CharacterInjectData(GenChange.Remove, skill.passData.stats[i]);
+                Br.character.CharacterInjectData(GenChange.Remove, _skillRiposte.passData.stats[i]);
             }
             if (onlyRemove) return;
-            for (int i = 0; i < skill.passData.stats.Length; i++)
+            for (int i = 0; i < _skillRiposte.passData.stats.Length; i++)
             {
-                Br.character.CharacterInjectData(GenChange.Add, skill.passData.stats[i]);
+                Br.character.CharacterInjectData(GenChange.Add, _skillRiposte.passData.stats[i]);
             }
         }
     }
@@ -212,13 +205,13 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                 _lastStandHealthAboveTreshold = true;
                 return;
             }
-            if (!Br.skills.TryGetFromGroup(SkillName.LastStand, out SoSkill skill)) return;
+            if (_skillLastStand is null) return;
             if (!_lastStandCooldownTimerDone) return;
             if (!_lastStandHealthAboveTreshold) return;
             _lastStandCooldownTimerDone = false;
             _lastStandHealthAboveTreshold = false;
-            Br.status.StatusInjectData(GenChange.Add, skill.passData.effects[0]);
-            StartCoroutine(delay(skill.valueGeneric));
+            Br.status.StatusInjectData(GenChange.Add, _skillLastStand.passData.effects[0]);
+            StartCoroutine(delay(_skillLastStand.valueGeneric));
             return;
 
             IEnumerator delay(float time)
@@ -227,5 +220,27 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                 _lastStandCooldownTimerDone = true;
             }
         }
+        // void lastStand()
+        // {
+        //     if (currentHealthPercentage > 0.9f)
+        //     {
+        //         _lastStandHealthAboveTreshold = true;
+        //         return;
+        //     }
+        //     if (!Br.skills.TryGetFromGroup(SkillName.LastStand, out SoSkill skill)) return;
+        //     if (!_lastStandCooldownTimerDone) return;
+        //     if (!_lastStandHealthAboveTreshold) return;
+        //     _lastStandCooldownTimerDone = false;
+        //     _lastStandHealthAboveTreshold = false;
+        //     Br.status.StatusInjectData(GenChange.Add, skill.passData.effects[0]);
+        //     StartCoroutine(delay(skill.valueGeneric));
+        //     return;
+        //
+        //     IEnumerator delay(float time)
+        //     {
+        //         yield return new WaitForSeconds(time);
+        //         _lastStandCooldownTimerDone = true;
+        //     }
+        // }
     }
 }

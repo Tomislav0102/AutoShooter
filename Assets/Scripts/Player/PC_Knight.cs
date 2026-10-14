@@ -21,18 +21,45 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     Brain _br;
     [SerializeField] Transform myShield;
     PlayerCombat _playerCombat;
-    float _stunAttacksDurationExtra; //applied on every stun effect 
+    float _stunAttacksDurationExtra;
+
+    #region DATA
+    SoSkill _skillSweepingArc;
+    SoSkill _skillGrandCrescendo;
+    SoSkill _skillExplosiveHit;
+    SoSkill _skillConcussiveWave;
+    SoSkill _skillSpectralRicochet;
+    SoSkill _skillSpikedRim;
+    SoSkill _skillSkullCracker;
+    SoSkill _skillShockwaveBlock;
+    SoSkill _skillArcaneHarvest;
+    SoSkill _skillExecutioner;
+    SoSkill _skillBleedingStrike;
+    SoSkill _skillArmorBreaker;
+    SoSkill _skillElementalStrikes;
+    SoSkill _skillGuardiansMight;
+    SoSkill _skillGuardiansValor;
+    SoSkill _skillHeavyImpact;
+    SoSkill _skillAdvanceGuard;
+    SpellMain _spellAdvanceGuard;
+    SoSkill _skillStatue;
+    float _cooldownStatue;
+    SoSkill _skillIronMirror;
+    SpellMain _spellIronMirror;
+    SoSkill _skillLethargicDomain;
+    SpellMain _spellLethargicDomain;
+    SoSkill _skillSeismicAnchorage;
     float _timerSeismicAnchorage;
     float _crescendoStrikeIncrease = 1f;
     BuffStats _buffStatsCrescendoStrike, _buffStatsGuardMight, _buffStatsGuardValor;
-    MyDuo<Element, float> _elementStrikesIncrease;
-    SpellMain _spellLethargicDomain;
-    SpellMain _spellAdvanceGuard;
+    MyDuo<Element, float> _damElementStrikesIncrease;
     bool _canAdvanceGuard;
     Queue<SpellMain> _queueStatues;
     int _numMaxStatues;
+    SoSkill _skillFuneralTornado;
     float _cooldownFuneralTornado;
     const int CONST_CooldownFuneralTornado = 4;
+    #endregion
 
     void OnEnable()
     {
@@ -55,12 +82,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         
         void seismicAnchorage()
         {
-            if (!Br.skills.TryGetFromGroup(SkillName.SeismicAnchorage, out SoSkill skill)) return;
+            if (_skillSeismicAnchorage is null) return;
             _timerSeismicAnchorage += Time.deltaTime;
             if (Br.loco.IsMoving) _timerSeismicAnchorage = 0f;
-            if (_timerSeismicAnchorage < skill.valueGeneric) return;
+            if (_timerSeismicAnchorage < _skillSeismicAnchorage.valueGeneric) return;
             _timerSeismicAnchorage = 0f;
-            SpellMain sa = SpellMain.Sp(skill.spell, Br);
+            SpellMain sa = SpellMain.Sp(_skillSeismicAnchorage.spell, Br);
             PassData passData = new PassData()
             {
                 hasEffect = true,
@@ -78,32 +105,79 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     {
         switch (newSkill.skillName)
         {
+            case SkillName.SweepingArc:
+                _skillSweepingArc = newSkill;
+                break;
             case SkillName.GuardiansMight:
+                _skillGuardiansMight = newSkill;
                 GuardiansMight();
                 break;
             case SkillName.GuardiansValor:
+                _skillGuardiansValor =  newSkill;
                 GuardiansValor();
                 break;
             case SkillName.LethargicDomain:
+                _skillLethargicDomain = newSkill;
                 lethargicDomain();
                 break;
             case SkillName.IronMirror:
+                _skillIronMirror =  newSkill;
                 ironMirror();
                 break;
             case SkillName.HeavyImpact:
-                Ga.me.runData.AddAllVulnerabilities(Status.Effect.Stunned, (int)newSkill.valueGeneric);
+                _skillHeavyImpact = newSkill;
+                Ga.me.runData.AddAllVulnerabilities(Status.Effect.Stunned, (int)_skillHeavyImpact.valueGeneric);
                 break;
             case SkillName.SkullCracker:
-                _stunAttacksDurationExtra += newSkill.valueGeneric;
+                _skillSkullCracker = newSkill;
+                _stunAttacksDurationExtra += _skillSkullCracker.valueGeneric;
                 break;
             case SkillName.AdvanceGuard:
-                _spellAdvanceGuard = SpellMain.Sp(newSkill.spell, Br, true);
+                _skillAdvanceGuard = newSkill;
+                _spellAdvanceGuard = SpellMain.Sp(_skillAdvanceGuard.spell, Br, true);
                 _spellAdvanceGuard.transporter.target = Br.myTransform;
                 _spellAdvanceGuard.InitializeMe(Br);
                 break;
             case SkillName.Statue:
-                if (newSkill.level == 0) _queueStatues = new Queue<SpellMain>();
+                _skillStatue = newSkill;
+                _queueStatues = new Queue<SpellMain>();
                 _numMaxStatues++;
+                break;
+            case SkillName.GrandCrescendo:
+                _skillGrandCrescendo = newSkill;
+                break;
+            case SkillName.ExplosiveHit:
+                _skillExplosiveHit = newSkill;
+                break;
+            case SkillName.ConcussiveWave:
+                _skillConcussiveWave = newSkill;
+                break;
+            case SkillName.SpectralRicochet:
+                _skillSpectralRicochet = newSkill;
+                break;
+            case SkillName.SpikedRim:
+                _skillSpikedRim = newSkill;
+                break;
+            case SkillName.ShockwaveBlock:
+                _skillShockwaveBlock = newSkill;
+                break;
+            case SkillName.ArcaneHarvest:
+                _skillArcaneHarvest = newSkill;
+                break;
+            case SkillName.Executioner:
+                _skillExecutioner = newSkill;
+                break;
+            case SkillName.BleedingStrike:
+                _skillBleedingStrike = newSkill;
+                break;
+            case SkillName.ArmorBreaker:
+                _skillArmorBreaker = newSkill;
+                break;
+            case SkillName.ElementalStrikes:
+                _skillElementalStrikes = newSkill;
+                break;
+            case SkillName.FuneralTornado:
+                _skillFuneralTornado = newSkill;
                 break;
             case SkillName.IronFortress: //ultimate 1
             case SkillName.ConcussiveSurge: //ultimate 2
@@ -117,44 +191,45 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
         void lethargicDomain()
         {
-            if (!Br.skills.TryGetFromGroup(SkillName.LethargicDomain, out SoSkill skill)) return;
+            if (_skillLethargicDomain is null) return;
             if (_spellLethargicDomain is not null) _spellLethargicDomain.MyPhase = SpellMain.Phase.EndEnd;
-            _spellLethargicDomain = SpellMain.Sp(skill.spell, Br);
+            _spellLethargicDomain = SpellMain.Sp(_skillLethargicDomain.spell, Br);
             _spellLethargicDomain.transporter.target = Br.myTransform;
-            _spellLethargicDomain.areaOfEffect += skill.passData.stats[0].data.value;
+            _spellLethargicDomain.areaOfEffect += _skillLethargicDomain.passData.stats[0].data.value;
             PassData pd = new PassData()
             {
                 hasStats = true,
-                stats = new BuffStats[1] { skill.passData.stats[1] }
+                stats = new BuffStats[1] { _skillLethargicDomain.passData.stats[1] }
             };
             _spellLethargicDomain.InitializeMe(Br, pd);
         }
         void ironMirror() //spell has no effect (only visual), all logic is in skill
         {
-            if (!Br.skills.TryGetFromGroup(SkillName.IronMirror, out SoSkill skill)) return;
-            SpellMain spell = SpellMain.Sp(skill.spell, Br);
-            spell.transporter.target = Br.myTransform;
-            spell.areaOfEffect = 2f + Br.size;
-            spell.InitializeMe(Br);
-            Br.character.CharacterInjectData(GenChange.Add, skill.passData.stats[0]);
+            if (_skillIronMirror is null) return;
+            if (_spellIronMirror is not null) _spellIronMirror.MyPhase = SpellMain.Phase.EndEnd;
+            _spellIronMirror = SpellMain.Sp(_skillIronMirror.spell, Br);
+            _spellIronMirror.transporter.target = Br.myTransform;
+            _spellIronMirror.areaOfEffect = 2f + Br.character.GetStat(Stats.BodySize) * 0.01f;
+            _spellIronMirror.InitializeMe(Br);
+            Br.character.CharacterInjectData(GenChange.Add, _skillIronMirror.passData.stats[0]);
         }
     }
 
     #region SKILLS
     void GuardiansMight()
     {
-        if (!Br.skills.TryGetFromGroup(SkillName.GuardiansMight, out SoSkill skill)) return;
+        if (_skillGuardiansMight is null) return;
         Br.character.CharacterInjectData(GenChange.Remove, _buffStatsGuardMight);
 
-        _buffStatsGuardMight = new BuffStats(Stats.DamPhysical, BuffType.Percentage,Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.valueGeneric + 1f);
+        _buffStatsGuardMight = new BuffStats(Stats.DamPhysical, BuffType.Percentage,Ga.me.team.TeamMemberCount(Faction.BadGuys) * _skillGuardiansMight.valueGeneric + 1f);
         Br.character.CharacterInjectData(GenChange.Add, _buffStatsGuardMight);
     }
     void GuardiansValor()
     {
-        if (!Br.skills.TryGetFromGroup(SkillName.GuardiansValor, out SoSkill skill)) return;
+        if (_skillGuardiansValor is null) return;
         Br.character.CharacterInjectData(GenChange.Remove, _buffStatsGuardValor);
 
-        _buffStatsGuardValor = new BuffStats(Stats.ResistPhysical, BuffType.Percentage,Ga.me.team.TeamMemberCount(Faction.BadGuys) * skill.valueGeneric + 1f);
+        _buffStatsGuardValor = new BuffStats(Stats.ResistPhysical, BuffType.Percentage,Ga.me.team.TeamMemberCount(Faction.BadGuys) * _skillGuardiansValor.valueGeneric + 1f);
         Br.character.CharacterInjectData(GenChange.Add, _buffStatsGuardValor);
     }
     #endregion
@@ -163,34 +238,34 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     {
         //damage
         MyDuo<Element, float> totalDamage = Br.character.GetDamage();
-        if (Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out _)) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _elementStrikesIncrease);
+        if (_skillElementalStrikes is not null) totalDamage = Br.character.GetDamage(Element.Physical, 1f, _damElementStrikesIncrease);
 
         //attack effects
         bool addEffect = false;
         BuffEffects executioner = null;
         BuffEffects bleeding = null;
-        if (Br.skills.TryGetFromGroup(SkillName.Executioner, out SoSkill skillExe))
+        if (_skillExecutioner is not null)
         {
             addEffect = true;
-            executioner = skillExe.passData.effects[0];
+            executioner = _skillExecutioner.passData.effects[0];
             executioner.myBrain = Br;
         }
-        if (Br.skills.TryGetFromGroup(SkillName.BleedingStrike, out SoSkill skillBleed))
+        if (_skillBleedingStrike is not null)
         {
             addEffect = true;
-            bleeding = skillBleed.passData.effects[0];
+            bleeding = _skillBleedingStrike.passData.effects[0];
             bleeding.myBrain = Br;
         }
 
         //stats
         bool addArmorBreaker = false;
         BuffStats armorBreaker = null;
-        if (Br.skills.TryGetFromGroup(SkillName.ArmorBreaker, out SoSkill skillArmorBreak))
+        if (_skillArmorBreaker is not null)
         {
-            if (Random.value < skillArmorBreak.valueGeneric)
+            if (Random.value < _skillArmorBreaker.valueGeneric)
             {
                 addArmorBreaker = true;
-                armorBreaker = skillArmorBreak.passData.stats[0];
+                armorBreaker = _skillArmorBreaker.passData.stats[0];
             }
         }
 
@@ -207,11 +282,12 @@ public class PC_Knight : MonoBehaviour, IIniBrain
         };
 
         SpellMain melee = SpellMain.Sp(Br.skills.myBasic.spell, Br, true);
+        melee.range += Br.character.GetStat(Stats.Size) * 0.01f;
         melee.InitializeMe(Br, passData);
 
         Br.character.CharacterInjectData(GenChange.Remove, _buffStatsCrescendoStrike);
         _crescendoStrikeIncrease = 1f;
-        _elementStrikesIncrease = null;
+        _damElementStrikesIncrease = null;
     }
 
     public void AnimEv_UltimateCallback(int num = 0)
@@ -270,21 +346,21 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
                 void sweepingArc()
                 {
+                    if (_skillSweepingArc is null) return;
                     if (!Br.health.IsAtFullHealth()) return;
-                    if (!Br.skills.TryGetFromGroup(SkillName.SweepingArc, out SoSkill sk)) return;
                     PassData containerArc = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Magic, 1f, sk.passData.damagePair),
+                        damagePair = Br.character.GetDamage(Element.Magic, 1f, _skillSweepingArc.passData.damagePair),
                     };
-                    SpellMain arc = SpellMain.Sp(sk.spell, Br, true);
-                    arc.areaOfEffect += sk.passData.stats[0].data.value;
+                    SpellMain arc = SpellMain.Sp(_skillSweepingArc.spell, Br, true);
+                    arc.areaOfEffect += _skillSweepingArc.passData.stats[0].data.value;
                     arc.InitializeMe(Br, containerArc);
                 }
                 void grandCrescendo()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.GrandCrescendo, out SoSkill sk)) return;
-                    int effSkillLevel = sk.level + 2;
+                    if (_skillGrandCrescendo is null) return;
+                    int effSkillLevel = _skillGrandCrescendo.level + 2;
                     int valueToAdd = 50;
                     int resultingAddedDamage = 0;
 
@@ -302,27 +378,27 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 }
                 void elementalStrikes()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ElementalStrikes, out SoSkill sk)) return;
-                    _elementStrikesIncrease = new MyDuo<Element, float>();
-                    switch (sk.level)
+                    if (_skillElementalStrikes is null) return;
+                    _damElementStrikesIncrease = new MyDuo<Element, float>();
+                    switch (_skillElementalStrikes.level)
                     {
                         case 0:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(0), sk.passData.damagePair.GetValue(0));
+                            if (strikes % 4 == 0) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(0), _skillElementalStrikes.passData.damagePair.GetValue(0));
                             break;
                         case 1:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(0), sk.passData.damagePair.GetValue(0));
-                            if (strikes % 4 == 1) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(1), sk.passData.damagePair.GetValue(1));
+                            if (strikes % 4 == 0) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(0), _skillElementalStrikes.passData.damagePair.GetValue(0));
+                            if (strikes % 4 == 1) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(1), _skillElementalStrikes.passData.damagePair.GetValue(1));
                             break;
                         case 2:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(0), sk.passData.damagePair.GetValue(0));
-                            if (strikes % 4 == 1) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(1), sk.passData.damagePair.GetValue(1));
-                            if (strikes % 4 == 2) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(2), sk.passData.damagePair.GetValue(2));
+                            if (strikes % 4 == 0) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(0), _skillElementalStrikes.passData.damagePair.GetValue(0));
+                            if (strikes % 4 == 1) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(1), _skillElementalStrikes.passData.damagePair.GetValue(1));
+                            if (strikes % 4 == 2) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(2), _skillElementalStrikes.passData.damagePair.GetValue(2));
                             break;
                         case 3:
-                            if (strikes % 4 == 0) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(0), sk.passData.damagePair.GetValue(0));
-                            if (strikes % 4 == 1) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(1), sk.passData.damagePair.GetValue(1));
-                            if (strikes % 4 == 2) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(2), sk.passData.damagePair.GetValue(2));
-                            if (strikes % 4 == 3) _elementStrikesIncrease.Add(sk.passData.damagePair.GetKey(3), sk.passData.damagePair.GetValue(3));
+                            if (strikes % 4 == 0) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(0), _skillElementalStrikes.passData.damagePair.GetValue(0));
+                            if (strikes % 4 == 1) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(1), _skillElementalStrikes.passData.damagePair.GetValue(1));
+                            if (strikes % 4 == 2) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(2), _skillElementalStrikes.passData.damagePair.GetValue(2));
+                            if (strikes % 4 == 3) _damElementStrikesIncrease.Add(_skillElementalStrikes.passData.damagePair.GetKey(3), _skillElementalStrikes.passData.damagePair.GetValue(3));
                             break;
                     }
                 }
@@ -332,45 +408,47 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 concussiveWave();
                 void explosiveHit()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ExplosiveHit, out SoSkill sk)) return;
+                    if (_skillExplosiveHit is null) return;
                     if (Br.combat.counterHit % 3 != 0) return;
                     PassData container = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Fire }, 1f, sk.passData.damagePair)
+                        damagePair = Br.character.GetDamage(new Element[2] { Element.Physical, Element.Fire }, 1f, _skillExplosiveHit.passData.damagePair)
                     };
-                    SpellMain ex = SpellMain.Sp(sk.spell, Br.combat.MyTarget);
-                     ex.areaOfEffect += sk.level + 1;
+                    SpellMain ex = SpellMain.Sp(_skillExplosiveHit.spell, Br.combat.MyTarget);
+                     ex.areaOfEffect += _skillExplosiveHit.level + 1;
                     ex.InitializeMe(Br, container);
                 }
                 void concussiveWave()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ConcussiveWave, out SoSkill sk) || Random.value > sk.valueGeneric) return;
+                    if (_skillConcussiveWave is null) return;
+                    if (Random.value > _skillConcussiveWave.valueGeneric) return;
                     PassData container = new PassData()
                     {
                         hasDamage = true,
                         damagePair = Br.character.GetDamage()
                     };
-                    SpellMain concussive = SpellMain.Sp(sk.spell, Br);
-                    concussive.areaOfEffect += sk.level + 4;
-                    concussive.InitializeMe(Br, container);
+                    SpellMain spell = SpellMain.Sp(_skillConcussiveWave.spell, Br);
+                    spell.areaOfEffect += _skillConcussiveWave.level + 4;
+                    spell.InitializeMe(Br, container);
                 }
                 break;
             case CombatEvent.Miss:
                 spectralRicochet();
                 void spectralRicochet()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.SpectralRicochet, out SoSkill sk) || Random.value > sk.valueGeneric) return;
+                    if (_skillSpectralRicochet) return;
+                    if (Random.value > _skillSpectralRicochet.valueGeneric) return;
                     Vector3 dir = Utils.Direction(myShield.position, Br.combat.MyTarget == null ? myShield.position + Br.myTransform.forward : Br.combat.MyTarget.myTransform.position);
                     int ricochet = Br.character.GetStat(Stats.Ricochet);
                     PassData containerThrow = new PassData()
                     {
                         hasDamage = true,
-                        damagePair = Br.character.GetDamage(Element.Magic, 1f, sk.passData.damagePair)
+                        damagePair = Br.character.GetDamage(Element.Magic, 1f, _skillSpectralRicochet.passData.damagePair)
                     };
-                    ricochet += (int)sk.passData.stats[0].data.value;
+                    ricochet += (int)_skillSpectralRicochet.passData.stats[0].data.value;
 
-                    SpellMain spell = SpellMain.Sp(sk.spell, Utils.LevelV3(myShield.position), Quaternion.LookRotation(dir));
+                    SpellMain spell = SpellMain.Sp(_skillSpectralRicochet.spell, Utils.LevelV3(myShield.position), Quaternion.LookRotation(dir));
                     spell.transporter.ricochet = ricochet;
                     spell.visual.SetSpawnHeight(myShield.position.y);
                     spell.InitializeMe(Br, containerThrow);
@@ -378,35 +456,15 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.BeginGetHit:
                 advanceGuard(true);
-                statue();
-                void statue()
-                {
-                    if (!Br.skills.TryGetFromGroup(SkillName.Statue, out SoSkill skill)) return;
-                    if (Random.value > skill.valueGeneric) return;
-                    if (Br.loco.IsMoving) return;
-                    SpellMain spell = SpellMain.Sp(skill.spell, Br.myTransform.position);
-                    BuffStats buffStats = skill.passData.stats[Random.Range(0, skill.passData.stats.Length)];
-                    PassData pd = new PassData()
-                    {
-                        hasStats = true,
-                        stats = new BuffStats[1] { buffStats }
-                    };
-                    spell.InitializeMe(Br, pd);
-                    _queueStatues.Enqueue(spell);
-                    if (_queueStatues.Count <= _numMaxStatues) return;
-                    SpellMain previous = _queueStatues.Peek();
-                    _queueStatues.Dequeue();
-                    previous.MyPhase = SpellMain.Phase.EndEnd;
-                }
                 break;
             case CombatEvent.GetHit:
                 spikedRim();
                 advanceGuard(false);
                 void spikedRim()
                 {
+                    if (_skillSpikedRim is null) return;
                     if (!(otherBrain is not null && specialty == SpellMain.Specialty.Melee)) return;
-                    if (!Br.skills.TryGetFromGroup(SkillName.SpikedRim, out SoSkill skill)) return;
-                    float damageValue = Br.character.GetStat(Stats.ResistPhysical) * skill.valueGeneric;
+                    float damageValue = Br.character.GetStat(Stats.ResistPhysical) * _skillSpikedRim.valueGeneric;
                     if (Mathf.Approximately(damageValue, 0f)) return;
                     PassData passData = new PassData()
                     {
@@ -418,22 +476,58 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 break;
             case CombatEvent.EndGetHit:
                 advanceGuard(false);
+                statue();
+                void statue()
+                {
+                    if (_skillStatue is null) return;
+                    if (Random.value > _skillStatue.valueGeneric) return;
+                    if (_cooldownStatue > 0f) return;
+                    if (Br.loco.IsMoving) return;
+                    SpellMain spell = SpellMain.Sp(_skillStatue.spell, Br.myTransform.position);
+                    BuffStats buffStats = _skillStatue.passData.stats[Random.Range(0, _skillStatue.passData.stats.Length)];
+                    PassData pd = new PassData()
+                    {
+                        hasStats = true,
+                        stats = new BuffStats[1] { buffStats }
+                    };
+                    spell.InitializeMe(Br, pd);
+                    _queueStatues.Enqueue(spell);
+                    if (_queueStatues.Count <= _numMaxStatues) return;
+                    SpellMain previous = _queueStatues.Peek();
+                    _queueStatues.Dequeue();
+                    previous.MyPhase = SpellMain.Phase.EndEnd;
+                    StartCoroutine(cooldown());
+                    return;
+                    
+                    IEnumerator cooldown()
+                    {
+                        _cooldownStatue = 5f;
+                        while (_cooldownStatue > 0f)
+                        {
+                            _cooldownStatue -= Time.deltaTime;
+                            yield return null;
+                        }
+                    }
+                }
+
                 break;
             case CombatEvent.Block:
                 shockwaveBlock();
                 void shockwaveBlock()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ShockwaveBlock, out SoSkill sk)) return;
+                    if (_skillShockwaveBlock is null) return;
                     PassData passData = new PassData()
                     {
                         hasKnockback = true,
-                        knockbackPower = Br.character.GetStat(Stats.KnockBack) + sk.passData.knockbackPower,
+                        knockbackPower = Br.character.GetStat(Stats.KnockBack) + _skillShockwaveBlock.passData.knockbackPower,
                     };
                     StartCoroutine(delay());
+                    return;
+                    
                     IEnumerator delay()
                     {
                         yield return Ga.me.wait01;
-                        SpellMain push = SpellMain.Sp(sk.spell, Utils.LevelV3(myShield.position));
+                        SpellMain push = SpellMain.Sp(_skillShockwaveBlock.spell, Utils.LevelV3(myShield.position));
                         push.visual.SetSpawnHeight(myShield.position.y);
                         push.InitializeMe(Br, passData);
                     }
@@ -444,62 +538,64 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                 funeralTornado();
                 void arcaneHarvest()
                 {
-                    if (!Br.skills.TryGetFromGroup(SkillName.ArcaneHarvest, out SoSkill skill)) return;
+                    if (_skillArcaneHarvest is null) return;
                     if (otherBrain != null) return;
                     if (otherBrain.character.GetStat(Stats.DamMagic) < Br.character.GetStat(Stats.DamMagic)) return;
-                    Br.character.CharacterInjectData(GenChange.Add, skill.passData.stats[0]);
+                    Br.character.CharacterInjectData(GenChange.Add, _skillArcaneHarvest.passData.stats[0]);
                 }
+                void funeralTornado()
+                {
+                    if (_skillFuneralTornado is null) return;
+                    if (_cooldownFuneralTornado > 0f) return;
+                    SpellMain spell = SpellMain.Sp(_skillFuneralTornado.spell, Br.myTransform.position);
+                    spell.transporter.target = Br.myTransform;
+                    float damageValue = Br.character.GetDamage(Element.Physical).GetValue(0) * ( 1 + _skillFuneralTornado.passData.stats[0].data.value * 0.01f);
+                    PassData pd = new PassData()
+                    {
+                        hasDamage = true,
+                        damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1]{damageValue})
+                    };
+                    spell.lifeTime = _skillFuneralTornado.valueGeneric;
+                    spell.areaOfEffect += _skillFuneralTornado.level * 2;
+                    spell.InitializeMe(Br, pd);
+                    StartCoroutine(cooldown());
+                    return;
+                    IEnumerator cooldown()
+                    {
+                        _cooldownFuneralTornado = CONST_CooldownFuneralTornado;
+                        while (_cooldownFuneralTornado > 0)
+                        {
+                            _cooldownFuneralTornado -= Time.deltaTime;
+                            yield return null;
+                        }
+                    }
+                }
+
                 break;
             
             
                 void advanceGuard(bool beginPhase)
                 {
+                    if (_skillAdvanceGuard is null) return;
                     if (otherBrain is null) return;
-                    if (!Br.skills.TryGetFromGroup(SkillName.AdvanceGuard, out SoSkill skill)) return;
                     if (beginPhase)
                     {
                         if (!Br.loco.IsMoving) return;
                         if (Combat.IsFlanked(Br.myTransform, otherBrain.myTransform)) return;
                         _canAdvanceGuard = true;
                         _spellAdvanceGuard.visual.PlayDefault();
-                        Br.character.CharacterInjectData(GenChange.Add, skill.passData.stats[0]);
+                        Br.character.CharacterInjectData(GenChange.Add, _skillAdvanceGuard.passData.stats[0]);
                         return;
                     }
                     if (!_canAdvanceGuard) return;
                     _canAdvanceGuard = false;
-                    Br.character.CharacterInjectData(GenChange.Remove, skill.passData.stats[0]);
+                    Br.character.CharacterInjectData(GenChange.Remove, _skillAdvanceGuard.passData.stats[0]);
                 }
 
         }
 
     }
     
-    [Button]
-    void funeralTornado()
-    {
-        if (!Br.skills.TryGetFromGroup(SkillName.FuneralTornado, out SoSkill skill)) return;
-        SpellMain spell = SpellMain.Sp(skill.spell, Br.myTransform.position);
-        spell.transporter.target = Br.myTransform;
-        float damageValue = Br.character.GetDamage(Element.Physical).GetValue(0) * ( 1 + skill.passData.stats[0].data.value * 0.01f);
-        PassData pd = new PassData()
-        {
-            hasDamage = true,
-            damagePair = new MyDuo<Element, float>(new Element[1] { Element.Physical }, new float[1]{damageValue})
-        };
-        spell.lifeTime = skill.valueGeneric;
-        spell.areaOfEffect += skill.level * 2;
-        spell.InitializeMe(Br, pd);
-        return;
-        IEnumerator cooldown()
-        {
-            _cooldownFuneralTornado = CONST_CooldownFuneralTornado;
-            while (_cooldownFuneralTornado > 0)
-            {
-                _cooldownFuneralTornado -= Time.deltaTime;
-                yield return null;
-            }
-        }
-    }
 
 }
 

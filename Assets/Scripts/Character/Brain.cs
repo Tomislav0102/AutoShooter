@@ -8,12 +8,12 @@ using Random = UnityEngine.Random;
 
 public class Brain : MonoBehaviour
 {
+    public System.Action onAllChildrenInitialized; //redundant?
     [field:SerializeField] public Faction Faction { get; set; }
     public Transform myTransform;
     public SphereCollider myCollider;
     public NavMeshAgent agent;
     [SerializeField] Transform fakeShadow;
-    [Range(0.2f, 10f)] public float size = 1;
     [SerializeField] Transform parPs;
     Trap _trap;
     [Title("Body")]
@@ -40,6 +40,15 @@ public class Brain : MonoBehaviour
         {
             character = c;
             character.Br = this;
+            character.onStatChange += (Stats stat, float val) =>
+            {
+                switch (stat)
+                {
+                    case Stats.BodySize:
+                        ChangeSize(val * 0.01f);
+                        break;
+                }
+            };
         }
         if (characterGo.TryGetComponent(out Status s))
         {
@@ -72,12 +81,10 @@ public class Brain : MonoBehaviour
             combat.Br = this;
         }
         Ga.me.team.JoinTeam(Faction, this);
-        if (this != Ga.me.team.playersBrain) size *= Random.Range(0.9f, 1.1f);
-        ChangeSize(size);
         ParticleSystem ps = Instantiate(Ga.me.psSpawn, myTransform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), Ga.me.transform);
-        ps.transform.localScale = size * Vector3.one;
+        ps.transform.localScale = 0.01f * character.GetStat(Stats.BodySize) * Vector3.one;
         ps.Play();
-
+        onAllChildrenInitialized?.Invoke();
     }
 
 
@@ -85,17 +92,16 @@ public class Brain : MonoBehaviour
     public bool debug;
     public bool canAttack = true;
 
-    [Button]
+   // [Button]
     void ChangeSize(float newSize)
     {
-        size = newSize;
-        myCollider.radius = size * 0.5f;
-        parPs.localPosition = parPs.localPosition.y * size * Vector3.up;
-        parPs.localScale = size * Vector3.one;
-        fakeShadow.localScale = size * Vector3.one;
+        myCollider.radius = newSize * 0.5f;
+        parPs.localPosition = parPs.localPosition.y * newSize * Vector3.up;
+        parPs.localScale = newSize * Vector3.one;
+        fakeShadow.localScale = newSize * Vector3.one;
         if (loco == null) return;
-        loco.transform.localScale = size * Vector3.one;
-        agent.radius = size * 0.5f;
+        loco.transform.localScale = newSize * Vector3.one;
+        agent.radius = newSize * 0.5f;
     }
     
     // [Button]

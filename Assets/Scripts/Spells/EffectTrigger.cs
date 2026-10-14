@@ -31,11 +31,12 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
     public void Hit()
     {
         if (!onFakeStay) return;
+        bool callEvent = true;
         foreach (Collider item in Spell.collidersDetected)
         {
             if (item == null) continue;
-            Spell.HitGeneric(item, out Brain targetBrain);
-            Spell.onHitTarget?.Invoke(targetBrain);
+            Spell.HitGeneric(item, out _, callEvent);
+            callEvent = false;
         }
     }
 
@@ -56,7 +57,6 @@ public class EffectTrigger : MonoBehaviour, IIniSpell
         if (other.TryGetComponent(out Brain targetBrain))
         {
             Spell.HitGeneric(targetBrain, out _);
-            Spell.onHitTarget?.Invoke(targetBrain);
 
             switch (Spell.specialty)
             {

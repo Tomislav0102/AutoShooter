@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -25,7 +26,20 @@ public class OrbitalGroup : SpellGroup
             spell.myTransform.localRotation = Quaternion.AngleAxis(angles[i], Vector3.up);
             spell.myTransform.position += distanceFromAnchor * spell.myTransform.forward;
             spell.InitializeMe(ownersBrain, mainPrefabPair.GetValue(i));
+            spell.onHitTarget += (Brain br) =>
+            {
+                StartCoroutine(delay(spell));
+            };
             spellsRunning[i] = spell;
+        }
+
+        IEnumerator delay(SpellMain spell)
+        {
+            spell.spellActive = false;
+            spell.visual.StopDefault();
+            yield return new WaitForSeconds(10);
+            spell.spellActive = true;
+            spell.visual.PlayDefault();
         }
     }
     void Update()
@@ -33,7 +47,7 @@ public class OrbitalGroup : SpellGroup
         if (!followPosition && !followRotation) return;
         
         if (followPosition) myTransform.position = orbitingAnchor.position;
-        // if (followRotation) myTransform.rotation = orbitingAnchor.rotation;
-        // else myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
+        if (followRotation) myTransform.rotation = orbitingAnchor.rotation;
+        else myTransform.Rotate(rotationSpeed * Time.deltaTime * Vector3.up);
     }
 }

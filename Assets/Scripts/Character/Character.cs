@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     //     Skill, //e.g. Ultimate increases attack speed for 10 sec
     //     Spell //buffs from cast spells
     // }
-    [HideInInspector] public System.Action<Stats> onStatChange;
+    [HideInInspector] public System.Action<Stats, float> onStatChange;
     public SoCharacter statsBase;
     public Brain Br
     {
@@ -26,13 +25,59 @@ public class Character : SerializedMonoBehaviour, IIniBrain
             if (statsBase == null) statsBase = Ga.me.defCharacter;
             _buffTimers = new MyDuo<BuffStats, float>();
             ResetFinalStats();
+            value.onAllChildrenInitialized += () =>
+            {
+                int statsLength = System.Enum.GetNames(typeof(Stats)).Length;
+                for (int i = 0; i < statsLength; i++)
+                {
+                    onStatChange?.Invoke(_statsFinal.GetKey(i), _statsFinal.GetValue(i));
+                }
+            };
+            bodySizeEvent();
+            return;
+            
+            void bodySizeEvent()
+            {
+                _dataBodySizeChange = new MyDuo<Stats, float>();//Stat += float * (Stat-100)
+                _dataBodySizeChange.Add(Stats.DamPhysical, 0.5f);
+                _dataBodySizeChange.Add(Stats.ResistPhysical, 0.5f);
+                _dataBodySizeChange.Add(Stats.Dodge, -1f);
+                _dataBodySizeChange.Add(Stats.MoveSpeed, -0.2f);
+                _dataBodySizeChange.Add(Stats.AttackSpeed, -0.15f);
+                _dataBodySizeChange.Add(Stats.CritChance, -1f);
+                _dataBodySizeChange.Add(Stats.Size, 2f);
+                _dataBodySizeChange.Add(Stats.KnockBack, 0.1f);
+                _dataBodySizeChange.Add(Stats.Health, 0.5f);
+                _dataBodySizeChange.Add(Stats.SightRange, 0.1f);
+                onStatChange += (Stats st, float val) =>
+                {
+                    switch (st)
+                    {
+                        case Stats.BodySize:
+                            for (int i = 0; i < _buffStatsBodySizeChange.Length; i++)
+                            {
+                                CharacterInjectData(GenChange.Remove, _buffStatsBodySizeChange[i]);
+                            }
+                            _buffStatsBodySizeChange = new BuffStats[_dataBodySizeChange.Length()];
+                            for (int i = 0; i < _dataBodySizeChange.Length(); i++)
+                            {
+                                float fl = _dataBodySizeChange.GetValue(i) * (val - 100);
+                                _buffStatsBodySizeChange[i] = new BuffStats(_dataBodySizeChange.GetKey(i), BuffType.Added, fl);
+                                CharacterInjectData(GenChange.Add, _buffStatsBodySizeChange[i]);
+                            }
+                            break;
+                    }
+                };
+            }
+            }
 
-        }
     }
     Brain _br;
     public MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
     MyDuo<Stats, float> _ovrStatsFinal = new MyDuo<Stats, float>(); //for BuffType.Set
     MyDuo<BuffStats, float> _buffTimers = new MyDuo<BuffStats, float>();
+    BuffStats[] _buffStatsBodySizeChange = System.Array.Empty<BuffStats>();
+    MyDuo<Stats, float> _dataBodySizeChange = new MyDuo<Stats, float>();
     
     void Update()
     {
@@ -113,6 +158,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     
     public void CharacterInjectData(GenChange change, BuffStats buffStats)
     {
+        if (buffStats is null) return;
         switch (change)
         {
             case GenChange.Add:
@@ -132,20 +178,20 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                 switch (buffStats.buffType)
                 {
                     case BuffType.Added:
-                        float valAdded = _statsFinal.GetValueByKey(stat) + finalValue;
-                        _statsFinal.SetValueByKey(stat, valAdded);
+                        finalValue += _statsFinal.GetValueByKey(stat);
+                        _statsFinal.SetValueByKey(stat, finalValue);
                         break;
                     case BuffType.Percentage:
                         finalValue = statsBase.baseStats[stat] * (buffStats.data.value * 0.01f);
-                        float valPercentage = _statsFinal.GetValueByKey(stat) + finalValue;
-                        _statsFinal.SetValueByKey(stat, valPercentage);
+                        finalValue += _statsFinal.GetValueByKey(stat);
+                        _statsFinal.SetValueByKey(stat, finalValue);
                         break;
                     case BuffType.Set:
                         if (_ovrStatsFinal.HasKey(stat)) _ovrStatsFinal.SetValueByKey(stat, finalValue);
                         else _ovrStatsFinal.Add(stat, finalValue);
                         break;
                 }
-                onStatChange?.Invoke(buffStats.stat);
+                onStatChange?.Invoke(buffStats.stat, finalValue);
                 _buffTimers.Add(buffStats, buffStats.data.Duration);
                 if (Br.debug) print($"{stat} changed from {previousValueDebug} to {GetStat(stat)}");
                 break;
@@ -157,7 +203,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
 
     void RemoveBuff(BuffStats buffToRemove)
     {
-        if (buffToRemove is null || !_buffTimers.HasKey(buffToRemove)) return;
+        if (!_buffTimers.HasKey(buffToRemove)) return;
         switch (buffToRemove.buffType)
         {
             case BuffType.Added:
@@ -173,7 +219,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                 _ovrStatsFinal.RemoveByKey(buffToRemove.stat);
                 break;
         }
-        onStatChange?.Invoke(buffToRemove.stat);
+        onStatChange?.Invoke(buffToRemove.stat, GetStat(buffToRemove.stat));
         _buffTimers.RemoveByKey(buffToRemove);
         //to mitigate problem of float precision (baseStats are integers, while finalStats are floats)
         if (_buffTimers.Length() == 0) ResetFinalStats(); 

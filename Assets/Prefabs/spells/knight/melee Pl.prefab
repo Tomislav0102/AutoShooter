@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: triggersOnHitEvent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: extraLifeTimeForParticles
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8041071233712043917, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -185,3 +189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0

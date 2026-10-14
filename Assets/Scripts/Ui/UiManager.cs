@@ -62,14 +62,12 @@ public class UiManager : MonoBehaviour
     public void FloatText(Vector3 spawnPoint, MyDuo<Element, float> damage, float offsetY = 2f)
     {
         if (!Ga.me.gameData.showFloatingInfo) return;
-        FloatingText ft = Instantiate(floatingTextPrefab, spawnPoint, Quaternion.identity, floatingContainer);
-        ft.SpawnMe(damage, offsetY);
+        Ga.me.pool.FloatingText().StartMe(spawnPoint, damage, offsetY);
     }
     public void FloatText(Vector3 spawnPoint, string st, Color col, float offsetY = 2f)
     {
         if (!Ga.me.gameData.showFloatingInfo) return;
-        FloatingText ft = Instantiate(floatingTextPrefab, spawnPoint, Quaternion.identity, floatingContainer);
-        ft.SpawnMe(st, col, offsetY);
+        Ga.me.pool.FloatingText().StartMe(spawnPoint, st, col, offsetY);
     }
 
     public void ToggleParticles()

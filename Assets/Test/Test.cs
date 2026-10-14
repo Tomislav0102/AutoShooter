@@ -14,43 +14,44 @@ public class Test : SerializedMonoBehaviour
     public BuffEffects[] buffEffects;
 
     public SoSkill soSkill;
-    public bool b;
+    public SoSkill SsoSkill
+    {
+        get => _soSkill;
+        set => _soSkill = value;
+    }
+    SoSkill _soSkill;
+    public int segment;
     public int iterations;
+
     [Button]
     void AddS()
     {
-        brain.character.CharacterInjectData(GenChange.Add, buffStat);
+      //  brain.character.CharacterInjectData(GenChange.Add, buffStat);
     }
     [Button]
     void Remove()
     {
     }
     
-    void Start()
+
+    void Update()
     {
-        // for (int i = 0; i < 10; i++)
+        // for (int i = 0; i < iterations; i++)
         // {
-        //     Vector2 v2 = new Vector2(0, 1);
-        //     v2 = Utils.RotateV2(v2, Random.Range(0, 360f));
-        //     print(v2.magnitude);
-        //     
+        //     switch (segment)
+        //     {
+        //         case 0:
+        //             if (brain.skills.TryGetFromGroup(SkillName.SeismicAnchorage, out SoSkill skill)) {}
+        //             break;
+        //         case 1:
+        //             if (soSkill is null){}
+        //             break;
+        //         case 2:
+        //             if (SsoSkill is null){}
+        //             break;
+        //     }
         // }
     }
-
-    // void Update()
-    // {
-    //         for (int i = 0; i < iterations; i++)
-    //         {
-    //             if (b)
-    //             {
-    //                 if (!Br.skills.TryGetFromGroup(SkillName.SeismicAnchorage, out _)) {}
-    //             }
-    //             else
-    //             {
-    //                 if (soSkill is null){}
-    //             }
-    //         }
-    // }
     
     void SetBuff(GenChange genChange)
     {
