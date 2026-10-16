@@ -13,7 +13,7 @@ public enum GenTarget { Self, Other }
 #endregion
 
 public enum PanelType { Game, Main, Skills, Character, Inventory, LevelUp, Map, Encyclopedia, Options }
-public enum BuffType { Added, Percentage, Set }
+public enum BuffType { Added, Set }
 public enum WeaponType { Slash, Blunt, Pierce }
 
 

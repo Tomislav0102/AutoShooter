@@ -83,7 +83,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 {
                     Br.character.CharacterInjectData(GenChange.Remove, _buffsPyromania[i]);
                     if (!on) break;
-                    _buffsPyromania[i] = new BuffStats(Character.StatByElement((Element)i), BuffType.Percentage, _skillPyromania.valueGeneric * Ga.me.runData.enUnderEffect.GetValueByKey(effect));
+                    _buffsPyromania[i] = new BuffStats(Character.StatByElement((Element)i), BuffType.Added, _skillPyromania.valueGeneric * Ga.me.runData.enUnderEffect.GetValueByKey(effect));
                     Br.character.CharacterInjectData(GenChange.Add, _buffsPyromania[i]);
                 }
                 break;
@@ -92,7 +92,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 Br.character.CharacterInjectData(GenChange.Remove, _buffPermafrostSkin);
                 if (on)
                 {
-                    _buffPermafrostSkin = new BuffStats(Stats.ResistPhysical, BuffType.Added, _skillPermafrostSkin.passData.stats[0].data.value * Ga.me.runData.enUnderEffect.GetValueByKey(effect));
+                    _buffPermafrostSkin = new BuffStats(Stats.ResistPhysical, BuffType.Added, _skillPermafrostSkin.passData.stats[0].value * Ga.me.runData.enUnderEffect.GetValueByKey(effect));
                     Br.character.CharacterInjectData(GenChange.Add, _buffPermafrostSkin);
                 }
                 break;
@@ -127,14 +127,14 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 _spellBastionPulse = SpellMain.Sp(newSkill.spell, Br);
                 _spellBastionPulse.transporter.target = Br.myTransform;
                 _spellBastionPulse.pd = newSkill.passData;
-                _spellBastionPulse.areaOfEffect += newSkill.passData.stats[0].data.value;
+                _spellBastionPulse.areaOfEffect += newSkill.passData.stats[0].value;
                 _spellBastionPulse.InitializeMe(Br);
                 break;
             case SkillId.DragonsBreath:
                 if (_spellDragonsBreath is not null) _spellDragonsBreath.MyPhase = SpellMain.Phase.EndEnd;
                 _spellDragonsBreath = SpellMain.Sp(newSkill.spell, Br);
                 _spellDragonsBreath.transporter.target = Br.myTransform;
-                _spellDragonsBreath.areaOfEffect += newSkill.passData.stats[0].data.value;
+                _spellDragonsBreath.areaOfEffect += newSkill.passData.stats[0].value;
                 PassData pd = new PassData()
                 {
                     hasDamage = true,
@@ -224,7 +224,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                 groupAbsoluteZero.groupPassData = new SpellGroup.GroupPassData()
                 {
                     setAreaOfEffect = true,
-                    areaOfEffect = 1 + 0.1f * (Br.character.GetStat(Stats.Size) + newSkill.passData.stats[1].data.value),
+                    areaOfEffect = 1 + 0.1f * (Br.character.GetStat(Stats.Size) + newSkill.passData.stats[1].value),
                     setLifeTime = true,
                     lifeTime = newSkill.valueGeneric + Br.character.GetStat(Stats.Duration) * 0.1f,
                 };
@@ -392,7 +392,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                                 damagePair = Br.character.GetDamage()
                             };
                             SpellMain spell = SpellMain.Sp(skill.afterSpells[0], pos);
-                            spell.areaOfEffect += skill.passData.stats[0].data.value;
+                            spell.areaOfEffect += skill.passData.stats[0].value;
                             spell.InitializeMe(Br, containerExplosion, () => areaFire(pos));
                             Instantiate(Ga.me.psDecalFire, spell.myTransform.position, Quaternion.Euler(new Vector3(-90, 0, 0)), Ga.me.transform);
                         }
@@ -405,7 +405,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                                 damagePair = Br.character.GetDamage(Element.Fire)
                             };
                             SpellMain spell = SpellMain.Sp(skill.afterSpells[1], pos);
-                            spell.areaOfEffect += skill.passData.stats[0].data.value;
+                            spell.areaOfEffect += skill.passData.stats[0].value;
                             spell.InitializeMe(Br, containerArea);
                         }
                         break;
@@ -445,7 +445,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             effects = new BuffEffects[1] {burn}
                         };
                         SpellMain spellFireNova = SpellMain.Sp(skill.spell, Br);
-                        spellFireNova.areaOfEffect += skill.passData.stats[0].data.value;
+                        spellFireNova.areaOfEffect += skill.passData.stats[0].value;
                         spellFireNova.InitializeMe(Br, pdFireNova);
                         break;
                     case SkillId.ChainLightning:
@@ -536,7 +536,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                         Vector3 directionIceSpear = Utils.Direction(spawnPoint.position, Br.combat.MyTarget.myTransform.position);
                         spellIceSpear.myTransform.rotation = Quaternion.LookRotation(directionIceSpear);
                         spellIceSpear.visual.SetSpawnHeight(spawnPoint.position.y, 1.5f);
-                        spellIceSpear.transporter.pierce = Br.character.GetStat(Stats.Piercing) + (int)skill.passData.stats[0].data.value;
+                        spellIceSpear.transporter.pierce = Br.character.GetStat(Stats.Piercing) + (int)skill.passData.stats[0].value;
                         spellIceSpear.InitializeMe(Br, pdIceSpear);
                         break;
                 }

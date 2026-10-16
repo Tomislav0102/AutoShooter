@@ -22,7 +22,7 @@ public class Status : MonoBehaviour, IIniBrain
         Poisoned_dot,
         Bleeding_dot,
         //on weapons (mostly)
-        InstantKill,
+        Executioner, //kill if target hp is too low
         Impact, //stunned enemies take 50% more damage
         Keen, //extra crit chance
         Serrated, //2X damage vs unarmored, 0.5X damage vs armored
@@ -145,7 +145,7 @@ public class Status : MonoBehaviour, IIniBrain
                 {
                     myBrain = buff.myBrain,
                     hasDamage = true,
-                    damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.data.value })
+                    damagePair = new MyDuo<Element, float>(new Element[1] { element }, new float[1] { buff.value })
                 };
                 Br.health.HealthInjectDataDamage(passData, false, false);
             }
@@ -176,19 +176,19 @@ public class Status : MonoBehaviour, IIniBrain
             case GenChange.Add:
                 if (buffEffect.IsDot() && _buffTimers.HasKey(buffEffect)) return;
                 
-                _buffTimers.Add(buffEffect, buffEffect.data.permanent ? float.PositiveInfinity : buffEffect.data.Duration);
+                _buffTimers.Add(buffEffect, buffEffect.permanent ? float.PositiveInfinity : buffEffect.Duration);
                 for (int i = 0; i < _buffTimers.Length() - 1; i++)
                 {
                     if (_buffTimers.GetKey(i).effect != buffEffect.effect) continue;
-                    float duration = _buffTimers.GetValue(i) +  buffEffect.data.Duration;
+                    float duration = _buffTimers.GetValue(i) +  buffEffect.Duration;
                     _buffTimers.SetValue(i, duration);
                     Refresh();
                     return;
                 }
                 switch (buffEffect.effect)
                 {
-                    case Effect.InstantKill:
-                        if (Br.health.HealthCurrent <= buffEffect.data.value * Br.character.GetStat(Stats.Health) * 0.01f)
+                    case Effect.Executioner:
+                        if (Br.health.HealthCurrent <= buffEffect.value * Br.character.GetStat(Stats.Health) * 0.01f)
                         {
                             print("Executioner");
                             Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffect.myBrain);

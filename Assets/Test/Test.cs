@@ -22,12 +22,14 @@ public class Test : SerializedMonoBehaviour
     SoSkill _soSkill;
     public int segment;
     public int iterations;
-    public Transform[] trs;
+    public NavMeshAgent agent;
 
+    
     [Button]
     void AddS()
     {
       //  brain.character.CharacterInjectData(GenChange.Add, buffStat);
+      agent.transform.position = transform.position;
     }
     [Button]
     void Remove()

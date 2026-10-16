@@ -12,31 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: shared - PowerSurge
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  infoA: Level of skill starts at 0 (in-game its level1).
   description: Increases Physical Damage by 15%
   levelUpEffect: 
-  skillName: 3
+  skillId: 3
   icon: {fileID: 0}
   skillType: 1
   level: 0
-  hasStat: 0
-  stats: []
-  hasExtraDamage: 1
-  damageType: 1
-  extraDamage:
-    <Key>k__BackingField: 00000000
-    <Value>k__BackingField:
-    - 1.15
-  hasEffect: 0
-  buffEffect: []
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasExtra: 0
+  hasPassData: 1
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -50,10 +37,18 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasStats: 0
-    stats: []
+    hasStats: 1
+    stats:
+    - myBrain: {fileID: 0}
+      value: 15
+      permanent: 1
+      <Duration>k__BackingField: 0
+      stat: 0
+      buffType: 0
     hasEffect: 0
     effects: []
+  hasAfterSpells: 0
+  afterSpells: []
   hasGeneric: 0
   valueGeneric: 0
   valueGenericArray: []

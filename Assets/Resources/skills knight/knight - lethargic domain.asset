@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: knight - lethargic domain
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  description: Aura - enemy attack speed reduced by 50%
+  description: Aura - enemy attack speed reduced by 50
   levelUpEffect: Increase aura radius
-  skillName: 44
+  skillId: 44
   icon: {fileID: 0}
   skillType: 1
   level: 0
@@ -39,18 +39,18 @@ MonoBehaviour:
     manaShieldPoints: 0
     hasStats: 1
     stats:
-    - stat: 18
+    - myBrain: {fileID: 0}
+      value: -50
+      permanent: 1
+      <Duration>k__BackingField: 0
+      stat: 7
       buffType: 0
-      data:
-        value: 2
-        permanent: 1
-        <Duration>k__BackingField: 0
-    - stat: 7
-      buffType: 1
-      data:
-        value: -50
-        permanent: 1
-        <Duration>k__BackingField: 0
+    - myBrain: {fileID: 0}
+      value: 2
+      permanent: 1
+      <Duration>k__BackingField: 0
+      stat: 18
+      buffType: 0
     hasEffect: 0
     effects: []
   hasAfterSpells: 0

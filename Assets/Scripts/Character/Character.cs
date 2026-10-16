@@ -73,7 +73,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
 
     }
     Brain _br;
-    public MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
+    MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
     MyDuo<Stats, float> _ovrStatsFinal = new MyDuo<Stats, float>(); //for BuffType.Set
     MyDuo<BuffStats, float> _buffTimers = new MyDuo<BuffStats, float>();
     BuffStats[] _buffStatsBodySizeChange = System.Array.Empty<BuffStats>();
@@ -84,7 +84,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         for (int i = 0; i < _buffTimers.Length(); i++)
         {
             BuffStats buff = _buffTimers.GetKey(i);
-            if (buff.data.permanent || float.IsPositiveInfinity(buff.data.Duration)) continue;
+            if (buff.permanent || float.IsPositiveInfinity(buff.Duration)) continue;
             float duration = _buffTimers.GetValue(i);
             if (duration > 0)
             {
@@ -162,27 +162,17 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         switch (change)
         {
             case GenChange.Add:
-                if (buffStats.buffType == BuffType.Percentage && Mathf.Approximately(buffStats.data.value, 1f))
-                {
-                    if (Br.debug) print("Buff multiplier is 1X, so its ignored");
-                    return;
-                }
-                if (buffStats.buffType == BuffType.Added && Mathf.Approximately(buffStats.data.value, 0f))
+                if (buffStats.buffType == BuffType.Added && Mathf.Approximately(buffStats.value, 0f))
                 {
                     if (Br.debug) print("Buff addition is 0, so its ignored");
                     return;
                 }
                 Stats stat = buffStats.stat;
                 int previousValueDebug = GetStat(stat);
-                float finalValue = buffStats.data.value;
+                float finalValue = buffStats.value;
                 switch (buffStats.buffType)
                 {
                     case BuffType.Added:
-                        finalValue += _statsFinal.GetValueByKey(stat);
-                        _statsFinal.SetValueByKey(stat, finalValue);
-                        break;
-                    case BuffType.Percentage:
-                        finalValue = statsBase.baseStats[stat] * (buffStats.data.value * 0.01f);
                         finalValue += _statsFinal.GetValueByKey(stat);
                         _statsFinal.SetValueByKey(stat, finalValue);
                         break;
@@ -192,7 +182,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
                         break;
                 }
                 onStatChange?.Invoke(buffStats.stat, finalValue);
-                _buffTimers.Add(buffStats, buffStats.data.Duration);
+                _buffTimers.Add(buffStats, buffStats.Duration);
                 if (Br.debug) print($"{stat} changed from {previousValueDebug} to {GetStat(stat)}");
                 break;
             case GenChange.Remove:
@@ -207,12 +197,9 @@ public class Character : SerializedMonoBehaviour, IIniBrain
         switch (buffToRemove.buffType)
         {
             case BuffType.Added:
-                float valAdded = _statsFinal.GetValueByKey(buffToRemove.stat) - buffToRemove.data.value;
+                float valAdded = _statsFinal.GetValueByKey(buffToRemove.stat) - buffToRemove.value;
                 _statsFinal.SetValueByKey(buffToRemove.stat, valAdded);
                 break;
-            case BuffType.Percentage:
-                float valPercentage = _statsFinal.GetValueByKey(buffToRemove.stat) - statsBase.baseStats[buffToRemove.stat] * (buffToRemove.data.value * 0.01f);
-                _statsFinal.SetValueByKey(buffToRemove.stat, valPercentage);
                 break;
             case BuffType.Set:
                 if (!_ovrStatsFinal.HasKey(buffToRemove.stat)) return;  

@@ -12,42 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: knight slash - executioner 1
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  description: 'Instantly kill non-boss enemies if under X%HP. Intensity
-
-    (in
-    Effect Group) is HP treshold'
+  description: 'Instantly kill non-boss enemies if under X%HP. '
   levelUpEffect: Increase HP threshold
-  skillName: 33
+  skillId: 33
   icon: {fileID: 0}
   skillType: 0
   level: 1
-  hasStatx: 0
-  stats:
-  - stat: 0
-    buffType: 0
-    data:
-      value: 0
-      permanent: 0
-      <Duration>k__BackingField: 0
-  - stat: 0
-    buffType: 0
-    data:
-      value: 0
-      permanent: 0
-      <Duration>k__BackingField: 0
-  hasDamagex: 0
-  damageType: 0
-  damagePair:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: []
-  hasEffectx: 1
-  effects:
-  - myBrain: {fileID: 0}
-    effect: 12
-    data:
-      value: 0
-      permanent: 0
-      <Duration>k__BackingField: 0
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
@@ -72,11 +42,10 @@ MonoBehaviour:
     hasEffect: 1
     effects:
     - myBrain: {fileID: 0}
-      effect: 12
-      data:
-        value: 20
-        permanent: 1
-        <Duration>k__BackingField: 0
+      value: 15
+      permanent: 1
+      <Duration>k__BackingField: 0
+      effect: 14
   hasAfterSpells: 0
   afterSpells: []
   hasGeneric: 0
