@@ -22,6 +22,7 @@ public class Test : SerializedMonoBehaviour
     SoSkill _soSkill;
     public int segment;
     public int iterations;
+    public Transform[] trs;
 
     [Button]
     void AddS()

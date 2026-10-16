@@ -28,24 +28,24 @@ public class SharedSkills : MonoBehaviour, IIniBrain
     }
     void SkillIncreaseCallback(SoSkill newSkill)
     {
-        switch (newSkill.skillName)
+        switch (newSkill.skillId)
         {
-            case SkillName.VitalityBoost:
-            case SkillName.Adrenaline:
-            case SkillName.EagleEye:
-            case SkillName.HeavyHitter:
-            case SkillName.Haste:
-            case SkillName.Scholar:
+            case SkillId.VitalityBoost:
+            case SkillId.Adrenaline:
+            case SkillId.EagleEye:
+            case SkillId.HeavyHitter:
+            case SkillId.Haste:
+            case SkillId.Scholar:
                 SimpleStatSkillApply(newSkill);
                 break;
-            case SkillName.ExtraLife:
+            case SkillId.ExtraLife:
                 Br.health.life++;
                 break;
-            case SkillName.ExtraSkillChoice:
+            case SkillId.ExtraSkillChoice:
                 BuffStats buffStats = new BuffStats(Stats.ExtraSkillChoice, BuffType.Added, 1);
                 Br.character.CharacterInjectData(GenChange.Add, buffStats);
                 break;
-            case SkillName.RotatingSwords:
+            case SkillId.RotatingSwords:
                 rotatingSwords();
                 void rotatingSwords()
                 {
@@ -146,10 +146,10 @@ public class SharedSkills : MonoBehaviour, IIniBrain
                     _groupRotSwords.InitializeMe(Br);
                 }
                 break;
-            case SkillName.Riposte:
+            case SkillId.Riposte:
                 _skillRiposte = newSkill;
                 break;
-            case SkillName.LastStand:
+            case SkillId.LastStand:
                 _skillLastStand = newSkill;
                 break;
         }

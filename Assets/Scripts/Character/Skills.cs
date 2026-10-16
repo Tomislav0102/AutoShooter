@@ -25,33 +25,31 @@ public class Skills : MonoBehaviour, IIniBrain
             if (useArcher) tempSkills.AddRange(Resources.LoadAll<SoSkill>("skills archer"));
             tempSkills.Add(myBasic);
 
-            int enumLength = System.Enum.GetNames(typeof(SkillName)).Length;
-            Dictionary<SkillName, List<SoSkill>> dict = new Dictionary<SkillName, List<SoSkill>>();
+            int enumLength = System.Enum.GetNames(typeof(SkillId)).Length;
+            Dictionary<SkillId, List<SoSkill>> dict = new Dictionary<SkillId, List<SoSkill>>();
             for (int i = 0; i < enumLength; i++)
             {
-                dict.Add((SkillName)i, allSkillsByName((SkillName)i));
+                dict.Add((SkillId)i, allSkillsByName((SkillId)i));
             }
             List<Group> tempGroups = new List<Group>();
-            foreach (KeyValuePair<SkillName, List<SoSkill>> item in dict)
+            foreach (KeyValuePair<SkillId, List<SoSkill>> item in dict)
             {
                 if (item.Value.Count == 0) continue;
                 tempGroups.Add(new Group(item.Value.ToArray()));
             }
             _group = tempGroups.ToArray();
-            OvrLevelSpecificSkill(myBasic.skillName);
+            OvrLevelSpecificSkill(myBasic.skillId);
 
             //debugs
           //  OvrLevelSpecificSkill(SkillName.RotatingSwords);
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillName.Statue);
-                OvrLevelSpecificSkill(SkillName.FuneralTornado);
-                
+                OvrLevelSpecificSkill(SkillId.Statue);
+                OvrLevelSpecificSkill(SkillId.FuneralTornado);
             }
             if (useMage)
             {
-                 OvrLevelSpecificSkill(SkillName.Blizzard);
-                 OvrLevelSpecificSkill(SkillName.PermafrostSkin);
+                OvrLevelSpecificSkill(SkillId.FuneralTornado);
             }
             if (useArcher)
             {
@@ -59,12 +57,12 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             return;
 
-            List<SoSkill> allSkillsByName(SkillName skillName)
+            List<SoSkill> allSkillsByName(SkillId skillId)
             {
                 List<SoSkill> temp = new List<SoSkill>();
                 foreach (SoSkill s in tempSkills)
                 {
-                    if (s.skillName == skillName) temp.Add(s);
+                    if (s.skillId == skillId) temp.Add(s);
                 }
                 return temp;
             }
@@ -89,7 +87,7 @@ public class Skills : MonoBehaviour, IIniBrain
         for (int i = 0; i < skillsToLevel.Length; i++)
         {
             if (skillsToLevel == null) continue;
-            OvrLevelSpecificSkill(skillsToLevel[i].skillName, skillsToLevel[i].level);
+            OvrLevelSpecificSkill(skillsToLevel[i].skillId, skillsToLevel[i].level);
         }
     }
     [Button]
@@ -102,7 +100,7 @@ public class Skills : MonoBehaviour, IIniBrain
             if (!g.canAcquire) continue;
             if (myUltimate is not null &&
                 g.MySkill().skillType == SkillType.Ultimate && 
-                g.skillName != myUltimate.skillName) continue;
+                g.skillId != myUltimate.skillId) continue;
             if (g.CanLevel(out SoSkill nextLevelSkill)) skills.Add(nextLevelSkill);
         }
 
@@ -131,11 +129,11 @@ public class Skills : MonoBehaviour, IIniBrain
         _uiLevelUp = Ga.me.uiManager.PanelByType(PanelType.LevelUp).GetComponent<UiLevelUp>();
     }
 
-    void OvrLevelSpecificSkill(SkillName skillName, int level = 0)
+    void OvrLevelSpecificSkill(SkillId skillId, int level = 0)
     {
         foreach (Group g in _group)
         {
-            if (g.skillName != skillName) continue;
+            if (g.skillId != skillId) continue;
             g.levelCurrent = level;
             StartCoroutine(delay(g)); //debug
             return;
@@ -147,21 +145,21 @@ public class Skills : MonoBehaviour, IIniBrain
             onSkillIncrease?.Invoke(g.MySkill());
         }
     }
-    public void SkillIncrease(SkillName skillName)
+    public void SkillIncrease(SkillId skillId)
     {
-        if (skillName == SkillName.ReplacementGold)
+        if (skillId == SkillId.ReplacementGold)
         {
             onSkillIncrease?.Invoke(replacements[0]);
             return;
         }
-        if (skillName == SkillName.ReplacementHeal)
+        if (skillId == SkillId.ReplacementHeal)
         {
             onSkillIncrease?.Invoke(replacements[1]);
             return;
         }
         foreach (Group g in _group)
         {
-            if (g.skillName != skillName) continue;
+            if (g.skillId != skillId) continue;
             if (!g.CanLevel(out _)) return;
             g.levelCurrent++;
             onSkillIncrease?.Invoke(g.MySkill());
@@ -172,7 +170,7 @@ public class Skills : MonoBehaviour, IIniBrain
     [System.Serializable]
     public class Group
     {
-        public SkillName skillName;
+        [FormerlySerializedAs("skillName")] public SkillId skillId;
         public bool canAcquire; //true by default, some skills have requirements (e.g. after finishing the game once)
         public int levelCurrent;
         SoSkill[] _mySkills;
@@ -182,7 +180,7 @@ public class Skills : MonoBehaviour, IIniBrain
             canAcquire = true;
             levelCurrent = -1;
             _mySkills = skills;
-            skillName = _mySkills[0].skillName;
+            skillId = _mySkills[0].skillId;
         }
         public SoSkill MySkill()
         {
@@ -202,12 +200,12 @@ public class Skills : MonoBehaviour, IIniBrain
     }
 
     //not optimized
-    bool TryGetFromGroup(SkillName skillName, out SoSkill skill)
+    bool TryGetFromGroup(SkillId skillId, out SoSkill skill)
     {
         skill = null;
         foreach (Group item in _group)
         {
-            if (item.skillName != skillName) continue;
+            if (item.skillId != skillId) continue;
             if (!item.canAcquire) return false;
             if (item.levelCurrent < 0) return false;
             skill = item.MySkill();

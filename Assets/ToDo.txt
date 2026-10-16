@@ -1,8 +1,7 @@
 ------TODO------
 
 GENERAL
-Implement stat affecting other stats 
-            - e.g. BodySize should change, DamPhys, ResistPhys, Dodge, MoveSpeed, AttackSpeed, CriticalHit, Size, Knockback...
+Implement stat affecting other stats. BodySize is the only stats doing it, maybe change the type (so it isn't 'Stats')
 Implement stat changes on spells/skills (example at Mage subOnStatChange() method)
 Implement status mechanics
 Gold and Xp mechanics

@@ -103,84 +103,84 @@ public class PC_Knight : MonoBehaviour, IIniBrain
 
     void SkillIncreaseCallback(SoSkill newSkill)
     {
-        switch (newSkill.skillName)
+        switch (newSkill.skillId)
         {
-            case SkillName.SweepingArc:
+            case SkillId.SweepingArc:
                 _skillSweepingArc = newSkill;
                 break;
-            case SkillName.GuardiansMight:
+            case SkillId.GuardiansMight:
                 _skillGuardiansMight = newSkill;
                 GuardiansMight();
                 break;
-            case SkillName.GuardiansValor:
+            case SkillId.GuardiansValor:
                 _skillGuardiansValor =  newSkill;
                 GuardiansValor();
                 break;
-            case SkillName.LethargicDomain:
+            case SkillId.LethargicDomain:
                 _skillLethargicDomain = newSkill;
                 lethargicDomain();
                 break;
-            case SkillName.IronMirror:
+            case SkillId.IronMirror:
                 _skillIronMirror =  newSkill;
                 ironMirror();
                 break;
-            case SkillName.HeavyImpact:
+            case SkillId.HeavyImpact:
                 _skillHeavyImpact = newSkill;
                 Ga.me.runData.AddAllVulnerabilities(Status.Effect.Stunned, (int)_skillHeavyImpact.valueGeneric);
                 break;
-            case SkillName.SkullCracker:
+            case SkillId.SkullCracker:
                 _skillSkullCracker = newSkill;
                 _stunAttacksDurationExtra += _skillSkullCracker.valueGeneric;
                 break;
-            case SkillName.AdvanceGuard:
+            case SkillId.AdvanceGuard:
                 _skillAdvanceGuard = newSkill;
                 _spellAdvanceGuard = SpellMain.Sp(_skillAdvanceGuard.spell, Br, true);
                 _spellAdvanceGuard.transporter.target = Br.myTransform;
                 _spellAdvanceGuard.InitializeMe(Br);
                 break;
-            case SkillName.Statue:
+            case SkillId.Statue:
                 _skillStatue = newSkill;
                 _queueStatues = new Queue<SpellMain>();
                 _numMaxStatues++;
                 break;
-            case SkillName.GrandCrescendo:
+            case SkillId.GrandCrescendo:
                 _skillGrandCrescendo = newSkill;
                 break;
-            case SkillName.ExplosiveHit:
+            case SkillId.ExplosiveHit:
                 _skillExplosiveHit = newSkill;
                 break;
-            case SkillName.ConcussiveWave:
+            case SkillId.ConcussiveWave:
                 _skillConcussiveWave = newSkill;
                 break;
-            case SkillName.SpectralRicochet:
+            case SkillId.SpectralRicochet:
                 _skillSpectralRicochet = newSkill;
                 break;
-            case SkillName.SpikedRim:
+            case SkillId.SpikedRim:
                 _skillSpikedRim = newSkill;
                 break;
-            case SkillName.ShockwaveBlock:
+            case SkillId.ShockwaveBlock:
                 _skillShockwaveBlock = newSkill;
                 break;
-            case SkillName.ArcaneHarvest:
+            case SkillId.ArcaneHarvest:
                 _skillArcaneHarvest = newSkill;
                 break;
-            case SkillName.Executioner:
+            case SkillId.Executioner:
                 _skillExecutioner = newSkill;
                 break;
-            case SkillName.BleedingStrike:
+            case SkillId.BleedingStrike:
                 _skillBleedingStrike = newSkill;
                 break;
-            case SkillName.ArmorBreaker:
+            case SkillId.ArmorBreaker:
                 _skillArmorBreaker = newSkill;
                 break;
-            case SkillName.ElementalStrikes:
+            case SkillId.ElementalStrikes:
                 _skillElementalStrikes = newSkill;
                 break;
-            case SkillName.FuneralTornado:
+            case SkillId.FuneralTornado:
                 _skillFuneralTornado = newSkill;
                 break;
-            case SkillName.IronFortress: //ultimate 1
-            case SkillName.ConcussiveSurge: //ultimate 2
+            case SkillId.IronFortress: //ultimate 1
+            case SkillId.ConcussiveSurge: //ultimate 2
                 Br.skills.myUltimate = newSkill;
                 Ga.me.uiManager.ultimateUi.SetMeUp(newSkill.valueGeneric);
                 break;
@@ -293,9 +293,9 @@ public class PC_Knight : MonoBehaviour, IIniBrain
     public void AnimEv_UltimateCallback(int num = 0)
     {
         if (Br.skills.myUltimate is null) return;
-        switch (Br.skills.myUltimate.skillName)
+        switch (Br.skills.myUltimate.skillId)
         {
-            case SkillName.IronFortress: 
+            case SkillId.IronFortress: 
                 ironFortress();
                 void ironFortress()
                 {
@@ -313,7 +313,7 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     }
                 }
                 break;
-            case SkillName.ConcussiveSurge:
+            case SkillId.ConcussiveSurge:
                 MyDuo<Element, float> totalDamage = Br.character.GetDamage();
                 SpellGroup.ComboDash(Br, totalDamage);
                 break;

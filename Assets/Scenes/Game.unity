@@ -2412,6 +2412,9 @@ MonoBehaviour:
   soSkill: {fileID: 0}
   segment: 99
   iterations: 1000000
+  trs:
+  - {fileID: 0}
+  - {fileID: 1740644868}
 --- !u!1 &889464210
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,7 +4982,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4987,7 +4990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5039,7 +5042,23 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 1f00f37659c9cb148968421391709e79, type: 2}
     - target: {fileID: 5022236844178524051, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905475997, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_UseCustomVertexStreams
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905475997, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905475997, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'm_VertexStreams.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070116653905475997, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+      propertyPath: 'm_VertexStreams.Array.data[2]'
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5886414157575731664, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
       propertyPath: startActive
@@ -5073,6 +5092,11 @@ PrefabInstance:
 --- !u!1 &1740644863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7004424216783605443, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
+  m_PrefabInstance: {fileID: 1740644862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1740644868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3058784301376628887, guid: 57d4bc743fff8fa47bb43e86a0e28073, type: 3}
   m_PrefabInstance: {fileID: 1740644862}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1839881853

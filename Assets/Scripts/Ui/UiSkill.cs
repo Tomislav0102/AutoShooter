@@ -24,7 +24,7 @@ public class UiSkill : MonoBehaviour
         
         foreach (SkillCardUi card in _cards)
         {
-            if (card.MySkill.skillName == skill.skillName) //level up existing skill
+            if (card.MySkill.skillId == skill.skillId) //level up existing skill
             {
                 card.MySkill = skill;
                 return;

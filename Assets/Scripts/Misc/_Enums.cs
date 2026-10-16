@@ -89,7 +89,7 @@ public enum Stats
     BodySize
 }
 
-public enum SkillName
+public enum SkillId
 {
     //shared
     VitalityBoost,

@@ -8,8 +8,8 @@ public class SoSkill : ScriptableObject
 {
     [SerializeField, TextArea, FoldoutGroup("Info")] string description;
     [SerializeField, TextArea, FoldoutGroup("Info")] string levelUpEffect;
-    [Title("General")]
-    public SkillName skillName;
+    [FormerlySerializedAs("skillName")] [Title("General")]
+    public SkillId skillId;
     public Sprite icon;
     // public string skillNameText;
     // public string levelUpText;
