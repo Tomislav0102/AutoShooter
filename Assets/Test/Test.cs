@@ -5,31 +5,23 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class Test : SerializedMonoBehaviour
 {
-    public ParticleSystem.ColorBySpeedModule mm;
     public Brain brain;
     public BuffStats buffStat;
     public BuffEffects[] buffEffects;
 
-    public SoSkill soSkill;
-    public SoSkill SsoSkill
-    {
-        get => _soSkill;
-        set => _soSkill = value;
-    }
-    SoSkill _soSkill;
-    public int segment;
-    public int iterations;
-    public NavMeshAgent agent;
-
-    
+    public AnimationCurve curve;
+    public Transform bomb, spawnPoint, targetPoint;
+    public float speed = 1;
+    public float length;
+    [Range(0f, 1f)] public float currentPos;
     [Button]
     void AddS()
     {
       //  brain.character.CharacterInjectData(GenChange.Add, buffStat);
-      agent.transform.position = transform.position;
     }
     [Button]
     void Remove()
@@ -39,21 +31,9 @@ public class Test : SerializedMonoBehaviour
 
     void Update()
     {
-        // for (int i = 0; i < iterations; i++)
-        // {
-        //     switch (segment)
-        //     {
-        //         case 0:
-        //             if (brain.skills.TryGetFromGroup(SkillName.SeismicAnchorage, out SoSkill skill)) {}
-        //             break;
-        //         case 1:
-        //             if (soSkill is null){}
-        //             break;
-        //         case 2:
-        //             if (SsoSkill is null){}
-        //             break;
-        //     }
-        // }
+        // float fl = Mathf.PingPong(Time.time * speed, length);
+        // bomb.position = new Vector3(0f, curve.Evaluate(fl / length), fl);
+        bomb.position = Vector3.Lerp(spawnPoint.position, targetPoint.position, currentPos);
     }
     
     void SetBuff(GenChange genChange)
@@ -66,13 +46,13 @@ public class Test : SerializedMonoBehaviour
 
 }
 
-public class RemeberQueueStack
+public class RememberQueueStack
 {
     Queue<int> _q;
     Stack<int> _s;
 
 
-    public RemeberQueueStack(int startSize)
+    public RememberQueueStack(int startSize)
     {
         _q = new Queue<int>();
         _s = new Stack<int>();
