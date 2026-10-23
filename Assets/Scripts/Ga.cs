@@ -46,6 +46,7 @@ public class Ga : MonoBehaviour
     [HideInInspector] public WaitForSeconds wait15;
     [HideInInspector] public WaitForSeconds wait20;
     [HideInInspector] public WaitForSeconds wait30;
+    [HideInInspector] public WaitForSeconds wait50;
     [HideInInspector] public WaitForSeconds wait100;
     [Title("Debug")] 
     public bool debug;
@@ -62,6 +63,7 @@ public class Ga : MonoBehaviour
         wait15 = Utils.GetWait(1.5f);
         wait20 = Utils.GetWait(2f);
         wait30 = Utils.GetWait(3f);
+        wait50 = Utils.GetWait(5f);
         wait100 = Utils.GetWait(10f);
         #if (UNITY_EDITOR)
         #else

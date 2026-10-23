@@ -24,6 +24,14 @@ public static class Utils
         return false;
     }
     
+    public static int IndexFromMask(LayerMask mask) //only works if there is 1 layer in LayerMask
+    {
+        for (int i = 0; i < 32; ++i)
+        {
+            if ((1 << i) == mask) return i;
+        }
+        return -1;
+    }
     public static int MyLayer(string layerName)
     {
         int lay = LayerMask.NameToLayer(layerName);

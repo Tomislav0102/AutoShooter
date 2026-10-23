@@ -15,25 +15,10 @@ MonoBehaviour:
   description: 'Attacks have a X% chance to "Armor Crush," reducing enemy defense
     (Physical resistance) permanently. '
   levelUpEffect: Increases defense reduction amount.
-  skillName: 38
+  skillId: 38
   icon: {fileID: 0}
   skillType: 0
   level: 1
-  hasStatx: 1
-  stats:
-  - stat: 12
-    buffType: 0
-    data:
-      value: -40
-      permanent: 1
-      <Duration>k__BackingField: 0
-  hasDamagex: 0
-  damageType: 0
-  damagePair:
-    <Key>k__BackingField: 
-    <Value>k__BackingField: []
-  hasEffectx: 0
-  effects: []
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
@@ -55,12 +40,12 @@ MonoBehaviour:
     manaShieldPoints: 0
     hasStats: 1
     stats:
-    - stat: 12
+    - myBrain: {fileID: 0}
+      value: -30
+      permanent: 1
+      <Duration>k__BackingField: 0
+      stat: 12
       buffType: 0
-      data:
-        value: -40
-        permanent: 1
-        <Duration>k__BackingField: 0
     hasEffect: 0
     effects: []
   hasAfterSpells: 0
