@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -19,6 +20,9 @@ public class UiManager : MonoBehaviour
     public RectTransform healthBarPrefab;
     public RectTransform numDisplayPrefab;
     [SerializeField] FloatingText floatingTextPrefab;
+    [SerializeField] TextMeshProUGUI statsChange;
+    Transform _statsChangeRect;
+    HashSet<Stats> _statsDisplayed = new HashSet<Stats>();
     
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
@@ -36,6 +40,9 @@ public class UiManager : MonoBehaviour
         {
             _pairPanels.Add(allPanels[i].myPanel, allPanels[i]);
         }
+
+        statsChange.text = "";
+        _statsChangeRect = statsChange.transform;
     }
     void Start()
     {
@@ -43,6 +50,13 @@ public class UiManager : MonoBehaviour
         psToggle.isOn = Ga.me.gameData.showParticles;
         floatToggle.isOn = Ga.me.gameData.showFloatingInfo;
 
+    }
+
+    void LateUpdate()
+    {
+        if (_statsDisplayed.Count == 0) return;
+        Vector3 targetPos = Ga.me.team.playersBrain.myTransform.position + 2f * Vector3.up;
+        _statsChangeRect.position = Ga.me.camRig.cam.WorldToScreenPoint(targetPos);
     }
 
     public void OpenPanel(PanelType panel)
@@ -79,4 +93,23 @@ public class UiManager : MonoBehaviour
         Ga.me.gameData.showFloatingInfo = floatToggle.isOn;
     }
 
+    public void StatsChangeInject(GenChange change, Stats stats)
+    {
+        switch (change)
+        {
+            case GenChange.Add:
+                _statsDisplayed.Add(stats);
+                break;
+            case GenChange.Remove:
+                if (_statsDisplayed.Contains(stats)) _statsDisplayed.Remove(stats);
+                break;
+        }
+
+        statsChange.text = "";
+        foreach (Stats item in _statsDisplayed)
+        {
+            statsChange.text += item.ToString() + "\n";
+        }
+    }
+    
 }

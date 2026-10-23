@@ -39,7 +39,7 @@ public class Ga : MonoBehaviour
     public TeamManager team;
     public UiManager uiManager;
     public PoolManager pool;
-
+    
     [HideInInspector] public WaitForSeconds wait00;
     [HideInInspector] public WaitForSeconds wait01;
     [HideInInspector] public WaitForSeconds wait02;

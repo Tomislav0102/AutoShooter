@@ -1,0 +1,18 @@
+OVDF v1.1
+SoGameData+StatGroup, Assembly-CSharp
+
+# $Gpe68UCbf7gimn9cMe2SkQ
+Position: $root:7
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+	Gap = 3
+	DisableAutomaticLabelWidth = False
+	LabelWidth = 1
+
+# stat
+Position: $Gpe68UCbf7gimn9cMe2SkQ:0
+
+# col
+Position: $Gpe68UCbf7gimn9cMe2SkQ:1
+
+# mat
+Position: $Gpe68UCbf7gimn9cMe2SkQ:2

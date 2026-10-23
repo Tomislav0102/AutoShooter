@@ -31,12 +31,32 @@ public class SoGameData : ScriptableObject
     public float dashTime = 0.2f;
     public int dashPower = 50;
     public int stunDurationBase = 3;
+    
+    [SerializeField] StatGroup[] dataStats;
+    [System.Serializable]
+    public struct StatGroup
+    {
+        public Stats stat;
+        public Color col;
+        public Material mat;
+    }
+
+    public StatGroup GetStatGroup(Stats stat)
+    {
+        foreach (StatGroup item in dataStats)
+        {
+            if (item.stat == stat) return item;
+        }
+
+        return default;
+    }
+
     [Title("Navigation")]
     public float agentRotSpeed;
     
     [Title("Elements")]
     [SerializeField] ElementGroup[] element;
-    public ElementGroup GetElement(Element el)
+    public ElementGroup GetElementGroup(Element el)
     {
         foreach (ElementGroup item in element)
         {
