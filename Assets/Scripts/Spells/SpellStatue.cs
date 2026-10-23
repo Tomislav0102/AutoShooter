@@ -16,11 +16,11 @@ public class SpellStatue : MonoBehaviour, IIniSpell
             if (ps is not null)
             {
                 ParticleSystem.MainModule main = ps.main;
-                main.startColor = GetColor(_spell.pd.stats[0].stat);
+                main.startColor = Ga.me.gameData.GetStatGroup(_spell.pd.stats[0].stat).col;
             }
             if (myMesh is not null)
             {
-                myMesh.material = GetMat(_spell.pd.stats[0].stat);
+                myMesh.material = Ga.me.gameData.GetStatGroup(_spell.pd.stats[0].stat).mat;
             }
 
             Vector2 v2 = new Vector2(0, Random.Range(1, 5));
@@ -32,34 +32,16 @@ public class SpellStatue : MonoBehaviour, IIniSpell
     SpellMain _spell;
     [SerializeField] ParticleSystem ps;
     [SerializeField] MeshRenderer myMesh;
-    [SerializeField] Trio[] data;
-    Trio _myTrio;
 
-    
-    
-    Color GetColor(Stats stat)
+    public void OnEnter()
     {
-        foreach (Trio trio in data)
-        {
-            if (stat == trio.stat) return trio.col;
-        }
-        return default;
-    }
-    Material GetMat(Stats stat)
-    {
-        foreach (Trio trio in data)
-        {
-            if (stat == trio.stat) return trio.mat;
-        }
-        return null;
-    }
-
-    [System.Serializable]
-    struct Trio
-    {
-        public Stats stat;
-        public Color col;
-        public Material mat;
         
     }
+
+    public void OnExit()
+    {
+        
+    }
+    
+
 }

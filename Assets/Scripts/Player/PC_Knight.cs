@@ -493,8 +493,8 @@ public class PC_Knight : MonoBehaviour, IIniBrain
                     spell.InitializeMe(Br, pd);
                     _queueStatues.Enqueue(spell);
                     if (_queueStatues.Count <= _numMaxStatues) return;
-                    SpellMain previous = _queueStatues.Peek();
-                    _queueStatues.Dequeue();
+                    SpellMain previous = _queueStatues.Dequeue();
+                 //   _queueStatues.Dequeue();
                     previous.MyPhase = SpellMain.Phase.EndEnd;
                     StartCoroutine(cooldown());
                     return;

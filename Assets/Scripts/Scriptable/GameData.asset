@@ -18,6 +18,25 @@ MonoBehaviour:
   dashTime: 0.4
   dashPower: 25
   stunDurationBase: 3
+  dataStats:
+  - stat: 0
+    col: {r: 1, g: 0.013207495, b: 0.013207495, a: 1}
+    mat: {fileID: 2100000, guid: 97b2999a849e5eb4686c2daab8670482, type: 2}
+  - stat: 6
+    col: {r: 1, g: 0.90769, b: 0.011764705, a: 1}
+    mat: {fileID: 2100000, guid: d32b83ab6746b6444a5f7cd44e20ea1b, type: 2}
+  - stat: 7
+    col: {r: 1, g: 0.6622641, b: 0.82443094, a: 1}
+    mat: {fileID: 2100000, guid: 7915fc9e78cafca45bc942cba870623c, type: 2}
+  - stat: 8
+    col: {r: 0.08120806, g: 0.011764705, b: 1, a: 1}
+    mat: {fileID: 2100000, guid: 349872d92f8cccf459637a180931f050, type: 2}
+  - stat: 9
+    col: {r: 0.011764705, g: 1, b: 0.70085645, a: 1}
+    mat: {fileID: 2100000, guid: 61481541382373d49b81b17c76a451a9, type: 2}
+  - stat: 11
+    col: {r: 0.4980392, g: 1, b: 0, a: 1}
+    mat: {fileID: 2100000, guid: 61481541382373d49b81b17c76a451a9, type: 2}
   agentRotSpeed: 100
   element:
   - element: 0

@@ -357,7 +357,7 @@ public class PC_Mage : MonoBehaviour, IIniBrain
                             PassData containerHoming = new PassData()
                             {
                                 hasDamage = true,
-                                damagePair = Br.character.GetDamage(Element.Magic)
+                                damagePair = Br.character.GetDamage(Element.Poison)
                             };
                             int counter = 0;
                             for (int i = 0; i < _numOfObjects; i++)

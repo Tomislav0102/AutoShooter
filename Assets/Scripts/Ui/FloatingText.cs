@@ -45,6 +45,7 @@ public class FloatingText : MonoBehaviour, IPoolObject
     float _startingOffsetY;
     const int CONST_WidthSingle = 100;
     
+    
     public void StartMe(Vector3 spawnPoint, MyDuo<Element, float> damage, float offsetY = 2f)
     {
         Shared(spawnPoint, offsetY);
@@ -53,24 +54,26 @@ public class FloatingText : MonoBehaviour, IPoolObject
         {
             if (damage.GetValue(i) != 0f) effDamage.Add(damage.GetKey(i), damage.GetValue(i));
         }
+
         for (int i = 0; i < effDamage.Length(); i++)
         {
             Element k = effDamage.GetKey(i);
             float v = effDamage.GetValue(i);
             int index = (int)k;
-            if (v > 0)
+            switch (v)
             {
-                myTexts[index].text = $" <sprite index={index}>{v} ";
-                _startColors[index] = Ga.me.gameData.GetElement((Element)index).col;
+                case > 0:
+                    // myTexts[index].text = $" <sprite index={index}>{v} ";
+                    myTexts[index].text = v.ToString("0.0");
+                    _startColors[index] = Ga.me.gameData.GetElementGroup((Element)index).col;
+                    break;
+                case < 0: // healing
+                    myTexts[index].text = (-v).ToString("0");
+                    _startColors[index] = Ga.me.gameData.colHeal;
+                    break;
             }
-            else if (v < 0) // healing
-            {
-                myTexts[index].text =(-v).ToString("0");
-                _startColors[index] = Ga.me.gameData.colHeal;
-            }
-
         }
-        
+
         myTransform.sizeDelta = new Vector2(CONST_WidthSingle * effDamage.Length(), 0);
     }    
     public void StartMe(Vector3 spawnPoint, string st, Color col, float offsetY = 2f)
