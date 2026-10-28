@@ -14,6 +14,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
     //     Skill, //e.g. Ultimate increases attack speed for 10 sec
     //     Spell //buffs from cast spells
     // }
+    
     [HideInInspector] public System.Action<Stats, float> onStatChange;
     public SoCharacter statsBase;
     public Brain Br
@@ -73,7 +74,7 @@ public class Character : SerializedMonoBehaviour, IIniBrain
 
     }
     Brain _br;
-    MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
+    public MyDuo<Stats, float> _statsFinal = new MyDuo<Stats, float>();
     MyDuo<Stats, float> _ovrStatsFinal = new MyDuo<Stats, float>(); //for BuffType.Set
     MyDuo<BuffStats, float> _buffTimers = new MyDuo<BuffStats, float>();
     BuffStats[] _buffStatsBodySizeChange = System.Array.Empty<BuffStats>();

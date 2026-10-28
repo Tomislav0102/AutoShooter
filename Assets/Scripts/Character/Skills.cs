@@ -44,8 +44,9 @@ public class Skills : MonoBehaviour, IIniBrain
           //  OvrLevelSpecificSkill(SkillName.RotatingSwords);
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillId.Statue);
+                OvrLevelSpecificSkill(SkillId.Statue, 4);
                 OvrLevelSpecificSkill(SkillId.FuneralTornado);
+                OvrLevelSpecificSkill(SkillId.IronFortress);
             }
             if (useMage)
             {
@@ -53,6 +54,7 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             if (useArcher)
             {
+                OvrLevelSpecificSkill(SkillId.ChargeFire);
 
             }
             return;

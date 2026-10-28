@@ -30,13 +30,13 @@ public class SpellVisual : MonoBehaviour, IIniSpell
 
             switch (sizeModifier)
             {
-                case SizeModifierType.Emission_Shape:
+                case SizeModifierType.EmissionShape:
                     var emission = psDefault.emission;
                     emission.rateOverTime = value.areaOfEffect * 5;
                     var shape = psDefault.shape;
                     shape.radius = value.areaOfEffect * 0.5f;
                     break;
-                case SizeModifierType.Shape_Group:
+                case SizeModifierType.ShapeGroup:
                     for (int i = 0; i < psExtra.Length; i++)
                     {
                         ParticleSystem.ShapeModule psShape = psExtra[i].shape;
@@ -46,14 +46,14 @@ public class SpellVisual : MonoBehaviour, IIniSpell
                 case SizeModifierType.TransformScale:
                     transform.localScale = value.areaOfEffect * Vector3.one;
                     break;
-                case SizeModifierType.Velocity_Over_Lifetime: 
+                case SizeModifierType.VelocityOverLifetime: 
                     // ParticleSystem.MainModule myMain = psDefault.main;
                     // myMain.duration = value.lifeTime;
                     // myMain.startLifetime = value.lifeTime;
                     // ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
                     // velocityOverLifetime.y = (value.transporter as BulletTransporter).speed;
                     break;
-                case SizeModifierType.Other_None:
+                case SizeModifierType.OtherNone:
                     return;
             }
         }
@@ -68,10 +68,10 @@ public class SpellVisual : MonoBehaviour, IIniSpell
     enum SizeModifierType
     {
         TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
-        Emission_Shape, 
-        Shape_Group,
-        Velocity_Over_Lifetime, //not used
-        Other_None
+        EmissionShape, 
+        ShapeGroup,
+        VelocityOverLifetime, //not used
+        OtherNone
     }
     [SerializeField] SizeModifierType sizeModifier;
     [SerializeField] Transform myMesh;

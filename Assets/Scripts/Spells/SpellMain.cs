@@ -143,6 +143,7 @@ public class SpellMain : MonoBehaviour
     {
         if (brain == null) //it's a hack, but it works
         {
+            print("adasas");
             Destroy(gameObject);
             return;
         }
@@ -248,6 +249,7 @@ public class SpellMain : MonoBehaviour
     }
     #endregion
 
+    
     void Update()
     {
         if (!spellActive) return;

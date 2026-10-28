@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: knight slash - iron fortress (ult)
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  description: Become immobile but completely invulnerable for 4s, during which you
+  description: Become immobile but completely invulnerable for Xs, during which you
     reflect 1000% of all melee and projectile damage back to source
   levelUpEffect: Increases duration
   skillId: 50
@@ -22,7 +22,7 @@ MonoBehaviour:
   hasSpell: 1
   spell: {fileID: 8848297006958576280, guid: 5b11a895674529b4b90aef818f308265, type: 3}
   spellGroup: {fileID: 0}
-  hasPassData: 1
+  hasPassData: 0
   passData:
     myBrain: {fileID: 0}
     hasDamage: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasStats: 1
+    hasStats: 0
     stats:
     - myBrain: {fileID: 0}
       value: 1000
@@ -52,7 +52,7 @@ MonoBehaviour:
       <Duration>k__BackingField: 0
       stat: 33
       buffType: 1
-    hasEffect: 1
+    hasEffect: 0
     effects:
     - myBrain: {fileID: 0}
       value: 0

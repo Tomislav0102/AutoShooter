@@ -13,7 +13,10 @@
 
 
 /[Aa]ssets/polyperfect
+/[Aa]ssets/Plugins
 /[Aa]ssets/Plugins/Demigiant
+/[Aa]ssets/Plugins/Better Hierarchy
+/[Aa]ssets/Plugins/Sirenix
 /[Aa]ssets/Plugins/TextMesh Pro
 *.log
 

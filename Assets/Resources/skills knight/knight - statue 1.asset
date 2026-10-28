@@ -40,14 +40,14 @@ MonoBehaviour:
     hasStats: 1
     stats:
     - myBrain: {fileID: 0}
-      value: 0
-      permanent: 0
+      value: 1000
+      permanent: 1
       <Duration>k__BackingField: 0
       stat: 11
       buffType: 0
     - myBrain: {fileID: 0}
-      value: 0
-      permanent: 0
+      value: 50
+      permanent: 1
       <Duration>k__BackingField: 0
       stat: 12
       buffType: 0

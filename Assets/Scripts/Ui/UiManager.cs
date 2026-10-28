@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -19,6 +20,9 @@ public class UiManager : MonoBehaviour
     public RectTransform healthBarPrefab;
     public RectTransform numDisplayPrefab;
     [SerializeField] FloatingText floatingTextPrefab;
+    [SerializeField] TextMeshProUGUI playerInfo;
+    Transform _playerInfoTr;
+    public List<Stats> _stats = new List<Stats>();
     
     public TomoJoystick.Joystick joystick;
     public UltimateUi ultimateUi;
@@ -36,12 +40,23 @@ public class UiManager : MonoBehaviour
         {
             _pairPanels.Add(allPanels[i].myPanel, allPanels[i]);
         }
+
+        playerInfo.text = "";
+        _playerInfoTr = playerInfo.transform;
     }
     void Start()
     {
         OpenPanel(PanelType.Game);
         psToggle.isOn = Ga.me.gameData.showParticles;
         floatToggle.isOn = Ga.me.gameData.showFloatingInfo;
+
+    }
+
+    void LateUpdate()
+    {
+        if (_stats.Count == 0) return;
+        Vector3 targetPos = Ga.me.team.playersBrain.myTransform.position + 2.5f * Vector3.up;
+        _playerInfoTr.position = Ga.me.camRig.cam.WorldToScreenPoint(targetPos);
 
     }
 
@@ -79,4 +94,22 @@ public class UiManager : MonoBehaviour
         Ga.me.gameData.showFloatingInfo = floatToggle.isOn;
     }
 
+    public void StatsInject(GenChange change, Stats stat)
+    {
+        switch (change)
+        {
+            case GenChange.Add:
+                _stats.Add(stat);
+                break;
+            case GenChange.Remove:
+                if (_stats.Contains(stat)) _stats.Remove(stat);
+                break;
+        }
+
+        playerInfo.text = string.Empty;
+        foreach (Stats item in _stats)
+        {
+            playerInfo.text += item + "\n";
+        }
+    }
 }

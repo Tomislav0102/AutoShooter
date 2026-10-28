@@ -33,9 +33,28 @@ public class SpellStatue : MonoBehaviour, IIniSpell
     [SerializeField] ParticleSystem ps;
     [SerializeField] MeshRenderer myMesh;
     [SerializeField] Trio[] data;
-    Trio _myTrio;
+    bool _hasLanded;
+    public Stats[] extraStats;
 
-    
+    public void OnEnter(Collider other)
+    {
+        if (other.transform != Ga.me.team.playersBrain.myTransform) return;
+        Ga.me.uiManager.StatsInject(GenChange.Add, _spell.pd.stats[0].stat);
+        _hasLanded = true;
+    }
+
+    public void OnExit(Collider other)
+    {
+        if (other.transform != Ga.me.team.playersBrain.myTransform) return;
+        Ga.me.uiManager.StatsInject(GenChange.Remove, _spell.pd.stats[0].stat);
+        _hasLanded = false;
+    }
+
+    void OnDisable()
+    {
+        if (_hasLanded) Ga.me.uiManager.StatsInject(GenChange.Remove, _spell.pd.stats[0].stat);
+    }
+
     
     Color GetColor(Stats stat)
     {

@@ -21,7 +21,7 @@ public class Ga : MonoBehaviour
     public Material matFrozen;
 
     [FoldoutGroup("Particles prefabs")] 
-    public ParticleSystem psGenericImpact, psSpawn, psDeath, psDecalFire, psArmorBreak;
+    public ParticleSystem psWoodBreak, psGenericImpact, psSpawn, psDeath, psDecalFire, psArmorBreak;
     public LevelManager LevelMan
     {
         get => _levelMan;
@@ -49,6 +49,8 @@ public class Ga : MonoBehaviour
     [HideInInspector] public WaitForSeconds wait100;
     [Title("Debug")] 
     public bool debug;
+    
+    
     
     void Awake()
     {

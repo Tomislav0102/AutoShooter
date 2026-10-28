@@ -100,7 +100,8 @@ public class EnemyCombat : MonoBehaviour, IIniBrain, ITargetTracker
                 bullet.InitializeMe(Br, pdBullet);
                 break;
             case 2: //lob (used by scarecrow)
-                SpellMain lob = SpellMain.Sp(GetSpellByAttackType(AnimAttackType.Ranged), spawnPoint.position);
+                SpellMain lob = SpellMain.Sp(GetSpellByAttackType(AnimAttackType.Ranged), Utils.LevelV3(spawnPoint.position));
+                lob.visual.SetSpawnHeight(spawnPoint.position.y);
                 PassData pdExplosion = new PassData()
                 {
                     hasDamage = true,
