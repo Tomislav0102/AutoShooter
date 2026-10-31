@@ -42,7 +42,7 @@ MonoBehaviour:
     hasStats: 1
     stats:
     - myBrain: {fileID: 0}
-      value: 1
+      value: 10
       permanent: 1
       <Duration>k__BackingField: 0
       stat: 18

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,10 +19,11 @@ public class Test : SerializedMonoBehaviour
     public float speed = 1;
     public float length;
     [Range(0f, 1f)] public float currentPos;
+
     [Button]
     void AddS()
     {
-      //  brain.character.CharacterInjectData(GenChange.Add, buffStat);
+       
     }
     [Button]
     void Remove()
@@ -33,16 +35,18 @@ public class Test : SerializedMonoBehaviour
     {
         // float fl = Mathf.PingPong(Time.time * speed, length);
         // bomb.position = new Vector3(0f, curve.Evaluate(fl / length), fl);
-        bomb.position = Vector3.Lerp(spawnPoint.position, targetPoint.position, currentPos);
+      //  bomb.position = Vector3.Lerp(spawnPoint.position, targetPoint.position, currentPos);
     }
     
-    void SetBuff(GenChange genChange)
-    {
-        for (int i = 0; i < buffEffects.Length; i++)
-        {
-            brain.status.StatusInjectData(genChange, buffEffects[i]);
-        }
-    }
+    
+    //  brain.character.CharacterInjectData(GenChange.Add, buffStat);
+    // void SetBuff(GenChange genChange)
+    // {
+    //     for (int i = 0; i < buffEffects.Length; i++)
+    //     {
+    //         brain.status.StatusInjectData(genChange, buffEffects[i]);
+    //     }
+    // }
 
 }
 

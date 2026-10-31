@@ -49,9 +49,7 @@ public class Ga : MonoBehaviour
     [HideInInspector] public WaitForSeconds wait100;
     [Title("Debug")] 
     public bool debug;
-    
-    
-    
+   
     void Awake()
     {
         me = this;

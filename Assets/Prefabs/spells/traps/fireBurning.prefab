@@ -175,6 +175,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
 --- !u!4 &9092093267498348292 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964944923284567743, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -197,11 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_Trigger
+  detectObstacles: 1
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  effectAtExit: {fileID: 0}
-  colliderPart: 0
+  solidCollider: {fileID: 0}
 --- !u!114 &1277134433891739460
 MonoBehaviour:
   m_ObjectHideFlags: 0

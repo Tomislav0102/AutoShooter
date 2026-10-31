@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642924112247425467}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -85,18 +85,20 @@ MonoBehaviour:
   debug: 0
   myTransform: {fileID: 548219163212640640}
   myRigid: {fileID: 8903924178762673374}
-  colliderType: 0
   mySphereCollider: {fileID: 6916548065277827116}
   myCapsuleCollider: {fileID: 1553764786334897511}
   warningRend: {fileID: 9073325792066258589}
   effectGo: {fileID: 4936140572586544365}
   transporter: {fileID: 0}
   visual: {fileID: 2941170725548325989}
-  id: 0
+  colliderType: 0
   isInterrupt: 0
   canBeBlocked: 0
   canBeDodged: 0
   triggersOnHitEvent: 0
+  ignoreCollisionsWithOwner: 1
+  removeBuffsAfterEnd: 0
+  extraLifeTimeForParticles: 0
   spellActive: 0
   pd:
     myBrain: {fileID: 0}
@@ -122,7 +124,6 @@ MonoBehaviour:
   range: 1
   areaOfEffect: 1
   hitChance: 1
-  extraLifeTimeForParticles: 0
   lifeTime: 0
   terminateOnHit: 1
   specialty: 0
@@ -375,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellVisual
   psDefault: {fileID: 0}
+  psExtra: []
   psHit: {fileID: 0}
   sizeModifier: 0
   myMesh: {fileID: 0}

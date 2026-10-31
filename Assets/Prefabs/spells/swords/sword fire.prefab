@@ -267,6 +267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
 --- !u!1001 &6890158424806535226
 PrefabInstance:
   m_ObjectHideFlags: 0

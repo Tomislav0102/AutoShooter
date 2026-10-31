@@ -151,6 +151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
   followPosition: 1
   followRotation: 0
 --- !u!4 &7028655616868042221 stripped

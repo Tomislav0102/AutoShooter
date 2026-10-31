@@ -16,7 +16,8 @@ public class Archer : MonoBehaviour
         Magic,
         Explosion,
         Split,
-        Hail
+        Hail,
+        Root
     }
     public Brain Br
     {
@@ -72,6 +73,9 @@ public class Archer : MonoBehaviour
             case SkillId.ChargeExplode:
                 _chargePair.SetValueByKey(Charge.Explosion, newSkill);
                 break;
+            case SkillId.ChargeHail:
+                _chargePair.SetValueByKey(Charge.Hail, newSkill);
+                break;
         }
     }
     public void CombatEventCallback(CombatEvent combatEvent, Brain otherBrain = null, SpellMain.Specialty specialty = SpellMain.Specialty.General)
@@ -101,26 +105,39 @@ public class Archer : MonoBehaviour
     }
     public void AnimEv_AttackCallback(int num = 0)
     {
-        MyDuo<Element, float> dam = new MyDuo<Element, float>();
-        HashSet<Charge> chargesThisShot = new HashSet<Charge>(); //defines charges in this shot, while '_chargePair' defines all charges player has
-
+        //defines charges in this shot, while '_chargePair' defines all charges player has
+        HashSet<Charge> chargesThisShot = new HashSet<Charge>(); 
+        //damage and proc chance are calculated beforehand, other effects on hit
+        MyDuo<Element, float> extraDamage = new MyDuo<Element, float>();
+        
         SoSkill skillFire = _chargePair.GetValueByKey(Charge.Fire);
         if (skillFire != null && Random.value < skillFire.valueGeneric)
         {
-            dam.AddRange(skillFire.passData.damagePair);
+            extraDamage.AddRange(skillFire.passData.damagePair);
             chargesThisShot.Add(Charge.Fire);
         }
         SoSkill skillIce = _chargePair.GetValueByKey(Charge.Ice);
         if (skillIce != null && Random.value < skillIce.valueGeneric)
         {
-            dam.AddRange(skillIce.passData.damagePair);
+            extraDamage.AddRange(skillIce.passData.damagePair);
             chargesThisShot.Add(Charge.Ice);
         }
-
+        SoSkill skillExplode = _chargePair.GetValueByKey(Charge.Explosion);
+        if (skillExplode != null && Random.value < skillExplode.valueGeneric)
+        {
+            extraDamage.AddRange(skillExplode.passData.damagePair);
+            chargesThisShot.Add(Charge.Explosion);
+        }
+        SoSkill skillHail = _chargePair.GetValueByKey(Charge.Hail);
+        if (skillHail != null && Random.value < skillHail.valueGeneric)
+        {
+            chargesThisShot.Add(Charge.Hail);
+        }
+        
         PassData pdBase = new PassData()
         {
             hasDamage = true,
-            damagePair = Br.character.GetDamage(Element.Physical, 1f, dam)
+            damagePair = Br.character.GetDamage(Element.Physical, 1f, extraDamage)
         };
         SpellMain sp = SpellMain.Sp(Br.skills.myBasic.spell, Br, true);
         sp.myTransform.position = Utils.LevelV3(spawnPoint.position);
@@ -137,18 +154,66 @@ public class Archer : MonoBehaviour
                 switch (item)
                 {
                     case Charge.Fire:
-                        PassData passData = new PassData()
+                        fire();
+                        void fire()
                         {
-                            hasEffect = true,
-                            effects = skillFire.passData.effects
-                        };
-                        SpellMain spell = SpellMain.Sp(skillFire.spell, Br);
-                        spell.myTransform.position = sp.myTransform.position;
-                        spell.areaOfEffect += skillFire.passData.stats[0].value;
-                        spell.InitializeMe(Br, passData);
+                            PassData passData = new PassData()
+                            {
+                                hasEffect = true,
+                                effects = skillFire.passData.effects
+                            };
+                            SpellMain spell = SpellMain.Sp(skillFire.spell, Br);
+                            spell.myTransform.position = sp.myTransform.position;
+                            spell.areaOfEffect = skillFire.passData.stats[0].value;
+                            spell.InitializeMe(Br, passData);
+                        }
                         break;
                     case Charge.Ice:
+                        ice();
+                        void ice()
+                        {
+                            PassData passData = new PassData()
+                            {
+                                hasEffect = true,
+                                effects = skillIce.passData.effects
+                            };
+                            SpellMain spell = SpellMain.Sp(skillIce.spell, Br);
+                            spell.myTransform.position = sp.myTransform.position;
+                            spell.areaOfEffect = skillIce.passData.stats[0].value;
+                            spell.InitializeMe(Br, passData);
+                        }
                         break;
+                    case Charge.Explosion:
+                        explosion();
+                        void explosion()
+                        {
+                            PassData passData = new PassData()
+                            {
+                                hasKnockback = true,
+                                knockbackPower = skillExplode.passData.knockbackPower,
+                            };
+                            SpellMain spell = SpellMain.Sp(skillExplode.spell, Br);
+                            spell.myTransform.position = sp.myTransform.position;
+                            spell.visual.SetSpawnHeight(1.5f);
+                            spell.areaOfEffect = skillExplode.passData.stats[0].value;
+                            spell.InitializeMe(Br, passData);
+                        }
+                        break;
+                    case Charge.Hail:
+                        hail();
+                        void hail()
+                        {
+                            PassData passData = new PassData()
+                            {
+                                hasDamage = true,
+                                damagePair = Br.character.GetDamage()
+                            };
+                            SpellMain spell = SpellMain.Sp(skillHail.spell, Br);
+                            spell.myTransform.position = sp.myTransform.position;
+                            spell.InitializeMe(Br, passData);
+                        }
+                        break;
+
                 }
             }
         }

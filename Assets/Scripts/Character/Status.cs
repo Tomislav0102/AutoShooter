@@ -28,7 +28,7 @@ public class Status : MonoBehaviour, IIniBrain
         Serrated, //2X damage vs unarmored, 0.5X damage vs armored
         Explosive, //bonus knockback
     }
-    //I think it has to be static
+    //I think it has to be static??????
     public static System.Action<Brain, Effect, bool> OnEffectChange;
     
     RectTransform _status;
@@ -59,7 +59,7 @@ public class Status : MonoBehaviour, IIniBrain
     }
     Brain _br;
     bool _removedBuff; //so Refresh() does not call every frame
-    MyDuo<BuffEffects, float> _buffTimers;
+    [ShowInInspector, ReadOnly] MyDuo<BuffEffects, float> _buffTimers;
     float _tickTimer;
     const float CONST_TickMaxTime = 0.5f;
     int _effectsLength;

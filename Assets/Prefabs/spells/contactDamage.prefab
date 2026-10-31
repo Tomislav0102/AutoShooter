@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
   followPosition: 1
   followRotation: 0
 --- !u!4 &6996765051266464118 stripped
@@ -172,10 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166791ef864bbbc40a51954066b5d7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectTrigger
+  detectObstacles: 1
   onEnter: 1
   onFakeStay: 0
   onExit: 0
-  colliderPart: 0
+  solidCollider: {fileID: 0}
 --- !u!1001 &8343265124007597851
 PrefabInstance:
   m_ObjectHideFlags: 0

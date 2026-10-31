@@ -1,17 +1,19 @@
-using System;
 using UnityEngine;
+using Sirenix.OdinInspector;
+using System;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    public ParticleSystem[] ps;
-    public bool[] played;
+    [SerializeField] Guid _g;
 
-
-    void Update()
+    [Button]
+    void Assign()
     {
-        for (int i = 0; i < ps.Length; i++)
-        {
-            if (ps[i].isPlaying) played[i] = true;
-        }
+        _g = Guid.NewGuid();
+    }
+    [Button]
+    void Show()
+    {
+        print(_g);
     }
 }

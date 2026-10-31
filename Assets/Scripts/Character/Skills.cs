@@ -54,8 +54,10 @@ public class Skills : MonoBehaviour, IIniBrain
             }
             if (useArcher)
             {
-                OvrLevelSpecificSkill(SkillId.ChargeFire);
-
+              // OvrLevelSpecificSkill(SkillId.ChargeFire);
+              // OvrLevelSpecificSkill(SkillId.ChargeIce); 
+              // OvrLevelSpecificSkill(SkillId.ChargeExplode);
+              OvrLevelSpecificSkill(SkillId.ChargeHail);
             }
             return;
 

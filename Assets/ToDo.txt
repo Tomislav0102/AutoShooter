@@ -13,6 +13,7 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
 
 SKILLS
 shared - Last Stand does not work?
+warning delay - not working?
 
 KNIGHT
 Seismic Anchorage skill - needs animation

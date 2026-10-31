@@ -95,11 +95,11 @@ public class Health: MonoBehaviour, IIniBrain
     [SerializeField] ParticleSystem psHeal;
     [Title("Spell defences")]
     [SerializeField] SpellMain[] immuneSpells;
-    public bool IsImmuneToSpell(int spellId)
+    public bool IsImmuneToSpell(string id)
     {
         for (int i = 0; i < immuneSpells.Length; i++)
         {
-            if (spellId == immuneSpells[i].id)
+            if (id == immuneSpells[i].id)
             {
                 Ga.me.uiManager.FloatText(Br.myTransform.position, "Immune", Color.deepPink);
                 return true;

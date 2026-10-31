@@ -216,6 +216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
 --- !u!1 &6099503946609820979 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1642924112247425467, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
@@ -235,8 +238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OvrPassData
   passData:
     myBrain: {fileID: 0}
-    canBeBlocked: 0
-    canBeDodged: 0
     hasDamage: 0
     damagePair:
       <Key>k__BackingField: 
@@ -250,10 +251,6 @@ MonoBehaviour:
     dashDirection: {x: 0, y: 0}
     hasManaShield: 0
     manaShieldPoints: 0
-    hasSpell: 0
-    spellPair:
-      <Key>k__BackingField: 
-      <Value>k__BackingField: []
     hasStats: 0
     stats: []
     hasEffect: 0

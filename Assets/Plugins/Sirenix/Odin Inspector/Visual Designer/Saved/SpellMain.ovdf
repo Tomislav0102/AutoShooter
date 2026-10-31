@@ -2,22 +2,61 @@ OVDF v1.1
 SpellMain, Assembly-CSharp
 MetaGuid:6d4e4a5d99fa1b44b9bdde2bfe1591ba
 
-# $U4LT6pBTWnvNkD61WTju5D
-Position: "id":0
-+ [Sirenix.OdinInspector.ColumnGroupAttribute]
+# $B8C7eqKXn5p31G9F1xhdmN
+Position: $root:54
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Events"
 
-# $37TnvZnwKzAxiL2pUwxdmX
-Position: $U4LT6pBTWnvNkD61WTju5D:0
-+ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-	Size = 30 %
-
-# $ME2vthArMs2Bxm8Deo1QF8
-Position: $U4LT6pBTWnvNkD61WTju5D:1
-+ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-	Size = 20 %
+# $NMCMGf9QnNapdzkZQG2djf
+Position: $root:2
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Refs"
 
 # GenerateId()
-Position: $ME2vthArMs2Bxm8Deo1QF8:0
+Position: $root:0
 
 # id
 Position: $37TnvZnwKzAxiL2pUwxdmX:0
+
+# onCollEnter
+Position: $B8C7eqKXn5p31G9F1xhdmN:2
+
+# onTrigExit
+Position: $B8C7eqKXn5p31G9F1xhdmN:1
+
+# onTrigEnter
+Position: $B8C7eqKXn5p31G9F1xhdmN:0
+
+# visual
+Position: $NMCMGf9QnNapdzkZQG2djf:7
+
+# transporter
+Position: $NMCMGf9QnNapdzkZQG2djf:6
+
+# effectGo
+Position: $NMCMGf9QnNapdzkZQG2djf:5
+
+# warningRend
+Position: $NMCMGf9QnNapdzkZQG2djf:4
+
+# myCapsuleCollider
+Position: $NMCMGf9QnNapdzkZQG2djf:3
+
+# mySphereCollider
+Position: $NMCMGf9QnNapdzkZQG2djf:2
+
+# colliderType
+Position: $root:3
+
+# myRigid
+Position: $NMCMGf9QnNapdzkZQG2djf:1
+
+# myTransform
+Position: $NMCMGf9QnNapdzkZQG2djf:0
+
+# isInterrupt
+Position: $root:4
+
+# guid
+Position: $root:0
+Visibility: Shown

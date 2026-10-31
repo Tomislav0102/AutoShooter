@@ -1,15 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 
 public class SpellMain : MonoBehaviour
 {
+    bool HasId() => !string.IsNullOrEmpty(id);
+    [ReadOnly] [GUIColor("red")] public string id;
+    [Button] [HideIf(nameof(HasId))] [GUIColor("red")]
+    void SetId() => id = System.Guid.NewGuid().ToString();
     #region ENUMS
     public enum Phase
     {
@@ -28,11 +29,9 @@ public class SpellMain : MonoBehaviour
     public enum HitEffectOnSpell { Nullify, Reflect }
 
     #endregion
-    [BoxGroup] public bool debug;
-    [Title("References")]
+    public bool debug;
     public Transform myTransform;
     public Rigidbody myRigid;
-    public ColliderType colliderType;
     public SphereCollider mySphereCollider;
     public CapsuleCollider myCapsuleCollider;
     public SpriteRenderer warningRend;
@@ -40,11 +39,8 @@ public class SpellMain : MonoBehaviour
     public SpellTransporter transporter;
     public SpellVisual visual;
 
-    [BoxGroup("id", false), ReadOnly] public int id;
-    [BoxGroup("id", false)] [Button]
-    void GenerateId()=> id = Random.Range(0, 999999999);
-    
     [Title("Settings")]
+    public ColliderType colliderType;
     public bool isInterrupt;
     [SerializeField] bool canBeBlocked;
     [SerializeField] bool canBeDodged;
@@ -128,8 +124,6 @@ public class SpellMain : MonoBehaviour
     public HashSet<Collider> collidersDetected = new HashSet<Collider>();
     public Specialty specialty;
     [HideInInspector] public int reflexCount = 2;
-
-    [Title("Events")]
     [SerializeField] UnityEvent<Collider> onTrigEnter;
     [SerializeField] UnityEvent<Collider> onTrigExit;
     [SerializeField] UnityEvent<Collision> onCollEnter;
@@ -143,11 +137,11 @@ public class SpellMain : MonoBehaviour
     {
         if (brain == null) //it's a hack, but it works
         {
-            print("adasas");
+            print("Destroying spell, no brain");
             Destroy(gameObject);
             return;
         }
-        if (id == 0) print($"{gameObject.name} ID is 0, need to assign ID in inspector!");
+      //  if (guid.Equals(System.Guid.Empty)) print($"{gameObject.name} ID is 0, need to assign ID in inspector!");
         OwnersBrain = brain;
         onEnd += CallEv_OnEnd;
         if (triggersOnHitEvent) onHitTarget += (Brain brainTargeted) =>
@@ -409,16 +403,6 @@ public class SpellMain : MonoBehaviour
     public static SpellMain Sp(SpellMain spell, Vector3 pos, Quaternion rot)
     {
         return Instantiate(spell, pos, rot, Ga.me.spells.myTransform);
-    }
-    [Title("debug")]
-    [Button]
-    void TheButton()
-    {
-        if (collidersDetected.Count == 0) print("no colls");
-        foreach (Collider item in collidersDetected)
-        {
-            print(item.GetComponent<Transform>().parent);
-        }
     }
 }
 
