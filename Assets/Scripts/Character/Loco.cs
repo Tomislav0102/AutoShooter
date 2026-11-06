@@ -121,8 +121,7 @@ public class Loco : MonoBehaviour, IIniBrain
     public void Orientation(Transform lookAtPosition)
     {
         if (lookAtPosition == null) return;
-        Vector3 pos = new Vector3(lookAtPosition.position.x, 0f, lookAtPosition.position.z);
-        OrientationFinal(Utils.Direction(Br.myTransform.position, pos));
+        OrientationFinal(Utils.Direction(Br.myTransform.position, lookAtPosition.position));
     }
     void OrientationFinal(Vector3 look)
     {
@@ -179,7 +178,7 @@ public class Loco : MonoBehaviour, IIniBrain
             while (timer > 0f)
             {
                 timer -= Time.deltaTime;
-                yield return null;
+                yield return Ga.me.waitEndFrame;
             }
             Br.agent.acceleration = 10000;
             OvrMotion = false;

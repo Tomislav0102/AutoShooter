@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using UnityEngine.Rendering.Universal;
 
 
 public class SpellMain : MonoBehaviour
 {
-    bool HasId() => !string.IsNullOrEmpty(id);
-    [ReadOnly] [GUIColor("red")] public string id;
+    bool HasId() => !string.IsNullOrEmpty(idSpell);
     [Button] [HideIf(nameof(HasId))] [GUIColor("red")]
-    void SetId() => id = System.Guid.NewGuid().ToString();
+    void SetId() => idSpell = System.Guid.NewGuid().ToString();
     #region ENUMS
     public enum Phase
     {
@@ -26,20 +26,19 @@ public class SpellMain : MonoBehaviour
         Projectile,
         NoReflection
     }
-    public enum HitEffectOnSpell { Nullify, Reflect }
+    public enum CounteringSpellEffect { Nullify, Reflect }
 
     #endregion
     public bool debug;
-    public Transform myTransform;
-    public Rigidbody myRigid;
-    public SphereCollider mySphereCollider;
-    public CapsuleCollider myCapsuleCollider;
-    public SpriteRenderer warningRend;
-    [SerializeField] GameObject effectGo;
-    public SpellTransporter transporter;
-    public SpellVisual visual;
+    [FoldoutGroup("Refs")] public Transform myTransform;
+    [FoldoutGroup("Refs")] public Rigidbody myRigid;
+    [FoldoutGroup("Refs")] public SphereCollider mySphereCollider;
+    [FoldoutGroup("Refs")] public CapsuleCollider myCapsuleCollider;
+    [FoldoutGroup("Refs")] [SerializeField] DecalProjector warning;
+    [FoldoutGroup("Refs")] [SerializeField] GameObject effectGo;
+    [FoldoutGroup("Refs")] public SpellTransporter transporter;
+    [FoldoutGroup("Refs")] public SpellVisual visual;
 
-    [Title("Settings")]
     public ColliderType colliderType;
     public bool isInterrupt;
     [SerializeField] bool canBeBlocked;
@@ -47,10 +46,10 @@ public class SpellMain : MonoBehaviour
     [SerializeField] bool triggersOnHitEvent;
     [SerializeField] bool ignoreCollisionsWithOwner = true;
     [SerializeField] bool removeBuffsAfterEnd;
-    public bool extraLifeTimeForParticles = true;
-
+    [SerializeField] bool extraLifeTimeForParticles = true;
     HashSet<Brain> _targetsBuff = new HashSet<Brain>();
     [ReadOnly] public bool spellActive;
+    [ReadOnly] public string idSpell;
     [ReadOnly] public PassData pd;
     public Brain OwnersBrain
     {
@@ -93,11 +92,11 @@ public class SpellMain : MonoBehaviour
             switch (value)
             {
                 case Phase.BeginWarning:
-                    if (_timerPhase < warningDelay) warningRend.enabled = true;
+                    if (_timerPhase < warningDelay) warning.enabled = true;
                     break;
                 case Phase.SpellRuns:
                     _timerPhase = 0f;
-                    warningRend.enabled = false;
+                    warning.enabled = false;
                     visual.PlayDefault();
                     break;
                 case Phase.EndStart:
@@ -124,9 +123,9 @@ public class SpellMain : MonoBehaviour
     public HashSet<Collider> collidersDetected = new HashSet<Collider>();
     public Specialty specialty;
     [HideInInspector] public int reflexCount = 2;
-    [SerializeField] UnityEvent<Collider> onTrigEnter;
-    [SerializeField] UnityEvent<Collider> onTrigExit;
-    [SerializeField] UnityEvent<Collision> onCollEnter;
+    [SerializeField, FoldoutGroup("Events")] UnityEvent<Collider> onTrigEnter;
+    [SerializeField, FoldoutGroup("Events")] UnityEvent<Collider> onTrigExit;
+    [SerializeField, FoldoutGroup("Events")] UnityEvent<Collision> onCollEnter;
 
 
     #region INITIALIZATION
@@ -153,7 +152,7 @@ public class SpellMain : MonoBehaviour
         if (isInterrupt) gameObject.layer = LayerMask.NameToLayer(Ga.me.gameData.laySpellInterrupt);
         
         if (transporter.GetComponent<MeleeTransporter>() != null)  areaOfEffect = range;
-        warningRend.transform.localScale = areaOfEffect * Vector3.one;
+        warning.size = new Vector3(areaOfEffect, areaOfEffect, 20);
         mySphereCollider.radius = areaOfEffect * 0.5f;
         myCapsuleCollider.height = areaOfEffect;
         myCapsuleCollider.center = areaOfEffect * 0.5f * Vector3.forward;
@@ -214,32 +213,26 @@ public class SpellMain : MonoBehaviour
         if (!spellActive) return;
         _onAfterSpell?.Invoke();
         spellActive = false;
-        visual.StopDefault();
-        StartCoroutine(endDelay());
-    
-        IEnumerator endDelay()
+        foreach (Brain item in _targetsBuff)
         {
-            yield return extraLifeTimeForParticles ? Ga.me.wait100 : Ga.me.wait00;
-            foreach (Brain item in _targetsBuff)
+            if (pd.hasStats)
             {
-                if (pd.hasStats)
+                for (int i = 0; i < pd.stats.Length; i++)
                 {
-                    for (int i = 0; i < pd.stats.Length; i++)
-                    {
-                        item.character.CharacterInjectData(GenChange.Remove, pd.stats[i]);
-                    }
-                }
-                if (pd.hasEffect)
-                {
-                    for (int i = 0; i < pd.effects.Length; i++)
-                    {
-                        item.status.StatusInjectData(GenChange.Remove, pd.effects[i]);
-                    }
-                    
+                    item.character.CharacterInjectData(GenChange.Remove, pd.stats[i]);
                 }
             }
-            Destroy(gameObject);
+            if (pd.hasEffect)
+            {
+                for (int i = 0; i < pd.effects.Length; i++)
+                {
+                    item.status.StatusInjectData(GenChange.Remove, pd.effects[i]);
+                }
+                    
+            }
         }
+        visual.StopDefault();
+        Destroy(gameObject, extraLifeTimeForParticles ? 5f : 0f);
     }
     #endregion
 
@@ -278,7 +271,7 @@ public class SpellMain : MonoBehaviour
               Utils.CanTargetFaction(OwnersBrain.Faction, targetsBrain.Faction, myFactionTarget))) return;
         if (callOnHitEvent) onHitTarget?.Invoke(targetsBrain);
         if (hasReflected(targetsBrain)) return;
-        if (targetsBrain.health.IsImmuneToSpell(id)) return;
+        if (targetsBrain.health.IsImmuneToSpell(idSpell)) return;
 
         if (pd.hasManaShield)  targetsBrain.health.HealthInjectDataManaShield(pd.manaShieldPoints);
         if (pd.hasDash) targetsBrain.loco.LocoInjectDataDash(pd.dashPower, pd.dashDirection);

@@ -37,7 +37,10 @@ public class SpellTransporter : MonoBehaviour, IIniSpell
     public virtual void ReflectProjectile(Brain newBrain)
     {
         Ga.me.uiManager.FloatText(Spell.myTransform.position, "Reflected!", Color.dimGray, 3f);
-        
+    }
+    public virtual void SplitProjectile(Brain newBrain)
+    {
+        Ga.me.uiManager.FloatText(Spell.myTransform.position, "Split!", Color.dimGray, 3f);
     }
 
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febf8c21f21feb49a7eea4f3ce5f466, type: 3}
   m_Name: knight slash - iron fortress (ult)
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
-  description: Become immobile but completely invulnerable for Xs, during which you
-    reflect 1000% of all melee and projectile damage back to source
+  description: Become immobile but completely invulnerable for (valueGeneric)s, during
+    which you reflect 1000% of all melee and projectile damage back to source
   levelUpEffect: Increases duration
   skillId: 50
   icon: {fileID: 0}

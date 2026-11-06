@@ -41,23 +41,20 @@ public class Skills : MonoBehaviour, IIniBrain
             OvrLevelSpecificSkill(myBasic.skillId);
 
             //debugs
-          //  OvrLevelSpecificSkill(SkillName.RotatingSwords);
+          //  OvrLevelSpecificSkill(SkillId.LastStand);
             if (useKnight)
             {
-                OvrLevelSpecificSkill(SkillId.Statue, 4);
-                OvrLevelSpecificSkill(SkillId.FuneralTornado);
-                OvrLevelSpecificSkill(SkillId.IronFortress);
             }
             if (useMage)
             {
-                OvrLevelSpecificSkill(SkillId.FuneralTornado);
+                OvrLevelSpecificSkill(SkillId.DragonsBreath);
             }
             if (useArcher)
             {
               // OvrLevelSpecificSkill(SkillId.ChargeFire);
               // OvrLevelSpecificSkill(SkillId.ChargeIce); 
               // OvrLevelSpecificSkill(SkillId.ChargeExplode);
-              OvrLevelSpecificSkill(SkillId.ChargeHail);
+             // OvrLevelSpecificSkill(SkillId.Headshot);
             }
             return;
 
@@ -145,7 +142,7 @@ public class Skills : MonoBehaviour, IIniBrain
         return;
         IEnumerator delay(Group g)
         {
-            yield return null;
+            yield return Ga.me.waitEndFrame;
             onSkillIncrease?.Invoke(g.MySkill());
         }
     }

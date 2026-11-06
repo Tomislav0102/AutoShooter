@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   description: Constant stream in forward direction
   levelUpEffect: Increase damage and range
-  skillName: 69
+  skillId: 69
   icon: {fileID: 0}
   skillType: 1
   level: 1
@@ -40,20 +40,19 @@ MonoBehaviour:
     manaShieldPoints: 0
     hasStats: 1
     stats:
-    - stat: 18
+    - myBrain: {fileID: 0}
+      value: 2
+      permanent: 1
+      <Duration>k__BackingField: 0
+      stat: 18
       buffType: 0
-      data:
-        value: 4
-        permanent: 1
-        <Duration>k__BackingField: 0
     hasEffect: 1
     effects:
     - myBrain: {fileID: 0}
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 0
       effect: 9
-      data:
-        value: 2
-        permanent: 0
-        <Duration>k__BackingField: 7
   hasAfterSpells: 0
   afterSpells: []
   hasGeneric: 0

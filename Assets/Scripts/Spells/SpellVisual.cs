@@ -4,6 +4,17 @@ using UnityEngine.Serialization;
 
 public class SpellVisual : MonoBehaviour, IIniSpell
 {
+    enum SizeModifierType
+    {
+        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
+        EmissionShape, 
+        ShapeGroup,
+        ShapeScale,
+        VelocityOverLifetime, //not used
+        StartSpeed, //flamethrower (capsule collider type)
+        OtherNone
+    }
+
     public SpellMain Spell
     {
         get => _spell;
@@ -57,6 +68,11 @@ public class SpellVisual : MonoBehaviour, IIniSpell
                     // ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = psDefault.velocityOverLifetime;
                     // velocityOverLifetime.y = (value.transporter as BulletTransporter).speed;
                     break;
+                case SizeModifierType.StartSpeed:
+                    ParticleSystem.MainModule main = psDefault.main;
+                    float speedIncrease = value.areaOfEffect * 3;
+                    main.startSpeed = new ParticleSystem.MinMaxCurve(speedIncrease, speedIncrease + 5);
+                    break;
                 case SizeModifierType.OtherNone:
                     return;
             }
@@ -69,15 +85,6 @@ public class SpellVisual : MonoBehaviour, IIniSpell
     Light _lightDefault;
     [SerializeField] ParticleSystem psHit;
     Light _lightHit;
-    enum SizeModifierType
-    {
-        TransformScale, //ps needs to have empty parent that will be scaled. Ps.transform is never scaled by code because it will have its default scale defined in inspector (e.g. fireball)
-        EmissionShape, 
-        ShapeGroup,
-        ShapeScale,
-        VelocityOverLifetime, //not used
-        OtherNone
-    }
     [SerializeField] SizeModifierType sizeModifier;
     [SerializeField] Transform myMesh;
     [Tooltip("if != null, SizeModifierType should be Other_None")] [SerializeField] SpriteRenderer myTiledSpriteRenderer;
@@ -111,7 +118,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
             {
                 currentHeight = Mathf.Lerp(currentHeight, targetHeight, Time.deltaTime);
                 targetTr.localPosition = new Vector3(0, currentHeight, 0);
-                yield return null;
+                yield return Ga.me.waitEndFrame;
             }
         }
     }
@@ -125,7 +132,7 @@ public class SpellVisual : MonoBehaviour, IIniSpell
         while (myLight.intensity > 0f)
         {
             myLight.intensity -= Time.deltaTime * intensity /  time;
-            yield return null;
+            yield return Ga.me.waitEndFrame;
         }
         myLight.enabled = false;
     }

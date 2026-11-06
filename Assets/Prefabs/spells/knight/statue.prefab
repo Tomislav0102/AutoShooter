@@ -284,6 +284,10 @@ PrefabInstance:
       value: 637305572
       objectReference: {fileID: 0}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: idSpell
+      value: 8a41f791-b931-4a48-b328-54cda1c0fb6b
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: -1
       objectReference: {fileID: 0}
@@ -505,8 +509,6 @@ MonoBehaviour:
   - stat: 35
     col: {r: 0.9119787, g: 1, b: 0.7783019, a: 1}
     mat: {fileID: 2100000, guid: 7915fc9e78cafca45bc942cba870623c, type: 2}
-  spellPlayerStatsUi: {fileID: 0}
-  myStat: 0
   extraStats: 
 --- !u!4 &1712899863338725486 stripped
 Transform:

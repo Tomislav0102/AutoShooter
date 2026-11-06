@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoSkill
   description: Gain invulnerability for 3 seconds when HP drops below 25%
   levelUpEffect: Reduces cooldown
-  skillName: 2
+  skillId: 2
   icon: {fileID: 0}
   skillType: 1
   level: 0
   hasSpell: 0
   spell: {fileID: 0}
   spellGroup: {fileID: 0}
-  hasPassData: 0
+  hasPassData: 1
   passData:
     myBrain: {fileID: 0}
     hasDamage: 0
@@ -39,10 +39,15 @@ MonoBehaviour:
     manaShieldPoints: 0
     hasStats: 0
     stats: []
-    hasEffect: 0
-    effects: []
+    hasEffect: 1
+    effects:
+    - myBrain: {fileID: 0}
+      value: 0
+      permanent: 0
+      <Duration>k__BackingField: 3
+      effect: 0
   hasAfterSpells: 0
   afterSpells: []
-  hasGeneric: 0
-  valueGeneric: 0
+  hasGeneric: 1
+  valueGeneric: 10
   valueGenericArray: []

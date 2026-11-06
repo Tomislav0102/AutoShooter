@@ -13,9 +13,10 @@ public class EffectInterrupt : MonoBehaviour, IIniSpell
     }
     SpellMain _spell;
 
-    [SerializeField] SpellMain.HitEffectOnSpell effect;
+    [SerializeField] SpellMain.CounteringSpellEffect effect;
     [SerializeField] SpellMain.Specialty[] spellsToInterrupt;
 
+    
 
     public void OnTriggerEnterCallBack(Collider other)
     {
@@ -34,15 +35,15 @@ public class EffectInterrupt : MonoBehaviour, IIniSpell
         Spell.onHitTarget?.Invoke(targetSpell.OwnersBrain);
         switch (effect)
         {
-            case SpellMain.HitEffectOnSpell.Nullify:
+            case SpellMain.CounteringSpellEffect.Nullify:
                 targetSpell.MyPhase = SpellMain.Phase.EndEnd;
                 break;
-            case SpellMain.HitEffectOnSpell.Reflect:
+            case SpellMain.CounteringSpellEffect.Reflect:
                 switch (targetSpell.specialty)
                 {
                     case SpellMain.Specialty.General:
                         break;
-                    case SpellMain.Specialty.Melee: //will this ever be used?
+                    case SpellMain.Specialty.Melee: 
                         targetSpell.reflexCount--;
                         targetSpell.OwnersBrain = Spell.OwnersBrain;
                         targetSpell.HitGeneric(Spell.OwnersBrain, out _);

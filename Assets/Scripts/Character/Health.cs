@@ -99,7 +99,7 @@ public class Health: MonoBehaviour, IIniBrain
     {
         for (int i = 0; i < immuneSpells.Length; i++)
         {
-            if (id == immuneSpells[i].id)
+            if (id == immuneSpells[i].idSpell)
             {
                 Ga.me.uiManager.FloatText(Br.myTransform.position, "Immune", Color.deepPink);
                 return true;
@@ -287,7 +287,7 @@ public class Health: MonoBehaviour, IIniBrain
             if (pd.myBrain == null) return;
             if (Br == Ga.me.team.playersBrain) return;
             if (Br.combat.MyTarget != null) return;
-            if (Br.combat.MyTarget.status.HasEffect(Status.Effect.Invisible)) return;
+           // if (pd.myBrain.status.HasEffect(Status.Effect.Invisible)) return;
             print("UnderAttack");
             Br.combat.MyTarget = pd.myBrain;
         }

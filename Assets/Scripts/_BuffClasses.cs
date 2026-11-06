@@ -48,6 +48,16 @@ public class BuffEffects : BuffData
                            effect == Status.Effect.Chilled_dot || 
                            effect == Status.Effect.Jolted_dot ||  
                            effect == Status.Effect.Poisoned_dot;
+
+    public bool IsDurationStackable() => effect == Status.Effect.Invulnerable ||
+                                         effect == Status.Effect.Invisible ||
+                                         effect == Status.Effect.Rooted ||
+                                         effect == Status.Effect.Stunned ||
+                                         effect == Status.Effect.Frozen ||
+                                         effect == Status.Effect.Confused ||
+                                         effect == Status.Effect.Blinded ||
+                                         effect == Status.Effect.Charmed ||
+                                         effect == Status.Effect.Fumbling;
 }
 
 

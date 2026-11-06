@@ -10,43 +10,55 @@ using UnityEngine.Serialization;
 
 public class Test : SerializedMonoBehaviour
 {
-    public Brain brain;
-    public BuffStats buffStat;
-    public BuffEffects[] buffEffects;
-
-    public AnimationCurve curve;
-    public Transform bomb, spawnPoint, targetPoint;
-    public float speed = 1;
-    public float length;
-    [Range(0f, 1f)] public float currentPos;
+    Coroutine _coroutine;
+    public int iterations;
+    public bool canStart = true;
+    WaitForSeconds _wait = new WaitForSeconds(0.5f);
+    public int mode;
 
     [Button]
     void AddS()
     {
-       
+        SetBuff(GenChange.Add);
     }
+
     [Button]
     void Remove()
     {
-    }
-    
 
-    void Update()
-    {
-        // float fl = Mathf.PingPong(Time.time * speed, length);
-        // bomb.position = new Vector3(0f, curve.Evaluate(fl / length), fl);
-      //  bomb.position = Vector3.Lerp(spawnPoint.position, targetPoint.position, currentPos);
     }
+
+    IEnumerator Delay()
+    {
+        switch (mode)
+        {
+            case 0:
+                yield return _wait;
+                break;
+            case 1:
+                yield return new WaitForSeconds(0.5f);
+                break;
+            case 2:
+                yield return Utils.GetWait(0.5f);
+                break;
+        }
+
+        canStart = true;
+    }
+
+    public Brain brain;
+    public BuffStats buffStat;
+    public BuffEffects[] buffEffects;
     
+   // brain.character.CharacterInjectData(GenChange.Add, buffStat);
     
-    //  brain.character.CharacterInjectData(GenChange.Add, buffStat);
-    // void SetBuff(GenChange genChange)
-    // {
-    //     for (int i = 0; i < buffEffects.Length; i++)
-    //     {
-    //         brain.status.StatusInjectData(genChange, buffEffects[i]);
-    //     }
-    // }
+    void SetBuff(GenChange genChange)
+    {
+        for (int i = 0; i < buffEffects.Length; i++)
+        {
+            brain.status.StatusInjectData(genChange, buffEffects[i]);
+        }
+    }
 
 }
 

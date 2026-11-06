@@ -5108,6 +5108,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2671313010941108603}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: idSpell
+      value: 2d242c62-3ede-49f2-8ad2-1ce0e66e90a1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: canBeDodged
       value: 1
       objectReference: {fileID: 0}
@@ -5184,3 +5188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0

@@ -14622,6 +14622,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8056578381715877148}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: idSpell
+      value: 1a22222d-2471-4c63-9810-3559f1e779e5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: 5
       objectReference: {fileID: 0}
@@ -14712,6 +14716,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
   projectileType: 0
   speed: 5
 --- !u!4 &8302386412261189078 stripped

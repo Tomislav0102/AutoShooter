@@ -200,7 +200,7 @@ public class SharedSkills : MonoBehaviour, IIniBrain
         
         void lastStand()
         {
-            if (currentHealthPercentage > 0.9f)
+            if (currentHealthPercentage > 0.25f)
             {
                 _lastStandHealthAboveTreshold = true;
                 return;
@@ -211,36 +211,14 @@ public class SharedSkills : MonoBehaviour, IIniBrain
             _lastStandCooldownTimerDone = false;
             _lastStandHealthAboveTreshold = false;
             Br.status.StatusInjectData(GenChange.Add, _skillLastStand.passData.effects[0]);
-            StartCoroutine(delay(_skillLastStand.valueGeneric));
+            StartCoroutine(cooldownTime(_skillLastStand.valueGeneric));
             return;
 
-            IEnumerator delay(float time)
+            IEnumerator cooldownTime(float time)
             {
-                yield return new WaitForSeconds(time);
+                yield return Utils.GetWait(time);
                 _lastStandCooldownTimerDone = true;
             }
         }
-        // void lastStand()
-        // {
-        //     if (currentHealthPercentage > 0.9f)
-        //     {
-        //         _lastStandHealthAboveTreshold = true;
-        //         return;
-        //     }
-        //     if (!Br.skills.TryGetFromGroup(SkillName.LastStand, out SoSkill skill)) return;
-        //     if (!_lastStandCooldownTimerDone) return;
-        //     if (!_lastStandHealthAboveTreshold) return;
-        //     _lastStandCooldownTimerDone = false;
-        //     _lastStandHealthAboveTreshold = false;
-        //     Br.status.StatusInjectData(GenChange.Add, skill.passData.effects[0]);
-        //     StartCoroutine(delay(skill.valueGeneric));
-        //     return;
-        //
-        //     IEnumerator delay(float time)
-        //     {
-        //         yield return new WaitForSeconds(time);
-        //         _lastStandCooldownTimerDone = true;
-        //     }
-        // }
     }
 }

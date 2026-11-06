@@ -69,6 +69,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5129601345381124616}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: idSpell
+      value: 108830a3-08a5-4f46-8c86-ad6e820d9695
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: 5
       objectReference: {fileID: 0}
@@ -142,6 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetTransporter
   target: {fileID: 0}
+  ricochet: 0
+  bounce: 0
+  pierce: 0
   followPosition: 1
   followRotation: 0
 --- !u!1 &5884963216466479112 stripped

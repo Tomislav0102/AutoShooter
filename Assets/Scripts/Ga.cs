@@ -39,9 +39,10 @@ public class Ga : MonoBehaviour
     public TeamManager team;
     public UiManager uiManager;
     public PoolManager pool;
-    [HideInInspector] public WaitForSeconds wait00;
+    [HideInInspector] public WaitForEndOfFrame waitEndFrame;
     [HideInInspector] public WaitForSeconds wait01;
     [HideInInspector] public WaitForSeconds wait02;
+    [HideInInspector] public WaitForSeconds wait10;
     [HideInInspector] public WaitForSeconds wait15;
     [HideInInspector] public WaitForSeconds wait20;
     [HideInInspector] public WaitForSeconds wait30;
@@ -56,19 +57,21 @@ public class Ga : MonoBehaviour
         waypoints = Utils.AllChildren<Transform>(parWaypoints);
         team = new TeamManager();
         runData = new RunData();
-        wait00 = Utils.GetWait(0f);
+        waitEndFrame = new WaitForEndOfFrame();
         wait01 = Utils.GetWait(0.1f);
         wait02 = Utils.GetWait(0.2f);
+        wait10 = Utils.GetWait(1f);
         wait15 = Utils.GetWait(1.5f);
         wait20 = Utils.GetWait(2f);
         wait30 = Utils.GetWait(3f);
         wait50 = Utils.GetWait(5f);
-        wait100 = Utils.GetWait(10f);
-        #if (UNITY_EDITOR)
-        #else
+        wait100 = new WaitForSeconds(10);
+        
+#if (UNITY_EDITOR)
+#else
         SceneManager.LoadScene(gameData.sceneLevel, LoadSceneMode.Additive);
        // Utils.ActivateOneArrayElement(players, PlayerPrefs.GetInt(gameData.prefsTestChosenPlayer));
-        #endif
+#endif
     }
 
 

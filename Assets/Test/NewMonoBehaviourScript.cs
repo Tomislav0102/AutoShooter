@@ -4,16 +4,23 @@ using System;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    [SerializeField] Guid _g;
+    public float speed = 1f;
 
-    [Button]
-    void Assign()
+    void Start()
     {
-        _g = Guid.NewGuid();
+        SetSpeed(Vector2.up);
     }
-    [Button]
-    void Show()
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        print(_g);
+        Vector3 dir =  transform.position - other.transform.position;
+        dir.Normalize();
+        SetSpeed(dir);
     }
+
+    void SetSpeed(Vector2 dir)
+    {
+        GetComponent<Rigidbody2D>().linearVelocity = speed * dir;
+    }
+
 }

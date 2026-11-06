@@ -65,6 +65,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1912466414911216578}
     - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
+      propertyPath: idSpell
+      value: 0b1e62cd-fc87-494a-b834-ef9032bc38ae
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932219184963588427, guid: 7c6d158ed0a50f3428d538e28dc83afe, type: 3}
       propertyPath: lifeTime
       value: 0
       objectReference: {fileID: 0}

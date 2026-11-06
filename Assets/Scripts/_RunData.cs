@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RunData
 {
+    public static System.Action<Brain, Status.Effect, bool> OnEffectChange;
+
     public Dictionary<string, int> dic;
     public MyDuo<Status.Effect, int> enUnderEffect;
     //int[] is value for Stats[] but only Resists
@@ -11,7 +13,7 @@ public class RunData
     public RunData()
     {
         enUnderEffect = new MyDuo<Status.Effect, int>();
-        Status.OnEffectChange += CallEvStatusEffects;
+        OnEffectChange += CallEvStatusEffects;
         int length = System.Enum.GetNames(typeof(Status.Effect)).Length;
         for (int i = 0; i < length; i++)
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Random = UnityEngine.Random;
 
 public class Status : MonoBehaviour, IIniBrain
 {
@@ -23,13 +24,12 @@ public class Status : MonoBehaviour, IIniBrain
         Bleeding_dot,
         //on weapons (mostly)
         Executioner, //kill if target hp is too low
+        Cull, //kill if RNG
         Impact, //stunned enemies take 50% more damage
         Keen, //extra crit chance
         Serrated, //2X damage vs unarmored, 0.5X damage vs armored
         Explosive, //bonus knockback
     }
-    //I think it has to be static??????
-    public static System.Action<Brain, Effect, bool> OnEffectChange;
     
     RectTransform _status;
     GameObject[] _statusImageGos;
@@ -69,7 +69,7 @@ public class Status : MonoBehaviour, IIniBrain
     BuffStats[] _buffStatsBurn;
     BuffStats[] _buffStatsFrozen;
     BuffStats[] _buffStatsStun;
-    [SerializeField] Status.Effect[] immuneToEffects;
+    [SerializeField] Effect[] immuneToEffects;
 
     void OnEnable()
     {
@@ -89,8 +89,7 @@ public class Status : MonoBehaviour, IIniBrain
                 {
                     if (HasEffect((Effect)i))
                     {
-                        print("removed");
-                        OnEffectChange.Invoke(Br, (Effect)i, false);
+                        RunData.OnEffectChange.Invoke(Br, (Effect)i, false);
                     }
                 }
                 break;
@@ -179,11 +178,13 @@ public class Status : MonoBehaviour, IIniBrain
                 _buffTimers.Add(buffEffect, buffEffect.permanent ? float.PositiveInfinity : buffEffect.Duration);
                 for (int i = 0; i < _buffTimers.Length() - 1; i++)
                 {
-                    if (_buffTimers.GetKey(i).effect != buffEffect.effect) continue;
-                    float duration = _buffTimers.GetValue(i) +  buffEffect.Duration;
-                    _buffTimers.SetValue(i, duration);
-                    Refresh();
-                    return;
+                    if (buffEffect.IsDurationStackable() && _buffTimers.GetKey(i).effect == buffEffect.effect)
+                    {
+                        float duration = _buffTimers.GetValue(i) +  buffEffect.Duration;
+                        _buffTimers.SetValue(i, duration);
+                        Refresh();
+                        return;
+                    }
                 }
                 switch (buffEffect.effect)
                 {
@@ -193,7 +194,17 @@ public class Status : MonoBehaviour, IIniBrain
                             print("Executioner");
                             Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffect.myBrain);
                             Br.health.Death(buffEffect.myBrain);
+                            Ga.me.uiManager.FloatText(Br.myTransform.position, "Executed!", Color.aquamarine, 1.5f);
                             return;
+                        }
+                        break;
+                    case Effect.Cull:
+                        if (Random.value < buffEffect.value)
+                        {
+                            print("Cull");
+                            Br.combat.CombatEventRegistered(CombatEvent.GetHit, buffEffect.myBrain);
+                            Br.health.Death(buffEffect.myBrain);
+                            Ga.me.uiManager.FloatText(Br.myTransform.position, "Headshot!", Color.darkSeaGreen, 1.5f);
                         }
                         break;
                     case Effect.Frozen:
@@ -278,7 +289,7 @@ public class Status : MonoBehaviour, IIniBrain
             for (int i = 0; i < _effectsLength; i++)
             {
                 if (_effectPrevious.GetValue(i) == _effectActive.GetValue(i)) continue;
-                OnEffectChange.Invoke(Br, _effectActive.GetKey(i), _effectActive.GetValue(i));
+                RunData.OnEffectChange.Invoke(Br, _effectActive.GetKey(i), _effectActive.GetValue(i));
             }
 
         }

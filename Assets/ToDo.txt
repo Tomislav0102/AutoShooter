@@ -3,7 +3,7 @@
 GENERAL
 Implement stat affecting other stats. BodySize is the only stats doing it, maybe change the type (so it isn't 'Stats')
 Implement stat changes on spells/skills (example at Mage subOnStatChange() method)
-Implement status mechanics
+Finish implementing status mechanics
 Gold and Xp mechanics
 Buffs on one hit (e.g. next strike does 100% more damage) - now there are two logics that solve it: normal buff and argument in method "GetDamage(Element el)". 
 Ricochet and Pierce - they only affect spells that have 'EffectProjectile' component. 
@@ -12,8 +12,6 @@ Ricochet and Pierce - they only affect spells that have 'EffectProjectile' compo
 
 
 SKILLS
-shared - Last Stand does not work?
-warning delay - not working?
 
 KNIGHT
 Seismic Anchorage skill - needs animation
@@ -27,7 +25,5 @@ MAGE
 
 ENEMY
 Sphere colliders are inadequate for some monsters (e.g. demon wolf). Elongated bodies maybe need capsule (or 2 spheres)
-Cannon is rotating while idle, fix 'OvrOrientation' (related to 'isOrientationAlwaysFalse' bool)
 
 OPTIMIZATION
-PS - flamethrower has too many particles

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class UltimateUi : MonoBehaviour
 {
-    [SerializeField] Image ultimateBackground;
+    [SerializeField] GameObject parMain;
+    [SerializeField] Image ultimateFill;
     [SerializeField] Button btnUltimate;
     float _cooldownTime;
     float _timer;
@@ -15,11 +16,10 @@ public class UltimateUi : MonoBehaviour
     {
         if (!_initialized)
         {
-            ultimateBackground.enabled = true;
-            ultimateBackground.fillAmount = 1f;
+            ultimateFill.fillAmount = 1f;
             btnUltimate.enabled = true;
-            btnUltimate.GetComponent<Image>().enabled = true;
             _timer = 0f;
+            parMain.SetActive(true);
         }
         _initialized = true;
         _cooldownTime = cooldownTime;
@@ -27,6 +27,7 @@ public class UltimateUi : MonoBehaviour
 
     void Start()
     {
+        parMain.SetActive(false);
         Ga.OnUltimateActivated += CallEv_OnUltimateActivated;
     }
     void OnDestroy()
@@ -47,15 +48,15 @@ public class UltimateUi : MonoBehaviour
         IEnumerator coolDown()
         {
             btnUltimate.enabled = false;
-            ultimateBackground.fillAmount = 0f;
+            ultimateFill.fillAmount = 0f;
 
             while (_timer < _cooldownTime)
             {
                 _timer += Time.deltaTime;
-                ultimateBackground.fillAmount = _timer / _cooldownTime;
-                yield return null;
+                ultimateFill.fillAmount = _timer / _cooldownTime;
+                yield return Ga.me.waitEndFrame;
             }
-            ultimateBackground.fillAmount = 1f;
+            ultimateFill.fillAmount = 1f;
             btnUltimate.enabled = true;
             _timer = 0f;
         }

@@ -65,12 +65,12 @@ public class Mage : MonoBehaviour, IIniBrain
     
     void OnEnable()
     {
-        Status.OnEffectChange += CallEvStatusEffects;
+        RunData.OnEffectChange += CallEvStatusEffects;
     }
     void OnDisable()
     {
         Br.skills.onSkillIncrease -= SkillIncreaseCallback;
-        Status.OnEffectChange -= CallEvStatusEffects;
+        RunData.OnEffectChange -= CallEvStatusEffects;
     }
     void CallEvStatusEffects(Brain brain, Status.Effect effect, bool on)
     {
@@ -350,28 +350,28 @@ public class Mage : MonoBehaviour, IIniBrain
                 switch (skill.skillId)
                 {
                     case SkillId.MageBase:
-                        List<Brain> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
-                        if (targetsHoming.Count > 0)
-                        {
-                            float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
-                            PassData containerHoming = new PassData()
-                            {
-                                hasDamage = true,
-                                damagePair = Br.character.GetDamage(Element.Magic)
-                            };
-                            int counter = 0;
-                            for (int i = 0; i < _numOfObjects; i++)
-                            {
-                                SpellMain homing = SpellMain.Sp(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation);
-                                homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
-                                homing.visual.SetSpawnHeight(spawnPoint.position.y, 1f);
-                                Transform target = targetsHoming[counter].myTransform;
-                                counter = (1 + counter) % targetsHoming.Count;
-                                homing.transporter.target = target;
-                                homing.InitializeMe(Br, containerHoming);
-                                yield return Ga.me.wait01;
-                            }
-                        }
+                        // List<Brain> targetsHoming = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Closest, _numOfObjects, skill.spell.range);
+                        // if (targetsHoming.Count > 0)
+                        // {
+                        //     float[] anglesY = Utils.RadialSpreadAngles(_numOfObjects, false);
+                        //     PassData containerHoming = new PassData()
+                        //     {
+                        //         hasDamage = true,
+                        //         damagePair = Br.character.GetDamage(Element.Magic)
+                        //     };
+                        //     int counter = 0;
+                        //     for (int i = 0; i < _numOfObjects; i++)
+                        //     {
+                        //         SpellMain homing = SpellMain.Sp(skill.spell, Utils.LevelV3(spawnPoint.position), Br.myTransform.rotation);
+                        //         homing.myTransform.rotation *= Quaternion.AngleAxis(anglesY[i], Vector3.up);
+                        //         homing.visual.SetSpawnHeight(spawnPoint.position.y, 1f);
+                        //         Transform target = targetsHoming[counter].myTransform;
+                        //         counter = (1 + counter) % targetsHoming.Count;
+                        //         homing.transporter.target = target;
+                        //         homing.InitializeMe(Br, containerHoming);
+                        //         yield return Ga.me.wait01;
+                        //     }
+                        // }
                         break;
                     case SkillId.Fireball:
                         List<Brain> targetsFireball = Utils.ChooseGroupTransforms(Br.myTransform.position, Ga.me.team.ValidTargets(Br.Faction), GenDistance.Middle, 1, skill.spell.range);
@@ -506,7 +506,7 @@ public class Mage : MonoBehaviour, IIniBrain
                             PassData containerLightning = new PassData()
                             {
                                 hasDamage = true,
-                                damagePair = Br.character.GetDamage(Element.Electricity)
+                                damagePair = Br.character.GetDamage(Element.Electricity, 1f, skill.passData.damagePair)
                             };
                             SpellMain lightning = SpellMain.Sp(skill.spell, furthestTarget);
                             lightning.InitializeMe(Br, containerLightning);
@@ -542,7 +542,7 @@ public class Mage : MonoBehaviour, IIniBrain
                 }
             }
 
-            yield return null;
+            yield return Ga.me.waitEndFrame;
             _isCasting = false;
         }
 

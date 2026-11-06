@@ -95,7 +95,7 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
             while (_timerBlockReady > 0)
             {
                 _timerBlockReady -= Time.deltaTime;
-                yield return null;
+                yield return Ga.me.waitEndFrame;
             }
             _timerBlockReady = 0;
         }
@@ -126,4 +126,8 @@ public class Combat : MonoBehaviour, IIniBrain, ITargetTracker
         return Vector2.Dot(Utils.MakeV2(myTransform.forward), attackDirection) <= 0;
     }
 
+    void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
 }

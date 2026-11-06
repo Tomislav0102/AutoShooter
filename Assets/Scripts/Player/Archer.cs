@@ -44,10 +44,10 @@ public class Archer : MonoBehaviour
     Coroutine _rollCoroutine;
     const float CONST_RollTime = 0.3f;
     [SerializeField] ParticleSystem psRoll;
-    SoSkill[] _allSkills;
 
     #region DATA
     MyDuo<Charge, SoSkill> _chargePair;
+    SoSkill _skillHeadshot;
     #endregion
 
     void OnEnable()
@@ -75,6 +75,9 @@ public class Archer : MonoBehaviour
                 break;
             case SkillId.ChargeHail:
                 _chargePair.SetValueByKey(Charge.Hail, newSkill);
+                break;
+            case SkillId.Headshot:
+                _skillHeadshot = newSkill;
                 break;
         }
     }
@@ -137,7 +140,9 @@ public class Archer : MonoBehaviour
         PassData pdBase = new PassData()
         {
             hasDamage = true,
-            damagePair = Br.character.GetDamage(Element.Physical, 1f, extraDamage)
+            damagePair = Br.character.GetDamage(Element.Physical, 1f, extraDamage),
+            hasEffect = _skillHeadshot is not null,
+            effects = _skillHeadshot is null ? null : _skillHeadshot.passData.effects
         };
         SpellMain sp = SpellMain.Sp(Br.skills.myBasic.spell, Br, true);
         sp.myTransform.position = Utils.LevelV3(spawnPoint.position);

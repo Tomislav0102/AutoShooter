@@ -299,10 +299,9 @@ public class Knight : MonoBehaviour, IIniBrain
                 void ironFortress()
                 {
                     SpellMain spell = SpellMain.Sp(Br.skills.myUltimate.spell, Br);
-                    spell.lifeTime = Br.skills.myUltimate.passData.stats[0].Duration;
-                    spell.transporter.target = Br.myTransform;
-                    spell.InitializeMe(Br);
                     float duration = Br.skills.myUltimate.valueGeneric + Br.character.GetStat(Stats.Duration);
+                    spell.lifeTime = duration;
+                    spell.InitializeMe(Br);
                     BuffStats bsStationary = new BuffStats(Stats.MoveSpeed, BuffType.Set, 0, duration);
                     Br.character.CharacterInjectData(GenChange.Add, bsStationary);
                     BuffStats bsReflect1 = new BuffStats(Stats.ReflectProjectiles, BuffType.Set, 1000, duration);
@@ -562,7 +561,7 @@ public class Knight : MonoBehaviour, IIniBrain
                         while (_cooldownFuneralTornado > 0)
                         {
                             _cooldownFuneralTornado -= Time.deltaTime;
-                            yield return null;
+                            yield return Ga.me.waitEndFrame;
                         }
                     }
                 }
